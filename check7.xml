@@ -1,0 +1,16 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Header>
+      <ns5:RequestHeader xmlns="http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/" xmlns:ns2="http://dom.gosuslugi.ru/schema/integration/organizations-base/" xmlns:ns3="http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/" xmlns:ns4="http://www.w3.org/2000/09/xmldsig#" xmlns:ns5="http://dom.gosuslugi.ru/schema/integration/base/" xmlns:ns6="http://dom.gosuslugi.ru/schema/integration/services/" xmlns:ns7="http://dom.gosuslugi.ru/schema/integration/nsi-base/">
+         <ns5:Date>2017-06-14T09:37:26.042+07:00</ns5:Date>
+         <ns5:MessageGUID>11111112-0d0d-4a93-b08a-7a65d7d2a347</ns5:MessageGUID>
+         <ns5:orgPPAGUID>9b051b50-937d-44f7-b03b-ff621d84ea3d</ns5:orgPPAGUID>
+      </ns5:RequestHeader>
+   </S:Header>
+   <S:Body>
+      <ns3:exportOrgRegistryRequest Id="foo" ns5:version="10.0.2.1" xmlns="http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/" xmlns:ns2="http://dom.gosuslugi.ru/schema/integration/organizations-base/" xmlns:ns3="http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/" xmlns:ns4="http://www.w3.org/2000/09/xmldsig#" xmlns:ns5="http://dom.gosuslugi.ru/schema/integration/base/" xmlns:ns6="http://dom.gosuslugi.ru/schema/integration/services/" xmlns:ns7="http://dom.gosuslugi.ru/schema/integration/nsi-base/">
+         <ns3:SearchCriteria>
+            <ns2:OGRN>1114205043468</ns2:OGRN>
+         </ns3:SearchCriteria>
+      </ns3:exportOrgRegistryRequest>
+   </S:Body>
+</S:Envelope>
