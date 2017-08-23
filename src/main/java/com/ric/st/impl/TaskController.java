@@ -16,6 +16,7 @@ import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.EmptyStorable;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.TaskParMng;
+import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.oralv.Ko;
 import com.ric.st.TaskControllers;
@@ -159,11 +160,15 @@ public class TaskController implements TaskControllers {
 			// перебрать все необработанные действия
 			for (Task task: taskDao.getAllUnprocessed()) {
 				String objTp, objTpx="xxx";
-				Integer appTp = task.getEolink().getAppTp();
+				log.info("task.id={}", task.getId());
+				Eolink eo = task.getEolink();
+				
+				Integer appTp = task.getAppTp();
 				String actCd = task.getAct().getCd();
 				String state = task.getState();  
 				log.info("******* Task.id={}, act.cd={}, Task.state={}", task.getId(), actCd, state);
-				if (appTp == 0) {
+
+				/*if (appTp == 0) {
 					// Квартплата
 					objTp = task.getEolink().getObjTp().getCd();
 					if (task.getEolink().getObjTpx() != null) {
@@ -173,8 +178,7 @@ public class TaskController implements TaskControllers {
 					// Новая разработка
 					Ko ko = task.getEolink().getKoObj();
 					objTp = ko.getAddrTp().getCd();
-					
-				}
+				}*/
 
 				// Выполнить задание
 				
@@ -218,17 +222,21 @@ public class TaskController implements TaskControllers {
 					log.info("******* Task={}, экспорт приборов учета", task.getId());
 					// Экспорт из ГИС ЖКХ приборов учета
 					hb.setUp();
-					hb.exportDeviceData(task);
-					
-					break;
-				case "GIS_ADD_ACC":
-					hb.setUp();
 					if (state.equals("INS")) {
-						// Импорт лицевого счета
-						hb.importAccountData(task);
+						hb.exportDeviceData(task);
 					} else if (state.equals("ACK")) {
 						// Запрос ответа
-						hb.importAccountDataAck(task);
+						hb.exportDeviceDataAck(task);
+					}
+					break;
+				case "GIS_ADD_ACCS":
+					hb.setUp();
+					if (state.equals("INS")) {
+						// Импорт лицевых счетов
+						hb.importAccountsData(task);
+					} else if (state.equals("ACK")) {
+						// Запрос ответа
+						hb.importAccountsDataAck(task);
 					}
 					
 					break;
