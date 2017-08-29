@@ -379,6 +379,7 @@ public class UlistMngImpl implements UlistMng {
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(24)), "NSI", BigInteger.valueOf(24));
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(30)), "NSI", BigInteger.valueOf(30));
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(32)), "NSI", BigInteger.valueOf(32));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(2)), "NSI", BigInteger.valueOf(2));
 		} catch (CantGetNSI e) {
 			log.error("Ошибка получения справочников NSI!");
 			return false;

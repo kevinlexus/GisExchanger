@@ -28,7 +28,7 @@ import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
 import com.ric.st.impl.SoapConfig;
-import com.ric.st.mm.TaskMng;
+import com.ric.bill.mm.TaskMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Service

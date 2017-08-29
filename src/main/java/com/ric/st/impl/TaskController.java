@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.EmptyStorable;
+import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
@@ -24,7 +25,7 @@ import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
-import com.ric.st.mm.TaskMng;
+import com.ric.bill.mm.TaskMng;
 import com.ric.st.mm.UlistMng;
 
 @Slf4j
@@ -96,64 +97,15 @@ public class TaskController implements TaskControllers {
 	 * @throws CantPrepSoap 
 	 */
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap {
-
-		
-
-
-/*		log.info("Check String={}", Utl.replDays("Вт, Ср, Пт, Пн, Сб, Вс, Чт"));
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("E");
-		String str = formatter.format(Utl.getDateFromStr("24.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("25.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("26.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("27.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("28.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("29.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("30.07.2017"));
-		log.info("Check Day={}", str);
-		str = formatter.format(Utl.getDateFromStr("31.07.2017"));
-		log.info("Check Day={}", str);
-		*/
-		
-	/*	
-
-		try {
-			os.setUp();
-			//os.exportDataProvider();
-			os.exportOrgRegistry(null, "Y8");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		log.info("Получены параметры организации!");
-		
-		
-
-		if (1==1) {
-			return;
-		}
-
-		*/
+	
 		// инит. конфига
 		if (!soapConf.setUp(false)) { //TODO отключил синхронизацию справочников
 			// Ошибка обновления справочников
 			return;
 		}
 
-		// ulistMng.showAll();
-		
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
-		
-		//hb.setUp();
-		//hb.exportAccountData();
-
 		// цикл
 		while(flag) {
 
@@ -161,6 +113,8 @@ public class TaskController implements TaskControllers {
 			for (Task task: taskDao.getAllUnprocessed()) {
 				String objTp, objTpx="xxx";
 				log.info("task.id={}", task.getId());
+				// Почистить результаты задания
+				taskMng.clearAllResult(task);
 				Eolink eo = task.getEolink();
 				
 				Integer appTp = task.getAppTp();
@@ -182,75 +136,104 @@ public class TaskController implements TaskControllers {
 
 				// Выполнить задание
 				
-				switch (actCd) {
-				case "GIS_UPD_HOUSE":
-					hb.setUp();
-					if (state.equals("INS")) {
-						// Обновление объектов дома
-						log.info("******* Task={}, Обновление объектов дома", task.getId());
-						hb.importHouseUOData(task);
-					} else if (state.equals("ACK")) {
-						// Запрос ответа
-						hb.importHouseUODataAck(task);
-					}
-					
-					break;
-				case "GIS_EXP_CONTR":
-					// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
-					log.info("******* Task={}, экспорт договора управления", task.getId());
-					hb.setUp();
-					hb.exportContract(task);
-					
-					break;
-				case "GIS_EXP_HOUSE":
-					hb.setUp();
-					if (state.equals("INS")) {
-						// Экспорт объектов дома
-						log.info("******* Task={}, экспорт объектов дома - начало", task.getId());
-						hb.exportHouseData(task);
-						log.info("******* Task={}, экспорт объектов дома - окончание", task.getId());
+				try {
+					switch (actCd) {
+					case "GIS_UPD_HOUSE":
+						hb.setUp();
+						if (state.equals("INS")) {
+							// Обновление объектов дома
+							log.info("******* Task={}, Обновление объектов дома", task.getId());
+							hb.importHouseUOData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							hb.importHouseUODataAck(task);
+						}
 						
-					} else if (state.equals("ACK")) {
-						// Запрос ответа
-						log.info("******* Task={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
-						hb.exportHouseDataAck(task);
-						log.info("******* Task={}, Запрос ответа по экспорту объектов дома - окончание", task.getId());
+						break;
+					case "GIS_EXP_CONTR":
+						// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
+						log.info("******* Task={}, экспорт договора управления", task.getId());
+						hb.setUp();
+						hb.exportContract(task);
+						
+						break;
+					case "GIS_EXP_HOUSE":
+						hb.setUp();
+						if (state.equals("INS")) {
+							// Экспорт объектов дома
+							log.info("******* Task={}, экспорт объектов дома - начало", task.getId());
+							hb.exportHouseData(task);
+							log.info("******* Task={}, экспорт объектов дома - окончание", task.getId());
+							
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							log.info("******* Task={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
+							hb.exportHouseDataAck(task);
+							log.info("******* Task={}, Запрос ответа по экспорту объектов дома - окончание", task.getId());
+						}
+						
+						break;
+					case "GIS_EXP_ACCS":
+						log.info("******* Task={}, экспорт лицевых счетов", task.getId());
+						// Экспорт из ГИС ЖКХ приборов учета
+						hb.setUp();
+						if (state.equals("INS")) {
+							hb.exportAccountData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							hb.exportAccountDataAck(task);
+						}
+						break;
+					case "GIS_EXP_METER":
+						log.info("******* Task={}, экспорт приборов учета", task.getId());
+						// Экспорт из ГИС ЖКХ приборов учета
+						hb.setUp();
+						if (state.equals("INS")) {
+							hb.exportDeviceData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							hb.exportDeviceDataAck(task);
+						}
+						break;
+					case "GIS_ADD_ACCS":
+						hb.setUp();
+						if (state.equals("INS")) {
+							// Импорт лицевых счетов
+							hb.importAccountData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							hb.importAccountDataAck(task);
+						}
+						break;
+					case "GIS_IMP_METER":
+						hb.setUp();
+						if (state.equals("INS")) {
+							// Импорт счетчиков
+							hb.importMeteringDeviceData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							hb.importMeteringDeviceDataAck(task);
+						}
+						break;
+					case "GIS_EXP_ORG":
+						// Экспорт данных организации
+						os.setUp();
+						os.exportOrgRegistry(task, null);
+						
+						break;
+					default:
+						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
+						break;
 					}
-					
-					break;
-				case "GIS_EXP_METER":
-					log.info("******* Task={}, экспорт приборов учета", task.getId());
-					// Экспорт из ГИС ЖКХ приборов учета
-					hb.setUp();
-					if (state.equals("INS")) {
-						hb.exportDeviceData(task);
-					} else if (state.equals("ACK")) {
-						// Запрос ответа
-						hb.exportDeviceDataAck(task);
-					}
-					break;
-				case "GIS_ADD_ACCS":
-					hb.setUp();
-					if (state.equals("INS")) {
-						// Импорт лицевых счетов
-						hb.importAccountsData(task);
-					} else if (state.equals("ACK")) {
-						// Запрос ответа
-						hb.importAccountsDataAck(task);
-					}
-					
-					break;
-				case "GIS_EXP_ORG":
-					// Экспорт данных организации
-					os.setUp();
-					os.exportOrgRegistry(task, null);
-					
-					break;
-				default:
-					log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
-					break;
-				}
 				
+				} catch (ErrorProcessAnswer e) {
+					
+					log.error("Ошибка обработки задания Task.id={}", task.getId());
+					taskMng.setState(task, "ERR");
+					taskMng.setResult(task, "Ошибка обработки задания");
+					
+				}
+
 			}
 
 		}

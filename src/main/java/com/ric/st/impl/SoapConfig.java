@@ -16,7 +16,7 @@ public class SoapConfig implements SoapConfigs {
 	@Autowired
 	private UlistMng ulistMng; 
 	@Autowired
-	private TaskController actionContr;
+	private TaskController taskContr;
 
 	// среда выполнения
 	public int getEnv() {
@@ -34,15 +34,17 @@ public class SoapConfig implements SoapConfigs {
 	 */
 	public String getOrgPPGuid() {
 		// Базовый GUID организации, осуществляющей обмен! (для справочников NSI и т.п.)
+
+		//return "9b051b50-937d-44f7-b03b-ff621d84ea3d"; // МП "РИЦ" (СИТ-2)
+		return "d2bf560f-bccb-41d0-8c7a-54de0c5049ec"; // МП "РИЦ" (Пром)
+
+		
 		
 		//return "b9fe4d27-020d-44dc-8bfd-b5972a504f45"; // Металлплощадка (СИТ-2)
-		return "9b051b50-937d-44f7-b03b-ff621d84ea3d"; // МП "РИЦ" (СИТ-2)
 		//return "b21dadf0-e7e6-4824-aa04-19bd617bb3e1"; // ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "УПРАВЛЯЮЩАЯ КОМПАНИЯ ЖИЛКОМСЕРВИС"  (Пром)
 		//return null;
 		//return "a81aaf05-6afd-4795-b40c-f62b82c350b5"; // ООО "УК Металлплощадка" (СИТ-1) взято на странице Личный кабинет -> Информационные системы -> Поставщики инф.
 		//return "44de0b23-6e64-4f5c-ab56-d7c67e4c8f55"; // ТСЖ " АПРЕЛЬ" (Пром)
-		
-		//return "d2bf560f-bccb-41d0-8c7a-54de0c5049ec"; // МП "РИЦ" (Пром)
 		
 		//return null;
 	}
@@ -51,9 +53,9 @@ public class SoapConfig implements SoapConfigs {
 	 * Получить URL тестового сервера
 	 */
 	public String getSrvTestHost() {
-//		return "http://127.0.0.1:8080";
+		return "http://127.0.0.1:8080";
 //		return "http://217.107.108.147:10082";
-		return "http://217.107.108.156:10082";
+//		return "http://217.107.108.156:10082";
 //		return "http://api.dom.gosuslugi.ru:443";
 	}
 
@@ -104,7 +106,7 @@ public class SoapConfig implements SoapConfigs {
 	public Boolean setUp(Boolean isLoadRef) {
 		log.info("проверка обновлений справочников");
 		if (isLoadRef) {
-			if (!actionContr.checkNsiUpdates()) {
+			if (!taskContr.checkNsiUpdates()) {
 				log.error("Ошибка при обновлении справочников!");
 				return false;
 			}
