@@ -23,16 +23,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
-
 import com.ric.bill.Utl;
+import com.ric.st.SoapBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
+import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
 
+/**
+ * Вспомогательный класс для постройки SOAP запроса
+ * @author lev
+ *
+ */
 @Service
 @Scope("prototype")
-public class SoapBuilder {
+public class SoapBuilder implements SoapBuilders{
 	@Autowired
 	private SoapConfig config;
 
@@ -155,5 +160,7 @@ public class SoapBuilder {
 	}
 
 
+	
+	
 	
 }

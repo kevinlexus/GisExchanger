@@ -387,4 +387,48 @@ public class UlistMngImpl implements UlistMng {
 		return true;
 	}
 
+	/**
+	 * Получить коммунальный ресурс по коду USL
+	 */
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef getResourceByUsl(String usl) {
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mres = null;
+		switch (usl) {
+		case "011":
+			mres  = getNsiElem("NSI", 2, "Вид коммунального ресурса", "Холодная вода");
+			break;
+		case "015":
+			mres = getNsiElem("NSI", 2, "Вид коммунального ресурса", "Горячая вода");
+			break;
+		case "024":
+			mres = getNsiElem("NSI", 2, "Вид коммунального ресурса", "Электрическая энергия");
+			break;
+		default:
+			break;
+		}
+
+		return mres;
+	}
+
+	/**
+	 * Получить тип ресурса по коду USL
+	 */
+	public Integer getResType(String usl) {
+		// тип ресурса 0 - коммунальный, 1 - электроэнергия 
+		Integer tp = 0;
+		switch (usl) {
+		case "011":
+			tp = 0;
+			break;
+		case "015":
+			tp = 0;
+			break;
+		case "024":
+			tp = 1;
+			break;
+		default:
+			break;
+		}
+		return tp;
+	}
+
 }

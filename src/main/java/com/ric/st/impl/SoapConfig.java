@@ -84,7 +84,8 @@ public class SoapConfig implements SoapConfigs {
 	 * Получить пароль basic-авторизации
 	 */
 	public String getBscPass() {
-		return "rZ_GG72XS^Vf55ZW";
+		//return "rZ_GG72XS^Vf55ZW";
+		return "xw{p&&Ee3b9r8?amJv*]";
 	}
 	
 	/**

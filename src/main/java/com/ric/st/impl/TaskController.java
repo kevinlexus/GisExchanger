@@ -2,6 +2,7 @@ package com.ric.st.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.signature.demo.commands.Command;
@@ -23,6 +24,7 @@ import com.ric.bill.model.oralv.Ko;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.bill.mm.TaskMng;
@@ -50,6 +52,8 @@ public class TaskController implements TaskControllers {
 	private HouseManagementAsyncBindingBuilders hb;
 	@Autowired
 	private HcsOrgRegistryAsyncBindingBuilders os;
+	@Autowired
+	private DeviceMeteringAsyncBindingBuilder dm;
 //	@Autowired
 //	private SaldoMng saldoMng;
 	public Command sc;
@@ -138,7 +142,7 @@ public class TaskController implements TaskControllers {
 				
 				try {
 					switch (actCd) {
-					case "GIS_UPD_HOUSE":
+					case "GIS_IMP_HOUSE":
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Обновление объектов дома
@@ -195,7 +199,7 @@ public class TaskController implements TaskControllers {
 							hb.exportDeviceDataAck(task);
 						}
 						break;
-					case "GIS_ADD_ACCS":
+					case "GIS_IMP_ACCS":
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Импорт лицевых счетов
@@ -205,7 +209,7 @@ public class TaskController implements TaskControllers {
 							hb.importAccountDataAck(task);
 						}
 						break;
-					case "GIS_IMP_METER":
+					case "GIS_IMP_METERS":
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Импорт счетчиков
@@ -213,6 +217,16 @@ public class TaskController implements TaskControllers {
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							hb.importMeteringDeviceDataAck(task);
+						}
+						break;
+					case "GIS_IMP_METER_VALS":
+						dm.setUp();
+						if (state.equals("INS")) {
+							// Импорт показаний счетчиков
+							dm.importMeteringDeviceValues(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							dm.importMeteringDeviceValuesAsk(task);
 						}
 						break;
 					case "GIS_EXP_ORG":
@@ -226,7 +240,7 @@ public class TaskController implements TaskControllers {
 						break;
 					}
 				
-				} catch (ErrorProcessAnswer e) {
+				} catch (ErrorProcessAnswer | DatatypeConfigurationException e) {
 					
 					log.error("Ошибка обработки задания Task.id={}", task.getId());
 					taskMng.setState(task, "ERR");

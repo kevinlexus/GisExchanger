@@ -19,5 +19,6 @@ public interface UlistMng {
 	public void refreshNsi(String grp) throws CantUpdNSI;
 	public RefStore getrStore();
 	public void showAll();
-
+	public NsiRef getResourceByUsl(String usl);
+	public Integer getResType(String usl);
 }

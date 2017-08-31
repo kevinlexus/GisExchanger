@@ -3,25 +3,42 @@ package com.ric.st.builder.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.ric.bill.Utl;
+import com.ric.bill.dao.EolinkDAO;
+import com.ric.bill.dao.TaskDAO;
+import com.ric.bill.excp.WrongGetMethod;
+import com.ric.bill.mm.EolinkMng;
+import com.ric.bill.mm.TaskEolinkParMng;
+import com.ric.bill.mm.TaskMng;
+import com.ric.bill.mm.TaskParMng;
+import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.model.exs.Task;
+import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
+import com.ric.st.excp.CantSendSoap;
+import com.ric.st.impl.RetStateMeter;
+import com.ric.st.impl.SoapBuilder;
+import com.ric.st.mm.UlistMng;
+import com.sun.xml.ws.developer.WSBindingProvider;
+
+import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
-import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
-import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
+import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues;
@@ -31,36 +48,7 @@ import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceV
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.DeviceMeteringPortTypesAsync;
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.DeviceMeteringServiceAsync;
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.Fault;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportResult;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportResult.CommonResult;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
-import com.diffplug.common.base.Errors;
-import com.ric.bill.Utl;
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.dao.EolinkToEolinkDAO;
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.ErrorProcessAnswer;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.mm.EolinkMng;
-import com.ric.bill.mm.EolinkParMng;
-import com.ric.bill.mm.LstMng;
-import com.ric.bill.mm.TaskEolinkParMng;
-import com.ric.bill.mm.TaskParMng;
-import com.ric.bill.model.bs.AddrTp;
-import com.ric.bill.model.bs.Lst;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.EolinkToEolink;
-import com.ric.bill.model.exs.Task;
-import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
-import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
-import com.ric.st.excp.CantPrepSoap;
-import com.ric.st.excp.CantSendSoap;
-import com.ric.st.impl.SoapBuilder;
-import com.ric.st.impl.SoapConfig;
-import com.ric.st.impl.TaskController;
-import com.ric.bill.mm.TaskMng;
-import com.ric.st.mm.UlistMng;
-import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Slf4j
 @Service
@@ -73,15 +61,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	UlistMng ulistMng;
 	@Autowired
-	private SoapConfig config;
-	@Autowired
-	private TaskController aControl;
-	@Autowired
 	private TaskParMng taskParMng;
 	@Autowired
-	private EolinkParMng eolinkParMng;
-	@Autowired
-	private TaskEolinkParMng teParMng;
+	private TaskMng taskMng;
 	@Autowired
 	private TaskDAO taskDao; 
 	@Autowired
@@ -89,11 +71,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	private EolinkMng eolinkMng;
 	@Autowired
-	private TaskMng taskMng;
-	@Autowired
-	private LstMng lstMng;
-	@Autowired
-	private EolinkToEolinkDAO eolinkToEolinkDao;
+	private TaskEolinkParMng teParMng;
 	
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -116,19 +94,78 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	}
 
 	/**
+	 * Старый вызов получения статуса запроса - TODO: Удалить!
+	 * @param ack
+	 * @return
+	 */
+	public RetStateMeter getState(AckRequest ack) {
+		Boolean err = false;
+		String errStr = null;
+		ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult state = null;
+
+		GetStateRequest gs = new GetStateRequest();
+		gs.setMessageGUID( ack.getAck().getMessageGUID() );
+		sb.setSign(false); // не подписывать запрос состояния!
+		
+		int i = 2;
+		int timeout = 0;
+		while (!err && (state == null || state.getRequestState() != 3)){
+			sb.makeRndMsgGuid();
+			try {
+				state = port.getState(gs);
+			} catch (Fault e) {
+				e.printStackTrace();
+				err = true;
+				errStr = "Запрос вернул ошибку!";
+			}
+			// задержка
+			try {
+				timeout = 100 * i;
+				i = i * 2;
+				log.info("timeout={}", timeout);
+				Thread.sleep(timeout);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (timeout > 36000000) {
+				// не более 10 часов выполнить проверку запроса
+				err=true;
+				errStr = "Превышено время выполнения запроса!";
+			} else {
+				log.info("Статус запроса={}", state.getRequestState());
+			}
+		}
+		
+		// Показать ошибки, если есть
+		if (err) {
+			// Ошибки во время выполнения
+			log.info(errStr);
+		} if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
+			// Прочие ошибки
+			err = true;
+			errStr = state.getErrorMessage().getDescription();
+			log.info("Ошибка выполнения запроса = {}", errStr);
+		}
+		
+		return new RetStateMeter(state, err, errStr);
+
+	}
+	
+
+	/**
 	 * Получить состояние запроса
 	 * @param msgGuid - GUID запроса
 	 * @return
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED) // TODO поставил транзакц.
-	private GetStateResult getState2(Task task) {
+	public GetStateResult getState2(Task task) {
 		
 		// Признак ошибки
 		Boolean err = false;
 		// Признак ошибки в CommonResult
 		Boolean errChld = false;
 		String errStr = null;
-		GetStateResult state = null;
+		ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult state = null;
 
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
@@ -175,7 +212,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			task.setState("ERR");
 			task.setResult(errStr);
 		} else {
-				for (CommonResultType e : state.getImportResult()) {
+			
+			for (CommonResultType e : state.getImportResult()) {
 					for (Error f: e.getError()) {	
 						// Найти элемент задания по Транспортному GUID
 						Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
@@ -185,7 +223,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 						log.error("Description={}", f.getDescription());
 						errChld = true;
 					};
-				};
+			}
 		}
 		
 		if (!err) {
@@ -203,20 +241,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 	}
 	
-/*	@Transactional(readOnly = false, propagation = Propagation.REQUIRED) // TODO поставил транзакц.
-	private void getState3(Task task) {
-		task.setState("ERS");
-		task.setResult("ERRRRRRRRRR");
-
-	}*/
-	
 	/**
 	 * Экспортировать данные счетчиков
 	 * 
 	 * @param task - задание (если есть)
+	 * @throws WrongGetMethod 
+	 * @throws DatatypeConfigurationException 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public Boolean importMeteringDeviceValues(Task task) {
+	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException {
 		Task foundTask = null;
 		String houseGuid = null;
 		String ppGuid = null;
@@ -239,35 +272,71 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		req.setId("foo");
 		req.setVersion(req.getVersion());
 		req.setFIASHouseGuid(houseGuid);
+
 		
-		Eolink meter = foundTask.getEolink();
-		MeteringDevicesValues val = new MeteringDevicesValues();
-		if (meter.getUsl().equals("024")) {
-			ElectricDeviceValue elVal = new ElectricDeviceValue();
-			CurrentValue currElVal = new CurrentValue();
-			currElVal.setDateValue(value);
-			currElVal.setMeteringValueT1(value);
-			currElVal.setTransportGUID(tguid);
-			elVal.getCurrentValue().add(currElVal);
-			// эл.энерг.
-			val.setElectricDeviceValue(elVal );
-		} else if (meter.getUsl().equals("011") || meter.getUsl().equals("015")) {
-			OneRateDeviceValue oneRateVal = new OneRateDeviceValue();
-			ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue currOneRateVal = 
-					new ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue();
-			currOneRateVal.setDateValue(value);
-			currOneRateVal.setMeteringValue(value);
-			currOneRateVal.setMunicipalResource(value);
-			currOneRateVal.setTransportGUID(value);
-			oneRateVal.getCurrentValue().add(currOneRateVal);
-			// г.в., х.в.
-			val.setOneRateDeviceValue(oneRateVal );
+
+		List<Task> lstTask = taskDao.getByTaskAddrTp(foundTask, "СчетчикФизический", null).stream()
+				.filter(t-> t.getAct().getCd().equals("GIS_ADD_METER_VAL")).collect(Collectors.toList());
+		for (Task t: lstTask) {
+			// Транспортный GUID
+			String tguid = Utl.getRndUuid().toString();
+	    	t.setTguid(tguid);
+
+			// счетчик физический (корневой)
+			Eolink meter = t.getEolink();
+			Eolink meterVers = eolinkDao.getChildByEolink(meter).stream().filter(d -> 
+				d.getObjTp().getCd().equals("СчетчикВерсия")).findFirst().orElse(null);
+
+			Date dtGet = taskParMng.getDate(t, "Счетчик.ДатаСнятияПоказания");
+			log.info("DATE={}", dtGet);
+			MeteringDevicesValues val = new MeteringDevicesValues();
+			val.setMeteringDeviceRootGUID(meter.getGuid());
+			//val.setMeteringDeviceVersionGUID(meterVers.getGuid());
 			
-			
-		}
-		
-		req.getMeteringDevicesValues().add(val);
-		
+			if (ulistMng.getResType(meter.getUsl()) == 1) {
+				ElectricDeviceValue elVal = new ElectricDeviceValue();
+				CurrentValue currElVal = new CurrentValue();
+				
+				// Дата снятия показания
+				currElVal.setDateValue(Utl.getXMLDate(dtGet));
+				
+				// показания по тарифам
+				Double metVal = taskParMng.getDbl(t, "Счетчик.БазПоказ(Т1)");
+				currElVal.setMeteringValueT1(BigDecimal.valueOf(metVal));
+				metVal = taskParMng.getDbl(t, "СчетчиБазПоказ((Т2)");
+				if (metVal != null) {
+					currElVal.setMeteringValueT2(BigDecimal.valueOf(metVal));
+				}
+				metVal = taskParMng.getDbl(t, "Счетчик.БазПоказ(Т3)");
+				if (metVal != null) {
+					currElVal.setMeteringValueT3(BigDecimal.valueOf(metVal));
+				}
+
+				currElVal.setTransportGUID(tguid);
+				elVal.getCurrentValue().add(currElVal);
+				// эл.энерг.
+				val.setElectricDeviceValue(elVal );
+			} else if (ulistMng.getResType(meter.getUsl()) == 0) {
+				OneRateDeviceValue oneRateVal = new OneRateDeviceValue();
+				ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue currOneRateVal = 
+						new ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue();
+				currOneRateVal.setDateValue(Utl.getXMLDate(dtGet));
+
+				// показания по тарифам
+				Double metVal = taskParMng.getDbl(t, "Счетчик.БазПоказ(Т1)");
+				currOneRateVal.setMeteringValue(BigDecimal.valueOf(metVal));
+				
+				// Получить ресурс по коду USL
+				NsiRef mres = ulistMng.getResourceByUsl(meter.getUsl());
+
+				currOneRateVal.setMunicipalResource(mres);
+				currOneRateVal.setTransportGUID(tguid);
+				oneRateVal.getCurrentValue().add(currOneRateVal);
+				// г.в., х.в.
+				val.setOneRateDeviceValue(oneRateVal );
+			}
+			req.getMeteringDevicesValues().add(val);
+		}		
 		try {
 			ack = port.importMeteringDeviceValues(req);
 		} catch (Fault e) {
@@ -288,6 +357,38 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 	}
 	
-	
+	/**
+	 * Получить результат импорта лицевых счетов
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void importMeteringDeviceValuesAsk(Task task) {
+		Task foundTask = em.find(Task.class, task.getId());
+		
+		// Установить PPGUID
+		String ppGuid = eolinkMng.getEolinkByReuKulNdTp(foundTask.getEolink().getReu(), null, null, null, null, "Организация").getGuid();
+		sb.setPpGuid(ppGuid);
+		
+		// получить состояние
+		GetStateResult retState = getState2(foundTask);
+
+		if (!foundTask.getState().equals("ERR") && !foundTask.getState().equals("ERS")) {
+			retState.getImportResult().stream().forEach(t -> {
+				log.info("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:", 
+						foundTask.getId(), t.getTransportGUID());
+				log.info("UniqueNumber={}, Дата обновления={}", t.getUniqueNumber(), Utl.getDateFromXmlGregCal(t.getUpdateDate()));
+				// Найти элемент задания по Транспортному GUID
+				Task task2 = taskMng.getByTguid(foundTask, t.getTransportGUID());
+				// Переписать значения параметров в eolink из task
+				teParMng.acceptPar(task2);
+				task2.setState("ACP");
+				
+			});
+			
+			// Установить статус выполнения задания
+			foundTask.setState("ACP");
+			
+		}
+	}
+
 	
 }
