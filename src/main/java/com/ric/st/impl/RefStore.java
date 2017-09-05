@@ -7,8 +7,6 @@ import java.util.Optional;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.ric.st.builder.impl.NsiAsyncBindingBuilder;
-
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
 import ru.gosuslugi.dom.schema.integration.nsi_common.ExportNsiItemResult;
 

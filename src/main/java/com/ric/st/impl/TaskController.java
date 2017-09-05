@@ -20,7 +20,6 @@ import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.oralv.Ko;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;

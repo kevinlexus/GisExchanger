@@ -29,7 +29,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.NsiPortsType
 import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.NsiServiceAsync;
 
 import com.ric.st.builder.NsiAsyncBindingBuilders;
-import com.ric.st.builder.NsiBindingBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.excp.CantSignSoap;
 import com.ric.st.impl.SoapConfig;
