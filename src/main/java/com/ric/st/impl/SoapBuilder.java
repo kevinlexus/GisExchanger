@@ -71,7 +71,6 @@ public class SoapBuilder implements SoapBuilders{
 	
 	// логгировать ли обмен
 	public void setTrace(boolean trace) {
-    	// подписывать ли XML?
     	if (trace) {
         	bp.getRequestContext().put("trace", "");
     	} else {

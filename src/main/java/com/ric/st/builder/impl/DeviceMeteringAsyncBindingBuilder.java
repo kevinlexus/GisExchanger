@@ -27,6 +27,7 @@ import com.ric.bill.mm.TaskMng;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
+import com.ric.st.ReqProps;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.RetStateMeter;
@@ -39,6 +40,7 @@ import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
+import ru.gosuslugi.dom.schema.integration.device_metering.ExportMeteringDeviceHistoryRequest;
 import ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues;
@@ -72,6 +74,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private EolinkMng eolinkMng;
 	@Autowired
 	private TaskEolinkParMng teParMng;
+	@Autowired
+	private ReqProps reqProp;
 	
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -242,7 +246,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	}
 	
 	/**
-	 * Экспортировать данные счетчиков
+	 * Импортировать показания счетчиков
 	 * 
 	 * @param task - задание (если есть)
 	 * @throws WrongGetMethod 
@@ -250,19 +254,11 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException {
-		Task foundTask = null;
-		String houseGuid = null;
-		String ppGuid = null;
-		foundTask = em.find(Task.class, task.getId());
-		String reu = task.getEolink().getReu();
-		houseGuid = task.getEolink().getGuid();
-
-		// Установить PPGUID
-		ppGuid = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация").getGuid();
-		sb.setPpGuid(ppGuid);
-		
+		// Установить параметры SOAP
+		reqProp.setVal(task, sb);
+		// Трассировка XML
+		//sb.setTrace(true);
 		AckRequest ack = null;
-
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
@@ -271,11 +267,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 		req.setId("foo");
 		req.setVersion(req.getVersion());
-		req.setFIASHouseGuid(houseGuid);
+		req.setFIASHouseGuid(reqProp.getHouseGuid());
 
-		
-
-		List<Task> lstTask = taskDao.getByTaskAddrTp(foundTask, "СчетчикФизический", null).stream()
+		List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "СчетчикФизический", null).stream()
 				.filter(t-> t.getAct().getCd().equals("GIS_ADD_METER_VAL")).collect(Collectors.toList());
 		for (Task t: lstTask) {
 			// Транспортный GUID
@@ -346,38 +340,35 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		}
     	
 		if (err) {
-			foundTask.setState("ERR");
-			foundTask.setResult("Ошибка при отправке XML: "+errMainStr);
+			reqProp.getFoundTask().setState("ERR");
+			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
 		} else {
 			// Установить статус "Запрос статуса"
-			foundTask.setState("ACK");
-			foundTask.setMsgGuid(ack.getAck().getMessageGUID());
+			reqProp.getFoundTask().setState("ACK");
+			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
 		}
 		return err;
 
 	}
 	
 	/**
-	 * Получить результат импорта лицевых счетов
+	 * Получить результат импорта показаний счетиков
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importMeteringDeviceValuesAsk(Task task) {
-		Task foundTask = em.find(Task.class, task.getId());
-		
-		// Установить PPGUID
-		String ppGuid = eolinkMng.getEolinkByReuKulNdTp(foundTask.getEolink().getReu(), null, null, null, null, "Организация").getGuid();
-		sb.setPpGuid(ppGuid);
+		// Установить параметры SOAP
+		reqProp.setVal(task, sb);	
 		
 		// получить состояние
-		GetStateResult retState = getState2(foundTask);
+		GetStateResult retState = getState2(reqProp.getFoundTask());
 
-		if (!foundTask.getState().equals("ERR") && !foundTask.getState().equals("ERS")) {
+		if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
 			retState.getImportResult().stream().forEach(t -> {
 				log.info("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:", 
-						foundTask.getId(), t.getTransportGUID());
+						reqProp.getFoundTask().getId(), t.getTransportGUID());
 				log.info("UniqueNumber={}, Дата обновления={}", t.getUniqueNumber(), Utl.getDateFromXmlGregCal(t.getUpdateDate()));
 				// Найти элемент задания по Транспортному GUID
-				Task task2 = taskMng.getByTguid(foundTask, t.getTransportGUID());
+				Task task2 = taskMng.getByTguid(reqProp.getFoundTask(), t.getTransportGUID());
 				// Переписать значения параметров в eolink из task
 				teParMng.acceptPar(task2);
 				task2.setState("ACP");
@@ -385,10 +376,82 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			});
 			
 			// Установить статус выполнения задания
-			foundTask.setState("ACP");
+			reqProp.getFoundTask().setState("ACP");
 			
 		}
 	}
 
+	/**
+	 * Экспортировать показания счетчиков
+	 * 
+	 * @param task - задание (если есть)
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public Boolean exportMeteringDeviceValues(Task task) {
+		// Установить параметры SOAP
+		reqProp.setVal(task, sb);	
+		// Трассировка XML
+		//sb.setTrace(true);
+		AckRequest ack = null;
+		// для обработки ошибок
+		Boolean err = false;
+		String errMainStr = null;
+		
+		ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest(); 
+
+		req.setId("foo");
+		req.setVersion(req.getVersion());
+		req.setFIASHouseGuid(reqProp.getHouseGuid());
+		
+		try {
+			ack = port.exportMeteringDeviceHistory(req);
+		} catch (Fault e) {
+			e.printStackTrace();
+			err = true;
+			errMainStr = e.getFaultInfo().getErrorMessage();
+		}
+    	
+		if (err) {
+			reqProp.getFoundTask().setState("ERR");
+			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+		} else {
+			// Установить статус "Запрос статуса"
+			reqProp.getFoundTask().setState("ACK");
+			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+		}
+		return err;
+		
+	}	
 	
+	
+	/**
+	 * Получить результат экспорта показаний счетиков
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void exportMeteringDeviceValuesAsk(Task task) {
+		// Установить параметры SOAP
+		reqProp.setVal(task, sb);	
+		
+		// получить состояние
+		GetStateResult retState = getState2(reqProp.getFoundTask());
+
+		if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
+			retState.getExportMeteringDeviceHistoryResult().stream().forEach(t -> {
+				log.info("После импорта объектов по Task.id={} и GUID={}, получены следующие параметры:", 
+						reqProp.getFoundTask().getId(), t.getMeteringDeviceRootGUID());
+				
+				// TODO
+				// Найти корневой счетчик по GUID
+				//Task task2 = taskMng.getByTguid(reqProp.getFoundTask(), t.getTransportGUID());
+
+				//task2.setState("ACP");
+				
+			});
+			
+			// Установить статус выполнения задания
+			reqProp.getFoundTask().setState("ACP");
+			
+		}
+	}
+
 }
