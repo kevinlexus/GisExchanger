@@ -9,8 +9,11 @@ import ru.gosuslugi.dom.signature.demo.commands.Command;
 import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.ric.bill.Config;
+import com.ric.bill.RequestConfig;
 //import com.dic.bill.mm.SaldoMng;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
@@ -53,10 +56,13 @@ public class TaskController implements TaskControllers {
 	private HcsOrgRegistryAsyncBindingBuilders os;
 	@Autowired
 	private DeviceMeteringAsyncBindingBuilder dm;
-//	@Autowired
-//	private SaldoMng saldoMng;
+	@Autowired
+	private ApplicationContext ctx;
+	
 	public Command sc;
 
+	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
+	private RequestConfig reqConfig;	
 	/**
 	 * Выполнить инициализацию объекта 
 	 * @return 
@@ -75,16 +81,6 @@ public class TaskController implements TaskControllers {
 		return true;
 	}
 
-/*	private void updLs(Task task) throws WrongGetMethod, CantSendSoap {
-		try {
-			hb.addAccount();
-		} catch (Fault | DatatypeConfigurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}*/
-	
-	
 	/**
 	 * Задача распределения сальдо
 	 */
@@ -101,6 +97,9 @@ public class TaskController implements TaskControllers {
 	 */
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap {
 	
+		this.reqConfig = ctx.getBean(RequestConfig.class);
+		this.reqConfig.setUp("0", "0", null, -1, null, null);
+		
 		// инит. конфига
 		if (!soapConf.setUp(false)) { //TODO отключил синхронизацию справочников
 			// Ошибка обновления справочников
@@ -187,7 +186,7 @@ public class TaskController implements TaskControllers {
 							hb.exportAccountDataAck(task);
 						}
 						break;
-					case "GIS_EXP_METER":
+					case "GIS_EXP_METERS":
 						log.info("******* Task={}, экспорт приборов учета", task.getId());
 						// Экспорт из ГИС ЖКХ приборов учета
 						hb.setUp();
@@ -228,6 +227,16 @@ public class TaskController implements TaskControllers {
 							dm.importMeteringDeviceValuesAsk(task);
 						}
 						break;
+					case "GIS_EXP_METER_VALS":
+						dm.setUp();
+						if (state.equals("INS")) {
+							// Импорт показаний счетчиков
+							dm.exportMeteringDeviceValues(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							dm.exportMeteringDeviceValuesAsk(task);
+						}
+						break;
 					case "GIS_EXP_ORG":
 						// Экспорт данных организации
 						os.setUp();
@@ -239,11 +248,16 @@ public class TaskController implements TaskControllers {
 						break;
 					}
 				
-				} catch (ErrorProcessAnswer | DatatypeConfigurationException e) {
-					
-					log.error("Ошибка обработки задания Task.id={}", task.getId());
+				} catch (ErrorProcessAnswer | DatatypeConfigurationException | CantPrepSoap e) {
+					e.printStackTrace();
+					log.error("Ошибка при отправке задания Task.id={}, message={}", e.getStackTrace());
 					taskMng.setState(task, "ERR");
-					taskMng.setResult(task, "Ошибка обработки задания");
+					taskMng.setResult(task, e.getMessage());
+				} catch (Exception e) {
+					e.printStackTrace();
+					log.error("Ошибка обработки задания Task.id={}, message={}", e.getStackTrace());
+					taskMng.setState(task, "ERR");
+					taskMng.setResult(task, e.getMessage());
 					
 				}
 
@@ -255,6 +269,12 @@ public class TaskController implements TaskControllers {
 		
 	}
 
+	public RequestConfig getReqConfig() {
+		return reqConfig;
+	}
 
+	public void setReqConfig(RequestConfig reqConfig) {
+		this.reqConfig = reqConfig;
+	}
 
 }

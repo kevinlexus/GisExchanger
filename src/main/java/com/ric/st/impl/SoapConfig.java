@@ -2,9 +2,15 @@ package com.ric.st.impl;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import com.ric.bill.dao.UserDAO;
+import com.ric.bill.model.sec.User;
 import com.ric.st.SoapConfigs;
 import com.ric.st.mm.UlistMng;
 
@@ -17,17 +23,17 @@ public class SoapConfig implements SoapConfigs {
 	private UlistMng ulistMng; 
 	@Autowired
 	private TaskController taskContr;
+	@Autowired
+	private UserDAO userDao;
+
+	// Пользователь, от имени которого выполняются процессы
+	private User user;
 
 	// среда выполнения
 	public int getEnv() {
 		return 0; // HOTORA
-		//return 0; Direct (на прямую))
+		//return 1; Direct (на прямую))
 	}
-	
-	// использовать ли подпись SOAP запросов? -  определяется в builder запроса
-	/*public boolean getUseSign() {
-		return true;
-	}*/
 	
 	/**
 	 *	Получить OrgPPGUID организации 
@@ -105,6 +111,9 @@ public class SoapConfig implements SoapConfigs {
 
 
 	public Boolean setUp(Boolean isLoadRef) {
+		log.info("загрузка данных пользователя");
+		this.user = userDao.getByCd("GEN");
+		
 		log.info("проверка обновлений справочников");
 		if (isLoadRef) {
 			if (!taskContr.checkNsiUpdates()) {
@@ -120,6 +129,13 @@ public class SoapConfig implements SoapConfigs {
 		}
 		
     	return true;
+	}
+
+	/**
+	 * Вернуть пользователя, от имени которого выполняются процессы 
+	 */
+	public User getCurUser() {
+		return this.user;
 	}
 
 }

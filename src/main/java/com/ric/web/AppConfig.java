@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResol
 @ImportResource("spring.xml")
 @EnableCaching
 @EnableAsync
+@EnableJpaRepositories(basePackages="com.ric.bill.dao")
 public class AppConfig  implements ApplicationContextAware {
 
 	static ApplicationContext ctx = null;

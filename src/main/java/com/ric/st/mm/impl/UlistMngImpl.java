@@ -375,6 +375,8 @@ public class UlistMngImpl implements UlistMng {
 		// получить необходимые справочники из ГИС, поместить в хранилище в памяти
 		setrStore(new RefStore()); 
 		try {
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(21)), "NSI", BigInteger.valueOf(21));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(27)), "NSI", BigInteger.valueOf(27));
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(22)), "NSI", BigInteger.valueOf(22));
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(24)), "NSI", BigInteger.valueOf(24));
 			getrStore().add(getNsi("NSI", BigInteger.valueOf(30)), "NSI", BigInteger.valueOf(30));

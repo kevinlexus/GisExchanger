@@ -1,5 +1,6 @@
 package com.ric.st;
 
+import com.ric.bill.model.sec.User;
 
 public interface SoapConfigs {
 
@@ -13,5 +14,5 @@ public interface SoapConfigs {
 	public String getBscPass();
 	public void setXmlLog();
 	public Boolean setUp(Boolean isLoadRef);
-	
+	public User getCurUser();
 }
