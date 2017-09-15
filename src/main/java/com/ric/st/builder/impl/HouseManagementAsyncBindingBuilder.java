@@ -234,6 +234,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED) // TODO поставил транзакц.
 	public GetStateResult getState2(Task task) {
 		
+		//sb.setTrace(true);
+
 		// Признак ошибки
 		Boolean err = false;
 		// Признак ошибки в CommonResult
@@ -1526,18 +1528,24 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				log.info("Архивация счетчика в ГИС, Task.id={}", reqProp.getFoundTask().getId());
 				DeviceDataToUpdate mdinf = new DeviceDataToUpdate();
 				
+				Boolean isFoundVers = false;
 				for (Eolink ver: e.getChild()) {
-					if (ver.getIsInactive()) {
+					if (!ver.getIsInactive() && ver.getObjTp().getCd().equals("СчетчикВерсия")) {
 						// Взять первый GUID активной версии счетчика 
 						mdinf.setMeteringDeviceVersionGUID(ver.getGuid());
+						isFoundVers = true;
+						log.info("Check2={}", ver.getId());
 						break;
 					}
 				};
+				if (!isFoundVers) {
+					throw new CantPrepSoap("Не найдена активная версия счетчика для архивации!");
+				}
 				
 				ArchiveDevice archDev = new ArchiveDevice();
 				String reason = taskParMng.getStr(t, "ГИС ЖКХ.Причина архивации");
 				archDev.setArchivingReason(ulistMng.getNsiElem("NSI", 21, "Причина архивации прибора учета", reason));
-				log.info("reason={}, nsi={}", reason, ulistMng.getNsiElem("NSI", 21, "Причина архивации прибора учета", reason));
+				//log.info("reason={}, nsi={}", reason, ulistMng.getNsiElem("NSI", 21, "Причина архивации прибора учета", reason));
 				mdinf.setArchiveDevice(archDev);
 				md.setDeviceDataToUpdate(mdinf);
 			}
