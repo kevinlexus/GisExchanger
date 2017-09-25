@@ -41,7 +41,7 @@ public class ReqProp implements ReqProps {
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void setVal(Task task, SoapBuilder sb) {
+	public void setProp(Task task, SoapBuilder sb) {
 		foundTask = em.find(Task.class, task.getId());
 		String reu = task.getEolink().getReu();
 		String kul = task.getEolink().getKul();

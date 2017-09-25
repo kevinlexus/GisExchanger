@@ -1,5 +1,7 @@
 package com.ric.st.builder;
 
+import java.io.IOException;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import com.ric.bill.excp.WrongGetMethod;
@@ -11,5 +13,8 @@ public interface DeviceMeteringAsyncBindingBuilders {
 
 	public void setUp() throws CantSendSoap;
 	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException;
-	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;	
+	public void importMeteringDeviceValuesAsk(Task task);
+	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
+	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException;
+	
 }

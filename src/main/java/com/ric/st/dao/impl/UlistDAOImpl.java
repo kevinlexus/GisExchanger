@@ -52,4 +52,22 @@ public class UlistDAOImpl implements UlistDAO {
 		query.setParameter("ulistTp", ulistTp);
 		query.executeUpdate();
     }
+    
+    /* Получить элемент справочника по группе, коду группы, cd элемента
+     * @param grp - группа справочника, например "NSI"
+     * @param fkExt - код справочника, например 22
+     * @param name - CD элемента, например "Причина закрытия лицевого счета"
+     * @param s1 - значение элемента, например "Расторжение договора"
+     */
+    public Ulist getListElem(String grp, Integer fkExt, String name, String s1) {
+		Query query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=:fkExt and tp.grp=:grp "
+				+ "and t.name=:name and t.s1=:s1");
+		query.setParameter("grp", grp);
+		query.setParameter("fkExt", fkExt);
+		query.setParameter("name", name);
+		query.setParameter("s1", s1);
+		Ulist chld = (Ulist) query.getSingleResult();
+		return chld.getParentUlist();
+    }
+    
 }

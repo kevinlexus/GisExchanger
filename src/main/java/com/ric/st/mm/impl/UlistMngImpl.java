@@ -82,8 +82,8 @@ public class UlistMngImpl implements UlistMng {
 	private String getPrefixedCD(String cd, String grp) {
 		return config.getPrefixGis()+"_"+grp+"_"+cd;
 	}
+
 	
-	// TODO: узнать можно ли параллельно вызывать, не будет ли concurrent excp?
 	private void updNsiItem(UlistTp ulistTp, String grp, BigInteger id) throws CantUpdNSI {
 		// удалить элементы в нашей базе по данному справочнику
 		ulistDao.delListByListTp(ulistTp);
@@ -274,45 +274,35 @@ public class UlistMngImpl implements UlistMng {
 	}
 	
 	
-	/**
-	 * Получить элемент справочника по соответствию полей имя и значение
-	 * @param grp - Группа справочника, например "NSI"
-	 * @param id - № справочника
-	 * @param name - имя искомого элемента
-	 * @param value - значение искомого элемента
-	 */
-	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
-		getNsiElem(String grp, Integer id, String name, String value) {
-		
-		NsiItemType res = getrStore().getByGrpId(grp, BigInteger.valueOf(id));
-		Optional<NsiElementType> elem = res.getNsiElement().stream().filter(t -> 
-					
-					t.getNsiElementField().stream().filter(v -> 
-							v.getClass().equals(NsiElementStringFieldType.class) 
-							&& v.getName().equals(name))
-							.anyMatch(v -> ((NsiElementStringFieldType) v).getValue().equals(value))
-
-				).findFirst();
-		if (elem.isPresent()) {
-			ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef t = 
-					new ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef();
-	    	t.setCode(elem.get().getCode());
-	    	t.setGUID(elem.get().getGUID());
-			return t;
-		} else {
-			return null;
+	// загрузить справочники в память
+	public Boolean loadRef() {
+		// получить необходимые справочники из ГИС, поместить в хранилище в памяти
+		setrStore(new RefStore()); 
+		try {
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(21)), "NSI", BigInteger.valueOf(21));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(27)), "NSI", BigInteger.valueOf(27));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(22)), "NSI", BigInteger.valueOf(22));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(24)), "NSI", BigInteger.valueOf(24));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(30)), "NSI", BigInteger.valueOf(30));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(32)), "NSI", BigInteger.valueOf(32));
+			getrStore().add(getNsi("NSI", BigInteger.valueOf(2)), "NSI", BigInteger.valueOf(2));
+		} catch (CantGetNSI e) {
+			log.error("Ошибка получения справочников NSI!");
+			return false;
 		}
+		return true;
 	}
+
 	
 	/**
-	 * Обновить NSI справочники
+	 * Загрузить NSI справочники из ГИС
 	 * @return 
 	 * @throws CantSendSoap 
 	 * @throws CantSignSoap 
 	 * @throws Fault 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void refreshNsi(String grp) throws CantUpdNSI {
+	public void loadNsi(String grp) throws CantUpdNSI {
 		// Обновить виды справочников
 		// получить из нашей базы 
 		List<UlistTp> lst =  ulistDao.getListTpByGrp(grp);
@@ -345,6 +335,55 @@ public class UlistMngImpl implements UlistMng {
 	}
 	
 	/**
+	 * Получить элемент справочника по соответствию полей имя и значение
+	 * @param grp - Группа справочника, например "NSI"
+	 * @param id - № справочника
+	 * @param name - имя искомого элемента
+	 * @param value - значение искомого элемента
+	 */
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
+		getNsiElem2(String grp, Integer id, String name, String value) {
+		
+		NsiItemType res = getrStore().getByGrpId(grp, BigInteger.valueOf(id));
+		Optional<NsiElementType> elem = res.getNsiElement().stream().filter(t -> 
+					
+					t.getNsiElementField().stream().filter(v -> 
+							v.getClass().equals(NsiElementStringFieldType.class) 
+							&& v.getName().equals(name))
+							.anyMatch(v -> ((NsiElementStringFieldType) v).getValue().equals(value))
+
+				).findFirst();
+		if (elem.isPresent()) {
+			ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef t = 
+					new ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef();
+	    	t.setCode(elem.get().getCode());
+	    	t.setGUID(elem.get().getGUID());
+			return t;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Получить элемент справочника, сохранённый в базе данных, по соответствию полей имя и значение
+	 * @param grp - Группа справочника, например "NSI"
+	 * @param id - № справочника
+	 * @param name - имя искомого элемента
+	 * @param value - значение искомого элемента
+	 */
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
+		getNsiElem(String grp, Integer id, String name, String value) {
+		
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef t = 
+				new ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef();
+		
+		Ulist elem = ulistDao.getListElem(grp, id, name, value);
+		t.setCode(elem.getName());
+		t.setGUID(elem.getGuid());
+		return t;
+	}
+	
+	/**
 	 * Вывести на экран содержимое всех загруженных справочников (TODO)
 	 */
 	public void showAll() {
@@ -370,27 +409,8 @@ public class UlistMngImpl implements UlistMng {
 		this.rStore = rStore;
 	}
 	
-	// загрузить справочники в память
-	public Boolean loadRef() {
-		// получить необходимые справочники из ГИС, поместить в хранилище в памяти
-		setrStore(new RefStore()); 
-		try {
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(21)), "NSI", BigInteger.valueOf(21));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(27)), "NSI", BigInteger.valueOf(27));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(22)), "NSI", BigInteger.valueOf(22));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(24)), "NSI", BigInteger.valueOf(24));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(30)), "NSI", BigInteger.valueOf(30));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(32)), "NSI", BigInteger.valueOf(32));
-			getrStore().add(getNsi("NSI", BigInteger.valueOf(2)), "NSI", BigInteger.valueOf(2));
-		} catch (CantGetNSI e) {
-			log.error("Ошибка получения справочников NSI!");
-			return false;
-		}
-		return true;
-	}
-
 	/**
-	 * Получить коммунальный ресурс по коду USL
+	 * Получить коммунальный ресурс NSI по коду USL
 	 */
 	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef getResourceByUsl(String usl) {
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mres = null;
@@ -409,6 +429,28 @@ public class UlistMngImpl implements UlistMng {
 		}
 
 		return mres;
+	}
+
+	/**
+	 * Получить код USL по коммунальному ресурсу NSI по коду USL
+	 */
+	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
+		
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresHw = 
+				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Холодная вода");
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresGw = 
+				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Горячая вода");
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresEl = 
+				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Электрическая энергия");
+		String usl = null;
+		if (nsi.getGUID().equals(mresHw.getGUID())) {
+			usl = "011";
+		} else if (nsi.getGUID().equals(mresGw.getGUID())) {
+			usl = "015";
+		} else if (nsi.getGUID().equals(mresEl.getGUID())) {
+			usl = "024";
+		}
+		return usl;
 	}
 
 	/**

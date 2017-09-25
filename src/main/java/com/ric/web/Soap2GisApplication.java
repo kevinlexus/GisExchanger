@@ -21,22 +21,17 @@ public class Soap2GisApplication {
 	private static ApplicationContext applicationContext = null;
 	
 	public static void main(String[] args) {
-		System.out.println("############### PROP1="+System.getProperty("org.apache.xml.security.resource.config"));
+		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
-		System.out.println("############### PROP2="+System.getProperty("org.apache.xml.security.resource.config"));
-		//org.apache.xml.security.Init.init();
 		  
 		//Создать объект подписывания XML
 		try {
 			sc = new SignCommand();
-			System.out.println("Объект подписывания XML СОЗДАН!");
+			//System.out.println("Объект подписывания XML СОЗДАН!");
 		} catch (Exception e1) {
 			System.out.println("Объект подписывания XML не создан!");
 			e1.printStackTrace();
 		}
-
-		//SpringApplication.run(Gisxn2Application.class, args);
-		
 
         String mode = args != null && args.length > 0 ? args[0] : null;
 

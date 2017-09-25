@@ -1,5 +1,12 @@
 package com.ric.st.impl;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -12,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
 //import com.dic.bill.mm.SaldoMng;
 import com.ric.bill.dao.EolinkDAO;
@@ -24,13 +30,16 @@ import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.TaskControllers;
+import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.TaskBuilders;
 import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.bill.mm.TaskMng;
 import com.ric.st.mm.UlistMng;
+import com.ric.bill.Config;
 
 @Slf4j
 @Service
@@ -55,31 +64,18 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private HcsOrgRegistryAsyncBindingBuilders os;
 	@Autowired
-	private DeviceMeteringAsyncBindingBuilder dm;
+	private DeviceMeteringAsyncBindingBuilders dm;
+	@Autowired
+	private TaskBuilders tb;
 	@Autowired
 	private ApplicationContext ctx;
+	@Autowired
+	private Config config;
 	
 	public Command sc;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;	
-	/**
-	 * Выполнить инициализацию объекта 
-	 * @return 
-	 * @throws EmptyStorable
-	 */
-	boolean checkNsiUpdates() {
-		// проверить обновление справочников
-		try {
-			ulistMng.refreshNsi("NSI");
-			ulistMng.refreshNsi("NSIRAO");
-		} catch (Exception e) {
-			// сообщение об ошибке
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 
 	/**
 	 * Задача распределения сальдо
@@ -96,7 +92,7 @@ public class TaskController implements TaskControllers {
 	 * @throws CantPrepSoap 
 	 */
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap {
-	
+
 		this.reqConfig = ctx.getBean(RequestConfig.class);
 		this.reqConfig.setUp("0", "0", null, -1, null, null);
 		
@@ -109,8 +105,27 @@ public class TaskController implements TaskControllers {
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
 		// цикл
+		int ii=0;
 		while(flag) {
 
+			/*log.info("Попытка записи в файл - начало");
+			Path path = Paths.get(config.getPathCounter());
+			try (BufferedWriter writer = Files.newBufferedWriter(path))
+			{
+			    try {
+				    writer.write("Счетчик1: 123 показание:2233.40, date="+new Date());
+				    writer.newLine();
+					writer.write("Счетчик2: 224 показание:2233.50, date="+new Date());
+				    writer.newLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			log.info("Попытка записи в файл - окончание");*/
 			// перебрать все необработанные действия
 			for (Task task: taskDao.getAllUnprocessed()) {
 				String objTp, objTpx="xxx";
@@ -140,7 +155,15 @@ public class TaskController implements TaskControllers {
 				
 				try {
 					switch (actCd) {
+					case "GIS_RPT":
+						// Запуск повторяемого задания 
+						if (state.equals("INS") && ii==0) {
+							ii=1;
+							tb.activateRptTask(task);
+						}
+						break;
 					case "GIS_IMP_HOUSE":
+						// Импорт объектов дома
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Обновление объектов дома

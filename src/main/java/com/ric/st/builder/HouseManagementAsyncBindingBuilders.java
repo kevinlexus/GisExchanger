@@ -1,5 +1,7 @@
 package com.ric.st.builder;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.model.exs.Task;
@@ -9,7 +11,7 @@ import com.ric.st.excp.CantSendSoap;
 public interface HouseManagementAsyncBindingBuilders {
 
 	public void setUp() throws CantSendSoap;
-	public Boolean exportDeviceData(Task task) throws CantPrepSoap;
+	public Boolean exportDeviceData(Task task) throws CantPrepSoap, DatatypeConfigurationException;
 	public void exportDeviceDataAck(Task task) throws ErrorProcessAnswer;
 	public Boolean exportContract(Task task);
 	public Boolean exportHouseData(Task task);

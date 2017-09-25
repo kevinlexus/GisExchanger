@@ -246,6 +246,17 @@
 	<build>
 		<plugins>
 
+<!-- 			исключить конфигурационные файлы -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>config.properties</exclude>
+ 					</excludes>
+				</configuration>
+			</plugin> 
+
 			<plugin>
 			  <groupId>org.apache.maven.plugins</groupId>
 			  <artifactId>maven-compiler-plugin</artifactId>

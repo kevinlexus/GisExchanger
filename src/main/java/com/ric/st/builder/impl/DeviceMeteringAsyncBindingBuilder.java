@@ -1,7 +1,14 @@
 package com.ric.st.builder.impl;
 
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.Config;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.ParDAO;
@@ -25,6 +31,7 @@ import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.dao.UserDAO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.EolinkMng;
+import com.ric.bill.mm.EolinkParMng;
 import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
@@ -32,6 +39,7 @@ import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.bs.Lst;
 import com.ric.bill.model.bs.Par;
 import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.model.exs.EolinkToEolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
 import com.ric.st.ReqProps;
@@ -42,6 +50,7 @@ import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.RetStateMeter;
 import com.ric.st.impl.SoapBuilder;
 import com.ric.st.mm.UlistMng;
+import com.ric.bill.Config;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 import lombok.extern.slf4j.Slf4j;
@@ -80,11 +89,11 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	private TaskDAO taskDao; 
 	@Autowired
-	private EolinkDAO eolinkDao;
-	@Autowired
 	private EolinkMng eolinkMng;
 	@Autowired
 	private TaskEolinkParMng teParMng;
+	@Autowired
+	private EolinkParMng eolinkParMng;
 	@Autowired
 	private ReqProps reqProp;
 	@Autowired
@@ -93,6 +102,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private SoapConfigs soapConfig;
 	@Autowired
 	private ParDAO parDao;
+	@Autowired
+	private Config config;
 	
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -178,7 +189,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 * @param msgGuid - GUID запроса
 	 * @return
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED) // TODO поставил транзакц.
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public GetStateResult getState2(Task task) {
 		
 		// Признак ошибки
@@ -272,7 +283,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException {
 		// Установить параметры SOAP
-		reqProp.setVal(task, sb);
+		reqProp.setProp(task, sb);
 		// Трассировка XML
 		//sb.setTrace(true);
 		AckRequest ack = null;
@@ -295,11 +306,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 			// счетчик физический (корневой)
 			Eolink meter = t.getEolink();
-			Eolink meterVers = meter.getChild().stream().filter(d -> 
-				d.getObjTp().getCd().equals("СчетчикВерсия")).findFirst().orElse(null);
 
 			Date dtGet = taskParMng.getDate(t, "Счетчик.ДатаСнятияПоказания");
-			log.info("DATE={}", dtGet);
 			MeteringDevicesValues val = new MeteringDevicesValues();
 			val.setMeteringDeviceRootGUID(meter.getGuid());
 			//val.setMeteringDeviceVersionGUID(meterVers.getGuid());
@@ -374,7 +382,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importMeteringDeviceValuesAsk(Task task) {
 		// Установить параметры SOAP
-		reqProp.setVal(task, sb);	
+		reqProp.setProp(task, sb);	
 		
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -409,7 +417,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
 		// Установить параметры SOAP
-		reqProp.setVal(task, sb);	
+		reqProp.setProp(task, sb);	
 		// Трассировка XML
 		//sb.setTrace(true);
 		AckRequest ack = null;
@@ -442,9 +450,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					throw new CantPrepSoap("Некорректное количество критериев запроса!");
 				}
 				checkTwoOpt=true;
-				log.info("Вид коммун ресурса1={}", p.getS1());
+				//log.info("Вид коммун ресурса1={}", p.getS1());
 				NsiRef tp = ulistMng.getNsiElem("NSI", 2, "Вид коммунального ресурса", p.getS1());
-				log.info("Вид коммун ресурса2={}", tp.getName());
+				//log.info("Вид коммун ресурса2={}", tp.getName());
 				req.getMunicipalResource().add(tp);
 			}
 		}
@@ -486,11 +494,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	
 	/**
 	 * Получить результат экспорта показаний счетиков
+	 * @throws WrongGetMethod 
+	 * @throws IOException 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void exportMeteringDeviceValuesAsk(Task task) {
+	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException {
 		// Установить параметры SOAP
-		reqProp.setVal(task, sb);	
+		reqProp.setProp(task, sb);	
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 		// пользователь
@@ -498,9 +508,18 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		Lst actVal = lstMng.getByCD("GIS_TMP");
 		Lst actTask = lstMng.getByCD("GIS_EXP_METERS");
 
+		Path path = null;
+		if (Utl.nvl(taskParMng.getBool(task, "ГИС ЖКХ.Выгрузить в файл"), false)) {
+			// создать файл
+			path = Paths.get(config.getPathCounter());
+			if (Files.exists(path)) {
+				Files.delete(path);
+			}
+			Path writer = Files.createFile(path);
+		}
+		
 		if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-			retState.getExportMeteringDeviceHistoryResult().stream().forEach(d -> {
-				ExportMeteringDeviceHistoryResultType t = d;
+				for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
 				// найти счетчик по GUID 
 				Eolink meter = eolinkMng.getEolinkByGuid(t.getMeteringDeviceRootGUID());
 				if (meter == null) {
@@ -513,26 +532,25 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				} else {
 					// счетчик найден, выгрузить по нему последние показания
 					if (t.getOneRateDeviceValue() != null) {
-						t.getOneRateDeviceValue().getValues().getCurrentValue().forEach(e -> {
-							ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.CurrentValue f = e;
+						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.CurrentValue e : 
+								t.getOneRateDeviceValue().getValues().getCurrentValue()) {
 							// записать объем по счетчику в EOLINK
-							setVol(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValue(), 
-									Utl.getDateFromXmlGregCal(e.getDateValue()));
-						});
+							saveVal(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValue(), 
+									Utl.getDateFromXmlGregCal(e.getDateValue()), path);
+						}
 					}
 					if (t.getElectricDeviceValue() != null) {
-						t.getElectricDeviceValue().getValues().getCurrentValue().forEach(e -> {
-							ru.gosuslugi.dom.schema.integration.device_metering.ExportElectricMeteringValueKindType.CurrentValue f = e;
-
+						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportElectricMeteringValueKindType.CurrentValue e : 
+							t.getElectricDeviceValue().getValues().getCurrentValue()) {
 							// записать объем по счетчику в EOLINK
-							setVol(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValueT1(), 
-									Utl.getDateFromXmlGregCal(e.getDateValue()));
-						});
+							saveVal(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValueT1(), 
+									Utl.getDateFromXmlGregCal(e.getDateValue()), path);
+						}
 						
 					}
 					
 				}
-				});
+				}
 			}
 			
 			// Установить статус выполнения задания
@@ -541,28 +559,85 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	}
 	
 	/**
-	 * Записать объем по счетчику в EOLINK
+	 * Записать показание по счетчику в EOLINK
 	 * @param task - текущее задание
 	 * @param meter - счетчик
 	 * @param userId - Id пользователя
 	 * @param actVal - тип задания
 	 * @param rootGUID - Root GUID счетчика
-	 * @param vol - объем
+	 * @param val - принятое от ГИС показание
 	 * @param dt1 - дата внесения
+	 * @param path - путь файла
+	 * @throws WrongGetMethod 
+	 * @throws IOException 
 	 */
-	private void setVol(Task task, Eolink meter, Integer userId, Lst actVal, String rootGUID,
-			BigDecimal vol, Date dt1) {
-		// дочернее псевдозадание, хранящее принятые показания по счетчику
-		Task taskChild = new Task(meter, task, null, null, actVal,
-				null, null, null, null, null, null, 0, userId);
-		log.info("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата={}", 
-				rootGUID, vol, dt1);   
-		Par par = parDao.getByCd(-1, "Счетчик.БазПоказ(Т1)");
-		TaskPar taskPar = new TaskPar(taskChild, par, vol.doubleValue(), null, null);
-		taskChild.getTaskPar().add(taskPar);
-		em.persist(taskChild);
-		// переписать показания в объект Eolink
-		teParMng.acceptPar(taskChild);
+	private void saveVal(Task task, Eolink meter, Integer userId, Lst actVal, String rootGUID,
+			BigDecimal val, Date dt1, Path path) throws WrongGetMethod, IOException {
+		/*log.info("Check meter id={}", meter.getId());
+		if (meter.getId().equals(12078)) {
+			log.info("Check");
+		}*/
+		// Получить текущие показания по счетчику
+		Double valExist = eolinkParMng.getDbl(meter, "Счетчик.БазПоказ(Т1)");
+		if (BigDecimal.valueOf(valExist).compareTo(val) !=0) {
+			// Если показания изменились, записать в Eolink
+			// дочернее псевдозадание, хранящее принятые показания по счетчику
+			Task taskChild = new Task(meter, task, null, null, actVal,
+					null, null, null, null, null, null, 0, userId);
+			log.info("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата={}", 
+					rootGUID, val, dt1);   
+			Par par = parDao.getByCd(-1, "Счетчик.БазПоказ(Т1)");
+			TaskPar taskPar = new TaskPar(taskChild, par, val.doubleValue(), null, null);
+			taskChild.getTaskPar().add(taskPar);
+			em.persist(taskChild);
+			if (config.getAppTp().equals(0)) {
+
+				if (path != null) {
+					// ЗАПИСАТЬ показания во внешний файл
+					String lsk = null;
+					// найти первый попавшийся лицевой счет (по словам Андрейки ред. 22.09.18)
+					for (Eolink t :meter.getParentLinked()){
+						lsk = t.getLsk();
+						break;
+					}
+					Integer tp = null;
+					switch (meter.getUsl()) {
+					case "011":
+						tp = 1;
+						break;
+					case "015":
+						tp = 2;
+						break;
+					case "024":
+						tp = 3;
+						break;
+					}
+					if (lsk == null) {
+						log.error("К счетчику не привязан лицевой счет, Meter.id={}", meter.getId());
+					} else if (tp != null) {
+						try (BufferedWriter writer = Files.newBufferedWriter(path, 
+								StandardCharsets.UTF_8, StandardOpenOption.APPEND))
+						{
+							// предыдущее показание
+							Double lastVal = eolinkParMng.getDbl(meter, "Счетчик.БазПоказ(Т1)");
+							// объем = новое показание - предыдущее показание
+							Double vol = val.doubleValue() - lastVal; 
+							
+						    writer.write(taskChild.getId()+"|"+lsk+"|"+tp+"|"+eolinkParMng.getDbl(meter, "Счетчик.БазПоказ(Т1)")+"|"+vol+"|"+
+						    		Utl.getStrFromDate(dt1, "dd.MM.yyyy HH:mm:ss")+"|"+Utl.nvl(meter.getIdGrp(),"")+"|"+Utl.nvl(meter.getIdCnt(),""));
+						    writer.newLine();
+						}
+					}
+				}
+
+				
+				
+			}
+
+			// переписать показания в объект Eolink
+			teParMng.acceptPar(taskChild);
+
+		}
 	}
 	
 

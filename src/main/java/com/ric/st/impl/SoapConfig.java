@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.ric.bill.dao.UserDAO;
+import com.ric.bill.excp.EmptyStorable;
 import com.ric.bill.model.sec.User;
 import com.ric.st.SoapConfigs;
 import com.ric.st.mm.UlistMng;
@@ -110,23 +111,41 @@ public class SoapConfig implements SoapConfigs {
 	}
 
 
+	/**
+	 * Выполнить загрузку справочников 
+	 * @return - выполнено успешно? 
+	 */
+	boolean refreshNsi() {
+		// загрузить справочники
+		try {
+			ulistMng.loadNsi("NSI");
+			ulistMng.loadNsi("NSIRAO");
+		} catch (Exception e) {
+			// сообщение об ошибке
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	
 	public Boolean setUp(Boolean isLoadRef) {
 		log.info("загрузка данных пользователя");
 		this.user = userDao.getByCd("GEN");
 		
-		log.info("проверка обновлений справочников");
+		/*log.info("проверка обновлений справочников");
 		if (isLoadRef) {
-			if (!taskContr.checkNsiUpdates()) {
+			if (!refreshNsi()) {
 				log.error("Ошибка при обновлении справочников!");
 				return false;
 			}
-		}
+		}*/
 		
 		// Инициализация сервиса ulistMng
-		if (!ulistMng.setUp()) {
+		/*if (!ulistMng.setUp()) {
 			log.error("Ошибка инициализации сервиса ulistMng!");
 			return false;
-		}
+		}*/
 		
     	return true;
 	}

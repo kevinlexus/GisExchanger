@@ -6,7 +6,7 @@ import com.ric.st.impl.SoapBuilder;
 
 public interface ReqProps {
 
-	public void setVal(Task task, SoapBuilder sb);
+	public void setProp(Task task, SoapBuilder sb);
 
 	public Task getFoundTask();
 

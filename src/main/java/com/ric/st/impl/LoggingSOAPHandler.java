@@ -61,7 +61,10 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 
 	   if (!outboundProperty.booleanValue()) {
 
-		   //dumpSOAPMessage(soapMsg);
+			if (trace) {
+				log.info("Sended XML:");
+				dumpSOAPMessage(soapMsg);
+			}
     	   
        } else {
 		Boolean sign = false;

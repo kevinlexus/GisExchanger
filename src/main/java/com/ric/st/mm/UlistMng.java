@@ -16,9 +16,10 @@ public interface UlistMng {
 	public Boolean setUp();
 	public NsiItemType getNsi(String grp, BigInteger id) throws CantGetNSI;
 	public NsiRef getNsiElem(String grp, Integer id, String name, String value);	
-	public void refreshNsi(String grp) throws CantUpdNSI;
+	public void loadNsi(String grp) throws CantUpdNSI;
 	public RefStore getrStore();
 	public void showAll();
 	public NsiRef getResourceByUsl(String usl);
+	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi);
 	public Integer getResType(String usl);
 }

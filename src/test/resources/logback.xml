@@ -13,6 +13,7 @@
   
   <logger name="org.hibernate.engine.loading.internal.CollectionLoadContext" level="ERROR"/>
   <logger name="com.ric" level="INFO"/>
+  <logger name="org.apache.xml.security.Init" level="INFO"/> <!-- не работает почему то -->
   <!--<logger name="org.ehcache" level="ERROR"/>
   <logger name="org.hibernate.stat" level="DEBUG"/>--> 
   
