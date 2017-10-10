@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,11 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.signature.demo.commands.Command;
 import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
 
+import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.ric.bill.RequestConfig;
+import com.ric.bill.Utl;
 //import com.dic.bill.mm.SaldoMng;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
@@ -29,6 +33,7 @@ import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
+import com.ric.bill.model.exs.TaskPar;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
@@ -40,6 +45,7 @@ import com.ric.st.excp.CantSendSoap;
 import com.ric.bill.mm.TaskMng;
 import com.ric.st.mm.UlistMng;
 import com.ric.bill.Config;
+
 
 @Slf4j
 @Service
@@ -67,11 +73,10 @@ public class TaskController implements TaskControllers {
 	private DeviceMeteringAsyncBindingBuilders dm;
 	@Autowired
 	private TaskBuilders tb;
+    @Autowired
+    private TaskParMng taskParMng;
 	@Autowired
 	private ApplicationContext ctx;
-	@Autowired
-	private Config config;
-	
 	public Command sc;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
@@ -101,35 +106,18 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
-
+		
+		System.out.println("DATE="+new Date());
+		System.out.println("TimeZone="+TimeZone.getDefault());
+		
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
 		// цикл
-		int ii=0;
 		while(flag) {
-
-			/*log.info("Попытка записи в файл - начало");
-			Path path = Paths.get(config.getPathCounter());
-			try (BufferedWriter writer = Files.newBufferedWriter(path))
-			{
-			    try {
-				    writer.write("Счетчик1: 123 показание:2233.40, date="+new Date());
-				    writer.newLine();
-					writer.write("Счетчик2: 224 показание:2233.50, date="+new Date());
-				    writer.newLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			log.info("Попытка записи в файл - окончание");*/
 			// перебрать все необработанные действия
 			for (Task task: taskDao.getAllUnprocessed()) {
 				String objTp, objTpx="xxx";
-				log.info("task.id={}", task.getId());
+				//log.info("task.id={}", task.getId());
 				// Почистить результаты задания
 				taskMng.clearAllResult(task);
 				Eolink eo = task.getEolink();
@@ -137,7 +125,6 @@ public class TaskController implements TaskControllers {
 				Integer appTp = task.getAppTp();
 				String actCd = task.getAct().getCd();
 				String state = task.getState();  
-				log.info("******* Task.id={}, act.cd={}, Task.state={}", task.getId(), actCd, state);
 
 				/*if (appTp == 0) {
 					// Квартплата
@@ -152,22 +139,36 @@ public class TaskController implements TaskControllers {
 				}*/
 
 				// Выполнить задание
-				
 				try {
 					switch (actCd) {
-					case "GIS_RPT":
-						// Запуск повторяемого задания 
-						if (state.equals("INS") && ii==0) {
-							ii=1;
-							tb.activateRptTask(task);
+					case "GIS_SAVE_FILE_VALS":
+						// Выгрузка показаний приборов учета в файл
+						if (state.equals("INS")) {
+							//log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
+							//dm.saveValToFile(task);
 						}
 						break;
-					case "GIS_IMP_HOUSE":
+					case "GIS_RPT":
+						// Запуск повторяемого задания, если задано
+						if (state.equals("INS")) {
+							TaskPar taskPar = tb.getTrgTask(task);
+							if (taskPar!= null) {
+								log.info("******* Task.id={}, Повторяемое задание", task.getId());
+								log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
+								// активировать задание	
+								tb.activateRptTask(task);
+								// отметить задание выполненным
+								tb.setProcTask(taskPar);
+							}
+						}
+						break;
+					case "GIS_UPD_HOUSE" :
+					case "GIS_ADD_HOUSE" : 
 						// Импорт объектов дома
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Обновление объектов дома
-							log.info("******* Task={}, Обновление объектов дома", task.getId());
+							log.info("******* Task.id={}, Обновление объектов дома", task.getId());
 							hb.importHouseUOData(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
@@ -177,7 +178,7 @@ public class TaskController implements TaskControllers {
 						break;
 					case "GIS_EXP_CONTR":
 						// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
-						log.info("******* Task={}, экспорт договора управления", task.getId());
+						log.info("******* Task.id={}, экспорт договора управления", task.getId());
 						hb.setUp();
 						hb.exportContract(task);
 						
@@ -186,20 +187,20 @@ public class TaskController implements TaskControllers {
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Экспорт объектов дома
-							log.info("******* Task={}, экспорт объектов дома - начало", task.getId());
+							log.info("******* Task.id={}, экспорт объектов дома - начало", task.getId());
 							hb.exportHouseData(task);
-							log.info("******* Task={}, экспорт объектов дома - окончание", task.getId());
+							log.info("******* Task.id={}, экспорт объектов дома - окончание", task.getId());
 							
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
-							log.info("******* Task={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
+							log.info("******* Task.id={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
 							hb.exportHouseDataAck(task);
-							log.info("******* Task={}, Запрос ответа по экспорту объектов дома - окончание", task.getId());
+							log.info("******* Task.id={}, Запрос ответа по экспорту объектов дома - окончание", task.getId());
 						}
 						
 						break;
 					case "GIS_EXP_ACCS":
-						log.info("******* Task={}, экспорт лицевых счетов", task.getId());
+						log.info("******* Task.id={}, экспорт лицевых счетов", task.getId());
 						// Экспорт из ГИС ЖКХ приборов учета
 						hb.setUp();
 						if (state.equals("INS")) {
@@ -210,7 +211,7 @@ public class TaskController implements TaskControllers {
 						}
 						break;
 					case "GIS_EXP_METERS":
-						log.info("******* Task={}, экспорт приборов учета", task.getId());
+						log.info("******* Task.id={}, экспорт приборов учета", task.getId());
 						// Экспорт из ГИС ЖКХ приборов учета
 						hb.setUp();
 						if (state.equals("INS")) {

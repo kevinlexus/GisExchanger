@@ -49,7 +49,7 @@ public class Soap2GisApplication {
         } else {
             SpringApplication app = new SpringApplication(Soap2GisApplication.class);
             applicationContext = app.run(args);
-
+            
             TaskController taskContr = applicationContext.getBean(TaskController.class);
             Config config = applicationContext.getBean(Config.class);
             

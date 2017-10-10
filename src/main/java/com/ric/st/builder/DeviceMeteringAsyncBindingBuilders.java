@@ -12,9 +12,10 @@ import com.ric.st.excp.CantSendSoap;
 public interface DeviceMeteringAsyncBindingBuilders {
 
 	public void setUp() throws CantSendSoap;
-	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException;
-	public void importMeteringDeviceValuesAsk(Task task);
+	public Boolean importMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
+	public void importMeteringDeviceValuesAsk(Task task) throws CantSendSoap, CantPrepSoap;
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
-	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException;
+	public void exportMeteringDeviceValuesAsk(Task task) throws CantPrepSoap, WrongGetMethod, IOException;
+	public void saveValToFile(Task task) throws WrongGetMethod, IOException;
 	
 }

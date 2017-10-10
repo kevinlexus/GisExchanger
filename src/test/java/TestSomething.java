@@ -1,11 +1,15 @@
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
+import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
+import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.web.AppConfig;
@@ -37,6 +42,9 @@ public class TestSomething {
 	@PersistenceContext
     private EntityManager em;
 
+	@Autowired
+	private EolinkDAO eolinkDao;
+	
 	@Test
     public void contextLoads() throws Exception {
 		log.info("Begining");
@@ -48,6 +56,17 @@ public class TestSomething {
 		log.info("End");
     }
     
+	@Test
+    public void testHQL() throws Exception {
+		log.info("Begining");
+
+		eolinkDao.getValsNotSaved().stream().forEach(t-> {
+			log.info("Eolink.id={}", t.getId());
+		});;
+		
+		log.info("End");
+    }
+	
 /*    @Transactional(readOnly=false)
 	public void work1() throws EmptyStorable, WrongSetMethod {
     	int rqn =-1;

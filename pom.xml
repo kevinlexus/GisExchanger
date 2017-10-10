@@ -26,7 +26,7 @@
 		<!-- Test -->
 		<junit.version>4.12</junit.version>
 
-		<start-class>com.ric.web.SoapWebApplication</start-class>
+		<start-class>com.ric.web.Soap2GisApplication</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -38,6 +38,17 @@
 	</parent>
 
 	<dependencies>
+
+		<dependency>
+		  <groupId>org.quartz-scheduler</groupId>
+		  <artifactId>quartz</artifactId>
+		  <version>2.2.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.quartz-scheduler</groupId>
+		  <artifactId>quartz-jobs</artifactId>
+		  <version>2.2.1</version>
+		</dependency>
 
 		<!-- BWC -->
 		<dependency>
@@ -174,6 +185,12 @@
 			<version>10.2.0.2.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>trustedJava</groupId>
+			<artifactId>com.ric.tjava</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
 		<dependency>
 		    <groupId>com.diffplug.durian</groupId>
@@ -288,9 +305,25 @@
 
             </plugin>
 
- 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+  			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target> <!-- Это нужно, чтобы заработал windows-сервис! -->
+								<zip destfile="${project.build.directory}/${project.build.finalName}.jar" update="true" compress="store">
+									<fileset dir="${project.build.directory}/classes" includes="com/ric/web/Bootstrap.class"/>
+								</zip>
+							</target>
+						</configuration>
+
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
  
   		</plugins>

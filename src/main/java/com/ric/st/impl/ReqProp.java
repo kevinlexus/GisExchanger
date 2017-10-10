@@ -12,6 +12,7 @@ import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.ReqProps;
+import com.ric.st.excp.CantPrepSoap;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,14 +42,23 @@ public class ReqProp implements ReqProps {
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void setProp(Task task, SoapBuilder sb) {
+	public void setProp(Task task, SoapBuilder sb) throws CantPrepSoap {
 		foundTask = em.find(Task.class, task.getId());
-		String reu = task.getEolink().getReu();
-		String kul = task.getEolink().getKul();
-		String nd = task.getEolink().getNd();
+		reu = task.getEolink().getReu();
+		kul = task.getEolink().getKul();
+		nd = task.getEolink().getNd();
 		houseGuid = task.getEolink().getGuid();
+		if (reu == null) {
+			// нет кода РЭУ
+			throw new CantPrepSoap("Нет кода рэу в Eolink.reu по Task.id="+task.getId());
+		}
 		// Установить PPGUID
-		ppGuid = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация").getGuid();
+		Eolink org = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация");
+		if (org == null) {
+			// нет Организации
+			throw new CantPrepSoap("Не заведена запись организации в Eolink по Task.id="+task.getId());
+		}
+		ppGuid = org.getGuid();
 		sb.setPpGuid(ppGuid);
 	}
 	

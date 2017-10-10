@@ -11,18 +11,18 @@ import com.ric.st.excp.CantSendSoap;
 public interface HouseManagementAsyncBindingBuilders {
 
 	public void setUp() throws CantSendSoap;
-	public Boolean exportDeviceData(Task task) throws CantPrepSoap, DatatypeConfigurationException;
-	public void exportDeviceDataAck(Task task) throws ErrorProcessAnswer;
-	public Boolean exportContract(Task task);
-	public Boolean exportHouseData(Task task);
-	public void exportHouseDataAck(Task task) throws WrongGetMethod;	
-	public void exportAccountData(Task task);
-	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer;
+	public Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
+	public void exportDeviceDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod;
+	public Boolean exportContract(Task task) throws CantPrepSoap;
+	public Boolean exportHouseData(Task task) throws CantPrepSoap;
+	public void exportHouseDataAck(Task task) throws CantPrepSoap, WrongGetMethod;	
+	public void exportAccountData(Task task) throws CantPrepSoap;
+	public void exportAccountDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod;
 	public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap;	
-	public void importAccountDataAck(Task task);
-	public Boolean importHouseUOData(Task task) throws WrongGetMethod;
-	public void importHouseUODataAck(Task task);
+	public void importAccountDataAck(Task task) throws CantPrepSoap;
+	public Boolean importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
+	public void importHouseUODataAck(Task task) throws CantPrepSoap;
 	public Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;
-	public void importMeteringDeviceDataAck(Task task);
+	public void importMeteringDeviceDataAck(Task task) throws CantPrepSoap;
 	
 }
