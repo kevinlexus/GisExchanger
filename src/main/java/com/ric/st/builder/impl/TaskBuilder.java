@@ -93,14 +93,13 @@ public class TaskBuilder implements TaskBuilders {
      */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void activateRptTask(Task task) throws WrongGetMethod {
-		Task foundTask = em.find(Task.class, task.getId());
 		mapTask = new HashMap<Task, Task>();
 		// найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
 		// по определённому типу
 		task.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
 		    .filter(t-> t.getChild().getParent() == null).forEach(t-> {
-		    log.info("******* Задание скопировано: Task.id={}, ", t.getId());	
+		    log.info("******* Задание скопировано: Task.id={}, ", t.getChild().getId());	
 			// скопировать задание, параметры
 			copyTask(t.getChild(), null, 0);
 			// скопировать связи заданий с другими заданиями
@@ -229,37 +228,40 @@ public class TaskBuilder implements TaskBuilders {
     @Scheduled(fixedDelay =1000)
     public void checkSchedule() throws java.text.ParseException {
         Date dt = new Date();
+        if (lstSched!=null) {
 		for (TaskPar t: lstSched){
-//	    	log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
-    		CronExpression exp = new CronExpression(t.getS1());
-    		if (exp.isSatisfiedBy(dt)) {
-    			//log.info("Запустить задание!");
-    			// Запустить задание, если уже не запущено
-    			if (!lstTrg.contains(t.getId())) {
-        			//log.info("Задание запущено!");
-    				// добавить отметку о необходимости выполнения
-        			lstTrg.add(t.getId());
-    			} else {
-        			//log.info("Уже запущено!");
-    			}
-    		} else {
-    			// Убрать все отметки если есть отметка о выполнении задания
-    	    	if (lstTrgProc.contains(t.getId())) {
-        			//log.info("Убрать отметки!");
+	//	    	log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
+	    		CronExpression exp = new CronExpression(t.getS1());
+	    		if (exp.isSatisfiedBy(dt)) {
+	    			//log.info("Запустить задание!");
+	    			// Запустить задание, если уже не запущено
+	    			if (!lstTrg.contains(t.getId())) {
+	        			//log.info("Задание запущено!");
+	    				// добавить отметку о необходимости выполнения
+	        			lstTrg.add(t.getId());
+	    			} else {
+	        			//log.info("Уже запущено!");
+	    			}
+	    		} else {
+	    			// Убрать все отметки если есть отметка о выполнении задания
+	    	    	if (lstTrgProc.contains(t.getId())) {
+	        			//log.info("Убрать отметки!");
+	
+		    			for (Iterator<Integer> iter = lstTrg.listIterator(); iter.hasNext(); ) {
+							if (iter.next().equals(t.getId())) {
+								iter.remove();
+							}
+						}
+		    			for (Iterator<Integer> iter = lstTrgProc.listIterator(); iter.hasNext(); ) {
+							if (iter.next().equals(t.getId())) {
+								iter.remove();
+							}
+						}
+	    	    	}
+	    		}
+	    	}
+        }
 
-	    			for (Iterator<Integer> iter = lstTrg.listIterator(); iter.hasNext(); ) {
-						if (iter.next().equals(t.getId())) {
-							iter.remove();
-						}
-					}
-	    			for (Iterator<Integer> iter = lstTrgProc.listIterator(); iter.hasNext(); ) {
-						if (iter.next().equals(t.getId())) {
-							iter.remove();
-						}
-					}
-    	    	}
-    		}
-    	}
     }
     
     

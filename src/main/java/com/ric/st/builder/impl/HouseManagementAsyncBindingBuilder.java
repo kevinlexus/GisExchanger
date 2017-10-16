@@ -35,6 +35,7 @@ import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultTyp
 import ru.gosuslugi.dom.schema.integration.house_management.ExportMeteringDeviceDataRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportMeteringDeviceDataResultType;
 import ru.gosuslugi.dom.schema.integration.house_management.GetStateResult;
+import ru.gosuslugi.dom.schema.integration.house_management.HouseBasicExportType;
 import ru.gosuslugi.dom.schema.integration.house_management.HouseBasicUpdateUOType;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportAccountRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportAccountRequest.Account;
@@ -76,6 +77,7 @@ import com.ric.bill.dao.ParDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
+import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.mm.EolinkParMng;
 import com.ric.bill.mm.LstMng;
@@ -92,6 +94,7 @@ import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.RetStateHouse;
@@ -116,10 +119,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Autowired
 	private SoapConfig config;
 	@Autowired
-	private Config config2;
-	@Autowired
-	private TaskController aControl;
-	@Autowired
 	private TaskParMng taskParMng;
 	@Autowired
 	private EolinkParMng eolinkParMng;
@@ -127,8 +126,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	private TaskEolinkParMng teParMng;
 	@Autowired
 	private TaskDAO taskDao; 
-	@Autowired
-	private EolinkDAO eolinkDao;
 	@Autowired
 	private EolinkMng eolinkMng;
 	@Autowired
@@ -145,6 +142,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	private ParDAO parDao;
 	@Autowired
 	TaskControllers taskCtrl;
+	@Autowired
+	private PseudoTaskBuilders ptb; 
 	
 	private HouseManagementServiceAsync service;
 	private HouseManagementPortsTypeAsync port;
@@ -231,7 +230,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @param msgGuid - GUID запроса
 	 * @return
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED) // TODO поставил транзакц.
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public GetStateResult getState2(Task task) {
 		
 		//sb.setTrace(true);
@@ -288,7 +287,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							// Прочие задания
 							// установить статусы ошибки по заданиям
 							task2.setState("ERR");
-							log.error("Error code={}, Description={}", f.getErrorCode(), f.getDescription());
+							errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
+							task.setResult(errStr);
+							log.error(errStr);
 							errChld = true;
 						}
 					};
@@ -319,7 +320,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @throws WrongGetMethod 
 	 * @throws DatatypeConfigurationException 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
@@ -587,7 +588,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @return 
 	 * @throws CantPrepSoap 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportContract(Task task) throws CantPrepSoap {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
@@ -706,7 +707,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @return 
 	 * @throws CantPrepSoap 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportHouseData(Task task) throws CantPrepSoap {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
@@ -749,9 +750,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * Получить результат экспорта объектов дома
 	 * @throws WrongGetMethod 
 	 * @throws CantPrepSoap 
+	 * @throws WrongParam 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void exportHouseDataAck(Task task) throws WrongGetMethod, CantPrepSoap {
+	public void exportHouseDataAck(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -769,7 +771,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			
 			ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse ah = 
 					retState.getExportHouseResult().getApartmentHouse();
+
 			if (ah != null) {
+				// Многоквартирный дом
+				HouseBasicExportType bc = ah.getBasicCharacteristicts();
+				
+				ptb.setUp(houseEol, task, "GIS_TMP", null);
+				if (bc.isNoRSOGKNEGRPRegistered()!=null && bc.isNoRSOGKNEGRPRegistered()) {
+					// нет связи с кадастром
+					ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+							null, null, true, null);
+				} else {
+					// есть связь с кадастром
+					ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+							null, null, false, null);
+				}
+				if (bc.getCadastralNumber() != null) {
+					// есть кадастровый номер
+					ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)", 
+							null, bc.getCadastralNumber(), null, null);
+				}
+				// сохранить параметры в объекте Eolink, через дочернее задание
+				ptb.accept();
+				
 				Map<Integer, Eolink> entryMap = new HashMap<Integer, Eolink>();
 				
 				Eolink houseEol2 = houseEol;
@@ -794,30 +818,49 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				ah.getResidentialPremises().stream().forEach(Errors.rethrow().wrap(t-> {
 					log.info("Жилое помещение: №={}, UniqNumber={}, GUID={}", 
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-					
 					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
-					if (premisEol != null) {
-						// найдено, обновить параметры помещения
-						if (t.getGrossArea()!=null) {
-							eolinkParMng.setDbl(premisEol, "Площадь.Общая", t.getGrossArea().doubleValue());
-						}
-					} else if (premisEol == null) {
+					if (premisEol == null) {
 						// не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Квартира");
 						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), Utl.lpad(t.getPremisesNum(), "0", 7), null, 
 								t.getEntranceNum()!=null ? Integer.valueOf(t.getEntranceNum()) : null,
 								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, addrTp, foundTask2.getAppTp(), null, null, 
-								t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : null ,
+								t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol, // присоединить к родителю: подъезд, или дом, если не найден подъезд
 								config.getCurUser(), 1
 								 );
 						log.info("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № квартиры={}, un={}, GUID={}", t.getEntranceNum(), 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-								
 						em.persist(premisEol);
-						if (t.getGrossArea()!=null) {
-							eolinkParMng.setDbl(premisEol, "Площадь.Общая", t.getGrossArea().doubleValue());
-						}
+						
 					}
+					ptb.setUp(premisEol, task, "GIS_TMP", null);
+					
+					// обновить параметры помещения
+					if (t.getGrossArea()!=null) {
+						ptb.addTaskPar("Площадь.Общая", t.getGrossArea().doubleValue(), null, null, null);
+					}
+					
+					if (t.getCadastralNumber() != null) {
+						// есть кадастровый номер
+						ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)", 
+								null, t.getCadastralNumber(), null, null);
+					}
+				
+					t.getLivingRoom().forEach(f-> {
+						log.info("f.isNoRSOGKNEGRPRegistered()1={}", f.isNoRSOGKNEGRPRegistered());
+					});
+					
+					if (t.isNoRSOGKNEGRPRegistered()!=null && t.isNoRSOGKNEGRPRegistered()) {
+						// нет связи с кадастром
+						ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+								null, null, true, null);
+					} else {
+						// есть связь с кадастром
+						ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+								null, null, false, null);
+					}
+					ptb.accept();
+					
 				}));
 				
 				// Нежилые помещения 
@@ -825,12 +868,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					log.info("Нежилое помещение: №={}, UniqNumber={}, GUID={}", 
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
-					if (premisEol != null) {
-						// Найдено, обновить параметры помещения
-						if (t.getTotalArea()!=null) {
-							eolinkParMng.setDbl(premisEol, "Площадь.Общая", t.getTotalArea().doubleValue());
-						}
-					} else if (premisEol == null) {
+					if (premisEol == null) {
 						// Не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Помещение нежилое");
 						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), Utl.lpad(t.getPremisesNum(), "0", 7), null, null,
@@ -839,10 +877,32 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						log.info("Попытка создать запись Нежилого помещения в Eolink: № квартиры={}, un={}, GUID={}", 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 						em.persist(premisEol);
-						if (t.getTotalArea()!=null) {
-							eolinkParMng.setDbl(premisEol, "Площадь.Общая", t.getTotalArea().doubleValue());
-						}
 					}
+					ptb.setUp(premisEol, task, "GIS_TMP", null);
+					
+					// обновить параметры помещения
+					if (t.getTotalArea()!=null) {
+						ptb.addTaskPar("Площадь.Общая", t.getTotalArea().doubleValue(), null, null, null);
+					}
+					
+					if (t.getCadastralNumber() != null) {
+						// есть кадастровый номер
+						ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)", 
+								null, t.getCadastralNumber(), null, null);
+					}
+				
+					if (t.isNoRSOGKNEGRPRegistered()!=null && t.isNoRSOGKNEGRPRegistered()) {
+						// нет связи с кадастром
+						ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+								null, null, true, null);
+					} else {
+						// есть связь с кадастром
+						ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
+								null, null, false, null);
+					}
+					
+					ptb.accept();
+					
 				};
 				
 			}
@@ -858,7 +918,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @param task - задание
 	 * @throws CantPrepSoap 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportAccountData(Task task) throws CantPrepSoap {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
@@ -1125,6 +1185,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		
+		sb.setTrace(true);
+		
 		ImportHouseUORequest req = new ImportHouseUORequest();
 		req.setId("foo");
 		req.setVersion(req.getVersion());
@@ -1155,8 +1217,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	Double et = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наибольшее(1-11)");
 	    	bc.setFloorCount(String.valueOf(et));
 	    	
-	    	// нет связи с росреестром TODO
-	    	bc.setNoRSOGKNEGRPRegistered(true);
+			Boolean isGkn = teParMng.getBool(reqProp.getFoundTask(), "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	bc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	bc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
 
 	    	// установить ОКТМО
 	    	OKTMORefType oktmo = new OKTMORefType();  
@@ -1208,8 +1277,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	Double et = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наибольшее(1-11)");
 	    	bc.setFloorCount(String.valueOf(et));
 	    	
-	    	// нет связи с росреестром TODO
-	    	bc.setNoRSOGKNEGRPRegistered(true);
+			Boolean isGkn = teParMng.getBool(reqProp.getFoundTask(), "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	bc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	bc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
 
 	    	// установить ОКТМО
 	    	OKTMORefType oktmo = new OKTMORefType();  
@@ -1304,8 +1380,17 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			// Тип - отдельная квартира
 	    	rc.setPremisesCharacteristic(ulistMng.getNsiElem("NSI", 30, "Характеристика помещения", 
 	    			"Отдельная квартира"));
-	    	// Ключ связи с ГКН/ЕГРП отсутствует.
-	    	rc.setNoRSOGKNEGRPRegistered(true);
+	    	
+			Boolean isGkn = teParMng.getBool(t, "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	rc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
+	    	
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(), "0"));
 	    	// Номер подъезда
@@ -1340,8 +1425,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			NonResidentialPremiseToCreate rc = 
 	    			new NonResidentialPremiseToCreate();
 
-	    	// Ключ связи с ГКН/ЕГРП отсутствует.
-	    	rc.setNoRSOGKNEGRPRegistered(true);
+			Boolean isGkn = teParMng.getBool(t, "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	rc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(), "0"));
 
@@ -1370,8 +1462,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			// Тип - отдельная квартира
 	    	rc.setPremisesCharacteristic(ulistMng.getNsiElem("NSI", 30, "Характеристика помещения", 
 	    			"Отдельная квартира"));
-	    	// Ключ связи с ГКН/ЕГРП отсутствует.
-	    	rc.setNoRSOGKNEGRPRegistered(true);
+			Boolean isGkn = teParMng.getBool(t, "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	rc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(),"0"));
 	    	// Номер подъезда
@@ -1412,8 +1511,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			NonResidentialPremises rp = new NonResidentialPremises(); 
 			NonResidentialPremiseToUpdate rc = 
 	    			new NonResidentialPremiseToUpdate(); 
-	    	// Ключ связи с ГКН/ЕГРП отсутствует.
-	    	rc.setNoRSOGKNEGRPRegistered(true);
+			Boolean isGkn = teParMng.getBool(t, "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
+	    	if (isGkn != null && isGkn) {
+		    	// Ключ связи с ГКН/ЕГРП отсутствует.
+		    	rc.setNoRSOGKNEGRPRegistered(true);
+	    	} else {
+		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(),"0"));
     		String commProp = teParMng.getStr(t, "Помещение, сост.общ.имущ.МКД");

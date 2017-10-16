@@ -1,11 +1,5 @@
 package com.ric.st.impl;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -13,24 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
-import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.signature.demo.commands.Command;
-import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
-
-import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.ric.bill.RequestConfig;
-import com.ric.bill.Utl;
-//import com.dic.bill.mm.SaldoMng;
-import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.EmptyStorable;
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.mm.TaskParMng;
+import com.ric.bill.mm.TaskMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
@@ -39,12 +24,11 @@ import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
-import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
-import com.ric.bill.mm.TaskMng;
-import com.ric.st.mm.UlistMng;
-import com.ric.bill.Config;
+
+import lombok.extern.slf4j.Slf4j;
+import ru.gosuslugi.dom.signature.demo.commands.Command;
 
 
 @Slf4j
@@ -53,12 +37,6 @@ public class TaskController implements TaskControllers {
 
 	@Autowired
 	private TaskDAO taskDao; 
-	@Autowired
-	private EolinkDAO eolinkDao;
-	@Autowired
-	private UlistMng ulistMng;
-	@Autowired
-	private TaskParMng actParMng;
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
@@ -74,8 +52,6 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private TaskBuilders tb;
     @Autowired
-    private TaskParMng taskParMng;
-	@Autowired
 	private ApplicationContext ctx;
 	public Command sc;
 
@@ -144,8 +120,8 @@ public class TaskController implements TaskControllers {
 					case "GIS_SAVE_FILE_VALS":
 						// Выгрузка показаний приборов учета в файл
 						if (state.equals("INS")) {
-							//log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
-							//dm.saveValToFile(task);
+							log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
+							dm.saveValToFile(task);
 						}
 						break;
 					case "GIS_RPT":
@@ -189,13 +165,10 @@ public class TaskController implements TaskControllers {
 							// Экспорт объектов дома
 							log.info("******* Task.id={}, экспорт объектов дома - начало", task.getId());
 							hb.exportHouseData(task);
-							log.info("******* Task.id={}, экспорт объектов дома - окончание", task.getId());
-							
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							log.info("******* Task.id={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
 							hb.exportHouseDataAck(task);
-							log.info("******* Task.id={}, Запрос ответа по экспорту объектов дома - окончание", task.getId());
 						}
 						
 						break;
