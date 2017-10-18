@@ -93,6 +93,7 @@ public class TaskBuilder implements TaskBuilders {
      */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void activateRptTask(Task task) throws WrongGetMethod {
+		log.info("******* Task.id={}, Повторяемое задание", task.getId());
 		mapTask = new HashMap<Task, Task>();
 		// найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
 		// по определённому типу

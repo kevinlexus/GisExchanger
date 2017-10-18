@@ -149,9 +149,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			err = true;
 			errStr = "Запрос вернул ошибку!";
 		}
-		log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
-		if (state.getRequestState() != 3) {
+
+		if (state != null && state.getRequestState() != 3) {
 			// вернуться, если задание всё еще не выполнено
+			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			return null;
 		}		
 				
@@ -159,7 +160,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		if (err) {
 			// Ошибки во время выполнения
 			log.info(errStr);
-		} if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
+			task.setState("ERR");
+			task.setResult(errStr);
+		} else if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
 			// Ошибки контролей или бизнес-процесса
 			err = true;
 			errStr = state.getErrorMessage().getDescription();
@@ -208,6 +211,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importMeteringDeviceValues(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
+		log.info("******* Task.id={}, импорт показаний счетчиков, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
@@ -258,7 +262,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				}
 
 				currElVal.setTransportGUID(tguid);
-				elVal.getCurrentValue().add(currElVal);
+				elVal.setCurrentValue(currElVal);
 				// эл.энерг.
 				val.setElectricDeviceValue(elVal );
 			} else if (ulistMng.getResType(meter.getUsl()) == 0) {
@@ -309,6 +313,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importMeteringDeviceValuesAsk(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, импорт показаний счетчиков, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);	
 		
@@ -347,6 +352,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
+		log.info("******* Task.id={}, экспорт показаний счетчиков, вызов", task.getId());
 		//sb.setTrace(true);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);	
@@ -434,6 +440,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
+		log.info("******* Task.id={}, экспорт показаний счетчиков, запрос ответа", task.getId());
 		//sb.setTrace(true);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);	
@@ -557,6 +564,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void saveValToFile(Task task) throws WrongGetMethod, IOException {
+		log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		if (config.getAppTp().equals(0)) {
 			File file = new File(config.getPathCounter());

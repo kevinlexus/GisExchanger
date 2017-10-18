@@ -47,8 +47,11 @@ public class Soap2GisApplication {
                 }
             }));
         } else {
+        	System.out.println("CHECCCCCCCCCCCCCK 1");
             SpringApplication app = new SpringApplication(Soap2GisApplication.class);
+        	System.out.println("CHECCCCCCCCCCCCCK 2");
             applicationContext = app.run(args);
+        	System.out.println("CHECCCCCCCCCCCCCK 3");
             
             TaskController taskContr = applicationContext.getBean(TaskController.class);
             Config config = applicationContext.getBean(Config.class);

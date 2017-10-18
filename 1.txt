@@ -1,21 +1,14 @@
 [INFO] Scanning for projects...
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.ric.soap:Soap2:jar:0.0.1-SNAPSHOT
-[WARNING] 'build.plugins.plugin.(groupId:artifactId)' must be unique but found duplicate declaration of plugin org.springframework.boot:spring-boot-maven-plugin @ line 288, column 13
-[WARNING] 
-[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
-[WARNING] 
-[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
-[WARNING] 
 [INFO] 
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Soap2 0.0.1-SNAPSHOT
+[INFO] Building Soap2Gis 0.0.1-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
-[INFO] --- maven-dependency-plugin:2.10:tree (default-cli) @ Soap2 ---
-[INFO] com.ric.soap:Soap2:jar:0.0.1-SNAPSHOT
-[INFO] +- org.apache.santuario:xmlsec:jar:1.5.8:compile
-[INFO] |  \- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] --- maven-dependency-plugin:2.10:tree (default-cli) @ Soap2Gis ---
+[INFO] com.ric.gis:Soap2Gis:jar:0.0.1-SNAPSHOT
+[INFO] +- org.quartz-scheduler:quartz:jar:2.2.1:compile
+[INFO] |  \- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] +- org.quartz-scheduler:quartz-jobs:jar:2.2.1:compile
 [INFO] +- com.ric.bill:BWC:jar:0.0.2-SNAPSHOT:compile
 [INFO] |  +- org.hibernate:hibernate-entitymanager:jar:5.1.0.Final:compile
 [INFO] |  |  +- org.jboss.logging:jboss-logging:jar:3.3.1.Final:compile
@@ -28,7 +21,10 @@
 [INFO] |  |  \- org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
 [INFO] |  +- antlr:antlr:jar:2.7.7:compile
 [INFO] |  +- org.springframework:spring-beans:jar:4.3.10.RELEASE:compile
-[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:1.11.6.RELEASE:compile
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:1.13.6.RELEASE:compile
+[INFO] |  |  +- org.aspectj:aspectjrt:jar:1.8.10:compile
+[INFO] |  |  \- org.slf4j:jcl-over-slf4j:jar:1.7.25:compile
 [INFO] |  +- org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final:compile
 [INFO] |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.8.0:compile
 [INFO] |  +- org.springframework:spring-tx:jar:4.3.10.RELEASE:compile
@@ -41,7 +37,6 @@
 [INFO] |  +- org.springframework.boot:spring-boot-starter-logging:jar:1.5.6.RELEASE:compile
 [INFO] |  |  +- ch.qos.logback:logback-classic:jar:1.1.11:compile
 [INFO] |  |  |  \- ch.qos.logback:logback-core:jar:1.1.11:compile
-[INFO] |  |  +- org.slf4j:jcl-over-slf4j:jar:1.7.25:compile
 [INFO] |  |  +- org.slf4j:jul-to-slf4j:jar:1.7.25:compile
 [INFO] |  |  \- org.slf4j:log4j-over-slf4j:jar:1.7.25:compile
 [INFO] |  +- org.springframework:spring-core:jar:4.3.10.RELEASE:compile
@@ -111,9 +106,10 @@
 [INFO] +- org.apache.commons:commons-collections4:jar:4.0:compile
 [INFO] +- junit:junit:jar:4.12:compile
 [INFO] +- com.oracle:oracle:jar:10.2.0.2.0:compile
+[INFO] +- trustedJava:com.ric.tjava:jar:1.0:compile
 [INFO] +- com.diffplug.durian:durian:jar:3.4.0:compile
-[INFO] +- org.apache.httpcomponents:httpmime:jar:4.5.2:compile
-[INFO] +- org.apache.httpcomponents:httpclient:jar:4.5.2:compile
+[INFO] +- org.apache.httpcomponents:httpmime:jar:4.5.3:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.5.3:compile
 [INFO] |  +- org.apache.httpcomponents:httpcore:jar:4.4.6:compile
 [INFO] |  \- commons-codec:commons-codec:jar:1.10:compile
 [INFO] +- com.beust:jcommander:jar:1.48:compile
@@ -121,9 +117,10 @@
 [INFO] +- org.bouncycastle:bcpkix-jdk15on:jar:1.55:compile
 [INFO] |  \- org.bouncycastle:bcprov-jdk15on:jar:1.55:compile
 [INFO] +- com.googlecode.xades4j:xades4j:jar:1.3.2:compile
-[INFO] |  \- com.google.inject.extensions:guice-multibindings:jar:2.0:compile
-[INFO] |     \- com.google.inject:guice:jar:2.0:compile
-[INFO] |        \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  +- com.google.inject.extensions:guice-multibindings:jar:2.0:compile
+[INFO] |  |  \- com.google.inject:guice:jar:2.0:compile
+[INFO] |  |     \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  \- org.apache.santuario:xmlsec:jar:2.0.1:compile
 [INFO] +- com.sun.xml.ws:jaxws-rt:jar:2.2.7:compile
 [INFO] |  +- javax.xml.ws:jaxws-api:jar:2.2.8:compile
 [INFO] |  |  +- javax.xml.bind:jaxb-api:jar:2.2.4:compile
@@ -150,7 +147,7 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 2.699 s
-[INFO] Finished at: 2017-08-04T08:57:02+06:00
-[INFO] Final Memory: 26M/437M
+[INFO] Total time: 2.288 s
+[INFO] Finished at: 2017-10-18T09:10:53+06:00
+[INFO] Final Memory: 25M/309M
 [INFO] ------------------------------------------------------------------------

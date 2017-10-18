@@ -179,32 +179,26 @@
 		    <artifactId>junit</artifactId>
 		</dependency>
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>oracle</artifactId>
 			<version>10.2.0.2.0</version>
 		</dependency>
-
-		<dependency>
+ -->
+<!--  		<dependency>
 			<groupId>trustedJava</groupId>
 			<artifactId>com.ric.tjava</artifactId>
 			<version>1.0</version>
+			<scope>runtime</scope>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
+ -->		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
 		<dependency>
 		    <groupId>com.diffplug.durian</groupId>
 		    <artifactId>durian</artifactId>
 		    <version>3.4.0</version>
 		</dependency>
 
-<!-- 		<dependency>
-		    <groupId>com.digt</groupId>
-		    <artifactId>trustedJava</artifactId>
-		    <version>1.0</version>
-		</dependency>
-
- -->		<dependency>
+		<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpmime</artifactId>
 		    </dependency>

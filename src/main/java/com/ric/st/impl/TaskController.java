@@ -120,7 +120,6 @@ public class TaskController implements TaskControllers {
 					case "GIS_SAVE_FILE_VALS":
 						// Выгрузка показаний приборов учета в файл
 						if (state.equals("INS")) {
-							log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
 							dm.saveValToFile(task);
 						}
 						break;
@@ -129,7 +128,6 @@ public class TaskController implements TaskControllers {
 						if (state.equals("INS")) {
 							TaskPar taskPar = tb.getTrgTask(task);
 							if (taskPar!= null) {
-								log.info("******* Task.id={}, Повторяемое задание", task.getId());
 								log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
 								// активировать задание	
 								tb.activateRptTask(task);
@@ -144,7 +142,6 @@ public class TaskController implements TaskControllers {
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Обновление объектов дома
-							log.info("******* Task.id={}, Обновление объектов дома", task.getId());
 							hb.importHouseUOData(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
@@ -154,7 +151,6 @@ public class TaskController implements TaskControllers {
 						break;
 					case "GIS_EXP_CONTR":
 						// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
-						log.info("******* Task.id={}, экспорт договора управления", task.getId());
 						hb.setUp();
 						hb.exportContract(task);
 						
@@ -163,17 +159,14 @@ public class TaskController implements TaskControllers {
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Экспорт объектов дома
-							log.info("******* Task.id={}, экспорт объектов дома - начало", task.getId());
 							hb.exportHouseData(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
-							log.info("******* Task.id={}, Запрос ответа по экспорту объектов дома - начало", task.getId());
 							hb.exportHouseDataAck(task);
 						}
 						
 						break;
 					case "GIS_EXP_ACCS":
-						log.info("******* Task.id={}, экспорт лицевых счетов", task.getId());
 						// Экспорт из ГИС ЖКХ приборов учета
 						hb.setUp();
 						if (state.equals("INS")) {
@@ -184,7 +177,6 @@ public class TaskController implements TaskControllers {
 						}
 						break;
 					case "GIS_EXP_METERS":
-						log.info("******* Task.id={}, экспорт приборов учета", task.getId());
 						// Экспорт из ГИС ЖКХ приборов учета
 						hb.setUp();
 						if (state.equals("INS")) {

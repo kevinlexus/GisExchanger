@@ -1,0 +1,251 @@
+
+package ru.gosuslugi.dom.schema.integration.volume_quality;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
+
+
+/**
+ * Составной тип. Информация о перерывах
+ * 
+ * <p>Java class for IntervalType complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="IntervalType">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="StartDateAndTime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="EndDateAndTime" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="IntervalKind" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IntervalKindType"/>
+ *         &lt;element name="MunicipalService" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+ *         &lt;element name="RatedResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
+ *         &lt;element name="IntervalReason">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}String1000Type">
+ *               &lt;minLength value="1"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="AddressObject" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}AddressObjectType" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "IntervalType", propOrder = {
+    "startDateAndTime",
+    "endDateAndTime",
+    "intervalKind",
+    "municipalService",
+    "ratedResource",
+    "intervalReason",
+    "addressObject"
+})
+public class IntervalType {
+
+    @XmlElement(name = "StartDateAndTime", required = true)
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar startDateAndTime;
+    @XmlElement(name = "EndDateAndTime")
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar endDateAndTime;
+    @XmlElement(name = "IntervalKind", required = true)
+    @XmlSchemaType(name = "string")
+    protected IntervalKindType intervalKind;
+    @XmlElement(name = "MunicipalService", required = true)
+    protected NsiRef municipalService;
+    @XmlElement(name = "RatedResource")
+    protected NsiRef ratedResource;
+    @XmlElement(name = "IntervalReason", required = true)
+    protected String intervalReason;
+    @XmlElement(name = "AddressObject")
+    protected List<AddressObjectType> addressObject;
+
+    /**
+     * Gets the value of the startDateAndTime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getStartDateAndTime() {
+        return startDateAndTime;
+    }
+
+    /**
+     * Sets the value of the startDateAndTime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setStartDateAndTime(XMLGregorianCalendar value) {
+        this.startDateAndTime = value;
+    }
+
+    /**
+     * Gets the value of the endDateAndTime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getEndDateAndTime() {
+        return endDateAndTime;
+    }
+
+    /**
+     * Sets the value of the endDateAndTime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setEndDateAndTime(XMLGregorianCalendar value) {
+        this.endDateAndTime = value;
+    }
+
+    /**
+     * Gets the value of the intervalKind property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IntervalKindType }
+     *     
+     */
+    public IntervalKindType getIntervalKind() {
+        return intervalKind;
+    }
+
+    /**
+     * Sets the value of the intervalKind property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IntervalKindType }
+     *     
+     */
+    public void setIntervalKind(IntervalKindType value) {
+        this.intervalKind = value;
+    }
+
+    /**
+     * Gets the value of the municipalService property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NsiRef }
+     *     
+     */
+    public NsiRef getMunicipalService() {
+        return municipalService;
+    }
+
+    /**
+     * Sets the value of the municipalService property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NsiRef }
+     *     
+     */
+    public void setMunicipalService(NsiRef value) {
+        this.municipalService = value;
+    }
+
+    /**
+     * Gets the value of the ratedResource property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NsiRef }
+     *     
+     */
+    public NsiRef getRatedResource() {
+        return ratedResource;
+    }
+
+    /**
+     * Sets the value of the ratedResource property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NsiRef }
+     *     
+     */
+    public void setRatedResource(NsiRef value) {
+        this.ratedResource = value;
+    }
+
+    /**
+     * Gets the value of the intervalReason property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIntervalReason() {
+        return intervalReason;
+    }
+
+    /**
+     * Sets the value of the intervalReason property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIntervalReason(String value) {
+        this.intervalReason = value;
+    }
+
+    /**
+     * Gets the value of the addressObject property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the addressObject property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAddressObject().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link AddressObjectType }
+     * 
+     * 
+     */
+    public List<AddressObjectType> getAddressObject() {
+        if (addressObject == null) {
+            addressObject = new ArrayList<AddressObjectType>();
+        }
+        return this.addressObject;
+    }
+
+}

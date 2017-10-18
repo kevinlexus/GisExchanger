@@ -255,9 +255,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			errStr = "Запрос вернул ошибку!";
 		}
 		
-		log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
-		if (state.getRequestState() != 3) {
+		if (state != null && state.getRequestState() != 3) {
 			// вернуться, если задание всё еще не выполнено
+			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			return null;
 		}		
 		
@@ -265,7 +265,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		if (err) {
 			// Ошибки во время выполнения
 			log.info(errStr);
-		} if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
+			task.setState("ERR");
+			task.setResult(errStr);
+		} else if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
 			// Ошибки контролей или бизнес-процесса
 			err = true;
 			errStr = state.getErrorMessage().getDescription();
@@ -273,28 +275,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			task.setState("ERR");
 			task.setResult(errStr);
 		} else {
-			
-			for (ImportResult t : state.getImportResult()) {
-				for (CommonResult e : t.getCommonResult()) {
-					for (Error f: e.getError()) {	
-						// Найти элемент задания по Транспортному GUID
-						Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
-						if (task2.getAct().getCd().equals("GIS_ARCH_METER") && f.getErrorCode().equals("SRV007037")) {
-							// Если задание было - архивация счетчика, и пришёл ответ, что счетчик уже архивирован,
-							// не считать это ошибкой 
-							log.info("Некритичная ошибка, Error code={}, Description={}", f.getErrorCode(), f.getDescription());
-						} else {
-							// Прочие задания
-							// установить статусы ошибки по заданиям
-							task2.setState("ERR");
-							errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
-							task.setResult(errStr);
-							log.error(errStr);
-							errChld = true;
-						}
+//			if (state != null) {
+				for (ImportResult t : state.getImportResult()) {
+					for (CommonResult e : t.getCommonResult()) {
+						for (Error f: e.getError()) {	
+							// Найти элемент задания по Транспортному GUID
+							Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
+							if (task2.getAct().getCd().equals("GIS_ARCH_METER") && f.getErrorCode().equals("SRV007037")) {
+								// Если задание было - архивация счетчика, и пришёл ответ, что счетчик уже архивирован,
+								// не считать это ошибкой 
+								log.info("Некритичная ошибка, Error code={}, Description={}", f.getErrorCode(), f.getDescription());
+							} else {
+								// Прочие задания
+								// установить статусы ошибки по заданиям
+								task2.setState("ERR");
+								errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
+								task.setResult(errStr);
+								log.error(errStr);
+								errChld = true;
+							}
+						};
 					};
-				};
-			}
+				}
+			//}
 		}
 		
 		if (!err) {
@@ -322,6 +325,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
+		log.info("******* Task.id={}, экспорт приборов учета, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 
@@ -383,6 +387,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDeviceDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongGetMethod {
+		log.info("******* Task.id={}, экспорт приборов учета, запрос ответа", task.getId());
 		//sb.setTrace(true);
 
 		// тип помещения 0 - жилое, 1 - не жилое
@@ -590,6 +595,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportContract(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт договора управления, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 
@@ -709,7 +715,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportHouseData(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
+		sb.setTrace(true);
+
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		String houseGuid = houseEol.getGuid();
@@ -754,6 +763,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportHouseDataAck(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
+		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -920,6 +930,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportAccountData(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт лицевых счетов, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		
@@ -1023,6 +1034,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap {
+		log.info("******* Task.id={}, экспорт лицевых счетов, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 
@@ -1045,7 +1057,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				throw new CantPrepSoap("Ошибка при конвертации даты!");
 			}
 			
-			ac.setLivingPersonsNumber(BigDecimal.valueOf(teParMng.getDbl(t, "113ГС-ЭПМД-1.1-17.10.-Количество проживающих")).byteValue());
+			ac.setLivingPersonsNumber(teParMng.getDbl(t, "113ГС-ЭПМД-1.1-17.10.-Количество проживающих").intValue());
 			ac.setTotalSquare(BigDecimal.valueOf(teParMng.getDbl(t, "Площадь.Общая")));
 			ac.setHeatedArea(BigDecimal.valueOf(teParMng.getDbl(t, "ГИС ЖКХ.Площадь отапливаемая")));
 			
@@ -1137,6 +1149,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importAccountDataAck(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт лицевых счетов, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		
@@ -1182,10 +1195,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importHouseUOData(Task task) throws WrongGetMethod, CantPrepSoap {
+		log.info("******* Task.id={}, Обновление объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		
-		sb.setTrace(true);
+		//sb.setTrace(true);
 		
 		ImportHouseUORequest req = new ImportHouseUORequest();
 		req.setId("foo");
@@ -1580,6 +1594,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importHouseUODataAck(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, Обновление объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		
@@ -1634,6 +1649,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap {
+		log.info("******* Task.id={}, импорт приборов учета, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 
@@ -1827,6 +1843,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importMeteringDeviceDataAck(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, импорт приборов учета, запрос ответа", task.getId());
 //		sb.setTrace(true);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
