@@ -3,6 +3,7 @@ package com.ric.web;
 import javax.security.auth.message.config.AuthConfigFactory;
 
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,11 +16,19 @@ import ru.gosuslugi.dom.signature.demo.commands.Command;
 import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
 
 @SpringBootApplication
-public class Soap2GisApplication {
+public class Soap2GisApplication implements CommandLineRunner {
 
 	public static Command sc;
 	private static ApplicationContext applicationContext = null;
 	
+    //access command line arguments
+    @Override
+    public void run(String... args) throws Exception {
+
+        //do something
+
+    }
+    
 	public static void main(String[] args) {
 		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
@@ -47,11 +56,8 @@ public class Soap2GisApplication {
                 }
             }));
         } else {
-        	System.out.println("CHECCCCCCCCCCCCCK 1");
             SpringApplication app = new SpringApplication(Soap2GisApplication.class);
-        	System.out.println("CHECCCCCCCCCCCCCK 2");
             applicationContext = app.run(args);
-        	System.out.println("CHECCCCCCCCCCCCCK 3");
             
             TaskController taskContr = applicationContext.getBean(TaskController.class);
             Config config = applicationContext.getBean(Config.class);

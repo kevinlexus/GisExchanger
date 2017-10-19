@@ -43,7 +43,6 @@ import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
-import com.ric.st.impl.RetStateMeter;
 import com.ric.st.impl.SoapBuilder;
 import com.ric.st.mm.UlistMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
