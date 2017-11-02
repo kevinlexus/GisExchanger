@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
 import com.ric.bill.dao.EolinkDAO;
+import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.web.AppConfig;
@@ -67,7 +68,19 @@ public class TestSomething {
 		log.info("End");
     }
 	
-/*    @Transactional(readOnly=false)
+	@Test
+    public void testChild() throws Exception {
+		log.info("Begining-1");
+
+		Eolink parent = em.find(Eolink.class, 7163);
+		eolinkDao.getChildByTp(parent, "Подъезд").stream().forEach(t -> {
+			log.info("Eol={}", t.getId());
+		});;
+		
+		log.info("End-1");
+    }
+
+	/*    @Transactional(readOnly=false)
 	public void work1() throws EmptyStorable, WrongSetMethod {
     	int rqn =-1;
 		Obj obj = objMng.getByCD(-1, "Модуль начисления");

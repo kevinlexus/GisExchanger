@@ -69,7 +69,11 @@ public class SignCommand implements Command {
         // загружаем закрытый ключ
         //String key = "SCARD\\rutoken_311550ac\\0A00\\82F9";
         //String key = "SCARD\\rutoken_33124d15\\0A00\\1F70";
-        String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";
+        
+        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";
+
+        String key = "FAT12\\6CFAFBEC_CRT\\de263rIl.000\\946E";
+        
         //String key="C:\\work\\GIS_MUP\\pass\\Cert";
         //String key="C:\\Progs\\CryptoTunnel2x\\stunnel";
         

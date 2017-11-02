@@ -35,14 +35,61 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TestSomethingNonSpring {
 
-/*	@Test
+	@Test
     public void justTest() throws Exception {
-	 Date genDt1 = null, genDt2 = null;
-	 log.info("dt1={}, dt2={}", genDt1, genDt2);
+		Integer idx = 5;
+		
+		
+		//log.info("idx2={}", func(idx));
+		log.info("idx3={}", idx);
 	}
-*/	
+
+	private void func(Integer idx) {
+		log.info("idx1={}", idx);
+		idx=6;		
+		//return idx;
+	}
+	class CheckMe {
+		String name;
+		Integer age;
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public Integer getAge() {
+			return age;
+		}
+		public void setAge(Integer age) {
+			this.age = age;
+		}
+	}
+	
+
 	
 	@Test
+    public void justAdvanceTest() throws Exception {
+		
+		CheckMe checkMe = new CheckMe();
+		checkMe.setAge(31);
+		checkMe.setName("Andrew");
+		func2(checkMe);
+		//log.info("idx2={}", func(idx));
+		log.info("age={}, name={}", checkMe.getAge(), checkMe.getName());
+		
+	}
+
+	private void func2(CheckMe checkMe) {
+		checkMe = new CheckMe();
+
+		checkMe.setAge(33);
+		checkMe.setName("Lev");
+		
+	}
+	
+	
+/*	@Test
     public void checkCronExpression() throws Exception {
 		Date date;
 	    CronExpression exp;
@@ -61,6 +108,6 @@ public class TestSomethingNonSpring {
 				//	exp.getTimeAfter(dt), exp.getTimeBefore(dt));
 			Thread.sleep(1000);
 		}
-	}
+	}*/
 	
 }

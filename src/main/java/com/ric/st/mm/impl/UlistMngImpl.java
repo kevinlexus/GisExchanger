@@ -27,9 +27,12 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 import com.diffplug.common.base.Errors;
 import com.ric.bill.Utl;
+import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Ulist;
 import com.ric.bill.model.exs.UlistTp;
-import com.ric.st.builder.impl.NsiAsyncBindingBuilder;
+import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
+import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
+import com.ric.st.builder.impl.NsiCommonAsyncBindingBuilder;
 import com.ric.st.dao.UlistDAO;
 import com.ric.st.excp.CantGetNSI;
 import com.ric.st.excp.CantSendSoap;
@@ -49,15 +52,16 @@ import com.ric.st.mm.UlistMng;
 public class UlistMngImpl implements UlistMng {
 
 	@Autowired
-	UlistDAO ulistDao; 
+	private UlistDAO ulistDao; 
 	@Autowired
-	NsiAsyncBindingBuilder nsiBuilder;
+	private NsiCommonAsyncBindingBuilders nsiCommonBuilder;
+	@Autowired
+	private NsiServiceAsyncBindingBuilders nsiServiceBuilder;
 	@Autowired
 	private SoapConfig config;
 	@PersistenceContext
     private EntityManager em;
 	
-	private int idx=0;
 	// Хранилище справочников ГИС ЖКХ
 	private RefStore rStore;
 	
@@ -74,16 +78,22 @@ public class UlistMngImpl implements UlistMng {
 	}
 	
 	// префикс для элементов справочника
-	private String getPrefixedCD(String cd, String grp, String code) {
+	private String getPrefixedCD(String cd, String grp, String code, Integer idx) {
 		return getPrefixedCD(cd, grp)+"_"+code+"_"+idx++;
 	}
 
 	// префикс для заголовка справочника
-	private String getPrefixedCD(String cd, String grp) {
+	public String getPrefixedCD(String cd, String grp) {
 		return config.getPrefixGis()+"_"+grp+"_"+cd;
 	}
 
-	
+	/**
+	 * Обновить справочник NSI
+	 * @param ulistTp - тип 
+	 * @param grp - группа
+	 * @param id - Id справочника
+	 * @throws CantUpdNSI
+	 */
 	private void updNsiItem(UlistTp ulistTp, String grp, BigInteger id) throws CantUpdNSI {
 		// удалить элементы в нашей базе по данному справочнику
 		ulistDao.delListByListTp(ulistTp);
@@ -91,7 +101,7 @@ public class UlistMngImpl implements UlistMng {
 		// получить из ГИС справочник
 		NsiItemType res = null;
 		try {
-			res = nsiBuilder.getNsiItem(grp, id);
+			res = nsiCommonBuilder.getNsiItem(grp, id);
 		} catch (Fault  e) {
 			e.printStackTrace();
 			throw new CantUpdNSI("Ошибка при обновлении справочника NSI grp="+ grp+", id="+ id);
@@ -107,78 +117,80 @@ public class UlistMngImpl implements UlistMng {
 		} 
 		
 		if (res != null) {
-			res.getNsiElement().stream().forEach(t ->
-				{
-					// получить cd новой записи
-					String cd = getPrefixedCD(id.toString(), grp, t.getCode());
-						// создать новый элемент
-						List<NsiElementFieldType> lst2 =  t.getNsiElementField();
-
-						// создать запись главного элемента с CD в Ulist
-						log.info("Check1={}", Utl.nvl(t.getCode(), "-------"));
-						String code = null;
-						if (t.getCode()==null || t.getCode().length()==0) {
-							code = "------";
-						} else {
-							code = t.getCode();
-						}
-						log.info("Создание записи Code={}, GUID={}", t.getCode(), t.getGUID() );
-						Ulist main = new Ulist(cd, code, t.getGUID(), 
-								Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
-								t.isIsActual(), ulistTp, idx, null, null, null, null, null
-								);
-						em.persist(main);
-						log.info("Создана запись Code={}", t.getCode(), t.getGUID());
-						
-						// создать записи fields в Ulist
-						lst2.stream().forEach(d -> {
-
-							// получить cd новой записи
-							String fldCd = getPrefixedCD(id.toString(), grp, t.getCode());
-							Ulist ulist = null;
-							if (d.getClass().equals(NsiElementStringFieldType.class)) {
-								NsiElementStringFieldType fld = (NsiElementStringFieldType) d;
-								// создать запись в Ulist
-								String name = null;
-								if (fld.getName()==null || fld.getName().length()==0) {
-									name = "------";
-								} else {
-									name = fld.getName();
-								}
-								ulist = new Ulist(fldCd, name, null, 
-										null, null, null, ulistTp, idx, fld.getValue(), main, null, null, "ST"
-										);
-							} else if (d.getClass().equals(NsiElementNsiRefFieldType.class)) {
-								NsiElementNsiRefFieldType fld = (NsiElementNsiRefFieldType) d;
-								// создать запись в Ulist
-								String name = null;
-								if (fld.getName()==null || fld.getName().length()==0) {
-									name = "------";
-								} else {
-									name = fld.getName();
-								}
-								NsiRef nRef = fld.getNsiRef();
-								if (nRef != null) {
-									ulist = new Ulist(fldCd, name, null, 
-											null, null, null, ulistTp, idx, null, main, 
-											nRef.getRef().getCode(), 
-											nRef.getRef().getGUID(), "RF"
-											);
-								}
-							}
-							
-							if (ulist!=null) {
-								em.persist(ulist);
-								log.info("Создан элемент справочника  List: {}", ulist.getName());
-							}
-							
-							
-						});
-						log.info("Создан элемент справочника List :{}", cd);
-			    });
+			Integer idx = 0;
+			for (NsiElementType t: res.getNsiElement()) {
+				idx = addElement(ulistTp, grp, id.intValue(), t, idx);
+		    }
 		} else {
 			log.info("Нет элементов в базе ГИС по справочнику grp={}, id={}", grp, id);
 		}
+	}
+
+	public Integer addElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
+		// получить cd новой записи
+		String cd = getPrefixedCD(id.toString(), grp, t.getCode(), idx++);
+		// создать новый элемент
+		List<NsiElementFieldType> lst2 =  t.getNsiElementField();
+
+		// создать запись главного элемента с CD в Ulist
+		log.info("Check1={}", Utl.nvl(t.getCode(), "-------"));
+		String code = null;
+		if (t.getCode()==null || t.getCode().length()==0) {
+			code = "------";
+		} else {
+			code = t.getCode();
+		}
+		log.info("Создание записи Code={}, GUID={}", t.getCode(), t.getGUID() );
+		Ulist main = new Ulist(cd, code, t.getGUID(), 
+				Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
+				t.isIsActual(), ulistTp, idx, null, null, null, null, null
+				);
+		em.persist(main);
+		log.info("Создана запись Code={}", t.getCode(), t.getGUID());
+		
+		// создать записи fields в Ulist
+		for (NsiElementFieldType d : lst2) {
+			// получить cd новой записи
+			String fldCd = getPrefixedCD(id.toString(), grp, t.getCode(), idx++);
+			Ulist ulist = null;
+			if (d.getClass().equals(NsiElementStringFieldType.class)) {
+				NsiElementStringFieldType fld = (NsiElementStringFieldType) d;
+				// создать запись в Ulist
+				String name = null;
+				if (fld.getName()==null || fld.getName().length()==0) {
+					name = "------";
+				} else {
+					name = fld.getName();
+				}
+				ulist = new Ulist(fldCd, name, null, 
+						null, null, null, ulistTp, idx, fld.getValue(), main, null, null, "ST"
+						);
+			} else if (d.getClass().equals(NsiElementNsiRefFieldType.class)) {
+				NsiElementNsiRefFieldType fld = (NsiElementNsiRefFieldType) d;
+				// создать запись в Ulist
+				String name = null;
+				if (fld.getName()==null || fld.getName().length()==0) {
+					name = "------";
+				} else {
+					name = fld.getName();
+				}
+				NsiRef nRef = fld.getNsiRef();
+				if (nRef != null) {
+					ulist = new Ulist(fldCd, name, null, 
+							null, null, null, ulistTp, idx, null, main, 
+							nRef.getRef().getCode(), 
+							nRef.getRef().getGUID(), "RF"
+							);
+				}
+			}
+			
+			if (ulist!=null) {
+				em.persist(ulist);
+				log.info("Создан элемент справочника  List: {}", ulist.getName());
+			}
+		}
+		log.info("Создан элемент справочника List :{}", cd);
+		return idx;
 	}
 	
 	/**
@@ -264,7 +276,7 @@ public class UlistMngImpl implements UlistMng {
 		NsiItemType res;
 		try {
 			log.info("Запрос справочника из ГИС: grp={}, id={}", grp, id);
-			res = nsiBuilder.getNsiItem(grp, id);
+			res = nsiCommonBuilder.getNsiItem(grp, id);
 		} catch (Fault | CantSignSoap | CantSendSoap | ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault e1) {
 			e1.printStackTrace();
 			throw new CantGetNSI("Ошибка получения справочника NSI по группе grp="+grp);
@@ -305,12 +317,12 @@ public class UlistMngImpl implements UlistMng {
 	public void loadNsi(String grp) throws CantUpdNSI {
 		// Обновить виды справочников
 		// получить из нашей базы 
-		List<UlistTp> lst =  ulistDao.getListTpByGrp(grp);
+		List<UlistTp> lst =  ulistDao.getListTp(grp);
 		// получить из ГИС
 		NsiListType res = null;
 		try {
 			log.info("Запрос справочников группы grp={}", grp);
-			res = nsiBuilder.getNsiList(grp);
+			res = nsiCommonBuilder.getNsiList(grp);
 		} catch (Fault | CantSignSoap | CantSendSoap e1) {
 			e1.printStackTrace();
 			throw new CantUpdNSI("Ошибка обновления группы справочников grp="+grp);
@@ -383,6 +395,26 @@ public class UlistMngImpl implements UlistMng {
 		return t;
 	}
 	
+	/**
+	 * Получить элемент справочника, сохранённый в базе данных, по соответствию полей имя и значение и организация
+	 * @param grp - Группа справочника, например "NSI"
+	 * @param id - № справочника
+	 * @param name - имя искомого элемента
+	 * @param value - значение искомого элемента
+	 * @param prg - организация
+	 */
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
+		getNsiElem(String grp, Integer id, String name, String value, Eolink org) {
+		
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef t = 
+				new ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef();
+		
+		Ulist elem = ulistDao.getListElem(grp, id, name, value, org);
+		t.setCode(elem.getName());
+		t.setGUID(elem.getGuid());
+		return t;
+	}
+
 	/**
 	 * Вывести на экран содержимое всех загруженных справочников (TODO)
 	 */

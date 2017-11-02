@@ -16,8 +16,8 @@ public class UlistTpDAOImpl implements UlistTpDAO {
     private EntityManager em;
 
 	//конструктор
-    public UlistTpDAOImpl() {
+    //public UlistTpDAOImpl() {
     	
-    }
+    //}
         
 }

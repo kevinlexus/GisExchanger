@@ -1,5 +1,6 @@
 package com.ric.st.impl;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -21,13 +22,21 @@ import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
+import com.ric.st.builder.HcsBillsAsyncBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
+import com.ric.st.builder.HcsPaymentAsyncBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
+import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
+import com.ric.st.excp.CantSignSoap;
+import com.ric.st.excp.CantUpdNSI;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
+import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 import ru.gosuslugi.dom.signature.demo.commands.Command;
 
 
@@ -50,10 +59,18 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private DeviceMeteringAsyncBindingBuilders dm;
 	@Autowired
+	private HcsBillsAsyncBuilders bill;
+	@Autowired
+	private HcsPaymentAsyncBuilders pay;
+	@Autowired
 	private TaskBuilders tb;
     @Autowired
 	private ApplicationContext ctx;
 	public Command sc;
+	@Autowired
+	private NsiCommonAsyncBindingBuilders nsiComm;
+	@Autowired
+	private NsiServiceAsyncBindingBuilders nsiSv;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;	
@@ -82,9 +99,6 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
-		
-		System.out.println("DATE="+new Date());
-		System.out.println("TimeZone="+TimeZone.getDefault());
 		
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
@@ -226,12 +240,58 @@ public class TaskController implements TaskControllers {
 							dm.exportMeteringDeviceValuesAsk(task);
 						}
 						break;
+					case "GIS_IMP_PAY_DOCS":
+						bill.setUp();
+						if (state.equals("INS")) {
+							// Импорт показаний счетчиков
+							bill.importPaymentDocumentData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							bill.importPaymentDocumentDataAsk(task);
+						}
+						break;
 					case "GIS_EXP_ORG":
 						// Экспорт данных организации
 						os.setUp();
 						os.exportOrgRegistry(task, null);
 						
 						break;
+					case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
+						nsiSv.setUp();
+						if (state.equals("INS")) {
+							// Импорт внутреннего справочника организации
+							nsiSv.exportDataProviderNsiItem(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							nsiSv.exportDataProviderNsiItemAsk(task);
+						}
+						break;
+					case "GIS_EXP_NOTIF_ORDER_EXECUT":
+						// Экспорт извещений исполнения документа
+						bill.setUp();
+						if (state.equals("INS")) {
+							// Импорт внутреннего справочника организации
+							bill.exportNotificationsOfOrderExecution(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							bill.exportNotificationsOfOrderExecutionAsk(task);
+						}
+						
+						break;
+						
+					case "GIS_IMP_NOTIF_ORDER_EXECUT_CANCEL":
+						// Экспорт извещений исполнения документа
+						pay.setUp();
+						if (state.equals("INS")) {
+							// Импорт внутреннего справочника организации
+							pay.importNotificationsOfOrderExecutionCancelation(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
+						}
+						
+						break;
+
 					default:
 						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
 						break;

@@ -491,10 +491,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					
 				}
 				}
+				// Установить статус выполнения задания
+				reqProp.getFoundTask().setState("ACP");
 			}
 			
-			// Установить статус выполнения задания
-			reqProp.getFoundTask().setState("ACP");
 
 			/*Path path = null;
 			if (Utl.nvl(taskParMng.getBool(task, "ГИС ЖКХ.Выгрузить в файл"), false)) {

@@ -9,7 +9,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.excp.CantSignSoap;
 
-public interface NsiBindingBuilders {
+public interface NsiCommonBindingBuilders {
 
 	public ExportNsiListResult getNsiList(String tp) throws Fault, CantSignSoap, CantSendSoap;
 	public ExportNsiItemResult getNsiItem(String TypeList,BigInteger TypeItem) throws Fault, CantSignSoap, CantSendSoap;

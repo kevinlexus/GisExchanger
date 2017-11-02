@@ -21,7 +21,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service.NsiPortsType;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service.NsiService;
 
-import com.ric.st.builder.NsiBindingBuilders;
+import com.ric.st.builder.NsiCommonBindingBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.excp.CantSignSoap;
 import com.ric.st.impl.SoapConfig;
@@ -30,7 +30,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Service
 @Slf4j
-public class NsiBindingBuilder implements NsiBindingBuilders {
+public class NsiCommonBindingBuilder implements NsiCommonBindingBuilders {
 
 	@Autowired
 	private ApplicationContext ctx;

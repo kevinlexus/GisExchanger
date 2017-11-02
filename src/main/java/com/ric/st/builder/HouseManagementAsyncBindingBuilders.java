@@ -18,9 +18,9 @@ public interface HouseManagementAsyncBindingBuilders {
 	public Boolean exportHouseData(Task task) throws CantPrepSoap;
 	public void exportHouseDataAck(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;	
 	public void exportAccountData(Task task) throws CantPrepSoap;
-	public void exportAccountDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod;
+	public void exportAccountDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam;
 	public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap;	
-	public void importAccountDataAck(Task task) throws CantPrepSoap;
+	public void importAccountDataAck(Task task) throws CantPrepSoap, WrongGetMethod;
 	public Boolean importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
 	public void importHouseUODataAck(Task task) throws CantPrepSoap;
 	public Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;

@@ -28,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service.NsiService;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.NsiPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.NsiServiceAsync;
 
-import com.ric.st.builder.NsiAsyncBindingBuilders;
+import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.excp.CantSignSoap;
 import com.ric.st.impl.SoapConfig;
@@ -37,7 +37,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Service
 @Slf4j
-public class NsiAsyncBindingBuilder implements NsiAsyncBindingBuilders {
+public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilders {
 
 	@Autowired
 	private ApplicationContext ctx;
@@ -129,6 +129,7 @@ public class NsiAsyncBindingBuilder implements NsiAsyncBindingBuilders {
 		GetStateResult state = null;
 		
 		sb.setSign(false);
+		sb.setTrace(true);
 		while (state == null || state.getRequestState() != 3){
 			
 				state = port.getState(gs);
@@ -158,4 +159,6 @@ public class NsiAsyncBindingBuilder implements NsiAsyncBindingBuilders {
 		//sb.closeResource();
 	   //return ex;
 	}
+
+
 }

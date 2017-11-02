@@ -114,7 +114,6 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	// переписать параметры в объект Eolink
 	//@Transactional - не нужно, так как выполняется в контексте транзакции
 	public void accept() {
-		log.info("size={}", taskChild.getTaskPar().size());
 		em.persist(taskChild);
 		teParMng.acceptPar(taskChild);
 	}
