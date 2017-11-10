@@ -67,7 +67,6 @@ public class TestSomethingNonSpring {
 	}
 	
 
-	
 	@Test
     public void justAdvanceTest() throws Exception {
 		

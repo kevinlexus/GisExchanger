@@ -722,7 +722,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public Boolean exportHouseData(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, экспорт объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
-		//sb.setTrace(true);
+		sb.setTrace(true);
 
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -771,6 +771,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
+
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
