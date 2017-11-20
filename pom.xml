@@ -185,13 +185,13 @@
 			<version>10.2.0.2.0</version>
 		</dependency>
 
-  		<dependency>
-			<groupId>trustedJava</groupId>
-			<artifactId>com.ric.tjava</artifactId>
+   		<dependency>
+			<groupId>com.ric.tjava</groupId>
+			<artifactId>trustedJava</artifactId>
 			<version>1.0</version>
 			<scope>runtime</scope>
 		</dependency>
- 		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
+  		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
 		<dependency>
 		    <groupId>com.diffplug.durian</groupId>
 		    <artifactId>durian</artifactId>
@@ -299,14 +299,14 @@
 
             </plugin>
 
-  			<plugin>
+   			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<configuration>
-							<target> <!-- Это нужно, чтобы заработал windows-сервис! -->
+							<target> Это нужно, чтобы заработал windows-сервис!
 								<zip destfile="${project.build.directory}/${project.build.finalName}.jar" update="true" compress="store">
 									<fileset dir="${project.build.directory}/classes" includes="com/ric/web/Bootstrap.class"/>
 								</zip>
@@ -319,7 +319,6 @@
 					</execution>
 				</executions>
 			</plugin>
- 
   		</plugins>
 	</build>
 

@@ -6,6 +6,7 @@ import java.io.StringReader;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -116,6 +117,11 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 	        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 	        try {
 	        	domFactory.setNamespaceAware(true);
+	        	
+//	            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+//	            dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", Boolean.TRUE);
+//	            dbf.setNamespaceAware(true);
+	        	
 	            DocumentBuilder builder = domFactory.newDocumentBuilder();
 	            InputSource is = new InputSource(new StringReader(sgn));
 	            Document dDoc = builder.parse(is);
@@ -210,17 +216,17 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
      */
     private void dumpSOAPMessage(SOAPMessage msg) {
     	if (msg == null) {
-            System.out.println("SOAP Message is null");
+            log.info("SOAP Message is null");
             return;
         } else {
-	        System.out.println("");
-	        System.out.println("--------------------");
-	        System.out.println("DUMP OF SOAP MESSAGE");
-	        System.out.println("--------------------");
+	        log.info("");
+	        log.info("--------------------");
+	        log.info("DUMP OF SOAP MESSAGE");
+	        log.info("--------------------");
 	        try {
 	            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	            msg.writeTo(baos);
-	            System.out.println(baos.toString(getMessageEncoding(msg)));
+	            log.info(baos.toString(getMessageEncoding(msg)));
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -236,12 +242,12 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
      * @return
      */
     public boolean handleFault(SOAPMessageContext context) {
-        System.out.println("ServerSOAPHandler.handleFault");
+        log.info("ServerSOAPHandler.handleFault");
         boolean outbound = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         if (outbound) {
-            System.out.println("Direction=outbound (handleFault)");
+            log.info("Direction=outbound (handleFault)");
         } else {
-            System.out.println("Direction=inbound (handleFault)");
+            log.info("Direction=inbound (handleFault)");
         }
         if (!outbound) {
             try {
@@ -251,7 +257,7 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
                     String detailName = null;
                     try {
                         detailName = context.getMessage().getSOAPBody().getFault().getDetail().getFirstChild().getLocalName();
-                        System.out.println("detailName=" + detailName);
+                        log.info("detailName=" + detailName);
                     } catch (Exception e) {
                     }
                 }

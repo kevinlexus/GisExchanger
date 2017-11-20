@@ -8,16 +8,53 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.diffplug.common.base.Errors;
+import com.ric.bill.Utl;
+import com.ric.bill.dao.EolinkDAO;
+import com.ric.bill.dao.EolinkToEolinkDAO;
+import com.ric.bill.dao.ParDAO;
+import com.ric.bill.dao.TaskDAO;
+import com.ric.bill.excp.ErrorProcessAnswer;
+import com.ric.bill.excp.WrongGetMethod;
+import com.ric.bill.excp.WrongParam;
+import com.ric.bill.mm.EolinkMng;
+import com.ric.bill.mm.EolinkParMng;
+import com.ric.bill.mm.LstMng;
+import com.ric.bill.mm.TaskEolinkParMng;
+import com.ric.bill.mm.TaskMng;
+import com.ric.bill.mm.TaskParMng;
+import com.ric.bill.model.bs.AddrTp;
+import com.ric.bill.model.bs.Lst;
+import com.ric.bill.model.bs.Par;
+import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.model.exs.Task;
+import com.ric.bill.model.exs.TaskPar;
+import com.ric.st.ReqProps;
+import com.ric.st.SoapConfigs;
+import com.ric.st.TaskControllers;
+import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.PseudoTaskBuilders;
+import com.ric.st.excp.CantPrepSoap;
+import com.ric.st.excp.CantSendSoap;
+import com.ric.st.impl.RetStateHouse;
+import com.ric.st.impl.SoapBuilder;
+import com.ric.st.impl.SoapConfig;
+import com.ric.st.mm.UlistMng;
+import com.sun.xml.ws.developer.WSBindingProvider;
+
+import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
@@ -41,12 +78,7 @@ import ru.gosuslugi.dom.schema.integration.house_management.HouseBasicExportType
 import ru.gosuslugi.dom.schema.integration.house_management.HouseBasicUpdateUOType;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportAccountRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportAccountRequest.Account;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice.DeviceDataToUpdate;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice.DeviceDataToUpdate.ArchiveDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ApartmentHouseToCreate;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ApartmentHouseToUpdate;
@@ -57,56 +89,21 @@ import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises.ResidentialPremisesToCreate;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises.ResidentialPremisesToUpdate;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice.DeviceDataToUpdate;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest.MeteringDevice.DeviceDataToUpdate.ArchiveDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportResult.CommonResult;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportResult.CommonResult.ImportMeteringDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicCharacteristicsType;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicCharacteristicsType.NonResidentialPremiseDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicCharacteristicsType.ResidentialPremiseDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceFullInformationType;
-import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceToUpdateAfterDevicesValuesType;
 import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceElectricType;
 import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceNotElectricType;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementServiceAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
-import com.diffplug.common.base.Errors;
-import com.ric.bill.RequestConfig;
-import com.ric.bill.Utl;
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.dao.EolinkToEolinkDAO;
-import com.ric.bill.dao.ParDAO;
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.ErrorProcessAnswer;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.EolinkMng;
-import com.ric.bill.mm.EolinkParMng;
-import com.ric.bill.mm.LstMng;
-import com.ric.bill.mm.TaskEolinkParMng;
-import com.ric.bill.mm.TaskParMng;
-import com.ric.bill.model.bs.AddrTp;
-import com.ric.bill.model.bs.Lst;
-import com.ric.bill.model.bs.Par;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.EolinkToEolink;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.TaskPar;
-import com.ric.st.ReqProps;
-import com.ric.st.SoapConfigs;
-import com.ric.st.TaskControllers;
-import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
-import com.ric.st.builder.PseudoTaskBuilders;
-import com.ric.st.excp.CantPrepSoap;
-import com.ric.st.excp.CantSendSoap;
-import com.ric.st.impl.RetStateHouse;
-import com.ric.st.impl.SoapBuilder;
-import com.ric.st.impl.SoapConfig;
-import com.ric.st.impl.TaskController;
-import com.ric.bill.mm.TaskMng;
-import com.ric.st.mm.UlistMng;
-import com.ric.bill.Config;
-import com.sun.xml.ws.developer.WSBindingProvider;
 
 @Slf4j
 @Service
@@ -439,7 +436,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				} else {
 					// Прочие типы не обрабатывать
 					log.error("Получен не обрабатываемый тип счетчика: Счетчик: Root GUID=", t.getMeteringDeviceRootGUID());
-					throw new ErrorProcessAnswer("Получен не обрабатываемый тип счетчика: Счетчик: Root GUID="+ t.getMeteringDeviceRootGUID());
+					//throw new ErrorProcessAnswer("Получен не обрабатываемый тип счетчика: Счетчик: Root GUID="+ t.getMeteringDeviceRootGUID());
+					continue;
 				}
 				
 				// Получить список лс, к которым привязан счетчик
@@ -1023,9 +1021,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @param task - задание
 	 * @throws CantPrepSoap 
 	 * @throws WrongParam 
+	 * @throws CantProcessAnswer 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongParam {
+	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongParam, ErrorProcessAnswer {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -1064,6 +1063,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 					// Найти объект на который ссылаться
 					Eolink parentEol = eolinkMng.getEolinkByGuid(guid);
+					if (parentEol == null) {
+						throw new ErrorProcessAnswer("Не найдено помещение для прикрепления лицевого счета!");
+					}
 
 					AddrTp addrTp = lstMng.getAddrTpByCD("ЛС");
 					
@@ -1243,10 +1245,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					// Признак закрытия лицевого счета, если установлен
 					Date dtTerminate = taskParMng.getDate(task2, "ГИС ЖКХ.Дата закрытия");
 					// Установить статус активности счета
+					Integer status = null;
 					if (dtTerminate != null) {
-						task2.getEolink().setStatus(0);
+						status=0;
 					} else {
-						task2.getEolink().setStatus(1);
+						status=1;
 					}
 					// Есть дата обновления, установить GUID
 					task2.setGuid(d.getGUID());
@@ -1256,7 +1259,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							reqProp.getFoundTask().getId(), d.getTransportGUID());
 					log.info("GUID={}, UniqueNumber={}", d.getGUID(), d.getUniqueNumber());
 					// Записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
-					taskMng.setEolinkIdf(task2.getEolink(), d.getGUID(), d.getUniqueNumber(), 1);
+					taskMng.setEolinkIdf(task2.getEolink(), d.getGUID(), d.getUniqueNumber(), status);
 					task2.setState("ACP");
 				}
 			}
