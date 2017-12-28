@@ -48,6 +48,8 @@ import javax.xml.bind.annotation.XmlType;
     "roomNumber"
 })
 @XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.class,
+    ExportSupplyResourceContractObjectAddressResultType.class,
     ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.ObjectAddress.class
 })
 public class ObjectAddressType {

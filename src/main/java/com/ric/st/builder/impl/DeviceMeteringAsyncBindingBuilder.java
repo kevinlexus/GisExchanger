@@ -578,7 +578,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					Integer cLskId = null;
 					// найти первый попавшийся лицевой счет (по словам Андрейки ред. 22.09.18)
 					for (Eolink t :meter.getParentLinked()){
-						cLskId = t.getcLskId();
+						cLskId = t.getCLskId();
 						break;
 					}
 					Integer tp = null;
@@ -594,7 +594,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 						break;
 					}
 					if (cLskId == null) {
-						log.error("К счетчику не привязан лицевой счет, Meter.id={}", meter.getId());
+						log.error("К счетчику не привязан лицевой счет, Eolink.id={}", meter.getId());
 					} else if (tp != null) {
 					// предыдущее показание
 					Double prevVal = eolinkParMng.getDbl(meter, "Счетчик.ПоказПредыдущее(Т1)");
@@ -605,6 +605,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					if (val != null) {
 					    try {
 							log.info("Показания по Eolink.id={}", meter.getId());
+							// TODO сделать уникальную запись task.getId() (взять из Sequences) 
 							String str = task.getId()+"|"+cLskId+"|"+tp+"|"+eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)")+"|"+vol+"|"+
 									Utl.getStrFromDate(new Date(), "dd.MM.yyyy HH:mm:ss")+"|"+Utl.nvl(meter.getIdGrp(),"0")+"|"+Utl.nvl(meter.getIdCnt(),"0"); 
 					    	log.info(str);

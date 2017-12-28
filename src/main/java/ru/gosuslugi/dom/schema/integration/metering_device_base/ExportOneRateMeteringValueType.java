@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -33,6 +34,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExportOneRateMeteringValueType", propOrder = {
     "enterIntoSystem"
+})
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.CurrentValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.ControlValue.class
 })
 public class ExportOneRateMeteringValueType
     extends OneRateMeteringValueType

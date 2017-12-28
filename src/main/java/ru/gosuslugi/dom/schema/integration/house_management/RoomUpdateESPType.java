@@ -45,9 +45,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "terminationDate"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.ApartmentHouse.ResidentialPremises.LivingRoomToUpdate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.LivingHouse.LivingRoomToUpdate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToUpdate.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.ApartmentHouse.ResidentialPremises.LivingRoomToUpdate.class
 })
 public class RoomUpdateESPType
     extends GKNEGRPKeyType

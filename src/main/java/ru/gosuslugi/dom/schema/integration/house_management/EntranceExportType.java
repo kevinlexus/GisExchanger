@@ -22,7 +22,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceNum"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceNum" minOccurs="0"/>
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="StoreysCount" minOccurs="0">
  *           &lt;simpleType>
@@ -55,7 +55,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class EntranceExportType {
 
-    @XmlElement(name = "EntranceNum", required = true)
+    @XmlElement(name = "EntranceNum")
     protected String entranceNum;
     @XmlElement(name = "FIASChildHouseGuid")
     protected String fiasChildHouseGuid;
@@ -68,7 +68,8 @@ public class EntranceExportType {
     protected XMLGregorianCalendar terminationDate;
 
     /**
-     * Gets the value of the entranceNum property.
+     * Номер подъезда
+     * (Может быть не заполнен для группирующих домов)
      * 
      * @return
      *     possible object is

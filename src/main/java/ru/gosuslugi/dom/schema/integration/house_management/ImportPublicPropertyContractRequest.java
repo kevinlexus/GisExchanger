@@ -40,14 +40,23 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                         &lt;complexContent>
  *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}PublicPropertyContractType">
  *                             &lt;sequence>
- *                               &lt;element name="PaymentInterval">
+ *                               &lt;element name="PaymentInterval" minOccurs="0">
  *                                 &lt;complexType>
  *                                   &lt;complexContent>
  *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
- *                                         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
- *                                       &lt;/sequence>
+ *                                       &lt;choice>
+ *                                         &lt;sequence>
+ *                                           &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+ *                                           &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+ *                                         &lt;/sequence>
+ *                                         &lt;element name="Other">
+ *                                           &lt;simpleType>
+ *                                             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+ *                                               &lt;minLength value="1"/>
+ *                                             &lt;/restriction>
+ *                                           &lt;/simpleType>
+ *                                         &lt;/element>
+ *                                       &lt;/choice>
  *                                     &lt;/restriction>
  *                                   &lt;/complexContent>
  *                                 &lt;/complexType>
@@ -721,14 +730,23 @@ public class ImportPublicPropertyContractRequest
      *               &lt;complexContent>
      *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}PublicPropertyContractType">
      *                   &lt;sequence>
-     *                     &lt;element name="PaymentInterval">
+     *                     &lt;element name="PaymentInterval" minOccurs="0">
      *                       &lt;complexType>
      *                         &lt;complexContent>
      *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-     *                               &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-     *                             &lt;/sequence>
+     *                             &lt;choice>
+     *                               &lt;sequence>
+     *                                 &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+     *                                 &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+     *                               &lt;/sequence>
+     *                               &lt;element name="Other">
+     *                                 &lt;simpleType>
+     *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+     *                                     &lt;minLength value="1"/>
+     *                                   &lt;/restriction>
+     *                                 &lt;/simpleType>
+     *                               &lt;/element>
+     *                             &lt;/choice>
      *                           &lt;/restriction>
      *                         &lt;/complexContent>
      *                       &lt;/complexType>
@@ -873,14 +891,23 @@ public class ImportPublicPropertyContractRequest
          *   &lt;complexContent>
          *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}PublicPropertyContractType">
          *       &lt;sequence>
-         *         &lt;element name="PaymentInterval">
+         *         &lt;element name="PaymentInterval" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
          *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-         *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-         *                 &lt;/sequence>
+         *                 &lt;choice>
+         *                   &lt;sequence>
+         *                     &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+         *                     &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+         *                   &lt;/sequence>
+         *                   &lt;element name="Other">
+         *                     &lt;simpleType>
+         *                       &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+         *                         &lt;minLength value="1"/>
+         *                       &lt;/restriction>
+         *                     &lt;/simpleType>
+         *                   &lt;/element>
+         *                 &lt;/choice>
          *               &lt;/restriction>
          *             &lt;/complexContent>
          *           &lt;/complexType>
@@ -901,7 +928,7 @@ public class ImportPublicPropertyContractRequest
             extends PublicPropertyContractType
         {
 
-            @XmlElement(name = "PaymentInterval", required = true)
+            @XmlElement(name = "PaymentInterval")
             protected ImportPublicPropertyContractRequest.Contract.PublicPropertyContract.PaymentInterval paymentInterval;
 
             /**
@@ -938,10 +965,19 @@ public class ImportPublicPropertyContractRequest
              * &lt;complexType>
              *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-             *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-             *       &lt;/sequence>
+             *       &lt;choice>
+             *         &lt;sequence>
+             *           &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+             *           &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+             *         &lt;/sequence>
+             *         &lt;element name="Other">
+             *           &lt;simpleType>
+             *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+             *               &lt;minLength value="1"/>
+             *             &lt;/restriction>
+             *           &lt;/simpleType>
+             *         &lt;/element>
+             *       &lt;/choice>
              *     &lt;/restriction>
              *   &lt;/complexContent>
              * &lt;/complexType>
@@ -952,14 +988,17 @@ public class ImportPublicPropertyContractRequest
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "startDate",
-                "endDate"
+                "endDate",
+                "other"
             })
             public static class PaymentInterval {
 
-                @XmlElement(name = "StartDate", required = true)
+                @XmlElement(name = "StartDate")
                 protected DaySelectionType startDate;
-                @XmlElement(name = "EndDate", required = true)
+                @XmlElement(name = "EndDate")
                 protected DaySelectionType endDate;
+                @XmlElement(name = "Other")
+                protected String other;
 
                 /**
                  * Gets the value of the startDate property.
@@ -1007,6 +1046,30 @@ public class ImportPublicPropertyContractRequest
                  */
                 public void setEndDate(DaySelectionType value) {
                     this.endDate = value;
+                }
+
+                /**
+                 * Gets the value of the other property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getOther() {
+                    return other;
+                }
+
+                /**
+                 * Sets the value of the other property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setOther(String value) {
+                    this.other = value;
                 }
 
             }

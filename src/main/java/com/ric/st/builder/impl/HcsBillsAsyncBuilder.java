@@ -49,6 +49,7 @@ import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest.Pa
 import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest.PaymentInformation;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService;
+import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption.Volume;
@@ -278,7 +279,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		addPaymentDocument(task, req);
 		
-		
 		try {
 			ack = port.importPaymentDocumentData(req);
 		} catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
@@ -303,10 +303,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	private void addPaymentDocument(Task task, ImportPaymentDocumentRequest req) {
 		PaymentDocument pd = new PaymentDocument();
 		//String accGuid = "e8b19c33-4af1-4702-af14-0d0b24c9dc9e";
-		String accGuid = "0feba242-f9b6-4969-bf97-a074b87a4b55";
+		String accGuid = "da94975c-d9e5-4f87-bdac-6705c7aaf437";
 		
 		pd.setAccountGuid(accGuid );
-		pd.setPaymentDocumentNumber("KKK-6");
+		pd.setPaymentDocumentNumber("KKK-2");
 		
 		ChargeInfo chrgInfo = new ChargeInfo();
 
@@ -315,32 +315,45 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		chrgInfo.setHousingService(housService);
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
+		// @param rate - расценка
+		// @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
+		// @param totalPay - итого к оплате за расчетный период, руб.
 		chrgInfo.setHousingService(addHousingService(task, "Вид жилищной  услуги", "Плата за содержание жилого помещения", 
-				23.86D, 5D, 11D, "NO", null));
+				15.96D, 563.39D, 563.39D, "NO", null));
 
-		// коммунальные услуги
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, "Главная коммунальная услуга", "Холодное водоснабжение", 
-				23.86D, 5D, 11D, "NO", null));
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, "Главная коммунальная услуга", "Горячее водоснабжение", 
-				40.58D, 6D, 13D, "NO", null));
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, "Главная коммунальная услуга", "Электроснабжение", 
-				1.27D, 7D, 15D, "NO", null));
-		// дополнительные услуги
+		// услуги ОИ
 		
+		// коммунальные услуги
+				chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Холодное водоснабжение", 
+				30.62D, 153.1D, 153.1D, "NO", null, true));
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Интернет", 
-				5D, 4D, 10D, "NO", null));
+		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Горячее водоснабжение", 
+				31.88D, 63.76D, 63.76D, "NO", null, true));
+		chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Электроснабжение", 
+				2.21D, 227.63D, 227.63D, "NO", null, true));
+		chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Водоотведение", 
+				14.83D, 103.81D, 103.81D, "NO", null, true));
+		chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Вывоз мусора  бытового", 
+				0.83D, 29.3D, 29.3D, "NO", null, true));
+
+		// дополнительные услуги
+		chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Запирающее устройство (ЗУ)", 
+				37D, 37D, 37D, "NO", null));
 		
 		// документ выставлен
 		pd.setExpose(true);
-		pd.setTotalPayableByChargeInfo(new BigDecimal("30"));
+		pd.setTotalPayableByChargeInfo(new BigDecimal("598.07"));
 		
 		// Транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
@@ -348,14 +361,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		
 		
 		req.getPaymentDocument().add(pd);
-		req.setMonth(10);
+		req.setMonth(12);
 		req.setYear((short) 2017);
 		
 		PaymentInformation payInfo = new PaymentInformation();
 		req.getPaymentInformation().add(payInfo);
 		
-		payInfo.setBankBIK("045004725");
-		payInfo.setOperatingAccountNumber("40703810032340000001");
+		payInfo.setBankBIK("043207612");
+		payInfo.setOperatingAccountNumber("40821810726000010021");
 		
 		// Транспортный GUID платежных реквизитов   
 		String tguid = Utl.getRndUuid().toString();
@@ -373,8 +386,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * @param chrgInfo - строка начисления
 	 * @param name - тип услуги
 	 * @param s1 - наименование услуги
+	 * @param rate - расценка
 	 * @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
 	 * @param totalPay - итого к оплате за расчетный период, руб.
+	 * @param calcExpl - порядок расчетов
 	 * @param vol - объемы
 	 */
 	private HousingService addHousingService(Task task, String name, String s1, 
@@ -390,24 +405,44 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		housService.setAccountingPeriodTotal(BigDecimal.valueOf(totalAccount));
 		// Порядок расчетов
 		housService.setCalcExplanation(calcExpl);
+		
+		// Услуги ОИ TODO пока не дописал ред. 12.12.2017
+/*		MunicipalResource mr = new MunicipalResource();
+		mr.setServiceType(servType);
+		// потребление
+		mr.setConsumption(consum);
+		// расценка
+		mr.setRate(value);
+		// итого
+		mr.setAccountingPeriodTotal(value);
+		// нормативы потребления и объемы
+		mr.setServiceInformation(value);
+		// перерасчеты и льготы
+		mr.setServiceCharge(value);
+		
+		housService.getMunicipalResource().add(mr ); */
+		
+		
 		return housService;
 	}
 	
 	/*
 	 * добавить муниципальную услугу
 	 * @param task - задание
+	 * @param refId - Id справочника
 	 * @param chrgInfo - строка начисления
 	 * @param name - тип услуги
 	 * @param s1 - наименование услуги
 	 * @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
 	 * @param totalPay - итого к оплате за расчетный период, руб.
 	 * @param vol - объемы
+	 * @param isMun - муниципальная - True, ОИ - false 
 	 */
-	private MunicipalService addMunService(Task task, String name, String s1, 
-			Double rate, Double totalAccount, Double totalPay, String calcExpl, List<Volume> vol) {
+	private MunicipalService addMunService(Task task, int refId, String name, String s1, 
+			Double rate, Double totalAccount, Double totalPay, String calcExpl, List<Volume> vol, boolean isMun) {
 		NsiRef mres;
 		MunicipalService munService = new MunicipalService();
-		mres = ulistMng.getNsiElem("NSI", 51, name, s1, task.getEolink());
+		mres = ulistMng.getNsiElem("NSI", refId, name, s1, isMun==true? task.getEolink():null);
 		Consumption consump = new Consumption();
 		if (vol != null && vol.size() != 0) {
 			consump.getVolume().addAll(vol);

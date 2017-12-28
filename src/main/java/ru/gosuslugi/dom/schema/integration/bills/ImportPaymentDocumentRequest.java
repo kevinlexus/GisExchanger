@@ -24,6 +24,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationKeyTy
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;choice>
  *         &lt;sequence>
+ *           &lt;element name="ConfirmAmountsCorrect" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
  *           &lt;element name="PaymentInformation" maxOccurs="unbounded">
@@ -74,6 +75,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationKeyTy
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "confirmAmountsCorrect",
     "month",
     "year",
     "paymentInformation",
@@ -85,6 +87,8 @@ public class ImportPaymentDocumentRequest
     extends BaseType
 {
 
+    @XmlElement(name = "ConfirmAmountsCorrect")
+    protected Boolean confirmAmountsCorrect;
     @XmlElement(name = "Month", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected Integer month;
     @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
@@ -97,6 +101,30 @@ public class ImportPaymentDocumentRequest
     protected List<ImportPaymentDocumentRequest.WithdrawPaymentDocument> withdrawPaymentDocument;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
+
+    /**
+     * Gets the value of the confirmAmountsCorrect property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isConfirmAmountsCorrect() {
+        return confirmAmountsCorrect;
+    }
+
+    /**
+     * Sets the value of the confirmAmountsCorrect property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setConfirmAmountsCorrect(Boolean value) {
+        this.confirmAmountsCorrect = value;
+    }
 
     /**
      * Месяц

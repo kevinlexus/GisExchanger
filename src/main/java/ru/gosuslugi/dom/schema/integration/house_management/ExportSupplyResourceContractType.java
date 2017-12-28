@@ -211,62 +211,11 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="ObjectAddress" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportObjectAddressType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;element name="Pair" maxOccurs="100">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                             &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                             &lt;element name="HeatingSystemType" maxOccurs="unbounded" minOccurs="0">
- *                               &lt;complexType>
- *                                 &lt;complexContent>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                     &lt;sequence>
- *                                       &lt;element name="OpenOrNot">
- *                                         &lt;simpleType>
- *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                             &lt;enumeration value="Opened"/>
- *                                             &lt;enumeration value="Closed"/>
- *                                           &lt;/restriction>
- *                                         &lt;/simpleType>
- *                                       &lt;/element>
- *                                       &lt;element name="CentralizedOrNot">
- *                                         &lt;simpleType>
- *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                             &lt;enumeration value="Centralized"/>
- *                                             &lt;enumeration value="Decentralized"/>
- *                                           &lt;/restriction>
- *                                         &lt;/simpleType>
- *                                       &lt;/element>
- *                                     &lt;/sequence>
- *                                   &lt;/restriction>
- *                                 &lt;/complexContent>
- *                               &lt;/complexType>
- *                             &lt;/element>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
  *         &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                   &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *                   &lt;element name="IndicatorValue" maxOccurs="unbounded" minOccurs="0">
@@ -300,7 +249,6 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                   &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
  *                   &lt;element name="IndicatorValue">
@@ -321,7 +269,6 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                   &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType" minOccurs="0"/>
  *                   &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType" minOccurs="0"/>
@@ -444,7 +391,6 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "contractSubject",
     "countingResource",
     "specifyingQualityIndicators",
-    "objectAddress",
     "quality",
     "otherQualityIndicator",
     "plannedVolume",
@@ -486,8 +432,6 @@ public class ExportSupplyResourceContractType {
     protected String countingResource;
     @XmlElement(name = "SpecifyingQualityIndicators", required = true)
     protected String specifyingQualityIndicators;
-    @XmlElement(name = "ObjectAddress")
-    protected List<ExportSupplyResourceContractType.ObjectAddress> objectAddress;
     @XmlElement(name = "Quality")
     protected List<ExportSupplyResourceContractType.Quality> quality;
     @XmlElement(name = "OtherQualityIndicator")
@@ -837,35 +781,6 @@ public class ExportSupplyResourceContractType {
      */
     public void setSpecifyingQualityIndicators(String value) {
         this.specifyingQualityIndicators = value;
-    }
-
-    /**
-     * Gets the value of the objectAddress property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the objectAddress property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getObjectAddress().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ExportSupplyResourceContractType.ObjectAddress }
-     * 
-     * 
-     */
-    public List<ExportSupplyResourceContractType.ObjectAddress> getObjectAddress() {
-        if (objectAddress == null) {
-            objectAddress = new ArrayList<ExportSupplyResourceContractType.ObjectAddress>();
-        }
-        return this.objectAddress;
     }
 
     /**
@@ -1889,402 +1804,6 @@ public class ExportSupplyResourceContractType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportObjectAddressType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;element name="Pair" maxOccurs="100">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                   &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                   &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                   &lt;element name="HeatingSystemType" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="OpenOrNot">
-     *                               &lt;simpleType>
-     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                   &lt;enumeration value="Opened"/>
-     *                                   &lt;enumeration value="Closed"/>
-     *                                 &lt;/restriction>
-     *                               &lt;/simpleType>
-     *                             &lt;/element>
-     *                             &lt;element name="CentralizedOrNot">
-     *                               &lt;simpleType>
-     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                   &lt;enumeration value="Centralized"/>
-     *                                   &lt;enumeration value="Decentralized"/>
-     *                                 &lt;/restriction>
-     *                               &lt;/simpleType>
-     *                             &lt;/element>
-     *                           &lt;/sequence>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "transportGUID",
-        "pair"
-    })
-    public static class ObjectAddress
-        extends ExportObjectAddressType
-    {
-
-        @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
-        protected String transportGUID;
-        @XmlElement(name = "Pair", required = true)
-        protected List<ExportSupplyResourceContractType.ObjectAddress.Pair> pair;
-
-        /**
-         * Gets the value of the transportGUID property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getTransportGUID() {
-            return transportGUID;
-        }
-
-        /**
-         * Sets the value of the transportGUID property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setTransportGUID(String value) {
-            this.transportGUID = value;
-        }
-
-        /**
-         * Gets the value of the pair property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the pair property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getPair().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link ExportSupplyResourceContractType.ObjectAddress.Pair }
-         * 
-         * 
-         */
-        public List<ExportSupplyResourceContractType.ObjectAddress.Pair> getPair() {
-            if (pair == null) {
-                pair = new ArrayList<ExportSupplyResourceContractType.ObjectAddress.Pair>();
-            }
-            return this.pair;
-        }
-
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *         &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *         &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *         &lt;element name="HeatingSystemType" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="OpenOrNot">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                         &lt;enumeration value="Opened"/>
-         *                         &lt;enumeration value="Closed"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                   &lt;element name="CentralizedOrNot">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                         &lt;enumeration value="Centralized"/>
-         *                         &lt;enumeration value="Decentralized"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "pairKey",
-            "startSupplyDate",
-            "endSupplyDate",
-            "heatingSystemType"
-        })
-        public static class Pair {
-
-            @XmlElement(name = "PairKey", required = true)
-            protected String pairKey;
-            @XmlElement(name = "StartSupplyDate", required = true)
-            @XmlSchemaType(name = "date")
-            protected XMLGregorianCalendar startSupplyDate;
-            @XmlElement(name = "EndSupplyDate", required = true)
-            @XmlSchemaType(name = "date")
-            protected XMLGregorianCalendar endSupplyDate;
-            @XmlElement(name = "HeatingSystemType")
-            protected List<ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType> heatingSystemType;
-
-            /**
-             * Gets the value of the pairKey property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getPairKey() {
-                return pairKey;
-            }
-
-            /**
-             * Sets the value of the pairKey property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setPairKey(String value) {
-                this.pairKey = value;
-            }
-
-            /**
-             * Gets the value of the startSupplyDate property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
-            public XMLGregorianCalendar getStartSupplyDate() {
-                return startSupplyDate;
-            }
-
-            /**
-             * Sets the value of the startSupplyDate property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
-            public void setStartSupplyDate(XMLGregorianCalendar value) {
-                this.startSupplyDate = value;
-            }
-
-            /**
-             * Gets the value of the endSupplyDate property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
-            public XMLGregorianCalendar getEndSupplyDate() {
-                return endSupplyDate;
-            }
-
-            /**
-             * Sets the value of the endSupplyDate property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link XMLGregorianCalendar }
-             *     
-             */
-            public void setEndSupplyDate(XMLGregorianCalendar value) {
-                this.endSupplyDate = value;
-            }
-
-            /**
-             * Gets the value of the heatingSystemType property.
-             * 
-             * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the heatingSystemType property.
-             * 
-             * <p>
-             * For example, to add a new item, do as follows:
-             * <pre>
-             *    getHeatingSystemType().add(newItem);
-             * </pre>
-             * 
-             * 
-             * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType }
-             * 
-             * 
-             */
-            public List<ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType> getHeatingSystemType() {
-                if (heatingSystemType == null) {
-                    heatingSystemType = new ArrayList<ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType>();
-                }
-                return this.heatingSystemType;
-            }
-
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="OpenOrNot">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *               &lt;enumeration value="Opened"/>
-             *               &lt;enumeration value="Closed"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *         &lt;element name="CentralizedOrNot">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *               &lt;enumeration value="Centralized"/>
-             *               &lt;enumeration value="Decentralized"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "openOrNot",
-                "centralizedOrNot"
-            })
-            public static class HeatingSystemType {
-
-                @XmlElement(name = "OpenOrNot", required = true)
-                protected String openOrNot;
-                @XmlElement(name = "CentralizedOrNot", required = true)
-                protected String centralizedOrNot;
-
-                /**
-                 * Gets the value of the openOrNot property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getOpenOrNot() {
-                    return openOrNot;
-                }
-
-                /**
-                 * Sets the value of the openOrNot property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setOpenOrNot(String value) {
-                    this.openOrNot = value;
-                }
-
-                /**
-                 * Gets the value of the centralizedOrNot property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getCentralizedOrNot() {
-                    return centralizedOrNot;
-                }
-
-                /**
-                 * Sets the value of the centralizedOrNot property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setCentralizedOrNot(String value) {
-                    this.centralizedOrNot = value;
-                }
-
-            }
-
-        }
-
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType">
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -2313,7 +1832,6 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
      *         &lt;element name="IndicatorValue">
@@ -2334,45 +1852,18 @@ public class ExportSupplyResourceContractType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "addressObjectKey",
         "pairKey",
         "indicatorName",
         "indicatorValue"
     })
     public static class OtherQualityIndicator {
 
-        @XmlElement(name = "AddressObjectKey")
-        protected String addressObjectKey;
         @XmlElement(name = "PairKey", required = true)
         protected String pairKey;
         @XmlElement(name = "IndicatorName", required = true)
         protected String indicatorName;
         @XmlElement(name = "IndicatorValue", required = true)
         protected ExportSupplyResourceContractType.OtherQualityIndicator.IndicatorValue indicatorValue;
-
-        /**
-         * Gets the value of the addressObjectKey property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAddressObjectKey() {
-            return addressObjectKey;
-        }
-
-        /**
-         * Sets the value of the addressObjectKey property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAddressObjectKey(String value) {
-            this.addressObjectKey = value;
-        }
 
         /**
          * Gets the value of the pairKey property.
@@ -2854,7 +2345,6 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *         &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType" minOccurs="0"/>
      *         &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType" minOccurs="0"/>
@@ -2875,7 +2365,6 @@ public class ExportSupplyResourceContractType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "addressObjectKey",
         "pairKey",
         "volume",
         "unit",
@@ -2883,8 +2372,6 @@ public class ExportSupplyResourceContractType {
     })
     public static class PlannedVolume {
 
-        @XmlElement(name = "AddressObjectKey")
-        protected String addressObjectKey;
         @XmlElement(name = "PairKey", required = true)
         protected String pairKey;
         @XmlElement(name = "Volume")
@@ -2893,30 +2380,6 @@ public class ExportSupplyResourceContractType {
         protected String unit;
         @XmlElement(name = "FeedingMode")
         protected String feedingMode;
-
-        /**
-         * Gets the value of the addressObjectKey property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAddressObjectKey() {
-            return addressObjectKey;
-        }
-
-        /**
-         * Sets the value of the addressObjectKey property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAddressObjectKey(String value) {
-            this.addressObjectKey = value;
-        }
 
         /**
          * Gets the value of the pairKey property.
@@ -3117,7 +2580,6 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="AddressObjectKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *         &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
      *         &lt;element name="IndicatorValue" maxOccurs="unbounded" minOccurs="0">
@@ -3151,45 +2613,18 @@ public class ExportSupplyResourceContractType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "addressObjectKey",
         "pairKey",
         "qualityIndicator",
         "indicatorValue"
     })
     public static class Quality {
 
-        @XmlElement(name = "AddressObjectKey")
-        protected String addressObjectKey;
         @XmlElement(name = "PairKey", required = true)
         protected String pairKey;
         @XmlElement(name = "QualityIndicator", required = true)
         protected NsiRef qualityIndicator;
         @XmlElement(name = "IndicatorValue")
         protected List<ExportSupplyResourceContractType.Quality.IndicatorValue> indicatorValue;
-
-        /**
-         * Gets the value of the addressObjectKey property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAddressObjectKey() {
-            return addressObjectKey;
-        }
-
-        /**
-         * Sets the value of the addressObjectKey property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAddressObjectKey(String value) {
-            this.addressObjectKey = value;
-        }
 
         /**
          * Gets the value of the pairKey property.

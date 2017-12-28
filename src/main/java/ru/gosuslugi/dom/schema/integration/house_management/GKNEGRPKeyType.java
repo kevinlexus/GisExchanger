@@ -47,7 +47,6 @@ import javax.xml.bind.annotation.XmlType;
     RoomUpdateESPType.class,
     ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseESPType.BasicCharacteristicts.class,
     RoomUpdateOMSType.class,
-    BlockESPType.class,
     RoomOMSType.class,
     PremisesBasicOMSType.class,
     RoomUpdateUOType.class,
@@ -56,7 +55,6 @@ import javax.xml.bind.annotation.XmlType;
     RoomESPType.class,
     PremisesBasicUOType.class,
     PremisesBasicUpdateESPType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.LivingHouseESPType.BasicCharacteristicts.class,
     BlockUpdateOMSType.class,
     RoomUOType.class,
     ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseOMSType.BasicCharacteristicts.class,
@@ -66,7 +64,6 @@ import javax.xml.bind.annotation.XmlType;
     BlockOMSType.class,
     RoomExportType.class,
     HouseBasicUpdateESPType.class,
-    BlockUpdateESPType.class,
     ru.gosuslugi.dom.schema.integration.house_management.LivingHouseOMSType.BasicCharacteristicts.class,
     HouseBasicUOType.class
 })

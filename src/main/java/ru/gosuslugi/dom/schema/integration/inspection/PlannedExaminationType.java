@@ -67,22 +67,22 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;choice>
- *                             &lt;element name="WorkDays">
+ *                           &lt;sequence>
+ *                             &lt;element name="WorkDays" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
  *                                   &lt;minInclusive value="0"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
- *                             &lt;element name="WorkHours">
+ *                             &lt;element name="WorkHours" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
  *                                   &lt;minInclusive value="0"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
- *                           &lt;/choice>
+ *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
@@ -312,22 +312,22 @@ public class PlannedExaminationType {
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;choice>
-     *                   &lt;element name="WorkDays">
+     *                 &lt;sequence>
+     *                   &lt;element name="WorkDays" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
      *                         &lt;minInclusive value="0"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
-     *                   &lt;element name="WorkHours">
+     *                   &lt;element name="WorkHours" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
      *                         &lt;minInclusive value="0"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
-     *                 &lt;/choice>
+     *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
@@ -614,22 +614,22 @@ public class PlannedExaminationType {
          * &lt;complexType>
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;choice>
-         *         &lt;element name="WorkDays">
+         *       &lt;sequence>
+         *         &lt;element name="WorkDays" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
          *               &lt;minInclusive value="0"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
-         *         &lt;element name="WorkHours">
+         *         &lt;element name="WorkHours" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}double">
          *               &lt;minInclusive value="0"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
-         *       &lt;/choice>
+         *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
          * &lt;/complexType>

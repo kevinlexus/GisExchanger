@@ -32,6 +32,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
  *         &lt;/sequence>
  *         &lt;sequence>
+ *           &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *           &lt;element name="ContractNumber" minOccurs="0">
  *             &lt;simpleType>
  *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
@@ -64,7 +65,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/element>
  *         &lt;/sequence>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.3.0.5""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.6.0.1""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -76,6 +77,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlType(name = "", propOrder = {
     "contractRootGUID",
     "contractGUID",
+    "exportContractRootGUID",
     "contractNumber",
     "signingDateStart",
     "signingDateEnd",
@@ -91,6 +93,8 @@ public class ExportSupplyResourceContractRequest
     protected List<String> contractRootGUID;
     @XmlElement(name = "ContractGUID")
     protected List<String> contractGUID;
+    @XmlElement(name = "ExportContractRootGUID")
+    protected String exportContractRootGUID;
     @XmlElement(name = "ContractNumber")
     protected String contractNumber;
     @XmlElement(name = "SigningDateStart")
@@ -162,6 +166,30 @@ public class ExportSupplyResourceContractRequest
             contractGUID = new ArrayList<String>();
         }
         return this.contractGUID;
+    }
+
+    /**
+     * Gets the value of the exportContractRootGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getExportContractRootGUID() {
+        return exportContractRootGUID;
+    }
+
+    /**
+     * Sets the value of the exportContractRootGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setExportContractRootGUID(String value) {
+        this.exportContractRootGUID = value;
     }
 
     /**
@@ -299,7 +327,7 @@ public class ExportSupplyResourceContractRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.3.0.5";
+            return "11.6.0.1";
         } else {
             return version;
         }

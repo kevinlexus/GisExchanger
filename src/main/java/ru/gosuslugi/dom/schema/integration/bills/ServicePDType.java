@@ -74,9 +74,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "orgPPAGUID"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.class,
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.class,
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.HousingService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.AdditionalService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.MunicipalService.class

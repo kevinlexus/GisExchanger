@@ -24,9 +24,15 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;choice>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="unbounded"/>
+ *         &lt;sequence>
+ *           &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="1000"/>
+ *           &lt;choice>
+ *             &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *             &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *           &lt;/choice>
+ *         &lt;/sequence>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.3.0.5""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.6.0.1""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -37,7 +43,9 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "errorMessage",
-    "contract"
+    "contract",
+    "exportContractRootGUID",
+    "isLastPage"
 })
 @XmlRootElement(name = "exportSupplyResourceContractResult")
 public class ExportSupplyResourceContractResult
@@ -48,6 +56,10 @@ public class ExportSupplyResourceContractResult
     protected ErrorMessageType errorMessage;
     @XmlElement(name = "Contract")
     protected List<ExportSupplyResourceContractResultType> contract;
+    @XmlElement(name = "ExportContractRootGUID")
+    protected String exportContractRootGUID;
+    @XmlElement(name = "IsLastPage")
+    protected Boolean isLastPage;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -105,6 +117,54 @@ public class ExportSupplyResourceContractResult
     }
 
     /**
+     * Gets the value of the exportContractRootGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getExportContractRootGUID() {
+        return exportContractRootGUID;
+    }
+
+    /**
+     * Sets the value of the exportContractRootGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setExportContractRootGUID(String value) {
+        this.exportContractRootGUID = value;
+    }
+
+    /**
+     * Gets the value of the isLastPage property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIsLastPage() {
+        return isLastPage;
+    }
+
+    /**
+     * Sets the value of the isLastPage property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIsLastPage(Boolean value) {
+        this.isLastPage = value;
+    }
+
+    /**
      * Gets the value of the version property.
      * 
      * @return
@@ -114,7 +174,7 @@ public class ExportSupplyResourceContractResult
      */
     public String getVersion() {
         if (version == null) {
-            return "11.3.0.5";
+            return "11.6.0.1";
         } else {
             return version;
         }

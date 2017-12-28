@@ -48,6 +48,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RegOrgType }
+     * 
+     */
+    public RegOrgType createRegOrgType() {
+        return new RegOrgType();
+    }
+
+    /**
      * Create an instance of {@link RegOrgVersionType }
      * 
      */
@@ -56,11 +64,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegOrgType }
+     * Create an instance of {@link RegOrgRootAndVersionType }
      * 
      */
-    public RegOrgType createRegOrgType() {
-        return new RegOrgType();
+    public RegOrgRootAndVersionType createRegOrgRootAndVersionType() {
+        return new RegOrgRootAndVersionType();
     }
 
     /**

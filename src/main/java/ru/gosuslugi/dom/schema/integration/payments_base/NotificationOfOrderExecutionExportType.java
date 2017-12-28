@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
@@ -96,7 +97,7 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *                   &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
  *                   &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *                   &lt;element name="OrderNum" minOccurs="0">
  *                     &lt;simpleType>
@@ -210,6 +211,9 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
     "recipientInfo",
     "orderInfo"
 })
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.class
+})
 public class NotificationOfOrderExecutionExportType {
 
     @XmlElement(name = "SupplierInfo")
@@ -302,7 +306,7 @@ public class NotificationOfOrderExecutionExportType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+     *         &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
      *         &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
      *         &lt;element name="OrderNum" minOccurs="0">
      *           &lt;simpleType>
@@ -455,7 +459,7 @@ public class NotificationOfOrderExecutionExportType {
         protected String accountNumber;
 
         /**
-         * Уникальный номер платежа (идентификатор операции)
+         * Gets the value of the orderID property.
          * 
          * @return
          *     possible object is

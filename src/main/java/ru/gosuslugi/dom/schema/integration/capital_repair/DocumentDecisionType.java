@@ -24,7 +24,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="FullName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
+ *         &lt;element name="FullName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type"/>
  *         &lt;element name="Kind" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
  *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>

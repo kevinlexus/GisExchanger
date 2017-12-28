@@ -21,6 +21,8 @@ import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusCAChRequ
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusCAChResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusPublicPropertyContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusPublicPropertyContractResult;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportVotingProtocolRequest;
@@ -36,6 +38,8 @@ import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest
 import ru.gosuslugi.dom.schema.integration.house_management.ImportMeteringDeviceDataRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportNotificationRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportPublicPropertyContractRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractObjectAddressRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractProjectRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportVotingProtocolRequest;
 
@@ -412,6 +416,54 @@ public interface HouseManagementPortsType {
     public ru.gosuslugi.dom.schema.integration.house_management.ImportResult importHouseESPData(
         @WebParam(name = "importHouseESPRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "importHouseESPDataRequest")
         ImportHouseESPRequest importHouseESPDataRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт объектов жилищного фонда из договоров ресурсоснабжения
+     * 
+     * @param exportSupplyResourceContractObjectAddressRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResult
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportSupplyResourceContractObjectAddressData")
+    @WebResult(name = "exportSupplyResourceContractObjectAddressResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportSupplyResourceContractObjectAddressResult")
+    public ExportSupplyResourceContractObjectAddressResult exportSupplyResourceContractObjectAddressData(
+        @WebParam(name = "exportSupplyResourceContractObjectAddressRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportSupplyResourceContractObjectAddressRequest")
+        ExportSupplyResourceContractObjectAddressRequest exportSupplyResourceContractObjectAddressRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт информации об объектах жилищного фонда в договор ресурсоснабжения
+     * 
+     * @param importSupplyResourceContractObjectAddressRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.ImportResult
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:importSupplyResourceContractObjectAddressData")
+    @WebResult(name = "ImportResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "importSupplyResourceContractObjectAddressResult")
+    public ru.gosuslugi.dom.schema.integration.base.ImportResult importSupplyResourceContractObjectAddressData(
+        @WebParam(name = "importSupplyResourceContractObjectAddressRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "importSupplyResourceContractObjectAddressRequest")
+        ImportSupplyResourceContractObjectAddressRequest importSupplyResourceContractObjectAddressRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт проекта договора ресурсоснабжения
+     * 
+     * @param importSupplyResourceContractProjectRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.ImportResult
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:importSupplyResourceContractProjectData")
+    @WebResult(name = "ImportResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "importSupplyResourceContractProjectResult")
+    public ru.gosuslugi.dom.schema.integration.base.ImportResult importSupplyResourceContractProjectData(
+        @WebParam(name = "importSupplyResourceContractProjectRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "importSupplyResourceContractProjectRequest")
+        ImportSupplyResourceContractProjectRequest importSupplyResourceContractProjectRequest)
         throws Fault
     ;
 

@@ -22,7 +22,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesBasicExportType">
  *       &lt;sequence>
- *         &lt;choice>
+ *         &lt;choice minOccurs="0">
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceNum"/>
  *           &lt;element name="HasNoEntrance" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>

@@ -37,10 +37,19 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
- *                             &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
- *                           &lt;/sequence>
+ *                           &lt;choice>
+ *                             &lt;sequence>
+ *                               &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+ *                               &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+ *                             &lt;/sequence>
+ *                             &lt;element name="Other">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+ *                                   &lt;minLength value="1"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                           &lt;/choice>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
@@ -71,6 +80,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
+ *                   &lt;element name="IsGratuitousBasis" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/extension>
  *             &lt;/complexContent>
@@ -142,10 +152,19 @@ public class ExportStatusPublicPropertyContractResultType {
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-     *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-     *                 &lt;/sequence>
+     *                 &lt;choice>
+     *                   &lt;sequence>
+     *                     &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+     *                     &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+     *                   &lt;/sequence>
+     *                   &lt;element name="Other">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+     *                         &lt;minLength value="1"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                 &lt;/choice>
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
@@ -176,6 +195,7 @@ public class ExportStatusPublicPropertyContractResultType {
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
+     *         &lt;element name="IsGratuitousBasis" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -192,7 +212,8 @@ public class ExportStatusPublicPropertyContractResultType {
         "versionNumber",
         "statusVersion",
         "paymentInterval",
-        "agreementPayment"
+        "agreementPayment",
+        "isGratuitousBasis"
     })
     public static class PublicPropertyContract
         extends PublicPropertyContractExportType
@@ -212,6 +233,8 @@ public class ExportStatusPublicPropertyContractResultType {
         protected ExportStatusPublicPropertyContractResultType.PublicPropertyContract.PaymentInterval paymentInterval;
         @XmlElement(name = "AgreementPayment")
         protected List<ExportStatusPublicPropertyContractResultType.PublicPropertyContract.AgreementPayment> agreementPayment;
+        @XmlElement(name = "IsGratuitousBasis")
+        protected Boolean isGratuitousBasis;
 
         /**
          * Gets the value of the contractGUID property.
@@ -384,6 +407,30 @@ public class ExportStatusPublicPropertyContractResultType {
                 agreementPayment = new ArrayList<ExportStatusPublicPropertyContractResultType.PublicPropertyContract.AgreementPayment>();
             }
             return this.agreementPayment;
+        }
+
+        /**
+         * Gets the value of the isGratuitousBasis property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIsGratuitousBasis() {
+            return isGratuitousBasis;
+        }
+
+        /**
+         * Sets the value of the isGratuitousBasis property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIsGratuitousBasis(Boolean value) {
+            this.isGratuitousBasis = value;
         }
 
 
@@ -659,10 +706,19 @@ public class ExportStatusPublicPropertyContractResultType {
          * &lt;complexType>
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-         *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-         *       &lt;/sequence>
+         *       &lt;choice>
+         *         &lt;sequence>
+         *           &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+         *           &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+         *         &lt;/sequence>
+         *         &lt;element name="Other">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type">
+         *               &lt;minLength value="1"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *       &lt;/choice>
          *     &lt;/restriction>
          *   &lt;/complexContent>
          * &lt;/complexType>
@@ -673,14 +729,17 @@ public class ExportStatusPublicPropertyContractResultType {
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "startDate",
-            "endDate"
+            "endDate",
+            "other"
         })
         public static class PaymentInterval {
 
-            @XmlElement(name = "StartDate", required = true)
+            @XmlElement(name = "StartDate")
             protected DaySelectionType startDate;
-            @XmlElement(name = "EndDate", required = true)
+            @XmlElement(name = "EndDate")
             protected DaySelectionType endDate;
+            @XmlElement(name = "Other")
+            protected String other;
 
             /**
              * Gets the value of the startDate property.
@@ -728,6 +787,30 @@ public class ExportStatusPublicPropertyContractResultType {
              */
             public void setEndDate(DaySelectionType value) {
                 this.endDate = value;
+            }
+
+            /**
+             * Gets the value of the other property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getOther() {
+                return other;
+            }
+
+            /**
+             * Sets the value of the other property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setOther(String value) {
+                this.other = value;
             }
 
         }

@@ -38,7 +38,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractStatus"/>
+ *                   &lt;element name="ContractStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractStatusExportType"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractVersionGUID"/>
  *                   &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
@@ -134,7 +134,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterStatus"/>
+ *                   &lt;element name="CharterStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterStatusExportType"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterGUID"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
  *                   &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
@@ -305,7 +305,7 @@ public class ExportCAChResultType {
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterStatus"/>
+     *         &lt;element name="CharterStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterStatusExportType"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterGUID"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
      *         &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
@@ -399,7 +399,8 @@ public class ExportCAChResultType {
         @XmlElement(name = "Terminate")
         protected ExportCAChResultType.Charter.Terminate terminate;
         @XmlElement(name = "CharterStatus", required = true)
-        protected String charterStatus;
+        @XmlSchemaType(name = "string")
+        protected CharterStatusExportType charterStatus;
         @XmlElement(name = "CharterGUID", required = true)
         protected String charterGUID;
         @XmlElement(name = "CharterVersionGUID", required = true)
@@ -438,10 +439,10 @@ public class ExportCAChResultType {
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link CharterStatusExportType }
          *     
          */
-        public String getCharterStatus() {
+        public CharterStatusExportType getCharterStatus() {
             return charterStatus;
         }
 
@@ -450,10 +451,10 @@ public class ExportCAChResultType {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link CharterStatusExportType }
          *     
          */
-        public void setCharterStatus(String value) {
+        public void setCharterStatus(CharterStatusExportType value) {
             this.charterStatus = value;
         }
 
@@ -1207,7 +1208,7 @@ public class ExportCAChResultType {
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractStatus"/>
+     *         &lt;element name="ContractStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractStatusExportType"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractVersionGUID"/>
      *         &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
@@ -1300,7 +1301,8 @@ public class ExportCAChResultType {
         @XmlElement(name = "Terminate")
         protected ExportCAChResultType.Contract.Terminate terminate;
         @XmlElement(name = "ContractStatus", required = true)
-        protected String contractStatus;
+        @XmlSchemaType(name = "string")
+        protected ContractStatusExportType contractStatus;
         @XmlElement(name = "ContractGUID", required = true)
         protected String contractGUID;
         @XmlElement(name = "ContractVersionGUID", required = true)
@@ -1339,10 +1341,10 @@ public class ExportCAChResultType {
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link ContractStatusExportType }
          *     
          */
-        public String getContractStatus() {
+        public ContractStatusExportType getContractStatus() {
             return contractStatus;
         }
 
@@ -1351,10 +1353,10 @@ public class ExportCAChResultType {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link ContractStatusExportType }
          *     
          */
-        public void setContractStatus(String value) {
+        public void setContractStatus(ContractStatusExportType value) {
             this.contractStatus = value;
         }
 

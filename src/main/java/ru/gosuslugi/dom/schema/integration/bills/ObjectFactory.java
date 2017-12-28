@@ -466,11 +466,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PiecemealPayment }
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.bills.PiecemealPayment }
      * 
      */
-    public PiecemealPayment createPiecemealPayment() {
-        return new PiecemealPayment();
+    public ru.gosuslugi.dom.schema.integration.bills.PiecemealPayment createPiecemealPayment() {
+        return new ru.gosuslugi.dom.schema.integration.bills.PiecemealPayment();
     }
 
     /**
@@ -650,6 +650,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ServicePDImportType }
+     * 
+     */
+    public ServicePDImportType createServicePDImportType() {
+        return new ServicePDImportType();
+    }
+
+    /**
+     * Create an instance of {@link ServiceChargeImportType }
+     * 
+     */
+    public ServiceChargeImportType createServiceChargeImportType() {
+        return new ServiceChargeImportType();
+    }
+
+    /**
      * Create an instance of {@link AnnulmentType }
      * 
      */
@@ -663,6 +679,14 @@ public class ObjectFactory {
      */
     public ServiceDebtImportType createServiceDebtImportType() {
         return new ServiceDebtImportType();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairImportType }
+     * 
+     */
+    public CapitalRepairImportType createCapitalRepairImportType() {
+        return new CapitalRepairImportType();
     }
 
     /**
@@ -754,6 +778,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceChargeExportType.MunicipalService.ServiceCharge }
+     * 
+     */
+    public PDServiceChargeExportType.MunicipalService.ServiceCharge createPDServiceChargeExportTypeMunicipalServiceServiceCharge() {
+        return new PDServiceChargeExportType.MunicipalService.ServiceCharge();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.MunicipalService.PiecemealPayment }
+     * 
+     */
+    public PDServiceChargeExportType.MunicipalService.PiecemealPayment createPDServiceChargeExportTypeMunicipalServicePiecemealPayment() {
+        return new PDServiceChargeExportType.MunicipalService.PiecemealPayment();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeExportType.MunicipalService.PaymentRecalculation }
      * 
      */
@@ -826,6 +866,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PaymentDocumentExportType.ComponentsOfCost }
+     * 
+     */
+    public PaymentDocumentExportType.ComponentsOfCost createPaymentDocumentExportTypeComponentsOfCost() {
+        return new PaymentDocumentExportType.ComponentsOfCost();
+    }
+
+    /**
      * Create an instance of {@link PaymentDocumentExportType.Insurance.Consumption.Volume }
      * 
      */
@@ -895,6 +943,14 @@ public class ObjectFactory {
      */
     public PaymentDocumentType.PenaltiesAndCourtCosts createPaymentDocumentTypePenaltiesAndCourtCosts() {
         return new PaymentDocumentType.PenaltiesAndCourtCosts();
+    }
+
+    /**
+     * Create an instance of {@link PaymentDocumentType.ComponentsOfCost }
+     * 
+     */
+    public PaymentDocumentType.ComponentsOfCost createPaymentDocumentTypeComponentsOfCost() {
+        return new PaymentDocumentType.ComponentsOfCost();
     }
 
     /**

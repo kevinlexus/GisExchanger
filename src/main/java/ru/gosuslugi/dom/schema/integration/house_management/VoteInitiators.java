@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVersionType;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgRootAndVersionType;
 
 
 /**
@@ -20,7 +20,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice>
  *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/>
- *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
+ *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgRootAndVersionType"/>
  *       &lt;/choice>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,7 +40,7 @@ public class VoteInitiators {
     @XmlElement(name = "Ind")
     protected VotingInitiatorIndType ind;
     @XmlElement(name = "Org")
-    protected RegOrgVersionType org;
+    protected RegOrgRootAndVersionType org;
 
     /**
      * Gets the value of the ind property.
@@ -71,10 +71,10 @@ public class VoteInitiators {
      * 
      * @return
      *     possible object is
-     *     {@link RegOrgVersionType }
+     *     {@link RegOrgRootAndVersionType }
      *     
      */
-    public RegOrgVersionType getOrg() {
+    public RegOrgRootAndVersionType getOrg() {
         return org;
     }
 
@@ -83,10 +83,10 @@ public class VoteInitiators {
      * 
      * @param value
      *     allowed object is
-     *     {@link RegOrgVersionType }
+     *     {@link RegOrgRootAndVersionType }
      *     
      */
-    public void setOrg(RegOrgVersionType value) {
+    public void setOrg(RegOrgRootAndVersionType value) {
         this.org = value;
     }
 

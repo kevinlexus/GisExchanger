@@ -21,67 +21,18 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;element name="ApartmentHouse">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;choice minOccurs="0">
- *                     &lt;element name="ApartmentHouseToCreate">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="ApartmentHouseToUpdate">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseUpdateRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
+ *       &lt;sequence>
+ *         &lt;choice>
+ *           &lt;element name="ApartmentHouse">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
- *                     &lt;element name="NonResidentialPremiseToCreate" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="NonResidentialPremiseToUpdate" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesUpdateRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                               &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                   &lt;sequence>
- *                     &lt;sequence>
- *                       &lt;element name="EntranceToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                     &lt;choice minOccurs="0">
+ *                       &lt;element name="ApartmentHouseToCreate">
  *                         &lt;complexType>
  *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceRSOType">
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseRSOType">
  *                               &lt;sequence>
  *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
  *                               &lt;/sequence>
@@ -89,207 +40,259 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                           &lt;/complexContent>
  *                         &lt;/complexType>
  *                       &lt;/element>
- *                       &lt;element name="EntranceToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                       &lt;element name="ApartmentHouseToUpdate">
  *                         &lt;complexType>
  *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceUpdateRSOType">
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseUpdateRSOType">
  *                               &lt;sequence>
  *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                 &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                               &lt;/sequence>
+ *                             &lt;/extension>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
+ *                     &lt;/choice>
+ *                     &lt;sequence>
+ *                       &lt;element name="NonResidentialPremiseToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesRSOType">
+ *                               &lt;sequence>
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                               &lt;/sequence>
+ *                             &lt;/extension>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
+ *                       &lt;element name="NonResidentialPremiseToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesUpdateRSOType">
+ *                               &lt;sequence>
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                 &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                               &lt;/sequence>
  *                             &lt;/extension>
  *                           &lt;/complexContent>
  *                         &lt;/complexType>
  *                       &lt;/element>
  *                     &lt;/sequence>
- *                     &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;choice>
- *                                 &lt;element name="ResidentialPremisesToCreate">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="ResidentialPremisesToUpdate">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesUpdateRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                           &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/choice>
- *                               &lt;sequence>
- *                                 &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/sequence>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="LivingHouse">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;choice minOccurs="0">
- *                     &lt;element name="LivingHouseToCreate">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="LivingHouseToUpdate">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseUpdateRSOType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                   &lt;choice>
  *                     &lt;sequence>
- *                       &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                       &lt;sequence>
+ *                         &lt;element name="EntranceToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                           &lt;complexType>
+ *                             &lt;complexContent>
+ *                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceRSOType">
+ *                                 &lt;sequence>
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                 &lt;/sequence>
+ *                               &lt;/extension>
+ *                             &lt;/complexContent>
+ *                           &lt;/complexType>
+ *                         &lt;/element>
+ *                         &lt;element name="EntranceToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                           &lt;complexType>
+ *                             &lt;complexContent>
+ *                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceUpdateRSOType">
+ *                                 &lt;sequence>
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                   &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                 &lt;/sequence>
+ *                               &lt;/extension>
+ *                             &lt;/complexContent>
+ *                           &lt;/complexType>
+ *                         &lt;/element>
+ *                       &lt;/sequence>
+ *                       &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0">
  *                         &lt;complexType>
  *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                               &lt;sequence>
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                 &lt;choice>
+ *                                   &lt;element name="ResidentialPremisesToCreate">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                   &lt;element name="ResidentialPremisesToUpdate">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesUpdateRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                             &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                 &lt;/choice>
+ *                                 &lt;sequence>
+ *                                   &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                   &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                             &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                 &lt;/sequence>
  *                               &lt;/sequence>
- *                             &lt;/extension>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                       &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
- *                               &lt;sequence>
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                 &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                               &lt;/sequence>
- *                             &lt;/extension>
+ *                             &lt;/restriction>
  *                           &lt;/complexContent>
  *                         &lt;/complexType>
  *                       &lt;/element>
  *                     &lt;/sequence>
- *                     &lt;element name="Blocks" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;choice>
- *                                 &lt;element name="BlockToCreate">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="BlockToUpdate">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockUpdateRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                           &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/choice>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="LivingHouse">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;sequence>
+ *                     &lt;choice minOccurs="0">
+ *                       &lt;element name="LivingHouseToCreate">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseRSOType">
  *                               &lt;sequence>
- *                                 &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
  *                               &lt;/sequence>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/choice>
+ *                             &lt;/extension>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
+ *                       &lt;element name="LivingHouseToUpdate">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseUpdateRSOType">
+ *                               &lt;sequence>
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                               &lt;/sequence>
+ *                             &lt;/extension>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
+ *                     &lt;/choice>
+ *                     &lt;choice>
+ *                       &lt;sequence>
+ *                         &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                           &lt;complexType>
+ *                             &lt;complexContent>
+ *                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
+ *                                 &lt;sequence>
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                 &lt;/sequence>
+ *                               &lt;/extension>
+ *                             &lt;/complexContent>
+ *                           &lt;/complexType>
+ *                         &lt;/element>
+ *                         &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                           &lt;complexType>
+ *                             &lt;complexContent>
+ *                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
+ *                                 &lt;sequence>
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                   &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                 &lt;/sequence>
+ *                               &lt;/extension>
+ *                             &lt;/complexContent>
+ *                           &lt;/complexType>
+ *                         &lt;/element>
+ *                       &lt;/sequence>
+ *                       &lt;element name="Blocks" maxOccurs="unbounded" minOccurs="0">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                               &lt;sequence>
+ *                                 &lt;choice>
+ *                                   &lt;element name="BlockToCreate">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                   &lt;element name="BlockToUpdate">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockUpdateRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                             &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                 &lt;/choice>
+ *                                 &lt;sequence>
+ *                                   &lt;element name="LivingRoomToCreate" maxOccurs="unbounded" minOccurs="0">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                   &lt;element name="LivingRoomToUpdate" maxOccurs="unbounded" minOccurs="0">
+ *                                     &lt;complexType>
+ *                                       &lt;complexContent>
+ *                                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomUpdateRSOType">
+ *                                           &lt;sequence>
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                             &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *                                           &lt;/sequence>
+ *                                         &lt;/extension>
+ *                                       &lt;/complexContent>
+ *                                     &lt;/complexType>
+ *                                   &lt;/element>
+ *                                 &lt;/sequence>
+ *                               &lt;/sequence>
+ *                             &lt;/restriction>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
+ *                     &lt;/choice>
+ *                   &lt;/sequence>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *         &lt;/choice>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}InheritMissingValues" minOccurs="0"/>
+ *       &lt;/sequence>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -301,7 +304,8 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "apartmentHouse",
-    "livingHouse"
+    "livingHouse",
+    "inheritMissingValues"
 })
 @XmlRootElement(name = "importHouseRSORequest")
 public class ImportHouseRSORequest
@@ -312,6 +316,8 @@ public class ImportHouseRSORequest
     protected ImportHouseRSORequest.ApartmentHouse apartmentHouse;
     @XmlElement(name = "LivingHouse")
     protected ImportHouseRSORequest.LivingHouse livingHouse;
+    @XmlElement(name = "InheritMissingValues")
+    protected Boolean inheritMissingValues;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -361,6 +367,30 @@ public class ImportHouseRSORequest
      */
     public void setLivingHouse(ImportHouseRSORequest.LivingHouse value) {
         this.livingHouse = value;
+    }
+
+    /**
+     * Gets the value of the inheritMissingValues property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isInheritMissingValues() {
+        return inheritMissingValues;
+    }
+
+    /**
+     * Sets the value of the inheritMissingValues property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setInheritMissingValues(Boolean value) {
+        this.inheritMissingValues = value;
     }
 
     /**

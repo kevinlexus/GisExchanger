@@ -41,6 +41,10 @@ import javax.xml.bind.annotation.XmlType;
     "readingsSource"
 })
 @XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.ElectricMeteringValueKindType.CurrentValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.ElectricMeteringValueKindType.ControlValue.class,
     ExportElectricMeteringValueType.class
 })
 public class ElectricMeteringValueType {

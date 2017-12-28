@@ -71,7 +71,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                             &lt;element name="ProtocolNum">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                   &lt;maxLength value="30"/>
+ *                                   &lt;maxLength value="255"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
@@ -488,7 +488,7 @@ public class PublicPropertyContractExportType {
      *                   &lt;element name="ProtocolNum">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                         &lt;maxLength value="30"/>
+     *                         &lt;maxLength value="255"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
@@ -592,7 +592,7 @@ public class PublicPropertyContractExportType {
          *         &lt;element name="ProtocolNum">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;maxLength value="30"/>
+         *               &lt;maxLength value="255"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>

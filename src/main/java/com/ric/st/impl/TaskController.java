@@ -1,9 +1,5 @@
 package com.ric.st.impl;
 
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.TimeZone;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -31,12 +27,8 @@ import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
-import com.ric.st.excp.CantSignSoap;
-import com.ric.st.excp.CantUpdNSI;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
-import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 import ru.gosuslugi.dom.signature.demo.commands.Command;
 
 
@@ -259,7 +251,7 @@ public class TaskController implements TaskControllers {
 					case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
 						nsiSv.setUp();
 						if (state.equals("INS")) {
-							// Импорт внутреннего справочника организации
+							// Экспорт внутреннего справочника организации
 							nsiSv.exportDataProviderNsiItem(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа

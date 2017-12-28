@@ -22,10 +22,21 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;choice>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *         &lt;sequence>
+ *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *           &lt;element name="StatusVersionProtocol" minOccurs="0">
+ *             &lt;simpleType>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                 &lt;enumeration value="Created"/>
+ *                 &lt;enumeration value="Posted"/>
+ *                 &lt;enumeration value="Edited"/>
+ *               &lt;/restriction>
+ *             &lt;/simpleType>
+ *           &lt;/element>
+ *         &lt;/sequence>
  *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -36,6 +47,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "fiasHouseGuid",
+    "statusVersionProtocol",
     "votingProtocolGUID"
 })
 @XmlRootElement(name = "exportVotingProtocolRequest")
@@ -45,6 +57,8 @@ public class ExportVotingProtocolRequest
 
     @XmlElement(name = "FIASHouseGuid")
     protected String fiasHouseGuid;
+    @XmlElement(name = "StatusVersionProtocol")
+    protected String statusVersionProtocol;
     @XmlElement(name = "VotingProtocolGUID")
     protected List<String> votingProtocolGUID;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
@@ -72,6 +86,30 @@ public class ExportVotingProtocolRequest
      */
     public void setFIASHouseGuid(String value) {
         this.fiasHouseGuid = value;
+    }
+
+    /**
+     * Gets the value of the statusVersionProtocol property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStatusVersionProtocol() {
+        return statusVersionProtocol;
+    }
+
+    /**
+     * Sets the value of the statusVersionProtocol property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStatusVersionProtocol(String value) {
+        this.statusVersionProtocol = value;
     }
 
     /**
@@ -113,7 +151,7 @@ public class ExportVotingProtocolRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "10.0.1.1";
+            return "11.7.0.3";
         } else {
             return version;
         }

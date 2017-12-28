@@ -24,6 +24,7 @@ import com.diffplug.common.base.Errors;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.EolinkToEolinkDAO;
+import com.ric.bill.dao.KartHpDAO;
 import com.ric.bill.dao.ParDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
@@ -31,6 +32,7 @@ import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.mm.EolinkParMng;
+import com.ric.bill.mm.EolinkToEolinkMng;
 import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
@@ -136,11 +138,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Autowired
 	private EolinkToEolinkDAO eolinkToEolinkDao;
 	@Autowired
+	private EolinkToEolinkMng eolToEolMng;
+	@Autowired
 	private ReqProps reqProp;
 	@Autowired
 	private SoapConfigs soapConfig;
 	@Autowired
 	private ParDAO parDao;
+	@Autowired
+	private KartHpDAO kartHpDao;
 	@Autowired
 	TaskControllers taskCtrl;
 	@Autowired
@@ -443,14 +449,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				// Получить список лс, к которым привязан счетчик
 				List<String> guidLst = null; 
 				if (premiseTp == 0) {
-					guidLst = t.getBasicChatacteristicts().getResidentialPremiseDevice().getAccountGUID().stream().collect(Collectors.toList());
+					guidLst = t.getBasicChatacteristicts().getResidentialPremiseDevice()
+							.getAccountGUID().stream().collect(Collectors.toList());
 				} else if (premiseTp == 1) {
-					guidLst = t.getBasicChatacteristicts().getNonResidentialPremiseDevice().getAccountGUID().stream().collect(Collectors.toList());
+					guidLst = t.getBasicChatacteristicts().getNonResidentialPremiseDevice()
+							.getAccountGUID().stream().collect(Collectors.toList());
 				}
 				
-				for (String lskGUID: guidLst) {
-					log.info("Непонятный объект, к которому привязан счетчик GUID={}", lskGUID);
-				}
+				//Integer ex;
+				//kartHpDao.findOne(ex);
 				
 				// найти корневую запись счетчика
 				Eolink rootEol = eolinkMng.getEolinkByGuid(t.getMeteringDeviceRootGUID()); 
@@ -562,6 +569,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					}
 					
 				}
+				
+				// Привязать счетчик к лиц.счетам
+				for (String lskGUID: guidLst) {
+					Eolink lskEol = eolinkMng.getEolinkByGuid(lskGUID);
+					eolToEolMng.saveParentChild(lskEol, rootEol, "Логическая связь");
+				}
+
 				// Параметры счетчика
 				eolinkParMng.setStr(rootEol, "Счетчик.НомерПУ", t.getBasicChatacteristicts().getMeteringDeviceNumber()); 
 				eolinkParMng.setStr(rootEol, "Счетчик.Модель", t.getBasicChatacteristicts().getMeteringDeviceModel()); 
@@ -837,9 +851,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					ptb.setUp(entryEol, task, "GIS_TMP", null);
 					ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
 					Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
-					if (dtTerm!=null && (dtTerm.getTime() > curDate.getTime())) {
+					if (dtTerm!=null && (dtTerm.getTime() < curDate.getTime())) {
 						// Объект не активен
 						entryEol.setStatus(0);
+					} else {
+						// Объект активен
+						entryEol.setStatus(1);
 					}
 					ptb.accept();
 				}
@@ -889,9 +906,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					ptb.setUp(premisEol, task, "GIS_TMP", null);
 					ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
 					Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
-					if (dtTerm!=null && (dtTerm.getTime() > curDate.getTime())) {
+					if (dtTerm!=null && (dtTerm.getTime() < curDate.getTime())) {
 						// Объект не активен
 						premisEol.setStatus(0);
+					} else {
+						// Объект активен
+						premisEol.setStatus(1);
 					}
 					if (t.getGrossArea()!=null) {
 						ptb.addTaskPar("Площадь.Общая", t.getGrossArea().doubleValue(), null, null, null);
@@ -939,9 +959,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					ptb.setUp(premisEol, task, "GIS_TMP", null);
 					ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
 					Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
-					if (dtTerm!=null && (dtTerm.getTime() > curDate.getTime())) {
+					if (dtTerm!=null && (dtTerm.getTime() < curDate.getTime())) {
 						// Объект не активен
 						premisEol.setStatus(0);
+					} else {
+						// Объект активен
+						premisEol.setStatus(1);
 					}
 					if (t.getTotalArea()!=null) {
 						ptb.addTaskPar("Площадь.Общая", t.getTotalArea().doubleValue(), null, null, null);
@@ -1288,9 +1311,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, Импорт объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		
-		//sb.setTrace(true);
-		
+		sb.setTrace(true);
 		ImportHouseUORequest req = new ImportHouseUORequest();
 		req.setId("foo");
 		req.setVersion(req.getVersion());
@@ -1491,15 +1512,25 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    	rc.setCadastralNumber(teParMng.getStr(t, 
 		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    	}
+
+	    	// наличие подъезда
+	    	if (t.getEolink().getParent().getObjTp().getCd().equals("Подъезд")) {
+	    		// есть подъезд
+		    	// номер подъезда
+		    	String entryNum = String.valueOf(t.getEolink().getEntry());
+		    	if (entryNum!=null ) {
+			    	rc.setEntranceNum(entryNum);
+		    	}
+	    	} else {
+	    		// нет подъезда
+				rc.setHasNoEntrance(true);
 	    	}
 	    	
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(), "0"));
-	    	// Номер подъезда
-	    	String entryNum = String.valueOf(t.getEolink().getEntry());
-	    	rc.setEntranceNum(entryNum);
 			// Общая площадь
 			Double totalArea = teParMng.getDbl(t, "Площадь.Общая");
 	    	rc.setTotalArea(BigDecimal.valueOf(totalArea));
@@ -1534,7 +1565,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    	rc.setCadastralNumber(teParMng.getStr(t, 
 		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
 	    	}
 	    	// Номер помещения
@@ -1571,15 +1602,26 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    	rc.setCadastralNumber(teParMng.getStr(t, 
 		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
 	    	}
+
+	    	// наличие подъезда
+	    	if (t.getEolink().getParent().getObjTp().getCd().equals("Подъезд")) {
+	    		// есть подъезд
+		    	// номер подъезда
+		    	String entryNum = String.valueOf(t.getEolink().getEntry());
+		    	if (entryNum!=null ) {
+			    	rc.setEntranceNum(entryNum);
+		    	}
+	    	} else {
+	    		// нет подъезда
+				rc.setHasNoEntrance(true);
+	    	}
+
 	    	// Номер помещения
-	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(),"0"));
-	    	// Номер подъезда
-	    	String entryNum = String.valueOf(t.getEolink().getEntry());
-	    	rc.setEntranceNum(entryNum);
-			// Общая площадь
+	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(), "0"));
+	    	// Общая площадь
 			Double totalArea = teParMng.getDbl(t, "Площадь.Общая");
 	    	rc.setTotalArea(BigDecimal.valueOf(totalArea));
 			// Жилая площадь
@@ -1589,12 +1631,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			} else {
 		    	rc.setNoGrossArea(true);
 			}
-	    	// Дата закрытия, если установлено 
-	    	Date dtTerminate = teParMng.getDate(t, "ГИС ЖКХ.Дата закрытия");
+	    	// Дата закрытия, если установлено - убрал параметр 26.12.2017 из за сложности восстановления через интерфейс ГИС!!!
+	    	/*Date dtTerminate = teParMng.getDate(t, "ГИС ЖКХ.Дата закрытия");
 	    	if (dtTerminate != null) {
 		    	rc.setTerminationDate(Utl.getXMLDate(dtTerminate));
 	    	}
 			
+	    	rc.setTerminationDate(null);*/
+	    	
 	    	// Транспортный GUID
 	    	String tguid = Utl.getRndUuid().toString();
 	    	t.setTguid(tguid);
@@ -1619,7 +1663,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
+		    	rc.setCadastralNumber(teParMng.getStr(t, 
 		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
 	    	}
 	    	// Номер помещения
@@ -1628,11 +1672,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	
 	    	rc.setIsCommonProperty(commProp.equals("Да") ? true: false);
 	    	
-	    	// Дата закрытия, если установлено 
-	    	Date dtTerminate = teParMng.getDate(t, "ГИС ЖКХ.Дата закрытия");
+	    	// Дата закрытия, если установлено - убрал параметр 26.12.2017 из за сложности восстановления через интерфейс ГИС!!! 
+	    	/*Date dtTerminate = teParMng.getDate(t, "ГИС ЖКХ.Дата закрытия");
 	    	if (dtTerminate != null) {
 		    	rc.setTerminationDate(Utl.getXMLDate(dtTerminate));
-	    	}
+	    	}*/
 
 	    	// Общая площадь
 			Double totalArea = teParMng.getDbl(t, "Площадь.Общая");

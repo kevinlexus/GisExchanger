@@ -41,9 +41,7 @@ import javax.xml.bind.annotation.XmlType;
     "ogfData"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.ApartmentHouse.ResidentialPremises.LivingRoomToCreate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.LivingHouse.LivingRoomToCreate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToCreate.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportHouseESPRequest.ApartmentHouse.ResidentialPremises.LivingRoomToCreate.class
 })
 public class RoomESPType
     extends GKNEGRPKeyType

@@ -40,6 +40,10 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "readingsSource"
 })
 @XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.ControlValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.OneRateMeteringValueKindType.CurrentValue.class,
+    ru.gosuslugi.dom.schema.integration.device_metering.OneRateMeteringValueKindType.ControlValue.class,
     ExportOneRateMeteringValueType.class
 })
 public class OneRateMeteringValueType {

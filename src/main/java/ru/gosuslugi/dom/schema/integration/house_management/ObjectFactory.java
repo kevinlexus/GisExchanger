@@ -36,6 +36,7 @@ public class ObjectFactory {
     private final static QName _ConditionalNumber_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "ConditionalNumber");
     private final static QName _EntranceNum_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "EntranceNum");
     private final static QName _CharterStatus_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "CharterStatus");
+    private final static QName _InheritMissingValues_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "InheritMissingValues");
     private final static QName _NoRSOGKNEGRPData_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "No_RSO_GKN_EGRP_Data");
     private final static QName _RISUHouseRequest_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "RISUHouseRequest");
     private final static QName _ContractStatus_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "ContractStatus");
@@ -56,6 +57,22 @@ public class ObjectFactory {
      */
     public ImportResult createImportResult() {
         return new ImportResult();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest createImportSupplyResourceContractObjectAddressRequest() {
+        return new ImportSupplyResourceContractObjectAddressRequest();
     }
 
     /**
@@ -139,14 +156,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportVotingProtocolResult }
-     * 
-     */
-    public ExportVotingProtocolResult createExportVotingProtocolResult() {
-        return new ExportVotingProtocolResult();
-    }
-
-    /**
      * Create an instance of {@link ImportHouseESPRequest }
      * 
      */
@@ -160,6 +169,14 @@ public class ObjectFactory {
      */
     public ImportHouseUORequest createImportHouseUORequest() {
         return new ImportHouseUORequest();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractProjectRequest }
+     * 
+     */
+    public ImportSupplyResourceContractProjectRequest createImportSupplyResourceContractProjectRequest() {
+        return new ImportSupplyResourceContractProjectRequest();
     }
 
     /**
@@ -267,14 +284,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LivingHouseESPType }
-     * 
-     */
-    public LivingHouseESPType createLivingHouseESPType() {
-        return new LivingHouseESPType();
-    }
-
-    /**
      * Create an instance of {@link ContractType }
      * 
      */
@@ -379,6 +388,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProtocolExportType.ExtraVoting }
+     * 
+     */
+    public ProtocolExportType.ExtraVoting createProtocolExportTypeExtraVoting() {
+        return new ProtocolExportType.ExtraVoting();
+    }
+
+    /**
      * Create an instance of {@link CharterExportType }
      * 
      */
@@ -392,6 +409,30 @@ public class ObjectFactory {
      */
     public ExportStatusCAChResultType createExportStatusCAChResultType() {
         return new ExportStatusCAChResultType();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType }
+     * 
+     */
+    public SupplyResourceContractProjectType createSupplyResourceContractProjectType() {
+        return new SupplyResourceContractProjectType();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Quality }
+     * 
+     */
+    public SupplyResourceContractProjectType.Quality createSupplyResourceContractProjectTypeQuality() {
+        return new SupplyResourceContractProjectType.Quality();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Period }
+     * 
+     */
+    public SupplyResourceContractProjectType.Period createSupplyResourceContractProjectTypePeriod() {
+        return new SupplyResourceContractProjectType.Period();
     }
 
     /**
@@ -432,6 +473,14 @@ public class ObjectFactory {
      */
     public CharterType createCharterType() {
         return new CharterType();
+    }
+
+    /**
+     * Create an instance of {@link ContractSubjectObjectAdressType }
+     * 
+     */
+    public ContractSubjectObjectAdressType createContractSubjectObjectAdressType() {
+        return new ContractSubjectObjectAdressType();
     }
 
     /**
@@ -488,22 +537,6 @@ public class ObjectFactory {
      */
     public ExportSupplyResourceContractType.Quality createExportSupplyResourceContractTypeQuality() {
         return new ExportSupplyResourceContractType.Quality();
-    }
-
-    /**
-     * Create an instance of {@link ExportSupplyResourceContractType.ObjectAddress }
-     * 
-     */
-    public ExportSupplyResourceContractType.ObjectAddress createExportSupplyResourceContractTypeObjectAddress() {
-        return new ExportSupplyResourceContractType.ObjectAddress();
-    }
-
-    /**
-     * Create an instance of {@link ExportSupplyResourceContractType.ObjectAddress.Pair }
-     * 
-     */
-    public ExportSupplyResourceContractType.ObjectAddress.Pair createExportSupplyResourceContractTypeObjectAddressPair() {
-        return new ExportSupplyResourceContractType.ObjectAddress.Pair();
     }
 
     /**
@@ -635,22 +668,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse createImportHouseESPRequestLivingHouse() {
-        return new ImportHouseESPRequest.LivingHouse();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.Blocks }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.Blocks createImportHouseESPRequestLivingHouseBlocks() {
-        return new ImportHouseESPRequest.LivingHouse.Blocks();
-    }
-
-    /**
      * Create an instance of {@link ImportHouseESPRequest.ApartmentHouse }
      * 
      */
@@ -712,6 +729,46 @@ public class ObjectFactory {
      */
     public ImportCharterRequest.PlacingCharter.ContractObject createImportCharterRequestPlacingCharterContractObject() {
         return new ImportCharterRequest.PlacingCharter.ContractObject();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType createExportSupplyResourceContractObjectAddressResultType() {
+        return new ExportSupplyResourceContractObjectAddressResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator createExportSupplyResourceContractObjectAddressResultTypeOtherQualityIndicator() {
+        return new ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.Quality }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.Quality createExportSupplyResourceContractObjectAddressResultTypeQuality() {
+        return new ExportSupplyResourceContractObjectAddressResultType.Quality();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.Pair }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.Pair createExportSupplyResourceContractObjectAddressResultTypePair() {
+        return new ExportSupplyResourceContractObjectAddressResultType.Pair();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractResultType }
+     * 
+     */
+    public ExportSupplyResourceContractResultType createExportSupplyResourceContractResultType() {
+        return new ExportSupplyResourceContractResultType();
     }
 
     /**
@@ -867,11 +924,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportSupplyResourceContractResultType }
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress }
      * 
      */
-    public ExportSupplyResourceContractResultType createExportSupplyResourceContractResultType() {
-        return new ExportSupplyResourceContractResultType();
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress createImportSupplyResourceContractObjectAddressRequestObjectAddress() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObject() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectQuality() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectPair() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair();
     }
 
     /**
@@ -1011,19 +1092,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
      * Create an instance of {@link ExportVotingProtocolResultType }
      * 
      */
     public ExportVotingProtocolResultType createExportVotingProtocolResultType() {
         return new ExportVotingProtocolResultType();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult.ExportSupplyResourceContractResult }
+     * 
+     */
+    public GetStateResult.ExportSupplyResourceContractResult createGetStateResultExportSupplyResourceContractResult() {
+        return new GetStateResult.ExportSupplyResourceContractResult();
     }
 
     /**
@@ -1035,11 +1116,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VoteInitiators }
+     * Create an instance of {@link GetStateResult.ExportSupplyResourceContractObjectAddress }
      * 
      */
-    public VoteInitiators createVoteInitiators() {
-        return new VoteInitiators();
+    public GetStateResult.ExportSupplyResourceContractObjectAddress createGetStateResultExportSupplyResourceContractObjectAddress() {
+        return new GetStateResult.ExportSupplyResourceContractObjectAddress();
+    }
+
+    /**
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.VoteInitiators }
+     * 
+     */
+    public ru.gosuslugi.dom.schema.integration.house_management.VoteInitiators createVoteInitiators() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.VoteInitiators();
     }
 
     /**
@@ -1123,11 +1212,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportSupplyResourceContractResult }
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResult }
      * 
      */
-    public ExportSupplyResourceContractResult createExportSupplyResourceContractResult() {
-        return new ExportSupplyResourceContractResult();
+    public ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResult createExportSupplyResourceContractResult() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResult }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResult createExportSupplyResourceContractObjectAddressResult() {
+        return new ExportSupplyResourceContractObjectAddressResult();
     }
 
     /**
@@ -1195,6 +1292,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressRequest }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressRequest createExportSupplyResourceContractObjectAddressRequest() {
+        return new ExportSupplyResourceContractObjectAddressRequest();
+    }
+
+    /**
      * Create an instance of {@link ExportStatusCAChResult }
      * 
      */
@@ -1219,11 +1324,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportVotingProtocolResult.VotingProtocol }
+     * Create an instance of {@link ExportVotingProtocolResult }
      * 
      */
-    public ExportVotingProtocolResult.VotingProtocol createExportVotingProtocolResultVotingProtocol() {
-        return new ExportVotingProtocolResult.VotingProtocol();
+    public ExportVotingProtocolResult createExportVotingProtocolResult() {
+        return new ExportVotingProtocolResult();
     }
 
     /**
@@ -1283,6 +1388,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportSupplyResourceContractProjectRequest.Contract }
+     * 
+     */
+    public ImportSupplyResourceContractProjectRequest.Contract createImportSupplyResourceContractProjectRequestContract() {
+        return new ImportSupplyResourceContractProjectRequest.Contract();
+    }
+
+    /**
      * Create an instance of {@link ImportVotingProtocolRequest.Protocol }
      * 
      */
@@ -1336,14 +1449,6 @@ public class ObjectFactory {
      */
     public NonResidentialPremisesUpdateOMSType createNonResidentialPremisesUpdateOMSType() {
         return new NonResidentialPremisesUpdateOMSType();
-    }
-
-    /**
-     * Create an instance of {@link LivingHouseUpdateESPType }
-     * 
-     */
-    public LivingHouseUpdateESPType createLivingHouseUpdateESPType() {
-        return new LivingHouseUpdateESPType();
     }
 
     /**
@@ -1664,14 +1769,6 @@ public class ObjectFactory {
      */
     public EntranceUpdateUOType createEntranceUpdateUOType() {
         return new EntranceUpdateUOType();
-    }
-
-    /**
-     * Create an instance of {@link BlockESPType }
-     * 
-     */
-    public BlockESPType createBlockESPType() {
-        return new BlockESPType();
     }
 
     /**
@@ -2203,14 +2300,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BlockUpdateESPType }
-     * 
-     */
-    public BlockUpdateESPType createBlockUpdateESPType() {
-        return new BlockUpdateESPType();
-    }
-
-    /**
      * Create an instance of {@link BlockRSOType }
      * 
      */
@@ -2432,14 +2521,6 @@ public class ObjectFactory {
      */
     public ApartmentHouseOMSType.BasicCharacteristicts createApartmentHouseOMSTypeBasicCharacteristicts() {
         return new ApartmentHouseOMSType.BasicCharacteristicts();
-    }
-
-    /**
-     * Create an instance of {@link LivingHouseESPType.BasicCharacteristicts }
-     * 
-     */
-    public LivingHouseESPType.BasicCharacteristicts createLivingHouseESPTypeBasicCharacteristicts() {
-        return new LivingHouseESPType.BasicCharacteristicts();
     }
 
     /**
@@ -2731,19 +2812,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ProtocolExportType.ExtraVoting }
-     * 
-     */
-    public ProtocolExportType.ExtraVoting createProtocolExportTypeExtraVoting() {
-        return new ProtocolExportType.ExtraVoting();
-    }
-
-    /**
      * Create an instance of {@link ProtocolExportType.DecisionList }
      * 
      */
     public ProtocolExportType.DecisionList createProtocolExportTypeDecisionList() {
         return new ProtocolExportType.DecisionList();
+    }
+
+    /**
+     * Create an instance of {@link ProtocolExportType.ExtraVoting.VoteInitiators }
+     * 
+     */
+    public ProtocolExportType.ExtraVoting.VoteInitiators createProtocolExportTypeExtraVotingVoteInitiators() {
+        return new ProtocolExportType.ExtraVoting.VoteInitiators();
     }
 
     /**
@@ -2760,6 +2841,118 @@ public class ObjectFactory {
      */
     public ExportStatusCAChResultType.ContractObject createExportStatusCAChResultTypeContractObject() {
         return new ExportStatusCAChResultType.ContractObject();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.IsContract }
+     * 
+     */
+    public SupplyResourceContractProjectType.IsContract createSupplyResourceContractProjectTypeIsContract() {
+        return new SupplyResourceContractProjectType.IsContract();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.IsNotContract }
+     * 
+     */
+    public SupplyResourceContractProjectType.IsNotContract createSupplyResourceContractProjectTypeIsNotContract() {
+        return new SupplyResourceContractProjectType.IsNotContract();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.ApartmentBuildingOwner }
+     * 
+     */
+    public SupplyResourceContractProjectType.ApartmentBuildingOwner createSupplyResourceContractProjectTypeApartmentBuildingOwner() {
+        return new SupplyResourceContractProjectType.ApartmentBuildingOwner();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.LivingHouseOwner }
+     * 
+     */
+    public SupplyResourceContractProjectType.LivingHouseOwner createSupplyResourceContractProjectTypeLivingHouseOwner() {
+        return new SupplyResourceContractProjectType.LivingHouseOwner();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Organization }
+     * 
+     */
+    public SupplyResourceContractProjectType.Organization createSupplyResourceContractProjectTypeOrganization() {
+        return new SupplyResourceContractProjectType.Organization();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.ContractSubject }
+     * 
+     */
+    public SupplyResourceContractProjectType.ContractSubject createSupplyResourceContractProjectTypeContractSubject() {
+        return new SupplyResourceContractProjectType.ContractSubject();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.OtherQualityIndicator }
+     * 
+     */
+    public SupplyResourceContractProjectType.OtherQualityIndicator createSupplyResourceContractProjectTypeOtherQualityIndicator() {
+        return new SupplyResourceContractProjectType.OtherQualityIndicator();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.TemperatureChart }
+     * 
+     */
+    public SupplyResourceContractProjectType.TemperatureChart createSupplyResourceContractProjectTypeTemperatureChart() {
+        return new SupplyResourceContractProjectType.TemperatureChart();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.BillingDate }
+     * 
+     */
+    public SupplyResourceContractProjectType.BillingDate createSupplyResourceContractProjectTypeBillingDate() {
+        return new SupplyResourceContractProjectType.BillingDate();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.PaymentDate }
+     * 
+     */
+    public SupplyResourceContractProjectType.PaymentDate createSupplyResourceContractProjectTypePaymentDate() {
+        return new SupplyResourceContractProjectType.PaymentDate();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.ProvidingInformationDate }
+     * 
+     */
+    public SupplyResourceContractProjectType.ProvidingInformationDate createSupplyResourceContractProjectTypeProvidingInformationDate() {
+        return new SupplyResourceContractProjectType.ProvidingInformationDate();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Quality.IndicatorValue }
+     * 
+     */
+    public SupplyResourceContractProjectType.Quality.IndicatorValue createSupplyResourceContractProjectTypeQualityIndicatorValue() {
+        return new SupplyResourceContractProjectType.Quality.IndicatorValue();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Period.Start }
+     * 
+     */
+    public SupplyResourceContractProjectType.Period.Start createSupplyResourceContractProjectTypePeriodStart() {
+        return new SupplyResourceContractProjectType.Period.Start();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.Period.End }
+     * 
+     */
+    public SupplyResourceContractProjectType.Period.End createSupplyResourceContractProjectTypePeriodEnd() {
+        return new SupplyResourceContractProjectType.Period.End();
     }
 
     /**
@@ -2840,6 +3033,22 @@ public class ObjectFactory {
      */
     public CharterType.MeetingProtocol createCharterTypeMeetingProtocol() {
         return new CharterType.MeetingProtocol();
+    }
+
+    /**
+     * Create an instance of {@link ContractSubjectObjectAdressType.ServiceType }
+     * 
+     */
+    public ContractSubjectObjectAdressType.ServiceType createContractSubjectObjectAdressTypeServiceType() {
+        return new ContractSubjectObjectAdressType.ServiceType();
+    }
+
+    /**
+     * Create an instance of {@link ContractSubjectObjectAdressType.MunicipalResource }
+     * 
+     */
+    public ContractSubjectObjectAdressType.MunicipalResource createContractSubjectObjectAdressTypeMunicipalResource() {
+        return new ContractSubjectObjectAdressType.MunicipalResource();
     }
 
     /**
@@ -2968,14 +3177,6 @@ public class ObjectFactory {
      */
     public ExportSupplyResourceContractType.Quality.IndicatorValue createExportSupplyResourceContractTypeQualityIndicatorValue() {
         return new ExportSupplyResourceContractType.Quality.IndicatorValue();
-    }
-
-    /**
-     * Create an instance of {@link ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType }
-     * 
-     */
-    public ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType createExportSupplyResourceContractTypeObjectAddressPairHeatingSystemType() {
-        return new ExportSupplyResourceContractType.ObjectAddress.Pair.HeatingSystemType();
     }
 
     /**
@@ -3307,70 +3508,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.LivingHouseToCreate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.LivingHouseToCreate createImportHouseESPRequestLivingHouseLivingHouseToCreate() {
-        return new ImportHouseESPRequest.LivingHouse.LivingHouseToCreate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.LivingHouseToUpdate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.LivingHouseToUpdate createImportHouseESPRequestLivingHouseLivingHouseToUpdate() {
-        return new ImportHouseESPRequest.LivingHouse.LivingHouseToUpdate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.LivingRoomToCreate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.LivingRoomToCreate createImportHouseESPRequestLivingHouseLivingRoomToCreate() {
-        return new ImportHouseESPRequest.LivingHouse.LivingRoomToCreate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.LivingRoomToUpdate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.LivingRoomToUpdate createImportHouseESPRequestLivingHouseLivingRoomToUpdate() {
-        return new ImportHouseESPRequest.LivingHouse.LivingRoomToUpdate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.Blocks.BlockToCreate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.Blocks.BlockToCreate createImportHouseESPRequestLivingHouseBlocksBlockToCreate() {
-        return new ImportHouseESPRequest.LivingHouse.Blocks.BlockToCreate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.Blocks.BlockToUpdate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.Blocks.BlockToUpdate createImportHouseESPRequestLivingHouseBlocksBlockToUpdate() {
-        return new ImportHouseESPRequest.LivingHouse.Blocks.BlockToUpdate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToCreate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToCreate createImportHouseESPRequestLivingHouseBlocksLivingRoomToCreate() {
-        return new ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToCreate();
-    }
-
-    /**
-     * Create an instance of {@link ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToUpdate }
-     * 
-     */
-    public ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToUpdate createImportHouseESPRequestLivingHouseBlocksLivingRoomToUpdate() {
-        return new ImportHouseESPRequest.LivingHouse.Blocks.LivingRoomToUpdate();
-    }
-
-    /**
      * Create an instance of {@link ImportHouseESPRequest.ApartmentHouse.ApartmentHouseToCreate }
      * 
      */
@@ -3528,6 +3665,46 @@ public class ObjectFactory {
      */
     public ImportCharterRequest.PlacingCharter.ContractObject.AddService createImportCharterRequestPlacingCharterContractObjectAddService() {
         return new ImportCharterRequest.PlacingCharter.ContractObject.AddService();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.PlannedVolume }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.PlannedVolume createExportSupplyResourceContractObjectAddressResultTypePlannedVolume() {
+        return new ExportSupplyResourceContractObjectAddressResultType.PlannedVolume();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue createExportSupplyResourceContractObjectAddressResultTypeOtherQualityIndicatorIndicatorValue() {
+        return new ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue createExportSupplyResourceContractObjectAddressResultTypeQualityIndicatorValue() {
+        return new ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractObjectAddressResultType.Pair.HeatingSystemType }
+     * 
+     */
+    public ExportSupplyResourceContractObjectAddressResultType.Pair.HeatingSystemType createExportSupplyResourceContractObjectAddressResultTypePairHeatingSystemType() {
+        return new ExportSupplyResourceContractObjectAddressResultType.Pair.HeatingSystemType();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractResultType.TerminateContract }
+     * 
+     */
+    public ExportSupplyResourceContractResultType.TerminateContract createExportSupplyResourceContractResultTypeTerminateContract() {
+        return new ExportSupplyResourceContractResultType.TerminateContract();
     }
 
     /**
@@ -3915,11 +4092,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportSupplyResourceContractResultType.TerminateContract }
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.OtherQualityIndicator }
      * 
      */
-    public ExportSupplyResourceContractResultType.TerminateContract createExportSupplyResourceContractResultTypeTerminateContract() {
-        return new ExportSupplyResourceContractResultType.TerminateContract();
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.OtherQualityIndicator createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectOtherQualityIndicator() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.OtherQualityIndicator();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.TemperatureChart }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.TemperatureChart createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectTemperatureChart() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.TemperatureChart();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectQualityIndicatorValue() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair.HeatingSystemType }
+     * 
+     */
+    public ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair.HeatingSystemType createImportSupplyResourceContractObjectAddressRequestObjectAddressLoadObjectPairHeatingSystemType() {
+        return new ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Pair.HeatingSystemType();
     }
 
     /**
@@ -4131,6 +4332,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportResult.CommonResult.ImportSupplyResourceContractProject }
+     * 
+     */
+    public ImportResult.CommonResult.ImportSupplyResourceContractProject createImportResultCommonResultImportSupplyResourceContractProject() {
+        return new ImportResult.CommonResult.ImportSupplyResourceContractProject();
+    }
+
+    /**
+     * Create an instance of {@link ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress }
+     * 
+     */
+    public ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress createImportResultCommonResultImportSupplyResourceContractObjectAddress() {
+        return new ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
@@ -4230,12 +4447,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CharterStatusType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "CharterStatus")
-    public JAXBElement<String> createCharterStatus(String value) {
-        return new JAXBElement<String>(_CharterStatus_QNAME, String.class, null, value);
+    public JAXBElement<CharterStatusType> createCharterStatus(CharterStatusType value) {
+        return new JAXBElement<CharterStatusType>(_CharterStatus_QNAME, CharterStatusType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Boolean }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "InheritMissingValues")
+    public JAXBElement<Boolean> createInheritMissingValues(Boolean value) {
+        return new JAXBElement<Boolean>(_InheritMissingValues_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -4257,12 +4483,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ContractStatusType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "ContractStatus")
-    public JAXBElement<String> createContractStatus(String value) {
-        return new JAXBElement<String>(_ContractStatus_QNAME, String.class, null, value);
+    public JAXBElement<ContractStatusType> createContractStatus(ContractStatusType value) {
+        return new JAXBElement<ContractStatusType>(_ContractStatus_QNAME, ContractStatusType.class, null, value);
     }
 
     /**

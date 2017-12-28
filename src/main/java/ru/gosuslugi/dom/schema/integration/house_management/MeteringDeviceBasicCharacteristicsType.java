@@ -35,14 +35,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="MeteringDeviceStamp" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="50"/>
+ *               &lt;maxLength value="100"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="MeteringDeviceModel" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="50"/>
+ *               &lt;maxLength value="100"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

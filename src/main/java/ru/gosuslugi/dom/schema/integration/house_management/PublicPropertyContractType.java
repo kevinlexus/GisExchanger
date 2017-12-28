@@ -88,6 +88,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="IsGratuitousBasis" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -110,7 +111,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "payment",
     "moneySpentDirection",
     "contractAttachment",
-    "rentAgrConfirmationDocument"
+    "rentAgrConfirmationDocument",
+    "isGratuitousBasis"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportPublicPropertyContractRequest.Contract.PublicPropertyContract.class
@@ -146,6 +148,8 @@ public class PublicPropertyContractType {
     protected List<AttachmentType> contractAttachment;
     @XmlElement(name = "RentAgrConfirmationDocument", required = true)
     protected List<PublicPropertyContractType.RentAgrConfirmationDocument> rentAgrConfirmationDocument;
+    @XmlElement(name = "IsGratuitousBasis")
+    protected Boolean isGratuitousBasis;
 
     /**
      * Gets the value of the organization property.
@@ -467,6 +471,30 @@ public class PublicPropertyContractType {
             rentAgrConfirmationDocument = new ArrayList<PublicPropertyContractType.RentAgrConfirmationDocument>();
         }
         return this.rentAgrConfirmationDocument;
+    }
+
+    /**
+     * Gets the value of the isGratuitousBasis property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIsGratuitousBasis() {
+        return isGratuitousBasis;
+    }
+
+    /**
+     * Sets the value of the isGratuitousBasis property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIsGratuitousBasis(Boolean value) {
+        this.isGratuitousBasis = value;
     }
 
 

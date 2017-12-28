@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -20,8 +21,22 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyRecalculation" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyDiscount" minOccurs="0"/>
+ *         &lt;element name="MoneyRecalculation" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="18"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="MoneyDiscount" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="18"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,6 +50,9 @@ import javax.xml.bind.annotation.XmlType;
     "moneyRecalculation",
     "moneyDiscount"
 })
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.MunicipalService.ServiceCharge.class
+})
 public class ServiceChargeType {
 
     @XmlElement(name = "MoneyRecalculation")
@@ -43,8 +61,7 @@ public class ServiceChargeType {
     protected BigDecimal moneyDiscount;
 
     /**
-     * Перерасчеты, корректировки (руб)
-     * Ссылка на пост. 924 – Приложение 2, п. 20.
+     * Gets the value of the moneyRecalculation property.
      * 
      * @return
      *     possible object is
@@ -68,8 +85,7 @@ public class ServiceChargeType {
     }
 
     /**
-     * Льготы, субсидии, скидки (руб)
-     * Ссылка на пост. 924 – Приложение 2, п. 21.
+     * Gets the value of the moneyDiscount property.
      * 
      * @return
      *     possible object is

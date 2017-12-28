@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="18"/>
+ *               &lt;totalDigits value="13"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="18"/>
+ *               &lt;totalDigits value="13"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="18"/>
+ *               &lt;totalDigits value="13"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -56,7 +56,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="18"/>
+ *               &lt;totalDigits value="13"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

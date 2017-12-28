@@ -31,14 +31,15 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element name="ProtocolMeetingOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
- *                   &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="ProtocolMeetingOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100" minOccurs="0"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="NoCharterApproveProtocol" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="AttachmentCharter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -53,6 +54,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "date",
     "dateDetails",
     "meetingProtocol",
+    "noCharterApproveProtocol",
     "attachmentCharter"
 })
 @XmlSeeAlso({
@@ -67,6 +69,8 @@ public class CharterExportType {
     protected CharterDateDetailsType dateDetails;
     @XmlElement(name = "MeetingProtocol")
     protected CharterExportType.MeetingProtocol meetingProtocol;
+    @XmlElement(name = "NoCharterApproveProtocol")
+    protected Boolean noCharterApproveProtocol;
     @XmlElement(name = "AttachmentCharter", required = true)
     protected List<AttachmentType> attachmentCharter;
 
@@ -143,6 +147,30 @@ public class CharterExportType {
     }
 
     /**
+     * Gets the value of the noCharterApproveProtocol property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isNoCharterApproveProtocol() {
+        return noCharterApproveProtocol;
+    }
+
+    /**
+     * Sets the value of the noCharterApproveProtocol property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setNoCharterApproveProtocol(Boolean value) {
+        this.noCharterApproveProtocol = value;
+    }
+
+    /**
      * Gets the value of the attachmentCharter property.
      * 
      * <p>
@@ -181,10 +209,10 @@ public class CharterExportType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="ProtocolMeetingOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
-     *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="ProtocolMeetingOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100" minOccurs="0"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>

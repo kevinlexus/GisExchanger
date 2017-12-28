@@ -120,6 +120,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="SignedOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="CommissioningPermitAgreement" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Charter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -144,7 +146,9 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "dateDetails",
     "contractAttachment",
     "agreementAttachment",
-    "signedOwners"
+    "signedOwners",
+    "commissioningPermitAgreement",
+    "charter"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlacingContract.class,
@@ -185,6 +189,10 @@ public class ContractType {
     protected List<ContractType.AgreementAttachment> agreementAttachment;
     @XmlElement(name = "SignedOwners")
     protected List<AttachmentType> signedOwners;
+    @XmlElement(name = "CommissioningPermitAgreement")
+    protected List<AttachmentType> commissioningPermitAgreement;
+    @XmlElement(name = "Charter")
+    protected List<AttachmentType> charter;
 
     /**
      * Gets the value of the docNum property.
@@ -559,6 +567,64 @@ public class ContractType {
             signedOwners = new ArrayList<AttachmentType>();
         }
         return this.signedOwners;
+    }
+
+    /**
+     * Gets the value of the commissioningPermitAgreement property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the commissioningPermitAgreement property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCommissioningPermitAgreement().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link AttachmentType }
+     * 
+     * 
+     */
+    public List<AttachmentType> getCommissioningPermitAgreement() {
+        if (commissioningPermitAgreement == null) {
+            commissioningPermitAgreement = new ArrayList<AttachmentType>();
+        }
+        return this.commissioningPermitAgreement;
+    }
+
+    /**
+     * Gets the value of the charter property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the charter property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCharter().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link AttachmentType }
+     * 
+     * 
+     */
+    public List<AttachmentType> getCharter() {
+        if (charter == null) {
+            charter = new ArrayList<AttachmentType>();
+        }
+        return this.charter;
     }
 
 

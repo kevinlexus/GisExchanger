@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
@@ -74,6 +75,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "notificationsOfOrderExecutionGUID",
     "paymentDocumentAck",
     "ackImpossible"
+})
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest.class
 })
 public class AcknowledgmentRequestInfoExportType {
 

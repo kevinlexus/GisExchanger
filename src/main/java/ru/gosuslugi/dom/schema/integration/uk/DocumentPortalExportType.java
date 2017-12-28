@@ -28,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *               &lt;minLength value="1"/>
- *               &lt;maxLength value="500"/>
+ *               &lt;maxLength value="1000"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

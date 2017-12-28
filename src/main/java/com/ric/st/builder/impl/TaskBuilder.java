@@ -223,6 +223,14 @@ public class TaskBuilder implements TaskBuilders {
     }
     
     /**
+     * Загрузка списка запланированных задач
+     */
+    @Scheduled(fixedDelay =2000)
+    public void timer2() {
+    	//log.info("cheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    }
+
+    /**
      * Определить статусы заданий
      * @throws java.text.ParseException 
      */
@@ -231,7 +239,7 @@ public class TaskBuilder implements TaskBuilders {
         Date dt = new Date();
         if (lstSched!=null) {
 		for (TaskPar t: lstSched){
-	//	    	log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
+		    	//log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
 	    		CronExpression exp = new CronExpression(t.getS1());
 	    		if (exp.isSatisfiedBy(dt)) {
 	    			//log.info("Запустить задание!");

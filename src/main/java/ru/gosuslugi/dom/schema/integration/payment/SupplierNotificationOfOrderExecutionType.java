@@ -24,7 +24,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="OrderPeriod">
+ *         &lt;element name="OrderPeriod" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -40,7 +40,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID"/>
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/>
  *         &lt;/choice>
- *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
+ *         &lt;element name="Amount">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType">
+ *               &lt;totalDigits value="13"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -65,7 +71,7 @@ public class SupplierNotificationOfOrderExecutionType {
     @XmlElement(name = "OrderDate", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar orderDate;
-    @XmlElement(name = "OrderPeriod", required = true)
+    @XmlElement(name = "OrderPeriod")
     protected SupplierNotificationOfOrderExecutionType.OrderPeriod orderPeriod;
     @XmlElement(name = "PaymentDocumentID", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
     protected String paymentDocumentID;

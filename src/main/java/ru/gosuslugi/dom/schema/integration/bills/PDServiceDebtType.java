@@ -38,7 +38,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                               &lt;element name="TotalPayable">
  *                                 &lt;simpleType>
  *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                     &lt;totalDigits value="20"/>
+ *                                     &lt;totalDigits value="18"/>
  *                                     &lt;fractionDigits value="2"/>
  *                                   &lt;/restriction>
  *                                 &lt;/simpleType>
@@ -46,7 +46,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                               &lt;element name="TotalSumDebtPayable">
  *                                 &lt;simpleType>
  *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                     &lt;totalDigits value="20"/>
+ *                                     &lt;totalDigits value="18"/>
  *                                     &lt;fractionDigits value="2"/>
  *                                   &lt;/restriction>
  *                                 &lt;/simpleType>
@@ -223,7 +223,7 @@ public class PDServiceDebtType {
      *                     &lt;element name="TotalPayable">
      *                       &lt;simpleType>
      *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                           &lt;totalDigits value="20"/>
+     *                           &lt;totalDigits value="18"/>
      *                           &lt;fractionDigits value="2"/>
      *                         &lt;/restriction>
      *                       &lt;/simpleType>
@@ -231,7 +231,7 @@ public class PDServiceDebtType {
      *                     &lt;element name="TotalSumDebtPayable">
      *                       &lt;simpleType>
      *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                           &lt;totalDigits value="20"/>
+     *                           &lt;totalDigits value="18"/>
      *                           &lt;fractionDigits value="2"/>
      *                         &lt;/restriction>
      *                       &lt;/simpleType>
@@ -306,7 +306,7 @@ public class PDServiceDebtType {
          *           &lt;element name="TotalPayable">
          *             &lt;simpleType>
          *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                 &lt;totalDigits value="20"/>
+         *                 &lt;totalDigits value="18"/>
          *                 &lt;fractionDigits value="2"/>
          *               &lt;/restriction>
          *             &lt;/simpleType>
@@ -314,7 +314,7 @@ public class PDServiceDebtType {
          *           &lt;element name="TotalSumDebtPayable">
          *             &lt;simpleType>
          *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                 &lt;totalDigits value="20"/>
+         *                 &lt;totalDigits value="18"/>
          *                 &lt;fractionDigits value="2"/>
          *               &lt;/restriction>
          *             &lt;/simpleType>

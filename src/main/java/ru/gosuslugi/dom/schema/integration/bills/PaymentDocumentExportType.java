@@ -47,61 +47,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;sequence>
  *             &lt;element name="ChargeInfo" type="{http://dom.gosuslugi.ru/schema/integration/bills/}PDServiceChargeExportType" maxOccurs="unbounded" minOccurs="0"/>
  *             &lt;element name="CapitalRepairCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairType" minOccurs="0"/>
- *             &lt;element name="Insurance" minOccurs="0">
- *               &lt;complexType>
- *                 &lt;complexContent>
- *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                     &lt;sequence>
- *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}InsuranceProductGUID"/>
- *                       &lt;element name="Rate">
- *                         &lt;simpleType>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                             &lt;fractionDigits value="6"/>
- *                             &lt;totalDigits value="14"/>
- *                           &lt;/restriction>
- *                         &lt;/simpleType>
- *                       &lt;/element>
- *                       &lt;element name="TotalPayable" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"/>
- *                       &lt;element name="AccountingPeriodTotal" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"/>
- *                       &lt;element name="CalcExplanation" minOccurs="0">
- *                         &lt;simpleType>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                             &lt;minLength value="1"/>
- *                             &lt;maxLength value="500"/>
- *                           &lt;/restriction>
- *                         &lt;/simpleType>
- *                       &lt;/element>
- *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
- *                       &lt;element name="Consumption" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                               &lt;sequence>
- *                                 &lt;element name="Volume">
- *                                   &lt;complexType>
- *                                     &lt;simpleContent>
- *                                       &lt;extension base="&lt;http://dom.gosuslugi.ru/schema/integration/bills/>ConsumptionVolumeType">
- *                                         &lt;attribute name="type">
- *                                           &lt;simpleType>
- *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                               &lt;enumeration value="I"/>
- *                                             &lt;/restriction>
- *                                           &lt;/simpleType>
- *                                         &lt;/attribute>
- *                                       &lt;/extension>
- *                                     &lt;/simpleContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/sequence>
- *                             &lt;/restriction>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                     &lt;/sequence>
- *                   &lt;/restriction>
- *                 &lt;/complexContent>
- *               &lt;/complexType>
- *             &lt;/element>
  *             &lt;element name="PenaltiesAndCourtCosts" maxOccurs="unbounded" minOccurs="0">
  *               &lt;complexType>
  *                 &lt;complexContent>
@@ -119,12 +64,80 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;element name="TotalPayable">
  *                         &lt;simpleType>
  *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                             &lt;totalDigits value="20"/>
+ *                             &lt;totalDigits value="18"/>
  *                             &lt;fractionDigits value="2"/>
  *                           &lt;/restriction>
  *                         &lt;/simpleType>
  *                       &lt;/element>
  *                       &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
+ *                     &lt;/sequence>
+ *                   &lt;/restriction>
+ *                 &lt;/complexContent>
+ *               &lt;/complexType>
+ *             &lt;/element>
+ *             &lt;element name="Insurance" minOccurs="0">
+ *               &lt;complexType>
+ *                 &lt;complexContent>
+ *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                     &lt;sequence>
+ *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}InsuranceProductGUID"/>
+ *                       &lt;element name="Rate">
+ *                         &lt;simpleType>
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                             &lt;fractionDigits value="6"/>
+ *                             &lt;totalDigits value="14"/>
+ *                           &lt;/restriction>
+ *                         &lt;/simpleType>
+ *                       &lt;/element>
+ *                       &lt;element name="TotalPayable">
+ *                         &lt;simpleType>
+ *                           &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
+ *                             &lt;totalDigits value="18"/>
+ *                           &lt;/restriction>
+ *                         &lt;/simpleType>
+ *                       &lt;/element>
+ *                       &lt;element name="AccountingPeriodTotal">
+ *                         &lt;simpleType>
+ *                           &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
+ *                             &lt;totalDigits value="18"/>
+ *                           &lt;/restriction>
+ *                         &lt;/simpleType>
+ *                       &lt;/element>
+ *                       &lt;element name="CalcExplanation" minOccurs="0">
+ *                         &lt;simpleType>
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                             &lt;minLength value="1"/>
+ *                             &lt;maxLength value="500"/>
+ *                           &lt;/restriction>
+ *                         &lt;/simpleType>
+ *                       &lt;/element>
+ *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                       &lt;element name="Consumption" minOccurs="0">
+ *                         &lt;complexType>
+ *                           &lt;complexContent>
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                               &lt;sequence>
+ *                                 &lt;element name="Volume" maxOccurs="2">
+ *                                   &lt;complexType>
+ *                                     &lt;simpleContent>
+ *                                       &lt;extension base="&lt;http://dom.gosuslugi.ru/schema/integration/bills/>ConsumptionVolumeType">
+ *                                         &lt;attribute name="type">
+ *                                           &lt;simpleType>
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                                               &lt;enumeration value="I"/>
+ *                                               &lt;enumeration value="O"/>
+ *                                             &lt;/restriction>
+ *                                           &lt;/simpleType>
+ *                                         &lt;/attribute>
+ *                                       &lt;/extension>
+ *                                     &lt;/simpleContent>
+ *                                   &lt;/complexType>
+ *                                 &lt;/element>
+ *                               &lt;/sequence>
+ *                             &lt;/restriction>
+ *                           &lt;/complexContent>
+ *                         &lt;/complexType>
+ *                       &lt;/element>
  *                     &lt;/sequence>
  *                   &lt;/restriction>
  *                 &lt;/complexContent>
@@ -177,7 +190,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="20"/>
+ *               &lt;totalDigits value="18"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -200,7 +213,15 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="TotalPayableByPD" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;totalDigits value="20"/>
+ *               &lt;totalDigits value="18"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="TotalByPenaltiesAndCourtCosts" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="18"/>
  *               &lt;fractionDigits value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
@@ -212,6 +233,25 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;fractionDigits value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="ComponentsOfCost" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="nameComponent" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+ *                   &lt;element name="cost">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;totalDigits value="18"/>
+ *                         &lt;fractionDigits value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
  *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -228,8 +268,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "addressInfo",
     "chargeInfo",
     "capitalRepairCharge",
-    "insurance",
     "penaltiesAndCourtCosts",
+    "insurance",
     "capitalRepairDebt",
     "chargeDebt",
     "expose",
@@ -241,7 +281,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "paymentsTaken",
     "additionalInformation",
     "totalPayableByPD",
-    "totalPayableByPDWithDebtAndAdvance"
+    "totalByPenaltiesAndCourtCosts",
+    "totalPayableByPDWithDebtAndAdvance",
+    "componentsOfCost"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.ExportPaymentDocumentResultType.PaymentDocument.class
@@ -258,10 +300,10 @@ public class PaymentDocumentExportType {
     protected List<PDServiceChargeExportType> chargeInfo;
     @XmlElement(name = "CapitalRepairCharge")
     protected CapitalRepairType capitalRepairCharge;
-    @XmlElement(name = "Insurance")
-    protected PaymentDocumentExportType.Insurance insurance;
     @XmlElement(name = "PenaltiesAndCourtCosts")
     protected List<PaymentDocumentExportType.PenaltiesAndCourtCosts> penaltiesAndCourtCosts;
+    @XmlElement(name = "Insurance")
+    protected PaymentDocumentExportType.Insurance insurance;
     @XmlElement(name = "CapitalRepairDebt")
     protected List<DebtType> capitalRepairDebt;
     @XmlElement(name = "ChargeDebt")
@@ -283,8 +325,12 @@ public class PaymentDocumentExportType {
     protected String additionalInformation;
     @XmlElement(name = "TotalPayableByPD")
     protected BigDecimal totalPayableByPD;
+    @XmlElement(name = "TotalByPenaltiesAndCourtCosts")
+    protected BigDecimal totalByPenaltiesAndCourtCosts;
     @XmlElement(name = "TotalPayableByPDWithDebtAndAdvance")
     protected BigDecimal totalPayableByPDWithDebtAndAdvance;
+    @XmlElement(name = "ComponentsOfCost")
+    protected List<PaymentDocumentExportType.ComponentsOfCost> componentsOfCost;
 
     /**
      * Идентификатор лицевого счета
@@ -414,30 +460,6 @@ public class PaymentDocumentExportType {
     }
 
     /**
-     * Gets the value of the insurance property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PaymentDocumentExportType.Insurance }
-     *     
-     */
-    public PaymentDocumentExportType.Insurance getInsurance() {
-        return insurance;
-    }
-
-    /**
-     * Sets the value of the insurance property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PaymentDocumentExportType.Insurance }
-     *     
-     */
-    public void setInsurance(PaymentDocumentExportType.Insurance value) {
-        this.insurance = value;
-    }
-
-    /**
      * Gets the value of the penaltiesAndCourtCosts property.
      * 
      * <p>
@@ -464,6 +486,30 @@ public class PaymentDocumentExportType {
             penaltiesAndCourtCosts = new ArrayList<PaymentDocumentExportType.PenaltiesAndCourtCosts>();
         }
         return this.penaltiesAndCourtCosts;
+    }
+
+    /**
+     * Gets the value of the insurance property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link PaymentDocumentExportType.Insurance }
+     *     
+     */
+    public PaymentDocumentExportType.Insurance getInsurance() {
+        return insurance;
+    }
+
+    /**
+     * Sets the value of the insurance property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link PaymentDocumentExportType.Insurance }
+     *     
+     */
+    public void setInsurance(PaymentDocumentExportType.Insurance value) {
+        this.insurance = value;
     }
 
     /**
@@ -741,6 +787,30 @@ public class PaymentDocumentExportType {
     }
 
     /**
+     * Gets the value of the totalByPenaltiesAndCourtCosts property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getTotalByPenaltiesAndCourtCosts() {
+        return totalByPenaltiesAndCourtCosts;
+    }
+
+    /**
+     * Sets the value of the totalByPenaltiesAndCourtCosts property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setTotalByPenaltiesAndCourtCosts(BigDecimal value) {
+        this.totalByPenaltiesAndCourtCosts = value;
+    }
+
+    /**
      * Gets the value of the totalPayableByPDWithDebtAndAdvance property.
      * 
      * @return
@@ -762,6 +832,35 @@ public class PaymentDocumentExportType {
      */
     public void setTotalPayableByPDWithDebtAndAdvance(BigDecimal value) {
         this.totalPayableByPDWithDebtAndAdvance = value;
+    }
+
+    /**
+     * Gets the value of the componentsOfCost property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the componentsOfCost property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getComponentsOfCost().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PaymentDocumentExportType.ComponentsOfCost }
+     * 
+     * 
+     */
+    public List<PaymentDocumentExportType.ComponentsOfCost> getComponentsOfCost() {
+        if (componentsOfCost == null) {
+            componentsOfCost = new ArrayList<PaymentDocumentExportType.ComponentsOfCost>();
+        }
+        return this.componentsOfCost;
     }
 
 
@@ -940,6 +1039,96 @@ public class PaymentDocumentExportType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="nameComponent" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+     *         &lt;element name="cost">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;totalDigits value="18"/>
+     *               &lt;fractionDigits value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "nameComponent",
+        "cost"
+    })
+    public static class ComponentsOfCost {
+
+        @XmlElement(required = true)
+        protected NsiRef nameComponent;
+        @XmlElement(required = true)
+        protected BigDecimal cost;
+
+        /**
+         * Gets the value of the nameComponent property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NsiRef }
+         *     
+         */
+        public NsiRef getNameComponent() {
+            return nameComponent;
+        }
+
+        /**
+         * Sets the value of the nameComponent property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NsiRef }
+         *     
+         */
+        public void setNameComponent(NsiRef value) {
+            this.nameComponent = value;
+        }
+
+        /**
+         * Gets the value of the cost property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getCost() {
+            return cost;
+        }
+
+        /**
+         * Sets the value of the cost property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setCost(BigDecimal value) {
+            this.cost = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}InsuranceProductGUID"/>
      *         &lt;element name="Rate">
      *           &lt;simpleType>
@@ -949,8 +1138,20 @@ public class PaymentDocumentExportType {
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
-     *         &lt;element name="TotalPayable" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"/>
-     *         &lt;element name="AccountingPeriodTotal" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"/>
+     *         &lt;element name="TotalPayable">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
+     *               &lt;totalDigits value="18"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="AccountingPeriodTotal">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
+     *               &lt;totalDigits value="18"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
      *         &lt;element name="CalcExplanation" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -965,7 +1166,7 @@ public class PaymentDocumentExportType {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element name="Volume">
+     *                   &lt;element name="Volume" maxOccurs="2">
      *                     &lt;complexType>
      *                       &lt;simpleContent>
      *                         &lt;extension base="&lt;http://dom.gosuslugi.ru/schema/integration/bills/>ConsumptionVolumeType">
@@ -973,6 +1174,7 @@ public class PaymentDocumentExportType {
      *                             &lt;simpleType>
      *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                                 &lt;enumeration value="I"/>
+     *                                 &lt;enumeration value="O"/>
      *                               &lt;/restriction>
      *                             &lt;/simpleType>
      *                           &lt;/attribute>
@@ -1199,7 +1401,7 @@ public class PaymentDocumentExportType {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="Volume">
+         *         &lt;element name="Volume" maxOccurs="2">
          *           &lt;complexType>
          *             &lt;simpleContent>
          *               &lt;extension base="&lt;http://dom.gosuslugi.ru/schema/integration/bills/>ConsumptionVolumeType">
@@ -1207,6 +1409,7 @@ public class PaymentDocumentExportType {
          *                   &lt;simpleType>
          *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
          *                       &lt;enumeration value="I"/>
+         *                       &lt;enumeration value="O"/>
          *                     &lt;/restriction>
          *                   &lt;/simpleType>
          *                 &lt;/attribute>
@@ -1229,30 +1432,35 @@ public class PaymentDocumentExportType {
         public static class Consumption {
 
             @XmlElement(name = "Volume", required = true)
-            protected PaymentDocumentExportType.Insurance.Consumption.Volume volume;
+            protected List<PaymentDocumentExportType.Insurance.Consumption.Volume> volume;
 
             /**
              * Gets the value of the volume property.
              * 
-             * @return
-             *     possible object is
-             *     {@link PaymentDocumentExportType.Insurance.Consumption.Volume }
-             *     
-             */
-            public PaymentDocumentExportType.Insurance.Consumption.Volume getVolume() {
-                return volume;
-            }
-
-            /**
-             * Sets the value of the volume property.
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the volume property.
              * 
-             * @param value
-             *     allowed object is
-             *     {@link PaymentDocumentExportType.Insurance.Consumption.Volume }
-             *     
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getVolume().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link PaymentDocumentExportType.Insurance.Consumption.Volume }
+             * 
+             * 
              */
-            public void setVolume(PaymentDocumentExportType.Insurance.Consumption.Volume value) {
-                this.volume = value;
+            public List<PaymentDocumentExportType.Insurance.Consumption.Volume> getVolume() {
+                if (volume == null) {
+                    volume = new ArrayList<PaymentDocumentExportType.Insurance.Consumption.Volume>();
+                }
+                return this.volume;
             }
 
 
@@ -1269,6 +1477,7 @@ public class PaymentDocumentExportType {
              *         &lt;simpleType>
              *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
              *             &lt;enumeration value="I"/>
+             *             &lt;enumeration value="O"/>
              *           &lt;/restriction>
              *         &lt;/simpleType>
              *       &lt;/attribute>
@@ -1367,7 +1576,7 @@ public class PaymentDocumentExportType {
      *         &lt;element name="TotalPayable">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;totalDigits value="20"/>
+     *               &lt;totalDigits value="18"/>
      *               &lt;fractionDigits value="2"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>

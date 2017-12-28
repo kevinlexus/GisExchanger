@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;element name="TotalPayable">
  *             &lt;simpleType>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                 &lt;totalDigits value="20"/>
+ *                 &lt;totalDigits value="18"/>
  *                 &lt;fractionDigits value="2"/>
  *               &lt;/restriction>
  *             &lt;/simpleType>
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="TotalSumDebtPayable">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;totalDigits value="20"/>
+ *               &lt;totalDigits value="18"/>
  *               &lt;fractionDigits value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>

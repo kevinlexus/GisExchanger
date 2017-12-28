@@ -30,7 +30,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
  *                 &lt;sequence minOccurs="0">
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
  *                   &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -87,7 +87,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
- *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                             &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
  *                             &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
@@ -123,7 +123,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
  *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
  *                   &lt;element name="Consumption" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -160,8 +160,65 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
  *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}PiecemealPayment" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" minOccurs="0">
+ *                     &lt;complexType>
+ *                       &lt;complexContent>
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType">
+ *                         &lt;/extension>
+ *                       &lt;/complexContent>
+ *                     &lt;/complexType>
+ *                   &lt;/element>
+ *                   &lt;element name="PiecemealPayment" minOccurs="0">
+ *                     &lt;complexType>
+ *                       &lt;complexContent>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                           &lt;sequence>
+ *                             &lt;element name="paymentPeriodPiecemealPaymentSum" minOccurs="0">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;fractionDigits value="2"/>
+ *                                   &lt;totalDigits value="18"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="pastPaymentPeriodPiecemealPaymentSum" minOccurs="0">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;fractionDigits value="2"/>
+ *                                   &lt;totalDigits value="18"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="piecemealPaymentPercentRub">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;fractionDigits value="2"/>
+ *                                   &lt;totalDigits value="18"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="piecemealPaymentPercent">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;minInclusive value="0"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                   &lt;totalDigits value="5"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="piecemealPaymentSum">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;fractionDigits value="2"/>
+ *                                   &lt;totalDigits value="18"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                           &lt;/sequence>
+ *                         &lt;/restriction>
+ *                       &lt;/complexContent>
+ *                     &lt;/complexType>
+ *                   &lt;/element>
  *                   &lt;element name="PaymentRecalculation" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -260,6 +317,22 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;/simpleType>
  *                   &lt;/element>
  *                   &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;totalDigits value="18"/>
+ *                         &lt;fractionDigits value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="AmountOfPaymentMunicipalServiceIndividualConsumption" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;totalDigits value="18"/>
+ *                         &lt;fractionDigits value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
  *                     &lt;simpleType>
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *                         &lt;totalDigits value="18"/>
@@ -378,7 +451,7 @@ public class PDServiceChargeExportType {
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
      *         &lt;element name="Consumption" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -428,7 +501,7 @@ public class PDServiceChargeExportType {
         protected PDServiceChargeExportType.AdditionalService.Consumption consumption;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
@@ -649,7 +722,7 @@ public class PDServiceChargeExportType {
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
      *       &lt;sequence minOccurs="0">
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
      *         &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -706,7 +779,7 @@ public class PDServiceChargeExportType {
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
      *                   &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
@@ -755,7 +828,7 @@ public class PDServiceChargeExportType {
         protected List<PDServiceChargeExportType.HousingService.MunicipalResource> municipalResource;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
@@ -869,7 +942,7 @@ public class PDServiceChargeExportType {
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+         *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType" minOccurs="0"/>
          *         &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
@@ -1022,7 +1095,7 @@ public class PDServiceChargeExportType {
             }
 
             /**
-             * Перерасчеты, льготы, субсидии
+             * Gets the value of the serviceCharge property.
              * 
              * @return
              *     possible object is
@@ -1387,8 +1460,65 @@ public class PDServiceChargeExportType {
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}PiecemealPayment" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" minOccurs="0">
+     *           &lt;complexType>
+     *             &lt;complexContent>
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType">
+     *               &lt;/extension>
+     *             &lt;/complexContent>
+     *           &lt;/complexType>
+     *         &lt;/element>
+     *         &lt;element name="PiecemealPayment" minOccurs="0">
+     *           &lt;complexType>
+     *             &lt;complexContent>
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                 &lt;sequence>
+     *                   &lt;element name="paymentPeriodPiecemealPaymentSum" minOccurs="0">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;fractionDigits value="2"/>
+     *                         &lt;totalDigits value="18"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="pastPaymentPeriodPiecemealPaymentSum" minOccurs="0">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;fractionDigits value="2"/>
+     *                         &lt;totalDigits value="18"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="piecemealPaymentPercentRub">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;fractionDigits value="2"/>
+     *                         &lt;totalDigits value="18"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="piecemealPaymentPercent">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;minInclusive value="0"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                         &lt;totalDigits value="5"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="piecemealPaymentSum">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;fractionDigits value="2"/>
+     *                         &lt;totalDigits value="18"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                 &lt;/sequence>
+     *               &lt;/restriction>
+     *             &lt;/complexContent>
+     *           &lt;/complexType>
+     *         &lt;/element>
      *         &lt;element name="PaymentRecalculation" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -1494,6 +1624,22 @@ public class PDServiceChargeExportType {
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
+     *         &lt;element name="AmountOfPaymentMunicipalServiceIndividualConsumption" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;totalDigits value="18"/>
+     *               &lt;fractionDigits value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;totalDigits value="18"/>
+     *               &lt;fractionDigits value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -1511,16 +1657,18 @@ public class PDServiceChargeExportType {
         "consumption",
         "multiplyingFactor",
         "municipalServiceIndividualConsumptionPayable",
-        "municipalServiceCommunalConsumptionPayable"
+        "municipalServiceCommunalConsumptionPayable",
+        "amountOfPaymentMunicipalServiceIndividualConsumption",
+        "amountOfPaymentMunicipalServiceCommunalConsumption"
     })
     public static class MunicipalService
         extends ServicePDType
     {
 
         @XmlElement(name = "ServiceCharge")
-        protected ServiceChargeType serviceCharge;
+        protected PDServiceChargeExportType.MunicipalService.ServiceCharge serviceCharge;
         @XmlElement(name = "PiecemealPayment")
-        protected PiecemealPayment piecemealPayment;
+        protected PDServiceChargeExportType.MunicipalService.PiecemealPayment piecemealPayment;
         @XmlElement(name = "PaymentRecalculation")
         protected PDServiceChargeExportType.MunicipalService.PaymentRecalculation paymentRecalculation;
         @XmlElement(name = "ServiceInformation")
@@ -1533,16 +1681,20 @@ public class PDServiceChargeExportType {
         protected BigDecimal municipalServiceIndividualConsumptionPayable;
         @XmlElement(name = "MunicipalServiceCommunalConsumptionPayable")
         protected BigDecimal municipalServiceCommunalConsumptionPayable;
+        @XmlElement(name = "AmountOfPaymentMunicipalServiceIndividualConsumption")
+        protected BigDecimal amountOfPaymentMunicipalServiceIndividualConsumption;
+        @XmlElement(name = "AmountOfPaymentMunicipalServiceCommunalConsumption")
+        protected BigDecimal amountOfPaymentMunicipalServiceCommunalConsumption;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
-         *     {@link ServiceChargeType }
+         *     {@link PDServiceChargeExportType.MunicipalService.ServiceCharge }
          *     
          */
-        public ServiceChargeType getServiceCharge() {
+        public PDServiceChargeExportType.MunicipalService.ServiceCharge getServiceCharge() {
             return serviceCharge;
         }
 
@@ -1551,22 +1703,22 @@ public class PDServiceChargeExportType {
          * 
          * @param value
          *     allowed object is
-         *     {@link ServiceChargeType }
+         *     {@link PDServiceChargeExportType.MunicipalService.ServiceCharge }
          *     
          */
-        public void setServiceCharge(ServiceChargeType value) {
+        public void setServiceCharge(PDServiceChargeExportType.MunicipalService.ServiceCharge value) {
             this.serviceCharge = value;
         }
 
         /**
-         * Рассрочка
+         * Gets the value of the piecemealPayment property.
          * 
          * @return
          *     possible object is
-         *     {@link PiecemealPayment }
+         *     {@link PDServiceChargeExportType.MunicipalService.PiecemealPayment }
          *     
          */
-        public PiecemealPayment getPiecemealPayment() {
+        public PDServiceChargeExportType.MunicipalService.PiecemealPayment getPiecemealPayment() {
             return piecemealPayment;
         }
 
@@ -1575,10 +1727,10 @@ public class PDServiceChargeExportType {
          * 
          * @param value
          *     allowed object is
-         *     {@link PiecemealPayment }
+         *     {@link PDServiceChargeExportType.MunicipalService.PiecemealPayment }
          *     
          */
-        public void setPiecemealPayment(PiecemealPayment value) {
+        public void setPiecemealPayment(PDServiceChargeExportType.MunicipalService.PiecemealPayment value) {
             this.piecemealPayment = value;
         }
 
@@ -1724,6 +1876,54 @@ public class PDServiceChargeExportType {
          */
         public void setMunicipalServiceCommunalConsumptionPayable(BigDecimal value) {
             this.municipalServiceCommunalConsumptionPayable = value;
+        }
+
+        /**
+         * Gets the value of the amountOfPaymentMunicipalServiceIndividualConsumption property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getAmountOfPaymentMunicipalServiceIndividualConsumption() {
+            return amountOfPaymentMunicipalServiceIndividualConsumption;
+        }
+
+        /**
+         * Sets the value of the amountOfPaymentMunicipalServiceIndividualConsumption property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setAmountOfPaymentMunicipalServiceIndividualConsumption(BigDecimal value) {
+            this.amountOfPaymentMunicipalServiceIndividualConsumption = value;
+        }
+
+        /**
+         * Gets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getAmountOfPaymentMunicipalServiceCommunalConsumption() {
+            return amountOfPaymentMunicipalServiceCommunalConsumption;
+        }
+
+        /**
+         * Sets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setAmountOfPaymentMunicipalServiceCommunalConsumption(BigDecimal value) {
+            this.amountOfPaymentMunicipalServiceCommunalConsumption = value;
         }
 
 
@@ -2124,6 +2324,233 @@ public class PDServiceChargeExportType {
             public void setSum(BigDecimal value) {
                 this.sum = value;
             }
+
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="paymentPeriodPiecemealPaymentSum" minOccurs="0">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;fractionDigits value="2"/>
+         *               &lt;totalDigits value="18"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="pastPaymentPeriodPiecemealPaymentSum" minOccurs="0">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;fractionDigits value="2"/>
+         *               &lt;totalDigits value="18"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="piecemealPaymentPercentRub">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;fractionDigits value="2"/>
+         *               &lt;totalDigits value="18"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="piecemealPaymentPercent">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;minInclusive value="0"/>
+         *               &lt;fractionDigits value="2"/>
+         *               &lt;totalDigits value="5"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="piecemealPaymentSum">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;fractionDigits value="2"/>
+         *               &lt;totalDigits value="18"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "paymentPeriodPiecemealPaymentSum",
+            "pastPaymentPeriodPiecemealPaymentSum",
+            "piecemealPaymentPercentRub",
+            "piecemealPaymentPercent",
+            "piecemealPaymentSum"
+        })
+        public static class PiecemealPayment {
+
+            protected BigDecimal paymentPeriodPiecemealPaymentSum;
+            protected BigDecimal pastPaymentPeriodPiecemealPaymentSum;
+            @XmlElement(required = true)
+            protected BigDecimal piecemealPaymentPercentRub;
+            @XmlElement(required = true)
+            protected BigDecimal piecemealPaymentPercent;
+            @XmlElement(required = true)
+            protected BigDecimal piecemealPaymentSum;
+
+            /**
+             * Gets the value of the paymentPeriodPiecemealPaymentSum property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getPaymentPeriodPiecemealPaymentSum() {
+                return paymentPeriodPiecemealPaymentSum;
+            }
+
+            /**
+             * Sets the value of the paymentPeriodPiecemealPaymentSum property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setPaymentPeriodPiecemealPaymentSum(BigDecimal value) {
+                this.paymentPeriodPiecemealPaymentSum = value;
+            }
+
+            /**
+             * Gets the value of the pastPaymentPeriodPiecemealPaymentSum property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getPastPaymentPeriodPiecemealPaymentSum() {
+                return pastPaymentPeriodPiecemealPaymentSum;
+            }
+
+            /**
+             * Sets the value of the pastPaymentPeriodPiecemealPaymentSum property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setPastPaymentPeriodPiecemealPaymentSum(BigDecimal value) {
+                this.pastPaymentPeriodPiecemealPaymentSum = value;
+            }
+
+            /**
+             * Gets the value of the piecemealPaymentPercentRub property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getPiecemealPaymentPercentRub() {
+                return piecemealPaymentPercentRub;
+            }
+
+            /**
+             * Sets the value of the piecemealPaymentPercentRub property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setPiecemealPaymentPercentRub(BigDecimal value) {
+                this.piecemealPaymentPercentRub = value;
+            }
+
+            /**
+             * Gets the value of the piecemealPaymentPercent property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getPiecemealPaymentPercent() {
+                return piecemealPaymentPercent;
+            }
+
+            /**
+             * Sets the value of the piecemealPaymentPercent property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setPiecemealPaymentPercent(BigDecimal value) {
+                this.piecemealPaymentPercent = value;
+            }
+
+            /**
+             * Gets the value of the piecemealPaymentSum property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getPiecemealPaymentSum() {
+                return piecemealPaymentSum;
+            }
+
+            /**
+             * Sets the value of the piecemealPaymentSum property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setPiecemealPaymentSum(BigDecimal value) {
+                this.piecemealPaymentSum = value;
+            }
+
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeType">
+         *     &lt;/extension>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "")
+        public static class ServiceCharge
+            extends ServiceChargeType
+        {
+
 
         }
 

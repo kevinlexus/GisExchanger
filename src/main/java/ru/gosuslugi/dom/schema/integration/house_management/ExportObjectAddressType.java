@@ -4,7 +4,6 @@ package ru.gosuslugi.dom.schema.integration.house_management;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -46,9 +45,6 @@ import javax.xml.bind.annotation.XmlType;
     "fiasHouseGuid",
     "apartmentNumber",
     "roomNumber"
-})
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractType.ObjectAddress.class
 })
 public class ExportObjectAddressType {
 

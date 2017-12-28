@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
@@ -107,7 +106,15 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
  *                       &lt;/restriction>
  *                     &lt;/simpleType>
  *                   &lt;/element>
- *                   &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckPositiveType"/>
+ *                   &lt;element name="Amount">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;minInclusive value="0"/>
+ *                         &lt;totalDigits value="16"/>
+ *                         &lt;fractionDigits value="0"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
  *                   &lt;element name="PaymentPurpose" minOccurs="0">
  *                     &lt;simpleType>
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -211,9 +218,6 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
     "recipientInfo",
     "orderInfo"
 })
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.payment.ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecutionType.class
-})
 public class NotificationOfOrderExecutionType {
 
     @XmlElement(name = "SupplierInfo")
@@ -316,7 +320,15 @@ public class NotificationOfOrderExecutionType {
      *             &lt;/restriction>
      *           &lt;/simpleType>
      *         &lt;/element>
-     *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckPositiveType"/>
+     *         &lt;element name="Amount">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;minInclusive value="0"/>
+     *               &lt;totalDigits value="16"/>
+     *               &lt;fractionDigits value="0"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
      *         &lt;element name="PaymentPurpose" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">

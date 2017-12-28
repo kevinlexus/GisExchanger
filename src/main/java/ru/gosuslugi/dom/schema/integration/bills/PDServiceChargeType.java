@@ -29,9 +29,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="HousingService">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
  *                 &lt;sequence minOccurs="0">
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
  *                   &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -83,16 +83,16 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                             &lt;element name="AccountingPeriodTotal" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                   &lt;totalDigits value="18"/>
+ *                                   &lt;totalDigits value="13"/>
  *                                   &lt;fractionDigits value="2"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
- *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                             &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
  *                             &lt;element name="MunicipalServiceCommunalConsumptionPayable">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                   &lt;totalDigits value="18"/>
+ *                                   &lt;totalDigits value="13"/>
  *                                   &lt;fractionDigits value="2"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
@@ -122,9 +122,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="AdditionalService">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
  *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
  *                   &lt;element name="Consumption" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -159,9 +159,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="MunicipalService">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
  *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+ *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}PiecemealPayment" minOccurs="0"/>
  *                   &lt;element name="PaymentRecalculation" minOccurs="0">
  *                     &lt;complexType>
@@ -243,7 +243,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                             &lt;element name="AmountOfExcessFees" minOccurs="0">
  *                               &lt;simpleType>
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                   &lt;totalDigits value="18"/>
+ *                                   &lt;totalDigits value="13"/>
  *                                   &lt;fractionDigits value="2"/>
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
@@ -256,7 +256,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="MunicipalServiceIndividualConsumptionPayable" minOccurs="0">
  *                     &lt;simpleType>
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                         &lt;totalDigits value="18"/>
+ *                         &lt;totalDigits value="13"/>
  *                         &lt;fractionDigits value="2"/>
  *                       &lt;/restriction>
  *                     &lt;/simpleType>
@@ -264,7 +264,23 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
  *                     &lt;simpleType>
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                         &lt;totalDigits value="18"/>
+ *                         &lt;totalDigits value="13"/>
+ *                         &lt;fractionDigits value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="AmountOfPaymentMunicipalServiceIndividualConsumption" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;totalDigits value="13"/>
+ *                         &lt;fractionDigits value="2"/>
+ *                       &lt;/restriction>
+ *                     &lt;/simpleType>
+ *                   &lt;/element>
+ *                   &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+ *                     &lt;simpleType>
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                         &lt;totalDigits value="13"/>
  *                         &lt;fractionDigits value="2"/>
  *                       &lt;/restriction>
  *                     &lt;/simpleType>
@@ -381,9 +397,9 @@ public class PDServiceChargeType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
      *         &lt;element name="Consumption" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -424,23 +440,23 @@ public class PDServiceChargeType {
         "consumption"
     })
     public static class AdditionalService
-        extends ServicePDType
+        extends ServicePDImportType
     {
 
         @XmlElement(name = "ServiceCharge")
-        protected ServiceChargeType serviceCharge;
+        protected ServiceChargeImportType serviceCharge;
         @XmlElement(name = "Consumption")
         protected PDServiceChargeType.AdditionalService.Consumption consumption;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public ServiceChargeType getServiceCharge() {
+        public ServiceChargeImportType getServiceCharge() {
             return serviceCharge;
         }
 
@@ -449,10 +465,10 @@ public class PDServiceChargeType {
          * 
          * @param value
          *     allowed object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public void setServiceCharge(ServiceChargeType value) {
+        public void setServiceCharge(ServiceChargeImportType value) {
             this.serviceCharge = value;
         }
 
@@ -652,9 +668,9 @@ public class PDServiceChargeType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
      *       &lt;sequence minOccurs="0">
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
      *         &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -706,16 +722,16 @@ public class PDServiceChargeType {
      *                   &lt;element name="AccountingPeriodTotal" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                         &lt;totalDigits value="18"/>
+     *                         &lt;totalDigits value="13"/>
      *                         &lt;fractionDigits value="2"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *                   &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
      *                   &lt;element name="MunicipalServiceCommunalConsumptionPayable">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                         &lt;totalDigits value="18"/>
+     *                         &lt;totalDigits value="13"/>
      *                         &lt;fractionDigits value="2"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
@@ -751,23 +767,23 @@ public class PDServiceChargeType {
         "municipalResource"
     })
     public static class HousingService
-        extends ServicePDType
+        extends ServicePDImportType
     {
 
         @XmlElement(name = "ServiceCharge")
-        protected ServiceChargeType serviceCharge;
+        protected ServiceChargeImportType serviceCharge;
         @XmlElement(name = "MunicipalResource")
         protected List<PDServiceChargeType.HousingService.MunicipalResource> municipalResource;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public ServiceChargeType getServiceCharge() {
+        public ServiceChargeImportType getServiceCharge() {
             return serviceCharge;
         }
 
@@ -776,10 +792,10 @@ public class PDServiceChargeType {
          * 
          * @param value
          *     allowed object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public void setServiceCharge(ServiceChargeType value) {
+        public void setServiceCharge(ServiceChargeImportType value) {
             this.serviceCharge = value;
         }
 
@@ -869,16 +885,16 @@ public class PDServiceChargeType {
          *         &lt;element name="AccountingPeriodTotal" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *               &lt;totalDigits value="18"/>
+         *               &lt;totalDigits value="13"/>
          *               &lt;fractionDigits value="2"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+         *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
          *         &lt;element name="MunicipalServiceCommunalConsumptionPayable">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *               &lt;totalDigits value="18"/>
+         *               &lt;totalDigits value="13"/>
          *               &lt;fractionDigits value="2"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>
@@ -924,7 +940,7 @@ public class PDServiceChargeType {
             @XmlElement(name = "AccountingPeriodTotal")
             protected BigDecimal accountingPeriodTotal;
             @XmlElement(name = "ServiceCharge")
-            protected ServiceChargeType serviceCharge;
+            protected ServiceChargeImportType serviceCharge;
             @XmlElement(name = "MunicipalServiceCommunalConsumptionPayable", required = true)
             protected BigDecimal municipalServiceCommunalConsumptionPayable;
             @XmlElement(name = "ServiceInformation")
@@ -1027,14 +1043,14 @@ public class PDServiceChargeType {
             }
 
             /**
-             * Перерасчеты, льготы, субсидии
+             * Gets the value of the serviceCharge property.
              * 
              * @return
              *     possible object is
-             *     {@link ServiceChargeType }
+             *     {@link ServiceChargeImportType }
              *     
              */
-            public ServiceChargeType getServiceCharge() {
+            public ServiceChargeImportType getServiceCharge() {
                 return serviceCharge;
             }
 
@@ -1043,10 +1059,10 @@ public class PDServiceChargeType {
              * 
              * @param value
              *     allowed object is
-             *     {@link ServiceChargeType }
+             *     {@link ServiceChargeImportType }
              *     
              */
-            public void setServiceCharge(ServiceChargeType value) {
+            public void setServiceCharge(ServiceChargeImportType value) {
                 this.serviceCharge = value;
             }
 
@@ -1390,9 +1406,9 @@ public class PDServiceChargeType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDType">
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServicePDImportType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceCharge" minOccurs="0"/>
+     *         &lt;element name="ServiceCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceChargeImportType" minOccurs="0"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}PiecemealPayment" minOccurs="0"/>
      *         &lt;element name="PaymentRecalculation" minOccurs="0">
      *           &lt;complexType>
@@ -1474,7 +1490,7 @@ public class PDServiceChargeType {
      *                   &lt;element name="AmountOfExcessFees" minOccurs="0">
      *                     &lt;simpleType>
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                         &lt;totalDigits value="18"/>
+     *                         &lt;totalDigits value="13"/>
      *                         &lt;fractionDigits value="2"/>
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
@@ -1487,7 +1503,7 @@ public class PDServiceChargeType {
      *         &lt;element name="MunicipalServiceIndividualConsumptionPayable" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;totalDigits value="18"/>
+     *               &lt;totalDigits value="13"/>
      *               &lt;fractionDigits value="2"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
@@ -1495,7 +1511,23 @@ public class PDServiceChargeType {
      *         &lt;element name="MunicipalServiceCommunalConsumptionPayable" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;totalDigits value="18"/>
+     *               &lt;totalDigits value="13"/>
+     *               &lt;fractionDigits value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="AmountOfPaymentMunicipalServiceIndividualConsumption" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;totalDigits value="13"/>
+     *               &lt;fractionDigits value="2"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
+     *         &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *               &lt;totalDigits value="13"/>
      *               &lt;fractionDigits value="2"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
@@ -1517,14 +1549,16 @@ public class PDServiceChargeType {
         "consumption",
         "multiplyingFactor",
         "municipalServiceIndividualConsumptionPayable",
-        "municipalServiceCommunalConsumptionPayable"
+        "municipalServiceCommunalConsumptionPayable",
+        "amountOfPaymentMunicipalServiceIndividualConsumption",
+        "amountOfPaymentMunicipalServiceCommunalConsumption"
     })
     public static class MunicipalService
-        extends ServicePDType
+        extends ServicePDImportType
     {
 
         @XmlElement(name = "ServiceCharge")
-        protected ServiceChargeType serviceCharge;
+        protected ServiceChargeImportType serviceCharge;
         @XmlElement(name = "PiecemealPayment")
         protected PiecemealPayment piecemealPayment;
         @XmlElement(name = "PaymentRecalculation")
@@ -1539,16 +1573,20 @@ public class PDServiceChargeType {
         protected BigDecimal municipalServiceIndividualConsumptionPayable;
         @XmlElement(name = "MunicipalServiceCommunalConsumptionPayable")
         protected BigDecimal municipalServiceCommunalConsumptionPayable;
+        @XmlElement(name = "AmountOfPaymentMunicipalServiceIndividualConsumption")
+        protected BigDecimal amountOfPaymentMunicipalServiceIndividualConsumption;
+        @XmlElement(name = "AmountOfPaymentMunicipalServiceCommunalConsumption")
+        protected BigDecimal amountOfPaymentMunicipalServiceCommunalConsumption;
 
         /**
-         * Перерасчеты, льготы, субсидии
+         * Gets the value of the serviceCharge property.
          * 
          * @return
          *     possible object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public ServiceChargeType getServiceCharge() {
+        public ServiceChargeImportType getServiceCharge() {
             return serviceCharge;
         }
 
@@ -1557,10 +1595,10 @@ public class PDServiceChargeType {
          * 
          * @param value
          *     allowed object is
-         *     {@link ServiceChargeType }
+         *     {@link ServiceChargeImportType }
          *     
          */
-        public void setServiceCharge(ServiceChargeType value) {
+        public void setServiceCharge(ServiceChargeImportType value) {
             this.serviceCharge = value;
         }
 
@@ -1730,6 +1768,54 @@ public class PDServiceChargeType {
          */
         public void setMunicipalServiceCommunalConsumptionPayable(BigDecimal value) {
             this.municipalServiceCommunalConsumptionPayable = value;
+        }
+
+        /**
+         * Gets the value of the amountOfPaymentMunicipalServiceIndividualConsumption property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getAmountOfPaymentMunicipalServiceIndividualConsumption() {
+            return amountOfPaymentMunicipalServiceIndividualConsumption;
+        }
+
+        /**
+         * Sets the value of the amountOfPaymentMunicipalServiceIndividualConsumption property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setAmountOfPaymentMunicipalServiceIndividualConsumption(BigDecimal value) {
+            this.amountOfPaymentMunicipalServiceIndividualConsumption = value;
+        }
+
+        /**
+         * Gets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getAmountOfPaymentMunicipalServiceCommunalConsumption() {
+            return amountOfPaymentMunicipalServiceCommunalConsumption;
+        }
+
+        /**
+         * Sets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setAmountOfPaymentMunicipalServiceCommunalConsumption(BigDecimal value) {
+            this.amountOfPaymentMunicipalServiceCommunalConsumption = value;
         }
 
 
@@ -1961,7 +2047,7 @@ public class PDServiceChargeType {
          *         &lt;element name="AmountOfExcessFees" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *               &lt;totalDigits value="18"/>
+         *               &lt;totalDigits value="13"/>
          *               &lt;fractionDigits value="2"/>
          *             &lt;/restriction>
          *           &lt;/simpleType>

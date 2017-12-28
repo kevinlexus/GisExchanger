@@ -10,8 +10,6 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationExpor
 
 
 /**
- * Платежный документ
- * 
  * <p>Java class for exportPaymentDocumentResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

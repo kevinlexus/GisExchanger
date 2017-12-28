@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVersionType;
 
 
 /**
@@ -132,7 +133,18 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}VoteInitiators" maxOccurs="unbounded"/>
+ *                     &lt;element name="VoteInitiators" maxOccurs="unbounded">
+ *                       &lt;complexType>
+ *                         &lt;complexContent>
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                             &lt;choice>
+ *                               &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/>
+ *                               &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
+ *                             &lt;/choice>
+ *                           &lt;/restriction>
+ *                         &lt;/complexContent>
+ *                       &lt;/complexType>
+ *                     &lt;/element>
  *                   &lt;/sequence>
  *                 &lt;/restriction>
  *               &lt;/complexContent>
@@ -1158,7 +1170,18 @@ public class ProtocolExportType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}VoteInitiators" maxOccurs="unbounded"/>
+     *         &lt;element name="VoteInitiators" maxOccurs="unbounded">
+     *           &lt;complexType>
+     *             &lt;complexContent>
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                 &lt;choice>
+     *                   &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/>
+     *                   &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
+     *                 &lt;/choice>
+     *               &lt;/restriction>
+     *             &lt;/complexContent>
+     *           &lt;/complexType>
+     *         &lt;/element>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -1174,7 +1197,7 @@ public class ProtocolExportType {
     public static class ExtraVoting {
 
         @XmlElement(name = "VoteInitiators", required = true)
-        protected List<VoteInitiators> voteInitiators;
+        protected List<ProtocolExportType.ExtraVoting.VoteInitiators> voteInitiators;
 
         /**
          * Gets the value of the voteInitiators property.
@@ -1194,15 +1217,98 @@ public class ProtocolExportType {
          * 
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link VoteInitiators }
+         * {@link ProtocolExportType.ExtraVoting.VoteInitiators }
          * 
          * 
          */
-        public List<VoteInitiators> getVoteInitiators() {
+        public List<ProtocolExportType.ExtraVoting.VoteInitiators> getVoteInitiators() {
             if (voteInitiators == null) {
-                voteInitiators = new ArrayList<VoteInitiators>();
+                voteInitiators = new ArrayList<ProtocolExportType.ExtraVoting.VoteInitiators>();
             }
             return this.voteInitiators;
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;choice>
+         *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/>
+         *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
+         *       &lt;/choice>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "ind",
+            "org"
+        })
+        public static class VoteInitiators {
+
+            @XmlElement(name = "Ind")
+            protected VotingInitiatorIndType ind;
+            @XmlElement(name = "Org")
+            protected RegOrgVersionType org;
+
+            /**
+             * Gets the value of the ind property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link VotingInitiatorIndType }
+             *     
+             */
+            public VotingInitiatorIndType getInd() {
+                return ind;
+            }
+
+            /**
+             * Sets the value of the ind property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link VotingInitiatorIndType }
+             *     
+             */
+            public void setInd(VotingInitiatorIndType value) {
+                this.ind = value;
+            }
+
+            /**
+             * Gets the value of the org property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link RegOrgVersionType }
+             *     
+             */
+            public RegOrgVersionType getOrg() {
+                return org;
+            }
+
+            /**
+             * Sets the value of the org property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link RegOrgVersionType }
+             *     
+             */
+            public void setOrg(RegOrgVersionType value) {
+                this.org = value;
+            }
+
         }
 
     }

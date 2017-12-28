@@ -90,13 +90,15 @@ public class ExportStatusCAChResultType {
     @XmlElement(name = "ContractVersionGUID")
     protected String contractVersionGUID;
     @XmlElement(name = "ContractStatus")
-    protected String contractStatus;
+    @XmlSchemaType(name = "string")
+    protected ContractStatusType contractStatus;
     @XmlElement(name = "CharterGUID")
     protected String charterGUID;
     @XmlElement(name = "CharterVersionGUID")
     protected String charterVersionGUID;
     @XmlElement(name = "CharterStatus")
-    protected String charterStatus;
+    @XmlSchemaType(name = "string")
+    protected CharterStatusType charterStatus;
     @XmlElement(name = "State")
     protected String state;
     @XmlElement(name = "ContractObject")
@@ -164,10 +166,10 @@ public class ExportStatusCAChResultType {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link ContractStatusType }
      *     
      */
-    public String getContractStatus() {
+    public ContractStatusType getContractStatus() {
         return contractStatus;
     }
 
@@ -176,10 +178,10 @@ public class ExportStatusCAChResultType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link ContractStatusType }
      *     
      */
-    public void setContractStatus(String value) {
+    public void setContractStatus(ContractStatusType value) {
         this.contractStatus = value;
     }
 
@@ -236,10 +238,10 @@ public class ExportStatusCAChResultType {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link CharterStatusType }
      *     
      */
-    public String getCharterStatus() {
+    public CharterStatusType getCharterStatus() {
         return charterStatus;
     }
 
@@ -248,10 +250,10 @@ public class ExportStatusCAChResultType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link CharterStatusType }
      *     
      */
-    public void setCharterStatus(String value) {
+    public void setCharterStatus(CharterStatusType value) {
         this.charterStatus = value;
     }
 

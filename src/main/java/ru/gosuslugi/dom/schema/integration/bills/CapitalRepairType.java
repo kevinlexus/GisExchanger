@@ -32,7 +32,14 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyRecalculation"/>
+ *         &lt;element name="MoneyRecalculation">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="18"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyDiscount"/>
  *         &lt;element name="TotalPayable">
  *           &lt;simpleType>
@@ -122,8 +129,7 @@ public class CapitalRepairType {
     }
 
     /**
-     * Перерасчеты, корректировки (руб)
-     * Ссылка на пост. 924 – Приложение 2, п. 52.
+     * Gets the value of the moneyRecalculation property.
      * 
      * @return
      *     possible object is

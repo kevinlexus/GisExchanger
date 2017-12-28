@@ -40,7 +40,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.NotificationOfOrderExec
  *                                 &lt;complexContent>
  *                                   &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}AcknowledgmentRequestInfoExportType">
  *                                     &lt;sequence>
- *                                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *                                       &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
  *                                     &lt;/sequence>
  *                                   &lt;/extension>
  *                                 &lt;/complexContent>
@@ -128,7 +128,7 @@ public class ExportNotificationsOfOrderExecutionResultType {
      *                       &lt;complexContent>
      *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}AcknowledgmentRequestInfoExportType">
      *                           &lt;sequence>
-     *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+     *                             &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
      *                           &lt;/sequence>
      *                         &lt;/extension>
      *                       &lt;/complexContent>
@@ -321,7 +321,7 @@ public class ExportNotificationsOfOrderExecutionResultType {
          *             &lt;complexContent>
          *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}AcknowledgmentRequestInfoExportType">
          *                 &lt;sequence>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+         *                   &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
          *                 &lt;/sequence>
          *               &lt;/extension>
          *             &lt;/complexContent>
@@ -384,7 +384,7 @@ public class ExportNotificationsOfOrderExecutionResultType {
              *   &lt;complexContent>
              *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}AcknowledgmentRequestInfoExportType">
              *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+             *         &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
              *       &lt;/sequence>
              *     &lt;/extension>
              *   &lt;/complexContent>
@@ -401,11 +401,11 @@ public class ExportNotificationsOfOrderExecutionResultType {
                 extends AcknowledgmentRequestInfoExportType
             {
 
-                @XmlElement(name = "OrderID", namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", required = true)
+                @XmlElement(name = "OrderID", required = true)
                 protected String orderID;
 
                 /**
-                 * Уникальный идентификатор извещения
+                 * Gets the value of the orderID property.
                  * 
                  * @return
                  *     possible object is

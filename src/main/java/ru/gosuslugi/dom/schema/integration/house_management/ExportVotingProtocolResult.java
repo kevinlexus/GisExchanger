@@ -23,17 +23,10 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;choice>
- *         &lt;element name="VotingProtocol" maxOccurs="unbounded">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType">
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
+ *         &lt;element name="VotingProtocol" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -52,7 +45,7 @@ public class ExportVotingProtocolResult
 {
 
     @XmlElement(name = "VotingProtocol")
-    protected List<ExportVotingProtocolResult.VotingProtocol> votingProtocol;
+    protected List<ExportVotingProtocolResultType> votingProtocol;
     @XmlElement(name = "ErrorMessage", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected ErrorMessageType errorMessage;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
@@ -76,13 +69,13 @@ public class ExportVotingProtocolResult
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ExportVotingProtocolResult.VotingProtocol }
+     * {@link ExportVotingProtocolResultType }
      * 
      * 
      */
-    public List<ExportVotingProtocolResult.VotingProtocol> getVotingProtocol() {
+    public List<ExportVotingProtocolResultType> getVotingProtocol() {
         if (votingProtocol == null) {
-            votingProtocol = new ArrayList<ExportVotingProtocolResult.VotingProtocol>();
+            votingProtocol = new ArrayList<ExportVotingProtocolResultType>();
         }
         return this.votingProtocol;
     }
@@ -121,7 +114,7 @@ public class ExportVotingProtocolResult
      */
     public String getVersion() {
         if (version == null) {
-            return "10.0.1.1";
+            return "11.7.0.3";
         } else {
             return version;
         }
@@ -137,32 +130,6 @@ public class ExportVotingProtocolResult
      */
     public void setVersion(String value) {
         this.version = value;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType">
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
-    public static class VotingProtocol
-        extends ExportVotingProtocolResultType
-    {
-
-
     }
 
 }

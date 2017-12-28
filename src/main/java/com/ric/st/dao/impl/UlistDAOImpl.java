@@ -12,11 +12,15 @@ import org.springframework.stereotype.Repository;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Ulist;
 import com.ric.bill.model.exs.UlistTp;
+import com.ric.st.builder.impl.HcsBillsAsyncBuilder;
 import com.ric.st.dao.UlistDAO;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @Repository
+@Slf4j
 public class UlistDAOImpl implements UlistDAO {
 
 	@PersistenceContext
@@ -102,14 +106,21 @@ public class UlistDAOImpl implements UlistDAO {
      * @param org - организация
      */
     public Ulist getListElem(String grp, Integer fkExt, String name, String s1, Eolink org) {
-		Query query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=:fkExt and tp.grp=:grp "
-				+ "and t.name=:name and t.s1=:s1 and t.parent.actual=true "
-				+ "and tp.eolink.id=:org ");
+    	//log.info("grp={}, fkExt={}, name={}, s1={}, org={}", grp, fkExt, name, s1, org.getId());
+    	Query query;
+    	if (org != null) {
+    		query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=:fkExt and tp.grp=:grp "
+    				+ "and t.name=:name and t.s1=:s1 and t.parent.actual=true "
+    				+ "and tp.eolink.id=:org ");
+    		query.setParameter("org", org.getId());
+    	} else {
+    		query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=:fkExt and tp.grp=:grp "
+    				+ "and t.name=:name and t.s1=:s1 and t.parent.actual=true ");
+    	}
 		query.setParameter("grp", grp);
 		query.setParameter("fkExt", fkExt);
 		query.setParameter("name", name);
 		query.setParameter("s1", s1);
-		query.setParameter("org", org.getId());
 		Ulist chld = (Ulist) query.getSingleResult();
 		return chld.getParent();
     }
