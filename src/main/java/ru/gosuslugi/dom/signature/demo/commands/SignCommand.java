@@ -2,6 +2,9 @@ package ru.gosuslugi.dom.signature.demo.commands;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.RFC4519Style;
+import org.bouncycastle.cert.jcajce.JcaX500NameUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,7 +32,9 @@ import java.security.KeyException;
 import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 
 /**
  * Выполняет подписание XML-документа.
@@ -62,20 +67,56 @@ public class SignCommand implements Command {
 
         // загружаем хранилище закрытых ключей
         char[] storePassword = null;
-        char[] keyPassword = null;
+        String pass = "12345678";
+        char[] keyPassword = pass.toCharArray();
+        //char[] keyPassword = null;
         KeyStore keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
         KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", storePassword);
 
-        // загружаем закрытый ключ
-        //String key = "SCARD\\rutoken_311550ac\\0A00\\82F9";
-        //String key = "SCARD\\rutoken_33124d15\\0A00\\1F70";
         
-        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";
+        // выводим информацию о хранилище
+        System.out.println("Keystore type: " + keyStore.getType());
+        System.out.println("Keystore provider: " + provider.getName());
+        System.out.println();
 
-        String key = "FAT12\\6CFAFBEC_CRT\\de263rIl.000\\946E";
+        // выводим список ключей/сертификатов
+        System.out.println("--------------------------------");
+        System.out.println("список ключей/сертификатов:");
+        Enumeration<String> aliases = keyStore.aliases();
+        while (aliases.hasMoreElements()) {
+            String alias = aliases.nextElement();
+
+            String entryType = "?";
+            String entryInfo = null;
+            if (keyStore.entryInstanceOf(alias, KeyStore.SecretKeyEntry.class)) { // симметричный ключ шифрования
+                entryType = "SecretKeyEntry";
+            } else if (keyStore.entryInstanceOf(alias, KeyStore.PrivateKeyEntry.class)) { // закрытый ключ
+                entryType = "PrivateKeyEntry";
+            } else if (keyStore.entryInstanceOf(alias, KeyStore.TrustedCertificateEntry.class)) { // сертификат
+                entryType = "TrustedCertificateEntry";
+                Certificate certificate = keyStore.getCertificate(alias);
+                // не-X.509 сертификаты игнорируем
+                if (certificate instanceof X509Certificate) {
+                    X509Certificate x509 = (X509Certificate) certificate;
+                    // берем поле Subject из сертификата
+                    X500Name subject = JcaX500NameUtil.getSubject(RFC4519Style.INSTANCE, x509);
+                    entryInfo = subject.toString();
+                }
+            }
+
+            System.out.println(alias + ", " + entryType);
+            if (entryInfo != null) {
+                System.out.println(entryInfo);
+            }
+        }
+        System.out.println("--------------------------------");
         
-        //String key="C:\\work\\GIS_MUP\\pass\\Cert";
-        //String key="C:\\Progs\\CryptoTunnel2x\\stunnel";
+        // загружаем закрытый ключ
+        //String key = "FAT12\\6CFAFBEC_CRT\\de263rIl.000\\946E"; // - новый
+        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";  - старый
+        String key = "REGISTRY\\\\de263_Iliasov_till_2018chk3"; 
+        //String key = "FAT12\\75EEB634\\INN00420.000\\68D6"; // - новый
+        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; // - новый
         
         KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, key, keyPassword);
         if (keyEntry == null) {

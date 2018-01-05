@@ -1324,6 +1324,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	// Добавить дом
 			log.info("Добавление дома, Task.id={}", reqProp.getFoundTask().getId());
 	    	BasicCharacteristicts bc = new BasicCharacteristicts();
+	       	bc.setFIASHouseGuid(reqProp.getFoundTask().getEolink().getGuid());
 			Double totSqr = teParMng.getDbl(reqProp.getFoundTask(), "ГИС ЖКХ.Общая площадь жилых помещений по паспорту помещения");
 	    	bc.setTotalSquare(BigDecimal.valueOf(totSqr));
 
@@ -1337,7 +1338,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	bc.setCulturalHeritage((cult==1d) ? true : false );
 	    	
 	    	// установить часовую зону
-	    	bc.setOlsonTZ(ulistMng.getNsiElem("NSI", 31/*30*/, "Часовая зона", "Asia/Novokuznetsk"));
+	    	bc.setOlsonTZ(ulistMng.getNsiElem("NSI", 32/*30*/, "Часовая зона", "Asia/Novokuznetsk")); // ред.28.12.17 странно было 31 поменял на 32
 			
 	    	Double et = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наибольшее(1-11)");
 	    	bc.setFloorCount(String.valueOf(et));
@@ -1369,6 +1370,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	ac.setUndergroundFloorCount(String.valueOf(underEt));
 
 			Double etMin = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наименьшее(1-10)");
+			log.info("etMin={}", etMin);
 			Integer etMin2 = etMin.intValue();
 	    	ac.setMinFloorCount(etMin2.byteValue());
 
@@ -1429,7 +1431,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			Double underEt = teParMng.getDbl(reqProp.getFoundTask(), "ГИС ЖКХ.Количество подземных этажей");
 	    	ac.setUndergroundFloorCount(String.valueOf(underEt));
 
-			Double etMin = teParMng.getDbl(reqProp.getFoundTask(), "113ГС-ЭПМД-1.1-17.6.-Количество этажей, наименьшее");
+			Double etMin = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наименьшее(1-10)");
 			Integer etMin2 = etMin.intValue();
 	    	ac.setMinFloorCount(etMin2.byteValue());
 	    	

@@ -13,6 +13,7 @@ import com.ric.bill.Config;
 import com.ric.st.impl.TaskController;
 
 import ru.gosuslugi.dom.signature.demo.commands.Command;
+import ru.gosuslugi.dom.signature.demo.commands.ListCommand;
 import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
 
 @SpringBootApplication
