@@ -108,7 +108,7 @@
 		https://mvnrepository.com/artifact/org.springframework/spring-webmvc
 		<dependency>
 		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
+		    <artifactId>spring-webmvc</artifactId> chk
 		</dependency>
  -->
 		<!-- Не удалять! Используется для AuthConfigFactory!!! -->
@@ -186,10 +186,9 @@
 		</dependency>
 
    		<dependency>
-			<groupId>com.ric.tjava</groupId>
+			<groupId>com.digt</groupId>
 			<artifactId>trustedJava</artifactId>
 			<version>1.0</version>
-			<scope>runtime</scope>
 		</dependency>
   		<!-- https://mvnrepository.com/artifact/com.diffplug.durian/durian -->
 		<dependency>
