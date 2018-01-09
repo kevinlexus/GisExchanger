@@ -25,5 +25,6 @@ public interface HouseManagementAsyncBindingBuilders {
 	public void importHouseUODataAck(Task task) throws CantPrepSoap;
 	public Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;
 	public void importMeteringDeviceDataAck(Task task) throws CantPrepSoap;
+	public void checkPeriodicTask(Task task) throws WrongParam;
 	
 }

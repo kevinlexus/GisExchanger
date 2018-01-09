@@ -9,9 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.ric.bill.RequestConfig;
+import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
+import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.TaskMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
@@ -60,8 +62,6 @@ public class TaskController implements TaskControllers {
 	private ApplicationContext ctx;
 	public Command sc;
 	@Autowired
-	private NsiCommonAsyncBindingBuilders nsiComm;
-	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
@@ -80,9 +80,12 @@ public class TaskController implements TaskControllers {
 	 * @throws WrongGetMethod 
 	 * @throws CantSendSoap 
 	 * @throws CantPrepSoap 
+	 * @throws WrongParam 
 	 */
-	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap {
+	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
 
+		
+		
 		this.reqConfig = ctx.getBean(RequestConfig.class);
 		this.reqConfig.setUp("0", "0", null, -1, null, null);
 		
@@ -91,7 +94,7 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
-		
+
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
 		// цикл
@@ -129,17 +132,30 @@ public class TaskController implements TaskControllers {
 							dm.saveValToFile(task);
 						}
 						break;
-					case "GIS_RPT":
-						// Запуск повторяемого задания, если задано
+					case "GIS_CHECK_HOUSE_MET_TASK":
+						// Проверка наличия заданий по экспорту показаний счетчиков
 						if (state.equals("INS")) {
-							TaskPar taskPar = tb.getTrgTask(task);
-							if (taskPar!= null) {
-								log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
-								// активировать задание	
-								tb.activateRptTask(task);
-								// отметить задание выполненным
-								tb.setProcTask(taskPar);
-							}
+							dm.setUp();
+							dm.checkPeriodicTask(task);
+						}
+						break;
+					case "GIS_CHECK_HOUSE_EXP_TASK":
+						// Проверка наличия заданий по экспорту объектов дома
+						if (state.equals("INS")) {
+							hb.setUp();
+							hb.checkPeriodicTask(task);
+						}
+						break;
+					case "GIS_SYSTEM_RPT":
+						//log.info("******* RPT.id={}", task.getId());
+						// Запуск повторяемого задания, если задано
+						TaskPar taskPar = tb.getTrgTask(task);
+						if (taskPar!= null) {
+							log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
+							// добавить в список на выполнение
+							tb.activateRptTask(task);
+							// добавить в список выполненных заданий
+							tb.setProcTask(taskPar);
 						}
 						break;
 					case "GIS_UPD_HOUSE" :
@@ -162,6 +178,7 @@ public class TaskController implements TaskControllers {
 						
 						break;
 					case "GIS_EXP_HOUSE":
+						// Экспорт из ГИС ЖКХ объектов дома
 						hb.setUp();
 						if (state.equals("INS")) {
 							// Экспорт объектов дома
@@ -173,7 +190,7 @@ public class TaskController implements TaskControllers {
 						
 						break;
 					case "GIS_EXP_ACCS":
-						// Экспорт из ГИС ЖКХ приборов учета
+						// Экспорт из ГИС ЖКХ лиц.счетов
 						hb.setUp();
 						if (state.equals("INS")) {
 							hb.exportAccountData(task);
@@ -297,7 +314,10 @@ public class TaskController implements TaskControllers {
 				} catch (Exception e) {
 					e.printStackTrace();
 					log.error("Ошибка обработки задания Task.id={}, message={}", e.getStackTrace());
-					taskMng.setState(task, "ERR");
+					if (!task.getAct().getCd().equals("GIS_SYSTEM_RPT")) {
+						// не помечать ошибкой системные, повторяемые задания
+						taskMng.setState(task, "ERR");
+					}
 					taskMng.setResult(task, e.getMessage());
 					
 				}

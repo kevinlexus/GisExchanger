@@ -93,18 +93,23 @@ public class TaskBuilder implements TaskBuilders {
      */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void activateRptTask(Task task) throws WrongGetMethod {
-		log.info("******* Task.id={}, Повторяемое задание", task.getId());
+		Task foundTask = em.find(Task.class, task.getId());
+		log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
 		mapTask = new HashMap<Task, Task>();
 		// найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
 		// по определённому типу
-		task.getInside().stream()
+		foundTask.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
 		    .filter(t-> t.getChild().getParent() == null).forEach(t-> {
-		    log.info("******* Задание скопировано: Task.id={}, ", t.getChild().getId());	
+		    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
+		    	// если не выполняется, поставить на выполнение
+			    t.getChild().setState("INS");
+			    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
+		    }
 			// скопировать задание, параметры
-			copyTask(t.getChild(), null, 0);
+			// copyTask(t.getChild(), null, 0);
 			// скопировать связи заданий с другими заданиями
-			copyTask(t.getChild(), null, 1);
+			// copyTask(t.getChild(), null, 1);
 		}) ;
 	}
 
@@ -286,7 +291,7 @@ public class TaskBuilder implements TaskBuilders {
     			.filter(t-> t.getPar().getCd().equals("ГИС ЖКХ.Crone"))
     			.collect(Collectors.toList())) {
         	if (lstTrg.contains(t.getId()) && !lstTrgProc.contains(t.getId())) {
-            	//log.info("..............Выполнить задание TaskPar.id={}", t.getId());
+            	log.info("..............Выполнить задание TaskPar.id={}", t.getId());
         		return t;
         	}
     	};
@@ -311,11 +316,11 @@ public class TaskBuilder implements TaskBuilders {
     }
 
     /**
-     * Загрузить расписания работы всех заданий типа GIS_RPT
+     * Загрузить расписания работы всех заданий типа GIS_SYSTEM_RPT
      */
     private void loadSchedules() {
     	// Получить все параметры определённого типа по всем задачам
-    	lstSched = taskDao.getByTp("GIS_RPT").stream().flatMap(t-> t.getTaskPar().stream())
+    	lstSched = taskDao.getByTp("GIS_SYSTEM_RPT").stream().flatMap(t-> t.getTaskPar().stream())
     			.filter(d-> d.getPar().getCd().equals("ГИС ЖКХ.Crone"))
     			.collect(Collectors.toList());
     }

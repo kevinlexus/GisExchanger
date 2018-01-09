@@ -108,7 +108,7 @@
 		https://mvnrepository.com/artifact/org.springframework/spring-webmvc
 		<dependency>
 		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId> chk
+		    <artifactId>spring-webmvc</artifactId>
 		</dependency>
  -->
 		<!-- Не удалять! Используется для AuthConfigFactory!!! -->

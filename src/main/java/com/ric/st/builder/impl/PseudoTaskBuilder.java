@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ric.bill.dao.ParDAO;
+import com.ric.bill.dao.TaskDAO;
+import com.ric.bill.dao.TaskToTaskDAO;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.TaskEolinkParMng;
@@ -19,6 +21,7 @@ import com.ric.bill.model.bs.Par;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
+import com.ric.bill.model.exs.TaskToTask;
 import com.ric.st.SoapConfigs;
 import com.ric.st.builder.PseudoTaskBuilders;
 
@@ -43,12 +46,14 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	private TaskEolinkParMng teParMng;
     @PersistenceContext
     private EntityManager em;
+	@Autowired
+	private TaskDAO taskDao;
 	
-	Task taskChild;
+	Task task;
 	// 
 	/* инициализация
 	 * @param eolink - объект к которому привязано задание
-	 * @param parent - родительское задание
+	 * @param parent - родительское задание (не обязательный параметр)
 	 * @param actCd - тип задания
 	 * @param state - статус состояния
 	 */
@@ -56,7 +61,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		Lst actVal = lstMng.getByCD(actCd);
 		Integer userId = soapConfig.getCurUser().getId();
 
-		taskChild = new Task(eolink, parent, null, state, actVal,
+		task = new Task(eolink, parent, null, state, actVal,
 				null, null, null, null, null, null, 0, userId);
 		
 	}
@@ -107,15 +112,30 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 			valD1 = d1;
 		}
 
-		TaskPar taskPar = new TaskPar(taskChild, par, valN1, valS1, valD1);
-		taskChild.getTaskPar().add(taskPar);
+		TaskPar taskPar = new TaskPar(task, par, valN1, valS1, valD1);
+		task.getTaskPar().add(taskPar);
 	}
 	
 	// переписать параметры в объект Eolink
 	//@Transactional - не нужно, так как выполняется в контексте транзакции
 	public void accept() {
-		em.persist(taskChild);
-		teParMng.acceptPar(taskChild);
+		em.persist(task);
+		teParMng.acceptPar(task);
 	}
+
+	/**
+	 * Добавить задание как дочернее, в список выполнения другого задания
+	 * @param cd - CD родительского задания 
+	 */
+	@Override
+	public void addAsChild(String cd) {
+		Task parent = taskDao.getByCd(cd);
+		Lst lst = lstMng.getByCD("Связь повторяемого задания");
+		TaskToTask t = new TaskToTask(parent, task, lst);
+		parent.getInside().add(t);
+		
+	}
+
+	
 }
 

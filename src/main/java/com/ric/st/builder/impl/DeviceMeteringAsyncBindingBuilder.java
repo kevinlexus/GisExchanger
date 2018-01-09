@@ -39,6 +39,7 @@ import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
+import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
@@ -99,6 +100,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private Config config;
 	@Autowired
 	private PseudoTaskBuilders ptb; 
+	@Autowired
+	TaskControllers taskCtrl;
 	
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -407,7 +410,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		req.setSerchArchived(false);
 		// Отключить показания отправленные информационной системой
 		req.setExcludeISValues(false);
-		req.setInputDateFrom(Utl.getXMLDate(taskParMng.getDate(task, "Счетчик.ДатаСнятияПоказания")));
+		// дата с которой получить показания
+		req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
 		
 		try {
 			ack = port.exportMeteringDeviceHistory(req);
@@ -469,7 +473,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					if (t.getOneRateDeviceValue() != null) {
 						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.CurrentValue e : 
 								t.getOneRateDeviceValue().getValues().getCurrentValue()) {
-							log.info("GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(), 
+							log.info("показания по OneRateDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(), 
 									e.getMeteringValue()); 
 							// записать объем по счетчику в EOLINK
 							saveVal(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValue(), 
@@ -479,7 +483,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					if (t.getElectricDeviceValue() != null) {
 						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportElectricMeteringValueKindType.CurrentValue e : 
 							t.getElectricDeviceValue().getValues().getCurrentValue()) {
-							log.info("GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(), 
+							log.info("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(), 
 									e.getMeteringValueT1()); 
 							//log.info("TGUID={}", e.s); 
 							// записать объем по счетчику в EOLINK
@@ -633,5 +637,32 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		foundTask.setState("ACP");
 	}
 	
-
+	/**
+	 * Проверить наличие заданий на выгрузку показаний по счетчикам, по домам
+	 * и если их нет, - создать
+	 * @param task
+	 * @throws WrongParam 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void checkPeriodicTask(Task task) throws WrongParam {
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, вызов", task.getId());
+		Task foundTask = em.find(Task.class, task.getId());
+		// создать по всем домам задания, если их нет
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_METER_VALS")) {
+			// статус - STP, остановлено (будет запускаться другим заданием)
+			ptb.setUp(e, null, "GIS_EXP_METER_VALS", "STP");
+			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Холодная вода", null, null);
+			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Горячая вода", null, null);
+			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Электрическая энергия", null, null);
+			// добавить как дочернее задание к системному повторяемому заданию
+			ptb.addAsChild("SYSTEM_RPT_MET_EXP_VAL");
+			ptb.accept();
+			log.info("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
+		};
+		// Установить статус выполнения задания
+		foundTask.setState("ACP");
+		
+	}
+	
 }

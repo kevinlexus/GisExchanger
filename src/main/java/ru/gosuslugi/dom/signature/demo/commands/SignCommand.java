@@ -114,7 +114,8 @@ public class SignCommand implements Command {
         // загружаем закрытый ключ
         //String key = "FAT12\\6CFAFBEC_CRT\\de263rIl.000\\946E"; // - новый
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";  - старый
-        String key = "REGISTRY\\\\de263_Iliasov_till_2018chk3"; 
+        //String key = "REGISTRY\\\\de263_Iliasov_till_2018chk3"; 
+        String key = "REGISTRY\\\\de263_Iliasov_till_2018chk"; 
         //String key = "FAT12\\75EEB634\\INN00420.000\\68D6"; // - новый
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; // - новый
         
