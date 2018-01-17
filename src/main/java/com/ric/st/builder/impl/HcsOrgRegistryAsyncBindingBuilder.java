@@ -210,9 +210,6 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 		SearchCriteria sc = new SearchCriteria();
 
-		//sc.setOGRN("1154250016051"); // металл
-		//sc.setOGRN("1114205043468"); // риц
-		//sc.setOGRN("1154250016293"); // ООО "УПРАВЛЯЮЩАЯ КОМПАНИЯ ЖИЛКОМСЕРВИС"
 		sc.setOGRN(eolOrg.getOgrn());
 		req.getSearchCriteria().add(sc);
 
