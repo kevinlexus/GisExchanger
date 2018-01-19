@@ -10,8 +10,11 @@ import com.ric.bill.model.exs.Task;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
+import ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult;
+
 public interface DeviceMeteringAsyncBindingBuilders {
 
+	public GetStateResult getState2(Task task);
 	public void setUp() throws CantSendSoap;
 	public Boolean importMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
 	public void importMeteringDeviceValuesAsk(Task task) throws CantSendSoap, CantPrepSoap;

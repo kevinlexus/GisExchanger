@@ -132,6 +132,13 @@ public class TaskController implements TaskControllers {
 							dm.saveValToFile(task);
 						}
 						break;
+					case "GIS_CHECK_ORG_EXP_TASK":
+						// Проверка наличия заданий по экспорту параметров организаций
+						if (state.equals("INS")) {
+							os.setUp();
+							os.checkPeriodicTask(task);
+						}
+						break;
 					case "GIS_CHECK_HOUSE_MET_TASK":
 						// Проверка наличия заданий по экспорту показаний счетчиков
 						if (state.equals("INS")) {
@@ -147,7 +154,6 @@ public class TaskController implements TaskControllers {
 						}
 						break;
 					case "GIS_SYSTEM_RPT":
-						//log.info("******* RPT.id={}", task.getId());
 						// Запуск повторяемого задания, если задано
 						TaskPar taskPar = tb.getTrgTask(task);
 						if (taskPar!= null) {
@@ -262,8 +268,11 @@ public class TaskController implements TaskControllers {
 					case "GIS_EXP_ORG":
 						// Экспорт данных организации
 						os.setUp();
-						os.exportOrgRegistry(task, null);
-						
+						if (state.equals("INS")) {
+							os.exportOrgRegistry(task);
+						} else if (state.equals("ACK")) {
+							os.exportOrgRegistryAsk(task);
+						}						
 						break;
 					case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
 						nsiSv.setUp();

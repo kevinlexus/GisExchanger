@@ -824,7 +824,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							null, bc.getCadastralNumber(), null, null);
 				}
 				// сохранить параметры в объекте Eolink, через дочернее задание
-				ptb.accept();
+				ptb.saveToEolink();
 				
 				Map<Integer, Eolink> entryMap = new HashMap<Integer, Eolink>();
 				
@@ -856,7 +856,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						// Объект активен
 						entryEol.setStatus(1);
 					}
-					ptb.accept();
+					ptb.saveToEolink();
 				}
 				// проверить наличие подъезда из базы в ГИСе
 				List<Eolink> lstEntry = eolinkDao.getChildByTp(houseEol, "Подъезд");
@@ -934,7 +934,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН", 
 								null, null, false, null);
 					}
-					ptb.accept();
+					ptb.saveToEolink();
 					
 				}));
 				
@@ -984,7 +984,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 								null, null, false, null);
 					}
 					
-					ptb.accept();
+					ptb.saveToEolink();
 					
 				};
 				
@@ -2097,7 +2097,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
-			ptb.accept();
+			ptb.save();
 			log.info("Добавлено задание на выгрузку объектов дома по Дому Eolink.id={}", e.getId());
 		};
 
@@ -2107,7 +2107,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
-			ptb.accept();
+			ptb.save();
 			log.info("Добавлено задание на выгрузку лицевых счетов дома по Дому Eolink.id={}", e.getId());
 		};
 
@@ -2118,7 +2118,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
-			ptb.accept();
+			ptb.save();
 			log.info("Добавлено задание на выгрузку счетчиков ИПУ дома по Дому Eolink.id={}", e.getId());
 		};
 

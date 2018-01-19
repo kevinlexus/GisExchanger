@@ -117,12 +117,16 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	}
 	
 	// переписать параметры в объект Eolink
-	//@Transactional - не нужно, так как выполняется в контексте транзакции
-	public void accept() {
+	@Override
+	public void saveToEolink() {
 		em.persist(task);
 		teParMng.acceptPar(task);
 	}
 
+	@Override
+	public void save() {
+		em.persist(task);
+	}
 	/**
 	 * Добавить задание как дочернее, в список выполнения другого задания
 	 * @param cd - CD родительского задания 

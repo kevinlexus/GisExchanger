@@ -126,9 +126,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 	/**
 	 * Получить состояние запроса
-	 * @param msgGuid - GUID запроса
+	 * @param task - задание
 	 * @return
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public GetStateResult getState2(Task task) {
 		
@@ -554,7 +555,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				ptb.addTaskPar("Счетчик.ДатаСнятияПоказания", null, null, null, dtVal);
 				ptb.addTaskPar("ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", null, null, null, dtEnter);
 				ptb.addTaskPar("ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D, null, null, null);
-				ptb.accept();
+				ptb.saveToEolink();
 			}			
 			
 		}
@@ -657,7 +658,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Электрическая энергия", null, null);
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_MET_EXP_VAL");
-			ptb.accept();
+			ptb.save();
 			log.info("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
 		};
 		// Установить статус выполнения задания

@@ -104,7 +104,7 @@ public class TaskBuilder implements TaskBuilders {
 		    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
 		    	// если не выполняется, поставить на выполнение
 			    t.getChild().setState("INS");
-			    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
+			    log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
 		    }
 			// скопировать задание, параметры
 			// copyTask(t.getChild(), null, 0);
