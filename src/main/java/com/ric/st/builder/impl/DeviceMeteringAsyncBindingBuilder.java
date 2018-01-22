@@ -607,11 +607,12 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					Double val = eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)");
 					// объем = новое показание - предыдущее показание
 					Double vol = Utl.nvl(val, 0D) - Utl.nvl(prevVal, 0D); 
+					String log_id = "";
 					if (val != null) {
 					    try {
 							log.info("Показания по Eolink.id={}", meter.getId());
-							// TODO сделать уникальную запись task.getId() (взять из Sequences) 
-							String str = task.getId()+"|"+cLskId+"|"+tp+"|"+eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)")+"|"+vol+"|"+
+							log_id = em.createNativeQuery("Select exs.seq_log.nextval from dual").getSingleResult().toString();
+							String str = log_id+"|"+cLskId+"|"+tp+"|"+eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)")+"|"+vol+"|"+
 									Utl.getStrFromDate(new Date(), "dd.MM.yyyy HH:mm:ss")+"|"+Utl.nvl(meter.getIdGrp(),"0")+"|"+Utl.nvl(meter.getIdCnt(),"0"); 
 					    	log.info(str);
 							bw.write(str);
