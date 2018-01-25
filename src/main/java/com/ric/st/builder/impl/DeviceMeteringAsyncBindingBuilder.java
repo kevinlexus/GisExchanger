@@ -73,7 +73,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	private ApplicationContext ctx;
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager em; 
 	@Autowired
 	UlistMng ulistMng;
 	@Autowired
