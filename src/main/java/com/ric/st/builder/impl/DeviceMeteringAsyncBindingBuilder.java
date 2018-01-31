@@ -16,6 +16,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -102,6 +103,11 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private PseudoTaskBuilders ptb; 
 	@Autowired
 	TaskControllers taskCtrl;
+
+	@Value("${appTp}")
+	private String appTp;
+	@Value("${pathCounter}")
+	private String pathCounter;
 	
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -410,7 +416,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		// Искать ли архивные
 		req.setSerchArchived(false);
 		// Отключить показания отправленные информационной системой
-		req.setExcludeISValues(false);
+		req.setExcludeISValues(true);
 		// дата с которой получить показания
 		req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
 		
@@ -535,27 +541,39 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			log.info("Check");
 		}*/
 		
-		// Получить последнюю дату снятия показания
+		// последняя дата снятия показания
 		Date dtVal2 = eolinkParMng.getDate(meter, "Счетчик.ДатаСнятияПоказания");
+		// дата внесения показания в ГИС
+		Date dtEnter2 = eolinkParMng.getDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания");
 		//log.info("date1={}, date2={}", dtVal, dtVal2);
-		//log.info("date1.time={}, date2.time={}", dtVal.getTime(), dtVal2.getTime());
-		if (dtVal2 == null || dtVal.getTime() > dtVal2.getTime()) {
-			// либо нет последней даты снятия, либо она раньше чем принятая, записать тек.показания
-			
-			// Получить текущие показания по счетчику
+		log.info("дата-время снятия из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
+		log.info("дата-время внесения из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
+		if (dtVal2 == null || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) > 0 // дата новее в ГИС
+				 || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) == 0 // дата та же в ГИС, дата внесения новее
+				 	&& dtEnter.getTime() > dtEnter2.getTime() 
+				) {
+			// получить текущие показания по счетчику
 			Double prevVal = eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)");
 			if (prevVal == null || BigDecimal.valueOf(prevVal).compareTo(val) !=0) {
 				// Если показания изменились, записать в Eolink
 				// дочернее псевдозадание, хранящее принятые показания по счетчику
 				log.info("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата снятия={}, дата внесения в ГИС={}", 
-						rootGUID, val, dtVal, dtEnter);   
-				ptb.setUp(meter, task, "GIS_TMP", null);
+						rootGUID, val, dtVal, dtEnter);
+				
+				eolinkParMng.setDbl(meter, "Счетчик.ПоказПредыдущее(Т1)", prevVal);
+				eolinkParMng.setDbl(meter, "Счетчик.Показ(Т1)", val.doubleValue());
+				eolinkParMng.setDate(meter, "Счетчик.ДатаСнятияПоказания", dtVal);
+				eolinkParMng.setDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", dtEnter);
+				eolinkParMng.setDbl(meter, "ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D);
+
+				/*ptb.setUp(meter, task, "GIS_TMP", null);
 				ptb.addTaskPar("Счетчик.ПоказПредыдущее(Т1)", prevVal, null, null, null);
 				ptb.addTaskPar("Счетчик.Показ(Т1)", val.doubleValue(), null, null, null);
 				ptb.addTaskPar("Счетчик.ДатаСнятияПоказания", null, null, null, dtVal);
 				ptb.addTaskPar("ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", null, null, null, dtEnter);
 				ptb.addTaskPar("ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D, null, null, null);
 				ptb.saveToEolink();
+				*/
 			}			
 			
 		}
@@ -568,10 +586,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void saveValToFile(Task task) throws WrongGetMethod, IOException {
-		log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл", task.getId());
+		log.info("******* Task.id={}, Выгрузка показаний приборов учета в файл path={}", task.getId(), appTp, pathCounter);
 		Task foundTask = em.find(Task.class, task.getId());
-		if (config.getAppTp().equals(0)) {
-			File file = new File(config.getPathCounter());
+		if (appTp.equals("0")) {
+			File file = new File(pathCounter);
 			if (!file.exists()) {
 				file.createNewFile();
 			}

@@ -218,7 +218,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		if (err) {
 			// Ошибки во время выполнения
 			log.info(errStr);
-		} if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
+		} else if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
 			// Прочие ошибки
 			err = true;
 			errStr = state.getErrorMessage().getDescription();
@@ -334,6 +334,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт приборов учета, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
 
 		AckRequest ack = null;
 
@@ -394,12 +395,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDeviceDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongGetMethod {
 		log.info("******* Task.id={}, экспорт приборов учета, запрос ответа", task.getId());
-		//sb.setTrace(true);
-
 		// тип помещения 0 - жилое, 1 - не жилое
 		Integer premiseTp = null;
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
+
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		
 		// получить состояние
@@ -732,7 +733,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public Boolean exportHouseData(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, экспорт объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
-		//sb.setTrace(true);
+		sb.setTrace(true);
 
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -781,7 +782,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		//sb.setTrace(true);
+		sb.setTrace(true);
 
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		// получить состояние
@@ -1007,6 +1008,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт лицевых счетов, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
 		
 		ExportAccountRequest req = new ExportAccountRequest();
 		req.setId("foo");
@@ -1048,6 +1050,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongParam, ErrorProcessAnswer {
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
+
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 
 		// получить состояние
@@ -1129,6 +1133,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap {
 		log.info("******* Task.id={}, импорт лицевых счетов, вызов", task.getId());
 		// Установить параметры SOAP
+		sb.setTrace(true);
+
 		reqProp.setProp(task, sb);
 
 		ImportAccountRequest req = new ImportAccountRequest();
@@ -1793,11 +1799,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, импорт приборов учета, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
+		sb.setTrace(true);
 
 		ImportMeteringDeviceDataRequest req = new ImportMeteringDeviceDataRequest();
 		req.setVersion(req.getVersion());
 		req.setId("foo");
-		sb.setTrace(true);
 
 		req.setFIASHouseGuid(reqProp.getHouseGuid());
 		

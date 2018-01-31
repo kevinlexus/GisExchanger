@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.ric.bill.Config;
+import com.ric.st.impl.SoapConfig;
 import com.ric.st.impl.TaskController;
 
 import ru.gosuslugi.dom.signature.demo.commands.Command;
@@ -34,15 +35,6 @@ public class Soap2GisApplication implements CommandLineRunner {
 		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
 		  
-		//Создать объект подписывания XML
-		try {
-			sc = new SignCommand();
-			//System.out.println("Объект подписывания XML СОЗДАН!");
-		} catch (Exception e1) {
-			System.out.println("Объект подписывания XML не создан!");
-			e1.printStackTrace();
-		}
-
         String mode = args != null && args.length > 0 ? args[0] : null;
 
 		if (AuthConfigFactory.getFactory() == null) {
@@ -61,20 +53,21 @@ public class Soap2GisApplication implements CommandLineRunner {
             applicationContext = app.run(args);
             
             TaskController taskContr = applicationContext.getBean(TaskController.class);
-            Config config = applicationContext.getBean(Config.class);
-            
-            if (config.getAppTp() == 1) {
-                taskContr.otherTask();
-            	
-            } else {
+            SoapConfig soapConfig = applicationContext.getBean(SoapConfig.class);
+            //Создать объект подписывания XML
+    		try {
+    			sc = new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
+    			//System.out.println("Объект подписывания XML СОЗДАН!");
+    		} catch (Exception e1) {
+    			System.out.println("Объект подписывания XML не создан!");
+    			e1.printStackTrace();
+    		}
 
-            	try {
-    				taskContr.searchTask();
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    			}
-            	
-            }
+            try {
+				taskContr.searchTask();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
             
             // Завершить выполнение приложения
             SpringApplication.exit(applicationContext, () -> 0);

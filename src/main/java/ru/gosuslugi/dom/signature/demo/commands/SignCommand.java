@@ -8,6 +8,7 @@ import org.bouncycastle.cert.jcajce.JcaX500NameUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import groovy.util.logging.Log;
 import ru.gosuslugi.dom.signature.demo.args.SignParameters;
 import ru.gosuslugi.dom.signature.demo.exceptions.ElementNotFoundException;
 import ru.gosuslugi.dom.signature.demo.jce.KeyLoader;
@@ -53,7 +54,7 @@ public class SignCommand implements Command {
     }
 
     //конструктор
-    public SignCommand() throws Exception {
+    public SignCommand(String signPass, String signPath) throws Exception {
         //System.out.println("############ SIGN COMMAND START!");
         // инициализируем Apache Santuario
         
@@ -67,8 +68,9 @@ public class SignCommand implements Command {
 
         // загружаем хранилище закрытых ключей
         char[] storePassword = null;
-        String pass = "0123456789";
-        char[] keyPassword = pass.toCharArray();
+        System.out.println("############ "+signPass);
+        System.out.println("############ "+signPath);
+        char[] keyPassword = signPass.toCharArray();
         //char[] keyPassword = null;
         KeyStore keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
         KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", storePassword);
@@ -118,11 +120,11 @@ public class SignCommand implements Command {
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; 
         //String key = "FAT12\\75EEB634\\INN00420.000\\68D6"; // - новый
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; // - новый
-        String key = "REGISTRY\\\\de263_Iliasov_till_2018reg";
+        //String key = "REGISTRY\\\\de263_Iliasov_till_2018reg";
         
-        KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, key, keyPassword);
+        KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
         if (keyEntry == null) {
-            throw new KeyException("Key not found: " + key);
+            throw new KeyException("Key not found: " + signPath);
         }
 
         //System.out.println("keystore="+keyStore+" - "+parameters.getStoreName());

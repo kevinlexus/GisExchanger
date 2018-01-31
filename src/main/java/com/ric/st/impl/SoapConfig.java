@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,19 @@ public class SoapConfig implements SoapConfigs {
 	private TaskController taskContr;
 	@Autowired
 	private UserDAO userDao;
-
+	@Value("${baseOrgGUID}")
+	private String baseOrgGUID;
+	@Value("${fingerPrint}")
+	private String fingerPrint;
+	@Value("${basicPass}")
+	private String basicPass;
+	@Value("${basicLogin}")
+	private String basicLogin;
+	@Value("${signPass}")
+	private String signPass;
+	@Value("${signPath}")
+	private String signPath;
+	
 	// Пользователь, от имени которого выполняются процессы
 	private User user;
 
@@ -43,8 +56,8 @@ public class SoapConfig implements SoapConfigs {
 		// Базовый GUID организации, осуществляющей обмен! (для справочников NSI и т.п.)
 
 		//return "9b051b50-937d-44f7-b03b-ff621d84ea3d"; // МП "РИЦ" (СИТ-2)
-		return "d2bf560f-bccb-41d0-8c7a-54de0c5049ec"; // МП "РИЦ" (Пром)
-
+		//return "d2bf560f-bccb-41d0-8c7a-54de0c5049ec"; // МП "РИЦ" (Пром)
+		return baseOrgGUID;
 		
 		
 		//return "b9fe4d27-020d-44dc-8bfd-b5972a504f45"; // Металлплощадка (СИТ-2)
@@ -77,14 +90,16 @@ public class SoapConfig implements SoapConfigs {
 	 * Получить fingerprint
 	 */
 	public String getFingerPrint() {
-		return "2021d448e368a0b39c2bfcd4435574c05ca8c435";
+		return fingerPrint;
+		//return "2021d448e368a0b39c2bfcd4435574c05ca8c435";
 	}
 
 	/**
 	 * Получить логин basic-авторизации
 	 */
 	public String getBscLogin() {
-		return "sit";
+		return basicLogin;
+		//return "sit";
 	}
 	
 	/**
@@ -92,7 +107,8 @@ public class SoapConfig implements SoapConfigs {
 	 */
 	public String getBscPass() {
 		//return "rZ_GG72XS^Vf55ZW";
-		return "xw{p&&Ee3b9r8?amJv*]";
+		return basicPass;
+		//return "xw{p&&Ee3b9r8?amJv*]";
 	}
 	
 	/**
@@ -157,4 +173,21 @@ public class SoapConfig implements SoapConfigs {
 		return this.user;
 	}
 
+	public String getSignPass() {
+		return signPass;
+	}
+
+	public void setSignPass(String signPass) {
+		this.signPass = signPass;
+	}
+
+	public String getSignPath() {
+		return signPath;
+	}
+
+	public void setSignPath(String signPath) {
+		this.signPath = signPath;
+	}
+
+	
 }
