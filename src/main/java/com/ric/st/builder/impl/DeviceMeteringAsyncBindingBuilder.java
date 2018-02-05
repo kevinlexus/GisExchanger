@@ -595,6 +595,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			}
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
+			boolean emptyFile = true;
 			
 			for (Eolink meter : eolinkDao.getValsNotSaved()) {
 					// ЗАПИСАТЬ показания во внешний файл
@@ -634,6 +635,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 									Utl.getStrFromDate(new Date(), "dd.MM.yyyy HH:mm:ss")+"|"+Utl.nvl(meter.getIdGrp(),"0")+"|"+Utl.nvl(meter.getIdCnt(),"0"); 
 					    	log.info(str);
 							bw.write(str);
+							emptyFile = false;
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -652,6 +654,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 			if (fw != null)
 				fw.close();
+			if (emptyFile) {
+				log.info("Delete empty file");
+				file.delete();
+			}
 		}
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
