@@ -590,13 +590,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		Task foundTask = em.find(Task.class, task.getId());
 		if (appTp.equals("0")) {
 			File file = new File(pathCounter);
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			boolean emptyFile = true;
-			
+			FileWriter fw = null;
+			BufferedWriter bw = null;
+			boolean fileLinked = false;
+
 			for (Eolink meter : eolinkDao.getValsNotSaved()) {
 					// ЗАПИСАТЬ показания во внешний файл
 					Integer cLskId = null;
@@ -629,13 +626,19 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					String log_id = "";
 					if (val != null) {
 					    try {
+					    	if (!fileLinked) {
+								if (!file.exists()) file.createNewFile();
+								fw = new FileWriter(file.getAbsoluteFile());
+								bw = new BufferedWriter(fw);
+								fileLinked = true;
+							}
 							log.info("Показания по Eolink.id={}", meter.getId());
 							log_id = em.createNativeQuery("Select exs.seq_log.nextval from dual").getSingleResult().toString();
 							String str = log_id+"|"+cLskId+"|"+tp+"|"+eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)")+"|"+vol+"|"+
 									Utl.getStrFromDate(new Date(), "dd.MM.yyyy HH:mm:ss")+"|"+Utl.nvl(meter.getIdGrp(),"0")+"|"+Utl.nvl(meter.getIdCnt(),"0"); 
 					    	log.info(str);
 							bw.write(str);
-							emptyFile = false;
+							bw.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -643,7 +646,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					    bw.newLine();
 					}
 					// пометить сохранённым в файл
 					eolinkParMng.setDbl(meter, "ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 0D);
@@ -654,10 +656,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 			if (fw != null)
 				fw.close();
-			if (emptyFile) {
-				log.info("Delete empty file");
-				file.delete();
-			}
 		}
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
