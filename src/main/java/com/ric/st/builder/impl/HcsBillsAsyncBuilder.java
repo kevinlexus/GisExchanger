@@ -283,6 +283,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		addPaymentDocument(task, req);
 		
+		// проверять ли расчет документа?
+		req.setConfirmAmountsCorrect(true);
+		
 		try {
 			ack = port.importPaymentDocumentData(req);
 		} catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
@@ -310,7 +313,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		//String accGuid = "da94975c-d9e5-4f87-bdac-6705c7aaf437";
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
-		
+		// ТСЖ "Красноарм бастион" ул. Красноармейская, 134, кв.6, л.с. 62020006
+		//String accGuid = "e8826280-8cb0-4eaf-8641-9a91dcf4f7d9";
 		pd.setAccountGuid(accGuid );
 		pd.setPaymentDocumentNumber("KKK-1");
 		
@@ -326,14 +330,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
 		// @param totalPay - итого к оплате за расчетный период, руб.
 		chrgInfo.setHousingService(addHousingService(task, "Вид жилищной  услуги", "Плата за содержание жилого помещения", 
-				10.00D, 350.00D, 350.00D, "NO", 35D));
-
-		// услуги ОИ
+				31.00D, 1171.80D, 1171.80D, "NO"));
 		// коммунальные услуги
-/*				chrgInfo = new ChargeInfo();
+		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
 		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Холодное водоснабжение", 
-				30.62D, 153.10D, 153.10D, "NO", 5D));
+				20.00D, 100.00D, 100.00D, "NO", 5D, "M"));
+/*
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
 		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Горячее водоснабжение", 
@@ -355,12 +358,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// дополнительные услуги
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Запирающее устройство (ЗУ)", 
-				37D, 37D, 37D, "NO", null));
-		*/
+		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Автостоянка", 
+				10D, 20D, 20D, "NO", 2D));
+*/
+		
 		// документ выставлен
 		pd.setExpose(true);
-		pd.setTotalPayableByChargeInfo(new BigDecimal("350.00"));
+		// Итог к оплате по документу
+		pd.setTotalPayableByChargeInfo(new BigDecimal("1291.80"));
 		
 		// Транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
@@ -375,7 +380,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		req.getPaymentInformation().add(payInfo);
 		
 		payInfo.setBankBIK("043207612");
-		payInfo.setOperatingAccountNumber("40821810726000010021");
+		payInfo.setOperatingAccountNumber("40703810526020101092");
 		
 		// Транспортный GUID платежных реквизитов   
 		String tguid = Utl.getRndUuid().toString();
@@ -397,23 +402,23 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
 	 * @param totalPay - итого к оплате за расчетный период, руб.
 	 * @param calcExpl - порядок расчетов
-	 * @param vol - объемы
 	 */
 	private HousingService addHousingService(Task task, String name, String s1, 
-			Double rate, Double totalAccount, Double totalPay, String calcExpl, 
-			Double vol) {
+			Double rate, Double totalAccount, Double totalPay, String calcExpl) {
 		NsiRef mres;
 		HousingService housService = new HousingService();
 		mres = ulistMng.getNsiElem("NSI", 50, name, s1);
 		housService.setServiceType(mres);
 		housService.setRate(BigDecimal.valueOf(rate));
-		// Итого к оплате за расчетный период, руб.
-		housService.setTotalPayable(BigDecimal.valueOf(totalPay));
 		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
 		housService.setAccountingPeriodTotal(BigDecimal.valueOf(totalAccount));
+		// Итого к оплате за расчетный период, руб.
+		housService.setTotalPayable(BigDecimal.valueOf(totalPay));
 		// Порядок расчетов
 		housService.setCalcExplanation(calcExpl);
 		
+		
+		// РЕСУРСЫ НА КУ
 		NsiRef servType = ulistMng.getNsiElem("NSI", 2, "Вид коммунального ресурса", "Холодная вода");
 		
 		MunicipalResource mr = new MunicipalResource();
@@ -428,27 +433,31 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		volume.setDeterminingMethod("N");
 		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление, house(O)verallNeeds - общедомовые нужды
 		volume.setType("O");
-		volume.setValue(BigDecimal.valueOf(vol));
+		// Потребление при содержании общего имущества (м3)
+		volume.setValue(BigDecimal.valueOf(2.35D));
 		consum.setVolume(volume);
 		
 		// потребление
 		mr.setConsumption(consum);
-		// расценка
-		mr.setRate(BigDecimal.valueOf(10.00D));
-		// итого
-		mr.setAccountingPeriodTotal(BigDecimal.valueOf(350.00D));
+		// Тариф, руб./ед.изм. (для Х.В. на ОИ - это м3) 
+		mr.setRate(BigDecimal.valueOf(10.10D));
+		// всего начислено за расчетный период, руб (потребление * тариф, округлить!)
+		mr.setAccountingPeriodTotal(BigDecimal.valueOf(23.74D));
 		
+		// Справочная информация
 		ServiceInformation servInf = new ServiceInformation();
-		servInf.setHouseOverallNeedsNorm(BigDecimal.valueOf(10.11D));
-		servInf.setHouseTotalHouseOverallNeeds(BigDecimal.valueOf(100.23D));
-		// нормативы потребления и объемы
+		// Норматив потребления при содержании общего имущества (м3 на м2)
+		servInf.setHouseOverallNeedsNorm(BigDecimal.valueOf(5.01D));
+		// Суммарный объём коммунальных ресурсов в доме
+		// В целях содержания общего имущества
+		servInf.setHouseTotalHouseOverallNeeds(BigDecimal.valueOf(4000));
 		mr.setServiceInformation(servInf );
 		// перерасчеты и льготы
 		ServiceChargeImportType servChrg = new ServiceChargeImportType();
 		servChrg.setMoneyDiscount(BigDecimal.valueOf(0D));
 		servChrg.setMoneyRecalculation(BigDecimal.valueOf(0D));
-		// К оплате за коммунальный ресурс потребления при содержании общего имущества
-		mr.setMunicipalServiceCommunalConsumptionPayable(BigDecimal.valueOf(120.35D));
+		// К оплате за коммунальный ресурс потребления при содержании общего имущества (расценка на площадь)
+		mr.setMunicipalServiceCommunalConsumptionPayable(BigDecimal.valueOf(23.74D));
 		mr.setServiceCharge(servChrg);
 		housService.getMunicipalResource().add(mr ); 
 		
@@ -464,32 +473,26 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * @param s1 - наименование услуги
 	 * @param totalAccount - всего начислено за расчетный период (без перерасчетов и льгот), руб.
 	 * @param totalPay - итого к оплате за расчетный период, руб.
-	 * @param vol - объемы
+	 * @param vol - объем
+	 * @param detMethod - cпособ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
 	 */
 	private MunicipalService addMunService(Task task, int refId, String name, String s1, 
-			Double rate, Double totalAccount, Double totalPay, String calcExpl, Double vol) {
+			Double rate, Double totalAccount, Double totalPay, String calcExpl, Double vol, String detMethod) {
 		NsiRef mres;
 		MunicipalService munService = new MunicipalService();
 		mres = ulistMng.getNsiElem("NSI", refId, name, s1, task.getEolink());
 		Consumption consump = new Consumption();
 		
-		List<Volume> lstVol = new ArrayList<Volume>(0);
 		Volume volume = new Volume();
 		
 		// Способ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
-		volume.setDeterminingMethod("M");
-		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление, house(O)verallNeeds - общедомовые нужды
+		volume.setDeterminingMethod(detMethod);
+		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление
 		volume.setType("I");
 		volume.setValue(BigDecimal.valueOf(vol));
 		
-		lstVol.add(volume );
-		
-		if (lstVol.size() != 0) {
-			consump.getVolume().addAll(lstVol);
-		}
-		if (consump.getVolume().size() != 0) {
-			munService.setConsumption(consump);
-		}
+		consump.getVolume().add(volume);
+		munService.setConsumption(consump);
 		munService.setServiceType(mres);
 		munService.setRate(BigDecimal.valueOf(rate));
 		// Итого к оплате за расчетный период, руб.
@@ -512,10 +515,22 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * @param vol - объемы
 	 */
 	private AdditionalService addAdditionalService(Task task, String name, String s1, 
-			Double rate, Double totalAccount, Double totalPay, String calcExpl, List<Volume> vol) {
+			Double rate, Double totalAccount, Double totalPay, String calcExpl, Double vol) {
 		NsiRef mres;
 		AdditionalService additionalService = new AdditionalService();
 		mres = ulistMng.getNsiElem("NSI", 1, name, s1, task.getEolink());
+		
+		ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption consumption =
+				new ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption();
+		ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption.Volume volume =
+				new ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption.Volume();
+		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление
+		volume.setType("I");
+		// Потребление
+		volume.setValue(BigDecimal.valueOf(vol));
+		consumption.getVolume().add(volume);
+
+		additionalService.setConsumption(consumption);
 		additionalService.setServiceType(mres);
 		additionalService.setRate(BigDecimal.valueOf(rate));
 		// Итого к оплате за расчетный период, руб.
