@@ -261,6 +261,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 	/**
 	 * Импорт платежного документа - запрос
+	 * внимание! проверить наличие утверждённого устава, с необходимыми услугами
+	 * в т.ч. дополнительными! 
+	 * Иначе будет SRV008076 - 
+	 * Некорректный состав услуг или некорректное указание реквизитов по услугам
 	 * @param task - задание 
 	 */
 	@Override
@@ -306,13 +310,19 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 	}
 
-
+	/**
+	 * Добавление платежного документа
+	 * @param task - текущее задание
+	 * @param req - запрос
+	 */
 	private void addPaymentDocument(Task task, ImportPaymentDocumentRequest req) {
 		PaymentDocument pd = new PaymentDocument();
 		//String accGuid = "e8b19c33-4af1-4702-af14-0d0b24c9dc9e";
 		//String accGuid = "da94975c-d9e5-4f87-bdac-6705c7aaf437";
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
-		String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
+		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
+		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.4, лс: 64010004
+		String accGuid = "d2e66464-9836-4776-95db-e4b37ecb4acb";
 		// ТСЖ "Красноарм бастион" ул. Красноармейская, 134, кв.6, л.с. 62020006
 		//String accGuid = "e8826280-8cb0-4eaf-8641-9a91dcf4f7d9";
 		pd.setAccountGuid(accGuid );
@@ -331,6 +341,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// @param totalPay - итого к оплате за расчетный период, руб.
 		chrgInfo.setHousingService(addHousingService(task, "Вид жилищной  услуги", "Плата за содержание жилого помещения", 
 				31.00D, 1171.80D, 1171.80D, "NO"));
+
+		// дополнительные услуги
+		chrgInfo = new ChargeInfo();
+		pd.getChargeInfo().add(chrgInfo);
+		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Автостоянка", 
+				10D, 10D, 10D, "NO", 1D));
+
 		// коммунальные услуги
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
@@ -354,18 +371,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		pd.getChargeInfo().add(chrgInfo);
 		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Вывоз мусора  бытового", 
 				0.83D, 29.3D, 29.3D, "NO", null, true));
-
-		// дополнительные услуги
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setAdditionalService(addAdditionalService(task, "Вид дополнительной услуги", "Автостоянка", 
-				10D, 20D, 20D, "NO", 2D));
 */
+
 		
 		// документ выставлен
 		pd.setExpose(true);
 		// Итог к оплате по документу
-		pd.setTotalPayableByChargeInfo(new BigDecimal("1291.80"));
+		pd.setTotalPayableByChargeInfo(new BigDecimal("1281.80"));
 		
 		// Транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
