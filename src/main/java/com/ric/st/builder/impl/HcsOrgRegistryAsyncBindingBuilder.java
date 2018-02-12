@@ -203,9 +203,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
-		//sb.setTrace(true);
+		sb.setTrace(true);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);	
+		reqProp.setPropWOGUID(task, sb);	
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -260,9 +260,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportOrgRegistryAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
 		log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
-		//sb.setTrace(true);
+		sb.setTrace(true);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink(); 
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());

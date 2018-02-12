@@ -29,6 +29,8 @@ public class ReqProp implements ReqProps {
     private EntityManager em;
 	@Autowired
 	private EolinkMng eolinkMng;
+	@Autowired
+	private SoapConfig config;
 	
 	Task foundTask;
 	String houseGuid;
@@ -37,6 +39,7 @@ public class ReqProp implements ReqProps {
 	String kul;
 	String nd;
 	SoapBuilder sb;
+
 	/* 
 	 * Установить значения настроек
 	 */
@@ -59,9 +62,28 @@ public class ReqProp implements ReqProps {
 			throw new CantPrepSoap("Не заведена запись организации в Eolink по Task.id="+task.getId());
 		}
 		ppGuid = org.getGuid();
+		if (ppGuid == null) {
+			// нет Организации
+			throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
+		}
 		sb.setPpGuid(ppGuid);
 	}
 	
+	/* 
+	 * Установить значения настроек
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap {
+		foundTask = em.find(Task.class, task.getId());
+		reu = task.getEolink().getReu();
+		kul = task.getEolink().getKul();
+		nd = task.getEolink().getNd();
+		houseGuid = task.getEolink().getGuid();
+		// GUID текущей организации
+		sb.setPpGuid(config.getOrgPPGuid());
+	}
+
 	public Task getFoundTask() {
 		return foundTask;
 	}

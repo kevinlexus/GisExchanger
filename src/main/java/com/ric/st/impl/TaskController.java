@@ -265,7 +265,7 @@ public class TaskController implements TaskControllers {
 					case "GIS_IMP_PAY_DOCS":
 						bill.setUp();
 						if (state.equals("INS")) {
-							// Импорт платежного документа
+							// Импорт платежных документов по дому
 							bill.importPaymentDocumentData(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа

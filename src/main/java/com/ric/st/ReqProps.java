@@ -9,6 +9,8 @@ public interface ReqProps {
 
 	public void setProp(Task task, SoapBuilder sb) throws CantPrepSoap;
 
+	public void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap;
+		
 	public Task getFoundTask();
 
 	public String getHouseGuid();

@@ -8,6 +8,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 import ru.gosuslugi.dom.schema.integration.nsi_common.ExportNsiItemResult;
 
 import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.model.exs.Ulist;
 import com.ric.bill.model.exs.UlistTp;
 import com.ric.st.excp.CantGetNSI;
 import com.ric.st.excp.CantUpdNSI;
@@ -21,6 +22,8 @@ public interface UlistMng {
 	public NsiRef getNsiElem(String grp, Integer id, String name, String value);	
 	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
 			getNsiElem(String grp, Integer id, String name, String value, Eolink org);
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
+			getNsiElem(Ulist elem);
 	public void loadNsi(String grp) throws CantUpdNSI;
 	public RefStore getrStore();
 	public void showAll();

@@ -414,6 +414,20 @@ public class UlistMngImpl implements UlistMng {
 	}
 
 	/**
+	 * Получить элемент справочника, сохранённый в базе данных, по элементу
+	 * @param elem - Элемент
+	 */
+	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef 
+		getNsiElem(Ulist elem) {
+		
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef t = 
+				new ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef();
+		t.setCode(elem.getName());
+		t.setGUID(elem.getGuid());
+		return t;
+	}
+
+	/**
 	 * Вывести на экран содержимое всех загруженных справочников (TODO)
 	 */
 	public void showAll() {
