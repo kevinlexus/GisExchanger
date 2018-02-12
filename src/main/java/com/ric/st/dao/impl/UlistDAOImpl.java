@@ -1,9 +1,11 @@
 package com.ric.st.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -98,6 +100,46 @@ public class UlistDAOImpl implements UlistDAO {
 		return chld.getParent();
     }
     
+    public Ulist getListElem(String cd, String name, String guid,Date dt1, Date dt2,
+			Boolean actual, UlistTp ulistTp, Integer npp, String value, Ulist parent,
+			String refCode, String refGuid, String tp) {
+
+        Query query = em.createQuery("select t from Ulist t where (t.cd = :cd or :cd is null)" +
+                "		and (t.name = :name or :name is null)" +
+                "		and (t.guid = :guid or :guid is null)" +
+                "		and (t.dt1 = :dt1 or :dt1 is null)" +
+                "		and (t.dt2 = :dt2 or :dt2 is null)" +
+                "		and (t.actual = :actual or :actual is null)" +
+                "		and (t.ulistTp = :ulistTp or :ulistTp is null)" +
+                "		and (t.npp = :npp or :npp is null)" +
+                "		and (t.s1 = :s1 or :s1 is null)" +
+                "		and (t.parent = :parent or :parent is null)" +
+                "		and (t.refCode = :refCode or :refCode is null)" +
+                "		and (t.refGuid = :refGuid or :refGuid is null)" +
+                "		and (t.tp = :tp or :tp is null)");
+        query.setParameter("cd", cd);
+		query.setParameter("name", name);
+		query.setParameter("guid", guid);
+		query.setParameter("dt1", dt1);
+		query.setParameter("dt2", dt2);
+		query.setParameter("actual", actual);
+		query.setParameter("ulistTp", ulistTp);
+		query.setParameter("npp", npp);
+		query.setParameter("s1", value);
+		query.setParameter("parent", parent);
+		query.setParameter("refCode", refCode);
+		query.setParameter("refGuid", refGuid);
+		query.setParameter("tp", tp);
+		Ulist res = null;
+		try {
+			res = (Ulist)query.getSingleResult();
+		}
+		catch (NoResultException e1) {log.info("Ulist.getListElem : no result found.");}
+		catch (NonUniqueResultException e2) {log.error("Ulist.getListElem : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");}
+		catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
+		return res;
+    }
+
     /* Получить элемент справочника по группе, коду группы, cd элемента, id организации
      * @param grp - группа справочника, например "NSI"
      * @param fkExt - код справочника, например 22

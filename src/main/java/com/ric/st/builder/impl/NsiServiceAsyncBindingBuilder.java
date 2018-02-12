@@ -249,11 +249,13 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 				log.info("Создан заголовочный элемент ListTp :{}", prefix);
 			} else {
 				// найден заголовок, удалить имеющиеся дочерние элементы
+				/*
 				Iterator<Ulist> it = ulistTp.getUlist().iterator();
 				while (it.hasNext()) {
 					it.next();
 					it.remove();
 				}
+				*/
 			}
 			
 			// загрузить полученные элементы
