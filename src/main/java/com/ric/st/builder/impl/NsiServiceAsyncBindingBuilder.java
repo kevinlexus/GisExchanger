@@ -261,7 +261,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			// загрузить полученные элементы
 			Integer idx = 0;
 			for (NsiElementType t :retState.getNsiItem().getNsiElement()){
-				idx = ulistMng.addElement(ulistTp, grp, tp, t, idx);
+				idx = ulistMng.mergeElement(ulistTp, grp, tp, t, idx);
 			}
 
 			// Установить статус выполнения задания

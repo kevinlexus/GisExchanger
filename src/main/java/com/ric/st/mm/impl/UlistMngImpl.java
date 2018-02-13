@@ -94,7 +94,7 @@ public class UlistMngImpl implements UlistMng {
 	 */
 	private void updNsiItem(UlistTp ulistTp, String grp, BigInteger id) throws CantUpdNSI {
 		// удалить элементы в нашей базе по данному справочнику
-		ulistDao.delListByListTp(ulistTp);
+		// ulistDao.delListByListTp(ulistTp); //Ничего не удаляем, чтобы не ехали id
 		
 		// получить из ГИС справочник
 		NsiItemType res = null;
@@ -117,14 +117,14 @@ public class UlistMngImpl implements UlistMng {
 		if (res != null) {
 			Integer idx = 0;
 			for (NsiElementType t: res.getNsiElement()) {
-				idx = addElement(ulistTp, grp, id.intValue(), t, idx);
+				idx = mergeElement(ulistTp, grp, id.intValue(), t, idx);
 		    }
 		} else {
 			log.info("Нет элементов в базе ГИС по справочнику grp={}, id={}", grp, id);
 		}
 	}
 
-	public Integer addElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
+	public Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
 		// получить cd новой записи
 		String cd = getPrefixedCD(id.toString(), grp, t.getCode(), idx++);
 		// создать новый элемент
@@ -150,6 +150,9 @@ public class UlistMngImpl implements UlistMng {
 			em.persist(main);
 			log.info("Создана запись Code={}", t.getCode(), t.getGUID());
 		} else {
+		    main.setDt1(Utl.getDateFromXmlGregCal(t.getStartDate()));
+		    main.setDt2(Utl.getDateFromXmlGregCal(t.getEndDate()));
+		    em.persist(main);
 			log.info("Запись Code={}, GUID={} есть в базе, пропускаем...", t.getCode(), t.getGUID() );
 		}
 		// создать записи fields в Ulist
