@@ -30,6 +30,6 @@ public interface UlistMng {
 	public NsiRef getResourceByUsl(String usl);
 	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi);
 	public Integer getResType(String usl);
-	public Integer addElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx);
+	public Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx);
 
 }
