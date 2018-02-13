@@ -309,7 +309,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		}));
 		
 		// проверять ли расчет документов?
-		req.setConfirmAmountsCorrect(true);
+		// req.setConfirmAmountsCorrect(true);
 		
 		try {
 			ack = port.importPaymentDocumentData(req);
@@ -355,13 +355,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		
 		pd.setAccountGuid(accGuid );
 		pd.setPaymentDocumentNumber("KKK-1");
-		
+
 		List<SumChrgRec> lstSum = null;
 		if (appTp==0) {
 			// старая разработка
 			lstSum = aflowDao.getGrp(acc.getLsk(), "201801", 0);
 		} else if (appTp==2) {
-			// эксперементальная разработка
+			// экспериментальная разработка
 			lstSum = achargeDao.getGrp(acc.getLsk(), 201801, 1);
 		}
 		
@@ -391,8 +391,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			}
 
 		}
-
-
 /*
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);
@@ -412,12 +410,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Вывоз мусора  бытового", 
 				0.83D, 29.3D, 29.3D, "NO", null, true));
 */
-
 		
 		// документ выставлен
 		pd.setExpose(true);
 		// Итог к оплате по документу
-		pd.setTotalPayableByChargeInfo(new BigDecimal("1281.80"));
+		Double total = lstSum.stream()
+				.mapToDouble(t -> t.getSumma()).sum();
+		pd.setTotalPayableByChargeInfo(BigDecimal.valueOf(total==null ? 0D :total));
 		
 		// Транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
@@ -457,16 +456,21 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		mres = ulistMng.getNsiElem(rec.getServGis().getUlist());
 		housService.setServiceType(mres);
 		housService.setRate(BigDecimal.valueOf(rec.getPrice()));
-		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		housService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()));
-		// Итого к оплате за расчетный период, руб.
-		housService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()));
-		// Порядок расчетов
+		// итог по данной услуге (Жилищная услуга + услуги на ОИ)
+		Double total = lstSum.stream().filter(t -> t.getServGis().getTp().equals(0) || t.getServGis().getTp().equals(3))
+				.mapToDouble(t -> t.getSumma()).sum();
+		// всего начислено за расчетный период (без перерасчетов и льгот), руб.
+		housService.setAccountingPeriodTotal(BigDecimal.valueOf(total==null ? 0D: total));
+		// итого к оплате за расчетный период, руб.
+		housService.setTotalPayable(BigDecimal.valueOf(total==null ? 0D: total));
+		// порядок расчетов
 		housService.setCalcExplanation(calcExpl);
+		
 		
 		// РЕСУРСЫ НА ОИ
 		for (SumChrgRec t: lstSum.stream() // найти дочерние записи (Усл. на ОИ)
 				.filter(e -> e.getServGis().getParent().equals(rec.getServGis()))
+				.filter(e -> e.getServGis().getTp().equals(3))
 				.collect(Collectors.toList())) {
 
 			// услуга ГИС ЖКХ
