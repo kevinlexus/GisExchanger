@@ -138,14 +138,20 @@ public class UlistMngImpl implements UlistMng {
 		} else {
 			code = t.getCode();
 		}
-		log.info("Создание записи Code={}, GUID={}", t.getCode(), t.getGUID() );
-		Ulist main = new Ulist(cd, code, t.getGUID(), 
-				Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
-				t.isIsActual(), ulistTp, idx, null, null, null, null, null
-				);
-		em.persist(main);
-		log.info("Создана запись Code={}", t.getCode(), t.getGUID());
-		
+		Ulist main = ulistDao.getListElem(cd, code, t.getGUID(),
+				null, null,
+				t.isIsActual(), ulistTp, idx,null, null, null, null, null);
+		if (main == null) {
+			log.info("Создание записи Code={}, GUID={}", t.getCode(), t.getGUID() );
+			main = new Ulist(cd, code, t.getGUID(),
+					Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
+					t.isIsActual(), ulistTp, idx, null, null, null, null, null
+					);
+			em.persist(main);
+			log.info("Создана запись Code={}", t.getCode(), t.getGUID());
+		} else {
+			log.info("Запись Code={}, GUID={} есть в базе, пропускаем...", t.getCode(), t.getGUID() );
+		}
 		// создать записи fields в Ulist
 		for (NsiElementFieldType d : lst2) {
 			// получить cd новой записи
@@ -160,9 +166,14 @@ public class UlistMngImpl implements UlistMng {
 				} else {
 					name = fld.getName();
 				}
-				ulist = new Ulist(fldCd, name, null, 
+				if (ulistDao.getListElem(fldCd, name, null,
+						null, null, null, ulistTp, idx, fld.getValue(), main, null, null, "ST") == null) {
+				ulist = new Ulist(fldCd, name, null,
 						null, null, null, ulistTp, idx, fld.getValue(), main, null, null, "ST"
 						);
+				} else {
+					log.info("Запись {} - {} есть в базе, пропускаем...", fldCd, name);
+				}
 			} else if (d.getClass().equals(NsiElementNsiRefFieldType.class)) {
 				NsiElementNsiRefFieldType fld = (NsiElementNsiRefFieldType) d;
 				// создать запись в Ulist
@@ -174,11 +185,15 @@ public class UlistMngImpl implements UlistMng {
 				}
 				NsiRef nRef = fld.getNsiRef();
 				if (nRef != null) {
-					ulist = new Ulist(fldCd, name, null, 
-							null, null, null, ulistTp, idx, null, main, 
-							nRef.getRef().getCode(), 
-							nRef.getRef().getGUID(), "RF"
-							);
+					if (ulistDao.getListElem(fldCd, name, null, null, null, null, ulistTp, idx, null, main,
+							nRef.getRef().getCode(),
+							nRef.getRef().getGUID(), "RF") == null) {
+						ulist = new Ulist(fldCd, name, null, null, null, null, ulistTp, idx, null, main,
+											nRef.getRef().getCode(),
+											nRef.getRef().getGUID(), "RF");
+					} else {
+						log.info("Запись {} - {} есть в базе, пропускаем...", fldCd, name);
+					}
 				}
 			}
 			
@@ -187,7 +202,7 @@ public class UlistMngImpl implements UlistMng {
 				log.info("Создан элемент справочника  List: {}", ulist.getName());
 			}
 		}
-		log.info("Создан элемент справочника List :{}", cd);
+		log.info("Обработан элемент справочника List :{}", cd);
 		return idx;
 	}
 	
