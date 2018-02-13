@@ -338,8 +338,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 */
 	private void addPaymentDocument(Task task, Eolink house, ImportPaymentDocumentRequest req) {
 		PaymentDocument pd = new PaymentDocument();
-		//String accGuid = "e8b19c33-4af1-4702-af14-0d0b24c9dc9e";
-		//String accGuid = "da94975c-d9e5-4f87-bdac-6705c7aaf437";
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.4, лс: 64010004
