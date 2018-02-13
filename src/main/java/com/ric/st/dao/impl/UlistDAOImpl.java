@@ -132,10 +132,14 @@ public class UlistDAOImpl implements UlistDAO {
 		query.setParameter("tp", tp);
 		Ulist res = null;
 		try {
-			res = (Ulist)query.getSingleResult();
+		    List<Object> res_list = query.getResultList();
+		    if (!res_list.isEmpty()) {
+		        res = (Ulist)res_list.get(0);
+		    }
+		    if (res_list.size() > 1) {
+		        log.error("Ulist.getListElem : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");
+		    }
 		}
-		catch (NoResultException e1) {log.info("Ulist.getListElem : no result found.");}
-		catch (NonUniqueResultException e2) {log.error("Ulist.getListElem : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");}
 		catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
 		return res;
     }
