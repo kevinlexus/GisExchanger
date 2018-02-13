@@ -94,7 +94,7 @@ public class UlistMngImpl implements UlistMng {
 	 */
 	private void updNsiItem(UlistTp ulistTp, String grp, BigInteger id) throws CantUpdNSI {
 		// удалить элементы в нашей базе по данному справочнику
-		ulistDao.delListByListTp(ulistTp);
+		// ulistDao.delListByListTp(ulistTp); //Ничего не удаляем, чтобы не ехали id
 		
 		// получить из ГИС справочник
 		NsiItemType res = null;
@@ -117,21 +117,22 @@ public class UlistMngImpl implements UlistMng {
 		if (res != null) {
 			Integer idx = 0;
 			for (NsiElementType t: res.getNsiElement()) {
-				idx = addElement(ulistTp, grp, id.intValue(), t, idx);
+				idx = mergeElement(ulistTp, grp, id.intValue(), t, idx);
 		    }
 		} else {
 			log.info("Нет элементов в базе ГИС по справочнику grp={}, id={}", grp, id);
 		}
 	}
 
-	public Integer addElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
+	public Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
 		// получить cd новой записи
+	    String log_place = "UlistMngImpl.mergeElement: ";
 		String cd = getPrefixedCD(id.toString(), grp, t.getCode(), idx++);
 		// создать новый элемент
 		List<NsiElementFieldType> lst2 =  t.getNsiElementField();
 
 		// создать запись главного элемента с CD в Ulist
-		log.info("Check1={}", Utl.nvl(t.getCode(), "-------"));
+		log.info(log_place+"Check1={}", Utl.nvl(t.getCode(), "-------"));
 		String code = null;
 		if (t.getCode()==null || t.getCode().length()==0) {
 			code = "------";
@@ -142,15 +143,17 @@ public class UlistMngImpl implements UlistMng {
 				null, null,
 				t.isIsActual(), ulistTp, idx,null, null, null, null, null);
 		if (main == null) {
-			log.info("Создание записи Code={}, GUID={}", t.getCode(), t.getGUID() );
 			main = new Ulist(cd, code, t.getGUID(),
 					Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
 					t.isIsActual(), ulistTp, idx, null, null, null, null, null
 					);
 			em.persist(main);
-			log.info("Создана запись Code={}", t.getCode(), t.getGUID());
+			log.info(log_place+"Создана запись CD={}, GUID={}, ID={}", main.getCd(), main.getGuid(), main.getId());
 		} else {
-			log.info("Запись Code={}, GUID={} есть в базе, пропускаем...", t.getCode(), t.getGUID() );
+		    main.setDt1(Utl.getDateFromXmlGregCal(t.getStartDate()));
+		    main.setDt2(Utl.getDateFromXmlGregCal(t.getEndDate()));
+		    em.persist(main);
+			log.info(log_place+"Запись Code={}, GUID={} есть в базе, пропускаем...", t.getCode(), t.getGUID() );
 		}
 		// создать записи fields в Ulist
 		for (NsiElementFieldType d : lst2) {
@@ -172,7 +175,7 @@ public class UlistMngImpl implements UlistMng {
 						null, null, null, ulistTp, idx, fld.getValue(), main, null, null, "ST"
 						);
 				} else {
-					log.info("Запись {} - {} есть в базе, пропускаем...", fldCd, name);
+					log.info(log_place+"Запись {} - {} есть в базе, пропускаем...", fldCd, name);
 				}
 			} else if (d.getClass().equals(NsiElementNsiRefFieldType.class)) {
 				NsiElementNsiRefFieldType fld = (NsiElementNsiRefFieldType) d;
@@ -192,17 +195,17 @@ public class UlistMngImpl implements UlistMng {
 											nRef.getRef().getCode(),
 											nRef.getRef().getGUID(), "RF");
 					} else {
-						log.info("Запись {} - {} есть в базе, пропускаем...", fldCd, name);
+						log.info(log_place+"Запись {} - {} есть в базе, пропускаем...", fldCd, name);
 					}
 				}
 			}
 			
 			if (ulist!=null) {
 				em.persist(ulist);
-				log.info("Создан элемент справочника  List: {}", ulist.getName());
+				log.info(log_place+"Создан элемент справочника  List: {} Id: {}", ulist.getName(), ulist.getId());
 			}
 		}
-		log.info("Обработан элемент справочника List :{}", cd);
+		log.info(log_place+"Обработан элемент справочника List :{}", cd);
 		return idx;
 	}
 	
