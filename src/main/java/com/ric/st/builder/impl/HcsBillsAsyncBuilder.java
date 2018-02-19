@@ -302,6 +302,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Дом
 		Eolink house = reqProp.getFoundTask().getEolink();
 		// Не более 1000 вхождений
+		log.info("Plat.doc--------------------------1");
+		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().forEach(t-> {
+			log.info("Plat.doc={}", t.getId());
+		});
+		log.info("Plat.doc--------------------------2");
+		
 		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().filter(t-> t.getAct().getCd().equals("GIS_IMP_PAY_DOC"))
 		.forEach(Errors.rethrow().wrap(t-> {
 			log.info("Добавление платежного документа, Task.id={}", t.getId());
@@ -309,7 +315,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		}));
 		
 		// проверять ли расчет документов?
-		// req.setConfirmAmountsCorrect(true);
+		req.setConfirmAmountsCorrect(true);
 		
 		try {
 			ack = port.importPaymentDocumentData(req);
@@ -349,7 +355,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Тип информационной системы
 		Integer appTp = org.getAppTp(); 
 		// лицевой счет
-		Eolink acc = task.getEolink();
+		Eolink acc = task.getEolink().getParent();
 		// GUID лицевого счета
 		String accGuid = acc.getGuid();
 		
@@ -359,31 +365,33 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		List<SumChrgRec> lstSum = null;
 		if (appTp==0) {
 			// старая разработка
-			lstSum = aflowDao.getGrp(acc.getLsk(), "201801", 0);
+			lstSum = aflowDao.getGrp(acc.getLsk(), "201801", 0, org.getId());
 		} else if (appTp==2) {
 			// экспериментальная разработка
-			lstSum = achargeDao.getGrp(acc.getLsk(), 201801, 1);
+			//lstSum = achargeDao.getGrp(acc.getLsk(), 201801, 1); TODO восстановить код!
 		}
 		
 		ChargeInfo chrgInfo = new ChargeInfo();
 
 		for (SumChrgRec t: lstSum) {
-
-			if (t.getServGis().getTp().equals(0)) {
+			log.info("CHECK---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+			if (t.getUlist().getTp().equals(0)) {
+				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// Тип услуги 0-жилищная (в т.ч. Усл.на ОИ)
 				HousingService housService = new HousingService();
-				chrgInfo.setHousingService(housService);
 				chrgInfo = new ChargeInfo();
-				pd.getChargeInfo().add(chrgInfo);
+				chrgInfo.setHousingService(housService);
 				chrgInfo.setHousingService(addHousingService(task, t, "NO", lstSum));
-
-			} else if (t.getServGis().getTp().equals(1)) {
+				pd.getChargeInfo().add(chrgInfo);
+			} else if (t.getUlist().getTp().equals(1)) {
+				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 1-коммунальная (напр.Х.В.), 
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
 				chrgInfo.setMunicipalService(addMunService(task, t, "NO", "M"));
 
-			} else if (t.getServGis().getTp().equals(2)) {
+			} else if (t.getUlist().getTp().equals(2)) {
+				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 2-дополнительная (напр Замок)
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
@@ -416,14 +424,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Итог к оплате по документу
 		Double total = lstSum.stream()
 				.mapToDouble(t -> t.getSumma()).sum();
-		pd.setTotalPayableByChargeInfo(BigDecimal.valueOf(total==null ? 0D :total));
+		pd.setTotalPayableByChargeInfo(Utl.getBigDecimalRound(total, 2));
 		
 		// Транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
 		pd.setTransportGUID(tguidPd);
 		
 		req.getPaymentDocument().add(pd);
-		req.setMonth(2);
+		req.setMonth(1);
 		req.setYear((short) 2018);
 		
 		PaymentInformation payInfo = new PaymentInformation();
@@ -453,28 +461,32 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		NsiRef mres;
 		HousingService housService = new HousingService();
 		// услуга ГИС ЖКХ
-		mres = ulistMng.getNsiElem(rec.getServGis().getUlist());
+		mres = ulistMng.getNsiElem(rec.getUlist());
 		housService.setServiceType(mres);
 		housService.setRate(BigDecimal.valueOf(rec.getPrice()));
 		// итог по данной услуге (Жилищная услуга + услуги на ОИ)
-		Double total = lstSum.stream().filter(t -> t.getServGis().getTp().equals(0) || t.getServGis().getTp().equals(3))
+		Double total = lstSum.stream()
+				.filter(t -> t.getUlist().equals(rec.getUlist()) 
+						|| t.getUlist().getParent2()!=null 
+						&& t.getUlist().getParent2().equals(rec.getUlist()) 
+						&& t.getUlist().getTp().equals(3))
 				.mapToDouble(t -> t.getSumma()).sum();
 		// всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		housService.setAccountingPeriodTotal(BigDecimal.valueOf(total==null ? 0D: total));
+		housService.setAccountingPeriodTotal(Utl.getBigDecimalRound(total,2));
 		// итого к оплате за расчетный период, руб.
-		housService.setTotalPayable(BigDecimal.valueOf(total==null ? 0D: total));
+		housService.setTotalPayable(Utl.getBigDecimalRound(total,2));
 		// порядок расчетов
 		housService.setCalcExplanation(calcExpl);
 		
 		
 		// РЕСУРСЫ НА ОИ
 		for (SumChrgRec t: lstSum.stream() // найти дочерние записи (Усл. на ОИ)
-				.filter(e -> e.getServGis().getParent().equals(rec.getServGis()))
-				.filter(e -> e.getServGis().getTp().equals(3))
+				.filter(e -> e.getUlist().getParent2()!=null && e.getUlist().getParent2().equals(rec.getUlist()))
+				.filter(e -> e.getUlist().getTp().equals(3))
 				.collect(Collectors.toList())) {
 
 			// услуга ГИС ЖКХ
-			NsiRef servType = ulistMng.getNsiElem(t.getServGis().getUlist());
+			NsiRef servType = ulistMng.getNsiElem(t.getUlist());
 			
 			MunicipalResource mr = new MunicipalResource();
 			mr.setServiceType(servType);
@@ -489,7 +501,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			// тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление, house(O)verallNeeds - общедомовые нужды
 			volume.setType("O");
 			// потребление при содержании общего имущества (м3)
-			volume.setValue(BigDecimal.valueOf(t.getVol()));
+			volume.setValue(Utl.getBigDecimalRound(t.getVol(), 5));
 			consum.setVolume(volume);
 			
 			// потребление
@@ -497,7 +509,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			// Тариф, руб./ед.изм. (для Х.В. на ОИ - это м3) 
 			mr.setRate(BigDecimal.valueOf(t.getPrice()));
 			// всего начислено за расчетный период, руб (потребление * тариф, округлить!)
-			mr.setAccountingPeriodTotal(BigDecimal.valueOf(t.getSumma()));
+			mr.setAccountingPeriodTotal(Utl.getBigDecimalRound(t.getSumma(),2));
 			
 			// Справочная информация
 			ServiceInformation servInf = new ServiceInformation();
@@ -530,7 +542,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		NsiRef mres;
 		MunicipalService munService = new MunicipalService();
 		// внутренний справочник организации №51
-		mres = ulistMng.getNsiElem(rec.getServGis().getUlist());
+		mres = ulistMng.getNsiElem(rec.getUlist());
 		Consumption consump = new Consumption();
 		
 		Volume volume = new Volume();
@@ -539,16 +551,16 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		volume.setDeterminingMethod(detMethod);
 		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление
 		volume.setType("I");
-		volume.setValue(BigDecimal.valueOf(rec.getVol()));
+		volume.setValue(Utl.getBigDecimalRound(rec.getVol(), 5));
 		
 		consump.getVolume().add(volume);
 		munService.setConsumption(consump);
 		munService.setServiceType(mres);
 		munService.setRate(BigDecimal.valueOf(rec.getPrice()));
 		// Итого к оплате за расчетный период, руб.
-		munService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()));
+		munService.setTotalPayable(Utl.getBigDecimalRound(rec.getSumma(), 2));
 		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		munService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()));
+		munService.setAccountingPeriodTotal(Utl.getBigDecimalRound(rec.getSumma(),2));
 		// Порядок расчетов
 		munService.setCalcExplanation(calcExpl);
 		return munService;
@@ -563,7 +575,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		NsiRef mres;
 		AdditionalService additionalService = new AdditionalService();
 		// внутренний справочник организации №1
-		mres = ulistMng.getNsiElem(rec.getServGis().getUlist());
+		mres = ulistMng.getNsiElem(rec.getUlist());
 		
 		ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption consumption =
 				new ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption();
@@ -579,9 +591,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		additionalService.setServiceType(mres);
 		additionalService.setRate(BigDecimal.valueOf(rec.getPrice()));
 		// Итого к оплате за расчетный период, руб.
-		additionalService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()));
+		additionalService.setTotalPayable(Utl.getBigDecimalRound(rec.getSumma(),2));
 		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		additionalService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()));
+		additionalService.setAccountingPeriodTotal(Utl.getBigDecimalRound(rec.getSumma(),2));
 		// Порядок расчетов
 		additionalService.setCalcExplanation(calcExpl);
 		return additionalService;

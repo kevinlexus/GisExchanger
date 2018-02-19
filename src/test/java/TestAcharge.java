@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
 import com.dic.bill.dao.AchargeDAO;
+import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.ServGis;
@@ -47,8 +48,10 @@ public class TestAcharge {
 	@PersistenceContext
     private EntityManager em;
 
+//	@Autowired
+//	private AchargeDAO achargeDao;
 	@Autowired
-	private AchargeDAO achargeDao;
+	private AflowDAO aflowDao;
 	
 	@Test
 	@Rollback(false) // коммитить транзакцию
@@ -83,9 +86,14 @@ public class TestAcharge {
 		Usl u = em.find(Usl.class, "003");
 		log.info("Usl={}", u);
 		log.info("Usl.id={}, Usl.nm={}, GUID={}", u.getId(), u.getNm(), u.getServGis().getUlist().getGuid());*/
-		achargeDao.getGrp("00000276", 201404, 1).stream().forEach(t-> {
-			System.out.println("id="+t.getServGis().getUlist().getGuid());
+
+		aflowDao.getGrp("62020006", "201801", 0, 117661).stream().forEach(t-> {
+			log.info("Summa={}, Ulist.GUID={}", t.getSumma(), t.getUlist().getGuid());
 		});
+
+/*		achargeDao.getGrp("00000276", 201404, 1).stream().forEach(t-> {
+			System.out.println("id="+t.getServGis().getUlist().getGuid());
+		});*/
 		//log.info("Acharge2: usl={}, GUID={}, summa={}", t.getServGis().getUsl(),/* t.getServGis().getUlist().getGuid(),*/ t.getSumma());
 		
 		log.info("-----------------End");

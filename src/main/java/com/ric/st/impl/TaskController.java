@@ -4,11 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.ric.bill.RequestConfig;
+import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
@@ -324,17 +326,22 @@ public class TaskController implements TaskControllers {
 				
 				} catch (ErrorProcessAnswer | DatatypeConfigurationException | CantPrepSoap e) {
 					e.printStackTrace();
-					log.error("Ошибка при отправке задания Task.id={}, message={}", e.getStackTrace());
+					log.error("Ошибка при отправке задания Task.id={}, message={}", task.getId(), 
+							e.getMessage());
+					//log.error("stackTrace={}", e.getStackTrace().toString());
 					taskMng.setState(task, "ERR");
 					taskMng.setResult(task, e.getMessage());
 				} catch (Exception e) {
 					e.printStackTrace();
-					log.error("Ошибка обработки задания Task.id={}, message={}", e.getStackTrace());
+					String errMess = StringUtils.substring(Utl.getStackTraceString(e), 0, 1000); 
+					log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(), 
+							errMess);
+					//log.error("stackTrace={}", e.getStackTrace());
 					if (!task.getAct().getCd().equals("GIS_SYSTEM_RPT")) {
 						// не помечать ошибкой системные, повторяемые задания
 						taskMng.setState(task, "ERR");
 					}
-					taskMng.setResult(task, e.getMessage());
+					taskMng.setResult(task, errMess);
 					
 				}
 

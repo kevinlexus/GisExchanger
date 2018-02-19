@@ -124,6 +124,7 @@ public class UlistMngImpl implements UlistMng {
 		}
 	}
 
+	@Override
 	public Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx) {
 		// получить cd новой записи
 	    String log_place = "UlistMngImpl.mergeElement: ";
