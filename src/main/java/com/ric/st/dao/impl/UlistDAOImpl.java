@@ -83,6 +83,12 @@ public class UlistDAOImpl implements UlistDAO {
 		query.executeUpdate();
     }
     
+    public int delListByParent(Ulist parent) {
+        Query query = em.createQuery("delete from Ulist where parent = :parent");
+        query.setParameter("parent", parent);
+        return query.executeUpdate();
+    }
+
     /* Получить элемент справочника по группе, коду группы, cd элемента
      * @param grp - группа справочника, например "NSI"
      * @param fkExt - код справочника, например 22
@@ -116,7 +122,7 @@ public class UlistDAOImpl implements UlistDAO {
                 "		and (t.parent = :parent or :parent is null)" +
                 "		and (t.refCode = :refCode or :refCode is null)" +
                 "		and (t.refGuid = :refGuid or :refGuid is null)" +
-                "		and (t.tp = :tp or :tp is null)");
+                "		and (t.valTp = :tp or :tp is null)");
         query.setParameter("cd", cd);
 		query.setParameter("name", name);
 		query.setParameter("guid", guid);
@@ -142,6 +148,25 @@ public class UlistDAOImpl implements UlistDAO {
 		}
 		catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
 		return res;
+    }
+
+    @Override
+    public Ulist getListElemByCd(String cd, Boolean actual) {
+        Query query = em.createQuery("select t from Ulist t where t.cd = :cd and (t.actual = :actual or :actual is null)");
+        query.setParameter("cd", cd);
+        query.setParameter("actual", actual);
+        Ulist res = null;
+        try {
+            List<Object> res_list = query.getResultList();
+            if (!res_list.isEmpty()) {
+                res = (Ulist)res_list.get(0);
+            }
+            if (res_list.size() > 1) {
+                log.error("Ulist.getListElemByCd : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");
+            }
+        }
+        catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
+        return res;
     }
 
     /* Получить элемент справочника по группе, коду группы, cd элемента, id организации
