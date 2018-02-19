@@ -71,7 +71,7 @@ public class UlistDAOImpl implements UlistDAO {
      * @param id - Id справочника
      */
     /*public List<Ulist> getListByGrpId(String grp, BigInteger id) {
-		Query query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.grp=:grp and tp.id=:id");
+		Query query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.grp=grp and tp.id=id");
 		query.setParameter("grp", grp);
 		query.setParameter("id", id.intValue());
 		return query.getResultList();
@@ -106,6 +106,7 @@ public class UlistDAOImpl implements UlistDAO {
 		return chld.getParent();
     }
     
+    @Override
     public Ulist getListElem(String cd, String name, String guid,Date dt1, Date dt2,
 			Boolean actual, UlistTp ulistTp, Integer npp, String value, Ulist parent,
 			String refCode, String refGuid, String tp) {
@@ -176,12 +177,13 @@ public class UlistDAOImpl implements UlistDAO {
      * @param s1 - значение элемента, например "Расторжение договора"
      * @param org - организация
      */
+    @Override
     public Ulist getListElem(String grp, Integer fkExt, String name, String s1, Eolink org) {
     	//log.info("grp={}, fkExt={}, name={}, s1={}, org={}", grp, fkExt, name, s1, org.getId());
     	Query query;
     	if (org != null) {
-    		query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=:fkExt and tp.grp=:grp "
-    				+ "and t.name=:name and t.s1=:s1 and t.parent.actual=true "
+    		query =em.createQuery("select t from Ulist t join t.ulistTp tp where tp.fkExt=fkExt and tp.grp=grp "
+    				+ "and t.name=name and t.s1=s1 and t.parent.actual=true "
     				+ "and tp.eolink.id=:org ");
     		query.setParameter("org", org.getId());
     	} else {
@@ -195,4 +197,5 @@ public class UlistDAOImpl implements UlistDAO {
 		Ulist chld = (Ulist) query.getSingleResult();
 		return chld.getParent();
     }
+
 }

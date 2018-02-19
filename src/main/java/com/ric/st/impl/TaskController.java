@@ -83,6 +83,7 @@ public class TaskController implements TaskControllers {
 	 * @throws CantSendSoap 
 	 * @throws CantPrepSoap 
 	 * @throws WrongParam 
+	 * @ver 1.00 
 	 */
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
 
