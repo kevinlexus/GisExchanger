@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author lev
  *
  */
-@Slf4j
 @Service
 public class ReqProp implements ReqProps {
 
@@ -39,7 +38,8 @@ public class ReqProp implements ReqProps {
 	String kul;
 	String nd;
 	SoapBuilder sb;
-
+	Eolink org;
+	Integer appTp;
 	/* 
 	 * Установить значения настроек
 	 */
@@ -56,7 +56,7 @@ public class ReqProp implements ReqProps {
 			throw new CantPrepSoap("Нет кода рэу в Eolink.reu по Task.id="+task.getId());
 		}
 		// Установить PPGUID
-		Eolink org = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация");
+		org = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация");
 		if (org == null) {
 			// нет Организации
 			throw new CantPrepSoap("Не заведена запись организации в Eolink по Task.id="+task.getId());
@@ -66,6 +66,12 @@ public class ReqProp implements ReqProps {
 			// нет Организации
 			throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
 		}
+		appTp = org.getAppTp();
+		if (appTp == null) {
+			// нет типа Приложения
+			throw new CantPrepSoap("Не заведен appTp приложения по Eolink.id="+org.getId());
+		}
+		
 		sb.setPpGuid(ppGuid);
 	}
 	
@@ -84,28 +90,44 @@ public class ReqProp implements ReqProps {
 		sb.setPpGuid(config.getOrgPPGuid());
 	}
 
+	@Override
 	public Task getFoundTask() {
 		return foundTask;
 	}
 
+	@Override
 	public String getHouseGuid() {
 		return houseGuid;
 	}
 
+	@Override
 	public String getPpGuid() {
 		return ppGuid;
 	}
 
+	@Override
 	public String getReu() {
 		return reu;
 	}
 
+	@Override
 	public String getKul() {
 		return kul;
 	}
 
+	@Override
 	public String getNd() {
 		return nd;
 	}
-	
+
+	@Override
+	public Eolink getOrg() {
+		return org;
+	}
+
+	@Override
+	public Integer getAppTp() {
+		return appTp;
+	}
+
 }

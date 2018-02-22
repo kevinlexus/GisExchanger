@@ -23,4 +23,8 @@ public interface ReqProps {
 
 	public String getNd();
 	
+	public Eolink getOrg();
+	
+	public Integer getAppTp();
+	
 }
