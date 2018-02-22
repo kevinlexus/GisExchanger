@@ -839,8 +839,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (entryEol == null) {
 						// не найдено, создать подъезд
 						AddrTp addrTp = lstMng.getAddrTpByCD("Подъезд");
-						entryEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), null, null, Integer.valueOf(t.getEntranceNum()),
-								null, null, t.getEntranceGUID(), null, null, addrTp, foundTask2.getAppTp(), null, null, houseEol, config.getCurUser(), 1);
+						entryEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), null, null, 
+								Integer.valueOf(t.getEntranceNum()),
+								null, null, t.getEntranceGUID(), null, null, addrTp, foundTask2.getAppTp(), null, null, 
+								houseEol, config.getCurUser(), 1);
 						// сохранить, для иерархии
 						entryMap.put(Integer.valueOf(t.getEntranceNum()), entryEol);
 						em.persist(entryEol);
@@ -878,13 +880,26 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (premisEol == null) {
 						// не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Квартира");
-						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), Utl.lpad(t.getPremisesNum(), "0", 7), null, 
+						String num;
+						if (reqProp.getAppTp().equals(1)) {
+							// старая разработка, усечь лиц.счет до 7 знаков
+							num = t.getPremisesNum().substring(0, 7);
+							// добавить лидирующие нули
+							num = Utl.lpad(num, "0", 7);
+						} else {
+							// новая и эксперем. разраб.
+							num = t.getPremisesNum();
+						}
+						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), 
+								num , null, 
 								t.getEntranceNum()!=null ? Integer.valueOf(t.getEntranceNum()) : null,
-								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, addrTp, foundTask2.getAppTp(), null, null, 
+								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, addrTp, 
+								foundTask2.getAppTp(), null, null, 
 								t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol, // присоединить к родителю: подъезд, или дом, если не найден подъезд
 								config.getCurUser(), 1
 								 );
-						log.info("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № квартиры={}, un={}, GUID={}", t.getEntranceNum(), 
+						log.info("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № квартиры={}, un={}, GUID={}",
+								t.getEntranceNum(), 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 						em.persist(premisEol);
 						
@@ -1082,7 +1097,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 				if (accountEol != null) {
 					// Лиц.счет уже существует, обновить его параметры
-					log.info("Попытка обновить запись Лицевого счета в Eolink: GUID={}, AccountNumber={}", t.getAccountGUID(),
+					log.info("Попытка обновить запись Лицевого счета в Eolink: GUID={}, AccountNumber={} ", t.getAccountGUID(),
 							t.getAccountNumber());
 				} else {
 					// Создать новый лицевой счет
@@ -1095,12 +1110,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 					AddrTp addrTp = lstMng.getAddrTpByCD("ЛС");
 					
-					accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, t.getAccountNumber(), 
+					String num;
+					// усечь лиц.счет до 8 знаков
+					num = t.getAccountNumber().substring(0, 8);
+					accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, num, 
 							null, null, null, t.getAccountGUID(), t.getUnifiedAccountNumber(), 
 							null, addrTp, 
 							reqProp.getFoundTask().getAppTp(), null, null, parentEol, config.getCurUser(), 1);
 
-					log.info("Попытка создать запись Лицевого счета в Eolink: GUID={}", t.getAccountGUID());
+					log.info("Попытка создать запись Лицевого счета в Eolink: GUID={}, AccountNumber={}", 
+							t.getAccountGUID(), num);
 					em.persist(accountEol);
 				}
 
