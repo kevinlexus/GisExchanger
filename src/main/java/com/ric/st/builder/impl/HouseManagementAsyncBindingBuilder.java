@@ -779,7 +779,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportHouseDataAck(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
-		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
+		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа",
+				task.getId()); //ver
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		sb.setTrace(true);
