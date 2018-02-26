@@ -535,21 +535,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						log.info("Попытка отметить счетчик АКТИВНЫМ");
 					}
 					
-					/* Изза того, что не понятно, какой lskGUID (какого объекта), выключил эту выгрузку! НЕ УДАЛЯТЬ закомментированное!
-					 * for (String lskGUID: guidLst) { 
-						// присоединить счетчик к лиц.счетам помещений
-						// найти лиц.счет по GUID
-						Eolink lskEol = eolinkMng.getEolinkByGuid(lskGUID);
-						if (lskEol == null) {
-							log.error("Не найден лицевой счет GUID={} для связи со счетчиком: Root GUID={} и UniqNum={}", lskGUID, 
-									t.getMeteringDeviceRootGUID(), t.getMeteringDeviceGISGKHNumber());
-							throw new ErrorProcessAnswer("Не найден лицевой счет для связи со счетчиком: Root GUID="+ t.getMeteringDeviceRootGUID());
-						} else {
-							Lst tp = lstMng.getByCD("Логическая связь");
-							EolinkToEolink eol2eol = new EolinkToEolink(lskEol, rootEol, tp);
-							em.persist(eol2eol);
-						}
-					}*/
+					
 					if (t.getStatusRootDoc().equals("Active")) {
 						// Создать задание на выгрузку показаний по созданному счетчику, если он активен
 						Task taskParent = new Task(reqProp.getFoundTask().getEolink(), null, null, "INS", actParent,
@@ -566,7 +552,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						taskParent.getChild().add(taskChild);
 						em.persist(taskParent);
 					}
-					
 				}
 				
 				// Привязать счетчик к лиц.счетам
@@ -779,8 +764,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportHouseDataAck(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
-		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа",
-				task.getId()); //ver
+		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		sb.setTrace(true);

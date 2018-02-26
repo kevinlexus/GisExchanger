@@ -26,6 +26,7 @@ import com.ric.st.builder.HcsBillsAsyncBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HcsPaymentAsyncBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
+import com.ric.st.builder.HouseManagmentExchangeBuilders;
 import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
@@ -50,6 +51,8 @@ public class TaskController implements TaskControllers {
     private EntityManager em;
 	@Autowired
 	private HouseManagementAsyncBindingBuilders hb;
+	@Autowired
+	private HouseManagmentExchangeBuilders he;
 	@Autowired
 	private HcsOrgRegistryAsyncBindingBuilders os;
 	@Autowired
@@ -129,38 +132,37 @@ public class TaskController implements TaskControllers {
 				// Выполнить задание
 				try {
 					switch (actCd) {
+					case "GIS_SYSTEM_CHECK" :
+						// Системные задания проверок
+						if (state.equals("INS")) {
+							switch (task.getCd()) {
+							case "SYSTEM_CHECK_HOUSE_EXP_TASK" :
+								// Проверка наличия заданий по экспорту объектов дома
+								hb.setUp();
+								hb.checkPeriodicTask(task);
+								break;
+							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
+								// Проверка наличия заданий по экспорту показаний счетчиков
+								dm.setUp();
+								dm.checkPeriodicTask(task);
+								break;
+							case "SYSTEM_CHECK_ORG_EXP_TASK" :
+								// Проверка наличия заданий по экспорту параметров организаций
+								os.setUp();
+								os.checkPeriodicTask(task);
+								break;
+							case "SYSTEM_CHECK_REF_EXP_TASK" :
+								// Проверка наличия заданий по экспорту справочников организации
+								nsiSv.setUp();
+								nsiSv.checkPeriodicTask(task);
+								break;
+							// TODO сделать проверку наличия заданий по подготовке объектов дома	
+							}
+						}
 					case "GIS_SAVE_FILE_VALS":
 						// Выгрузка показаний приборов учета в файл
 						if (state.equals("INS")) {
 							dm.saveValToFile(task);
-						}
-						break;
-					case "GIS_CHECK_ORG_EXP_TASK":
-						// Проверка наличия заданий по экспорту параметров организаций
-						if (state.equals("INS")) {
-							os.setUp();
-							os.checkPeriodicTask(task);
-						}
-						break;
-					case "GIS_CHECK_HOUSE_MET_TASK":
-						// Проверка наличия заданий по экспорту показаний счетчиков
-						if (state.equals("INS")) {
-							dm.setUp();
-							dm.checkPeriodicTask(task);
-						}
-						break;
-					case "GIS_CHECK_HOUSE_EXP_TASK":
-						// Проверка наличия заданий по экспорту объектов дома
-						if (state.equals("INS")) {
-							hb.setUp();
-							hb.checkPeriodicTask(task);
-						}
-						break;
-					case "GIS_CHECK_REF_EXP_TASK":
-						// Проверка наличия заданий по экспорту справочников организации
-						if (state.equals("INS")) {
-							nsiSv.setUp();
-							nsiSv.checkPeriodicTask(task);
 						}
 						break;
 					case "GIS_SYSTEM_RPT":
@@ -175,7 +177,6 @@ public class TaskController implements TaskControllers {
 						}
 						break;
 					case "GIS_UPD_HOUSE" :
-					case "GIS_ADD_HOUSE" : 
 						// Импорт объектов дома
 						hb.setUp();
 						if (state.equals("INS")) {
@@ -304,7 +305,6 @@ public class TaskController implements TaskControllers {
 							// Запрос ответа
 							bill.exportNotificationsOfOrderExecutionAsk(task);
 						}
-						
 						break;
 						
 					case "GIS_IMP_NOTIF_ORDER_EXECUT_CANCEL":
@@ -317,7 +317,12 @@ public class TaskController implements TaskControllers {
 							// Запрос ответа
 							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
-						
+						break;
+					case "GIS_PREP_UPD_HOUSE":
+						if (state.equals("INS")) {
+							// Подготовка задания для импорта объектов дома
+							he.prepTaskImportHouse(task);
+						}
 						break;
 
 					default:
