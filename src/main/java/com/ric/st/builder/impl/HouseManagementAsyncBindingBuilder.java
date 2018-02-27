@@ -1357,8 +1357,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	bc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	bc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+reqProp.getFoundTask().getId()); 
+	    		}
+		    	bc.setCadastralNumber(gknKey);
 	    	}
 
 	    	// установить ОКТМО
@@ -1417,9 +1421,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	// Ключ связи с ГКН/ЕГРП отсутствует.
 		    	bc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
-		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	bc.setCadastralNumber(teParMng.getStr(reqProp.getFoundTask(), 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(reqProp.getFoundTask(), 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+reqProp.getFoundTask().getId()); 
+	    		}
+		    	bc.setCadastralNumber(gknKey);
 	    	}
 
 	    	// установить ОКТМО
@@ -1521,9 +1528,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	// Ключ связи с ГКН/ЕГРП отсутствует.
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
-		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(t, 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(t, 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+t.getId()); 
+	    		}
+	    		// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
+		    	rc.setCadastralNumber(gknKey);
 	    	}
 
 	    	// наличие подъезда
@@ -1575,8 +1586,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(t, 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(t, 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+t.getId()); 
+	    		}
+	    		rc.setCadastralNumber(gknKey);
 	    	}
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(), "0"));
@@ -1612,8 +1627,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(t, 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(t, 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+t.getId()); 
+	    		}
+		    	rc.setCadastralNumber(gknKey);
 	    	}
 
 	    	// наличие подъезда
@@ -1673,8 +1692,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		    	rc.setNoRSOGKNEGRPRegistered(true);
 	    	} else {
 		    	// Ключ связи с ГКН/ЕГРП присутствует, поставить номер ГКН
-		    	rc.setCadastralNumber(teParMng.getStr(t, 
-		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)"));
+	    		String gknKey = teParMng.getStr(t, 
+		    			"ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)");
+	    		if (gknKey == null) {
+	    			throw new CantPrepSoap("Отсутствует Кадастровый номер, для связывания сведений с ГКН и ЕГРП! Task.Id="+t.getId()); 
+	    		}
+		    	rc.setCadastralNumber(gknKey);
 	    	}
 	    	// Номер помещения
 	    	rc.setPremisesNum(Utl.ltrim(t.getEolink().getKw(),"0"));
@@ -2123,15 +2146,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void checkPeriodicHouseImp(Task task) throws WrongParam {
+	public void checkPeriodicHousePrepImp(Task task) throws WrongParam {
 		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на экспорт объектов дома, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_PREP_HOUSE_IMP")) {// TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_PREP_HOUSE_IMP")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, "GIS_PREP_HOUSE_IMP", "STP");// TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ
+			ptb.setUp(e, null, "GIS_PREP_HOUSE_IMP", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild("SYSTEM_RPT_HOUSE_PREP");      // TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ  
+			ptb.addAsChild("SYSTEM_RPT_HOUSE_PREP");  
 			ptb.save();
 			log.info("Добавлено задание на подготовку импорта объектов дома по Дому Eolink.id={}", e.getId());
 		};

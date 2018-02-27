@@ -138,35 +138,32 @@ public class TaskController implements TaskControllers {
 							switch (task.getCd()) {
 							case "SYSTEM_CHECK_HOUSE_EXP_TASK" :
 								// Проверка наличия заданий по экспорту объектов дома
-								hb.setUp();
 								hb.checkPeriodicHouseExp(task);
 								break;
 							case "SYSTEM_CHECK_HOUSE_ACC_TASK" :
 								// Проверка наличия заданий по экспорту лицевых счетов по дому
-								hb.setUp();
 								hb.checkPeriodicAccExp(task);
 								break;
 							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
 								// Проверка наличия заданий по экспорту счетчиков по дому
-								hb.setUp();
 								hb.checkPeriodicMetExp(task);
 								break;
 							case "SYSTEM_CHECK_MET_VAL_TASK" :
 								// Проверка наличия заданий по экспорту показаний счетчиков дома
-								dm.setUp();
 								dm.checkPeriodicTask(task);
 								break;
 							case "SYSTEM_CHECK_ORG_EXP_TASK" :
 								// Проверка наличия заданий по экспорту параметров организаций
-								os.setUp();
 								os.checkPeriodicTask(task);
 								break;
 							case "SYSTEM_CHECK_REF_EXP_TASK" :
 								// Проверка наличия заданий по экспорту справочников организации
-								nsiSv.setUp();
 								nsiSv.checkPeriodicTask(task);
 								break;
-							// TODO сделать проверку наличия заданий по подготовке объектов дома	
+							case "SYSTEM_CHECK_HOUSE_PREP_TASK" :
+								// Проверка наличия заданий по подготовке импорта объектов дома
+								hb.checkPeriodicHousePrepImp(task);
+								break;
 							}
 						}
 					case "GIS_SAVE_FILE_VALS":
