@@ -139,10 +139,20 @@ public class TaskController implements TaskControllers {
 							case "SYSTEM_CHECK_HOUSE_EXP_TASK" :
 								// Проверка наличия заданий по экспорту объектов дома
 								hb.setUp();
-								hb.checkPeriodicTask(task);
+								hb.checkPeriodicHouseExp(task);
+								break;
+							case "SYSTEM_CHECK_HOUSE_ACC_TASK" :
+								// Проверка наличия заданий по экспорту лицевых счетов по дому
+								hb.setUp();
+								hb.checkPeriodicAccExp(task);
 								break;
 							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
-								// Проверка наличия заданий по экспорту показаний счетчиков
+								// Проверка наличия заданий по экспорту счетчиков по дому
+								hb.setUp();
+								hb.checkPeriodicMetExp(task);
+								break;
+							case "SYSTEM_CHECK_MET_VAL_TASK" :
+								// Проверка наличия заданий по экспорту показаний счетчиков дома
 								dm.setUp();
 								dm.checkPeriodicTask(task);
 								break;
@@ -318,7 +328,7 @@ public class TaskController implements TaskControllers {
 							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
 						break;
-					case "GIS_PREP_UPD_HOUSE":
+					case "GIS_PREP_HOUSE_IMP":
 						if (state.equals("INS")) {
 							// Подготовка задания для импорта объектов дома
 							he.prepTaskImportHouse(task);

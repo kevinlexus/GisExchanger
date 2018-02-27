@@ -1,7 +1,9 @@
 package com.ric.st.builder.impl;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +43,21 @@ public class HouseManagmentExchangeBuilder implements HouseManagmentExchangeBuil
 		String reu = eolink.getReu();
 		String kul = eolink.getKul();
 		String nd = eolink.getNd();
-		String sql = String.format("select exs.p_gis.process_house('%s', '%s', '%s') from dual", reu, kul, nd);
-		String ret = em.createNativeQuery(sql).getSingleResult().toString();
-		log.info("Sql result:"+ret);
+		//String sql = String.format("select exs.p_gis.process_house('%s', '%s', '%s') from dual", reu, kul, nd);
+		//String ret = em.createNativeQuery(sql).getSingleResult().toString();
+		
+		// вызвать процедуру PL/SQL для подготовки импорта
+		StoredProcedureQuery qr = em.createStoredProcedureQuery("exs.p_gis.process_house");
+		qr.registerStoredProcedureParameter("P_REU", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_KUL", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_ND", String.class, ParameterMode.IN);
+		qr.setParameter("P_REU", reu);
+		qr.setParameter("P_KUL", kul);
+		qr.setParameter("P_ND", nd);
+				  
+		qr.execute();		
+		log.info("******* Task.id={}, подготовка задания для импорта объектов дома успешно выполнена!", task.getId());
+		//log.info("Sql result:"+ret);
 		// успешно выполнено
 		foundTask.setState("ACP");
 	}

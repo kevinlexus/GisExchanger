@@ -2091,36 +2091,91 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 	
 	/**
-	 * Проверить наличие заданий на выгрузку объектов дома
+	 * Проверить наличие заданий на экспорт объектов дома
 	 * и если их нет, - создать
 	 * @param task
 	 * @throws WrongParam 
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void checkPeriodicTask(Task task) throws WrongParam {
-		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, по всем домам, вызов", task.getId());
+	public void checkPeriodicHouseExp(Task task) throws WrongParam {
+		log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
-		// создать по всем домам задания на выгрузку объектов дома, если их нет
+		// создать по всем домам задания на экспорт объектов дома, если их нет
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
-			log.info("Добавлено задание на выгрузку объектов дома по Дому Eolink.id={}", e.getId());
+			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());
 		};
 
-		// создать по всем домам задания на выгрузку лицевых счетов дома, если их нет
+		// Установить статус выполнения задания
+		foundTask.setState("ACP");
+	}
+	
+	/**
+	 * Проверить наличие заданий на подготовку импорта объектов дома
+	 * и если их нет, - создать
+	 * @param task
+	 * @throws WrongParam 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void checkPeriodicHouseImp(Task task) throws WrongParam {
+		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, вызов", task.getId());
+		Task foundTask = em.find(Task.class, task.getId());
+		// создать по всем домам задания на экспорт объектов дома, если их нет
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_PREP_HOUSE_IMP")) {// TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ
+			// статус - STP, остановлено (будет запускаться другим заданием)
+			ptb.setUp(e, null, "GIS_PREP_HOUSE_IMP", "STP");// TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ
+			// добавить как дочернее задание к системному повторяемому заданию
+			ptb.addAsChild("SYSTEM_RPT_HOUSE_PREP");      // TODO ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ ПРОВЕРИТЬ  
+			ptb.save();
+			log.info("Добавлено задание на подготовку импорта объектов дома по Дому Eolink.id={}", e.getId());
+		};
+
+		// Установить статус выполнения задания
+		foundTask.setState("ACP");
+	}
+
+	/**
+	 * Проверить наличие заданий на выгрузку лицевх счетов
+	 * и если их нет, - создать
+	 * @param task
+	 * @throws WrongParam 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void checkPeriodicAccExp(Task task) throws WrongParam {
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, вызов", task.getId());
+		Task foundTask = em.find(Task.class, task.getId());
+		// создать по всем домам задания на выгрузку лицевых счетов, если их нет
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_ACCS")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
-			log.info("Добавлено задание на выгрузку лицевых счетов дома по Дому Eolink.id={}", e.getId());
+			log.info("Добавлено задание на выгрузку лицевых счетов по Дому Eolink.id={}", e.getId());
 		};
 
+		// Установить статус выполнения задания
+		foundTask.setState("ACP");
+	}
+
+	/**
+	 * Проверить наличие заданий на выгрузку счетчиков
+	 * и если их нет, - создать
+	 * @param task
+	 * @throws WrongParam 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void checkPeriodicMetExp(Task task) throws WrongParam {
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, вызов", task.getId());
+		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на выгрузку счетчиков ИПУ дома, если их нет
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_METERS")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
@@ -2129,7 +2184,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
-			log.info("Добавлено задание на выгрузку счетчиков ИПУ дома по Дому Eolink.id={}", e.getId());
+			log.info("Добавлено задание на выгрузку счетчиков ИПУ по Дому Eolink.id={}", e.getId());
 		};
 
 		// Установить статус выполнения задания
