@@ -56,10 +56,10 @@ public class HouseManagmentExchangeBuilder implements HouseManagmentExchangeBuil
 		qr.setParameter("P_ND", nd);
 				  
 		qr.execute();		
-		log.info("******* Task.id={}, подготовка задания для импорта объектов дома успешно выполнена!", task.getId());
 		//log.info("Sql result:"+ret);
 		// успешно выполнено
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, подготовка задания для импорта объектов дома выполнена!", task.getId());
 	}
 
 }

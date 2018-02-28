@@ -673,19 +673,22 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_METER_VALS")) {
+		String actTp = "GIS_EXP_METER_VALS";
+		String parentCD = "SYSTEM_RPT_MET_EXP_VAL";
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, "GIS_EXP_METER_VALS", "STP");
+			ptb.setUp(e, null, actTp, "STP");
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Холодная вода", null, null);
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Горячая вода", null, null);
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Электрическая энергия", null, null);
 			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild("SYSTEM_RPT_MET_EXP_VAL");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, выполнено!", task.getId());
 		
 	}
 	

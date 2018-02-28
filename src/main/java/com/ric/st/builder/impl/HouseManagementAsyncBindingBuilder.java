@@ -865,14 +865,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						// не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Квартира");
 						String num;
-						if (reqProp.getAppTp().equals(1)) {
-							// старая разработка, усечь лиц.счет до 7 знаков
+						// усечь № кв. до 7 знаков
+						if (t.getPremisesNum().length() > 7) {
 							num = t.getPremisesNum().substring(0, 7);
-							// добавить лидирующие нули
-							num = Utl.lpad(num, "0", 7);
 						} else {
-							// новая и эксперем. разраб.
 							num = t.getPremisesNum();
+						}
+						if (reqProp.getAppTp().equals(0) || reqProp.getAppTp().equals(2)) {
+							// старая и  и эксперем. разработка, добавить лидирующие нули
+							num = Utl.lpad(num, "0", 7);
 						}
 						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), 
 								num , null, 
@@ -1096,7 +1097,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					
 					String num;
 					// усечь лиц.счет до 8 знаков
-					num = t.getAccountNumber().substring(0, 8);
+					if (t.getAccountNumber().length() > 8) {
+						num = t.getAccountNumber().substring(0, 8);
+					} else {
+						num = t.getAccountNumber();
+					}
 					accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, num, 
 							null, null, null, t.getAccountGUID(), t.getUnifiedAccountNumber(), 
 							null, addrTp, 
@@ -2125,7 +2130,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на экспорт объектов дома, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE")) {
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE", "SYSTEM_RPT_HOUSE_EXP")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
@@ -2136,6 +2141,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, выполнено!", task.getId());
 	}
 	
 	/**
@@ -2150,17 +2156,18 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на экспорт объектов дома, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_PREP_HOUSE_IMP")) {
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_PREP_HOUSE_IMP", "SYSTEM_RPT_HOUSE_PREP")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, "GIS_PREP_HOUSE_IMP", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_PREP");  
 			ptb.save();
-			log.info("Добавлено задание на подготовку импорта объектов дома по Дому Eolink.id={}", e.getId());
+			log.info("Добавлено задание на подготовку импорта объектов дома по Eolink.id={}", e.getId());
 		};
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, выполнено!", task.getId());
 	}
 
 	/**
@@ -2175,17 +2182,20 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на выгрузку лицевых счетов, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_ACCS")) {
+		String actTp = "GIS_EXP_ACCS";
+		String parentCD = "SYSTEM_RPT_HOUSE_EXP";
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
+			ptb.setUp(e, null, actTp, "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку лицевых счетов по Дому Eolink.id={}", e.getId());
 		};
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, выполнено!", task.getId());
 	}
 
 	/**
@@ -2200,18 +2210,21 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на выгрузку счетчиков ИПУ дома, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_METERS")) {
+		String actTp = "GIS_EXP_METERS";
+		String parentCD = "SYSTEM_RPT_HOUSE_EXP";
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, "GIS_EXP_METERS", "STP");
+			ptb.setUp(e, null, actTp, "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
-			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку счетчиков ИПУ по Дому Eolink.id={}", e.getId());
 		};
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, выполнено!", task.getId());
 	}
 
 }

@@ -284,24 +284,27 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если их нет
 		// добавить как дочернее задание к системному повторяемому заданию
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", "GIS_EXP_DATA_PROVIDER_NSI_ITEM")) {
+		String actTp = "GIS_EXP_DATA_PROVIDER_NSI_ITEM";
+		String parentCD = "SYSTEM_RPT_REF_EXP";
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// статус - INS, чтобы сразу выполнилось
-			ptb.setUp(e, null, "GIS_EXP_DATA_PROVIDER_NSI_ITEM", "INS");
+			ptb.setUp(e, null, actTp, "INS");
 			// Справочник № 1
 			ptb.addTaskPar("ГИС ЖКХ.Номер справочника", 1D, null, null, null);
-			ptb.addAsChild("SYSTEM_RPT_REF_EXP");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 
 			// Справочник № 51
-			ptb.setUp(e, null, "GIS_EXP_DATA_PROVIDER_NSI_ITEM", "INS");
+			ptb.setUp(e, null, actTp, "INS");
 			ptb.addTaskPar("ГИС ЖКХ.Номер справочника", 51D, null, null, null);
-			ptb.addAsChild("SYSTEM_RPT_REF_EXP");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			
 			log.info("Добавлено задание по экспорту справочников организации по Организации Eolink.id={}", e.getId());
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
+		log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, выполнено!", task.getId());
 		
 	}
 	

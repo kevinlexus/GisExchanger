@@ -166,6 +166,7 @@ public class TaskController implements TaskControllers {
 								break;
 							}
 						}
+						break;
 					case "GIS_SAVE_FILE_VALS":
 						// Выгрузка показаний приборов учета в файл
 						if (state.equals("INS")) {
@@ -177,11 +178,16 @@ public class TaskController implements TaskControllers {
 						TaskPar taskPar = tb.getTrgTask(task);
 						if (taskPar!= null) {
 							log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
-							// добавить в список на выполнение
+							// активировать все дочерние задания
 							tb.activateRptTask(task);
 							// добавить в список выполненных заданий
 							tb.setProcTask(taskPar);
+							// пометить статус повторяемого выполнения, на случай, если запускалось в ручную state--> "INS"
+							if (task.getState().equals("INS")) {
+								taskMng.setState(task, "RPT");
+							}
 						}
+						//taskMng.setState(task, "ACP");						
 						break;
 					case "GIS_UPD_HOUSE" :
 						// Импорт объектов дома

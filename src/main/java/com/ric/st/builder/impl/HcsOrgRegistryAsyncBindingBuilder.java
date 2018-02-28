@@ -202,8 +202,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
-		log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
-		sb.setTrace(true);
+		//log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
+		sb.setTrace(false);
 		// Установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);	
 		AckRequest ack = null;
@@ -259,8 +259,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportOrgRegistryAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
-		log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
-		sb.setTrace(true);
+		//log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
+		sb.setTrace(false);
 		// Установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink(); 
@@ -274,10 +274,10 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 			retState.getExportOrgRegistryResult().stream().forEach(t->{
 				if (eolOrg.getGuid() == null) {
-					log.info("По Организации: {} сохранен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
+					//log.info("По Организации: {} сохранен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
 					eolOrg.setGuid(t.getOrgPPAGUID());
 				} else {
-					log.info("По Организации: {} получен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
+					//log.info("По Организации: {} получен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
 				}
 			});		
 			
@@ -298,17 +298,19 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если их нет
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", "GIS_EXP_ORG")) {
+		String actTp = "GIS_EXP_ORG";
+		String parentCD = "SYSTEM_RPT_ORG_EXP";
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, "GIS_EXP_ORG", "STP");
+			ptb.setUp(e, null, actTp, "INS");
 			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild("SYSTEM_RPT_ORG_EXP");
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		
+		log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, выполнено!", task.getId());
 	}
 
 

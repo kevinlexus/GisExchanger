@@ -40,12 +40,12 @@ public class TaskBuilder implements TaskBuilders {
 
     @PersistenceContext
     private EntityManager em;
-    @Autowired
-    private TaskParMng taskParMng;
+    //@Autowired
+    //private TaskParMng taskParMng;
     @Autowired
     private TaskDAO taskDao;
     // хранилище старых и новых ID
-	private HashMap<Task, Task> mapTask;
+	//private HashMap<Task, Task> mapTask;
 	// Расписания
 	List<TaskPar> lstSched;
 	// Список сработавших событий в расписании
@@ -95,7 +95,7 @@ public class TaskBuilder implements TaskBuilders {
 	public void activateRptTask(Task task) throws WrongGetMethod {
 		Task foundTask = em.find(Task.class, task.getId());
 		log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
-		mapTask = new HashMap<Task, Task>();
+		//mapTask = new HashMap<Task, Task>();
 		// найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
 		// по определённому типу
 		foundTask.getInside().stream()
@@ -104,7 +104,7 @@ public class TaskBuilder implements TaskBuilders {
 		    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
 		    	// если не выполняется, поставить на выполнение
 			    t.getChild().setState("INS");
-			    log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
+			    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
 		    }
 			// скопировать задание, параметры
 			// copyTask(t.getChild(), null, 0);
@@ -119,7 +119,7 @@ public class TaskBuilder implements TaskBuilders {
 	 * @param parent - родительское задание
 	 * @param tp - тип выполнения, 0 - скопировать задания, параметры, 1 - скопировать связи
 	 */
-	private void copyTask(Task src, Task parent, int tp) {
+	/*private void copyTask(Task src, Task parent, int tp) {
 		Task foundElem = null;
 		if (tp==0) {
 			// скопировать задание
@@ -157,14 +157,14 @@ public class TaskBuilder implements TaskBuilders {
 			copyTask(t, foundElem, tp);
 		};
 		
-	}
+	}*/
 
 	/**
 	 * Копировать параметры задания
 	 * @param src - источник
 	 * @param dst - назначение
 	 */
-    private void copyTaskPar(Task src, Task dst) {
+    /*private void copyTaskPar(Task src, Task dst) {
     	src.getTaskPar().stream().forEach(t-> {
         	TaskPar foundElem = em.find(TaskPar.class, t.getId());
         	em.detach(foundElem);
@@ -172,13 +172,13 @@ public class TaskBuilder implements TaskBuilders {
         	foundElem.setTask(dst);
         	em.persist(foundElem);
     	});
-    }
+    }*/
     
 	/**
 	 * Копировать дочерние связи задания, зависимости
 	 * @param src - источник
 	 */
-    private void copyChldTaskLink(Task src) {
+   /*private void copyChldTaskLink(Task src) {
     	// скопировать зависимости по DEP_ID
     	if (src.getDepTask() != null) {
     		// Получить новый Task по старому
@@ -217,7 +217,7 @@ public class TaskBuilder implements TaskBuilders {
     		em.persist(foundElem);
     	});
     	
-    }
+    }*/
     
     /**
      * Загрузка списка запланированных задач
@@ -246,7 +246,8 @@ public class TaskBuilder implements TaskBuilders {
 		for (TaskPar t: lstSched){
 		    	//log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
 	    		CronExpression exp = new CronExpression(t.getS1());
-	    		if (exp.isSatisfiedBy(dt)) {
+	    		// либо удовлетворено условие по дате-времени, либо ручной запуск state --> "INS"
+	    		if (exp.isSatisfiedBy(dt) || t.getTask().getState().equals("INS")) {
 	    			//log.info("Запустить задание!");
 	    			// Запустить задание, если уже не запущено
 	    			if (!lstTrg.contains(t.getId())) {
@@ -291,7 +292,7 @@ public class TaskBuilder implements TaskBuilders {
     			.filter(t-> t.getPar().getCd().equals("ГИС ЖКХ.Crone"))
     			.collect(Collectors.toList())) {
         	if (lstTrg.contains(t.getId()) && !lstTrgProc.contains(t.getId())) {
-            	log.info("..............Выполнить задание TaskPar.id={}", t.getId());
+            	//log.info("..............Выполнить задание TaskPar.id={}", t.getId());
         		return t;
         	}
     	};
