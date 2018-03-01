@@ -112,7 +112,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 /**
  * Сервис обмена информацией с ГИС ЖКХ по Дому
  * @author Leo
- * @version 1.00
+ * @version 1.01
  *
  */
 @Slf4j
