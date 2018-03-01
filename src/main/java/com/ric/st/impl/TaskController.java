@@ -36,6 +36,12 @@ import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.signature.demo.commands.Command;
 
 
+/**
+ * Основной контроллер заданий
+ * @author lev
+ * @version 1.00
+ *
+ */
 @Slf4j
 @Service
 public class TaskController implements TaskControllers {
