@@ -39,7 +39,7 @@ import ru.gosuslugi.dom.signature.demo.commands.Command;
 /**
  * Основной контроллер заданий
  * @author lev
- * @version 1.01
+ * @version 1.02
  *
  */
 @Slf4j
