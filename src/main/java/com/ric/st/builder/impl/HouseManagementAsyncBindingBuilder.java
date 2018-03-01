@@ -109,6 +109,12 @@ import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseM
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementServiceAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
+/**
+ * Сервис обмена информацией с ГИС ЖКХ по Дому
+ * @author Leo
+ * @version 1.00
+ *
+ */
 @Slf4j
 @Service
 public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncBindingBuilders {
@@ -994,17 +1000,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				
 			}
 
-			// Установить статус выполнения задания
-			reqProp.getFoundTask().setState("ACP");
-			log.info("******* Task.id={}, экспорт объектов дома выполнен", task.getId());
-			
 			Boolean addPrepImport = taskParMng.getBool(task, "ГИС ЖКХ.Подготовить задание на импорт");
-
-			if (addPrepImport != null && addPrepImport) {
+			if (houseEol.getParent().getAppTp() != 2 && addPrepImport != null && addPrepImport) {
+				// если не эксп. версия приложения и установлен параметр подготовки
 				log.info("******* Task.id={}, подготовка задания для импорта объектов дома", task.getId());
 				prepTaskImportHouse(houseEol);
 				log.info("******* Task.id={}, подготовка задания для импорта объектов дома выполнена", task.getId());
 			}
+			// Установить статус выполнения задания
+			reqProp.getFoundTask().setState("ACP");
+			log.info("******* Task.id={}, экспорт объектов дома выполнен", task.getId());
 		}
 			
 	}
@@ -1058,7 +1063,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @throws CantProcessAnswer 
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongParam, ErrorProcessAnswer {
+	public void exportAccountDataAck(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongParam, WrongGetMethod, ErrorProcessAnswer {
+		log.info("******* Task.id={}, экспорт лицевых счетов, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		sb.setTrace(true);
@@ -1092,7 +1098,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 				if (accountEol != null) {
 					// Лиц.счет уже существует, обновить его параметры
-					log.info("Попытка обновить запись Лицевого счета в Eolink: GUID={}, AccountNumber={} ", t.getAccountGUID(),
+					log.info("Попытка обновить запись лицевого счета в Eolink: GUID={}, AccountNumber={} ", t.getAccountGUID(),
 							t.getAccountNumber());
 				} else {
 					// Создать новый лицевой счет
@@ -1117,7 +1123,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							null, addrTp, 
 							reqProp.getFoundTask().getAppTp(), null, null, parentEol, config.getCurUser(), 1);
 
-					log.info("Попытка создать запись Лицевого счета в Eolink: GUID={}, AccountNumber={}", 
+					log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}", 
 							t.getAccountGUID(), num);
 					em.persist(accountEol);
 				}
@@ -1139,7 +1145,17 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			}
 			reqProp.getFoundTask().setState("ACP");
 		}
-		log.info("Запрос на выгрузку Лицевых счетов обработан. Task.id={}", task.getId());
+		
+		Boolean addPrepImport = taskParMng.getBool(task, "ГИС ЖКХ.Подготовить задание на импорт");
+		if (houseEol.getParent().getAppTp() != 2 && addPrepImport != null && addPrepImport) {
+			// если не эксп. версия приложения и установлен параметр подготовки
+			log.info("******* Task.id={}, подготовка задания для импорта лицевых счетов дома", task.getId());
+			prepTaskImportAccount(houseEol);
+			log.info("******* Task.id={}, подготовка задания для импорта лицевых счетов дома выполнена", task.getId());
+		}
+
+		log.info("Запрос на выгрузку лицевых счетов обработан. Task.id={}", task.getId());
+
 	}
 		
 	/**
@@ -2145,6 +2161,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
+
+			if (e.getParent().getAppTp() != 2) {
+				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
+				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
+			}
+			
 			ptb.save();
 			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());
 		};
@@ -2199,6 +2221,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.setUp(e, null, actTp, "STP");
 			// добавить как дочернее задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
+
+			if (e.getParent().getAppTp() != 2) {
+				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
+				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
+			}
+
 			ptb.save();
 			log.info("Добавлено задание на выгрузку лицевых счетов по Дому Eolink.id={}", e.getId());
 		};
@@ -2246,8 +2274,28 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		String kul = house.getKul();
 		String nd = house.getNd();
 
-		// вызвать процедуру PL/SQL для подготовки импорта
+		// вызвать процедуру PL/SQL для подготовки задния импорта
 		StoredProcedureQuery qr = em.createStoredProcedureQuery("exs.p_gis.process_house");
+		qr.registerStoredProcedureParameter("P_REU", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_KUL", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_ND", String.class, ParameterMode.IN);
+		qr.setParameter("P_REU", reu);
+		qr.setParameter("P_KUL", kul);
+		qr.setParameter("P_ND", nd);
+		qr.execute();		
+	}
+	
+	/**
+	 * Подготовка задания для импорта лицевых счетов дома
+	 * @author Lev
+	 */
+	private void prepTaskImportAccount(Eolink house) {
+		String reu = house.getReu();
+		String kul = house.getKul();
+		String nd = house.getNd();
+
+		// вызвать процедуру PL/SQL для подготовки задния импорта
+		StoredProcedureQuery qr = em.createStoredProcedureQuery("exs.p_gis.process_lsk");
 		qr.registerStoredProcedureParameter("P_REU", String.class, ParameterMode.IN);
 		qr.registerStoredProcedureParameter("P_KUL", String.class, ParameterMode.IN);
 		qr.registerStoredProcedureParameter("P_ND", String.class, ParameterMode.IN);
