@@ -27,7 +27,7 @@ public interface HouseManagementAsyncBindingBuilders {
 	public void importMeteringDeviceDataAck(Task task) throws CantPrepSoap;
 
 	public void checkPeriodicHouseExp(Task task) throws WrongParam;
-	public void checkPeriodicHousePrepImp(Task task) throws WrongParam;
+	//public void checkPeriodicHousePrepImp(Task task) throws WrongParam;
 	public void checkPeriodicAccExp(Task task) throws WrongParam;
 	public void checkPeriodicMetExp(Task task) throws WrongParam;
 	

@@ -10,7 +10,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
@@ -994,7 +996,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
-			log.info("******* Task.id={}, экспорт объектов дома успешно выполнен", task.getId());
+			log.info("******* Task.id={}, экспорт объектов дома выполнен", task.getId());
+			
+			Boolean addPrepImport = taskParMng.getBool(task, "ГИС ЖКХ.Подготовить задание на импорт");
+
+			if (addPrepImport != null && addPrepImport) {
+				log.info("******* Task.id={}, подготовка задания для импорта объектов дома", task.getId());
+				prepTaskImportHouse(houseEol);
+				log.info("******* Task.id={}, подготовка задания для импорта объектов дома выполнена", task.getId());
+			}
 		}
 			
 	}
@@ -2150,7 +2160,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @param task
 	 * @throws WrongParam 
 	 */
-	@Override
+	/*@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicHousePrepImp(Task task) throws WrongParam {
 		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, вызов", task.getId());
@@ -2168,7 +2178,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
 		log.info("******* Task.id={}, проверка наличия заданий на подготовку импорта объектов дома, выполнено!", task.getId());
-	}
+	}*/
 
 	/**
 	 * Проверить наличие заданий на выгрузку лицевх счетов
@@ -2227,4 +2237,24 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, выполнено!", task.getId());
 	}
 
+	/**
+	 * Подготовка задания для импорта объектов дома
+	 * @author Lev
+	 */
+	private void prepTaskImportHouse(Eolink house) {
+		String reu = house.getReu();
+		String kul = house.getKul();
+		String nd = house.getNd();
+
+		// вызвать процедуру PL/SQL для подготовки импорта
+		StoredProcedureQuery qr = em.createStoredProcedureQuery("exs.p_gis.process_house");
+		qr.registerStoredProcedureParameter("P_REU", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_KUL", String.class, ParameterMode.IN);
+		qr.registerStoredProcedureParameter("P_ND", String.class, ParameterMode.IN);
+		qr.setParameter("P_REU", reu);
+		qr.setParameter("P_KUL", kul);
+		qr.setParameter("P_ND", nd);
+		qr.execute();		
+	}
+	
 }

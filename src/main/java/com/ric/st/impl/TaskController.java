@@ -26,7 +26,6 @@ import com.ric.st.builder.HcsBillsAsyncBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HcsPaymentAsyncBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
-import com.ric.st.builder.HouseManagmentExchangeBuilders;
 import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
@@ -51,8 +50,6 @@ public class TaskController implements TaskControllers {
     private EntityManager em;
 	@Autowired
 	private HouseManagementAsyncBindingBuilders hb;
-	@Autowired
-	private HouseManagmentExchangeBuilders he;
 	@Autowired
 	private HcsOrgRegistryAsyncBindingBuilders os;
 	@Autowired
@@ -160,10 +157,10 @@ public class TaskController implements TaskControllers {
 								// Проверка наличия заданий по экспорту справочников организации
 								nsiSv.checkPeriodicTask(task);
 								break;
-							case "SYSTEM_CHECK_HOUSE_PREP_TASK" :
+							/*case "SYSTEM_CHECK_HOUSE_PREP_TASK" :
 								// Проверка наличия заданий по подготовке импорта объектов дома
 								hb.checkPeriodicHousePrepImp(task);
-								break;
+								break;*/
 							}
 						}
 						break;
@@ -331,13 +328,6 @@ public class TaskController implements TaskControllers {
 							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
 						break;
-					case "GIS_PREP_HOUSE_IMP":
-						if (state.equals("INS")) {
-							// Подготовка задания для импорта объектов дома
-							he.prepTaskImportHouse(task);
-						}
-						break;
-
 					default:
 						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
 						break;
