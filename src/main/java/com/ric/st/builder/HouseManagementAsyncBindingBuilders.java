@@ -28,7 +28,7 @@ public interface HouseManagementAsyncBindingBuilders {
 
 	public void checkPeriodicHouseExp(Task task) throws WrongParam;
 	//public void checkPeriodicHousePrepImp(Task task) throws WrongParam;
-	public void checkPeriodicAccExp(Task task) throws WrongParam;
+	//public void checkPeriodicAccExp(Task task) throws WrongParam;
 	public void checkPeriodicMetExp(Task task) throws WrongParam;
 	
 }

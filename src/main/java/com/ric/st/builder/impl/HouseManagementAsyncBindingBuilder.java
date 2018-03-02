@@ -2163,10 +2163,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-			// добавить как дочернее, зависимое задание к системному повторяемому заданию
+			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
-			// сохранить родительское задание
+			// сохранить ведущее задание
 			Task parent = ptb.getTask();
 
 			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
@@ -2174,9 +2174,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-			// добавить как дочернее, зависимое задание экспорта лиц.счетов к основному
+			// добавить как зависимое задание экспорта лиц.счетов к основному
 			ptb.addAsChild(parent);
-			// добавить так же как дочернее задание к системному повторяемому заданию
+			// добавить так же как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
 			
@@ -2220,7 +2220,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @param task
 	 * @throws WrongParam 
 	 */
-	@Override
+/*	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicAccExp(Task task) throws WrongParam {
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, вызов", task.getId());
@@ -2235,7 +2235,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-			// добавить как дочернее задание к системному повторяемому заданию
+			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку лицевых счетов по Дому Eolink.id={}", e.getId());
@@ -2245,7 +2245,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		foundTask.setState("ACP");
 		log.info("******* Task.id={}, проверка наличия заданий на выгрузку объектов дома, выполнено!", task.getId());
 	}
-
+*/
 	/**
 	 * Проверить наличие заданий на выгрузку счетчиков
 	 * и если их нет, - создать
@@ -2263,7 +2263,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "STP");
-			// добавить как дочернее задание к системному повторяемому заданию
+			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
 			ptb.addAsChild(parentCD);
 			ptb.save();

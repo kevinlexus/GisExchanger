@@ -143,10 +143,10 @@ public class TaskController implements TaskControllers {
 								// Проверка наличия заданий по экспорту объектов дома
 								hb.checkPeriodicHouseExp(task);
 								break;
-							case "SYSTEM_CHECK_HOUSE_ACC_TASK" :
+/*							case "SYSTEM_CHECK_HOUSE_ACC_TASK" :
 								// Проверка наличия заданий по экспорту лицевых счетов по дому
 								hb.checkPeriodicAccExp(task);
-								break;
+								break;*/
 							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
 								// Проверка наличия заданий по экспорту счетчиков по дому
 								hb.checkPeriodicMetExp(task);

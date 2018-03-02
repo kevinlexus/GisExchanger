@@ -130,8 +130,8 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	}
 	
 	/**
-	 * Добавить задание как дочернее, в список выполнения другого задания
-	 * @param cd - CD родительского задания 
+	 * Добавить задание как зависимое, в список выполнения другого задания
+	 * @param cd - CD ведущее задания 
 	 */
 	@Override
 	public void addAsChild(String cd) {
@@ -143,8 +143,8 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	}
 
 	/**
-	 * Добавить задание как дочернее, в список выполнения другого задания
-	 * @param parent - родительское задание 
+	 * Добавить задание как зависимое, в список выполнения другого задания
+	 * @param parent - ведущее задание 
 	 */
 	@Override
 	public void addAsChild(Task parent) {
