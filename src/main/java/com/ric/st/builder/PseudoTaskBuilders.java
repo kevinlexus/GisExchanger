@@ -13,4 +13,6 @@ public interface PseudoTaskBuilders {
 	public void saveToEolink();
 	public void save();
 	public void addAsChild(String string);
+	public void addAsChild(Task parent);
+	public Task getTask();	
 }

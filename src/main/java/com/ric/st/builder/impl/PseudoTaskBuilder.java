@@ -29,8 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * Построитель псевдо-заданий
+ * Построитель заданий
  * @author lev
+ * @version 1.00
  *
  */
 @Slf4j
@@ -49,7 +50,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	@Autowired
 	private TaskDAO taskDao;
 	
-	Task task;
+	private Task task;
 	// 
 	/* инициализация
 	 * @param eolink - объект к которому привязано задание
@@ -127,6 +128,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void save() {
 		em.persist(task);
 	}
+	
 	/**
 	 * Добавить задание как дочернее, в список выполнения другого задания
 	 * @param cd - CD родительского задания 
@@ -140,6 +142,22 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		
 	}
 
-	
+	/**
+	 * Добавить задание как дочернее, в список выполнения другого задания
+	 * @param parent - родительское задание 
+	 */
+	@Override
+	public void addAsChild(Task parent) {
+		Lst lst = lstMng.getByCD("Связь повторяемого задания");
+		TaskToTask t = new TaskToTask(parent, task, lst);
+		parent.getInside().add(t);
+		
+	}
+
+	@Override
+	public Task getTask() {
+		return task;
+	}
+
 }
 

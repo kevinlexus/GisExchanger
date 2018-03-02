@@ -88,28 +88,57 @@ public class TaskBuilder implements TaskBuilders {
 
     /**
      * Активация повторяемого задания
-     * @param - task - задание
+     * @param - task - повторяемое задание
      * @throws WrongGetMethod 
      */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void activateRptTask(Task task) throws WrongGetMethod {
 		Task foundTask = em.find(Task.class, task.getId());
 		log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
-		//mapTask = new HashMap<Task, Task>();
-		// найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
-		// по определённому типу
+		/* найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
+		   а так же если у этих заданий либо не имеется дочерних заданий, либо они НЕ находятся в статусах INS, ACK (т.е. на обработке)   
+		   по определённому типу связи
+		*/
 		foundTask.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
-		    .filter(t-> t.getChild().getParent() == null).forEach(t-> {
-		    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
-		    	// если не выполняется, поставить на выполнение
-			    t.getChild().setState("INS");
-			    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
-		    }
-			// скопировать задание, параметры
-			// copyTask(t.getChild(), null, 0);
-			// скопировать связи заданий с другими заданиями
-			// copyTask(t.getChild(), null, 1);
+		    .filter(t-> t.getChild().getParent() == null)
+		    .forEach(t-> {
+		    	// получить основные задания
+			    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
+			    	log.info("------------Найдено основное задание Task.id={}", t.getId());
+			    	// если не выполняется 
+			    	if (t.getChild().getInside().size() == 0) {
+				    	log.info("------------Основное задание Task.id={} НЕТ дочерних заданий, ВКЛ!", t.getId());
+				    	// и нет дочерних заданий, то поставить на выполнение
+			    		t.getChild().setState("INS");
+			    	} else {
+			    		// есть дочерние задания, проверить их статусы
+				    	log.info("------------Основное задание Task.id={} Есть дочерние задания!", t.getId());
+			    		if (t.getChild().getInside().stream()
+							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
+						    .filter(e-> e.getChild().getParent() == null)
+						    .filter(e -> e.getChild().getState().equals("INS") || // выполняются 
+						    		e.getChild().getState().equals("ACK"))
+				    		.count() == 0L ) {
+					    	// дочерние задания, не выполняются, поставить на выполнение основное
+				    		t.getChild().setState("INS");
+					    	log.info("------------Основное задание Task.id={} Дочерние задания НЕ выполняются, ВКЛ!", t.getId());
+				    		// поставить на выполнение дочерние
+				    		t.getChild().getInside().stream()
+							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
+						    .filter(e-> e.getChild().getParent() == null)
+						    .forEach(e-> {
+							    		e.getChild().setState("INS");
+								    	log.info("------------Дочернее задание Task.id={} ВКЛ!", e.getId());
+						    		});
+				    		
+			    		} else {
+					    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getId());
+			    		}
+			    		
+			    	}
+				    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
+			    }
 		}) ;
 	}
 

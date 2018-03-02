@@ -2163,9 +2163,23 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-			// добавить как дочернее задание к системному повторяемому заданию
+			// добавить как дочернее, зависимое задание к системному повторяемому заданию
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
+			// сохранить родительское задание
+			Task parent = ptb.getTask();
+
+			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
+			if (e.getParent().getAppTp() != 2) {
+				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
+				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
+			}
+			// добавить как дочернее, зависимое задание экспорта лиц.счетов к основному
+			ptb.addAsChild(parent);
+			// добавить так же как дочернее задание к системному повторяемому заданию
+			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
+			ptb.save();
+			
 			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());
 		};
 
