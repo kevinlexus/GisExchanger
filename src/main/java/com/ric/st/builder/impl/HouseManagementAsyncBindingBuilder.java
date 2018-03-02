@@ -2159,14 +2159,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE", "SYSTEM_RPT_HOUSE_EXP")) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
-			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
-
 			if (e.getParent().getAppTp() != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-			
+			// добавить как дочернее задание к системному повторяемому заданию
+			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			ptb.save();
 			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());
 		};
@@ -2219,14 +2217,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "STP");
-			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild(parentCD);
-
 			if (e.getParent().getAppTp() != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
-
+			// добавить как дочернее задание к системному повторяемому заданию
+			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку лицевых счетов по Дому Eolink.id={}", e.getId());
 		};
