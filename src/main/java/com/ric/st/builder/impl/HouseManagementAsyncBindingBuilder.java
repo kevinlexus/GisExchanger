@@ -2158,7 +2158,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		// создать по всем домам задания на экспорт объектов дома, если их нет
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE", "SYSTEM_RPT_HOUSE_EXP")) {
 			log.info("По дому eolink.id={} не найдено задание типа GIS_EXP_HOUSE", e.getId());
-			// статус - STP, остановлено (будет запускаться другим заданием)
+			// статус - INS, остановлено (будет запускаться системным заданием)
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
 			if (e.getParent().getAppTp() != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
@@ -2169,16 +2169,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.save();
 			// сохранить ведущее задание
 			Task parent = ptb.getTask();
-
-			ptb.setUp(e, null, "GIS_EXP_ACCS", "STP");
+			
+			// создать зависимое задание, выгрузки лиц.счетов. оно не должно запуститься до выполнения ведущего
+			ptb.setUp(e, null, parent, "GIS_EXP_ACCS", "STP");
 			if (e.getParent().getAppTp() != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
 			ptb.save();
-			// добавить как зависимое задание экспорта лиц.счетов к основному
-			ptb.addAsChild(parent);
-			// добавить так же как зависимое задание к системному повторяемому заданию
+			// добавить зависимое задание к системному повторяемому заданию 
+			// (будет запускаться системным заданием)
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 			
 			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());

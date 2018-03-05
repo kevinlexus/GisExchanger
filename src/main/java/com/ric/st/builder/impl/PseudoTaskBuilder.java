@@ -51,22 +51,35 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	private TaskDAO taskDao;
 	
 	private Task task;
-	// 
+
 	/* инициализация
 	 * @param eolink - объект к которому привязано задание
-	 * @param parent - родительское задание (не обязательный параметр)
+	 * @param parent - родительское задание (необязательный параметр)
 	 * @param actCd - тип задания
 	 * @param state - статус состояния
 	 */
+	@Override
 	public void setUp(Eolink eolink, Task parent, String actCd, String state) {
+		setUp(eolink, parent, null, actCd, state);
+	}
+	
+	/* инициализация
+	 * @param eolink - объект к которому привязано задание
+	 * @param parent - родительское задание (необязательный параметр)
+	 * @param parent - ведущее задание (необязательный параметр)
+	 * @param actCd - тип задания
+	 * @param state - статус состояния
+	 */
+	@Override
+	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state) {
 		Lst actVal = lstMng.getByCD(actCd);
 		Integer userId = soapConfig.getCurUser().getId();
 
-		task = new Task(eolink, parent, null, state, actVal,
+		task = new Task(eolink, parent, master, state, actVal,
 				null, null, null, null, null, null, 0, userId);
 		
 	}
-	
+
 	/**
 	 * добавить параметр
 	 * @param parCd - CD параметра
@@ -76,6 +89,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 * @param d1 - значение Date
 	 * @throws WrongParam
 	 */
+	@Override
 	public void addTaskPar (String parCd,  Double n1, String s1, Boolean b1, Date d1) throws WrongParam {
 		Par par = parDao.getByCd(-1, parCd);
 		if (!par.getDataTp().equals("SI")) {

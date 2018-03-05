@@ -303,7 +303,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "INS");
-			// добавить как дочернее задание к системному повторяемому заданию
+			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());

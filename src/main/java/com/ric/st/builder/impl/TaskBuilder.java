@@ -101,6 +101,32 @@ public class TaskBuilder implements TaskBuilders {
 		   (по определённому типу связи)
 		*/
 		foundTask.getInside().stream()
+		.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
+	    .filter(t-> t.getChild().getParent() == null)
+	    .forEach(t-> {		
+	    	// получить основные задания
+			if (t.getChild().getSlave().size() == 0) {
+				// нет зависимых по DEP_ID заданий
+		    	log.info("------------Основное задание Task.id={} НЕТ зависимых заданий, ВКЛ!", t.getChild().getId());
+		    	// и нет зависимых заданий, то поставить на выполнение
+	    		t.getChild().setState("INS");
+			} else {
+	    		// есть зависимые задания, проверить их статусы
+		    	log.info("------------Основное задание Task.id={} Есть зависимые задания!", t.getChild().getId());
+				if(t.getChild().getSlave().stream()
+				    .filter(e -> e.getState().equals("INS") || // выполняются 
+				    		e.getState().equals("ACK")).count() == 0L) {
+			    	// зависимые задания, не выполняются, поставить на выполнение основное
+			    	log.info("------------Основное задание Task.id={} Дочерние задания НЕ выполняются, ВКЛ!", t.getChild().getId());
+					t.getChild().setState("INS");
+				} else {
+			    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getChild().getId());
+				}
+				    
+			}
+	    });
+		
+		/*foundTask.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
 		    .filter(t-> t.getChild().getParent() == null)
 		    .forEach(t-> {
@@ -108,13 +134,13 @@ public class TaskBuilder implements TaskBuilders {
 			    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
 			    	log.info("------------Найдено основное задание Task.id={}", t.getId());
 			    	// если не выполняется 
-			    	if (t.getChild().getInside().size() == 0) {
-				    	log.info("------------Основное задание Task.id={} НЕТ дочерних заданий, ВКЛ!", t.getChild().getId());
-				    	// и нет дочерних заданий, то поставить на выполнение
+			    	if (t.getSlave().size() == 0) {
+				    	log.info("------------Основное задание Task.id={} НЕТ зависимых заданий, ВКЛ!", t.getChild().getId());
+				    	// и нет зависимых заданий, то поставить на выполнение
 			    		t.getChild().setState("INS");
 			    	} else {
-			    		// есть дочерние задания, проверить их статусы
-				    	log.info("------------Основное задание Task.id={} Есть дочерние задания!", t.getChild().getId());
+			    		// есть зависимые задания, проверить их статусы
+				    	log.info("------------Основное задание Task.id={} Есть зависимые задания!", t.getChild().getId());
 			    		if (t.getChild().getInside().stream()
 							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
 						    .filter(e-> e.getChild().getParent() == null)
@@ -140,7 +166,7 @@ public class TaskBuilder implements TaskBuilders {
 			    	}
 				    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
 			    }
-		}) ;
+		}) ;*/
 	}
 
 	/**

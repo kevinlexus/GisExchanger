@@ -283,7 +283,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если их нет
-		// добавить как дочернее задание к системному повторяемому заданию
+		// добавить как зависимое задание к системному повторяемому заданию
 		String actTp = "GIS_EXP_DATA_PROVIDER_NSI_ITEM";
 		String parentCD = "SYSTEM_RPT_REF_EXP";
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
