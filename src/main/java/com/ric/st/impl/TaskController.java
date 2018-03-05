@@ -181,7 +181,7 @@ public class TaskController implements TaskControllers {
 						TaskPar taskPar = tb.getTrgTask(task);
 						if (taskPar!= null) {
 							log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
-							// активировать все дочерние задания
+							// активировать все зависимые задания
 							tb.activateRptTask(task);
 							// добавить в список выполненных заданий
 							tb.setProcTask(taskPar);

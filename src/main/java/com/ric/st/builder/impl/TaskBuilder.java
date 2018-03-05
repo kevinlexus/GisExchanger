@@ -95,9 +95,10 @@ public class TaskBuilder implements TaskBuilders {
 	public void activateRptTask(Task task) throws WrongGetMethod {
 		Task foundTask = em.find(Task.class, task.getId());
 		log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
-		/* найти все связи с дочерними записями, в заданиях которых нет родителя (главные),
-		   а так же если у этих заданий либо не имеется дочерних заданий, либо они НЕ находятся в статусах INS, ACK (т.е. на обработке)   
-		   по определённому типу связи
+		/* найти все связи с зависимыми записями, в заданиях которых нет родителя (главные),
+		   а так же если у этих заданий либо не имеется зависимых заданий, либо имеются и 
+		   они НЕ находятся в статусах INS, ACK (т.е. на обработке)   
+		   (по определённому типу связи)
 		*/
 		foundTask.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
@@ -108,12 +109,12 @@ public class TaskBuilder implements TaskBuilders {
 			    	log.info("------------Найдено основное задание Task.id={}", t.getId());
 			    	// если не выполняется 
 			    	if (t.getChild().getInside().size() == 0) {
-				    	log.info("------------Основное задание Task.id={} НЕТ дочерних заданий, ВКЛ!", t.getId());
+				    	log.info("------------Основное задание Task.id={} НЕТ дочерних заданий, ВКЛ!", t.getChild().getId());
 				    	// и нет дочерних заданий, то поставить на выполнение
 			    		t.getChild().setState("INS");
 			    	} else {
 			    		// есть дочерние задания, проверить их статусы
-				    	log.info("------------Основное задание Task.id={} Есть дочерние задания!", t.getId());
+				    	log.info("------------Основное задание Task.id={} Есть дочерние задания!", t.getChild().getId());
 			    		if (t.getChild().getInside().stream()
 							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
 						    .filter(e-> e.getChild().getParent() == null)
@@ -122,18 +123,18 @@ public class TaskBuilder implements TaskBuilders {
 				    		.count() == 0L ) {
 					    	// дочерние задания, не выполняются, поставить на выполнение основное
 				    		t.getChild().setState("INS");
-					    	log.info("------------Основное задание Task.id={} Дочерние задания НЕ выполняются, ВКЛ!", t.getId());
+					    	log.info("------------Основное задание Task.id={} Дочерние задания НЕ выполняются, ВКЛ!", t.getChild().getId());
 				    		// поставить на выполнение дочерние
 				    		t.getChild().getInside().stream()
 							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
 						    .filter(e-> e.getChild().getParent() == null)
 						    .forEach(e-> {
 							    		e.getChild().setState("INS");
-								    	log.info("------------Дочернее задание Task.id={} ВКЛ!", e.getId());
+								    	log.info("------------Дочернее задание Task.id={} ВКЛ!", e.getChild().getId());
 						    		});
 				    		
 			    		} else {
-					    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getId());
+					    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getChild().getId());
 			    		}
 			    		
 			    	}
