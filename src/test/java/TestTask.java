@@ -24,6 +24,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import com.dic.bill.dao.AchargeDAO;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.EolinkDAO;
+import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.ServGis;
 import com.ric.bill.model.exs.Task;
@@ -52,18 +53,24 @@ public class TestTask {
 	private EolinkDAO eolinkDao;
 	@Autowired
 	private AflowDAO aflowDao;
+	@Autowired
+	private TaskDAO taskDao;
 	
 	@Test
 	@Rollback(false) // коммитить транзакцию
     public void testTask() throws Exception {
 		log.info("-----------------Begin");
 
-		String actTp = "GIS_EXP_ORG";
+		taskDao.getAllUnprocessed().stream().forEach(t-> {
+			log.info("t.id={}", t.getId());
+		});
+		
+/*		String actTp = "GIS_EXP_ORG";
 		String parentCD = "SYSTEM_RPT_ORG_EXP";
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			log.info("Eolink.id={}, name={}", e.getId(), e.getGuid());
 		}
-
+*/
 		log.info("-----------------End");
     }
 

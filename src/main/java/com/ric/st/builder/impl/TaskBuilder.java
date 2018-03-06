@@ -102,28 +102,41 @@ public class TaskBuilder implements TaskBuilders {
 		*/
 		foundTask.getInside().stream()
 		.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
-	    .filter(t-> t.getChild().getParent() == null)
-	    .forEach(t-> {		
-	    	// получить основные задания
-			if (t.getChild().getSlave().size() == 0) {
-				// нет зависимых по DEP_ID заданий
-		    	log.info("------------Основное задание Task.id={} НЕТ зависимых заданий, ВКЛ!", t.getChild().getId());
-		    	// и нет зависимых заданий, то поставить на выполнение
-	    		t.getChild().setState("INS");
-			} else {
-	    		// есть зависимые задания, проверить их статусы
-		    	log.info("------------Основное задание Task.id={} Есть зависимые задания!", t.getChild().getId());
-				if(t.getChild().getSlave().stream()
-				    .filter(e -> e.getState().equals("INS") || // выполняются 
-				    		e.getState().equals("ACK")).count() == 0L) {
-			    	// зависимые задания, не выполняются, поставить на выполнение основное
-			    	log.info("------------Основное задание Task.id={} Дочерние задания НЕ выполняются, ВКЛ!", t.getChild().getId());
-					t.getChild().setState("INS");
+	    .filter(t-> t.getChild().getParent() == null) // только главные
+	    .filter(t-> t.getChild().getMaster() == null) // только независимые
+	    .forEach(t-> {
+	    	// ведущее задание
+			Task master = t.getChild().getMaster();
+			// зависимые задания
+			List<Task> slave = t.getChild().getSlave();
+			// текущее задание
+			Task current = t.getChild();
+			if (!Utl.in(current.getState(), "INS", "ACK" )) {
+				// если не выполняется 
+				if (master == null && slave.size() == 0) {
+					// нет зависимых по DEP_ID заданий
+			    	log.info("------------Основное задание Task.id={} НЕТ Зависимых заданий, ВКЛ!", current.getId());
+			    	// и нет зависимых заданий, то поставить на выполнение
+			    	current.setState("INS");
 				} else {
-			    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getChild().getId());
+		    		// есть зависимые задания, проверить их статусы
+			    	log.info("------------Основное задание Task.id={} Есть Зависимые задания!", current.getId());
+					if(slave.stream()
+					    .filter(e -> Utl.in(e.getState(), "INS", "ACK" )).count() == 0L) {
+				    	// зависимые задания, не выполняются, поставить на выполнение основное и зависимые
+				    	log.info("------------Основное задание Task.id={} Зависимые задания НЕ выполняются, ВКЛ!", current.getId());
+				    	current.setState("INS");
+				    	slave.stream().forEach(e -> {
+					    	log.info("------------Зависимое задание Task.id={}, ВКЛ!", e.getId());
+					    	e.setState("INS");
+				    	});
+					} else {
+				    	log.info("------------Основное задание Task.id={} Зависимые задания выполняются, НЕ ВКЛ!", current.getId());
+					}
 				}
-				    
+				
 			}
+				
 	    });
 		
 		/*foundTask.getInside().stream()

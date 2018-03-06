@@ -2284,7 +2284,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		String reu = house.getReu();
 		String kul = house.getKul();
 		String nd = house.getNd();
-
+		
 		// вызвать процедуру PL/SQL для подготовки задния импорта
 		StoredProcedureQuery qr = em.createStoredProcedureQuery("exs.p_gis.process_house");
 		qr.registerStoredProcedureParameter("P_REU", String.class, ParameterMode.IN);
