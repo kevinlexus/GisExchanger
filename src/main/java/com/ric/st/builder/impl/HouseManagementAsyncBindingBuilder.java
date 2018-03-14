@@ -26,6 +26,7 @@ import com.diffplug.common.base.Errors;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.EolinkToEolinkDAO;
+import com.ric.bill.dao.KartDAO;
 import com.ric.bill.dao.KartHpDAO;
 import com.ric.bill.dao.ParDAO;
 import com.ric.bill.dao.TaskDAO;
@@ -35,16 +36,19 @@ import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.mm.EolinkParMng;
 import com.ric.bill.mm.EolinkToEolinkMng;
+import com.ric.bill.mm.HouseMng;
 import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
 import com.ric.bill.mm.TaskParMng;
+import com.ric.bill.model.ar.Kart;
 import com.ric.bill.model.bs.AddrTp;
 import com.ric.bill.model.bs.Lst;
 import com.ric.bill.model.bs.Par;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
+import com.ric.bill.model.oralv.Ko;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
 import com.ric.st.TaskControllers;
@@ -134,9 +138,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Autowired
 	private EolinkParMng eolinkParMng;
 	@Autowired
+	private HouseMng houseMng;
+	@Autowired
 	private TaskEolinkParMng teParMng;
 	@Autowired
 	private TaskDAO taskDao; 
+	@Autowired
+	private KartDAO kartDao; 
 	@Autowired
 	private EolinkMng eolinkMng;
 	@Autowired
@@ -777,6 +785,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		reqProp.setProp(task, sb);
 		sb.setTrace(true);
 
+		// дом
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -869,25 +878,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					log.info("Жилое помещение: №={}, UniqNumber={}, GUID={}", 
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
+					// обработка номера помещения
+					String num;
+					num = prepNum(t);
+					
 					if (premisEol == null) {
 						// не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Квартира");
-						String num;
-						// усечь № кв. до 7 знаков
-						if (t.getPremisesNum().length() > 7) {
-							num = t.getPremisesNum().substring(0, 7);
-						} else {
-							num = t.getPremisesNum();
+						Ko premisKo = null;
+						if (reqProp.getAppTp().equals(1)) {
+							// новая разработка
+							premisKo = getPremisKo(houseEol, num);
+						} else if (reqProp.getAppTp().equals(2)) {
+							// эксперем. разработка // TODO сделать реализацию установки совместимого Ko2!
+							
 						}
-						if (reqProp.getAppTp().equals(0) || reqProp.getAppTp().equals(2)) {
-							// старая и  и эксперем. разработка, добавить лидирующие нули
-							num = Utl.lpad(num, "0", 7);
-						}
+						
 						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), 
 								num , null, 
 								t.getEntranceNum()!=null ? Integer.valueOf(t.getEntranceNum()) : null,
 								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, addrTp, 
-								foundTask2.getAppTp(), null, null, 
+								foundTask2.getAppTp(), 
+								null, 
+								premisKo, 
 								t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol, // присоединить к родителю: подъезд, или дом, если не найден подъезд
 								config.getCurUser(), 1
 								 );
@@ -895,6 +908,20 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 								t.getEntranceNum(), 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 						em.persist(premisEol);
+					}
+
+					// обновить помещение
+					if (reqProp.getAppTp().equals(1)) {
+						// новая разработка
+						if (premisEol.getKoObj() == null) {
+							// установить Ko помещения, если пустой
+								Ko premisKo = getPremisKo(houseEol, num); 
+								if (premisKo != null) {
+									premisEol.setKoObj(premisKo);
+								}
+						}
+					} else if (reqProp.getAppTp().equals(2)) {
+						// эксперем. разработка // TODO сделать реализацию установки совместимого Ko2!
 						
 					}
 
@@ -953,16 +980,36 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					log.info("Нежилое помещение: №={}, UniqNumber={}, GUID={}", 
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
+					// обработка номера помещения
+					String num;
+					num = prepNum(t);
+
 					if (premisEol == null) {
 						// Не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Помещение нежилое");
-						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), Utl.lpad(t.getPremisesNum(), "0", 7), null, null,
+						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), num, null, null,
 								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, 
 								addrTp, foundTask2.getAppTp(), null, null, houseEol, config.getCurUser(), 1);
 						log.info("Попытка создать запись Нежилого помещения в Eolink: № квартиры={}, un={}, GUID={}", 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 						em.persist(premisEol);
 					}
+					
+					// обновить помещение
+					if (reqProp.getAppTp().equals(1)) {
+						// новая разработка
+						if (premisEol.getKoObj() == null) {
+							// установить Ko помещения, если пустой
+								Ko premisKo = getPremisKo(houseEol, num);
+								if (premisKo != null) {
+									premisEol.setKoObj(premisKo);
+								}
+						}
+					} else if (reqProp.getAppTp().equals(2)) {
+						// эксперем. разработка // TODO сделать реализацию установки совместимого Ko2!
+						
+					}
+					
 					// обновить параметры помещения
 					ptb.setUp(premisEol, task, "GIS_TMP", null);
 					ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
@@ -1012,6 +1059,62 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			log.info("******* Task.id={}, экспорт объектов дома выполнен", task.getId());
 		}
 			
+	}
+
+
+	/**
+	 * Подготовить номер жилого помещения
+	 * @param t
+	 * @return
+	 */
+	private String prepNum(
+			ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse.ResidentialPremises t) {
+		String num;
+		// усечь № кв. до 7 знаков
+		if (t.getPremisesNum().length() > 7) {
+			num = t.getPremisesNum().substring(0, 7);
+		} else {
+			num = t.getPremisesNum();
+		}
+		if (reqProp.getAppTp().equals(0) || reqProp.getAppTp().equals(2)) {
+			// старая и эксперем. разработка, добавить лидирующие нули
+			num = Utl.lpad(num, "0", 7);
+		}
+		return num;
+	}
+
+	/**
+	 * Подготовить номер нежилого помещения
+	 * @param t
+	 * @return
+	 */
+	private String prepNum(
+			ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse.NonResidentialPremises t) {
+		String num;
+		// усечь № кв. до 7 знаков
+		if (t.getPremisesNum().length() > 7) {
+			num = t.getPremisesNum().substring(0, 7);
+		} else {
+			num = t.getPremisesNum();
+		}
+		if (reqProp.getAppTp().equals(0) || reqProp.getAppTp().equals(2)) {
+			// старая и эксперем. разработка, добавить лидирующие нули
+			num = Utl.lpad(num, "0", 7);
+		}
+		return num;
+	}
+
+	/**
+	 * Получить Ko объект помещения
+	 * @param houseEol
+	 * @param num
+	 * @return
+	 */
+	private Ko getPremisKo(Eolink houseEol, String num) {
+		Ko premisKo = null; 
+		// получить Ko помещения
+		premisKo = houseMng.getKoByKwNum(houseEol.getKoObj().getId(), num);
+		return premisKo;
 	}
 
 	/**
@@ -1095,12 +1198,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				}
 				// Найти лицевой счет
 				Eolink accountEol = eolinkMng.getEolinkByGuid(t.getAccountGUID());
-
-				if (accountEol != null) {
-					// Лиц.счет уже существует, обновить его параметры
-					log.info("Попытка обновить запись лицевого счета в Eolink: GUID={}, AccountNumber={} ", t.getAccountGUID(),
-							t.getAccountNumber());
+				String num;
+				// усечь № лиц.счета до 8 знаков
+				if (t.getAccountNumber().length() > 8) {
+					num = t.getAccountNumber().substring(0, 8);
 				} else {
+					num = t.getAccountNumber();
+				}
+
+				if (accountEol == null) {
 					// Создать новый лицевой счет
 
 					// Найти объект на который ссылаться
@@ -1111,13 +1217,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 					AddrTp addrTp = lstMng.getAddrTpByCD("ЛС");
 					
-					String num;
-					// усечь лиц.счет до 8 знаков
-					if (t.getAccountNumber().length() > 8) {
-						num = t.getAccountNumber().substring(0, 8);
-					} else {
-						num = t.getAccountNumber();
-					}
 					accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, num, 
 							null, null, null, t.getAccountGUID(), t.getUnifiedAccountNumber(), 
 							null, addrTp, 
@@ -1126,6 +1225,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}", 
 							t.getAccountGUID(), num);
 					em.persist(accountEol);
+				} else {
+					// Лиц.счет уже существует, обновить его параметры
+					log.info("Попытка обновить запись лицевого счета в Eolink: GUID={}, AccountNumber={} ", t.getAccountGUID(),
+							t.getAccountNumber());
+				}
+
+
+				// обновить лиц.счет
+				if (reqProp.getAppTp().equals(1)) {
+					// новая разработка
+					if (accountEol.getKoObj() == null) {
+						// установить Ko лиц.счета, если пустой
+						Kart kart = kartDao.getByFlsk(num);
+						if (kart != null) {
+							Ko accountKo = kart.getKo();
+							if (accountKo != null) {
+								accountEol.setKoObj(accountKo);
+							}
+						}
+					}
+				} else if (reqProp.getAppTp().equals(2)) {
+					// эксперем. разработка // TODO сделать реализацию установки совместимого Ko2!
+					
 				}
 
 				// обновить параметры лс

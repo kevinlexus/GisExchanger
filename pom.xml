@@ -58,7 +58,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- BWC -->
+		<!-- DWC -->
 		<dependency>
 			<groupId>com.dic.bill</groupId>
 			<artifactId>DWC</artifactId>
