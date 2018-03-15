@@ -917,6 +917,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							// установить Ko помещения, если пустой
 								Ko premisKo = getPremisKo(houseEol, num); 
 								if (premisKo != null) {
+									log.info("Установлен klsk={}", premisKo.getId());
 									premisEol.setKoObj(premisKo);
 								}
 						}
@@ -1241,6 +1242,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						if (kart != null) {
 							Ko accountKo = kart.getKo();
 							if (accountKo != null) {
+								log.info("Установлен klsk={}", accountKo.getId());
 								accountEol.setKoObj(accountKo);
 							}
 						}
