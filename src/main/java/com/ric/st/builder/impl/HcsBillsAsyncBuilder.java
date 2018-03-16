@@ -53,6 +53,7 @@ import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
+import ru.gosuslugi.dom.schema.integration.bills.CapitalRepairImportType;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest.SupplierIDs;
 import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest;
@@ -399,6 +400,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			}
 
 		}
+		
+// Это нужно возможно для отдельного счета по капремонту		
+  CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
+		capRepChrg.setContribution(BigDecimal.valueOf(11.11D));
+		capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
+		capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
+		capRepChrg.setAccountingPeriodTotal(BigDecimal.valueOf(100.11D));
+		capRepChrg.setTotalPayable(BigDecimal.valueOf(100.11D));
+		pd.setCapitalRepairCharge(capRepChrg );
+		
+		
 /*
 		chrgInfo = new ChargeInfo();
 		pd.getChargeInfo().add(chrgInfo);

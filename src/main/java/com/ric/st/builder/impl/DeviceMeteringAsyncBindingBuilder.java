@@ -224,7 +224,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
-		//sb.setTrace(true);
+		sb.setTrace(true);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
