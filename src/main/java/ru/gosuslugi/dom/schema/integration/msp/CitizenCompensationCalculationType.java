@@ -30,7 +30,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="CalculationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="CompensationSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/>
  *         &lt;sequence>
- *           &lt;element name="Actual" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActualCompensationType" maxOccurs="12" minOccurs="0"/>
+ *           &lt;element name="Actual" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActualCompensationType" maxOccurs="16" minOccurs="0"/>
  *           &lt;element name="Standard" type="{http://dom.gosuslugi.ru/schema/integration/msp/}StandardCompensationType" minOccurs="0"/>
  *           &lt;element name="Fixed" type="{http://dom.gosuslugi.ru/schema/integration/msp/}FixedCompensationType" minOccurs="0"/>
  *         &lt;/sequence>

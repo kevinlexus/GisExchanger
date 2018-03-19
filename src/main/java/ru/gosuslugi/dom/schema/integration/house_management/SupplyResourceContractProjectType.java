@@ -329,6 +329,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/complexType>
  *           &lt;/element>
  *         &lt;/sequence>
+ *         &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -357,7 +358,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "temperatureChart",
     "billingDate",
     "paymentDate",
-    "providingInformationDate"
+    "providingInformationDate",
+    "meteringDeviceInformation"
 })
 public class SupplyResourceContractProjectType {
 
@@ -400,6 +402,8 @@ public class SupplyResourceContractProjectType {
     protected SupplyResourceContractProjectType.PaymentDate paymentDate;
     @XmlElement(name = "ProvidingInformationDate")
     protected SupplyResourceContractProjectType.ProvidingInformationDate providingInformationDate;
+    @XmlElement(name = "MeteringDeviceInformation")
+    protected Boolean meteringDeviceInformation;
 
     /**
      * Gets the value of the isContract property.
@@ -867,6 +871,30 @@ public class SupplyResourceContractProjectType {
      */
     public void setProvidingInformationDate(SupplyResourceContractProjectType.ProvidingInformationDate value) {
         this.providingInformationDate = value;
+    }
+
+    /**
+     * Gets the value of the meteringDeviceInformation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isMeteringDeviceInformation() {
+        return meteringDeviceInformation;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceInformation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setMeteringDeviceInformation(Boolean value) {
+        this.meteringDeviceInformation = value;
     }
 
 

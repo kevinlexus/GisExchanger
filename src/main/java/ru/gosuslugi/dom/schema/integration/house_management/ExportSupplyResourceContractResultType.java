@@ -59,7 +59,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="AnnulmentContract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}AnnulmentType" minOccurs="0"/>
+ *         &lt;element name="AnnulmentContract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportAnnulmentType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -95,7 +95,7 @@ public class ExportSupplyResourceContractResultType
     @XmlElement(name = "TerminateContract")
     protected ExportSupplyResourceContractResultType.TerminateContract terminateContract;
     @XmlElement(name = "AnnulmentContract")
-    protected AnnulmentType annulmentContract;
+    protected ExportAnnulmentType annulmentContract;
 
     /**
      * Gets the value of the contractRootGUID property.
@@ -246,10 +246,10 @@ public class ExportSupplyResourceContractResultType
      * 
      * @return
      *     possible object is
-     *     {@link AnnulmentType }
+     *     {@link ExportAnnulmentType }
      *     
      */
-    public AnnulmentType getAnnulmentContract() {
+    public ExportAnnulmentType getAnnulmentContract() {
         return annulmentContract;
     }
 
@@ -258,10 +258,10 @@ public class ExportSupplyResourceContractResultType
      * 
      * @param value
      *     allowed object is
-     *     {@link AnnulmentType }
+     *     {@link ExportAnnulmentType }
      *     
      */
-    public void setAnnulmentContract(AnnulmentType value) {
+    public void setAnnulmentContract(ExportAnnulmentType value) {
         this.annulmentContract = value;
     }
 

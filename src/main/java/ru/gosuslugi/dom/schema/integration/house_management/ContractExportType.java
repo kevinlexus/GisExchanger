@@ -106,7 +106,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="ContractBase" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="DateDetails" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DateDetailsType" minOccurs="0"/>
+ *         &lt;element name="DateDetails" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DateDetailsExportType" minOccurs="0"/>
  *         &lt;element name="ContractAttachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="AgreementAttachment" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
@@ -181,7 +181,7 @@ public class ContractExportType {
     @XmlElement(name = "ContractBase", required = true)
     protected NsiRef contractBase;
     @XmlElement(name = "DateDetails")
-    protected DateDetailsType dateDetails;
+    protected DateDetailsExportType dateDetails;
     @XmlElement(name = "ContractAttachment")
     protected List<AttachmentType> contractAttachment;
     @XmlElement(name = "AgreementAttachment")
@@ -462,10 +462,10 @@ public class ContractExportType {
      * 
      * @return
      *     possible object is
-     *     {@link DateDetailsType }
+     *     {@link DateDetailsExportType }
      *     
      */
-    public DateDetailsType getDateDetails() {
+    public DateDetailsExportType getDateDetails() {
         return dateDetails;
     }
 
@@ -474,10 +474,10 @@ public class ContractExportType {
      * 
      * @param value
      *     allowed object is
-     *     {@link DateDetailsType }
+     *     {@link DateDetailsExportType }
      *     
      */
-    public void setDateDetails(DateDetailsType value) {
+    public void setDateDetails(DateDetailsExportType value) {
         this.dateDetails = value;
     }
 

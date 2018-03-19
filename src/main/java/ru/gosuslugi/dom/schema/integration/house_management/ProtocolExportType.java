@@ -47,7 +47,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *                     &lt;element name="ResolutionPlace">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="3000"/>
  *                           &lt;minLength value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
@@ -106,7 +106,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *                     &lt;element name="VotingPlace">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="3000"/>
  *                           &lt;minLength value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
@@ -171,7 +171,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="2000"/>
+ *                           &lt;maxLength value="3000"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
  *                     &lt;/element>
@@ -566,7 +566,7 @@ public class ProtocolExportType {
      *         &lt;element name="ResolutionPlace">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="200"/>
+     *               &lt;maxLength value="3000"/>
      *               &lt;minLength value="1"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
@@ -692,7 +692,7 @@ public class ProtocolExportType {
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="2000"/>
+     *                 &lt;maxLength value="3000"/>
      *               &lt;/restriction>
      *             &lt;/simpleType>
      *           &lt;/element>
@@ -1419,7 +1419,7 @@ public class ProtocolExportType {
      *         &lt;element name="VotingPlace">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="200"/>
+     *               &lt;maxLength value="3000"/>
      *               &lt;minLength value="1"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>

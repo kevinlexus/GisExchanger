@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element name="CitizenCompensation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ExportCitizenCompensationType" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.5""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.8.0.2""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -114,7 +114,7 @@ public class ExportCitizenCompensationResult
      */
     public String getVersion() {
         if (version == null) {
-            return "11.0.0.5";
+            return "11.8.0.2";
         } else {
             return version;
         }

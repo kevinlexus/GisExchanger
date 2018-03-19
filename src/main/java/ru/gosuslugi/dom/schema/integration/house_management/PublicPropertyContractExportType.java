@@ -32,9 +32,9 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *         &lt;/choice>
  *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *         &lt;element name="ContractNumber" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractNumberType"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="ContractObject" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
@@ -49,7 +49,14 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="Payment" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType" minOccurs="0"/>
+ *         &lt;element name="Payment" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="10"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="MoneySpentDirection" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
@@ -125,13 +132,13 @@ public class PublicPropertyContractExportType {
     protected String fiasHouseGuid;
     @XmlElement(name = "ContractNumber", required = true)
     protected String contractNumber;
-    @XmlElement(name = "Date", required = true)
+    @XmlElement(name = "Date")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar date;
-    @XmlElement(name = "StartDate", required = true)
+    @XmlElement(name = "StartDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar startDate;
-    @XmlElement(name = "EndDate", required = true)
+    @XmlElement(name = "EndDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar endDate;
     @XmlElement(name = "ContractObject")

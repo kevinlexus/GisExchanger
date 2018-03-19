@@ -26,6 +26,10 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="Maintenance"/>
  *     &lt;enumeration value="Repairs"/>
  *     &lt;enumeration value="Rent"/>
+ *     &lt;enumeration value="CollectiveHotWater"/>
+ *     &lt;enumeration value="CollectiveColdWater"/>
+ *     &lt;enumeration value="CollectiveElectricity"/>
+ *     &lt;enumeration value="CollectiveSewerage"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -58,7 +62,15 @@ public enum ServiceType {
     @XmlEnumValue("Repairs")
     REPAIRS("Repairs"),
     @XmlEnumValue("Rent")
-    RENT("Rent");
+    RENT("Rent"),
+    @XmlEnumValue("CollectiveHotWater")
+    COLLECTIVE_HOT_WATER("CollectiveHotWater"),
+    @XmlEnumValue("CollectiveColdWater")
+    COLLECTIVE_COLD_WATER("CollectiveColdWater"),
+    @XmlEnumValue("CollectiveElectricity")
+    COLLECTIVE_ELECTRICITY("CollectiveElectricity"),
+    @XmlEnumValue("CollectiveSewerage")
+    COLLECTIVE_SEWERAGE("CollectiveSewerage");
     private final String value;
 
     ServiceType(String v) {

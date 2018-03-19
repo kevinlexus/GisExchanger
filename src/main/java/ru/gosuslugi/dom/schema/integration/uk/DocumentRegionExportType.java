@@ -23,8 +23,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentPortalExportType">
  *       &lt;choice minOccurs="0">
- *         &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="Municipal" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="1000"/>
+ *         &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
+ *         &lt;element name="Municipal" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/>
  *       &lt;/choice>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -43,32 +43,37 @@ public class DocumentRegionExportType
 {
 
     @XmlElement(name = "Region")
-    protected NsiRef region;
+    protected List<NsiRef> region;
     @XmlElement(name = "Municipal")
     protected List<OKTMORefType> municipal;
 
     /**
      * Gets the value of the region property.
      * 
-     * @return
-     *     possible object is
-     *     {@link NsiRef }
-     *     
-     */
-    public NsiRef getRegion() {
-        return region;
-    }
-
-    /**
-     * Sets the value of the region property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the region property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link NsiRef }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getRegion().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link NsiRef }
+     * 
+     * 
      */
-    public void setRegion(NsiRef value) {
-        this.region = value;
+    public List<NsiRef> getRegion() {
+        if (region == null) {
+            region = new ArrayList<NsiRef>();
+        }
+        return this.region;
     }
 
     /**

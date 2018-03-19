@@ -37,7 +37,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                   &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
  *                   &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
  *                   &lt;choice>
  *                     &lt;element name="SortOrder">
  *                       &lt;simpleType>
@@ -326,7 +326,7 @@ public class ImportMunicipalServicesRequest
      *         &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *         &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
      *         &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
      *         &lt;choice>
      *           &lt;element name="SortOrder">
      *             &lt;simpleType>
@@ -375,7 +375,7 @@ public class ImportMunicipalServicesRequest
         protected String mainMunicipalServiceName;
         @XmlElement(name = "MunicipalResourceRef", required = true)
         protected NsiRef municipalResourceRef;
-        @XmlElement(name = "OKEI", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
+        @XmlElement(name = "OKEI", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
         protected String okei;
         @XmlElement(name = "SortOrder")
         protected String sortOrder;
@@ -551,6 +551,7 @@ public class ImportMunicipalServicesRequest
         }
 
         /**
+         * (не используется)
          * Единница измерения из справочника ОКЕИ.
          * 
          * @return

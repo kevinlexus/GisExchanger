@@ -8,9 +8,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -238,6 +240,15 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="PaidCash" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="13"/>
+ *               &lt;fractionDigits value="2"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="DateOfLastReceivedPayment" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -267,7 +278,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "totalPayableByPDWithDebtAndAdvance",
     "totalByPenaltiesAndCourtCosts",
     "totalPayableByPD",
-    "componentsOfCost"
+    "componentsOfCost",
+    "paidCash",
+    "dateOfLastReceivedPayment"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest.PaymentDocument.class
@@ -313,6 +326,11 @@ public class PaymentDocumentType {
     protected BigDecimal totalPayableByPD;
     @XmlElement(name = "ComponentsOfCost")
     protected List<PaymentDocumentType.ComponentsOfCost> componentsOfCost;
+    @XmlElement(name = "PaidCash")
+    protected BigDecimal paidCash;
+    @XmlElement(name = "DateOfLastReceivedPayment")
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar dateOfLastReceivedPayment;
 
     /**
      * Идентификатор лицевого счета
@@ -819,6 +837,54 @@ public class PaymentDocumentType {
             componentsOfCost = new ArrayList<PaymentDocumentType.ComponentsOfCost>();
         }
         return this.componentsOfCost;
+    }
+
+    /**
+     * Gets the value of the paidCash property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getPaidCash() {
+        return paidCash;
+    }
+
+    /**
+     * Sets the value of the paidCash property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setPaidCash(BigDecimal value) {
+        this.paidCash = value;
+    }
+
+    /**
+     * Gets the value of the dateOfLastReceivedPayment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDateOfLastReceivedPayment() {
+        return dateOfLastReceivedPayment;
+    }
+
+    /**
+     * Sets the value of the dateOfLastReceivedPayment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDateOfLastReceivedPayment(XMLGregorianCalendar value) {
+        this.dateOfLastReceivedPayment = value;
     }
 
 

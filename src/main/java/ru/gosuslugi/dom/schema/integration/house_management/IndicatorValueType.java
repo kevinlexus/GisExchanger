@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  *               &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
  *             &lt;/sequence>
  *           &lt;/choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
  *         &lt;/sequence>
  *         &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/choice>

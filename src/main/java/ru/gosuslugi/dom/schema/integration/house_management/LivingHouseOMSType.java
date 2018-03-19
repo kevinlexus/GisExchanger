@@ -45,6 +45,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="HasBlocks" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="HasMultipleHousesWithSameAddress" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -56,7 +57,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LivingHouseOMSType", propOrder = {
     "basicCharacteristicts",
-    "hasBlocks"
+    "hasBlocks",
+    "hasMultipleHousesWithSameAddress"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseOMSRequest.LivingHouse.LivingHouseToCreate.class
@@ -67,6 +69,8 @@ public class LivingHouseOMSType {
     protected LivingHouseOMSType.BasicCharacteristicts basicCharacteristicts;
     @XmlElement(name = "HasBlocks")
     protected Boolean hasBlocks;
+    @XmlElement(name = "HasMultipleHousesWithSameAddress")
+    protected Boolean hasMultipleHousesWithSameAddress;
 
     /**
      * Gets the value of the basicCharacteristicts property.
@@ -114,6 +118,30 @@ public class LivingHouseOMSType {
      */
     public void setHasBlocks(Boolean value) {
         this.hasBlocks = value;
+    }
+
+    /**
+     * Gets the value of the hasMultipleHousesWithSameAddress property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isHasMultipleHousesWithSameAddress() {
+        return hasMultipleHousesWithSameAddress;
+    }
+
+    /**
+     * Sets the value of the hasMultipleHousesWithSameAddress property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setHasMultipleHousesWithSameAddress(Boolean value) {
+        this.hasMultipleHousesWithSameAddress = value;
     }
 
 

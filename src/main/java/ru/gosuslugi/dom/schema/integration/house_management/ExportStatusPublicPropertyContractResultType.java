@@ -39,8 +39,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;choice>
  *                             &lt;sequence>
- *                               &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
- *                               &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+ *                               &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
+ *                               &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
  *                             &lt;/sequence>
  *                             &lt;element name="Other">
  *                               &lt;simpleType>
@@ -72,9 +72,30 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                                 &lt;/complexContent>
  *                               &lt;/complexType>
  *                             &lt;/element>
- *                             &lt;element name="Bill" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
- *                             &lt;element name="Debt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
- *                             &lt;element name="Paid" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
+ *                             &lt;element name="Bill">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;totalDigits value="10"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="Debt">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;totalDigits value="10"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
+ *                             &lt;element name="Paid">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;totalDigits value="10"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
@@ -154,8 +175,8 @@ public class ExportStatusPublicPropertyContractResultType {
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;choice>
      *                   &lt;sequence>
-     *                     &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-     *                     &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+     *                     &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
+     *                     &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
      *                   &lt;/sequence>
      *                   &lt;element name="Other">
      *                     &lt;simpleType>
@@ -187,9 +208,30 @@ public class ExportStatusPublicPropertyContractResultType {
      *                       &lt;/complexContent>
      *                     &lt;/complexType>
      *                   &lt;/element>
-     *                   &lt;element name="Bill" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
-     *                   &lt;element name="Debt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
-     *                   &lt;element name="Paid" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
+     *                   &lt;element name="Bill">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;totalDigits value="10"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="Debt">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;totalDigits value="10"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
+     *                   &lt;element name="Paid">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;totalDigits value="10"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
@@ -457,9 +499,30 @@ public class ExportStatusPublicPropertyContractResultType {
          *             &lt;/complexContent>
          *           &lt;/complexType>
          *         &lt;/element>
-         *         &lt;element name="Bill" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
-         *         &lt;element name="Debt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
-         *         &lt;element name="Paid" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
+         *         &lt;element name="Bill">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;totalDigits value="10"/>
+         *               &lt;fractionDigits value="2"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="Debt">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;totalDigits value="10"/>
+         *               &lt;fractionDigits value="2"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
+         *         &lt;element name="Paid">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;totalDigits value="10"/>
+         *               &lt;fractionDigits value="2"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
@@ -708,8 +771,8 @@ public class ExportStatusPublicPropertyContractResultType {
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;choice>
          *         &lt;sequence>
-         *           &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
-         *           &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionType"/>
+         *           &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
+         *           &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
          *         &lt;/sequence>
          *         &lt;element name="Other">
          *           &lt;simpleType>
@@ -735,9 +798,9 @@ public class ExportStatusPublicPropertyContractResultType {
         public static class PaymentInterval {
 
             @XmlElement(name = "StartDate")
-            protected DaySelectionType startDate;
+            protected DaySelectionExportType startDate;
             @XmlElement(name = "EndDate")
-            protected DaySelectionType endDate;
+            protected DaySelectionExportType endDate;
             @XmlElement(name = "Other")
             protected String other;
 
@@ -746,10 +809,10 @@ public class ExportStatusPublicPropertyContractResultType {
              * 
              * @return
              *     possible object is
-             *     {@link DaySelectionType }
+             *     {@link DaySelectionExportType }
              *     
              */
-            public DaySelectionType getStartDate() {
+            public DaySelectionExportType getStartDate() {
                 return startDate;
             }
 
@@ -758,10 +821,10 @@ public class ExportStatusPublicPropertyContractResultType {
              * 
              * @param value
              *     allowed object is
-             *     {@link DaySelectionType }
+             *     {@link DaySelectionExportType }
              *     
              */
-            public void setStartDate(DaySelectionType value) {
+            public void setStartDate(DaySelectionExportType value) {
                 this.startDate = value;
             }
 
@@ -770,10 +833,10 @@ public class ExportStatusPublicPropertyContractResultType {
              * 
              * @return
              *     possible object is
-             *     {@link DaySelectionType }
+             *     {@link DaySelectionExportType }
              *     
              */
-            public DaySelectionType getEndDate() {
+            public DaySelectionExportType getEndDate() {
                 return endDate;
             }
 
@@ -782,10 +845,10 @@ public class ExportStatusPublicPropertyContractResultType {
              * 
              * @param value
              *     allowed object is
-             *     {@link DaySelectionType }
+             *     {@link DaySelectionExportType }
              *     
              */
-            public void setEndDate(DaySelectionType value) {
+            public void setEndDate(DaySelectionExportType value) {
                 this.endDate = value;
             }
 

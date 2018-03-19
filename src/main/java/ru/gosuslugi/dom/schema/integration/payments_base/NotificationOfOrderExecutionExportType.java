@@ -127,7 +127,14 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
  *                   &lt;sequence>
  *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
  *                     &lt;sequence>
- *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/>
+ *                       &lt;element name="PaymentDocumentNumber" minOccurs="0">
+ *                         &lt;simpleType>
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                             &lt;minLength value="1"/>
+ *                             &lt;maxLength value="30"/>
+ *                           &lt;/restriction>
+ *                         &lt;/simpleType>
+ *                       &lt;/element>
  *                       &lt;sequence minOccurs="0">
  *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
  *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
@@ -188,7 +195,14 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
  *                             &lt;/complexContent>
  *                           &lt;/complexType>
  *                         &lt;/element>
- *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/>
+ *                         &lt;element name="AccountNumber" minOccurs="0">
+ *                           &lt;simpleType>
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                               &lt;minLength value="1"/>
+ *                               &lt;maxLength value="30"/>
+ *                             &lt;/restriction>
+ *                           &lt;/simpleType>
+ *                         &lt;/element>
  *                       &lt;/sequence>
  *                     &lt;/sequence>
  *                   &lt;/sequence>
@@ -336,7 +350,14 @@ public class NotificationOfOrderExecutionExportType {
      *         &lt;sequence>
      *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
      *           &lt;sequence>
-     *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/>
+     *             &lt;element name="PaymentDocumentNumber" minOccurs="0">
+     *               &lt;simpleType>
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                   &lt;minLength value="1"/>
+     *                   &lt;maxLength value="30"/>
+     *                 &lt;/restriction>
+     *               &lt;/simpleType>
+     *             &lt;/element>
      *             &lt;sequence minOccurs="0">
      *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
      *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
@@ -397,7 +418,14 @@ public class NotificationOfOrderExecutionExportType {
      *                   &lt;/complexContent>
      *                 &lt;/complexType>
      *               &lt;/element>
-     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/>
+     *               &lt;element name="AccountNumber" minOccurs="0">
+     *                 &lt;simpleType>
+     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                     &lt;minLength value="1"/>
+     *                     &lt;maxLength value="30"/>
+     *                   &lt;/restriction>
+     *                 &lt;/simpleType>
+     *               &lt;/element>
      *             &lt;/sequence>
      *           &lt;/sequence>
      *         &lt;/sequence>
@@ -443,7 +471,7 @@ public class NotificationOfOrderExecutionExportType {
         protected String comment;
         @XmlElement(name = "PaymentDocumentID", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
         protected String paymentDocumentID;
-        @XmlElement(name = "PaymentDocumentNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
+        @XmlElement(name = "PaymentDocumentNumber")
         protected String paymentDocumentNumber;
         @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
         protected Short year;
@@ -455,7 +483,7 @@ public class NotificationOfOrderExecutionExportType {
         protected NotificationOfOrderExecutionExportType.OrderInfo.AddressAndConsumer addressAndConsumer;
         @XmlElement(name = "Service")
         protected NotificationOfOrderExecutionExportType.OrderInfo.Service service;
-        @XmlElement(name = "AccountNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
+        @XmlElement(name = "AccountNumber")
         protected String accountNumber;
 
         /**

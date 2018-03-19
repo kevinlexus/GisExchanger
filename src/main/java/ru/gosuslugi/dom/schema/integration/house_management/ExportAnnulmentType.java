@@ -4,25 +4,25 @@ package ru.gosuslugi.dom.schema.integration.house_management;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for VoitingType complex type.
+ * Информация об аннулировании (экспорт)
+ * 
+ * <p>Java class for ExportAnnulmentType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="VoitingType">
+ * &lt;complexType name="ExportAnnulmentType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="VotingPlace">
+ *         &lt;element name="ReasonOfAnnulment" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="3000"/>
- *               &lt;minLength value="1"/>
+ *               &lt;maxLength value="1000"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -35,40 +35,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VoitingType", propOrder = {
-    "votingPlace"
+@XmlType(name = "ExportAnnulmentType", propOrder = {
+    "reasonOfAnnulment"
 })
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ProtocolExportType.Meeting.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ProtocolType.Meeting.class
-})
-public class VoitingType {
+public class ExportAnnulmentType {
 
-    @XmlElement(name = "VotingPlace", required = true)
-    protected String votingPlace;
+    @XmlElement(name = "ReasonOfAnnulment")
+    protected String reasonOfAnnulment;
 
     /**
-     * Gets the value of the votingPlace property.
+     * Gets the value of the reasonOfAnnulment property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getVotingPlace() {
-        return votingPlace;
+    public String getReasonOfAnnulment() {
+        return reasonOfAnnulment;
     }
 
     /**
-     * Sets the value of the votingPlace property.
+     * Sets the value of the reasonOfAnnulment property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setVotingPlace(String value) {
-        this.votingPlace = value;
+    public void setReasonOfAnnulment(String value) {
+        this.reasonOfAnnulment = value;
     }
 
 }

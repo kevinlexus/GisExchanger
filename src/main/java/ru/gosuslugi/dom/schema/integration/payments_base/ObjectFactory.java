@@ -27,6 +27,7 @@ public class ObjectFactory {
     private final static QName _PaymentInformation_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "PaymentInformation");
     private final static QName _BillingInfoGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "BillingInfoGUID");
     private final static QName _OrderID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "OrderID");
+    private final static QName _OrderIDMultipurpose_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "OrderIDMultipurpose");
     private final static QName _AccountID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "AccountID");
     private final static QName _NotificationsOfOrderExecutionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "NotificationsOfOrderExecutionGUID");
 
@@ -254,6 +255,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "OrderID")
     public JAXBElement<String> createOrderID(String value) {
         return new JAXBElement<String>(_OrderID_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "OrderIDMultipurpose")
+    public JAXBElement<String> createOrderIDMultipurpose(String value) {
+        return new JAXBElement<String>(_OrderIDMultipurpose_QNAME, String.class, null, value);
     }
 
     /**

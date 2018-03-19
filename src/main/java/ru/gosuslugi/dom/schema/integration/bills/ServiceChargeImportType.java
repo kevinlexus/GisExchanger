@@ -21,7 +21,15 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyRecalculation" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyDiscount" minOccurs="0"/>
+ *         &lt;element name="MoneyDiscount" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="13"/>
+ *               &lt;fractionDigits value="2"/>
+ *               &lt;minInclusive value="0"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -68,8 +76,7 @@ public class ServiceChargeImportType {
     }
 
     /**
-     * Льготы, субсидии, скидки (руб)
-     * Ссылка на пост. 924 – Приложение 2, п. 21.
+     * Gets the value of the moneyDiscount property.
      * 
      * @return
      *     possible object is

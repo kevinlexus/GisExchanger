@@ -23,8 +23,24 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Credted" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
- *         &lt;element name="Receipt" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
+ *         &lt;element name="Credted">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;maxExclusive value="10000000000"/>
+ *               &lt;fractionDigits value="2"/>
+ *               &lt;totalDigits value="12"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="Receipt">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;maxExclusive value="10000000000"/>
+ *               &lt;fractionDigits value="2"/>
+ *               &lt;totalDigits value="12"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="Debts" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
  *         &lt;element name="Overpayment" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
  *         &lt;element name="Paid" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType" minOccurs="0"/>

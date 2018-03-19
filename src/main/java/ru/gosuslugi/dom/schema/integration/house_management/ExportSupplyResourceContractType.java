@@ -34,7 +34,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
- *                     &lt;element name="ContractNumber">
+ *                     &lt;element name="ContractNumber" minOccurs="0">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                           &lt;minLength value="1"/>
@@ -1389,7 +1389,7 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="ContractNumber">
+     *         &lt;element name="ContractNumber" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *               &lt;minLength value="1"/>
@@ -1417,7 +1417,7 @@ public class ExportSupplyResourceContractType {
     })
     public static class IsContract {
 
-        @XmlElement(name = "ContractNumber", required = true)
+        @XmlElement(name = "ContractNumber")
         protected String contractNumber;
         @XmlElement(name = "SigningDate", required = true)
         @XmlSchemaType(name = "date")

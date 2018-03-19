@@ -41,6 +41,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/element>
  *           &lt;/sequence>
  *           &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType"/>
+ *           &lt;element name="Excluded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
  *         &lt;element name="WorkItemNSI" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *         &lt;element name="Index" minOccurs="0">
@@ -65,6 +66,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "amount",
     "count",
     "totalCost",
+    "excluded",
     "workItemNSI",
     "index"
 })
@@ -82,6 +84,8 @@ public class WorkingListItemType {
     protected Integer count;
     @XmlElement(name = "TotalCost")
     protected BigDecimal totalCost;
+    @XmlElement(name = "Excluded")
+    protected Boolean excluded;
     @XmlElement(name = "WorkItemNSI", required = true)
     protected NsiRef workItemNSI;
     @XmlElement(name = "Index")
@@ -181,6 +185,30 @@ public class WorkingListItemType {
      */
     public void setTotalCost(BigDecimal value) {
         this.totalCost = value;
+    }
+
+    /**
+     * Gets the value of the excluded property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isExcluded() {
+        return excluded;
+    }
+
+    /**
+     * Sets the value of the excluded property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExcluded(Boolean value) {
+        this.excluded = value;
     }
 
     /**

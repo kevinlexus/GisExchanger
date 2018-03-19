@@ -123,7 +123,6 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *         &lt;/element>
  *         &lt;element name="ContractBase" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;choice>
- *           &lt;element name="Offer" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="ApartmentBuildingOwner">
  *             &lt;complexType>
  *               &lt;complexContent>
@@ -136,6 +135,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
+ *           &lt;element name="Offer" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="LivingHouseOwner">
  *             &lt;complexType>
  *               &lt;complexContent>
@@ -382,6 +382,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/complexType>
  *           &lt;/element>
  *         &lt;/sequence>
+ *         &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -397,8 +398,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "comptetionDate",
     "period",
     "contractBase",
-    "offer",
     "apartmentBuildingOwner",
+    "offer",
     "livingHouseOwner",
     "organization",
     "isPlannedVolume",
@@ -411,7 +412,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "temperatureChart",
     "billingDate",
     "paymentDate",
-    "providingInformationDate"
+    "providingInformationDate",
+    "meteringDeviceInformation"
 })
 public class SupplyResourceContractType {
 
@@ -426,10 +428,10 @@ public class SupplyResourceContractType {
     protected SupplyResourceContractType.Period period;
     @XmlElement(name = "ContractBase")
     protected NsiRef contractBase;
-    @XmlElement(name = "Offer")
-    protected Boolean offer;
     @XmlElement(name = "ApartmentBuildingOwner")
     protected SupplyResourceContractType.ApartmentBuildingOwner apartmentBuildingOwner;
+    @XmlElement(name = "Offer")
+    protected Boolean offer;
     @XmlElement(name = "LivingHouseOwner")
     protected SupplyResourceContractType.LivingHouseOwner livingHouseOwner;
     @XmlElement(name = "Organization")
@@ -456,6 +458,8 @@ public class SupplyResourceContractType {
     protected SupplyResourceContractType.PaymentDate paymentDate;
     @XmlElement(name = "ProvidingInformationDate")
     protected SupplyResourceContractType.ProvidingInformationDate providingInformationDate;
+    @XmlElement(name = "MeteringDeviceInformation")
+    protected Boolean meteringDeviceInformation;
 
     /**
      * Gets the value of the isContract property.
@@ -578,30 +582,6 @@ public class SupplyResourceContractType {
     }
 
     /**
-     * Gets the value of the offer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public Boolean isOffer() {
-        return offer;
-    }
-
-    /**
-     * Sets the value of the offer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setOffer(Boolean value) {
-        this.offer = value;
-    }
-
-    /**
      * Gets the value of the apartmentBuildingOwner property.
      * 
      * @return
@@ -623,6 +603,30 @@ public class SupplyResourceContractType {
      */
     public void setApartmentBuildingOwner(SupplyResourceContractType.ApartmentBuildingOwner value) {
         this.apartmentBuildingOwner = value;
+    }
+
+    /**
+     * Gets the value of the offer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isOffer() {
+        return offer;
+    }
+
+    /**
+     * Sets the value of the offer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setOffer(Boolean value) {
+        this.offer = value;
     }
 
     /**
@@ -952,6 +956,30 @@ public class SupplyResourceContractType {
      */
     public void setProvidingInformationDate(SupplyResourceContractType.ProvidingInformationDate value) {
         this.providingInformationDate = value;
+    }
+
+    /**
+     * Gets the value of the meteringDeviceInformation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isMeteringDeviceInformation() {
+        return meteringDeviceInformation;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceInformation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setMeteringDeviceInformation(Boolean value) {
+        this.meteringDeviceInformation = value;
     }
 
 

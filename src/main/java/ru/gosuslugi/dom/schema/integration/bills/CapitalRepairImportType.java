@@ -51,8 +51,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;/element>
  *         &lt;element name="TotalPayable">
  *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;totalDigits value="13"/>
+ *               &lt;fractionDigits value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

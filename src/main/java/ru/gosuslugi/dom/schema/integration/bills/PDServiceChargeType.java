@@ -109,6 +109,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                 &lt;/complexContent>
  *                               &lt;/complexType>
  *                             &lt;/element>
+ *                             &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;totalDigits value="13"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
@@ -748,6 +756,14 @@ public class PDServiceChargeType {
      *                       &lt;/complexContent>
      *                     &lt;/complexType>
      *                   &lt;/element>
+     *                   &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;totalDigits value="13"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
@@ -911,6 +927,14 @@ public class PDServiceChargeType {
          *             &lt;/complexContent>
          *           &lt;/complexType>
          *         &lt;/element>
+         *         &lt;element name="AmountOfPaymentMunicipalServiceCommunalConsumption" minOccurs="0">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;totalDigits value="13"/>
+         *               &lt;fractionDigits value="2"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
@@ -927,7 +951,8 @@ public class PDServiceChargeType {
             "accountingPeriodTotal",
             "serviceCharge",
             "municipalServiceCommunalConsumptionPayable",
-            "serviceInformation"
+            "serviceInformation",
+            "amountOfPaymentMunicipalServiceCommunalConsumption"
         })
         public static class MunicipalResource {
 
@@ -945,6 +970,8 @@ public class PDServiceChargeType {
             protected BigDecimal municipalServiceCommunalConsumptionPayable;
             @XmlElement(name = "ServiceInformation")
             protected PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation serviceInformation;
+            @XmlElement(name = "AmountOfPaymentMunicipalServiceCommunalConsumption")
+            protected BigDecimal amountOfPaymentMunicipalServiceCommunalConsumption;
 
             /**
              * Gets the value of the serviceType property.
@@ -1112,6 +1139,30 @@ public class PDServiceChargeType {
              */
             public void setServiceInformation(PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation value) {
                 this.serviceInformation = value;
+            }
+
+            /**
+             * Gets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getAmountOfPaymentMunicipalServiceCommunalConsumption() {
+                return amountOfPaymentMunicipalServiceCommunalConsumption;
+            }
+
+            /**
+             * Sets the value of the amountOfPaymentMunicipalServiceCommunalConsumption property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setAmountOfPaymentMunicipalServiceCommunalConsumption(BigDecimal value) {
+                this.amountOfPaymentMunicipalServiceCommunalConsumption = value;
             }
 
 

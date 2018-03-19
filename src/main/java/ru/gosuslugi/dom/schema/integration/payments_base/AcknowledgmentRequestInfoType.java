@@ -25,7 +25,10 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;choice>
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}NotificationsOfOrderExecutionGUID"/>
  *           &lt;sequence>
- *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *             &lt;choice>
+ *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDMultipurpose"/>
+ *             &lt;/choice>
  *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}orgPPAGUID"/>
  *           &lt;/sequence>
  *         &lt;/choice>
@@ -80,6 +83,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlType(name = "AcknowledgmentRequestInfoType", propOrder = {
     "notificationsOfOrderExecutionGUID",
     "orderID",
+    "orderIDMultipurpose",
     "orgPPAGUID",
     "paymentDocumentAck",
     "ackImpossible"
@@ -93,6 +97,8 @@ public class AcknowledgmentRequestInfoType {
     protected String notificationsOfOrderExecutionGUID;
     @XmlElement(name = "OrderID")
     protected String orderID;
+    @XmlElement(name = "OrderIDMultipurpose")
+    protected String orderIDMultipurpose;
     @XmlElement(namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected String orgPPAGUID;
     @XmlElement(name = "PaymentDocumentAck")
@@ -125,7 +131,7 @@ public class AcknowledgmentRequestInfoType {
     }
 
     /**
-     * Уникальный номер платежа (идентификатор операции)
+     * Gets the value of the orderID property.
      * 
      * @return
      *     possible object is
@@ -146,6 +152,30 @@ public class AcknowledgmentRequestInfoType {
      */
     public void setOrderID(String value) {
         this.orderID = value;
+    }
+
+    /**
+     * Gets the value of the orderIDMultipurpose property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrderIDMultipurpose() {
+        return orderIDMultipurpose;
+    }
+
+    /**
+     * Sets the value of the orderIDMultipurpose property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrderIDMultipurpose(String value) {
+        this.orderIDMultipurpose = value;
     }
 
     /**

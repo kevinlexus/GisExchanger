@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="RoomNumber" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesNumType"/>
  *         &lt;element name="Square" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -38,7 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "RoomOMSType", propOrder = {
     "roomNumber",
     "square",
-    "ogfData"
+    "ogfData",
+    "informationConfirmed"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseOMSRequest.ApartmentHouse.ResidentialPremises.LivingRoomToCreate.class,
@@ -55,6 +57,8 @@ public class RoomOMSType
     protected BigDecimal square;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
+    @XmlElement(name = "InformationConfirmed")
+    protected Boolean informationConfirmed;
 
     /**
      * Gets the value of the roomNumber property.
@@ -131,6 +135,30 @@ public class RoomOMSType
             ogfData = new ArrayList<OGFData>();
         }
         return this.ogfData;
+    }
+
+    /**
+     * Gets the value of the informationConfirmed property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isInformationConfirmed() {
+        return informationConfirmed;
+    }
+
+    /**
+     * Sets the value of the informationConfirmed property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setInformationConfirmed(Boolean value) {
+        this.informationConfirmed = value;
     }
 
 }

@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceNum"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceNum" minOccurs="0"/>
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="FactoryNum" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Type" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -61,7 +61,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 })
 public class LiftExportType {
 
-    @XmlElement(name = "EntranceNum", required = true)
+    @XmlElement(name = "EntranceNum")
     protected String entranceNum;
     @XmlElement(name = "FIASChildHouseGuid")
     protected String fiasChildHouseGuid;

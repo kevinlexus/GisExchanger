@@ -412,6 +412,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CharterDateDetailsExportType }
+     * 
+     */
+    public CharterDateDetailsExportType createCharterDateDetailsExportType() {
+        return new CharterDateDetailsExportType();
+    }
+
+    /**
      * Create an instance of {@link SupplyResourceContractProjectType }
      * 
      */
@@ -449,6 +457,14 @@ public class ObjectFactory {
      */
     public PublicPropertyContractType.RentAgrConfirmationDocument createPublicPropertyContractTypeRentAgrConfirmationDocument() {
         return new PublicPropertyContractType.RentAgrConfirmationDocument();
+    }
+
+    /**
+     * Create an instance of {@link DateDetailsExportType }
+     * 
+     */
+    public DateDetailsExportType createDateDetailsExportType() {
+        return new DateDetailsExportType();
     }
 
     /**
@@ -1556,6 +1572,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportAnnulmentType }
+     * 
+     */
+    public ExportAnnulmentType createExportAnnulmentType() {
+        return new ExportAnnulmentType();
+    }
+
+    /**
      * Create an instance of {@link RoomUpdateESPType }
      * 
      */
@@ -1609,6 +1633,14 @@ public class ObjectFactory {
      */
     public ApartmentHouseRSOType createApartmentHouseRSOType() {
         return new ApartmentHouseRSOType();
+    }
+
+    /**
+     * Create an instance of {@link DaySelectionExportType }
+     * 
+     */
+    public DaySelectionExportType createDaySelectionExportType() {
+        return new DaySelectionExportType();
     }
 
     /**
@@ -2844,6 +2876,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CharterDateDetailsExportType.PeriodMetering }
+     * 
+     */
+    public CharterDateDetailsExportType.PeriodMetering createCharterDateDetailsExportTypePeriodMetering() {
+        return new CharterDateDetailsExportType.PeriodMetering();
+    }
+
+    /**
+     * Create an instance of {@link CharterDateDetailsExportType.PaymentDocumentInterval }
+     * 
+     */
+    public CharterDateDetailsExportType.PaymentDocumentInterval createCharterDateDetailsExportTypePaymentDocumentInterval() {
+        return new CharterDateDetailsExportType.PaymentDocumentInterval();
+    }
+
+    /**
+     * Create an instance of {@link CharterDateDetailsExportType.PaymentInterval }
+     * 
+     */
+    public CharterDateDetailsExportType.PaymentInterval createCharterDateDetailsExportTypePaymentInterval() {
+        return new CharterDateDetailsExportType.PaymentInterval();
+    }
+
+    /**
      * Create an instance of {@link SupplyResourceContractProjectType.IsContract }
      * 
      */
@@ -2961,6 +3017,30 @@ public class ObjectFactory {
      */
     public PublicPropertyContractType.RentAgrConfirmationDocument.ProtocolMeetingOwners createPublicPropertyContractTypeRentAgrConfirmationDocumentProtocolMeetingOwners() {
         return new PublicPropertyContractType.RentAgrConfirmationDocument.ProtocolMeetingOwners();
+    }
+
+    /**
+     * Create an instance of {@link DateDetailsExportType.PeriodMetering }
+     * 
+     */
+    public DateDetailsExportType.PeriodMetering createDateDetailsExportTypePeriodMetering() {
+        return new DateDetailsExportType.PeriodMetering();
+    }
+
+    /**
+     * Create an instance of {@link DateDetailsExportType.PaymentDocumentInterval }
+     * 
+     */
+    public DateDetailsExportType.PaymentDocumentInterval createDateDetailsExportTypePaymentDocumentInterval() {
+        return new DateDetailsExportType.PaymentDocumentInterval();
+    }
+
+    /**
+     * Create an instance of {@link DateDetailsExportType.PaymentInterval }
+     * 
+     */
+    public DateDetailsExportType.PaymentInterval createDateDetailsExportTypePaymentInterval() {
+        return new DateDetailsExportType.PaymentInterval();
     }
 
     /**

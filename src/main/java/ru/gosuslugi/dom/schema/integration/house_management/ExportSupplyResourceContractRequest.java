@@ -36,7 +36,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;element name="ContractNumber" minOccurs="0">
  *             &lt;simpleType>
  *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
- *                 &lt;maxLength value="20"/>
+ *                 &lt;maxLength value="100"/>
  *                 &lt;minLength value="1"/>
  *               &lt;/restriction>
  *             &lt;/simpleType>

@@ -42,7 +42,10 @@ import ru.gosuslugi.dom.schema.integration.payments_base.AcknowledgmentRequestIn
  *                   &lt;choice>
  *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}NotificationsOfOrderExecutionGUID"/>
  *                     &lt;sequence>
- *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *                       &lt;choice>
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDMultipurpose"/>
+ *                       &lt;/choice>
  *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}orgPPAGUID"/>
  *                     &lt;/sequence>
  *                   &lt;/choice>
@@ -174,7 +177,10 @@ public class ImportAcknowledgmentRequest
      *         &lt;choice>
      *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}NotificationsOfOrderExecutionGUID"/>
      *           &lt;sequence>
-     *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+     *             &lt;choice>
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDMultipurpose"/>
+     *             &lt;/choice>
      *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}orgPPAGUID"/>
      *           &lt;/sequence>
      *         &lt;/choice>
@@ -192,6 +198,7 @@ public class ImportAcknowledgmentRequest
     @XmlType(name = "", propOrder = {
         "notificationsOfOrderExecutionGUID",
         "orderID",
+        "orderIDMultipurpose",
         "orgPPAGUID",
         "paymentDocumentID",
         "transportGUID"
@@ -202,6 +209,8 @@ public class ImportAcknowledgmentRequest
         protected String notificationsOfOrderExecutionGUID;
         @XmlElement(name = "OrderID", namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/")
         protected String orderID;
+        @XmlElement(name = "OrderIDMultipurpose", namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/")
+        protected String orderIDMultipurpose;
         @XmlElement(namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
         protected String orgPPAGUID;
         @XmlElement(name = "PaymentDocumentID", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/", required = true)
@@ -255,6 +264,30 @@ public class ImportAcknowledgmentRequest
          */
         public void setOrderID(String value) {
             this.orderID = value;
+        }
+
+        /**
+         * Gets the value of the orderIDMultipurpose property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getOrderIDMultipurpose() {
+            return orderIDMultipurpose;
+        }
+
+        /**
+         * Sets the value of the orderIDMultipurpose property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setOrderIDMultipurpose(String value) {
+            this.orderIDMultipurpose = value;
         }
 
         /**

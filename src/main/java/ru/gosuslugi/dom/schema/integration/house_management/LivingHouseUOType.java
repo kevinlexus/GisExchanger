@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="BasicCharacteristicts" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}HouseBasicUOType"/>
  *         &lt;element name="HasBlocks" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="HasMultipleHousesWithSameAddress" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,7 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LivingHouseUOType", propOrder = {
     "basicCharacteristicts",
-    "hasBlocks"
+    "hasBlocks",
+    "hasMultipleHousesWithSameAddress"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.LivingHouse.LivingHouseToCreate.class
@@ -44,6 +46,8 @@ public class LivingHouseUOType {
     protected HouseBasicUOType basicCharacteristicts;
     @XmlElement(name = "HasBlocks")
     protected Boolean hasBlocks;
+    @XmlElement(name = "HasMultipleHousesWithSameAddress")
+    protected Boolean hasMultipleHousesWithSameAddress;
 
     /**
      * Gets the value of the basicCharacteristicts property.
@@ -91,6 +95,30 @@ public class LivingHouseUOType {
      */
     public void setHasBlocks(Boolean value) {
         this.hasBlocks = value;
+    }
+
+    /**
+     * Gets the value of the hasMultipleHousesWithSameAddress property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isHasMultipleHousesWithSameAddress() {
+        return hasMultipleHousesWithSameAddress;
+    }
+
+    /**
+     * Sets the value of the hasMultipleHousesWithSameAddress property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setHasMultipleHousesWithSameAddress(Boolean value) {
+        this.hasMultipleHousesWithSameAddress = value;
     }
 
 }

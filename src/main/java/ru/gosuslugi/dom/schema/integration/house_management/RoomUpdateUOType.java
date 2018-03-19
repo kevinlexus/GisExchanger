@@ -29,6 +29,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="Square" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -42,7 +43,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "roomNumber",
     "square",
     "ogfData",
-    "terminationDate"
+    "terminationDate",
+    "informationConfirmed"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises.LivingRoomToUpdate.class,
@@ -62,6 +64,8 @@ public class RoomUpdateUOType
     @XmlElement(name = "TerminationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "InformationConfirmed")
+    protected Boolean informationConfirmed;
 
     /**
      * Gets the value of the roomNumber property.
@@ -162,6 +166,30 @@ public class RoomUpdateUOType
      */
     public void setTerminationDate(XMLGregorianCalendar value) {
         this.terminationDate = value;
+    }
+
+    /**
+     * Gets the value of the informationConfirmed property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isInformationConfirmed() {
+        return informationConfirmed;
+    }
+
+    /**
+     * Sets the value of the informationConfirmed property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setInformationConfirmed(Boolean value) {
+        this.informationConfirmed = value;
     }
 
 }

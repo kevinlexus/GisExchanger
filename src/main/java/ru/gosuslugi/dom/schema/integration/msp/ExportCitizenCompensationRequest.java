@@ -34,7 +34,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;/sequence>
  *         &lt;/choice>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.5""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.8.0.2""/>
  *       &lt;attribute name="Offset" use="required">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
@@ -216,7 +216,7 @@ public class ExportCitizenCompensationRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.0.0.5";
+            return "11.8.0.2";
         } else {
             return version;
         }

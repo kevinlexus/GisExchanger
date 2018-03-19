@@ -46,7 +46,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;element name="ResolutionPlace">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="3000"/>
  *                           &lt;minLength value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
@@ -105,7 +105,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;element name="VotingPlace">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="3000"/>
  *                           &lt;minLength value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
@@ -114,7 +114,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;element name="ResolutionPlace">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="200"/>
+ *                           &lt;maxLength value="3000"/>
  *                           &lt;minLength value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
@@ -159,7 +159,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="2000"/>
+ *                           &lt;maxLength value="3000"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
  *                     &lt;/element>
@@ -554,7 +554,7 @@ public class ProtocolType {
      *         &lt;element name="ResolutionPlace">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="200"/>
+     *               &lt;maxLength value="3000"/>
      *               &lt;minLength value="1"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
@@ -680,7 +680,7 @@ public class ProtocolType {
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
      *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="2000"/>
+     *                 &lt;maxLength value="3000"/>
      *               &lt;/restriction>
      *             &lt;/simpleType>
      *           &lt;/element>
@@ -1313,7 +1313,7 @@ public class ProtocolType {
      *         &lt;element name="VotingPlace">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="200"/>
+     *               &lt;maxLength value="3000"/>
      *               &lt;minLength value="1"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>
@@ -1322,7 +1322,7 @@ public class ProtocolType {
      *         &lt;element name="ResolutionPlace">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="200"/>
+     *               &lt;maxLength value="3000"/>
      *               &lt;minLength value="1"/>
      *             &lt;/restriction>
      *           &lt;/simpleType>

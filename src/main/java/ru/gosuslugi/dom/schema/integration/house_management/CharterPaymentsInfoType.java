@@ -59,12 +59,16 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType" minOccurs="0"/>
+ *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;choice minOccurs="0">
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
+ *           &lt;element name="AllContractObjects" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;/choice>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -79,7 +83,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "endDate",
     "maintenanceAndRepairsForMembers",
     "maintenanceAndRepairsForNonMembersInfo",
-    "servicePayment"
+    "servicePayment",
+    "contractObjectVersionGUID",
+    "allContractObjects"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.CharterPaymentsInfo.class,
@@ -99,6 +105,10 @@ public class CharterPaymentsInfoType {
     protected CharterPaymentsInfoType.MaintenanceAndRepairsForNonMembersInfo maintenanceAndRepairsForNonMembersInfo;
     @XmlElement(name = "ServicePayment")
     protected List<CharterPaymentsInfoType.ServicePayment> servicePayment;
+    @XmlElement(name = "ContractObjectVersionGUID")
+    protected String contractObjectVersionGUID;
+    @XmlElement(name = "AllContractObjects")
+    protected Boolean allContractObjects;
 
     /**
      * Gets the value of the beginDate property.
@@ -223,6 +233,54 @@ public class CharterPaymentsInfoType {
             servicePayment = new ArrayList<CharterPaymentsInfoType.ServicePayment>();
         }
         return this.servicePayment;
+    }
+
+    /**
+     * Gets the value of the contractObjectVersionGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getContractObjectVersionGUID() {
+        return contractObjectVersionGUID;
+    }
+
+    /**
+     * Sets the value of the contractObjectVersionGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setContractObjectVersionGUID(String value) {
+        this.contractObjectVersionGUID = value;
+    }
+
+    /**
+     * Gets the value of the allContractObjects property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isAllContractObjects() {
+        return allContractObjects;
+    }
+
+    /**
+     * Sets the value of the allContractObjects property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setAllContractObjects(Boolean value) {
+        this.allContractObjects = value;
     }
 
 
@@ -413,7 +471,7 @@ public class CharterPaymentsInfoType {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType" minOccurs="0"/>
+     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>

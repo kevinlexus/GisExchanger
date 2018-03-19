@@ -21,7 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
+ *         &lt;element name="OrderID" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderIDExportType"/>
  *         &lt;element name="CancellationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="Comment" minOccurs="0">
  *           &lt;simpleType>

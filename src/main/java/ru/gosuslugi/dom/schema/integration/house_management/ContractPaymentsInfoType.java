@@ -29,7 +29,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *       &lt;sequence>
  *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="HouseManagementPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
+ *         &lt;element name="HouseManagementPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
  *         &lt;element name="Protocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="ServicePayment" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
@@ -37,7 +37,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType" minOccurs="0"/>
+ *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -52,6 +52,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -67,7 +68,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "houseManagementPaymentSize",
     "protocol",
     "servicePayment",
-    "type"
+    "type",
+    "contractObjectVersionGUID"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractPaymentsInfo.class,
@@ -89,6 +91,8 @@ public class ContractPaymentsInfoType {
     protected List<ContractPaymentsInfoType.ServicePayment> servicePayment;
     @XmlElement(name = "Type", required = true)
     protected String type;
+    @XmlElement(name = "ContractObjectVersionGUID")
+    protected String contractObjectVersionGUID;
 
     /**
      * Gets the value of the beginDate property.
@@ -244,6 +248,30 @@ public class ContractPaymentsInfoType {
         this.type = value;
     }
 
+    /**
+     * Gets the value of the contractObjectVersionGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getContractObjectVersionGUID() {
+        return contractObjectVersionGUID;
+    }
+
+    /**
+     * Sets the value of the contractObjectVersionGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setContractObjectVersionGUID(String value) {
+        this.contractObjectVersionGUID = value;
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -256,7 +284,7 @@ public class ContractPaymentsInfoType {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType" minOccurs="0"/>
+     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>

@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="DateDetails" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterDateDetailsType" minOccurs="0"/>
+ *         &lt;element name="DateDetails" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterDateDetailsExportType" minOccurs="0"/>
  *         &lt;element name="MeetingProtocol" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -66,7 +66,7 @@ public class CharterExportType {
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar date;
     @XmlElement(name = "DateDetails")
-    protected CharterDateDetailsType dateDetails;
+    protected CharterDateDetailsExportType dateDetails;
     @XmlElement(name = "MeetingProtocol")
     protected CharterExportType.MeetingProtocol meetingProtocol;
     @XmlElement(name = "NoCharterApproveProtocol")
@@ -103,10 +103,10 @@ public class CharterExportType {
      * 
      * @return
      *     possible object is
-     *     {@link CharterDateDetailsType }
+     *     {@link CharterDateDetailsExportType }
      *     
      */
-    public CharterDateDetailsType getDateDetails() {
+    public CharterDateDetailsExportType getDateDetails() {
         return dateDetails;
     }
 
@@ -115,10 +115,10 @@ public class CharterExportType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CharterDateDetailsType }
+     *     {@link CharterDateDetailsExportType }
      *     
      */
-    public void setDateDetails(CharterDateDetailsType value) {
+    public void setDateDetails(CharterDateDetailsExportType value) {
         this.dateDetails = value;
     }
 

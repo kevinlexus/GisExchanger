@@ -28,7 +28,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                 &lt;sequence>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ModificationDate"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/services/}WorkListStatus"/>
- *                   &lt;element name="WorkListItem" maxOccurs="unbounded">
+ *                   &lt;element name="WorkListItem" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/services/}WorkingListItemType">
@@ -98,7 +98,7 @@ public class ExportWorkingListResultType {
      *       &lt;sequence>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ModificationDate"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/services/}WorkListStatus"/>
-     *         &lt;element name="WorkListItem" maxOccurs="unbounded">
+     *         &lt;element name="WorkListItem" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/services/}WorkingListItemType">
@@ -132,7 +132,7 @@ public class ExportWorkingListResultType {
         protected XMLGregorianCalendar modificationDate;
         @XmlElement(name = "WorkListStatus", required = true)
         protected String workListStatus;
-        @XmlElement(name = "WorkListItem", required = true)
+        @XmlElement(name = "WorkListItem")
         protected List<ExportWorkingListResultType.WorkingList.WorkListItem> workListItem;
 
         /**

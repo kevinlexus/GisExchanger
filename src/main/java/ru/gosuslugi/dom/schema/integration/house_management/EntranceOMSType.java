@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="CreationYear" type="{http://dom.gosuslugi.ru/schema/integration/base/}YearType" minOccurs="0"/>
+ *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,7 +45,8 @@ import javax.xml.bind.annotation.XmlType;
     "entranceNum",
     "fiasChildHouseGuid",
     "storeysCount",
-    "creationYear"
+    "creationYear",
+    "informationConfirmed"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseOMSRequest.ApartmentHouse.EntranceToCreate.class
@@ -59,6 +61,8 @@ public class EntranceOMSType {
     protected Byte storeysCount;
     @XmlElement(name = "CreationYear")
     protected Short creationYear;
+    @XmlElement(name = "InformationConfirmed")
+    protected Boolean informationConfirmed;
 
     /**
      * Gets the value of the entranceNum property.
@@ -154,6 +158,30 @@ public class EntranceOMSType {
      */
     public void setCreationYear(Short value) {
         this.creationYear = value;
+    }
+
+    /**
+     * Gets the value of the informationConfirmed property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isInformationConfirmed() {
+        return informationConfirmed;
+    }
+
+    /**
+     * Sets the value of the informationConfirmed property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setInformationConfirmed(Boolean value) {
+        this.informationConfirmed = value;
     }
 
 }
