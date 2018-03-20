@@ -19,10 +19,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- Spring -->
-		<spring-framework.version>4.2.5.RELEASE</spring-framework.version>
+		<spring-framework.version>5.0.2.RELEASE</spring-framework.version>
 		<!-- Hibernate / JPA -->
-		<hibernate.version>5.1.0.Final</hibernate.version>
+		<hibernate.version>5.2.15.Final</hibernate.version>
 		<!-- Test -->
 		<junit.version>4.12</junit.version>
 
@@ -39,6 +38,7 @@
 
 	<dependencies>
 
+<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 		  <groupId>org.quartz-scheduler</groupId>
 		  <artifactId>quartz</artifactId>

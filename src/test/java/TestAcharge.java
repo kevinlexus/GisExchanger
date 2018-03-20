@@ -87,8 +87,9 @@ public class TestAcharge {
 		log.info("Usl={}", u);
 		log.info("Usl.id={}, Usl.nm={}, GUID={}", u.getId(), u.getNm(), u.getServGis().getUlist().getGuid());*/
 
-		aflowDao.getGrp("62020006", "201801", 0, 117661).stream().forEach(t-> {
-			log.info("Summa={}, Ulist.GUID={}", t.getSumma(), t.getUlist().getGuid());
+		aflowDao.getGrp3("62020006", "201801", 0, 117661).stream().forEach(t-> {
+			log.info("Ulist.Id={}, summa={}, price={}, vol={}", t.getUlistId(), t.getSumma(), t.getPrice(), t.getVol());
+			//log.info("test={}", t.getID());
 		});
 
 /*		achargeDao.getGrp("00000276", 201404, 1).stream().forEach(t-> {

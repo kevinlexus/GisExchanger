@@ -1,14 +1,10 @@
 [INFO] Scanning for projects...
-Downloading: https://repo.maven.apache.org/maven2/org/jooq/jooq-codegen-maven/3.9.6/jooq-codegen-maven-3.9.6.pom
-Progress (1): 2.2/3.0 kBProgress (1): 3.0 kB                        Downloaded: https://repo.maven.apache.org/maven2/org/jooq/jooq-codegen-maven/3.9.6/jooq-codegen-maven-3.9.6.pom (3.0 kB at 2.1 kB/s)
-Downloading: https://repo.maven.apache.org/maven2/org/jooq/jooq-parent/3.9.6/jooq-parent-3.9.6.pom
-Progress (1): 2.2/9.8 kBProgress (1): 4.9/9.8 kBProgress (1): 7.7/9.8 kBProgress (1): 9.8 kB                        Downloaded: https://repo.maven.apache.org/maven2/org/jooq/jooq-parent/3.9.6/jooq-parent-3.9.6.pom (9.8 kB at 54 kB/s)
-Downloading: https://repo.maven.apache.org/maven2/org/jooq/jooq-codegen-maven/3.9.6/jooq-codegen-maven-3.9.6.jar
-Progress (1): 2.1/16 kBProgress (1): 4.9/16 kBProgress (1): 7.7/16 kBProgress (1): 10/16 kB Progress (1): 13/16 kBProgress (1): 16/16 kBProgress (1): 16 kB                      Downloaded: https://repo.maven.apache.org/maven2/org/jooq/jooq-codegen-maven/3.9.6/jooq-codegen-maven-3.9.6.jar (16 kB at 81 kB/s)
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Soap2Gis 0.0.1-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
+Downloading: http://repo.boundlessgeo.com/main/com/ric/bill/BWC/0.0.2-SNAPSHOT/maven-metadata.xml
+Downloading: http://repo.boundlessgeo.com/main/com/dic/bill/DWC/0.0.1-SNAPSHOT/maven-metadata.xml
 [INFO] 
 [INFO] --- maven-dependency-plugin:2.10:tree (default-cli) @ Soap2Gis ---
 [INFO] com.ric.gis:Soap2Gis:jar:0.0.1-SNAPSHOT
@@ -29,15 +25,17 @@ Progress (1): 2.1/16 kBProgress (1): 4.9/16 kBProgress (1): 7.7/16 kBProgress
 [INFO] |  +- org.springframework:spring-beans:jar:4.3.12.RELEASE:compile
 [INFO] |  +- org.springframework.data:spring-data-jpa:jar:1.11.8.RELEASE:compile
 [INFO] |  |  +- org.springframework.data:spring-data-commons:jar:1.13.8.RELEASE:compile
-[INFO] |  |  +- org.springframework:spring-context:jar:4.3.12.RELEASE:compile
 [INFO] |  |  +- org.aspectj:aspectjrt:jar:1.8.11:compile
 [INFO] |  |  \- org.slf4j:jcl-over-slf4j:jar:1.7.25:compile
 [INFO] |  +- org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final:compile
 [INFO] |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.8.0:compile
 [INFO] |  +- org.springframework:spring-tx:jar:4.3.12.RELEASE:compile
-[INFO] |  +- mxParser:org.mariuszgromada:jar:1.0:compile
+[INFO] |  +- mxParser:org.mariuszgromada:jar:1.1:compile
 [INFO] |  +- javax.inject:javax.inject:jar:1:compile
 [INFO] |  \- org.apache.commons:commons-lang3:jar:3.6:compile
+[INFO] +- com.dic.bill:DWC:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  \- org.springframework:spring-context:jar:4.3.12.RELEASE:compile
+[INFO] |     \- org.springframework:spring-expression:jar:4.3.12.RELEASE:compile
 [INFO] +- org.springframework.boot:spring-boot-loader:jar:1.5.8.RELEASE:provided
 [INFO] +- org.springframework.boot:spring-boot-starter:jar:1.5.8.RELEASE:compile
 [INFO] |  +- org.springframework.boot:spring-boot:jar:1.5.8.RELEASE:compile
@@ -67,7 +65,6 @@ Progress (1): 2.1/16 kBProgress (1): 4.9/16 kBProgress (1): 7.7/16 kBProgress
 [INFO] |  +- org.springframework.security:spring-security-config:jar:4.2.3.RELEASE:compile
 [INFO] |  |  \- org.springframework.security:spring-security-core:jar:4.2.3.RELEASE:compile
 [INFO] |  \- org.springframework.security:spring-security-web:jar:4.2.3.RELEASE:compile
-[INFO] |     +- org.springframework:spring-expression:jar:4.3.12.RELEASE:compile
 [INFO] |     \- org.springframework:spring-web:jar:4.3.12.RELEASE:compile
 [INFO] +- org.springframework.boot:spring-boot-autoconfigure:jar:1.5.8.RELEASE:compile
 [INFO] +- org.springframework.boot:spring-boot-starter-thymeleaf:jar:1.5.8.RELEASE:compile
@@ -112,7 +109,7 @@ Progress (1): 2.1/16 kBProgress (1): 4.9/16 kBProgress (1): 7.7/16 kBProgress
 [INFO] +- org.apache.commons:commons-collections4:jar:4.0:compile
 [INFO] +- junit:junit:jar:4.12:compile
 [INFO] +- com.oracle:oracle:jar:10.2.0.2.0:compile
-[INFO] +- trustedJava:com.ric.tjava:jar:1.0:compile
+[INFO] +- com.digt:trustedJava:jar:1.0:compile
 [INFO] +- com.diffplug.durian:durian:jar:3.4.0:compile
 [INFO] +- org.apache.httpcomponents:httpmime:jar:4.5.3:compile
 [INFO] +- org.apache.httpcomponents:httpclient:jar:4.5.3:compile
@@ -153,7 +150,7 @@ Progress (1): 2.1/16 kBProgress (1): 4.9/16 kBProgress (1): 7.7/16 kBProgress
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 17.431 s
-[INFO] Finished at: 2017-11-16T10:51:20+06:00
-[INFO] Final Memory: 27M/259M
+[INFO] Total time: 12.085 s
+[INFO] Finished at: 2018-03-20T07:31:05+06:00
+[INFO] Final Memory: 27M/267M
 [INFO] ------------------------------------------------------------------------
