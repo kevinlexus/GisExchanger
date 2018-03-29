@@ -4,6 +4,7 @@ package com.ric.st.builder.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,6 +27,7 @@ import com.ric.bill.Utl;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
+import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.EolinkMng;
@@ -45,6 +47,9 @@ import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
+import com.ric.st.mm.ChrgMng;
+import com.ric.st.mm.DebMng;
+import com.ric.st.mm.OrgMng;
 import com.ric.st.mm.UlistMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
@@ -54,6 +59,7 @@ import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.bills.CapitalRepairImportType;
+import ru.gosuslugi.dom.schema.integration.bills.DebtImportType;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest.SupplierIDs;
 import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest;
@@ -66,7 +72,9 @@ import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingServ
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption.Volume;
+import ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType;
 import ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentType.ChargeInfo;
+import ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentType.PenaltiesAndCourtCosts;
 import ru.gosuslugi.dom.schema.integration.bills.ServiceChargeImportType;
 import ru.gosuslugi.dom.schema.integration.bills_service_async.BillsPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.bills_service_async.BillsServiceAsync;
@@ -85,15 +93,19 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
+	private EolinkParMng parMng;
+	@Autowired
+	private OrgMng orgMng;
+	@Autowired
+	private ChrgMng chrgMng;
+	@Autowired
 	private TaskEolinkParMng teParMng;
 	@Autowired
 	private ReqProps reqProp;
 	@Autowired
 	private TaskDAO taskDao; 
 	@Autowired
-	private AflowDAO aflowDao; 
-	@Autowired
-	private AchargeDAO achargeDao; 
+	private DebMng debMng;
 	
 	private BillsServiceAsync service;
 	private BillsPortsTypeAsync port;
@@ -315,6 +327,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			addPaymentDocument(t, house, req);
 		}));
 		
+		// отзываемые платежные документы 
+		// req.getWithdrawPaymentDocument().add(wdPd);
+		
 		// проверять ли расчет документов?
 		req.setConfirmAmountsCorrect(true);
 		
@@ -340,10 +355,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 	/**
 	 * Добавление платежного документа
-	 * @param task - текущее задание
+	 * @param task - текущее задание платежного документа
 	 * @param req - запрос
+	 * @throws CantPrepSoap 
+	 * @throws WrongGetMethod 
 	 */
-	private void addPaymentDocument(Task task, Eolink house, ImportPaymentDocumentRequest req) {
+	private void addPaymentDocument(Task task, Eolink house, ImportPaymentDocumentRequest req) throws CantPrepSoap, WrongGetMethod {
 		PaymentDocument pd = new PaymentDocument();
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
@@ -352,105 +369,195 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// ТСЖ "Красноарм бастион" ул. Красноармейская, 134, кв.6, л.с. 62020006
 		//String accGuid = "e8826280-8cb0-4eaf-8641-9a91dcf4f7d9";
 		// Организация
-		Eolink org = house.getParent();
+		Eolink uk = house.getParent();
 		// Тип информационной системы
-		Integer appTp = org.getAppTp(); 
+		Integer appTp = uk.getAppTp(); 
+		// ПД
+		Eolink eolPd = task.getEolink();
 		// лицевой счет
-		Eolink acc = task.getEolink().getParent();
+		Eolink acc = eolPd.getParent();
 		// GUID лицевого счета
 		String accGuid = acc.getGuid();
+		
+		// дата ПД (обычно последнее число расчетного месяца)
+		Date dt = parMng.getDate(eolPd, "ГИС ЖКХ.Дата ПД");
+		if (dt == null) {
+			throw new CantPrepSoap("Не заполнена дата Платежного Документа");
+		}
+		// период ПД в формате YYYYMM
+		String period = Utl.getPeriodFromDate(dt);
+		// день ПД
+		Byte day = Utl.getDay(dt).byteValue();
+		// месяц ПД
+		Integer month = Integer.valueOf(Utl.ltrim(Utl.getPeriodMonth(period),"0"));
+		// год ПД
+		Short year = Short.valueOf(Utl.getPeriodYear(period));
 		
 		pd.setAccountGuid(accGuid );
 		pd.setPaymentDocumentNumber("KKK-1");
 
-		List<SumChrgRec> lstSum = null;
-		if (appTp==0) {
-			// старая разработка
-			lstSum = aflowDao.getGrp(acc.getLsk(), "201801", 0, org.getId());
-		} else if (appTp==2) {
-			// экспериментальная разработка
-			//lstSum = achargeDao.getGrp(acc.getLsk(), 201801, 1); TODO восстановить код!
-		}
+		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk);
+		
+		// обновить услугами из справочника ГИС
+		lstSum.stream().forEach(t-> {
+			Ulist ulist = em.find(Ulist.class, t.getUlistId()); 
+			t.setUlist(ulist);
+		});
 		
 		ChargeInfo chrgInfo = new ChargeInfo();
-
+		// начисления по видам услуг
 		for (SumChrgRec t: lstSum) {
-			log.info("CHECK---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+			log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 			if (t.getUlist().getTp().equals(0)) {
-				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
-				// Тип услуги 0-жилищная (в т.ч. Усл.на ОИ)
+				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				// Тип услуги 0 - жилищная (в т.ч. Усл.на ОИ)
 				HousingService housService = new HousingService();
 				chrgInfo = new ChargeInfo();
 				chrgInfo.setHousingService(housService);
 				chrgInfo.setHousingService(addHousingService(task, t, "NO", lstSum));
 				pd.getChargeInfo().add(chrgInfo);
 			} else if (t.getUlist().getTp().equals(1)) {
-				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
-				// 1-коммунальная (напр.Х.В.), 
+				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				// 1 - коммунальная (напр.Х.В.), 
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
 				chrgInfo.setMunicipalService(addMunService(task, t, "NO", "M"));
 
 			} else if (t.getUlist().getTp().equals(2)) {
-				log.info("---------lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
-				// 2-дополнительная (напр Замок)
+				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				// 2 - дополнительная (напр Замок)
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
 				chrgInfo.setAdditionalService(addAdditionalService(task, t, "NO"));
+			} else if (t.getUlist().getTp().equals(4)) {
+				// 4 - капремонт
+				if (pd.getCapitalRepairCharge() != null) {
+					throw new CantPrepSoap("Не допускается заполнение в ПД услуги Капремонт более одного раза!");
+				}
+				CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
+				// размер взноса на кв.м, руб (расценка)
+				capRepChrg.setContribution(BigDecimal.valueOf(t.getPrice()));
+				capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
+				capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
+				// всего начислено за расчетный период (без перерасчетов и льгот), руб.
+				capRepChrg.setAccountingPeriodTotal(BigDecimal.valueOf(t.getSumma()));
+				// итого к оплате за расчетный период, руб.
+				capRepChrg.setTotalPayable(BigDecimal.valueOf(t.getSumma()));
+				pd.setCapitalRepairCharge(capRepChrg );
 			}
 
 		}
 		
-// Это нужно возможно для отдельного счета по капремонту		
-  CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
-		capRepChrg.setContribution(BigDecimal.valueOf(11.11D));
-		capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
-		capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
-		capRepChrg.setAccountingPeriodTotal(BigDecimal.valueOf(100.11D));
-		capRepChrg.setTotalPayable(BigDecimal.valueOf(100.11D));
-		pd.setCapitalRepairCharge(capRepChrg );
+		// неустойки и судебные расходы (пени)
+		PenaltiesAndCourtCosts penCourtCost = new PenaltiesAndCourtCosts();
+		// вид неустойки и судебных расходов. НСИ 329 "Неустойки и судебные расходы":
+		//- Пени
+		//- Штрафы
+		//- Государственные пошлины
+		//- Судебные издержки.
+		NsiRef servType = ulistMng.getNsiElem("NSI", 329, "Вид начисления", "Пени");
+		BigDecimal pen = debMng.getPenAmnt(acc.getLsk(), acc.getKoObj(), period, uk);
+		penCourtCost.setServiceType(servType );
+		penCourtCost.setTotalPayable(pen);
+		// основание начисления пени (обязательный параметр)
+		String penCause = "задолженность";
+		penCourtCost.setCause(penCause);
+		pd.getPenaltiesAndCourtCosts().add(penCourtCost );
+
+		log.info("ПД: pen={}", pen);
 		
+		// задолженность за предыдущие периоды по капремонту (не обязательный по документации)
+		/*DebtImportType capDebt = new DebtImportType();
+		capDebt.setMonth(value);
+		capDebt.setOrgPPAGUID(value);
+		capDebt.setTotalPayable(value);
+		capDebt.setYear(value);
+		pd.getCapitalRepairDebt().add(capDebt);*/
+
+		// задолженность за предыдущие периоды по услугам (не обязательный по док.)
+		/*PDServiceDebtImportType pdServDebt = new PDServiceDebtImportType();
+		pdServDebt.setAdditionalService(value);
+		pdServDebt.setHousingService(value2 );
+		pdServDebt.setMunicipalService(value);
+		pd.getChargeDebt().add(pdServDebt);*/
 		
-/*
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Горячее водоснабжение", 
-				31.88D, 191.28D, 191.28D, "NO", 6D));
-*/
-/*		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Электроснабжение", 
-				2.21D, 227.63D, 227.63D, "NO", null, true));
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Водоотведение", 
-				14.83D, 103.81D, 103.81D, "NO", null, true));
-		chrgInfo = new ChargeInfo();
-		pd.getChargeInfo().add(chrgInfo);
-		chrgInfo.setMunicipalService(addMunService(task, 51, "Главная коммунальная услуга", "Вывоз мусора  бытового", 
-				0.83D, 29.3D, 29.3D, "NO", null, true));
-*/
-		
-		// документ выставлен
-		pd.setExpose(true);
-		// Итог к оплате по документу
-		Double total = lstSum.stream()
+		Double totalD = lstSum.stream()
 				.mapToDouble(t -> t.getSumma()).sum();
-		pd.setTotalPayableByChargeInfo(Utl.getBigDecimalRound(total, 2));
+		BigDecimal totalPeriod = Utl.getBigDecimalRound(totalD, 2);
 		
-		// Транспортный GUID платежного документа
+		// сумма к оплате за расчетный период по услугам, руб. (по всем услугам за расчетный период)
+		pd.setTotalPayableByChargeInfo(totalPeriod);
+		
+		// получить сальдо на начало периода
+		BigDecimal sal = debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk);
+		// задолженность
+		BigDecimal debt = BigDecimal.ZERO;
+		// аванс
+		BigDecimal advnc = BigDecimal.ZERO;
+		
+		if (sal.compareTo(BigDecimal.ZERO) == 1) {
+			debt = sal;
+		} else if (sal.compareTo(BigDecimal.ZERO) == -1) {
+			advnc = sal; 
+		}
+		
+		// задолженность за предыдущие периоды, руб.
+		log.info("ПД: debt={}", debt);
+		pd.setDebtPreviousPeriods(debt);
+		
+		// аванс на начало расчетного периода, руб.
+		log.info("ПД: advnc={}", advnc);
+		pd.setAdvanceBllingPeriod(advnc);
+		
+
+		// сумма к оплате с учетом рассрочки платежа и процентов за рассрочку, руб.
+		log.info("ПД: totalPeriod={}", totalPeriod);
+		pd.setTotalPiecemealPaymentSum(totalPeriod);
+		
+
+		// учтены платежи, поступившие до указанного числа расчетного периода включительно
+		pd.setPaymentsTaken(day);
+		
+		// итого к оплате за расчетный период c учетом задолженности/переплаты, руб. (по всему платежному документу)
+		pd.setTotalPayableByPDWithDebtAndAdvance(totalPeriod);
+		
+		// итого к оплате по неустойкам и судебным издержкам, руб. (итого по всем неустойкам и судебным издержкам).
+		// заполняется только для ПД с типом = Текущий
+		pd.setTotalByPenaltiesAndCourtCosts(pen);
+		
+		// итого к оплате за расчетный период всего, руб. (по всему платежному документу)
+		BigDecimal totalPayableByPd = sal.add(totalPeriod).add(pen);
+		log.info("ПД: totalPayableByPd={}", totalPayableByPd);
+		pd.setTotalPayableByPD(totalPayableByPd);
+		
+		// справочная информация. Составляющие стоимости электрической энергии.
+		// pd.getComponentsOfCost()
+		
+		// оплачено денежных средств, руб (не обязательно)
+		//pd.setPaidCash(value);
+		
+		// дата последней поступившей оплаты (не обязательно)
+		//pd.setDateOfLastReceivedPayment(value);
+		
+		// транспортный GUID платежного документа
 		String tguidPd = Utl.getRndUuid().toString();
 		pd.setTransportGUID(tguidPd);
 		
-		req.getPaymentDocument().add(pd);
-		req.setMonth(1);
-		req.setYear((short) 2018);
+		// Идентификатор платежного документа ?????
+		// pd.setPaymentDocumentID(value);
 		
+		req.getPaymentDocument().add(pd);
+		req.setMonth(month);
+		req.setYear(year);
+		
+		// платежные реквизиты
 		PaymentInformation payInfo = new PaymentInformation();
 		req.getPaymentInformation().add(payInfo);
 		
-		payInfo.setBankBIK("043207612");
-		payInfo.setOperatingAccountNumber("40703810526020101092");
+		// платежные реквизиты (указать РКЦ здесь)
+		OrgDTO orgDto = orgMng.getOrgDTO(uk);
+		payInfo.setBankBIK(orgDto.getBik());
+		payInfo.setOperatingAccountNumber(orgDto.getOperAcc());
 		
 		// Транспортный GUID платежных реквизитов   
 		String tguid = Utl.getRndUuid().toString();

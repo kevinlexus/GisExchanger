@@ -38,8 +38,6 @@ public class TestSomethingNonSpring {
 	@Test
     public void justTest() throws Exception {
 		Integer idx = 5;
-		
-		
 		//log.info("idx2={}", func(idx));
 		log.info("idx3={}", idx);
 	}

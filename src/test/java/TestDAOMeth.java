@@ -43,60 +43,30 @@ import lombok.extern.slf4j.Slf4j;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest
 @Slf4j
-public class TestAcharge {
+public class TestDAOMeth {
 
 	@PersistenceContext
     private EntityManager em;
 
-//	@Autowired
-//	private AchargeDAO achargeDao;
+	@Autowired
+	private AchargeDAO achargeDao;
 	@Autowired
 	private AflowDAO aflowDao;
 	
+	/**
+	 * Проверить, работают ли запросы
+	 * @throws Exception
+	 */
 	@Test
-	@Rollback(false) // коммитить транзакцию
-    public void testAfterLsk() throws Exception {
+	@Rollback(true)
+    public void isWorkAFlowDAOgetChrgGrp() throws Exception {
 		log.info("-----------------Begin");
 
-/*		achargeDao.getAfterLsk("00000026").stream().forEach(t-> {
-			log.info("Kart: lsk={}, kul={}", t.getLsk(), t.getKul());
-		});;
-		
-		achargeDao.getByLsk("00000026").stream().forEach(t-> {
-			log.info("Acharge1: lsk={}", t.getLsk());
-		});;
-		
-		achargeDao.getByLskPeriod("00000026", 201402).stream().forEach(t-> {
-			log.info("Acharge2: lsk={}", t.getLsk());
-		});;*/
-
-		/*ServGis t = em.find(ServGis.class, 1);
-		System.out.println("1id="+t.getId());
-		System.out.println("id="+t.getUsl().getId());
-		System.out.println("id="+t.getOrg());
-		t = em.find(ServGis.class, 2);
-		System.out.println("2id="+t.getId());
-		System.out.println("id="+t.getUsl().getId());
-		System.out.println("id="+t.getOrg());
-		t = em.find(ServGis.class, 3);
-		System.out.println("3id="+t.getId());
-		System.out.println("id="+t.getOrg());
-		System.out.println("id="+t.getUsl().getId());
-		
-		Usl u = em.find(Usl.class, "003");
-		log.info("Usl={}", u);
-		log.info("Usl.id={}, Usl.nm={}, GUID={}", u.getId(), u.getNm(), u.getServGis().getUlist().getGuid());*/
-
-		aflowDao.getGrp3("62020006", "201801", 0, 117661).stream().forEach(t-> {
-			log.info("Ulist.Id={}, summa={}, price={}, vol={}", t.getUlistId(), t.getSumma(), t.getPrice(), t.getVol());
-			//log.info("test={}", t.getID());
+		aflowDao.getChrgGrp("62020006", "201801", 117661).stream().forEach(t-> {
+			log.info("Ulist.Id={}, summa={}, price={}, vol={}", 
+					t.getUlistId(), t.getSumma(), t.getPrice(), t.getVol());
 		});
 
-/*		achargeDao.getGrp("00000276", 201404, 1).stream().forEach(t-> {
-			System.out.println("id="+t.getServGis().getUlist().getGuid());
-		});*/
-		//log.info("Acharge2: usl={}, GUID={}, summa={}", t.getServGis().getUsl(),/* t.getServGis().getUlist().getGuid(),*/ t.getSumma());
-		
 		log.info("-----------------End");
     }
 

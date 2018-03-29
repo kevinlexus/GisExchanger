@@ -11,11 +11,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@ComponentScan({"com.ric.st", "com.ric.bill.dao", "com.dic.bill", "com.dic.bill.dao", 
+@ComponentScan({"com.ric.st", "com.ric.bill.dao", "com.dic.bill", "com.dic.bill.dao", "com.ric.bill.dao.hotora",
 	"com.ric.bill.mm", "com.ric.bill", "com.ric.st.builder"}) // это нужно чтобы работали Unit-тесты! (по сути можно закомментить)
 @ImportResource("spring.xml")
 @EnableCaching
-@EnableJpaRepositories(basePackages= {"com.ric.bill.dao", "com.dic.bill.dao"})
+@EnableJpaRepositories(basePackages= {"com.ric.bill.dao", "com.dic.bill.dao", "com.ric.bill.dao.hotora"})
 @EnableScheduling
 public class AppConfig  implements ApplicationContextAware {
 

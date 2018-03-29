@@ -366,7 +366,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);	
 		// Трассировка XML
-		//sb.setTrace(true);
+		sb.setTrace(true);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -451,7 +451,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
 		log.info("******* Task.id={}, экспорт показаний счетчиков, запрос ответа", task.getId());
-		//sb.setTrace(true);
+		sb.setTrace(true);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);	
 		// получить состояние запроса
@@ -464,17 +464,17 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				// пользователь
 				Integer userId = soapConfig.getCurUser().getId();
 				Lst actVal = lstMng.getByCD("GIS_TMP");
-				Lst actTask = lstMng.getByCD("GIS_EXP_METERS");
 				for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
 				// найти счетчик по GUID 
 				Eolink meter = eolinkMng.getEolinkByGuid(t.getMeteringDeviceRootGUID());
 				if (meter == null) {
 					// счетчик не найден, создать задание на его выгрузку из ГИС (в нём же выгрузятся показания)
-					log.info("При выгрузке показаний, счетчик с GUID={} НЕ НАЙДЕН, попытка разместить задание, для его экспорта из ГИС", 
+					log.info("При выгрузке показаний, счетчик с GUID={} НЕ НАЙДЕН, ожидается его экспорт из ГИС", 
 							t.getMeteringDeviceRootGUID()); 
-					Task taskParent = new Task(reqProp.getFoundTask().getEolink(), null, null, "INS", actTask,
-							t.getMeteringDeviceRootGUID(), null, null, null, null, null, 0, userId);
-					em.persist(taskParent);
+					
+					/*ptb.setUp(reqProp.getFoundTask().getEolink(), null, "GIS_EXP_METERS", "INS");
+					ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
+					ptb.save();*/
 				} else {
 					// счетчик найден, выгрузить по нему последние показания
 					if (t.getOneRateDeviceValue() != null) {
