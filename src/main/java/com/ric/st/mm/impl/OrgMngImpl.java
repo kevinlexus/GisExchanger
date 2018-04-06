@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,14 +53,16 @@ import com.ric.st.mm.UlistMng;
  * @version 1.00
  *
  */
-@Slf4j
 @Service("OrgMng_Soap2Gis")
+@Slf4j
 public class OrgMngImpl implements OrgMng {
 
 @Autowired
 com.ric.bill.dao.OrgDAO orgDao;
+
 @Autowired
 com.dic.bill.dao.OrgDAO orgDao2;
+
 @Autowired
 com.ric.bill.dao.hotora.OrgDAO orgDao3;
 
@@ -76,7 +79,6 @@ public OrgDTO getOrgDTO(Eolink uk) {
 	if (appTp==0) {
 		// старая разработка
 		com.ric.bill.model.hotora.oralv.Org org = orgDao3.getByCD("МП \"РИЦ\"");
-		
 		orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
 		SchetContragent schetContr = org.getSchetContr();
 		orgDto.setBik(schetContr.getBik());

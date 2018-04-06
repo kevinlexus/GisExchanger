@@ -407,9 +407,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		ChargeInfo chrgInfo = new ChargeInfo();
 		// начисления по видам услуг
 		for (SumChrgRec t: lstSum) {
-			log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+			log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 			if (t.getUlist().getTp().equals(0)) {
-				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// Тип услуги 0 - жилищная (в т.ч. Усл.на ОИ)
 				HousingService housService = new HousingService();
 				chrgInfo = new ChargeInfo();
@@ -417,14 +417,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 				chrgInfo.setHousingService(addHousingService(task, t, "NO", lstSum));
 				pd.getChargeInfo().add(chrgInfo);
 			} else if (t.getUlist().getTp().equals(1)) {
-				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 1 - коммунальная (напр.Х.В.), 
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
 				chrgInfo.setMunicipalService(addMunService(task, t, "NO", "M"));
 
 			} else if (t.getUlist().getTp().equals(2)) {
-				log.info("ПД: lstSum t.getUlist().id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
+				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 2 - дополнительная (напр Замок)
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
@@ -484,17 +484,18 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		Double totalD = lstSum.stream()
 				.mapToDouble(t -> t.getSumma()).sum();
 		BigDecimal totalPeriod = Utl.getBigDecimalRound(totalD, 2);
-		
+		log.info("ПД: totalPeriod={}", totalPeriod);
 		// сумма к оплате за расчетный период по услугам, руб. (по всем услугам за расчетный период)
 		pd.setTotalPayableByChargeInfo(totalPeriod);
 		
 		// получить сальдо на начало периода
-		BigDecimal sal = debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk);
+		BigDecimal sal = Utl.nvl(debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk), BigDecimal.ZERO);
+		log.info("ПД: sal={}", sal);
 		// задолженность
 		BigDecimal debt = BigDecimal.ZERO;
 		// аванс
 		BigDecimal advnc = BigDecimal.ZERO;
-		
+	
 		if (sal.compareTo(BigDecimal.ZERO) == 1) {
 			debt = sal;
 		} else if (sal.compareTo(BigDecimal.ZERO) == -1) {
@@ -509,27 +510,26 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		log.info("ПД: advnc={}", advnc);
 		pd.setAdvanceBllingPeriod(advnc);
 		
-
 		// сумма к оплате с учетом рассрочки платежа и процентов за рассрочку, руб.
-		log.info("ПД: totalPeriod={}", totalPeriod);
-		pd.setTotalPiecemealPaymentSum(totalPeriod);
-		
+		// рассрочка возможна только при наличии хотя бы одной коммунальной услуги в ПД с рассрочкой.
+		// log.info("ПД: totalPeriod={}", totalPeriod);
+		// pd.setTotalPiecemealPaymentSum(totalPeriod);
 
 		// учтены платежи, поступившие до указанного числа расчетного периода включительно
 		pd.setPaymentsTaken(day);
-		
-		// итого к оплате за расчетный период c учетом задолженности/переплаты, руб. (по всему платежному документу)
-		pd.setTotalPayableByPDWithDebtAndAdvance(totalPeriod);
 		
 		// итого к оплате по неустойкам и судебным издержкам, руб. (итого по всем неустойкам и судебным издержкам).
 		// заполняется только для ПД с типом = Текущий
 		pd.setTotalByPenaltiesAndCourtCosts(pen);
 		
 		// итого к оплате за расчетный период всего, руб. (по всему платежному документу)
-		BigDecimal totalPayableByPd = sal.add(totalPeriod).add(pen);
-		log.info("ПД: totalPayableByPd={}", totalPayableByPd);
-		pd.setTotalPayableByPD(totalPayableByPd);
+		pd.setTotalPayableByPD(totalPeriod);
 		
+		// итого к оплате за расчетный период c учетом задолженности/переплаты, руб. (по всему платежному документу)
+		BigDecimal totalPayableByPd = sal.add(totalPeriod).add(pen);
+		log.info("ПД: totalPayableByPDWithDebtAndAdvance={}", totalPayableByPd);
+		pd.setTotalPayableByPDWithDebtAndAdvance(totalPayableByPd);
+
 		// справочная информация. Составляющие стоимости электрической энергии.
 		// pd.getComponentsOfCost()
 		
@@ -556,8 +556,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		
 		// платежные реквизиты (указать РКЦ здесь)
 		OrgDTO orgDto = orgMng.getOrgDTO(uk);
+		log.info("ПД: BIK=#{}#", orgDto.getBik());
 		payInfo.setBankBIK(orgDto.getBik());
+		log.info("ПД: OperAccount=#{}#", orgDto.getOperAcc());
 		payInfo.setOperatingAccountNumber(orgDto.getOperAcc());
+		
+		payInfo.setBankBIK("043207612");
+		payInfo.setOperatingAccountNumber("40703810526020101092");
 		
 		// Транспортный GUID платежных реквизитов   
 		String tguid = Utl.getRndUuid().toString();

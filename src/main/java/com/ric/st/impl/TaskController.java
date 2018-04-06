@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
@@ -51,6 +52,8 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
+	private Config config;
+	@Autowired
 	private SoapConfig soapConf;
 	@PersistenceContext
     private EntityManager em;
@@ -89,14 +92,13 @@ public class TaskController implements TaskControllers {
 	 * @throws CantSendSoap 
 	 * @throws CantPrepSoap 
 	 * @throws WrongParam 
-	 * @ver 1.00 
+	 * @ver 1.01 
 	 */
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
-
 		
-		
-		this.reqConfig = ctx.getBean(RequestConfig.class);
-		this.reqConfig.setUp("0", "0", null, -1, null, null);
+		this.reqConfig = new RequestConfig();
+		this.reqConfig.setUp("0", "0", null, -1, null, null, null, 
+				config.getCurDt1(), config.getCurDt2());
 		
 		// инит. конфига
 		if (!soapConf.setUp(false)) { //TODO отключил синхронизацию справочников

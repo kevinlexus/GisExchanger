@@ -125,8 +125,8 @@ public class DebMngImpl implements DebMng {
 		Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
 		if (appTp==0) {
 			// старая разработка
-			penMain = aflowDao.getPenAmnt(lsk, lastDate);
-			penCap = aflowDao.getPenAmntByUsl(lsk, "073", lastDate);
+			penMain = Utl.nvl(aflowDao.getPenAmnt(lsk, lastDate), BigDecimal.ZERO);
+			penCap = Utl.nvl(aflowDao.getPenAmntByUsl(lsk, "073", lastDate), BigDecimal.ZERO);
 			penMain.add(penCap);
 		} else if (appTp==1) {
 			// новая разработка

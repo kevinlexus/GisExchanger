@@ -1,30 +1,20 @@
-import static org.junit.Assert.*;
-
-import java.text.ParseException;
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
-import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
-import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +39,7 @@ public class TestSomething {
 	
 	@Test
     public void contextLoads() throws Exception {
-		log.info("Begining");
+		log.info("Start");
 			String state = "TT1";
 			Task oneTask = em.find(Task.class, 11913);
 			oneTask.setState(state);
@@ -60,7 +50,7 @@ public class TestSomething {
     
 	@Test
     public void testHQL() throws Exception {
-		log.info("Begining");
+		log.info("Start");
 
 		eolinkDao.getValsNotSaved().stream().forEach(t-> {
 			log.info("Eolink.id={}", t.getId());
@@ -71,7 +61,7 @@ public class TestSomething {
 	
 	@Test
     public void testChild() throws Exception {
-		log.info("Begining-1");
+		log.info("Start");
 
 		Eolink parent = em.find(Eolink.class, 7163);
 		eolinkDao.getChildByTp(parent, "Подъезд").stream().forEach(t -> {

@@ -17,9 +17,9 @@
     </encoder>
   </appender>
 
-  <logger name="org.hibernate.type" level="ALL" /> 
+ <!--  <logger name="org.hibernate.type" level="ALL" /> 
   <logger name="org.hibernate" level="DEBUG" />
-
+ -->
   <logger name="org.hibernate.engine.loading.internal.CollectionLoadContext" level="ERROR"/>
   <logger name="com.ric" level="INFO"/>
   <logger name="org.apache.xml.security.Init" level="INFO"/> <!-- не работает почему то -->
@@ -31,6 +31,6 @@
   <!-- Setting the root level of logging to INFO - Здесь менять уровни логгинга в Spring Boot-->
   <root level="INFO">
     <appender-ref ref="FILE" />
-<!--     <appender-ref ref="STDOUT" />
- -->  </root>
+    <appender-ref ref="STDOUT" />
+  </root>
 </configuration>
