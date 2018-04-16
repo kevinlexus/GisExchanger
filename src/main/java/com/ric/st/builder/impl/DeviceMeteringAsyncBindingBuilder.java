@@ -171,11 +171,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			log.info(errStr);
 			task.setState("ERR");
 			task.setResult(errStr);
-		} else if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
+		} else if (!err && state.getErrorMessage() != null 
+				&& state.getErrorMessage().getErrorCode() != null
+				&& !(task.getAct().getCd().equals("GIS_EXP_METER_VALS") // не ситуация, когда экспорт счетчиков и ошибка "Нет объектов для экспорта"
+						&& state.getErrorMessage().getErrorCode().equals("INT002012"))
+				) {
 			// Ошибки контролей или бизнес-процесса
 			err = true;
 			errStr = state.getErrorMessage().getDescription();
-			log.info("Ошибка выполнения запроса = {}", errStr);
+			log.info("Ошибка выполнения запроса errStr={}, errCode={}", errStr, state.getErrorMessage().getErrorCode());
 			task.setState("ERR");
 			task.setResult(errStr);
 		} else {

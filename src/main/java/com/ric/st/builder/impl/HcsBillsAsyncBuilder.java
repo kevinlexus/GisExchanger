@@ -314,13 +314,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		req.setVersion(req.getVersion());
 		// Дом
 		Eolink house = reqProp.getFoundTask().getEolink();
-		// Не более 1000 вхождений
-		log.info("Plat.doc--------------------------1");
-		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().forEach(t-> {
-			log.info("Plat.doc={}", t.getId());
-		});
-		log.info("Plat.doc--------------------------2");
-		
+
+		// добавить не более 1000 вхождений ПД
 		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().filter(t-> t.getAct().getCd().equals("GIS_IMP_PAY_DOC"))
 		.forEach(Errors.rethrow().wrap(t-> {
 			log.info("Добавление платежного документа, Task.id={}", t.getId());
@@ -372,7 +367,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		Eolink uk = house.getParent();
 		// Тип информационной системы
 		Integer appTp = uk.getAppTp(); 
-		// ПД
+		// объект ПД из базы
 		Eolink eolPd = task.getEolink();
 		// лицевой счет
 		Eolink acc = eolPd.getParent();
@@ -393,9 +388,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// год ПД
 		Short year = Short.valueOf(Utl.getPeriodYear(period));
 		
-		pd.setAccountGuid(accGuid );
-		pd.setPaymentDocumentNumber("KKK-1");
-
+		// лиц.счет
+		pd.setAccountGuid(accGuid);
+		if (eolPd.getCd() == null) {
+			throw new CantPrepSoap("Не заполнен CD документа");
+		}
+		// Номер ПД из биллинга
+		pd.setPaymentDocumentNumber(eolPd.getCd());
+		
 		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk);
 		
 		// обновить услугами из справочника ГИС
@@ -490,6 +490,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		
 		// получить сальдо на начало периода
 		BigDecimal sal = Utl.nvl(debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk), BigDecimal.ZERO);
+		//BigDecimal sal = BigDecimal.valueOf(1111.11D);
+		//BigDecimal sal = BigDecimal.valueOf(0D);
 		log.info("ПД: sal={}", sal);
 		// задолженность
 		BigDecimal debt = BigDecimal.ZERO;
@@ -533,15 +535,16 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// справочная информация. Составляющие стоимости электрической энергии.
 		// pd.getComponentsOfCost()
 		
-		// оплачено денежных средств, руб (не обязательно)
-		//pd.setPaidCash(value);
+		// оплачено денежных средств, руб (не обязательно) сказано в ГИС, что эта сумма автоматически осуществит квитирование предыдущ. ПД
+		//pd.setPaidCash(BigDecimal.valueOf(3444.73D)); 
 		
 		// дата последней поступившей оплаты (не обязательно)
 		//pd.setDateOfLastReceivedPayment(value);
 		
 		// транспортный GUID платежного документа
-		String tguidPd = Utl.getRndUuid().toString();
-		pd.setTransportGUID(tguidPd);
+		String tguid = Utl.getRndUuid().toString();
+		pd.setTransportGUID(tguid);
+		task.setTguid(tguid);
 		
 		// Идентификатор платежного документа ?????
 		// pd.setPaymentDocumentID(value);
@@ -565,13 +568,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		payInfo.setOperatingAccountNumber("40703810526020101092");
 		
 		// Транспортный GUID платежных реквизитов   
-		String tguid = Utl.getRndUuid().toString();
-		payInfo.setTransportGUID(tguid);
+		String tguidPay = Utl.getRndUuid().toString();
+		payInfo.setTransportGUID(tguidPay);
 		
 		// сослаться на TGUID платежных реквизитов   
-		pd.setPaymentInformationKey(tguid);
+		pd.setPaymentInformationKey(tguidPay);
 		
-		reqProp.getFoundTask().setTguid(tguidPd);
 	}
 
 	/*
@@ -624,6 +626,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			volume.setDeterminingMethod("N");
 			// тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление, house(O)verallNeeds - общедомовые нужды
 			volume.setType("O");
+
+			log.info("vol={}", t.getVol());
+
 			// потребление при содержании общего имущества (м3)
 			volume.setValue(Utl.getBigDecimalRound(t.getVol(), 5));
 			consum.setVolume(volume);
@@ -636,19 +641,19 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			mr.setAccountingPeriodTotal(Utl.getBigDecimalRound(t.getSumma(),2));
 			
 			// Справочная информация
-			ServiceInformation servInf = new ServiceInformation();
+			//ServiceInformation servInf = new ServiceInformation();
 			// Норматив потребления при содержании общего имущества (м3 на м2)
-			servInf.setHouseOverallNeedsNorm(BigDecimal.valueOf(5.01D)); // TODO
+			//servInf.setHouseOverallNeedsNorm(BigDecimal.valueOf(5.01D)); // TODO
 			// Суммарный объём коммунальных ресурсов в доме
 			// В целях содержания общего имущества
-			servInf.setHouseTotalHouseOverallNeeds(BigDecimal.valueOf(4000)); // TODO
-			mr.setServiceInformation(servInf );
+			//servInf.setHouseTotalHouseOverallNeeds(BigDecimal.valueOf(4000)); // TODO
+			//mr.setServiceInformation(servInf );
 			// перерасчеты и льготы
 			ServiceChargeImportType servChrg = new ServiceChargeImportType();
 			servChrg.setMoneyDiscount(BigDecimal.valueOf(0D));
 			servChrg.setMoneyRecalculation(BigDecimal.valueOf(0D));
 			// К оплате за коммунальный ресурс потребления при содержании общего имущества (расценка на площадь)
-			mr.setMunicipalServiceCommunalConsumptionPayable(BigDecimal.valueOf(23.74D)); // TODO
+			mr.setMunicipalServiceCommunalConsumptionPayable(Utl.getBigDecimalRound(t.getSumma(),2)); // TODO
 			mr.setServiceCharge(servChrg);
 			housService.getMunicipalResource().add(mr ); 
 		}
@@ -743,13 +748,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
 			retState.getImportResult().stream().forEach(t -> {
-				log.info("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:", 
+				log.info("После импорта платежного документа по Task.id={} и TGUID={}, получены следующие параметры:", 
 						reqProp.getFoundTask().getId(), t.getTransportGUID());
-				log.info("UniqueNumber={}, Дата обновления={}", t.getUniqueNumber(), Utl.getDateFromXmlGregCal(t.getUpdateDate()));
+				log.info("GUID={}, UniqueNumber={}", t.getGUID(), t.getUniqueNumber());
 				// Найти элемент задания по Транспортному GUID
 				Task task2 = taskMng.getByTguid(reqProp.getFoundTask(), t.getTransportGUID());
-				// Переписать значения параметров в eolink из task
-				teParMng.acceptPar(task2);
+				
+				// Записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
+				taskMng.setEolinkIdf(task2.getEolink(), t.getGUID(), t.getUniqueNumber(), 1);
+
+				// Переписать значения параметров в eolink из task (здесь не надо)
+				// teParMng.acceptPar(task2);
 				task2.setState("ACP");
 				
 			});

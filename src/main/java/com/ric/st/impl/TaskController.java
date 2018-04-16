@@ -313,11 +313,12 @@ public class TaskController implements TaskControllers {
 							nsiSv.exportDataProviderNsiItemAsk(task);
 						}
 						break;
-					case "GIS_EXP_NOTIF_ORDER_EXECUT":
+
+					case "GIS_EXP_NOTIF":
 						// Экспорт извещений исполнения документа
 						bill.setUp();
 						if (state.equals("INS")) {
-							// Импорт внутреннего справочника организации
+							// Экспорт извещений исполнения документа
 							bill.exportNotificationsOfOrderExecution(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
@@ -325,17 +326,29 @@ public class TaskController implements TaskControllers {
 						}
 						break;
 						
-					case "GIS_IMP_NOTIF_ORDER_EXECUT_CANCEL":
-						// Экспорт извещений исполнения документа
+					case "GIS_IMP_SUPPLIER_NOTIFS":
 						pay.setUp();
 						if (state.equals("INS")) {
-							// Импорт внутреннего справочника организации
+							// Импорт извещений исполнения распоряжений
+							pay.importSupplierNotificationsOfOrderExecution(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							pay.importSupplierNotificationsOfOrderExecutionAsk(task);
+						}
+						break;
+						
+					case "GIS_IMP_CANCEL_NOTIFS":
+						// Экспорт отмены извещений исполнения документа
+						pay.setUp();
+						if (state.equals("INS")) {
+							// Экспорт отмены извещений исполнения документа
 							pay.importNotificationsOfOrderExecutionCancelation(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
 						break;
+						
 					default:
 						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
 						break;

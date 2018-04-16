@@ -15,4 +15,7 @@ public interface HcsPaymentAsyncBuilders {
 	public GetStateResult getState2(Task task);
 	public Boolean importNotificationsOfOrderExecutionCancelation(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
 	public void importNotificationsOfOrderExecutionCancelationAsk(Task task) throws CantPrepSoap;
+	public void importSupplierNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
+	public void importSupplierNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap;
+
 }

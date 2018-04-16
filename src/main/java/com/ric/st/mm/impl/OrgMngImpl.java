@@ -58,12 +58,15 @@ import com.ric.st.mm.UlistMng;
 public class OrgMngImpl implements OrgMng {
 
 @Autowired
+@Qualifier("OrgDAO_BWC")
 com.ric.bill.dao.OrgDAO orgDao;
 
 @Autowired
+@Qualifier("OrgDAO_DWC")
 com.dic.bill.dao.OrgDAO orgDao2;
 
 @Autowired
+@Qualifier("OrgDAO_BWC_hotora")
 com.ric.bill.dao.hotora.OrgDAO orgDao3;
 
 /**
@@ -78,6 +81,7 @@ public OrgDTO getOrgDTO(Eolink uk) {
 	OrgDTO orgDto = null;
 	if (appTp==0) {
 		// старая разработка
+		log.info("================CHECK");
 		com.ric.bill.model.hotora.oralv.Org org = orgDao3.getByCD("МП \"РИЦ\"");
 		orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
 		SchetContragent schetContr = org.getSchetContr();

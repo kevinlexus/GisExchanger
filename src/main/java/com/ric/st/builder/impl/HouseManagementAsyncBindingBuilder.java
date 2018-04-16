@@ -550,14 +550,41 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					
 					if (meterTp == 0 || meterTp == 1) {
 						// счетчик жилых или нежилых помещений 
-						rootEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), premiseEol.getKw(), null,
-								null, usl, null, t.getMeteringDeviceRootGUID(), t.getMeteringDeviceGISGKHNumber(), null , addrTp, 
-								reqProp.getFoundTask().getAppTp(), null, null, premiseEol, config.getCurUser(), 1);
+						rootEol = Eolink.builder()
+								.withReu(houseEol.getReu())
+								.withKul(houseEol.getKul())
+								.withNd(houseEol.getNd())
+								.withKw(premiseEol.getKw())
+								.withUsl(usl)
+								.withGuid(t.getMeteringDeviceRootGUID())
+								.withUn(t.getMeteringDeviceGISGKHNumber())
+								.withObjTp(addrTp)
+								.withAppTp(reqProp.getFoundTask().getAppTp())
+								.withParent(premiseEol)
+								.withUser(config.getCurUser())
+								.withStatus(1).build();
+						
+//						rootEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), premiseEol.getKw(), null,
+								//null, usl, null, t.getMeteringDeviceRootGUID(), t.getMeteringDeviceGISGKHNumber(), null , addrTp, 
+								//reqProp.getFoundTask().getAppTp(), null, null, premiseEol, config.getCurUser(), 1);
 					} else if (meterTp == 2) {
 						// счетчик общедомовой
-						rootEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, null,
-								null, usl, null, t.getMeteringDeviceRootGUID(), t.getMeteringDeviceGISGKHNumber(), null , addrTp, 
-								reqProp.getFoundTask().getAppTp(), null, null, premiseEol, config.getCurUser(), 1);
+						rootEol = Eolink.builder()
+								.withReu(houseEol.getReu())
+								.withKul(houseEol.getKul())
+								.withNd(houseEol.getNd())
+								.withUsl(usl)
+								.withGuid(t.getMeteringDeviceRootGUID())
+								.withUn(t.getMeteringDeviceGISGKHNumber())
+								.withObjTp(addrTp)
+								.withAppTp(reqProp.getFoundTask().getAppTp())
+								.withParent(premiseEol)
+								.withUser(config.getCurUser())
+								.withStatus(1).build();
+
+//						rootEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, null,
+								//null, usl, null, t.getMeteringDeviceRootGUID(), t.getMeteringDeviceGISGKHNumber(), null , addrTp, 
+								//reqProp.getFoundTask().getAppTp(), null, null, premiseEol, config.getCurUser(), 1);
 					}
 
 					log.info("Попытка создать запись корневого счетчика в Eolink: GUID={}", t.getMeteringDeviceRootGUID());
@@ -611,9 +638,18 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				if (versionEol == null) {
 					// не найдена версия счетчика, создать
 					AddrTp addrTp = lstMng.getAddrTpByCD("СчетчикВерсия");
-					versionEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), premiseEol.getKw(), null,
-							null, null, null, t.getMeteringDeviceVersionGUID(), null, null , addrTp, 
-							reqProp.getFoundTask().getAppTp(), null, null, rootEol, config.getCurUser(),1);
+
+					versionEol = Eolink.builder()
+							.withGuid(t.getMeteringDeviceRootGUID())
+							.withObjTp(addrTp)
+							.withAppTp(reqProp.getFoundTask().getAppTp())
+							.withParent(rootEol)
+							.withUser(config.getCurUser())
+							.withStatus(1).build();
+
+//					versionEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), premiseEol.getKw(), null,
+	//						null, null, null, t.getMeteringDeviceVersionGUID(), null, null , addrTp, 
+		//					reqProp.getFoundTask().getAppTp(), null, null, rootEol, config.getCurUser(),1);
 					// пометить прочие записи неактивными
 					eolinkMng.setChildActive(rootEol, "СчетчикВерсия", 0);
 					log.info("Попытка создать запись версии счетчика в Eolink: GUID={}", t.getMeteringDeviceVersionGUID());
@@ -707,7 +743,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							// Устав ТСЖ
 							objTpx = lstMng.getByCD("Устав");
 						}
-						contrEol = new Eolink(contractGUID, null, null, addrTp, foundTask2.getAppTp(), objTpx, null, config.getCurUser());
+						contrEol = Eolink.builder()
+								.withGuid(contractGUID)
+								.withObjTp(addrTp)
+								.withAppTp(foundTask2.getAppTp())
+								.withObjTpx(objTpx)
+								.withUser(config.getCurUser())
+								.withStatus(1).build();
+
+						//contrEol = new Eolink(contractGUID, null, null, addrTp, foundTask2.getAppTp(), objTpx, null, config.getCurUser());
 						// установить Parent_id ведущий к дому
 						contrEol.setParent(task.getEolink());
 						em.persist(contrEol);
@@ -865,13 +909,28 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (entryEol == null) {
 						// не найдено, создать подъезд
 						AddrTp addrTp = lstMng.getAddrTpByCD("Подъезд");
-						entryEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), null, null, 
+
+						entryEol = Eolink.builder()
+								.withReu(reqProp.getReu())
+								.withKul(reqProp.getKul())
+								.withNd(reqProp.getNd())
+								.withEntry(Integer.valueOf(t.getEntranceNum()))
+								.withGuid(t.getEntranceGUID())
+								.withObjTp(addrTp)
+								.withAppTp(foundTask2.getAppTp())
+								.withParent(houseEol)
+								.withUser(config.getCurUser())
+								.withStatus(1).build();
+						
+						/*entryEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), null, null, 
 								Integer.valueOf(t.getEntranceNum()),
 								null, null, t.getEntranceGUID(), null, null, addrTp, foundTask2.getAppTp(), null, null, 
-								houseEol, config.getCurUser(), 1);
+								houseEol, config.getCurUser(), 1);*/
 						// сохранить, для иерархии
 						entryMap.put(Integer.valueOf(t.getEntranceNum()), entryEol);
 						em.persist(entryEol);
+						// добавить подъезд к дому, чтобы выбирался позже
+						houseEol.getChild().add(entryEol);
 					}			
 
 					// обновить параметры подъезда
@@ -888,9 +947,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					}
 					ptb.saveToEolink();
 				}
-				// проверить наличие подъезда из базы в ГИСе
+				
+				// проверить наличие подъезда по дому, с данным GUID
 				List<Eolink> lstEntry = eolinkDao.getChildByTp(houseEol, "Подъезд");
 				lstEntry.stream().forEach(t-> {
+					log.info("Подъезд из базы: id={}, entry={}", t.getId(), t.getEntry());
 					if (!lstEntryGuid.contains(t.getGuid())) {
 						// не найден, промаркировать неактивным
 						log.info("Подъезд №{} помечен неактивным!", t.getEntry());
@@ -919,7 +980,23 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							
 						}
 						
-						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), 
+						premisEol = Eolink.builder()
+								.withReu(reqProp.getReu())
+								.withKul(reqProp.getKul())
+								.withNd(reqProp.getNd())
+								.withKw(num)
+								.withEntry(t.getEntranceNum()!=null ? Integer.valueOf(t.getEntranceNum()) : null)
+								.withGuid(t.getPremisesGUID())
+								.withUn(t.getPremisesUniqueNumber())
+								.withObjTp(addrTp)
+								.withAppTp(foundTask2.getAppTp())
+								.withKoObj(premisKo)
+								.withParent(t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol) // присоединить к родителю: подъезд, или дом, если не найден подъезд
+								.withUser(config.getCurUser())
+								.withStatus(1)
+								.build();
+						
+						/*premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), 
 								num , null, 
 								t.getEntranceNum()!=null ? Integer.valueOf(t.getEntranceNum()) : null,
 								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, addrTp, 
@@ -928,7 +1005,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 								premisKo, 
 								t.getEntranceNum()!=null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol, // присоединить к родителю: подъезд, или дом, если не найден подъезд
 								config.getCurUser(), 1
-								 );
+								 );*/
 						log.info("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № квартиры={}, un={}, GUID={}",
 								t.getEntranceNum(), 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
@@ -1013,9 +1090,20 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (premisEol == null) {
 						// Не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Помещение нежилое");
-						premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), num, null, null,
+						premisEol = Eolink.builder()
+								.withReu(reqProp.getReu())
+								.withKul(reqProp.getKul())
+								.withNd(reqProp.getNd())
+								.withGuid(t.getPremisesGUID())
+								.withObjTp(addrTp)
+								.withAppTp(foundTask2.getAppTp())
+								.withParent(houseEol)
+								.withUser(config.getCurUser())
+								.withStatus(1).build();
+
+						/*premisEol = new Eolink(reqProp.getReu(), reqProp.getKul(), reqProp.getNd(), num, null, null,
 								null, null, t.getPremisesGUID(), t.getPremisesUniqueNumber(), null, 
-								addrTp, foundTask2.getAppTp(), null, null, houseEol, config.getCurUser(), 1);
+								addrTp, foundTask2.getAppTp(), null, null, houseEol, config.getCurUser(), 1);*/
 						log.info("Попытка создать запись Нежилого помещения в Eolink: № квартиры={}, un={}, GUID={}", 
 								t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
 						em.persist(premisEol);
@@ -1242,12 +1330,21 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					}
 
 					AddrTp addrTp = lstMng.getAddrTpByCD("ЛС");
+
+					accountEol = Eolink.builder()
+							.withGuid(t.getAccountGUID())
+							.withUn(t.getUnifiedAccountNumber())
+							.withObjTp(addrTp)
+							.withAppTp(reqProp.getFoundTask().getAppTp())
+							.withParent(parentEol)
+							.withUser(config.getCurUser())
+							.withStatus(1).build();
 					
-					accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, num, 
+					/*accountEol = new Eolink(houseEol.getReu(), houseEol.getKul(), houseEol.getNd(), null, num, 
 							null, null, null, t.getAccountGUID(), t.getUnifiedAccountNumber(), 
 							null, addrTp, 
 							reqProp.getFoundTask().getAppTp(), null, null, parentEol, config.getCurUser(), 1);
-
+*/
 					log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}", 
 							t.getAccountGUID(), num);
 					em.persist(accountEol);
@@ -2237,12 +2334,22 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						if (versionEol == null) {
 							// не найдено, создать новую запись версии счетчика
 							AddrTp addrTp = lstMng.getAddrTpByCD("СчетчикВерсия");
-							versionEol = new Eolink(meterEol.getReu(), meterEol.getKul(), meterEol.getNd(), 
+
+							versionEol = Eolink.builder()
+									.withGuid(d.getGUID())
+									.withObjTp(addrTp)
+									.withAppTp(reqProp.getFoundTask().getAppTp())
+									.withParent(meterEol)
+									.withUser(config.getCurUser())
+									.withStatus(1).build();
+							
+							/*versionEol = new Eolink(meterEol.getReu(), meterEol.getKul(), meterEol.getNd(), 
 									null, null, 
 									null, null, null, d.getGUID(), 
 									null, null , addrTp, 
 									reqProp.getFoundTask().getAppTp(), null, null, meterEol, config.getCurUser(), 1);
-	
+	*/
+							
 							log.info("Попытка создать запись версии счетчика в Eolink: GUID={}", 
 									d.getGUID(), null);
 							em.persist(versionEol);
