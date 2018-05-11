@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.EolinkDAO;
@@ -104,6 +105,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	TaskControllers taskCtrl;
 
+
 	@Value("${appTp}")
 	private String appTp;
 	@Value("${pathCounter}")
@@ -112,7 +114,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
 	private SoapBuilder sb;
-	
+
 	/**
 	 * Инициализация - создать сервис и порт
 	 * @throws CantSendSoap 
@@ -524,6 +526,35 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	
 	}
 	
+
+	public String exportMeteringDeviceValuesSrv(Task task) throws WrongGetMethod, IOException, WrongParam {
+	    String ret = null;
+        log.info("******* Task.id={}, экспорт показаний счетчиков, запрос ответа (микросервис).", task.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        //sb.setTrace(true);
+        // Установить параметры SOAP
+        try {
+            reqProp.setProp(task, sb);
+        } catch (CantPrepSoap e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // получить состояние запроса
+        GetStateResult retState = getState2(reqProp.getFoundTask());
+
+        if (retState == null) {
+            log.info("exportMeteringDeviceValuesSrv resState : NULL");
+        } else if (!reqProp.getFoundTask().getState().equals("ERR")
+                && !reqProp.getFoundTask().getState().equals("ERS")) {
+                // пользователь
+                ret = mapper.writeValueAsString(
+                        retState.getExportMeteringDeviceHistoryResult());
+                log.info("JSON :" + ret);
+            }
+        return ret;
+    }
+
+
 	/**
 	 * Записать показание по счетчику в EOLINK
 	 * @param task - текущее задание
