@@ -1,14 +1,25 @@
 package com.ric.st.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
 import com.ric.bill.Utl;
@@ -74,6 +85,15 @@ public class TaskController implements TaskControllers {
 	public Command sc;
 	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
+    @Autowired
+    private AmqpTemplate ampqTemplate;
+
+    @Value("${rmqHost}")
+    private String rmqHost;
+    @Value("${rmqUser}")
+    private String rmqUser;
+    @Value("${rmqPassword}")
+    private String rmqPassword;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;	
@@ -84,6 +104,39 @@ public class TaskController implements TaskControllers {
 	public void otherTask() {
 		log.info("otherTask started!");
 		//saldoMng.distSalByChPay();
+	}
+	/**
+	 * Парсер запросов ampq
+	 */
+	private void rmqTask(String message) {
+	    //message: {"cmd":"exportMeteringDeviceValues", "taskId" : "1233"}
+
+	    ObjectMapper mapper = new ObjectMapper();
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    try {
+            map = mapper.readValue(message, new TypeReference<Map<String, String>>(){});
+        } catch (Exception e) {
+            log.error("rmqTask: Ошибка парсинга json:"+e.getMessage());
+        }
+	    Object cmd = (String)map.get("cmd");
+
+	    if (cmd.equals("exportMeteringDeviceValues")) {
+	        //dm.exportMeteringDeviceValuesSrv();
+	        Object taskId = map.get("taskId");
+	        if (taskId != null ) {
+	            try {
+                    Integer itaskId = Integer.parseInt((String)taskId);
+                    Task task = taskDao.getById(itaskId);
+                    String ret = dm.exportMeteringDeviceValuesSrv(task);
+                    ampqTemplate.convertAndSend("soap2gis-out", ret);
+                } catch (Exception e) {
+	                log.error("Ощибка при экспорте показаний счётчиков:"+e.getMessage());
+	                e.printStackTrace();
+                }
+	        } else {
+	            log.error("rmqTask: taskId должен быть и быть целым");
+	        }
+	    }
 	}
 	
 	/**
@@ -105,6 +158,24 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
+		log.info("Подключение слушателя для ampq...");
+
+		//Включить получение занадий через ampq
+		CachingConnectionFactory connectionFactory =
+                new CachingConnectionFactory(rmqHost);
+        connectionFactory.setUsername(rmqUser);
+        connectionFactory.setPassword(rmqPassword);
+
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames("soap2gis-in");
+        container.setMessageListener(new MessageListener() {
+            public void onMessage(Message message) {
+                String msg = new String(message.getBody());
+                rmqTask(msg);
+                log.info("Rmq message:"+msg);
+            }
+        });
 
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
