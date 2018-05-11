@@ -383,6 +383,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *           &lt;/element>
  *         &lt;/sequence>
  *         &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="VolumeDepends" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="OneTimePayment" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -413,7 +415,9 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "billingDate",
     "paymentDate",
     "providingInformationDate",
-    "meteringDeviceInformation"
+    "meteringDeviceInformation",
+    "volumeDepends",
+    "oneTimePayment"
 })
 public class SupplyResourceContractType {
 
@@ -460,6 +464,10 @@ public class SupplyResourceContractType {
     protected SupplyResourceContractType.ProvidingInformationDate providingInformationDate;
     @XmlElement(name = "MeteringDeviceInformation")
     protected Boolean meteringDeviceInformation;
+    @XmlElement(name = "VolumeDepends")
+    protected Boolean volumeDepends;
+    @XmlElement(name = "OneTimePayment")
+    protected Boolean oneTimePayment;
 
     /**
      * Gets the value of the isContract property.
@@ -980,6 +988,54 @@ public class SupplyResourceContractType {
      */
     public void setMeteringDeviceInformation(Boolean value) {
         this.meteringDeviceInformation = value;
+    }
+
+    /**
+     * Gets the value of the volumeDepends property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isVolumeDepends() {
+        return volumeDepends;
+    }
+
+    /**
+     * Sets the value of the volumeDepends property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setVolumeDepends(Boolean value) {
+        this.volumeDepends = value;
+    }
+
+    /**
+     * Gets the value of the oneTimePayment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isOneTimePayment() {
+        return oneTimePayment;
+    }
+
+    /**
+     * Sets the value of the oneTimePayment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setOneTimePayment(Boolean value) {
+        this.oneTimePayment = value;
     }
 
 

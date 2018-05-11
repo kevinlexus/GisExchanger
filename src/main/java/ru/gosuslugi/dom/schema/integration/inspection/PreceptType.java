@@ -25,12 +25,12 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Deadline" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="Date" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
+ *         &lt;element name="Deadline" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *         &lt;element name="FIASHouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="ShortInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *         &lt;element name="IsFulfiledPrecept" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="ActualFulfiledPreceptDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="ActualFulfiledPreceptDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>

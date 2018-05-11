@@ -27,7 +27,13 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Kind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="FullName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1000Type"/>
+ *         &lt;element name="FullName">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1000Type">
+ *               &lt;minLength value="1"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
  *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="Legislature" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>

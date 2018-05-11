@@ -29,8 +29,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/choice>
  *           &lt;sequence>
  *             &lt;element name="OrderNumber" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String64Type"/>
- *             &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *             &lt;element name="DecisionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *             &lt;element name="OrderDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
+ *             &lt;element name="DecisionDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *             &lt;element name="DecisionPlace" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String64Type" minOccurs="0"/>
  *             &lt;element name="SignerPosition" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String256Type" minOccurs="0"/>
  *             &lt;element name="SignerName" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String256Type" minOccurs="0"/>

@@ -13,6 +13,7 @@ import ru.gosuslugi.dom.schema.integration.capital_repair.ExportAccountRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportContractsRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportCreditContractRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsFormingFundRequest;
+import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsOrderOfProvidingPDRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportFundSizeInfoRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportPlanRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportPlanWorkRequest;
@@ -24,6 +25,7 @@ import ru.gosuslugi.dom.schema.integration.capital_repair.ImportAccountSpecialRe
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportCertificatesRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportContractsRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsFormingFundRequest;
+import ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsOrderOfProvidingPDRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportFundSizeInfoRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportOperationAndBalanceRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportPaymentsInfoRequest;
@@ -403,6 +405,38 @@ public interface CapitalRepairAsyncPort {
     public AckRequest exportFundSizeInfo(
         @WebParam(name = "exportFundSizeInfoRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "exportFundSizeInfoRequest")
         ExportFundSizeInfoRequest exportFundSizeInfoRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт решений/информации о порядке представления платежных документов
+     * 
+     * @param importDecisionsOrderOfProvidingPDRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:importDecisionsOrderOfProvidingPD")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "importContractsResult")
+    public AckRequest importDecisionsOrderOfProvidingPD(
+        @WebParam(name = "importDecisionsOrderOfProvidingPDRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "importDecisionsOrderOfProvidingPDRequest")
+        ImportDecisionsOrderOfProvidingPDRequest importDecisionsOrderOfProvidingPDRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт решений/информации о порядке представления платежных документов
+     * 
+     * @param exportDecisionsOrderOfProvidingPDRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportDecisionsOrderOfProvidingPD")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "exportDecisionsOrderOfProvidingPDResult")
+    public AckRequest exportDecisionsOrderOfProvidingPD(
+        @WebParam(name = "exportDecisionsOrderOfProvidingPDRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "exportDecisionsOrderOfProvidingPDRequest")
+        ExportDecisionsOrderOfProvidingPDRequest exportDecisionsOrderOfProvidingPDRequest)
         throws Fault
     ;
 

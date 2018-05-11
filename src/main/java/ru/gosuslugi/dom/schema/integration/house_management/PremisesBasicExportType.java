@@ -25,7 +25,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFExportStatusType">
  *       &lt;sequence>
  *         &lt;element name="PremisesNum" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesNumType" minOccurs="0"/>
- *         &lt;element name="Floor" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType" minOccurs="0"/>
+ *         &lt;element name="Floor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>

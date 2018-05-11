@@ -33,7 +33,7 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  *         &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
  *         &lt;element name="SentOnCapitalRepair" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
  *         &lt;element name="DebtForPerformedWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="PremisesInfo" maxOccurs="1000" minOccurs="0">
+ *         &lt;element name="PremisesInfo" maxOccurs="5000" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">

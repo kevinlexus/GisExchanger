@@ -103,6 +103,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck createAcknowledgmentRequestInfoExportTypePaymentDocumentAck() {
+        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck();
+    }
+
+    /**
      * Create an instance of {@link PaymentInformationType }
      * 
      */
@@ -215,11 +223,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck }
+     * Create an instance of {@link AcknowledgmentRequestInfoType.DelayPeriod }
      * 
      */
-    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck createAcknowledgmentRequestInfoExportTypePaymentDocumentAck() {
-        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck();
+    public AcknowledgmentRequestInfoType.DelayPeriod createAcknowledgmentRequestInfoTypeDelayPeriod() {
+        return new AcknowledgmentRequestInfoType.DelayPeriod();
     }
 
     /**
@@ -228,6 +236,14 @@ public class ObjectFactory {
      */
     public AcknowledgmentRequestInfoExportType.AckImpossible createAcknowledgmentRequestInfoExportTypeAckImpossible() {
         return new AcknowledgmentRequestInfoExportType.AckImpossible();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod createAcknowledgmentRequestInfoExportTypePaymentDocumentAckDelayPeriod() {
+        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod();
     }
 
     /**

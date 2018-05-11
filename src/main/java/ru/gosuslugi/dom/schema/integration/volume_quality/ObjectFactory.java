@@ -68,6 +68,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IntervalType }
+     * 
+     */
+    public IntervalType createIntervalType() {
+        return new IntervalType();
+    }
+
+    /**
      * Create an instance of {@link QualityResourcesType }
      * 
      */
@@ -92,11 +100,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.Heating.HeatingConformity }
+     * Create an instance of {@link QualityServicesType.Heating.IsSignedAct }
      * 
      */
-    public QualityServicesType.Heating.HeatingConformity createQualityServicesTypeHeatingHeatingConformity() {
-        return new QualityServicesType.Heating.HeatingConformity();
+    public QualityServicesType.Heating.IsSignedAct createQualityServicesTypeHeatingIsSignedAct() {
+        return new QualityServicesType.Heating.IsSignedAct();
+    }
+
+    /**
+     * Create an instance of {@link QualityServicesType.Heating.IsSignedAct.HeatingConformity }
+     * 
+     */
+    public QualityServicesType.Heating.IsSignedAct.HeatingConformity createQualityServicesTypeHeatingIsSignedActHeatingConformity() {
+        return new QualityServicesType.Heating.IsSignedAct.HeatingConformity();
     }
 
     /**
@@ -108,11 +124,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QualityServicesType.Gas.IsSignedAct }
+     * 
+     */
+    public QualityServicesType.Gas.IsSignedAct createQualityServicesTypeGasIsSignedAct() {
+        return new QualityServicesType.Gas.IsSignedAct();
+    }
+
+    /**
      * Create an instance of {@link QualityServicesType.Electricity }
      * 
      */
     public QualityServicesType.Electricity createQualityServicesTypeElectricity() {
         return new QualityServicesType.Electricity();
+    }
+
+    /**
+     * Create an instance of {@link QualityServicesType.Electricity.IsSignedAct }
+     * 
+     */
+    public QualityServicesType.Electricity.IsSignedAct createQualityServicesTypeElectricityIsSignedAct() {
+        return new QualityServicesType.Electricity.IsSignedAct();
     }
 
     /**
@@ -124,11 +156,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QualityServicesType.HotWater.IsSignedAct }
+     * 
+     */
+    public QualityServicesType.HotWater.IsSignedAct createQualityServicesTypeHotWaterIsSignedAct() {
+        return new QualityServicesType.HotWater.IsSignedAct();
+    }
+
+    /**
      * Create an instance of {@link QualityServicesType.ColdWater }
      * 
      */
     public QualityServicesType.ColdWater createQualityServicesTypeColdWater() {
         return new QualityServicesType.ColdWater();
+    }
+
+    /**
+     * Create an instance of {@link QualityServicesType.ColdWater.IsSignedAct }
+     * 
+     */
+    public QualityServicesType.ColdWater.IsSignedAct createQualityServicesTypeColdWaterIsSignedAct() {
+        return new QualityServicesType.ColdWater.IsSignedAct();
     }
 
     /**
@@ -169,14 +217,6 @@ public class ObjectFactory {
      */
     public GetStateResult createGetStateResult() {
         return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link IntervalType }
-     * 
-     */
-    public IntervalType createIntervalType() {
-        return new IntervalType();
     }
 
     /**
@@ -324,6 +364,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IntervalType.AddressObject }
+     * 
+     */
+    public IntervalType.AddressObject createIntervalTypeAddressObject() {
+        return new IntervalType.AddressObject();
+    }
+
+    /**
      * Create an instance of {@link QualityResourcesType.ObjectAddress }
      * 
      */
@@ -372,51 +420,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.Heating.HeatingConformity.NotConformityTemperature }
+     * Create an instance of {@link QualityServicesType.Heating.IsSignedAct.HeatingConformity.NotConformityTemperature }
      * 
      */
-    public QualityServicesType.Heating.HeatingConformity.NotConformityTemperature createQualityServicesTypeHeatingHeatingConformityNotConformityTemperature() {
-        return new QualityServicesType.Heating.HeatingConformity.NotConformityTemperature();
+    public QualityServicesType.Heating.IsSignedAct.HeatingConformity.NotConformityTemperature createQualityServicesTypeHeatingIsSignedActHeatingConformityNotConformityTemperature() {
+        return new QualityServicesType.Heating.IsSignedAct.HeatingConformity.NotConformityTemperature();
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.Gas.GasConformity }
+     * Create an instance of {@link QualityServicesType.Gas.IsSignedAct.GasConformity }
      * 
      */
-    public QualityServicesType.Gas.GasConformity createQualityServicesTypeGasGasConformity() {
-        return new QualityServicesType.Gas.GasConformity();
+    public QualityServicesType.Gas.IsSignedAct.GasConformity createQualityServicesTypeGasIsSignedActGasConformity() {
+        return new QualityServicesType.Gas.IsSignedAct.GasConformity();
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.Electricity.ElectricityConformity }
+     * Create an instance of {@link QualityServicesType.Electricity.IsSignedAct.ElectricityConformity }
      * 
      */
-    public QualityServicesType.Electricity.ElectricityConformity createQualityServicesTypeElectricityElectricityConformity() {
-        return new QualityServicesType.Electricity.ElectricityConformity();
+    public QualityServicesType.Electricity.IsSignedAct.ElectricityConformity createQualityServicesTypeElectricityIsSignedActElectricityConformity() {
+        return new QualityServicesType.Electricity.IsSignedAct.ElectricityConformity();
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.HotWater.TemperatureConformity }
+     * Create an instance of {@link QualityServicesType.HotWater.IsSignedAct.TemperatureConformity }
      * 
      */
-    public QualityServicesType.HotWater.TemperatureConformity createQualityServicesTypeHotWaterTemperatureConformity() {
-        return new QualityServicesType.HotWater.TemperatureConformity();
+    public QualityServicesType.HotWater.IsSignedAct.TemperatureConformity createQualityServicesTypeHotWaterIsSignedActTemperatureConformity() {
+        return new QualityServicesType.HotWater.IsSignedAct.TemperatureConformity();
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.HotWater.HotWaterConformity }
+     * Create an instance of {@link QualityServicesType.HotWater.IsSignedAct.HotWaterConformity }
      * 
      */
-    public QualityServicesType.HotWater.HotWaterConformity createQualityServicesTypeHotWaterHotWaterConformity() {
-        return new QualityServicesType.HotWater.HotWaterConformity();
+    public QualityServicesType.HotWater.IsSignedAct.HotWaterConformity createQualityServicesTypeHotWaterIsSignedActHotWaterConformity() {
+        return new QualityServicesType.HotWater.IsSignedAct.HotWaterConformity();
     }
 
     /**
-     * Create an instance of {@link QualityServicesType.ColdWater.ColdWaterConformity }
+     * Create an instance of {@link QualityServicesType.ColdWater.IsSignedAct.ColdWaterConformity }
      * 
      */
-    public QualityServicesType.ColdWater.ColdWaterConformity createQualityServicesTypeColdWaterColdWaterConformity() {
-        return new QualityServicesType.ColdWater.ColdWaterConformity();
+    public QualityServicesType.ColdWater.IsSignedAct.ColdWaterConformity createQualityServicesTypeColdWaterIsSignedActColdWaterConformity() {
+        return new QualityServicesType.ColdWater.IsSignedAct.ColdWaterConformity();
     }
 
     /**

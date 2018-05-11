@@ -55,7 +55,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="RegionFIASGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *         &lt;element name="RegionFIASGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *         &lt;element name="LicensableTypeOfActivity" type="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"/>
  *         &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType" minOccurs="0"/>
  *         &lt;element name="LicenseOrganization" type="{http://dom.gosuslugi.ru/schema/integration/licenses/}LicenseOrganizationType"/>
@@ -114,7 +114,7 @@ public class LicenseType {
     protected String licenseStatus;
     @XmlElement(name = "LicensingAuthority", required = true)
     protected LicenseType.LicensingAuthority licensingAuthority;
-    @XmlElement(name = "RegionFIASGuid", required = true)
+    @XmlElement(name = "RegionFIASGuid")
     protected String regionFIASGuid;
     @XmlElement(name = "LicensableTypeOfActivity", required = true)
     protected String licensableTypeOfActivity;

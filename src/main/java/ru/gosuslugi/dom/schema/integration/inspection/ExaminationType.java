@@ -37,11 +37,11 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;element name="URIRegistrationNumber" minOccurs="0">
  *                         &lt;simpleType>
  *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                             &lt;pattern value="\d{14}"/>
+ *                             &lt;pattern value="\d{14}|\d{12}"/>
  *                           &lt;/restriction>
  *                         &lt;/simpleType>
  *                       &lt;/element>
- *                       &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                       &lt;element name="URIRegistrationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *                     &lt;/sequence>
  *                   &lt;/choice>
  *                   &lt;element name="ExaminationTypeType">
@@ -80,7 +80,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="OversightActivitiesRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *                   &lt;element name="ExaminationForm" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *                   &lt;element name="OrderNumber" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type" minOccurs="0"/>
- *                   &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="OrderDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -125,7 +125,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="NotRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                   &lt;element name="RequiredAndNotSent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                   &lt;sequence>
- *                     &lt;element name="NotificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                     &lt;element name="NotificationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *                     &lt;element name="NotificationMethod" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
  *                   &lt;/sequence>
  *                 &lt;/choice>
@@ -165,8 +165,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="AdditionalInfoAboutExamBase" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *                   &lt;element name="Tasks" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
  *                   &lt;element name="Object" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
- *                   &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                   &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *                   &lt;element name="From" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
+ *                   &lt;element name="To" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType" minOccurs="0"/>
  *                   &lt;element name="Duration">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -458,8 +458,8 @@ public class ExaminationType {
      *         &lt;element name="AdditionalInfoAboutExamBase" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
      *         &lt;element name="Tasks" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
      *         &lt;element name="Object" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
-     *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+     *         &lt;element name="From" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
+     *         &lt;element name="To" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType" minOccurs="0"/>
      *         &lt;element name="Duration">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -1108,11 +1108,11 @@ public class ExaminationType {
      *             &lt;element name="URIRegistrationNumber" minOccurs="0">
      *               &lt;simpleType>
      *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                   &lt;pattern value="\d{14}"/>
+     *                   &lt;pattern value="\d{14}|\d{12}"/>
      *                 &lt;/restriction>
      *               &lt;/simpleType>
      *             &lt;/element>
-     *             &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+     *             &lt;element name="URIRegistrationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
      *           &lt;/sequence>
      *         &lt;/choice>
      *         &lt;element name="ExaminationTypeType">
@@ -1151,7 +1151,7 @@ public class ExaminationType {
      *         &lt;element name="OversightActivitiesRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
      *         &lt;element name="ExaminationForm" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
      *         &lt;element name="OrderNumber" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type" minOccurs="0"/>
-     *         &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+     *         &lt;element name="OrderDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -1762,7 +1762,7 @@ public class ExaminationType {
      *         &lt;element name="NotRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *         &lt;element name="RequiredAndNotSent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *         &lt;sequence>
-     *           &lt;element name="NotificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *           &lt;element name="NotificationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
      *           &lt;element name="NotificationMethod" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
      *         &lt;/sequence>
      *       &lt;/choice>

@@ -199,7 +199,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="PaymentsTaken" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *               &lt;minInclusive value="1"/>
+ *               &lt;minInclusive value="0"/>
  *               &lt;maxInclusive value="31"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
@@ -264,6 +264,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="DateOfLastReceivedPayment" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -296,7 +298,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "totalPayableByPDWithDebtAndAdvance",
     "componentsOfCost",
     "paidCash",
-    "dateOfLastReceivedPayment"
+    "dateOfLastReceivedPayment",
+    "month",
+    "year"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.ExportPaymentDocumentResultType.PaymentDocument.class
@@ -349,6 +353,10 @@ public class PaymentDocumentExportType {
     @XmlElement(name = "DateOfLastReceivedPayment")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar dateOfLastReceivedPayment;
+    @XmlElement(name = "Month", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
+    protected Integer month;
+    @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
+    protected Short year;
 
     /**
      * Идентификатор лицевого счета
@@ -927,6 +935,56 @@ public class PaymentDocumentExportType {
      */
     public void setDateOfLastReceivedPayment(XMLGregorianCalendar value) {
         this.dateOfLastReceivedPayment = value;
+    }
+
+    /**
+     * Месяц расчетного периода
+     * Ссылка на пост. 924 – Приложение 2, п. 6 в).
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getMonth() {
+        return month;
+    }
+
+    /**
+     * Sets the value of the month property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setMonth(Integer value) {
+        this.month = value;
+    }
+
+    /**
+     * Год расчетного периода
+     * Ссылка на пост. 924 – Приложение 2, п. 6 в).
+     * 
+     * @return
+     *     possible object is
+     *     {@link Short }
+     *     
+     */
+    public Short getYear() {
+        return year;
+    }
+
+    /**
+     * Sets the value of the year property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Short }
+     *     
+     */
+    public void setYear(Short value) {
+        this.year = value;
     }
 
 

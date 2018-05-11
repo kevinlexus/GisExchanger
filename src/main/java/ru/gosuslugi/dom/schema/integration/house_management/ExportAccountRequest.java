@@ -1,6 +1,8 @@
 
 package ru.gosuslugi.dom.schema.integration.house_management;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,9 +21,12 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
+ *       &lt;choice>
  *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *       &lt;/sequence>
+ *         &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" maxOccurs="1000"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" maxOccurs="1000"/>
+ *       &lt;/choice>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -32,15 +37,24 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "fiasHouseGuid"
+    "fiasHouseGuid",
+    "accountGUID",
+    "unifiedAccountNumber",
+    "serviceID"
 })
 @XmlRootElement(name = "exportAccountRequest")
 public class ExportAccountRequest
     extends BaseType
 {
 
-    @XmlElement(name = "FIASHouseGuid", required = true)
+    @XmlElement(name = "FIASHouseGuid")
     protected String fiasHouseGuid;
+    @XmlElement(name = "AccountGUID")
+    protected List<String> accountGUID;
+    @XmlElement(name = "UnifiedAccountNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
+    protected List<String> unifiedAccountNumber;
+    @XmlElement(name = "ServiceID", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
+    protected List<String> serviceID;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -66,6 +80,93 @@ public class ExportAccountRequest
      */
     public void setFIASHouseGuid(String value) {
         this.fiasHouseGuid = value;
+    }
+
+    /**
+     * Gets the value of the accountGUID property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the accountGUID property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAccountGUID().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getAccountGUID() {
+        if (accountGUID == null) {
+            accountGUID = new ArrayList<String>();
+        }
+        return this.accountGUID;
+    }
+
+    /**
+     * Gets the value of the unifiedAccountNumber property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the unifiedAccountNumber property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getUnifiedAccountNumber().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getUnifiedAccountNumber() {
+        if (unifiedAccountNumber == null) {
+            unifiedAccountNumber = new ArrayList<String>();
+        }
+        return this.unifiedAccountNumber;
+    }
+
+    /**
+     * Gets the value of the serviceID property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the serviceID property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getServiceID().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getServiceID() {
+        if (serviceID == null) {
+            serviceID = new ArrayList<String>();
+        }
+        return this.serviceID;
     }
 
     /**

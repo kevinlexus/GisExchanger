@@ -350,6 +350,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportCancelledInfoWithAttachmentsType }
+     * 
+     */
+    public ExportCancelledInfoWithAttachmentsType createExportCancelledInfoWithAttachmentsType() {
+        return new ExportCancelledInfoWithAttachmentsType();
+    }
+
+    /**
+     * Create an instance of {@link ExportProsecutorAgreementInformationType }
+     * 
+     */
+    public ExportProsecutorAgreementInformationType createExportProsecutorAgreementInformationType() {
+        return new ExportProsecutorAgreementInformationType();
+    }
+
+    /**
      * Create an instance of {@link ProsecutorAgreementInformationType }
      * 
      */
@@ -419,6 +435,14 @@ public class ObjectFactory {
      */
     public ExaminationPlaceType createExaminationPlaceType() {
         return new ExaminationPlaceType();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationChangeInfoType }
+     * 
+     */
+    public ExportExaminationChangeInfoType createExportExaminationChangeInfoType() {
+        return new ExportExaminationChangeInfoType();
     }
 
     /**

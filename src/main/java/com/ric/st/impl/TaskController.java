@@ -34,7 +34,7 @@ import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.signature.demo.commands.Command;
+import com.ric.signature.sign.commands.Command;
 
 
 /**
@@ -292,6 +292,16 @@ public class TaskController implements TaskControllers {
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							bill.importPaymentDocumentDataAsk(task);
+						}
+						break;
+					case "GIS_EXP_PAY_DETAIL_DOCS":
+						pay.setUp();
+						if (state.equals("INS")) {
+							// экспорт детализации платежного документа
+							pay.exportPaymentDocumentDetails(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							pay.exportPaymentDocumentDetailsAsk(task);
 						}
 						break;
 					case "GIS_EXP_ORG":

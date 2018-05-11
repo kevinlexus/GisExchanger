@@ -33,7 +33,17 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="Sum" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="Customer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
+ *         &lt;choice>
+ *           &lt;element name="Customer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
+ *           &lt;element name="Individual">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType">
+ *                 &lt;/extension>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *         &lt;/choice>
  *         &lt;element name="Performer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
  *         &lt;element name="Work" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractType" maxOccurs="10000" minOccurs="0"/>
  *         &lt;element name="AttachContract" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/>
@@ -66,6 +76,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "endDate",
     "sum",
     "customer",
+    "individual",
     "performer",
     "work",
     "attachContract",
@@ -95,8 +106,10 @@ public class ShortExportContractType {
     protected XMLGregorianCalendar endDate;
     @XmlElement(name = "Sum", required = true)
     protected BigDecimal sum;
-    @XmlElement(name = "Customer", required = true)
+    @XmlElement(name = "Customer")
     protected RegOrgType customer;
+    @XmlElement(name = "Individual")
+    protected ShortExportContractType.Individual individual;
     @XmlElement(name = "Performer", required = true)
     protected RegOrgType performer;
     @XmlElement(name = "Work")
@@ -261,6 +274,30 @@ public class ShortExportContractType {
      */
     public void setCustomer(RegOrgType value) {
         this.customer = value;
+    }
+
+    /**
+     * Gets the value of the individual property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ShortExportContractType.Individual }
+     *     
+     */
+    public ShortExportContractType.Individual getIndividual() {
+        return individual;
+    }
+
+    /**
+     * Sets the value of the individual property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ShortExportContractType.Individual }
+     *     
+     */
+    public void setIndividual(ShortExportContractType.Individual value) {
+        this.individual = value;
     }
 
     /**
@@ -516,6 +553,32 @@ public class ShortExportContractType {
      */
     public void setDissolve(DissolveContractType value) {
         this.dissolve = value;
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType">
+     *     &lt;/extension>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "")
+    public static class Individual
+        extends IndividualType
+    {
+
+
     }
 
 }

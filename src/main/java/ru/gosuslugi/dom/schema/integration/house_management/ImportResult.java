@@ -82,18 +82,6 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
- *                   &lt;element name="importSupplyResourceContractObjectAddress">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;element name="ContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
  *                 &lt;/choice>
  *               &lt;/extension>
  *             &lt;/complexContent>
@@ -269,18 +257,6 @@ public class ImportResult
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
-     *         &lt;element name="importSupplyResourceContractObjectAddress">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                   &lt;element name="ContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
      *       &lt;/choice>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -300,8 +276,7 @@ public class ImportResult
         "importMeteringDevice",
         "importAccount",
         "importSupplyResourceContract",
-        "importSupplyResourceContractProject",
-        "importSupplyResourceContractObjectAddress"
+        "importSupplyResourceContractProject"
     })
     public static class CommonResult
         extends CommonResultType
@@ -324,7 +299,6 @@ public class ImportResult
         protected ImportResult.CommonResult.ImportSupplyResourceContract importSupplyResourceContract;
         @XmlElement(name = "ImportSupplyResourceContractProject")
         protected ImportResult.CommonResult.ImportSupplyResourceContractProject importSupplyResourceContractProject;
-        protected ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress importSupplyResourceContractObjectAddress;
 
         /**
          * Gets the value of the importHouseUO property.
@@ -566,30 +540,6 @@ public class ImportResult
             this.importSupplyResourceContractProject = value;
         }
 
-        /**
-         * Gets the value of the importSupplyResourceContractObjectAddress property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress }
-         *     
-         */
-        public ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress getImportSupplyResourceContractObjectAddress() {
-            return importSupplyResourceContractObjectAddress;
-        }
-
-        /**
-         * Sets the value of the importSupplyResourceContractObjectAddress property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress }
-         *     
-         */
-        public void setImportSupplyResourceContractObjectAddress(ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress value) {
-            this.importSupplyResourceContractObjectAddress = value;
-        }
-
 
         /**
          * <p>Java class for anonymous complex type.
@@ -755,89 +705,6 @@ public class ImportResult
             "contractRootGUID"
         })
         public static class ImportSupplyResourceContract {
-
-            @XmlElement(name = "ContractGUID", required = true)
-            protected String contractGUID;
-            @XmlElement(name = "ContractRootGUID", required = true)
-            protected String contractRootGUID;
-
-            /**
-             * Gets the value of the contractGUID property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getContractGUID() {
-                return contractGUID;
-            }
-
-            /**
-             * Sets the value of the contractGUID property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setContractGUID(String value) {
-                this.contractGUID = value;
-            }
-
-            /**
-             * Gets the value of the contractRootGUID property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getContractRootGUID() {
-                return contractRootGUID;
-            }
-
-            /**
-             * Sets the value of the contractRootGUID property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setContractRootGUID(String value) {
-                this.contractRootGUID = value;
-            }
-
-        }
-
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *         &lt;element name="ContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "contractGUID",
-            "contractRootGUID"
-        })
-        public static class ImportSupplyResourceContractObjectAddress {
 
             @XmlElement(name = "ContractGUID", required = true)
             protected String contractGUID;

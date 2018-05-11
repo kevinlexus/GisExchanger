@@ -13,7 +13,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
 
 
 /**
- * Протоколол об административном правонарушении. (экспорт)
+ * Протокол об административном правонарушении. (экспорт)
  * 
  * <p>Java class for exportOffenceType complex type.
  * 

@@ -38,6 +38,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;/element>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="AnnulmentInfo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -54,7 +55,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "type",
     "operatingLimit",
     "ogfData",
-    "terminationDate"
+    "terminationDate",
+    "annulmentInfo"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse.Lift.class
@@ -76,6 +78,8 @@ public class LiftExportType {
     @XmlElement(name = "TerminationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "AnnulmentInfo")
+    protected String annulmentInfo;
 
     /**
      * Gets the value of the entranceNum property.
@@ -248,6 +252,30 @@ public class LiftExportType {
      */
     public void setTerminationDate(XMLGregorianCalendar value) {
         this.terminationDate = value;
+    }
+
+    /**
+     * Gets the value of the annulmentInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAnnulmentInfo() {
+        return annulmentInfo;
+    }
+
+    /**
+     * Sets the value of the annulmentInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAnnulmentInfo(String value) {
+        this.annulmentInfo = value;
     }
 
 }

@@ -44,7 +44,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="UndergroundFloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType"/>
+ *         &lt;element name="UndergroundFloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}UndergroundFloorType"/>
  *         &lt;element name="MinFloorCount" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
@@ -73,8 +73,8 @@ public class ApartmentHouseOMSType {
 
     @XmlElement(name = "BasicCharacteristicts", required = true)
     protected ApartmentHouseOMSType.BasicCharacteristicts basicCharacteristicts;
-    @XmlElement(name = "UndergroundFloorCount", required = true)
-    protected String undergroundFloorCount;
+    @XmlElement(name = "UndergroundFloorCount")
+    protected byte undergroundFloorCount;
     @XmlElement(name = "MinFloorCount")
     protected Byte minFloorCount;
 
@@ -105,24 +105,16 @@ public class ApartmentHouseOMSType {
     /**
      * Gets the value of the undergroundFloorCount property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getUndergroundFloorCount() {
+    public byte getUndergroundFloorCount() {
         return undergroundFloorCount;
     }
 
     /**
      * Sets the value of the undergroundFloorCount property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setUndergroundFloorCount(String value) {
+    public void setUndergroundFloorCount(byte value) {
         this.undergroundFloorCount = value;
     }
 
@@ -202,8 +194,8 @@ public class ApartmentHouseOMSType {
         protected NsiRef state;
         @XmlElement(name = "UsedYear")
         protected Short usedYear;
-        @XmlElement(name = "FloorCount", required = true)
-        protected String floorCount;
+        @XmlElement(name = "FloorCount")
+        protected byte floorCount;
         @XmlElement(name = "OKTMO")
         protected OKTMORefType oktmo;
         @XmlElement(name = "OlsonTZ", required = true)
@@ -312,24 +304,16 @@ public class ApartmentHouseOMSType {
         /**
          * Gets the value of the floorCount property.
          * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
          */
-        public String getFloorCount() {
+        public byte getFloorCount() {
             return floorCount;
         }
 
         /**
          * Sets the value of the floorCount property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
          */
-        public void setFloorCount(String value) {
+        public void setFloorCount(byte value) {
             this.floorCount = value;
         }
 

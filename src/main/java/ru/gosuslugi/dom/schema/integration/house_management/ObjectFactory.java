@@ -388,14 +388,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ProtocolExportType.ExtraVoting }
-     * 
-     */
-    public ProtocolExportType.ExtraVoting createProtocolExportTypeExtraVoting() {
-        return new ProtocolExportType.ExtraVoting();
-    }
-
-    /**
      * Create an instance of {@link CharterExportType }
      * 
      */
@@ -2796,14 +2788,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ProtocolType.ExtraVoting }
-     * 
-     */
-    public ProtocolType.ExtraVoting createProtocolTypeExtraVoting() {
-        return new ProtocolType.ExtraVoting();
-    }
-
-    /**
      * Create an instance of {@link ProtocolType.DecisionList }
      * 
      */
@@ -2844,19 +2828,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProtocolExportType.VoteInitiators }
+     * 
+     */
+    public ProtocolExportType.VoteInitiators createProtocolExportTypeVoteInitiators() {
+        return new ProtocolExportType.VoteInitiators();
+    }
+
+    /**
      * Create an instance of {@link ProtocolExportType.DecisionList }
      * 
      */
     public ProtocolExportType.DecisionList createProtocolExportTypeDecisionList() {
         return new ProtocolExportType.DecisionList();
-    }
-
-    /**
-     * Create an instance of {@link ProtocolExportType.ExtraVoting.VoteInitiators }
-     * 
-     */
-    public ProtocolExportType.ExtraVoting.VoteInitiators createProtocolExportTypeExtraVotingVoteInitiators() {
-        return new ProtocolExportType.ExtraVoting.VoteInitiators();
     }
 
     /**
@@ -4417,14 +4401,6 @@ public class ObjectFactory {
      */
     public ImportResult.CommonResult.ImportSupplyResourceContractProject createImportResultCommonResultImportSupplyResourceContractProject() {
         return new ImportResult.CommonResult.ImportSupplyResourceContractProject();
-    }
-
-    /**
-     * Create an instance of {@link ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress }
-     * 
-     */
-    public ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress createImportResultCommonResultImportSupplyResourceContractObjectAddress() {
-        return new ImportResult.CommonResult.ImportSupplyResourceContractObjectAddress();
     }
 
     /**

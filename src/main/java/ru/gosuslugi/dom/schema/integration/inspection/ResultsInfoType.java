@@ -46,7 +46,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *                     &lt;element name="PersonRefused" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
  *                   &lt;/sequence>
  *                   &lt;sequence>
- *                     &lt;element name="FamiliarizationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                     &lt;element name="FamiliarizationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *                     &lt;element name="IsSigned" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                     &lt;element name="FamiliarizedPerson" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
  *                   &lt;/sequence>
@@ -139,7 +139,7 @@ public class ResultsInfoType {
      *           &lt;element name="PersonRefused" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
      *         &lt;/sequence>
      *         &lt;sequence>
-     *           &lt;element name="FamiliarizationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *           &lt;element name="FamiliarizationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
      *           &lt;element name="IsSigned" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *           &lt;element name="FamiliarizedPerson" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
      *         &lt;/sequence>

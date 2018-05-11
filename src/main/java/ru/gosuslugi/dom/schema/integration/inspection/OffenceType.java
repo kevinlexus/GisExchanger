@@ -13,7 +13,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
 
 
 /**
- * Протоколол об административном правонарушении.
+ * Протокол об административном правонарушении.
  * 
  * <p>Java class for OffenceType complex type.
  * 
@@ -25,10 +25,10 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="Date" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *         &lt;element name="ShortInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *         &lt;element name="IsFulfiledOffence" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="ActualFulfiledOffenceDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="ActualFulfiledOffenceDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>

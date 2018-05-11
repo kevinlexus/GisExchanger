@@ -28,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  *         &lt;element name="ReportingPeriod" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType"/>
  *         &lt;element name="PeriodBeginningBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
  *         &lt;element name="PeriodEndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="Operation" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}OperationType" maxOccurs="1000" minOccurs="0"/>
+ *         &lt;element name="Operation" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}OperationType" maxOccurs="15000" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

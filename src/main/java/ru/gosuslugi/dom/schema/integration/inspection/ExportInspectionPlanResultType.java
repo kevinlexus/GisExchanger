@@ -50,8 +50,8 @@ import javax.xml.bind.annotation.XmlType;
  *                       &lt;complexContent>
  *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportPlannedExaminationType">
  *                           &lt;sequence>
- *                             &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/>
- *                             &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+ *                             &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportExaminationChangeInfoType" minOccurs="0"/>
+ *                             &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
  *                           &lt;/sequence>
  *                         &lt;/extension>
  *                       &lt;/complexContent>
@@ -286,8 +286,8 @@ public class ExportInspectionPlanResultType {
      *             &lt;complexContent>
      *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportPlannedExaminationType">
      *                 &lt;sequence>
-     *                   &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/>
-     *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+     *                   &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportExaminationChangeInfoType" minOccurs="0"/>
+     *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
      *                 &lt;/sequence>
      *               &lt;/extension>
      *             &lt;/complexContent>
@@ -455,8 +455,8 @@ public class ExportInspectionPlanResultType {
          *   &lt;complexContent>
          *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportPlannedExaminationType">
          *       &lt;sequence>
-         *         &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/>
-         *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+         *         &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportExaminationChangeInfoType" minOccurs="0"/>
+         *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
          *       &lt;/sequence>
          *     &lt;/extension>
          *   &lt;/complexContent>
@@ -475,19 +475,19 @@ public class ExportInspectionPlanResultType {
         {
 
             @XmlElement(name = "ExaminationChangeInfo")
-            protected ExaminationChangeInfoType examinationChangeInfo;
+            protected ExportExaminationChangeInfoType examinationChangeInfo;
             @XmlElement(name = "CancelledInfo")
-            protected CancelledInfoWithAttachmentsType cancelledInfo;
+            protected ExportCancelledInfoWithAttachmentsType cancelledInfo;
 
             /**
              * Gets the value of the examinationChangeInfo property.
              * 
              * @return
              *     possible object is
-             *     {@link ExaminationChangeInfoType }
+             *     {@link ExportExaminationChangeInfoType }
              *     
              */
-            public ExaminationChangeInfoType getExaminationChangeInfo() {
+            public ExportExaminationChangeInfoType getExaminationChangeInfo() {
                 return examinationChangeInfo;
             }
 
@@ -496,10 +496,10 @@ public class ExportInspectionPlanResultType {
              * 
              * @param value
              *     allowed object is
-             *     {@link ExaminationChangeInfoType }
+             *     {@link ExportExaminationChangeInfoType }
              *     
              */
-            public void setExaminationChangeInfo(ExaminationChangeInfoType value) {
+            public void setExaminationChangeInfo(ExportExaminationChangeInfoType value) {
                 this.examinationChangeInfo = value;
             }
 
@@ -508,10 +508,10 @@ public class ExportInspectionPlanResultType {
              * 
              * @return
              *     possible object is
-             *     {@link CancelledInfoWithAttachmentsType }
+             *     {@link ExportCancelledInfoWithAttachmentsType }
              *     
              */
-            public CancelledInfoWithAttachmentsType getCancelledInfo() {
+            public ExportCancelledInfoWithAttachmentsType getCancelledInfo() {
                 return cancelledInfo;
             }
 
@@ -520,10 +520,10 @@ public class ExportInspectionPlanResultType {
              * 
              * @param value
              *     allowed object is
-             *     {@link CancelledInfoWithAttachmentsType }
+             *     {@link ExportCancelledInfoWithAttachmentsType }
              *     
              */
-            public void setCancelledInfo(CancelledInfoWithAttachmentsType value) {
+            public void setCancelledInfo(ExportCancelledInfoWithAttachmentsType value) {
                 this.cancelledInfo = value;
             }
 

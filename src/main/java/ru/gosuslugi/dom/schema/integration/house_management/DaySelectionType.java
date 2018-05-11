@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Тип выбора дня начала/окончания периода ввода показаний по ПУ
+ * Тип выбора дня 
  * 
  * <p>Java class for DaySelectionType complex type.
  * 

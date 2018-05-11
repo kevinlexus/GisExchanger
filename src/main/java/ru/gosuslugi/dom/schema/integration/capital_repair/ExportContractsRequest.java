@@ -30,7 +30,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;/sequence>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.10.0.3""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -147,7 +147,7 @@ public class ExportContractsRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.0.0.1";
+            return "11.10.0.3";
         } else {
             return version;
         }

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Тип выбора дня начала/окончания периода ввода показаний по ПУ
+ * Тип выбора дня для экспорта
  * 
  * <p>Java class for DaySelectionExportType complex type.
  * 

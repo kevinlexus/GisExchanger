@@ -36,7 +36,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *         &lt;/sequence>
  *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -151,7 +151,7 @@ public class ExportVotingProtocolRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.7.0.3";
+            return "11.11.0.6";
         } else {
             return version;
         }

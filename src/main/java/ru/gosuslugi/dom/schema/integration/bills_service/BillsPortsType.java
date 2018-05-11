@@ -81,7 +81,7 @@ public interface BillsPortsType {
     ;
 
     /**
-     * Экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования
+     * Экспорт извещений о принятии к исполнению распоряжений с результатами квитирования
      * 
      * @param exportNotificationsOfOrderExecutionRequest
      * @return
@@ -193,7 +193,7 @@ public interface BillsPortsType {
     ;
 
     /**
-     * Экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования (постраничная выгрузка)
+     * Экспорт извещений о принятии к исполнению распоряжений с результатами квитирования (постраничная выгрузка)
      * 
      * @param exportNotificationsOfOrderExecutionPaginalRequest
      * @return

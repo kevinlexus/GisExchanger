@@ -34,7 +34,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.AcknowledgmentRequestIn
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="AckCancellation">
+ *         &lt;element name="AckCancellation" maxOccurs="1000">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -78,7 +78,7 @@ public class ImportAcknowledgmentRequest
     @XmlElement(name = "AcknowledgmentRequestInfo")
     protected List<ImportAcknowledgmentRequest.AcknowledgmentRequestInfo> acknowledgmentRequestInfo;
     @XmlElement(name = "AckCancellation")
-    protected ImportAcknowledgmentRequest.AckCancellation ackCancellation;
+    protected List<ImportAcknowledgmentRequest.AckCancellation> ackCancellation;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -114,25 +114,30 @@ public class ImportAcknowledgmentRequest
     /**
      * Gets the value of the ackCancellation property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ImportAcknowledgmentRequest.AckCancellation }
-     *     
-     */
-    public ImportAcknowledgmentRequest.AckCancellation getAckCancellation() {
-        return ackCancellation;
-    }
-
-    /**
-     * Sets the value of the ackCancellation property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the ackCancellation property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link ImportAcknowledgmentRequest.AckCancellation }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAckCancellation().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ImportAcknowledgmentRequest.AckCancellation }
+     * 
+     * 
      */
-    public void setAckCancellation(ImportAcknowledgmentRequest.AckCancellation value) {
-        this.ackCancellation = value;
+    public List<ImportAcknowledgmentRequest.AckCancellation> getAckCancellation() {
+        if (ackCancellation == null) {
+            ackCancellation = new ArrayList<ImportAcknowledgmentRequest.AckCancellation>();
+        }
+        return this.ackCancellation;
     }
 
     /**

@@ -1,6 +1,8 @@
 
 package ru.gosuslugi.dom.schema.integration.house_management;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,7 +22,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;choice>
- *         &lt;element name="IndividualService">
+ *         &lt;element name="IndividualService" maxOccurs="1000">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}AccountIndividualServiceType">
@@ -35,7 +37,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="DeleteIndividualService">
+ *         &lt;element name="DeleteIndividualService" maxOccurs="1000">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -67,58 +69,68 @@ public class ImportAccountIndividualServicesRequest
 {
 
     @XmlElement(name = "IndividualService")
-    protected ImportAccountIndividualServicesRequest.IndividualService individualService;
+    protected List<ImportAccountIndividualServicesRequest.IndividualService> individualService;
     @XmlElement(name = "DeleteIndividualService")
-    protected ImportAccountIndividualServicesRequest.DeleteIndividualService deleteIndividualService;
+    protected List<ImportAccountIndividualServicesRequest.DeleteIndividualService> deleteIndividualService;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
     /**
      * Gets the value of the individualService property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ImportAccountIndividualServicesRequest.IndividualService }
-     *     
-     */
-    public ImportAccountIndividualServicesRequest.IndividualService getIndividualService() {
-        return individualService;
-    }
-
-    /**
-     * Sets the value of the individualService property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the individualService property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link ImportAccountIndividualServicesRequest.IndividualService }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getIndividualService().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ImportAccountIndividualServicesRequest.IndividualService }
+     * 
+     * 
      */
-    public void setIndividualService(ImportAccountIndividualServicesRequest.IndividualService value) {
-        this.individualService = value;
+    public List<ImportAccountIndividualServicesRequest.IndividualService> getIndividualService() {
+        if (individualService == null) {
+            individualService = new ArrayList<ImportAccountIndividualServicesRequest.IndividualService>();
+        }
+        return this.individualService;
     }
 
     /**
      * Gets the value of the deleteIndividualService property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ImportAccountIndividualServicesRequest.DeleteIndividualService }
-     *     
-     */
-    public ImportAccountIndividualServicesRequest.DeleteIndividualService getDeleteIndividualService() {
-        return deleteIndividualService;
-    }
-
-    /**
-     * Sets the value of the deleteIndividualService property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the deleteIndividualService property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link ImportAccountIndividualServicesRequest.DeleteIndividualService }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getDeleteIndividualService().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ImportAccountIndividualServicesRequest.DeleteIndividualService }
+     * 
+     * 
      */
-    public void setDeleteIndividualService(ImportAccountIndividualServicesRequest.DeleteIndividualService value) {
-        this.deleteIndividualService = value;
+    public List<ImportAccountIndividualServicesRequest.DeleteIndividualService> getDeleteIndividualService() {
+        if (deleteIndividualService == null) {
+            deleteIndividualService = new ArrayList<ImportAccountIndividualServicesRequest.DeleteIndividualService>();
+        }
+        return this.deleteIndividualService;
     }
 
     /**

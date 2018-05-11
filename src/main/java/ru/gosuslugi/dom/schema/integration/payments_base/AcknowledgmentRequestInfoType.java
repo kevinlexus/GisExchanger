@@ -65,12 +65,32 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
  *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
+ *                     &lt;element name="Reason" minOccurs="0">
+ *                       &lt;simpleType>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                           &lt;minLength value="1"/>
+ *                           &lt;maxLength value="210"/>
+ *                         &lt;/restriction>
+ *                       &lt;/simpleType>
+ *                     &lt;/element>
  *                   &lt;/sequence>
  *                 &lt;/restriction>
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
  *         &lt;/choice>
+ *         &lt;element name="DelayPeriod" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -86,7 +106,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "orderIDMultipurpose",
     "orgPPAGUID",
     "paymentDocumentAck",
-    "ackImpossible"
+    "ackImpossible",
+    "delayPeriod"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.ImportAcknowledgmentRequest.AcknowledgmentRequestInfo.class
@@ -105,6 +126,8 @@ public class AcknowledgmentRequestInfoType {
     protected AcknowledgmentRequestInfoType.PaymentDocumentAck paymentDocumentAck;
     @XmlElement(name = "AckImpossible")
     protected AcknowledgmentRequestInfoType.AckImpossible ackImpossible;
+    @XmlElement(name = "DelayPeriod")
+    protected AcknowledgmentRequestInfoType.DelayPeriod delayPeriod;
 
     /**
      * Gets the value of the notificationsOfOrderExecutionGUID property.
@@ -250,6 +273,30 @@ public class AcknowledgmentRequestInfoType {
         this.ackImpossible = value;
     }
 
+    /**
+     * Gets the value of the delayPeriod property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AcknowledgmentRequestInfoType.DelayPeriod }
+     *     
+     */
+    public AcknowledgmentRequestInfoType.DelayPeriod getDelayPeriod() {
+        return delayPeriod;
+    }
+
+    /**
+     * Sets the value of the delayPeriod property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AcknowledgmentRequestInfoType.DelayPeriod }
+     *     
+     */
+    public void setDelayPeriod(AcknowledgmentRequestInfoType.DelayPeriod value) {
+        this.delayPeriod = value;
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -262,6 +309,14 @@ public class AcknowledgmentRequestInfoType {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
+     *         &lt;element name="Reason" minOccurs="0">
+     *           &lt;simpleType>
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *               &lt;minLength value="1"/>
+     *               &lt;maxLength value="210"/>
+     *             &lt;/restriction>
+     *           &lt;/simpleType>
+     *         &lt;/element>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -272,12 +327,15 @@ public class AcknowledgmentRequestInfoType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "paymentDocumentID"
+        "paymentDocumentID",
+        "reason"
     })
     public static class AckImpossible {
 
         @XmlElement(name = "PaymentDocumentID", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
         protected String paymentDocumentID;
+        @XmlElement(name = "Reason")
+        protected String reason;
 
         /**
          * Gets the value of the paymentDocumentID property.
@@ -301,6 +359,97 @@ public class AcknowledgmentRequestInfoType {
          */
         public void setPaymentDocumentID(String value) {
             this.paymentDocumentID = value;
+        }
+
+        /**
+         * Gets the value of the reason property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getReason() {
+            return reason;
+        }
+
+        /**
+         * Sets the value of the reason property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setReason(String value) {
+            this.reason = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "year",
+        "month"
+    })
+    public static class DelayPeriod {
+
+        @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
+        protected short year;
+        @XmlElement(name = "Month", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
+        protected int month;
+
+        /**
+         * Gets the value of the year property.
+         * 
+         */
+        public short getYear() {
+            return year;
+        }
+
+        /**
+         * Sets the value of the year property.
+         * 
+         */
+        public void setYear(short value) {
+            this.year = value;
+        }
+
+        /**
+         * Gets the value of the month property.
+         * 
+         */
+        public int getMonth() {
+            return month;
+        }
+
+        /**
+         * Sets the value of the month property.
+         * 
+         */
+        public void setMonth(int value) {
+            this.month = value;
         }
 
     }

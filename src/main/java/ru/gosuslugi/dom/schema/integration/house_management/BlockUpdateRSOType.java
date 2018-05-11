@@ -28,6 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="PremisesCharacteristic" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
  *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="Category" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockCategoryType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -41,7 +42,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "blockNum",
     "premisesCharacteristic",
     "totalArea",
-    "terminationDate"
+    "terminationDate",
+    "category"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseRSORequest.LivingHouse.Blocks.BlockToUpdate.class
@@ -59,6 +61,9 @@ public class BlockUpdateRSOType
     @XmlElement(name = "TerminationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "Category")
+    @XmlSchemaType(name = "string")
+    protected BlockCategoryType category;
 
     /**
      * Gets the value of the blockNum property.
@@ -154,6 +159,30 @@ public class BlockUpdateRSOType
      */
     public void setTerminationDate(XMLGregorianCalendar value) {
         this.terminationDate = value;
+    }
+
+    /**
+     * Gets the value of the category property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BlockCategoryType }
+     *     
+     */
+    public BlockCategoryType getCategory() {
+        return category;
+    }
+
+    /**
+     * Sets the value of the category property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BlockCategoryType }
+     *     
+     */
+    public void setCategory(BlockCategoryType value) {
+        this.category = value;
     }
 
 }

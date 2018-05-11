@@ -73,6 +73,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *           &lt;/element>
  *         &lt;/choice>
  *         &lt;element name="ComptetionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="VolumeDepends" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="Period" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -203,6 +204,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
+ *         &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="SpecifyingQualityIndicators">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -284,6 +286,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="OneTimePayment" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;sequence>
  *           &lt;element name="BillingDate" minOccurs="0">
  *             &lt;complexType>
@@ -380,6 +383,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "isContract",
     "isNotContract",
     "comptetionDate",
+    "volumeDepends",
     "period",
     "contractBase",
     "offer",
@@ -390,10 +394,12 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "plannedVolumeType",
     "contractSubject",
     "countingResource",
+    "meteringDeviceInformation",
     "specifyingQualityIndicators",
     "quality",
     "otherQualityIndicator",
     "plannedVolume",
+    "oneTimePayment",
     "billingDate",
     "paymentDate",
     "providingInformationDate"
@@ -410,6 +416,8 @@ public class ExportSupplyResourceContractType {
     @XmlElement(name = "ComptetionDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar comptetionDate;
+    @XmlElement(name = "VolumeDepends")
+    protected Boolean volumeDepends;
     @XmlElement(name = "Period")
     protected ExportSupplyResourceContractType.Period period;
     @XmlElement(name = "ContractBase")
@@ -430,6 +438,8 @@ public class ExportSupplyResourceContractType {
     protected List<ExportSupplyResourceContractType.ContractSubject> contractSubject;
     @XmlElement(name = "CountingResource")
     protected String countingResource;
+    @XmlElement(name = "MeteringDeviceInformation")
+    protected Boolean meteringDeviceInformation;
     @XmlElement(name = "SpecifyingQualityIndicators", required = true)
     protected String specifyingQualityIndicators;
     @XmlElement(name = "Quality")
@@ -438,6 +448,8 @@ public class ExportSupplyResourceContractType {
     protected List<ExportSupplyResourceContractType.OtherQualityIndicator> otherQualityIndicator;
     @XmlElement(name = "PlannedVolume")
     protected List<ExportSupplyResourceContractType.PlannedVolume> plannedVolume;
+    @XmlElement(name = "OneTimePayment")
+    protected Boolean oneTimePayment;
     @XmlElement(name = "BillingDate")
     protected ExportSupplyResourceContractType.BillingDate billingDate;
     @XmlElement(name = "PaymentDate")
@@ -515,6 +527,30 @@ public class ExportSupplyResourceContractType {
      */
     public void setComptetionDate(XMLGregorianCalendar value) {
         this.comptetionDate = value;
+    }
+
+    /**
+     * Gets the value of the volumeDepends property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isVolumeDepends() {
+        return volumeDepends;
+    }
+
+    /**
+     * Sets the value of the volumeDepends property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setVolumeDepends(Boolean value) {
+        this.volumeDepends = value;
     }
 
     /**
@@ -760,6 +796,30 @@ public class ExportSupplyResourceContractType {
     }
 
     /**
+     * Gets the value of the meteringDeviceInformation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isMeteringDeviceInformation() {
+        return meteringDeviceInformation;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceInformation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setMeteringDeviceInformation(Boolean value) {
+        this.meteringDeviceInformation = value;
+    }
+
+    /**
      * Gets the value of the specifyingQualityIndicators property.
      * 
      * @return
@@ -868,6 +928,30 @@ public class ExportSupplyResourceContractType {
             plannedVolume = new ArrayList<ExportSupplyResourceContractType.PlannedVolume>();
         }
         return this.plannedVolume;
+    }
+
+    /**
+     * Gets the value of the oneTimePayment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isOneTimePayment() {
+        return oneTimePayment;
+    }
+
+    /**
+     * Sets the value of the oneTimePayment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setOneTimePayment(Boolean value) {
+        this.oneTimePayment = value;
     }
 
     /**

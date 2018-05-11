@@ -15,7 +15,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
 
 
 /**
- * Сведения об отмене
+ * Сведения об отмене (импорт)
  * 
  * <p>Java class for CancelledInfoWithAttachmentsType complex type.
  * 
@@ -27,7 +27,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Reason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="Date" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *         &lt;element name="Number" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type">

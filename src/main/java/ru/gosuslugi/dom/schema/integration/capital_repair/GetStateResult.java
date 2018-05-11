@@ -34,6 +34,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element name="PlanWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportWorkPlanType" maxOccurs="1000"/>
  *         &lt;element name="RegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramType" maxOccurs="1000"/>
  *         &lt;element name="RegionalProgramWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramWorkType" maxOccurs="1000"/>
+ *         &lt;element name="DecisionPD" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportDecisionPDType" maxOccurs="1000"/>
  *       &lt;/choice>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
  *     &lt;/extension>
@@ -55,7 +56,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "plan",
     "planWork",
     "regionalProgram",
-    "regionalProgramWork"
+    "regionalProgramWork",
+    "decisionPD"
 })
 @XmlRootElement(name = "getStateResult")
 public class GetStateResult
@@ -84,6 +86,8 @@ public class GetStateResult
     protected List<ExportRegionalProgramType> regionalProgram;
     @XmlElement(name = "RegionalProgramWork")
     protected List<ExportRegionalProgramWorkType> regionalProgramWork;
+    @XmlElement(name = "DecisionPD")
+    protected List<ExportDecisionPDType> decisionPD;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -399,6 +403,35 @@ public class GetStateResult
             regionalProgramWork = new ArrayList<ExportRegionalProgramWorkType>();
         }
         return this.regionalProgramWork;
+    }
+
+    /**
+     * Gets the value of the decisionPD property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the decisionPD property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getDecisionPD().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ExportDecisionPDType }
+     * 
+     * 
+     */
+    public List<ExportDecisionPDType> getDecisionPD() {
+        if (decisionPD == null) {
+            decisionPD = new ArrayList<ExportDecisionPDType>();
+        }
+        return this.decisionPD;
     }
 
     /**

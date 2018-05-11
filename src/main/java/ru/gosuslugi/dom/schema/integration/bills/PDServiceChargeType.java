@@ -117,6 +117,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                 &lt;/restriction>
  *                               &lt;/simpleType>
  *                             &lt;/element>
+ *                             &lt;element name="TotalPayable" minOccurs="0">
+ *                               &lt;simpleType>
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *                                   &lt;totalDigits value="13"/>
+ *                                   &lt;fractionDigits value="2"/>
+ *                                 &lt;/restriction>
+ *                               &lt;/simpleType>
+ *                             &lt;/element>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
@@ -764,6 +772,14 @@ public class PDServiceChargeType {
      *                       &lt;/restriction>
      *                     &lt;/simpleType>
      *                   &lt;/element>
+     *                   &lt;element name="TotalPayable" minOccurs="0">
+     *                     &lt;simpleType>
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+     *                         &lt;totalDigits value="13"/>
+     *                         &lt;fractionDigits value="2"/>
+     *                       &lt;/restriction>
+     *                     &lt;/simpleType>
+     *                   &lt;/element>
      *                 &lt;/sequence>
      *               &lt;/restriction>
      *             &lt;/complexContent>
@@ -935,6 +951,14 @@ public class PDServiceChargeType {
          *             &lt;/restriction>
          *           &lt;/simpleType>
          *         &lt;/element>
+         *         &lt;element name="TotalPayable" minOccurs="0">
+         *           &lt;simpleType>
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+         *               &lt;totalDigits value="13"/>
+         *               &lt;fractionDigits value="2"/>
+         *             &lt;/restriction>
+         *           &lt;/simpleType>
+         *         &lt;/element>
          *       &lt;/sequence>
          *     &lt;/restriction>
          *   &lt;/complexContent>
@@ -952,7 +976,8 @@ public class PDServiceChargeType {
             "serviceCharge",
             "municipalServiceCommunalConsumptionPayable",
             "serviceInformation",
-            "amountOfPaymentMunicipalServiceCommunalConsumption"
+            "amountOfPaymentMunicipalServiceCommunalConsumption",
+            "totalPayable"
         })
         public static class MunicipalResource {
 
@@ -972,6 +997,8 @@ public class PDServiceChargeType {
             protected PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation serviceInformation;
             @XmlElement(name = "AmountOfPaymentMunicipalServiceCommunalConsumption")
             protected BigDecimal amountOfPaymentMunicipalServiceCommunalConsumption;
+            @XmlElement(name = "TotalPayable")
+            protected BigDecimal totalPayable;
 
             /**
              * Gets the value of the serviceType property.
@@ -1163,6 +1190,30 @@ public class PDServiceChargeType {
              */
             public void setAmountOfPaymentMunicipalServiceCommunalConsumption(BigDecimal value) {
                 this.amountOfPaymentMunicipalServiceCommunalConsumption = value;
+            }
+
+            /**
+             * Gets the value of the totalPayable property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public BigDecimal getTotalPayable() {
+                return totalPayable;
+            }
+
+            /**
+             * Sets the value of the totalPayable property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link BigDecimal }
+             *     
+             */
+            public void setTotalPayable(BigDecimal value) {
+                this.totalPayable = value;
             }
 
 

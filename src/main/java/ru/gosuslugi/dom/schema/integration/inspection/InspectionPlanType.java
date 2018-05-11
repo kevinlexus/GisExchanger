@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Основные реквизиты плана проверок.(экспорт)
+ * Основные реквизиты плана проверок.(импорт)
  * 
  * <p>Java class for InspectionPlanType complex type.
  * 
@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Year" type="{http://dom.gosuslugi.ru/schema/integration/base/}YearType"/>
+ *         &lt;element name="Year" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedYearType"/>
  *         &lt;element name="Sign" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;choice>
  *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
