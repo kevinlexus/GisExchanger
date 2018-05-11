@@ -90,12 +90,7 @@ public class TaskController implements TaskControllers {
     @Autowired
     private AmqpTemplate ampqTemplate;
 
-    @Value("${rmqHost}")
-    private String rmqHost;
-    @Value("${rmqUser}")
-    private String rmqUser;
-    @Value("${rmqPassword}")
-    private String rmqPassword;
+    
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;	
@@ -104,7 +99,10 @@ public class TaskController implements TaskControllers {
 	 * Бин для фабрики соединения ampq
 	 */
 	@Bean
-	public ConnectionFactory connectionFactory() {
+	public ConnectionFactory connectionFactory(
+	        @Value("${rmqHost}") String rmqHost,
+	        @Value("${rmqUser}") String rmqUser,
+	        @Value("${rmqPassword}") String rmqPassword) {
 	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
         CachingConnectionFactory connectionFactory =
                 new CachingConnectionFactory(rmqHost);
@@ -116,10 +114,10 @@ public class TaskController implements TaskControllers {
 	 * Бин для слушателя сообщений ampq
 	 */
     @Bean
-    public SimpleMessageListenerContainer container() {
+    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
         log.info("Создание слушателя сообщений");
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory());
+        container.setConnectionFactory(connectionFactory);
         container.setQueueNames("soap2gis-in");
         container.setMessageListener(new MessageListener() {
             public void onMessage(Message message) {
