@@ -99,6 +99,36 @@ public class TaskController implements TaskControllers {
 	private RequestConfig reqConfig;	
 
 	/**
+	 * Бин для фабрики соединения ampq
+	 */
+	@Bean
+	public ConnectionFactory connectionFactory() {
+	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
+        CachingConnectionFactory connectionFactory =
+                new CachingConnectionFactory(rmqHost);
+        connectionFactory.setUsername(rmqUser);
+        connectionFactory.setPassword(rmqPassword);
+        return connectionFactory;
+	}
+	/**
+	 * Бин для слушателя сообщений ampq
+	 */
+    @Bean
+    public SimpleMessageListenerContainer container() {
+        log.info("Создание слушателя сообщений");
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory());
+        container.setQueueNames("soap2gis-in");
+        container.setMessageListener(new MessageListener() {
+            public void onMessage(Message message) {
+                String msg = new String(message.getBody());
+                rmqTask(msg);
+                log.info("Rmq message:"+msg);
+            }
+        });
+        return container;
+    }
+	/**
 	 * Задача распределения сальдо
 	 */
 	public void otherTask() {
@@ -158,25 +188,6 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
-		log.info("Подключение слушателя для ampq...");
-
-		//Включить получение занадий через ampq
-		CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(rmqHost);
-        connectionFactory.setUsername(rmqUser);
-        connectionFactory.setPassword(rmqPassword);
-
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("soap2gis-in");
-        container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
-                String msg = new String(message.getBody());
-                rmqTask(msg);
-                log.info("Rmq message:"+msg);
-            }
-        });
-
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
 		// цикл
