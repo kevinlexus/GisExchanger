@@ -12,10 +12,12 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -99,6 +101,36 @@ public class TaskController implements TaskControllers {
 	private RequestConfig reqConfig;	
 
 	/**
+	 * Бин для фабрики соединения ampq
+	 */
+	@Bean
+	public ConnectionFactory connectionFactory() {
+	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
+        CachingConnectionFactory connectionFactory =
+                new CachingConnectionFactory(rmqHost);
+        connectionFactory.setUsername(rmqUser);
+        connectionFactory.setPassword(rmqPassword);
+        return connectionFactory;
+	}
+	/**
+	 * Бин для слушателя сообщений ampq
+	 */
+    @Bean
+    public SimpleMessageListenerContainer container() {
+        log.info("Создание слушателя сообщений");
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory());
+        container.setQueueNames("soap2gis-in");
+        container.setMessageListener(new MessageListener() {
+            public void onMessage(Message message) {
+                String msg = new String(message.getBody());
+                rmqTask(msg);
+                log.info("Rmq message:"+msg);
+            }
+        });
+        return container;
+    }
+	/**
 	 * Задача распределения сальдо
 	 */
 	public void otherTask() {
@@ -158,25 +190,6 @@ public class TaskController implements TaskControllers {
 			// Ошибка обновления справочников
 			return;
 		}
-		log.info("Подключение слушателя для ampq...");
-
-		//Включить получение занадий через ampq
-		CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(rmqHost);
-        connectionFactory.setUsername(rmqUser);
-        connectionFactory.setPassword(rmqPassword);
-
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("soap2gis-in");
-        container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
-                String msg = new String(message.getBody());
-                rmqTask(msg);
-                log.info("Rmq message:"+msg);
-            }
-        });
-
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
 		// цикл
