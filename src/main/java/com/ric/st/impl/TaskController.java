@@ -107,9 +107,9 @@ public class TaskController implements TaskControllers {
 	public ConnectionFactory connectionFactory() {
 	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
         CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(rmqHost);
-        connectionFactory.setUsername(rmqUser);
-        connectionFactory.setPassword(rmqPassword);
+                new CachingConnectionFactory("192.168.100.253");
+        connectionFactory.setUsername("gvv");
+        connectionFactory.setPassword("Neisod1");
         return connectionFactory;
 	}
 	/**
@@ -124,8 +124,8 @@ public class TaskController implements TaskControllers {
         container.setMessageListener(new MessageListener() {
             public void onMessage(Message message) {
                 String msg = new String(message.getBody());
-                rmqTask(msg);
-                log.info("Rmq message:"+msg);
+                //rmqTask(msg);
+                log.info("Rmq message:"+msg); 
             }
         });
         return container;
