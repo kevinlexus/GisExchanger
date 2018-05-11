@@ -126,7 +126,7 @@ public class TaskController implements TaskControllers {
 	        if (taskId != null ) {
 	            try {
                     Integer itaskId = Integer.parseInt((String)taskId);
-                    Task task = taskDao.getById(itaskId);
+                    Task task = em.find(Task.class, itaskId);
                     String ret = dm.exportMeteringDeviceValuesSrv(task);
                     ampqTemplate.convertAndSend("soap2gis-out", ret);
                 } catch (Exception e) {
