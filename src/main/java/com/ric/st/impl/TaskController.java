@@ -96,39 +96,6 @@ public class TaskController implements TaskControllers {
 	private RequestConfig reqConfig;	
 
 	/**
-	 * Бин для фабрики соединения ampq
-	 */
-	@Bean
-	public ConnectionFactory connectionFactory(
-	        @Value("${rmqHost}") String rmqHost,
-	        @Value("${rmqUser}") String rmqUser,
-	        @Value("${rmqPassword}") String rmqPassword) {
-	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory("192.168.100.253");
-        connectionFactory.setUsername("gvv");
-        connectionFactory.setPassword("Neisod1");
-        return connectionFactory;
-	}
-	/**
-	 * Бин для слушателя сообщений ampq
-	 */
-    @Bean
-    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
-        log.info("Создание слушателя сообщений");
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("soap2gis-in");
-        container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
-                String msg = new String(message.getBody());
-                //rmqTask(msg);
-                log.info("Rmq message:"+msg); 
-            }
-        });
-        return container;
-    }
-	/**
 	 * Задача распределения сальдо
 	 */
 	public void otherTask() {

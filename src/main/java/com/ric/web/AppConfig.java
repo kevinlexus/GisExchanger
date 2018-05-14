@@ -4,8 +4,15 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
@@ -20,6 +27,10 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.ric.st.impl.TaskController;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
 @ComponentScan({"com.ric.st", "com.ric.bill.dao", "com.dic.bill", "com.dic.bill.dao", "com.ric.bill.dao.hotora",
 	"com.ric.bill.mm", "com.ric.bill", "com.ric.st.builder"}) // это нужно чтобы работали Unit-тесты! (по сути можно закомментить)
@@ -27,6 +38,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableJpaRepositories(basePackages= {"com.ric.bill.dao", "com.dic.bill.dao", "com.ric.bill.dao.hotora"})
 @EnableScheduling
+@Slf4j
 public class AppConfig  implements ApplicationContextAware {
 
 	static ApplicationContext ctx = null;
@@ -56,6 +68,45 @@ public class AppConfig  implements ApplicationContextAware {
 	    factory.afterPropertiesSet();
 	    return factory;
 	}
+	
+	@Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        return new RabbitTemplate(connectionFactory);
+    }
+	/**
+	 * Бин для фабрики соединения ampq
+	 */
+	@Bean
+	public ConnectionFactory connectionFactory(
+	        @Value("${rmqHost}") String rmqHost,
+	        @Value("${rmqUser}") String rmqUser,
+	        @Value("${rmqPassword}") String rmqPassword) {
+	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
+        CachingConnectionFactory connectionFactory =
+                new CachingConnectionFactory(rmqHost);
+        connectionFactory.setUsername(rmqUser);
+        connectionFactory.setPassword(rmqPassword);
+        return connectionFactory;
+	}
+	/**
+	 * Бин для слушателя сообщений ampq
+	 */
+    @Bean
+    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
+        log.info("Создание слушателя сообщений");
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames("soap2gis-in");
+        container.setMessageListener(new MessageListener() {
+            public void onMessage(Message message) {
+                String msg = new String(message.getBody());
+                //rmqTask(msg);
+                log.info("Rmq message:"+msg); 
+            }
+        });
+        return container;
+    }
+
 	
 }
 
