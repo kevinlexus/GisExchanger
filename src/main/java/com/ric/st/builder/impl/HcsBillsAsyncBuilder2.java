@@ -26,6 +26,7 @@ import com.ric.bill.Config;
 import com.ric.bill.Utl;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.EolinkDAO;
+import com.ric.bill.dao.PdocDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
@@ -33,10 +34,12 @@ import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.mm.EolinkParMng;
 import com.ric.bill.mm.LstMng;
+import com.ric.bill.mm.PdocMng;
 import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.model.exs.Pdoc;
 import com.ric.bill.model.exs.ServGis;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.Ulist;
@@ -102,10 +105,13 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	@Autowired
 	private ReqProps reqProp;
 	@Autowired
-	private TaskDAO taskDao; 
-	@Autowired
 	private DebMng debMng;
 	
+	@Autowired
+	private PdocMng pdocMng;
+	@Autowired
+	private PdocDAO pdocDao;
+
 	private BillsServiceAsync service;
 	private BillsPortsTypeAsync port;
 	private SoapBuilder sb;
@@ -174,33 +180,20 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			log.info("Ошибка выполнения запроса = {}", errStr);
 			task.setState("ERR");
 			task.setResult(errStr);
-		} else {
+		}/* else {
 			
 			for (CommonResultType e : state.getImportResult()) {
 					for (Error f: e.getError()) {	
-						// Найти элемент задания по Транспортному GUID
-						Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
-						// Установить статусы ошибки по заданиям
-						task2.setState("ERR");
+						// Найти ПД по Транспортному GUID
+						Pdoc pdoc = pdocDao.getPdocByTGUID(e.getTransportGUID());
+						log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
 						errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
-						task2.setResult(errStr);
 						log.error(errStr);
-
 						errChld = true;
 					};
 			}
-		}
+		}*/
 		
-		if (!err) {
-			// если в главном задании нет ошибок, но в любом дочернем задании обнаружена ошибка - статус - "Ошибка"
-			// и если уже не установлен признак ошибки
-			if (errChld && !task.getState().equals("ERR")
-					 && !task.getState().equals("ERS")) {
-				task.setState("ERS");
-				task.setResult(errStr);
-				log.error("Ошибки в элементе CommonResult");
-			}
-		}
 		
 		return state;
 	}
@@ -314,11 +307,12 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// Дом
 		Eolink house = reqProp.getFoundTask().getEolink();
 
-
-		// получить ПД по лицевым счетам дома
+		// получить список незагруженных ПД в ГИС по Дому
+		pdocMng.getPdocForLoadByHouse(house).stream().forEach(Errors.rethrow().wrap(t-> {
+			// добавить не более 1000 вхождений ПД
+			addPaymentDocument(t, house, req);
+		}));
 		
-		
-		// добавить не более 1000 вхождений ПД
 /*		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().filter(t-> t.getAct().getCd().equals("GIS_IMP_PAY_DOC"))
 		.forEach(Errors.rethrow().wrap(t-> {
 			log.info("Добавление платежного документа, Task.id={}", t.getId());
@@ -353,12 +347,12 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 	/**
 	 * Добавление платежного документа
-	 * @param task - текущее задание платежного документа
+	 * @param pdoc - ПД
 	 * @param req - запрос
 	 * @throws CantPrepSoap 
 	 * @throws WrongGetMethod 
 	 */
-	private void addPaymentDocument(Task task, Eolink house, ImportPaymentDocumentRequest req) throws CantPrepSoap, WrongGetMethod {
+	private void addPaymentDocument(Pdoc pdoc, Eolink house, ImportPaymentDocumentRequest req) throws CantPrepSoap, WrongGetMethod {
 		PaymentDocument pd = new PaymentDocument();
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
@@ -370,15 +364,13 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		Eolink uk = house.getParent();
 		// Тип информационной системы
 		Integer appTp = uk.getAppTp(); 
-		// объект ПД из базы
-		Eolink eolPd = task.getEolink();
 		// лицевой счет
-		Eolink acc = eolPd.getParent();
+		Eolink acc = pdoc.getEolink();
 		// GUID лицевого счета
 		String accGuid = acc.getGuid();
 		
 		// дата ПД (обычно последнее число расчетного месяца)
-		Date dt = parMng.getDate(eolPd, "ГИС ЖКХ.Дата ПД");
+		Date dt = pdoc.getDt();
 		if (dt == null) {
 			throw new CantPrepSoap("Не заполнена дата Платежного Документа");
 		}
@@ -393,11 +385,12 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		
 		// лиц.счет
 		pd.setAccountGuid(accGuid);
-		if (eolPd.getCd() == null) {
+		
+		// Номер ПД из биллинга
+		if (pdoc.getCd() == null) {
 			throw new CantPrepSoap("Не заполнен CD документа");
 		}
-		// Номер ПД из биллинга
-		pd.setPaymentDocumentNumber(eolPd.getCd());
+		pd.setPaymentDocumentNumber(pdoc.getCd());
 		
 		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk);
 		
@@ -417,21 +410,21 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 				HousingService housService = new HousingService();
 				chrgInfo = new ChargeInfo();
 				chrgInfo.setHousingService(housService);
-				chrgInfo.setHousingService(addHousingService(task, t, "NO", lstSum));
+				chrgInfo.setHousingService(addHousingService(t, "NO", lstSum));
 				pd.getChargeInfo().add(chrgInfo);
 			} else if (t.getUlist().getTp().equals(1)) {
 				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 1 - коммунальная (напр.Х.В.), 
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
-				chrgInfo.setMunicipalService(addMunService(task, t, "NO", "M"));
+				chrgInfo.setMunicipalService(addMunService(t, "NO", "M"));
 
 			} else if (t.getUlist().getTp().equals(2)) {
 				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
 				// 2 - дополнительная (напр Замок)
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
-				chrgInfo.setAdditionalService(addAdditionalService(task, t, "NO"));
+				chrgInfo.setAdditionalService(addAdditionalService(t, "NO"));
 			} else if (t.getUlist().getTp().equals(4)) {
 				// 4 - капремонт
 				if (pd.getCapitalRepairCharge() != null) {
@@ -544,10 +537,10 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// дата последней поступившей оплаты (не обязательно)
 		//pd.setDateOfLastReceivedPayment(value);
 		
-		// транспортный GUID платежного документа
+		// сохранить транспортный GUID платежного документа
 		String tguid = Utl.getRndUuid().toString();
 		pd.setTransportGUID(tguid);
-		task.setTguid(tguid);
+		pdoc.setTguid(tguid);
 		
 		// Идентификатор платежного документа ?????
 		// pd.setPaymentDocumentID(value);
@@ -581,11 +574,10 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 	/*
 	 * добавить жилищную услугу
-	 * @param task - задание
 	 * @param rec - запись начисления 
 	 * @param calcExpl - порядок расчетов
 	 */
-	private HousingService addHousingService(Task task, SumChrgRec rec, 
+	private HousingService addHousingService(SumChrgRec rec, 
 			String calcExpl, List<SumChrgRec> lstSum) {
 		NsiRef mres;
 		HousingService housService = new HousingService();
@@ -666,11 +658,10 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	
 	/*
 	 * добавить муниципальную услугу
-	 * @param task - задание
 	 * @param rec - запись начисления 
 	 * @param detMethod - cпособ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
 	 */
-	private MunicipalService addMunService(Task task, SumChrgRec rec, String calcExpl, String detMethod) {
+	private MunicipalService addMunService(SumChrgRec rec, String calcExpl, String detMethod) {
 		NsiRef mres;
 		MunicipalService munService = new MunicipalService();
 		// внутренний справочник организации №51
@@ -700,10 +691,9 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 	/*
 	 * добавить дополнительную услугу
-	 * @param task - задание
 	 * @param rec - запись начисления 
 	 */
-	private AdditionalService addAdditionalService(Task task, SumChrgRec rec, String calcExpl) {
+	private AdditionalService addAdditionalService(SumChrgRec rec, String calcExpl) {
 		NsiRef mres;
 		AdditionalService additionalService = new AdditionalService();
 		// внутренний справочник организации №1
@@ -750,19 +740,36 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// не обработано
 			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
+			
 			retState.getImportResult().stream().forEach(t -> {
+				// Найти ПД по Транспортному GUID
+				Pdoc pdoc = pdocDao.getPdocByTGUID(t.getTransportGUID());
+				
+				boolean isErr = false; 
+				for (Error f: t.getError()) {	
+					log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
+					String errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
+					log.error(errStr);
+					isErr = true;
+				};
+
 				log.info("После импорта платежного документа по Task.id={} и TGUID={}, получены следующие параметры:", 
 						reqProp.getFoundTask().getId(), t.getTransportGUID());
 				log.info("GUID={}, UniqueNumber={}", t.getGUID(), t.getUniqueNumber());
-				// Найти элемент задания по Транспортному GUID
-				Task task2 = taskMng.getByTguid(reqProp.getFoundTask(), t.getTransportGUID());
 				
-				// Записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
-				taskMng.setEolinkIdf(task2.getEolink(), t.getGUID(), t.getUniqueNumber(), 1);
-
-				// Переписать значения параметров в eolink из task (здесь не надо)
-				// teParMng.acceptPar(task2);
-				task2.setState("ACP");
+				// записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
+				pdoc.setGuid(t.getGUID());
+				pdoc.setUn(t.getUniqueNumber());
+				
+				// установить статус
+				if (pdoc.getStatus().equals(0) && pdoc.getV().equals(1)) {
+					// если был "добавлен" и "действующий", то статус - загружен
+					pdoc.setStatus(1);
+				} else if (pdoc.getStatus().equals(1) && pdoc.getV().equals(0)) {
+					// если был "загружен" и "отменен", то статус - отменен
+					// статус - отменен
+					pdoc.setStatus(2);
+				}
 				
 			});
 			

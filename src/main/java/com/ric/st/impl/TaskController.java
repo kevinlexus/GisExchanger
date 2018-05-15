@@ -37,6 +37,7 @@ import com.ric.bill.model.exs.TaskPar;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.HcsBillsAsyncBuilders;
+import com.ric.st.builder.HcsBillsAsyncBuilders2;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HcsPaymentAsyncBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
@@ -78,6 +79,8 @@ public class TaskController implements TaskControllers {
 	private DeviceMeteringAsyncBindingBuilders dm;
 	@Autowired
 	private HcsBillsAsyncBuilders bill;
+	@Autowired
+	private HcsBillsAsyncBuilders2 bill2;
 	@Autowired
 	private HcsPaymentAsyncBuilders pay;
 	@Autowired
@@ -341,6 +344,16 @@ public class TaskController implements TaskControllers {
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							bill.importPaymentDocumentDataAsk(task);
+						}
+						break;
+					case "GIS_IMP_PAY_DOCS2":
+						bill.setUp();
+						if (state.equals("INS")) {
+							// Импорт платежных документов по дому
+							bill2.importPaymentDocumentData(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							bill2.importPaymentDocumentDataAsk(task);
 						}
 						break;
 					case "GIS_EXP_PAY_DETAIL_DOCS":
