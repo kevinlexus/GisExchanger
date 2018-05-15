@@ -88,26 +88,6 @@ public class AppConfig  implements ApplicationContextAware {
         connectionFactory.setPassword(rmqPassword);
         return connectionFactory;
 	}
-	/**
-	 * Бин для слушателя сообщений ampq
-	 */
-    @Bean
-    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
-        log.info("Создание слушателя сообщений");
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("soap2gis-in");
-        container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
-                String msg = new String(message.getBody());
-                //rmqTask(msg);
-                log.info("Rmq message:"+msg); 
-            }
-        });
-        return container;
-    }
-
-	
 }
 
 
