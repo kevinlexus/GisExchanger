@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.Utl;
@@ -527,30 +528,100 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	}
 	
 
-	public String exportMeteringDeviceValuesSrv(Task task) throws WrongGetMethod, IOException, WrongParam {
-	    String ret = null;
-        log.info("******* Task.id={}, экспорт показаний счетчиков, запрос ответа (микросервис).", task.getId());
-        ObjectMapper mapper = new ObjectMapper();
-        //sb.setTrace(true);
-        // Установить параметры SOAP
-        try {
-            reqProp.setProp(task, sb);
-        } catch (CantPrepSoap e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        // получить состояние запроса
-        GetStateResult retState = getState2(reqProp.getFoundTask());
+	private String jsonGetStr(JsonNode json, String field) {
+	    JsonNode node = json.get(field);
+	    if (node == null || !node.isValueNode()) return null;
+	    return node.asText();
+	}
 
-        if (retState == null) {
-            log.info("exportMeteringDeviceValuesSrv resState : NULL");
-        } else if (!reqProp.getFoundTask().getState().equals("ERR")
-                && !reqProp.getFoundTask().getState().equals("ERS")) {
-                // пользователь
-                ret = mapper.writeValueAsString(
-                        retState.getExportMeteringDeviceHistoryResult());
+	public String exportMeteringDeviceValuesSrv(JsonNode json) throws WrongGetMethod, IOException, WrongParam {
+	    String ret = null;
+	    ObjectMapper mapper = new ObjectMapper();
+
+	    log.info("******* ampq экспорт показаний счетчиков");
+
+        AckRequest ack = null;
+        // для обработки ошибок
+        boolean err = false;
+        String errMainStr = null;
+        // Параметры запроса
+        String FIASHouseGuid = jsonGetStr(json, "FIASHouseGuid");
+        String meteringType = jsonGetStr(json, "meteringType");
+        String resourceType = jsonGetStr(json, "resourceType");
+        String rootGuid = jsonGetStr(json, "rootGuid");
+        String messageGuid = jsonGetStr(json, "messageGuid");
+        if (messageGuid != null) {
+            //переходник
+            Task t = new Task();
+            t.setMsgGuid(messageGuid);
+            // получить состояние запроса
+            GetStateResult retState = getState2(t);
+            if (retState == null) {
+                log.info("exportMeteringDeviceValuesSrv resState : NULL");
+            } else if (!t.getState().equals("ERR")
+                    && !t.getState().equals("ERS")) {
+                    // пользователь
+                    ret = mapper.writeValueAsString(
+                            retState.getExportMeteringDeviceHistoryResult());
+                    log.info("JSON :" + ret);
+                }
+        } else if (FIASHouseGuid != null) {
+            ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
+
+            req.setId("foo");
+            req.setVersion(req.getVersion());
+            req.setFIASHouseGuid(FIASHouseGuid);
+
+            boolean ok = false;
+            NsiRef tp = null;
+            if (meteringType != null) {
+                log.info("Тип прибора учета1={}", meteringType);
+                tp = ulistMng.getNsiElem("NSI", 27, "Тип прибора учета", meteringType);
+                req.getMeteringDeviceType().add(tp);
+                ok = true;
+            } else if (resourceType != null) {
+                tp = ulistMng.getNsiElem("NSI", 2, "Вид коммунального ресурса", resourceType);
+                req.getMunicipalResource().add(tp);
+                ok = true;
+            } else if (rootGuid != null) {
+                req.getMeteringDeviceRootGUID().add(rootGuid);
+                ok = true;
+            }
+            if (!ok) {
+                log.error("Ошибка в формате входящего json.");
+                return null;
+                //error, return
+            }
+            // Искать ли архивные
+            req.setSerchArchived(false);
+            // Отключить показания отправленные информационной системой
+            req.setExcludeISValues(true);
+            // дата с которой получить показания
+            try {
+                req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
+            } catch (DatatypeConfigurationException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+
+            try {
+                ack = port.exportMeteringDeviceHistory(req);
+            } catch (Fault e) {
+                e.printStackTrace();
+                err = true;
+                errMainStr = e.getFaultInfo().getErrorMessage();
+            }
+
+            if (err) {
+                log.info("Ошибка при отправке XML: "+errMainStr);
+            } else {
+                // Установить статус "Запрос статуса"
+                //reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+                ret = "{\"messageGuid\":\""+ack.getAck().getMessageGUID()+"\"}";
                 log.info("JSON :" + ret);
             }
+        }
         return ret;
     }
 

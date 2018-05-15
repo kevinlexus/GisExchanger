@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
@@ -106,37 +107,62 @@ public class TaskController implements TaskControllers {
 		//saldoMng.distSalByChPay();
 	}
 	/**
+     * Бин для слушателя сообщений ampq
+     */
+	@Bean
+    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
+        log.info("Создание слушателя сообщений");
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames("soap2gis-in");
+        container.setMessageListener(new MessageListener() {
+            public void onMessage(Message message) {
+                String msg = new String(message.getBody());
+                rmqTask(msg);
+                log.info("Rmq message:"+msg);
+            }
+        });
+        return container;
+    }
+	/**
 	 * Парсер запросов ampq
 	 */
 	private void rmqTask(String message) {
-	    //message: {"cmd":"exportMeteringDeviceValues", "taskId" : "1233"}
-
+	    /*
+	        message: {"cmd":"exportMeteringDeviceValues",
+	                  "data" :
+	                      {
+	                      "FIASHouseGuid" : "fiasguid",
+	                      "meteringType" : "metering type",
+	                      "resourceType" : "resource type",
+	                      "rootGuid" : "root guid",
+	                      "messageGuid" : "message guid"
+	                      }
+	                  }
+	    */
 	    ObjectMapper mapper = new ObjectMapper();
-	    Map<String, Object> map = new HashMap<String, Object>();
+	    JsonNode json = null;
 	    try {
-            map = mapper.readValue(message, new TypeReference<Map<String, String>>(){});
-        } catch (Exception e) {
-            log.error("rmqTask: Ошибка парсинга json:"+e.getMessage());
-        }
-	    Object cmd = (String)map.get("cmd");
+            json = mapper.readTree(message);
 
-	    if (cmd.equals("exportMeteringDeviceValues")) {
-	        //dm.exportMeteringDeviceValuesSrv();
-	        Object taskId = map.get("taskId");
-	        if (taskId != null ) {
-	            try {
-                    Integer itaskId = Integer.parseInt((String)taskId);
-                    Task task = em.find(Task.class, itaskId);
-                    String ret = dm.exportMeteringDeviceValuesSrv(task);
+
+            String cmd = json.has("cmd") ? json.get("cmd").asText() : null;
+
+            if (cmd != null && json.has("data")
+                    && cmd.equals("exportMeteringDeviceValues"))
+                try {
+                    String ret = dm.exportMeteringDeviceValuesSrv(json.get("data"));
                     ampqTemplate.convertAndSend("soap2gis-out", ret);
                 } catch (Exception e) {
-	                log.error("Ощибка при экспорте показаний счётчиков:"+e.getMessage());
-	                e.printStackTrace();
+                    log.error("Ощибка при экспорте показаний счётчиков:"+e.getMessage());
+                    e.printStackTrace();
                 }
-	        } else {
-	            log.error("rmqTask: taskId должен быть и быть целым");
-	        }
-	    }
+            else {
+                log.error("rmqTask: не правильный json:{}",message);
+            }
+	    } catch (Exception e) {
+            log.error("rmqTask: Ошибка парсинга json:"+e.getMessage());
+        }
 	}
 	
 	/**
