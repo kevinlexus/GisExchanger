@@ -190,7 +190,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                     &lt;/complexType>
  *                   &lt;/element>
  *                   &lt;element name="CooperationWith" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2048Type" minOccurs="0"/>
- *                   &lt;element name="ProsecutorAgreementInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ProsecutorAgreementInformationType" minOccurs="0"/>
+ *                   &lt;element name="ProsecutorAgreementInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportProsecutorAgreementInformationType" minOccurs="0"/>
  *                   &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/>
  *                   &lt;element name="InspectionInabilityReason" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/>
  *                 &lt;/sequence>
@@ -215,7 +215,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportResultsInfoType">
  *                 &lt;sequence>
- *                   &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+ *                   &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/extension>
  *             &lt;/complexContent>
@@ -224,12 +224,12 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="ExaminationChangeInfo" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType">
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportExaminationChangeInfoType">
  *               &lt;/extension>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+ *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
  *         &lt;element name="Attachments" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -268,7 +268,7 @@ public class ExportExaminationType {
     @XmlElement(name = "ExaminationChangeInfo")
     protected ExportExaminationType.ExaminationChangeInfo examinationChangeInfo;
     @XmlElement(name = "CancelledInfo")
-    protected CancelledInfoWithAttachmentsType cancelledInfo;
+    protected ExportCancelledInfoWithAttachmentsType cancelledInfo;
     @XmlElement(name = "Attachments")
     protected List<AttachmentType> attachments;
 
@@ -445,10 +445,10 @@ public class ExportExaminationType {
      * 
      * @return
      *     possible object is
-     *     {@link CancelledInfoWithAttachmentsType }
+     *     {@link ExportCancelledInfoWithAttachmentsType }
      *     
      */
-    public CancelledInfoWithAttachmentsType getCancelledInfo() {
+    public ExportCancelledInfoWithAttachmentsType getCancelledInfo() {
         return cancelledInfo;
     }
 
@@ -457,10 +457,10 @@ public class ExportExaminationType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CancelledInfoWithAttachmentsType }
+     *     {@link ExportCancelledInfoWithAttachmentsType }
      *     
      */
-    public void setCancelledInfo(CancelledInfoWithAttachmentsType value) {
+    public void setCancelledInfo(ExportCancelledInfoWithAttachmentsType value) {
         this.cancelledInfo = value;
     }
 
@@ -502,7 +502,7 @@ public class ExportExaminationType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType">
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportExaminationChangeInfoType">
      *     &lt;/extension>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -513,7 +513,7 @@ public class ExportExaminationType {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
     public static class ExaminationChangeInfo
-        extends ExaminationChangeInfoType
+        extends ExportExaminationChangeInfoType
     {
 
 
@@ -582,7 +582,7 @@ public class ExportExaminationType {
      *           &lt;/complexType>
      *         &lt;/element>
      *         &lt;element name="CooperationWith" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2048Type" minOccurs="0"/>
-     *         &lt;element name="ProsecutorAgreementInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ProsecutorAgreementInformationType" minOccurs="0"/>
+     *         &lt;element name="ProsecutorAgreementInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportProsecutorAgreementInformationType" minOccurs="0"/>
      *         &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/>
      *         &lt;element name="InspectionInabilityReason" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/>
      *       &lt;/sequence>
@@ -637,7 +637,7 @@ public class ExportExaminationType {
         @XmlElement(name = "CooperationWith")
         protected String cooperationWith;
         @XmlElement(name = "ProsecutorAgreementInformation")
-        protected ProsecutorAgreementInformationType prosecutorAgreementInformation;
+        protected ExportProsecutorAgreementInformationType prosecutorAgreementInformation;
         @XmlElement(name = "AdditionalInfo")
         protected String additionalInfo;
         @XmlElement(name = "InspectionInabilityReason")
@@ -917,10 +917,10 @@ public class ExportExaminationType {
          * 
          * @return
          *     possible object is
-         *     {@link ProsecutorAgreementInformationType }
+         *     {@link ExportProsecutorAgreementInformationType }
          *     
          */
-        public ProsecutorAgreementInformationType getProsecutorAgreementInformation() {
+        public ExportProsecutorAgreementInformationType getProsecutorAgreementInformation() {
             return prosecutorAgreementInformation;
         }
 
@@ -929,10 +929,10 @@ public class ExportExaminationType {
          * 
          * @param value
          *     allowed object is
-         *     {@link ProsecutorAgreementInformationType }
+         *     {@link ExportProsecutorAgreementInformationType }
          *     
          */
-        public void setProsecutorAgreementInformation(ProsecutorAgreementInformationType value) {
+        public void setProsecutorAgreementInformation(ExportProsecutorAgreementInformationType value) {
             this.prosecutorAgreementInformation = value;
         }
 
@@ -2239,7 +2239,7 @@ public class ExportExaminationType {
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportResultsInfoType">
      *       &lt;sequence>
-     *         &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+     *         &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -2257,17 +2257,17 @@ public class ExportExaminationType {
     {
 
         @XmlElement(name = "CancelExaminationResults")
-        protected CancelledInfoWithAttachmentsType cancelExaminationResults;
+        protected ExportCancelledInfoWithAttachmentsType cancelExaminationResults;
 
         /**
          * Gets the value of the cancelExaminationResults property.
          * 
          * @return
          *     possible object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public CancelledInfoWithAttachmentsType getCancelExaminationResults() {
+        public ExportCancelledInfoWithAttachmentsType getCancelExaminationResults() {
             return cancelExaminationResults;
         }
 
@@ -2276,10 +2276,10 @@ public class ExportExaminationType {
          * 
          * @param value
          *     allowed object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public void setCancelExaminationResults(CancelledInfoWithAttachmentsType value) {
+        public void setCancelExaminationResults(ExportCancelledInfoWithAttachmentsType value) {
             this.cancelExaminationResults = value;
         }
 

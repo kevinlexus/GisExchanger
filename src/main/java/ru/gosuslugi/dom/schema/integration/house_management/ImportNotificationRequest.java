@@ -51,7 +51,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                                 &lt;/simpleType>
  *                               &lt;/element>
  *                               &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                               &lt;element name="content">
+ *                               &lt;element name="content" minOccurs="0">
  *                                 &lt;simpleType>
  *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
  *                                     &lt;minLength value="1"/>
@@ -250,7 +250,7 @@ public class ImportNotificationRequest
      *                       &lt;/simpleType>
      *                     &lt;/element>
      *                     &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                     &lt;element name="content">
+     *                     &lt;element name="content" minOccurs="0">
      *                       &lt;simpleType>
      *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
      *                           &lt;minLength value="1"/>
@@ -503,7 +503,7 @@ public class ImportNotificationRequest
          *           &lt;/simpleType>
          *         &lt;/element>
          *         &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *         &lt;element name="content">
+         *         &lt;element name="content" minOccurs="0">
          *           &lt;simpleType>
          *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
          *               &lt;minLength value="1"/>
@@ -609,7 +609,6 @@ public class ImportNotificationRequest
             protected String topic;
             @XmlElement(name = "IsImportant")
             protected Boolean isImportant;
-            @XmlElement(required = true)
             protected String content;
             @XmlElement(name = "IsAll")
             protected Boolean isAll;

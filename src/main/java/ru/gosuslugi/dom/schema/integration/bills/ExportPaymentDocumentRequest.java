@@ -36,6 +36,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *               &lt;/choice>
  *             &lt;/sequence>
  *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" maxOccurs="1000"/>
+ *             &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
  *           &lt;/choice>
  *         &lt;/sequence>
  *       &lt;/choice>
@@ -56,7 +57,8 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
     "fiasHouseGuid",
     "accountNumber",
     "paymentDocumentNumber",
-    "serviceID"
+    "serviceID",
+    "accountGUID"
 })
 @XmlRootElement(name = "exportPaymentDocumentRequest")
 public class ExportPaymentDocumentRequest
@@ -79,6 +81,8 @@ public class ExportPaymentDocumentRequest
     protected List<String> paymentDocumentNumber;
     @XmlElement(name = "ServiceID", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
     protected List<String> serviceID;
+    @XmlElement(name = "AccountGUID")
+    protected List<String> accountGUID;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -297,6 +301,35 @@ public class ExportPaymentDocumentRequest
             serviceID = new ArrayList<String>();
         }
         return this.serviceID;
+    }
+
+    /**
+     * Gets the value of the accountGUID property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the accountGUID property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAccountGUID().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getAccountGUID() {
+        if (accountGUID == null) {
+            accountGUID = new ArrayList<String>();
+        }
+        return this.accountGUID;
     }
 
     /**

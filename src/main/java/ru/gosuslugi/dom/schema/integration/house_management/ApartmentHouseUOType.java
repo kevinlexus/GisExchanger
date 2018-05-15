@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="UndergroundFloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType"/>
+ *         &lt;element name="UndergroundFloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}UndergroundFloorType"/>
  *         &lt;element name="MinFloorCount" minOccurs="0">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
@@ -76,8 +76,8 @@ public class ApartmentHouseUOType {
 
     @XmlElement(name = "BasicCharacteristicts", required = true)
     protected ApartmentHouseUOType.BasicCharacteristicts basicCharacteristicts;
-    @XmlElement(name = "UndergroundFloorCount", required = true)
-    protected String undergroundFloorCount;
+    @XmlElement(name = "UndergroundFloorCount")
+    protected byte undergroundFloorCount;
     @XmlElement(name = "MinFloorCount")
     protected Byte minFloorCount;
 
@@ -108,24 +108,16 @@ public class ApartmentHouseUOType {
     /**
      * Gets the value of the undergroundFloorCount property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getUndergroundFloorCount() {
+    public byte getUndergroundFloorCount() {
         return undergroundFloorCount;
     }
 
     /**
      * Sets the value of the undergroundFloorCount property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setUndergroundFloorCount(String value) {
+    public void setUndergroundFloorCount(byte value) {
         this.undergroundFloorCount = value;
     }
 

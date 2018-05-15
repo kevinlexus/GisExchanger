@@ -41,7 +41,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;/complexType>
  *         &lt;/element>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.10.0.3""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -129,7 +129,7 @@ public class ImportContractsRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.2.0.10";
+            return "11.10.0.3";
         } else {
             return version;
         }

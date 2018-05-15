@@ -2,7 +2,6 @@
 package ru.gosuslugi.dom.schema.integration.house_management;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -127,19 +126,10 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/element>
  *         &lt;/choice>
  *         &lt;choice>
- *           &lt;element name="ExtraVoting">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}VoteInitiators" maxOccurs="unbounded"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
+ *           &lt;element name="ExtraVoting" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="AnnualVoting" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}VoteInitiators" maxOccurs="unbounded"/>
  *         &lt;element name="MeetingEligibility">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -154,7 +144,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;sequence>
- *                     &lt;element name="QuestionNumber" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/>
+ *                     &lt;element name="QuestionNumber" minOccurs="0">
+ *                       &lt;simpleType>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
+ *                           &lt;minInclusive value="1"/>
+ *                           &lt;maxInclusive value="9999"/>
+ *                         &lt;/restriction>
+ *                       &lt;/simpleType>
+ *                     &lt;/element>
  *                     &lt;element name="QuestionName">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -211,6 +208,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "meetingAVoting",
     "extraVoting",
     "annualVoting",
+    "voteInitiators",
     "meetingEligibility",
     "decisionList",
     "modification"
@@ -236,9 +234,11 @@ public class ProtocolType {
     @XmlElement(name = "MeetingAVoting")
     protected ProtocolType.MeetingAVoting meetingAVoting;
     @XmlElement(name = "ExtraVoting")
-    protected ProtocolType.ExtraVoting extraVoting;
+    protected Boolean extraVoting;
     @XmlElement(name = "AnnualVoting")
     protected Boolean annualVoting;
+    @XmlElement(name = "VoteInitiators", required = true)
+    protected List<VoteInitiators> voteInitiators;
     @XmlElement(name = "MeetingEligibility", required = true)
     protected String meetingEligibility;
     @XmlElement(name = "DecisionList", required = true)
@@ -419,10 +419,10 @@ public class ProtocolType {
      * 
      * @return
      *     possible object is
-     *     {@link ProtocolType.ExtraVoting }
+     *     {@link Boolean }
      *     
      */
-    public ProtocolType.ExtraVoting getExtraVoting() {
+    public Boolean isExtraVoting() {
         return extraVoting;
     }
 
@@ -431,10 +431,10 @@ public class ProtocolType {
      * 
      * @param value
      *     allowed object is
-     *     {@link ProtocolType.ExtraVoting }
+     *     {@link Boolean }
      *     
      */
-    public void setExtraVoting(ProtocolType.ExtraVoting value) {
+    public void setExtraVoting(Boolean value) {
         this.extraVoting = value;
     }
 
@@ -460,6 +460,35 @@ public class ProtocolType {
      */
     public void setAnnualVoting(Boolean value) {
         this.annualVoting = value;
+    }
+
+    /**
+     * Gets the value of the voteInitiators property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the voteInitiators property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getVoteInitiators().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link VoteInitiators }
+     * 
+     * 
+     */
+    public List<VoteInitiators> getVoteInitiators() {
+        if (voteInitiators == null) {
+            voteInitiators = new ArrayList<VoteInitiators>();
+        }
+        return this.voteInitiators;
     }
 
     /**
@@ -675,7 +704,14 @@ public class ProtocolType {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;sequence>
-     *           &lt;element name="QuestionNumber" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" minOccurs="0"/>
+     *           &lt;element name="QuestionNumber" minOccurs="0">
+     *             &lt;simpleType>
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
+     *                 &lt;minInclusive value="1"/>
+     *                 &lt;maxInclusive value="9999"/>
+     *               &lt;/restriction>
+     *             &lt;/simpleType>
+     *           &lt;/element>
      *           &lt;element name="QuestionName">
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -724,8 +760,7 @@ public class ProtocolType {
     public static class DecisionList {
 
         @XmlElement(name = "QuestionNumber")
-        @XmlSchemaType(name = "nonNegativeInteger")
-        protected BigInteger questionNumber;
+        protected Integer questionNumber;
         @XmlElement(name = "QuestionName", required = true)
         protected String questionName;
         @XmlElement(name = "DecisionsType", required = true)
@@ -748,10 +783,10 @@ public class ProtocolType {
          * 
          * @return
          *     possible object is
-         *     {@link BigInteger }
+         *     {@link Integer }
          *     
          */
-        public BigInteger getQuestionNumber() {
+        public Integer getQuestionNumber() {
             return questionNumber;
         }
 
@@ -760,10 +795,10 @@ public class ProtocolType {
          * 
          * @param value
          *     allowed object is
-         *     {@link BigInteger }
+         *     {@link Integer }
          *     
          */
-        public void setQuestionNumber(BigInteger value) {
+        public void setQuestionNumber(Integer value) {
             this.questionNumber = value;
         }
 
@@ -1143,66 +1178,6 @@ public class ProtocolType {
                 attachments = new ArrayList<Attachments>();
             }
             return this.attachments;
-        }
-
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}VoteInitiators" maxOccurs="unbounded"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "voteInitiators"
-    })
-    public static class ExtraVoting {
-
-        @XmlElement(name = "VoteInitiators", required = true)
-        protected List<VoteInitiators> voteInitiators;
-
-        /**
-         * Gets the value of the voteInitiators property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the voteInitiators property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getVoteInitiators().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link VoteInitiators }
-         * 
-         * 
-         */
-        public List<VoteInitiators> getVoteInitiators() {
-            if (voteInitiators == null) {
-                voteInitiators = new ArrayList<VoteInitiators>();
-            }
-            return this.voteInitiators;
         }
 
     }

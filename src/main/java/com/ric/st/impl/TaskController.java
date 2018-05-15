@@ -47,7 +47,7 @@ import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.signature.demo.commands.Command;
+import com.ric.signature.sign.commands.Command;
 
 
 /**
@@ -95,39 +95,6 @@ public class TaskController implements TaskControllers {
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;	
 
-	/**
-	 * Бин для фабрики соединения ampq
-	 */
-	@Bean
-	public ConnectionFactory connectionFactory(
-	        @Value("${rmqHost}") String rmqHost,
-	        @Value("${rmqUser}") String rmqUser,
-	        @Value("${rmqPassword}") String rmqPassword) {
-	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(rmqHost);
-        connectionFactory.setUsername(rmqUser);
-        connectionFactory.setPassword(rmqPassword);
-        return connectionFactory;
-	}
-	/**
-	 * Бин для слушателя сообщений ampq
-	 */
-    @Bean
-    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
-        log.info("Создание слушателя сообщений");
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("soap2gis-in");
-        container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
-                String msg = new String(message.getBody());
-                rmqTask(msg);
-                log.info("Rmq message:"+msg);
-            }
-        });
-        return container;
-    }
 	/**
 	 * Задача распределения сальдо
 	 */
@@ -374,6 +341,16 @@ public class TaskController implements TaskControllers {
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
 							bill.importPaymentDocumentDataAsk(task);
+						}
+						break;
+					case "GIS_EXP_PAY_DETAIL_DOCS":
+						pay.setUp();
+						if (state.equals("INS")) {
+							// экспорт детализации платежного документа
+							pay.exportPaymentDocumentDetails(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							pay.exportPaymentDocumentDetailsAsk(task);
 						}
 						break;
 					case "GIS_EXP_ORG":

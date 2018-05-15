@@ -66,7 +66,7 @@ public class HouseBasicUpdateOMSType
     @XmlElement(name = "UsedYear")
     protected Short usedYear;
     @XmlElement(name = "FloorCount")
-    protected String floorCount;
+    protected Byte floorCount;
     @XmlElement(name = "OKTMO")
     protected OKTMORefType oktmo;
     @XmlElement(name = "OlsonTZ")
@@ -177,10 +177,10 @@ public class HouseBasicUpdateOMSType
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Byte }
      *     
      */
-    public String getFloorCount() {
+    public Byte getFloorCount() {
         return floorCount;
     }
 
@@ -189,10 +189,10 @@ public class HouseBasicUpdateOMSType
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Byte }
      *     
      */
-    public void setFloorCount(String value) {
+    public void setFloorCount(Byte value) {
         this.floorCount = value;
     }
 

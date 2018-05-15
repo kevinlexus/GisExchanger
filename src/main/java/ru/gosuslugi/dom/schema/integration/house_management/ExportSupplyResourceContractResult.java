@@ -32,7 +32,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *           &lt;/choice>
  *         &lt;/sequence>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.6.0.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.2""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -174,7 +174,7 @@ public class ExportSupplyResourceContractResult
      */
     public String getVersion() {
         if (version == null) {
-            return "11.6.0.1";
+            return "11.11.0.2";
         } else {
             return version;
         }

@@ -56,7 +56,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;/complexType>
  *         &lt;/element>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.3.0.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.1""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -117,7 +117,7 @@ public class ImportIntervalRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.3.0.1";
+            return "11.11.0.1";
         } else {
             return version;
         }

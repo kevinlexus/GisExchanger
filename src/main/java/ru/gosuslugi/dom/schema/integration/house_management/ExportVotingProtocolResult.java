@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element name="VotingProtocol" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
  *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -114,7 +114,7 @@ public class ExportVotingProtocolResult
      */
     public String getVersion() {
         if (version == null) {
-            return "11.7.0.3";
+            return "11.11.0.6";
         } else {
             return version;
         }

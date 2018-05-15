@@ -161,19 +161,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AttachmentType }
-     * 
-     */
-    public AttachmentType createAttachmentType() {
-        return new AttachmentType();
-    }
-
-    /**
      * Create an instance of {@link RegionType }
      * 
      */
     public RegionType createRegionType() {
         return new RegionType();
+    }
+
+    /**
+     * Create an instance of {@link AttachmentWODescriptionType }
+     * 
+     */
+    public AttachmentWODescriptionType createAttachmentWODescriptionType() {
+        return new AttachmentWODescriptionType();
+    }
+
+    /**
+     * Create an instance of {@link AttachmentType }
+     * 
+     */
+    public AttachmentType createAttachmentType() {
+        return new AttachmentType();
     }
 
     /**

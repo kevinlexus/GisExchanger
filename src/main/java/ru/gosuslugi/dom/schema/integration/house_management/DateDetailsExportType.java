@@ -22,8 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType" minOccurs="0"/>
- *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType" minOccurs="0"/>
+ *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
+ *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -38,8 +38,6 @@ import javax.xml.bind.annotation.XmlType;
  *                     &lt;element name="StartDate">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                           &lt;maxInclusive value="30"/>
- *                           &lt;minInclusive value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
  *                     &lt;/element>
@@ -63,8 +61,6 @@ import javax.xml.bind.annotation.XmlType;
  *                     &lt;element name="StartDate">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                           &lt;maxInclusive value="30"/>
- *                           &lt;minInclusive value="1"/>
  *                         &lt;/restriction>
  *                       &lt;/simpleType>
  *                     &lt;/element>
@@ -189,8 +185,6 @@ public class DateDetailsExportType {
      *           &lt;element name="StartDate">
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                 &lt;maxInclusive value="30"/>
-     *                 &lt;minInclusive value="1"/>
      *               &lt;/restriction>
      *             &lt;/simpleType>
      *           &lt;/element>
@@ -339,8 +333,6 @@ public class DateDetailsExportType {
      *           &lt;element name="StartDate">
      *             &lt;simpleType>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                 &lt;maxInclusive value="30"/>
-     *                 &lt;minInclusive value="1"/>
      *               &lt;/restriction>
      *             &lt;/simpleType>
      *           &lt;/element>
@@ -485,8 +477,8 @@ public class DateDetailsExportType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType" minOccurs="0"/>
-     *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType" minOccurs="0"/>
+     *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
+     *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DaySelectionExportType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -503,19 +495,19 @@ public class DateDetailsExportType {
     public static class PeriodMetering {
 
         @XmlElement(name = "StartDate")
-        protected DeviceMeteringsDaySelectionType startDate;
+        protected DaySelectionExportType startDate;
         @XmlElement(name = "EndDate")
-        protected DeviceMeteringsDaySelectionType endDate;
+        protected DaySelectionExportType endDate;
 
         /**
          * Gets the value of the startDate property.
          * 
          * @return
          *     possible object is
-         *     {@link DeviceMeteringsDaySelectionType }
+         *     {@link DaySelectionExportType }
          *     
          */
-        public DeviceMeteringsDaySelectionType getStartDate() {
+        public DaySelectionExportType getStartDate() {
             return startDate;
         }
 
@@ -524,10 +516,10 @@ public class DateDetailsExportType {
          * 
          * @param value
          *     allowed object is
-         *     {@link DeviceMeteringsDaySelectionType }
+         *     {@link DaySelectionExportType }
          *     
          */
-        public void setStartDate(DeviceMeteringsDaySelectionType value) {
+        public void setStartDate(DaySelectionExportType value) {
             this.startDate = value;
         }
 
@@ -536,10 +528,10 @@ public class DateDetailsExportType {
          * 
          * @return
          *     possible object is
-         *     {@link DeviceMeteringsDaySelectionType }
+         *     {@link DaySelectionExportType }
          *     
          */
-        public DeviceMeteringsDaySelectionType getEndDate() {
+        public DaySelectionExportType getEndDate() {
             return endDate;
         }
 
@@ -548,10 +540,10 @@ public class DateDetailsExportType {
          * 
          * @param value
          *     allowed object is
-         *     {@link DeviceMeteringsDaySelectionType }
+         *     {@link DaySelectionExportType }
          *     
          */
-        public void setEndDate(DeviceMeteringsDaySelectionType value) {
+        public void setEndDate(DaySelectionExportType value) {
             this.endDate = value;
         }
 

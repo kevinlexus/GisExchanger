@@ -16,6 +16,8 @@ import ru.gosuslugi.dom.schema.integration.capital_repair.ExportCreditContractRe
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportCreditContractResult;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsFormingFundRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsFormingFundResult;
+import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsOrderOfProvidingPDRequest;
+import ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsOrderOfProvidingPDResult;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportFundSizeInfoRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportFundSizeInfoResult;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ExportPlanRequest;
@@ -31,6 +33,7 @@ import ru.gosuslugi.dom.schema.integration.capital_repair.ImportAccountSpecialRe
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportCertificatesRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportContractsRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsFormingFundRequest;
+import ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsOrderOfProvidingPDRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportFundSizeInfoRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportOperationAndBalanceRequest;
 import ru.gosuslugi.dom.schema.integration.capital_repair.ImportPaymentsInfoRequest;
@@ -394,6 +397,38 @@ public interface CapitalRepairPort {
     public ExportFundSizeInfoResult exportFundSizeInfo(
         @WebParam(name = "exportFundSizeInfoRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "exportFundSizeInfoRequest")
         ExportFundSizeInfoRequest exportFundSizeInfoRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт решений/информации о порядке представления платежных документов
+     * 
+     * @param importDecisionsOrderOfProvidingPDRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.capital_repair.CapRemImportResultType
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:importDecisionsOrderOfProvidingPD")
+    @WebResult(name = "CapRemImportResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "importDecisionsOrderOfProvidingPDResult")
+    public CapRemImportResultType importDecisionsOrderOfProvidingPD(
+        @WebParam(name = "importDecisionsOrderOfProvidingPDRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "importDecisionsOrderOfProvidingPDRequest")
+        ImportDecisionsOrderOfProvidingPDRequest importDecisionsOrderOfProvidingPDRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импорт решений/информации о порядке представления платежных документов
+     * 
+     * @param exportDecisionsOrderOfProvidingPDRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.capital_repair.ExportDecisionsOrderOfProvidingPDResult
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportDecisionsOrderOfProvidingPD")
+    @WebResult(name = "exportDecisionsOrderOfProvidingPDResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "exportDecisionsOrderOfProvidingPDResult")
+    public ExportDecisionsOrderOfProvidingPDResult exportDecisionsOrderOfProvidingPD(
+        @WebParam(name = "exportDecisionsOrderOfProvidingPDRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", partName = "exportDecisionsOrderOfProvidingPDRequest")
+        ExportDecisionsOrderOfProvidingPDRequest exportDecisionsOrderOfProvidingPDRequest)
         throws Fault
     ;
 

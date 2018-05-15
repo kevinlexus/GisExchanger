@@ -13,9 +13,9 @@ import com.ric.bill.Config;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.impl.TaskController;
 
-import ru.gosuslugi.dom.signature.demo.commands.Command;
-import ru.gosuslugi.dom.signature.demo.commands.ListCommand;
-import ru.gosuslugi.dom.signature.demo.commands.SignCommand;
+import com.ric.signature.sign.commands.Command;
+import com.ric.signature.sign.commands.ListCommand;
+import com.ric.signature.sign.commands.SignCommand;
 
 @SpringBootApplication
 public class Soap2GisApplication implements CommandLineRunner {

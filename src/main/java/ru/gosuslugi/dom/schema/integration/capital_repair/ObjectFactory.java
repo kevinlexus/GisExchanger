@@ -98,6 +98,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportDecisionsOrderOfProvidingPDRequest }
+     * 
+     */
+    public ImportDecisionsOrderOfProvidingPDRequest createImportDecisionsOrderOfProvidingPDRequest() {
+        return new ImportDecisionsOrderOfProvidingPDRequest();
+    }
+
+    /**
      * Create an instance of {@link ImportOperationAndBalanceRequest }
      * 
      */
@@ -154,6 +162,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DecisionPDType }
+     * 
+     */
+    public DecisionPDType createDecisionPDType() {
+        return new DecisionPDType();
+    }
+
+    /**
+     * Create an instance of {@link DecisionPDType.Reason }
+     * 
+     */
+    public DecisionPDType.Reason createDecisionPDTypeReason() {
+        return new DecisionPDType.Reason();
+    }
+
+    /**
      * Create an instance of {@link ShortCertificateType }
      * 
      */
@@ -183,6 +207,22 @@ public class ObjectFactory {
      */
     public DecisionType createDecisionType() {
         return new DecisionType();
+    }
+
+    /**
+     * Create an instance of {@link ShortExportContractType }
+     * 
+     */
+    public ShortExportContractType createShortExportContractType() {
+        return new ShortExportContractType();
+    }
+
+    /**
+     * Create an instance of {@link ContractType }
+     * 
+     */
+    public ContractType createContractType() {
+        return new ContractType();
     }
 
     /**
@@ -239,6 +279,14 @@ public class ObjectFactory {
      */
     public ImportOperationAndBalanceRequest.ImportOperationAndBalance createImportOperationAndBalanceRequestImportOperationAndBalance() {
         return new ImportOperationAndBalanceRequest.ImportOperationAndBalance();
+    }
+
+    /**
+     * Create an instance of {@link ImportDecisionsOrderOfProvidingPDRequest.ImportDecision }
+     * 
+     */
+    public ImportDecisionsOrderOfProvidingPDRequest.ImportDecision createImportDecisionsOrderOfProvidingPDRequestImportDecision() {
+        return new ImportDecisionsOrderOfProvidingPDRequest.ImportDecision();
     }
 
     /**
@@ -362,6 +410,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportDecisionPDType }
+     * 
+     */
+    public ExportDecisionPDType createExportDecisionPDType() {
+        return new ExportDecisionPDType();
+    }
+
+    /**
      * Create an instance of {@link ExportAccountRequest }
      * 
      */
@@ -439,6 +495,14 @@ public class ObjectFactory {
      */
     public ExportCreditContractRequest createExportCreditContractRequest() {
         return new ExportCreditContractRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecisionsOrderOfProvidingPDResult }
+     * 
+     */
+    public ExportDecisionsOrderOfProvidingPDResult createExportDecisionsOrderOfProvidingPDResult() {
+        return new ExportDecisionsOrderOfProvidingPDResult();
     }
 
     /**
@@ -610,11 +674,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ShortExportContractType }
+     * Create an instance of {@link ExportDecisionsOrderOfProvidingPDRequest }
      * 
      */
-    public ShortExportContractType createShortExportContractType() {
-        return new ShortExportContractType();
+    public ExportDecisionsOrderOfProvidingPDRequest createExportDecisionsOrderOfProvidingPDRequest() {
+        return new ExportDecisionsOrderOfProvidingPDRequest();
     }
 
     /**
@@ -639,6 +703,14 @@ public class ObjectFactory {
      */
     public PlanPassportType createPlanPassportType() {
         return new PlanPassportType();
+    }
+
+    /**
+     * Create an instance of {@link DecisionCommonType }
+     * 
+     */
+    public DecisionCommonType createDecisionCommonType() {
+        return new DecisionCommonType();
     }
 
     /**
@@ -698,14 +770,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ContractType }
-     * 
-     */
-    public ContractType createContractType() {
-        return new ContractType();
-    }
-
-    /**
      * Create an instance of {@link ExportContractType }
      * 
      */
@@ -762,6 +826,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IndividualType }
+     * 
+     */
+    public IndividualType createIndividualType() {
+        return new IndividualType();
+    }
+
+    /**
      * Create an instance of {@link DocumentType }
      * 
      */
@@ -786,6 +858,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProtocolType }
+     * 
+     */
+    public ProtocolType createProtocolType() {
+        return new ProtocolType();
+    }
+
+    /**
      * Create an instance of {@link OperationAndBalanceInfoType }
      * 
      */
@@ -799,6 +879,22 @@ public class ObjectFactory {
      */
     public ExportPaymentInfoType.WorkInPayment createExportPaymentInfoTypeWorkInPayment() {
         return new ExportPaymentInfoType.WorkInPayment();
+    }
+
+    /**
+     * Create an instance of {@link DecisionPDType.Reason.Protocol }
+     * 
+     */
+    public DecisionPDType.Reason.Protocol createDecisionPDTypeReasonProtocol() {
+        return new DecisionPDType.Reason.Protocol();
+    }
+
+    /**
+     * Create an instance of {@link DecisionPDType.Reason.DecisionDocument }
+     * 
+     */
+    public DecisionPDType.Reason.DecisionDocument createDecisionPDTypeReasonDecisionDocument() {
+        return new DecisionPDType.Reason.DecisionDocument();
     }
 
     /**
@@ -839,6 +935,22 @@ public class ObjectFactory {
      */
     public DecisionType.FormationFundInSpecialAccount createDecisionTypeFormationFundInSpecialAccount() {
         return new DecisionType.FormationFundInSpecialAccount();
+    }
+
+    /**
+     * Create an instance of {@link ShortExportContractType.Individual }
+     * 
+     */
+    public ShortExportContractType.Individual createShortExportContractTypeIndividual() {
+        return new ShortExportContractType.Individual();
+    }
+
+    /**
+     * Create an instance of {@link ContractType.Individual }
+     * 
+     */
+    public ContractType.Individual createContractTypeIndividual() {
+        return new ContractType.Individual();
     }
 
     /**
@@ -895,6 +1007,22 @@ public class ObjectFactory {
      */
     public ImportOperationAndBalanceRequest.ImportOperationAndBalance.OperationAndBalanceInfo createImportOperationAndBalanceRequestImportOperationAndBalanceOperationAndBalanceInfo() {
         return new ImportOperationAndBalanceRequest.ImportOperationAndBalance.OperationAndBalanceInfo();
+    }
+
+    /**
+     * Create an instance of {@link ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.LoadDecision }
+     * 
+     */
+    public ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.LoadDecision createImportDecisionsOrderOfProvidingPDRequestImportDecisionLoadDecision() {
+        return new ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.LoadDecision();
+    }
+
+    /**
+     * Create an instance of {@link ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.CancelDecision }
+     * 
+     */
+    public ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.CancelDecision createImportDecisionsOrderOfProvidingPDRequestImportDecisionCancelDecision() {
+        return new ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.CancelDecision();
     }
 
     /**

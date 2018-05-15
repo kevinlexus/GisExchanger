@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
@@ -25,6 +26,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="BlockNum" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesNumType"/>
  *         &lt;element name="PremisesCharacteristic" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
+ *         &lt;element name="Category" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockCategoryType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -37,7 +39,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlType(name = "BlockRSOType", propOrder = {
     "blockNum",
     "premisesCharacteristic",
-    "totalArea"
+    "totalArea",
+    "category"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportHouseRSORequest.LivingHouse.Blocks.BlockToCreate.class
@@ -52,6 +55,9 @@ public class BlockRSOType
     protected NsiRef premisesCharacteristic;
     @XmlElement(name = "TotalArea")
     protected BigDecimal totalArea;
+    @XmlElement(name = "Category")
+    @XmlSchemaType(name = "string")
+    protected BlockCategoryType category;
 
     /**
      * Gets the value of the blockNum property.
@@ -123,6 +129,30 @@ public class BlockRSOType
      */
     public void setTotalArea(BigDecimal value) {
         this.totalArea = value;
+    }
+
+    /**
+     * Gets the value of the category property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BlockCategoryType }
+     *     
+     */
+    public BlockCategoryType getCategory() {
+        return category;
+    }
+
+    /**
+     * Sets the value of the category property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BlockCategoryType }
+     *     
+     */
+    public void setCategory(BlockCategoryType value) {
+        this.category = value;
     }
 
 }

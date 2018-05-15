@@ -26,7 +26,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *       &lt;sequence>
  *         &lt;element name="StartDateAndTime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="EndDateAndTime" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="IntervalKind" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IntervalKindType"/>
  *         &lt;element name="MunicipalService" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *         &lt;element name="RatedResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="IntervalReason">
@@ -36,7 +35,17 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="AddressObject" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}AddressObjectType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="AddressObject" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}AddressObjectType">
+ *                 &lt;sequence>
+ *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                 &lt;/sequence>
+ *               &lt;/extension>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -49,7 +58,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlType(name = "IntervalType", propOrder = {
     "startDateAndTime",
     "endDateAndTime",
-    "intervalKind",
     "municipalService",
     "ratedResource",
     "intervalReason",
@@ -63,9 +71,6 @@ public class IntervalType {
     @XmlElement(name = "EndDateAndTime")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar endDateAndTime;
-    @XmlElement(name = "IntervalKind", required = true)
-    @XmlSchemaType(name = "string")
-    protected IntervalKindType intervalKind;
     @XmlElement(name = "MunicipalService", required = true)
     protected NsiRef municipalService;
     @XmlElement(name = "RatedResource")
@@ -73,7 +78,7 @@ public class IntervalType {
     @XmlElement(name = "IntervalReason", required = true)
     protected String intervalReason;
     @XmlElement(name = "AddressObject")
-    protected List<AddressObjectType> addressObject;
+    protected List<IntervalType.AddressObject> addressObject;
 
     /**
      * Gets the value of the startDateAndTime property.
@@ -121,30 +126,6 @@ public class IntervalType {
      */
     public void setEndDateAndTime(XMLGregorianCalendar value) {
         this.endDateAndTime = value;
-    }
-
-    /**
-     * Gets the value of the intervalKind property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IntervalKindType }
-     *     
-     */
-    public IntervalKindType getIntervalKind() {
-        return intervalKind;
-    }
-
-    /**
-     * Sets the value of the intervalKind property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IntervalKindType }
-     *     
-     */
-    public void setIntervalKind(IntervalKindType value) {
-        this.intervalKind = value;
     }
 
     /**
@@ -237,15 +218,72 @@ public class IntervalType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link AddressObjectType }
+     * {@link IntervalType.AddressObject }
      * 
      * 
      */
-    public List<AddressObjectType> getAddressObject() {
+    public List<IntervalType.AddressObject> getAddressObject() {
         if (addressObject == null) {
-            addressObject = new ArrayList<AddressObjectType>();
+            addressObject = new ArrayList<IntervalType.AddressObject>();
         }
         return this.addressObject;
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}AddressObjectType">
+     *       &lt;sequence>
+     *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+     *       &lt;/sequence>
+     *     &lt;/extension>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "notFromContract"
+    })
+    public static class AddressObject
+        extends AddressObjectType
+    {
+
+        @XmlElement(name = "NotFromContract")
+        protected Boolean notFromContract;
+
+        /**
+         * Gets the value of the notFromContract property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isNotFromContract() {
+            return notFromContract;
+        }
+
+        /**
+         * Sets the value of the notFromContract property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setNotFromContract(Boolean value) {
+            this.notFromContract = value;
+        }
+
     }
 
 }

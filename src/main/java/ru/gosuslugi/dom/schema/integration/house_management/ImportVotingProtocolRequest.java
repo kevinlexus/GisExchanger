@@ -41,7 +41,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;element name="Delete" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -232,7 +232,7 @@ public class ImportVotingProtocolRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "10.0.1.1";
+            return "11.11.0.6";
         } else {
             return version;
         }

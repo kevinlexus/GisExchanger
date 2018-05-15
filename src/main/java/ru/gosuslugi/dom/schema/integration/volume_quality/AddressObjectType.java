@@ -4,6 +4,7 @@ package ru.gosuslugi.dom.schema.integration.volume_quality;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -37,6 +38,9 @@ import javax.xml.bind.annotation.XmlType;
     "apartmentNumber",
     "blockNumber",
     "roomNumber"
+})
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.volume_quality.IntervalType.AddressObject.class
 })
 public class AddressObjectType {
 

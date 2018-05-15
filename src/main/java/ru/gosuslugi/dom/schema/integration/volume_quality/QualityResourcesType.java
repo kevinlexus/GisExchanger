@@ -25,6 +25,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
+ *                 &lt;sequence>
+ *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                 &lt;/sequence>
  *               &lt;/extension>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -45,13 +48,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="IsSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;choice>
  *           &lt;element name="QualityIndicatorResource">
  *             &lt;complexType>
  *               &lt;complexContent>
  *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef">
  *                   &lt;sequence>
- *                     &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType"/>
+ *                     &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType" minOccurs="0"/>
  *                   &lt;/sequence>
  *                 &lt;/extension>
  *               &lt;/complexContent>
@@ -79,6 +83,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "objectAddress",
     "serviceType",
     "municipalResource",
+    "isSignedAct",
     "qualityIndicatorResource",
     "otherQualityIndicatorResource"
 })
@@ -93,6 +98,8 @@ public class QualityResourcesType {
     protected QualityResourcesType.ServiceType serviceType;
     @XmlElement(name = "MunicipalResource")
     protected QualityResourcesType.MunicipalResource municipalResource;
+    @XmlElement(name = "IsSignedAct")
+    protected Boolean isSignedAct;
     @XmlElement(name = "QualityIndicatorResource")
     protected QualityResourcesType.QualityIndicatorResource qualityIndicatorResource;
     @XmlElement(name = "OtherQualityIndicatorResource")
@@ -168,6 +175,30 @@ public class QualityResourcesType {
      */
     public void setMunicipalResource(QualityResourcesType.MunicipalResource value) {
         this.municipalResource = value;
+    }
+
+    /**
+     * Gets the value of the isSignedAct property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIsSignedAct() {
+        return isSignedAct;
+    }
+
+    /**
+     * Sets the value of the isSignedAct property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIsSignedAct(Boolean value) {
+        this.isSignedAct = value;
     }
 
     /**
@@ -254,6 +285,9 @@ public class QualityResourcesType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
+     *       &lt;sequence>
+     *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+     *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -262,11 +296,39 @@ public class QualityResourcesType {
      * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
+    @XmlType(name = "", propOrder = {
+        "notFromContract"
+    })
     public static class ObjectAddress
         extends ObjectAddressType
     {
 
+        @XmlElement(name = "NotFromContract")
+        protected Boolean notFromContract;
+
+        /**
+         * Gets the value of the notFromContract property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isNotFromContract() {
+            return notFromContract;
+        }
+
+        /**
+         * Sets the value of the notFromContract property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setNotFromContract(Boolean value) {
+            this.notFromContract = value;
+        }
 
     }
 
@@ -307,7 +369,7 @@ public class QualityResourcesType {
      *   &lt;complexContent>
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef">
      *       &lt;sequence>
-     *         &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType"/>
+     *         &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -324,7 +386,7 @@ public class QualityResourcesType {
         extends NsiRef
     {
 
-        @XmlElement(name = "IndicatorValue", required = true)
+        @XmlElement(name = "IndicatorValue")
         protected IndicatorValueType indicatorValue;
 
         /**

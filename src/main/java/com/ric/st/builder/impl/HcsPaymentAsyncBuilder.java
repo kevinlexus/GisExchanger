@@ -57,11 +57,13 @@ import ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentType.ChargeInfo;
 import ru.gosuslugi.dom.schema.integration.bills_service_async.BillsPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.bills_service_async.BillsServiceAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
+import ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsRequest;
 import ru.gosuslugi.dom.schema.integration.payment.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.payment.ImportNotificationsOfOrderExecutionCancellationRequest;
 import ru.gosuslugi.dom.schema.integration.payment.ImportNotificationsOfOrderExecutionRequest;
 import ru.gosuslugi.dom.schema.integration.payment.ImportSupplierNotificationsOfOrderExecutionRequest;
 import ru.gosuslugi.dom.schema.integration.payment.ImportSupplierNotificationsOfOrderExecutionRequest.SupplierNotificationOfOrderExecution;
+import ru.gosuslugi.dom.schema.integration.payment.SupplierNotificationOfOrderExecutionType.OrderPeriod;
 import ru.gosuslugi.dom.schema.integration.payment_service_async.Fault;
 import ru.gosuslugi.dom.schema.integration.payment_service_async.PaymentPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.payment_service_async.PaymentsServiceAsync;
@@ -187,41 +189,6 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 	
 	/**
-	 * Добавление извещения
-	 * @param task - задание
-	 * @param house - дом
-	 * @param req - запрос
-	 * @throws CantPrepSoap
-	 * @throws WrongGetMethod
-	 * @throws DatatypeConfigurationException 
-	 */
-	private void addNotification(Task task, Eolink house, ImportSupplierNotificationsOfOrderExecutionRequest req) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
-		// получить извещение
-		Eolink eolNotif = task.getEolink();
-		// получить ПД
-		Eolink eolPd = eolNotif.getParent();
-		
-		SupplierNotificationOfOrderExecution notif = new SupplierNotificationOfOrderExecution();
-		
-		log.info("объект cd={}", eolPd.getObjTp().getCd());
-		log.info("Добавлено извещение по ПД id={}", eolPd.getUn());
-		// идентификатор ПД
-		notif.setPaymentDocumentID(eolPd.getUn());
-		// сумма в рублях
-		notif.setAmount(BigDecimal.valueOf(1000.52));
-		// дата внесения платы (в случае отсутствия: дата поступления средств)
-		notif.setOrderDate(Utl.getXMLDate(Utl.getDateFromStr("12.04.2018")));
-		
-		// транспортный GUID извещения
-		String tguid = Utl.getRndUuid().toString();
-		notif.setTransportGUID(tguid);
-		task.setTguid(tguid);
-		
-		req.getSupplierNotificationOfOrderExecution().add(notif);
-	}
-	
-	
-	/**
 	 * Импорт извещений исполнителя о принятии к исполнению распоряжения
 	 * @param task - задание 
 	 */
@@ -273,7 +240,46 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		
 	}
 
-		/**
+	/**
+	 * Добавление извещения
+	 * @param task - задание
+	 * @param house - дом
+	 * @param req - запрос
+	 * @throws CantPrepSoap
+	 * @throws WrongGetMethod
+	 * @throws DatatypeConfigurationException 
+	 */
+	private void addNotification(Task task, Eolink house, ImportSupplierNotificationsOfOrderExecutionRequest req) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
+		// получить извещение
+		Eolink eolNotif = task.getEolink();
+		// получить ПД
+		Eolink eolPd = eolNotif.getParent();
+		
+		SupplierNotificationOfOrderExecution notif = new SupplierNotificationOfOrderExecution();
+		
+		log.info("объект cd={}", eolPd.getObjTp().getCd());
+		log.info("Добавлено извещение по ПД id={}", eolPd.getUn());
+		// идентификатор ПД
+		notif.setPaymentDocumentID(eolPd.getUn());
+		// сумма в рублях
+		notif.setAmount(BigDecimal.valueOf(3446.32D));
+		// дата внесения оплаты (в случае отсутствия: дата поступления средств)
+		notif.setOrderDate(Utl.getXMLDate(Utl.getDateFromStr("12.04.2018")));
+		OrderPeriod period = new OrderPeriod();
+		period.setMonth(3);
+		short year = 2018;
+		period.setYear(year);
+		notif.setOrderPeriod(period );
+		
+		// транспортный GUID извещения
+		String tguid = Utl.getRndUuid().toString();
+		notif.setTransportGUID(tguid);
+		task.setTguid(tguid);
+		
+		req.getSupplierNotificationOfOrderExecution().add(notif);
+	}
+	
+	/**
 	 * Получить результат импорта извещений исполнителя о принятии к исполнению распоряжения
 	 * @param task - задание
 	 * @throws CantPrepSoap 
@@ -399,4 +405,80 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		}
 	}
 
+	
+	/**
+	 * Экспорт детализации платежного документа TODO (Lev: не завершен метод)
+	 * @param task - задание 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public Boolean exportPaymentDocumentDetails(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
+		log.info("******* Task.id={}, Экспорт детализации платежного документа, вызов", task.getId());
+		
+		// Установить параметры SOAP
+		reqProp.setProp(task, sb);
+		// Трассировка XML
+		sb.setTrace(true);
+		AckRequest ack = null;
+		// для обработки ошибок
+		Boolean err = false;
+		String errMainStr = null;
+		
+		ExportPaymentDocumentDetailsRequest req = new ExportPaymentDocumentDetailsRequest(); 
+		
+		req.setId("foo");
+		req.setVersion(req.getVersion());
+		
+		req.setPaymentDocumentID("70ВВ288566-03-8039");
+ 
+		try {
+			ack = port.exportPaymentDocumentDetails(req);
+		} catch (Fault e) {
+			e.printStackTrace();
+			err = true;
+			errMainStr = e.getFaultInfo().getErrorMessage();
+		}
+    	
+		if (err) {
+			reqProp.getFoundTask().setState("ERR");
+			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+		} else {
+			// Установить статус "Запрос статуса"
+			reqProp.getFoundTask().setState("ACK");
+			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+		}
+		return err;
+		
+	}
+
+	/**
+	 * Получить экспорта детализации платежного документа
+	 * @param task - задание
+	 * @throws CantPrepSoap 
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void exportPaymentDocumentDetailsAsk(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, Экспорт детализации платежного документа, запрос ответа", task.getId());
+		// Трассировка XML
+		sb.setTrace(true);
+		// Установить параметры SOAP
+		reqProp.setProp(task, sb);	
+		// получить состояние
+		GetStateResult retState = getState2(reqProp.getFoundTask());
+
+		if (retState == null) {
+			// не обработано
+			return;
+		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
+			retState.getImportResult().forEach(t-> {
+				log.info("TGUID={}", t.getGUID());
+			});
+			
+			// Установить статус выполнения задания
+			reqProp.getFoundTask().setState("ACP");
+			
+		}
+	}
+	
 }

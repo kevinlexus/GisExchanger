@@ -20,92 +20,68 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Deviation3">
+ *         &lt;element name="Deviation3" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Deviation6">
+ *         &lt;element name="Deviation6" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg6" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg6" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Deviation9">
+ *         &lt;element name="Deviation9" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg9" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg9" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Deviation12">
+ *         &lt;element name="Deviation12" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg12" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg12" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Deviation15">
+ *         &lt;element name="Deviation15" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg15" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg15" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Deviation18">
+ *         &lt;element name="Deviation18" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeviationDeg18" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                 &lt;/choice>
+ *                 &lt;sequence>
+ *                   &lt;element name="DeviationDeg18" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+ *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -129,17 +105,17 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class NotConformityTemperatureHotWaterType {
 
-    @XmlElement(name = "Deviation3", required = true)
+    @XmlElement(name = "Deviation3")
     protected NotConformityTemperatureHotWaterType.Deviation3 deviation3;
-    @XmlElement(name = "Deviation6", required = true)
+    @XmlElement(name = "Deviation6")
     protected NotConformityTemperatureHotWaterType.Deviation6 deviation6;
-    @XmlElement(name = "Deviation9", required = true)
+    @XmlElement(name = "Deviation9")
     protected NotConformityTemperatureHotWaterType.Deviation9 deviation9;
-    @XmlElement(name = "Deviation12", required = true)
+    @XmlElement(name = "Deviation12")
     protected NotConformityTemperatureHotWaterType.Deviation12 deviation12;
-    @XmlElement(name = "Deviation15", required = true)
+    @XmlElement(name = "Deviation15")
     protected NotConformityTemperatureHotWaterType.Deviation15 deviation15;
-    @XmlElement(name = "Deviation18", required = true)
+    @XmlElement(name = "Deviation18")
     protected NotConformityTemperatureHotWaterType.Deviation18 deviation18;
 
     /**
@@ -296,13 +272,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg12" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg12" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -312,42 +284,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg12",
-        "notDeviated"
+        "deviationDeg12"
     })
     public static class Deviation12 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg12")
+        @XmlElement(name = "DeviationDeg12", required = true)
         protected BigDecimal deviationDeg12;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg12 property.
@@ -373,30 +315,6 @@ public class NotConformityTemperatureHotWaterType {
             this.deviationDeg12 = value;
         }
 
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
-        }
-
     }
 
 
@@ -409,13 +327,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg15" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg15" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -425,42 +339,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg15",
-        "notDeviated"
+        "deviationDeg15"
     })
     public static class Deviation15 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg15")
+        @XmlElement(name = "DeviationDeg15", required = true)
         protected BigDecimal deviationDeg15;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg15 property.
@@ -486,30 +370,6 @@ public class NotConformityTemperatureHotWaterType {
             this.deviationDeg15 = value;
         }
 
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
-        }
-
     }
 
 
@@ -522,13 +382,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg18" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg18" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -538,42 +394,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg18",
-        "notDeviated"
+        "deviationDeg18"
     })
     public static class Deviation18 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg18")
+        @XmlElement(name = "DeviationDeg18", required = true)
         protected BigDecimal deviationDeg18;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg18 property.
@@ -599,30 +425,6 @@ public class NotConformityTemperatureHotWaterType {
             this.deviationDeg18 = value;
         }
 
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
-        }
-
     }
 
 
@@ -635,13 +437,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -651,42 +449,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg3",
-        "notDeviated"
+        "deviationDeg3"
     })
     public static class Deviation3 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg3")
+        @XmlElement(name = "DeviationDeg3", required = true)
         protected BigDecimal deviationDeg3;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg3 property.
@@ -712,30 +480,6 @@ public class NotConformityTemperatureHotWaterType {
             this.deviationDeg3 = value;
         }
 
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
-        }
-
     }
 
 
@@ -748,13 +492,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg6" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg6" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -764,42 +504,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg6",
-        "notDeviated"
+        "deviationDeg6"
     })
     public static class Deviation6 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg6")
+        @XmlElement(name = "DeviationDeg6", required = true)
         protected BigDecimal deviationDeg6;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg6 property.
@@ -825,30 +535,6 @@ public class NotConformityTemperatureHotWaterType {
             this.deviationDeg6 = value;
         }
 
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
-        }
-
     }
 
 
@@ -861,13 +547,9 @@ public class NotConformityTemperatureHotWaterType {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Deviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeviationDeg9" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="NotDeviated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
+     *       &lt;sequence>
+     *         &lt;element name="DeviationDeg9" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
+     *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -877,42 +559,12 @@ public class NotConformityTemperatureHotWaterType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "deviated",
-        "deviationDeg9",
-        "notDeviated"
+        "deviationDeg9"
     })
     public static class Deviation9 {
 
-        @XmlElement(name = "Deviated")
-        protected Boolean deviated;
-        @XmlElement(name = "DeviationDeg9")
+        @XmlElement(name = "DeviationDeg9", required = true)
         protected BigDecimal deviationDeg9;
-        @XmlElement(name = "NotDeviated")
-        protected Boolean notDeviated;
-
-        /**
-         * Gets the value of the deviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isDeviated() {
-            return deviated;
-        }
-
-        /**
-         * Sets the value of the deviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setDeviated(Boolean value) {
-            this.deviated = value;
-        }
 
         /**
          * Gets the value of the deviationDeg9 property.
@@ -936,30 +588,6 @@ public class NotConformityTemperatureHotWaterType {
          */
         public void setDeviationDeg9(BigDecimal value) {
             this.deviationDeg9 = value;
-        }
-
-        /**
-         * Gets the value of the notDeviated property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNotDeviated() {
-            return notDeviated;
-        }
-
-        /**
-         * Sets the value of the notDeviated property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNotDeviated(Boolean value) {
-            this.notDeviated = value;
         }
 
     }

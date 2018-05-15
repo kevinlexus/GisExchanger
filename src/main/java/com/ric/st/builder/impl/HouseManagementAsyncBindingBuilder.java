@@ -1090,10 +1090,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (premisEol == null) {
 						// Не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Помещение нежилое");
+
 						premisEol = Eolink.builder()
 								.withReu(reqProp.getReu())
 								.withKul(reqProp.getKul())
 								.withNd(reqProp.getNd())
+								.withKw(num)
 								.withGuid(t.getPremisesGUID())
 								.withObjTp(addrTp)
 								.withAppTp(foundTask2.getAppTp())
@@ -1128,6 +1130,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					ptb.setUp(premisEol, task, "GIS_TMP", null);
 					ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
 					Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
+					// помещение без отдельного входа
+					premisEol.setParent(houseEol);
+
 					if (dtTerm!=null && (dtTerm.getTime() < curDate.getTime())) {
 						// Объект не активен
 						premisEol.setStatus(0);
@@ -1227,7 +1232,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	private Ko getPremisKo(Eolink houseEol, String num) {
 		Ko premisKo = null; 
 		// получить Ko помещения
-		premisKo = houseMng.getKoByKwNum(houseEol.getKoObj().getId(), num);
+		if (houseEol.getKoObj()!=null) {
+			premisKo = houseMng.getKoByKwNum(houseEol.getKoObj().getId(), num);
+		}
 		return premisKo;
 	}
 
@@ -1334,6 +1341,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					accountEol = Eolink.builder()
 							.withGuid(t.getAccountGUID())
 							.withUn(t.getUnifiedAccountNumber())
+							.withLsk(num)
 							.withObjTp(addrTp)
 							.withAppTp(reqProp.getFoundTask().getAppTp())
 							.withParent(parentEol)
@@ -1375,7 +1383,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				}
 
 				// обновить параметры лс
-				ptb.setUp(houseEol, task, "GIS_TMP", null);
+				ptb.setUp(houseEol, task, "GIS_TMP", null); 
 				if (t.getClosed()!= null) {
 					// лс закрыт
 					accountEol.setStatus(0);
@@ -1626,7 +1634,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	bc.setOlsonTZ(ulistMng.getNsiElem("NSI", 32/*30*/, "Часовая зона", "Asia/Novokuznetsk")); // ред.28.12.17 странно было 31 поменял на 32
 			
 	    	Double et = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наибольшее(1-11)");
-	    	bc.setFloorCount(String.valueOf(et));
+	    	bc.setFloorCount(et.byteValue());
 	    	
 			Boolean isGkn = teParMng.getBool(reqProp.getFoundTask(), "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
 	    	if (isGkn != null && isGkn) {
@@ -1656,7 +1664,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	bc.setState(ulistMng.getNsiElem("NSI", 24, "Состояние дома", state));
 
 			Double underEt = teParMng.getDbl(reqProp.getFoundTask(), "ГИС ЖКХ.Количество подземных этажей");
-	    	ac.setUndergroundFloorCount(String.valueOf(underEt));
+	    	ac.setUndergroundFloorCount(underEt.byteValue());
 
 			Double etMin = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наименьшее(1-10)");
 			log.info("etMin={}", etMin);
@@ -1691,7 +1699,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	bc.setOlsonTZ(ulistMng.getNsiElem("NSI", 32/*30*/, "Часовая зона", "Asia/Novokuznetsk")); //TODO проверить почему стояло 30, когда часовая зона по OLSON это 31
 
 	    	Double et = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наибольшее(1-11)");
-	    	bc.setFloorCount(String.valueOf(et));
+	    	bc.setFloorCount(et.byteValue());
 	    	
 			Boolean isGkn = teParMng.getBool(reqProp.getFoundTask(), "ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН");
 	    	if (isGkn != null && isGkn) {
@@ -1721,7 +1729,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	    	ApartmentHouseToUpdate ac = new ApartmentHouseToUpdate();
 	    	
 			Double underEt = teParMng.getDbl(reqProp.getFoundTask(), "ГИС ЖКХ.Количество подземных этажей");
-	    	ac.setUndergroundFloorCount(String.valueOf(underEt));
+	    	ac.setUndergroundFloorCount(underEt.byteValue());
 
 			Double etMin = teParMng.getDbl(reqProp.getFoundTask(), "Количество этажей, наименьшее(1-10)");
 			Integer etMin2 = etMin.intValue();

@@ -36,7 +36,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="URIRegistrationDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *         &lt;element name="RegulatoryAuthorityInformation">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -60,9 +60,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="Objective" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
  *                   &lt;element name="Base" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *                   &lt;element name="AdditionalInfoAboutExamBase" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                   &lt;element name="LastExaminationEndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                   &lt;element name="LastExaminationEndDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *                   &lt;element name="MonthFrom" type="{http://dom.gosuslugi.ru/schema/integration/base/}MonthType"/>
- *                   &lt;element name="YearFrom" type="{http://dom.gosuslugi.ru/schema/integration/base/}YearType"/>
+ *                   &lt;element name="YearFrom" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedYearType"/>
  *                   &lt;element name="Duration">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -305,9 +305,9 @@ public class PlannedExaminationType {
      *         &lt;element name="Objective" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type"/>
      *         &lt;element name="Base" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
      *         &lt;element name="AdditionalInfoAboutExamBase" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="LastExaminationEndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+     *         &lt;element name="LastExaminationEndDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
      *         &lt;element name="MonthFrom" type="{http://dom.gosuslugi.ru/schema/integration/base/}MonthType"/>
-     *         &lt;element name="YearFrom" type="{http://dom.gosuslugi.ru/schema/integration/base/}YearType"/>
+     *         &lt;element name="YearFrom" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedYearType"/>
      *         &lt;element name="Duration">
      *           &lt;complexType>
      *             &lt;complexContent>

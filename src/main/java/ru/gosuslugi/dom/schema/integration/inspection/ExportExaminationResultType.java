@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                   &lt;element name="PreceptState" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptStateType"/>
  *                   &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportPreceptType"/>
- *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+ *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                   &lt;element name="OffenceState" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceStateType"/>
  *                   &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportOffenceType"/>
- *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+ *                   &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -312,7 +312,7 @@ public class ExportExaminationResultType {
      *         &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *         &lt;element name="OffenceState" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceStateType"/>
      *         &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportOffenceType"/>
-     *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+     *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -338,7 +338,7 @@ public class ExportExaminationResultType {
         @XmlElement(name = "Offence", required = true)
         protected ExportOffenceType offence;
         @XmlElement(name = "CancelledInfo")
-        protected CancelledInfoWithAttachmentsType cancelledInfo;
+        protected ExportCancelledInfoWithAttachmentsType cancelledInfo;
 
         /**
          * Gets the value of the offenceGuid property.
@@ -417,10 +417,10 @@ public class ExportExaminationResultType {
          * 
          * @return
          *     possible object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public CancelledInfoWithAttachmentsType getCancelledInfo() {
+        public ExportCancelledInfoWithAttachmentsType getCancelledInfo() {
             return cancelledInfo;
         }
 
@@ -429,10 +429,10 @@ public class ExportExaminationResultType {
          * 
          * @param value
          *     allowed object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public void setCancelledInfo(CancelledInfoWithAttachmentsType value) {
+        public void setCancelledInfo(ExportCancelledInfoWithAttachmentsType value) {
             this.cancelledInfo = value;
         }
 
@@ -452,7 +452,7 @@ public class ExportExaminationResultType {
      *         &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *         &lt;element name="PreceptState" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptStateType"/>
      *         &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportPreceptType"/>
-     *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType" minOccurs="0"/>
+     *         &lt;element name="CancelledInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExportCancelledInfoWithAttachmentsType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -478,7 +478,7 @@ public class ExportExaminationResultType {
         @XmlElement(name = "Precept", required = true)
         protected ExportPreceptType precept;
         @XmlElement(name = "CancelledInfo")
-        protected CancelledInfoWithAttachmentsType cancelledInfo;
+        protected ExportCancelledInfoWithAttachmentsType cancelledInfo;
 
         /**
          * Gets the value of the preceptGuid property.
@@ -557,10 +557,10 @@ public class ExportExaminationResultType {
          * 
          * @return
          *     possible object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public CancelledInfoWithAttachmentsType getCancelledInfo() {
+        public ExportCancelledInfoWithAttachmentsType getCancelledInfo() {
             return cancelledInfo;
         }
 
@@ -569,10 +569,10 @@ public class ExportExaminationResultType {
          * 
          * @param value
          *     allowed object is
-         *     {@link CancelledInfoWithAttachmentsType }
+         *     {@link ExportCancelledInfoWithAttachmentsType }
          *     
          */
-        public void setCancelledInfo(CancelledInfoWithAttachmentsType value) {
+        public void setCancelledInfo(ExportCancelledInfoWithAttachmentsType value) {
             this.cancelledInfo = value;
         }
 

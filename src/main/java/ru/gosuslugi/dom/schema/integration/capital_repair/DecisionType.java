@@ -24,30 +24,20 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <pre>
  * &lt;complexType name="DecisionType">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DecisionCommonType">
  *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
  *         &lt;choice>
  *           &lt;element name="Protocol">
  *             &lt;complexType>
  *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                     &lt;sequence>
- *                       &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
- *                       &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                       &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/>
- *                     &lt;/sequence>
- *                   &lt;/choice>
- *                 &lt;/restriction>
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
+ *                 &lt;/extension>
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
  *           &lt;element name="DecisionDocument" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/>
  *           &lt;element name="DocumentGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *         &lt;/choice>
- *         &lt;element name="DateEffective" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;choice>
  *           &lt;element name="FormationFundInSpecialAccount">
  *             &lt;complexType>
@@ -67,7 +57,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *           &lt;element name="FormationFundInRegOperatorAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -76,11 +66,9 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DecisionType", propOrder = {
-    "fiasHouseGuid",
     "protocol",
     "decisionDocument",
     "documentGUID",
-    "dateEffective",
     "formationFundInSpecialAccount",
     "formationFundInRegOperatorAccount"
 })
@@ -88,47 +76,20 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     ExportDecisionType.class,
     ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsFormingFundRequest.ImportDecision.LoadDecision.class
 })
-public class DecisionType {
+public class DecisionType
+    extends DecisionCommonType
+{
 
-    @XmlElement(name = "FIASHouseGuid", required = true)
-    protected String fiasHouseGuid;
     @XmlElement(name = "Protocol")
     protected DecisionType.Protocol protocol;
     @XmlElement(name = "DecisionDocument")
     protected DocumentDecisionType decisionDocument;
     @XmlElement(name = "DocumentGUID")
     protected String documentGUID;
-    @XmlElement(name = "DateEffective", required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateEffective;
     @XmlElement(name = "FormationFundInSpecialAccount")
     protected DecisionType.FormationFundInSpecialAccount formationFundInSpecialAccount;
     @XmlElement(name = "FormationFundInRegOperatorAccount")
     protected Boolean formationFundInRegOperatorAccount;
-
-    /**
-     * Gets the value of the fiasHouseGuid property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFIASHouseGuid() {
-        return fiasHouseGuid;
-    }
-
-    /**
-     * Sets the value of the fiasHouseGuid property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFIASHouseGuid(String value) {
-        this.fiasHouseGuid = value;
-    }
 
     /**
      * Gets the value of the protocol property.
@@ -200,30 +161,6 @@ public class DecisionType {
      */
     public void setDocumentGUID(String value) {
         this.documentGUID = value;
-    }
-
-    /**
-     * Gets the value of the dateEffective property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getDateEffective() {
-        return dateEffective;
-    }
-
-    /**
-     * Sets the value of the dateEffective property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setDateEffective(XMLGregorianCalendar value) {
-        this.dateEffective = value;
     }
 
     /**
@@ -456,16 +393,8 @@ public class DecisionType {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;sequence>
-     *           &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
-     *           &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *           &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/>
-     *         &lt;/sequence>
-     *       &lt;/choice>
-     *     &lt;/restriction>
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
+     *     &lt;/extension>
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
@@ -473,124 +402,11 @@ public class DecisionType {
      * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "votingProtocolGUID",
-        "number",
-        "date",
-        "attachment"
-    })
-    public static class Protocol {
+    @XmlType(name = "")
+    public static class Protocol
+        extends ProtocolType
+    {
 
-        @XmlElement(name = "VotingProtocolGUID")
-        protected String votingProtocolGUID;
-        @XmlElement(name = "Number")
-        protected String number;
-        @XmlElement(name = "Date")
-        @XmlSchemaType(name = "date")
-        protected XMLGregorianCalendar date;
-        @XmlElement(name = "Attachment")
-        protected List<AttachmentType> attachment;
-
-        /**
-         * Gets the value of the votingProtocolGUID property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getVotingProtocolGUID() {
-            return votingProtocolGUID;
-        }
-
-        /**
-         * Sets the value of the votingProtocolGUID property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setVotingProtocolGUID(String value) {
-            this.votingProtocolGUID = value;
-        }
-
-        /**
-         * Gets the value of the number property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getNumber() {
-            return number;
-        }
-
-        /**
-         * Sets the value of the number property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setNumber(String value) {
-            this.number = value;
-        }
-
-        /**
-         * Gets the value of the date property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link XMLGregorianCalendar }
-         *     
-         */
-        public XMLGregorianCalendar getDate() {
-            return date;
-        }
-
-        /**
-         * Sets the value of the date property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link XMLGregorianCalendar }
-         *     
-         */
-        public void setDate(XMLGregorianCalendar value) {
-            this.date = value;
-        }
-
-        /**
-         * Gets the value of the attachment property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the attachment property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getAttachment().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link AttachmentType }
-         * 
-         * 
-         */
-        public List<AttachmentType> getAttachment() {
-            if (attachment == null) {
-                attachment = new ArrayList<AttachmentType>();
-            }
-            return this.attachment;
-        }
 
     }
 

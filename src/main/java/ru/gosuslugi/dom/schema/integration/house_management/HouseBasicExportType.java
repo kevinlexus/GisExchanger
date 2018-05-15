@@ -7,7 +7,9 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
@@ -28,11 +30,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
  *         &lt;element name="State" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="UsedYear" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}UsedYearType" minOccurs="0"/>
- *         &lt;element name="FloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType" minOccurs="0"/>
+ *         &lt;element name="FloorCount" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" minOccurs="0"/>
  *         &lt;element name="OlsonTZ" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="CulturalHeritage" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="AnnulmentReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
+ *         &lt;element name="AnnulmentInfo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -51,7 +56,10 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "oktmo",
     "olsonTZ",
     "culturalHeritage",
-    "ogfData"
+    "ogfData",
+    "terminationDate",
+    "annulmentReason",
+    "annulmentInfo"
 })
 public class HouseBasicExportType
     extends OGFExportStatusType
@@ -75,6 +83,13 @@ public class HouseBasicExportType
     protected Boolean culturalHeritage;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
+    @XmlElement(name = "TerminationDate")
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "AnnulmentReason")
+    protected NsiRef annulmentReason;
+    @XmlElement(name = "AnnulmentInfo")
+    protected String annulmentInfo;
 
     /**
      * Gets the value of the fiasHouseGuid property.
@@ -295,6 +310,78 @@ public class HouseBasicExportType
             ogfData = new ArrayList<OGFData>();
         }
         return this.ogfData;
+    }
+
+    /**
+     * Gets the value of the terminationDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getTerminationDate() {
+        return terminationDate;
+    }
+
+    /**
+     * Sets the value of the terminationDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setTerminationDate(XMLGregorianCalendar value) {
+        this.terminationDate = value;
+    }
+
+    /**
+     * Gets the value of the annulmentReason property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NsiRef }
+     *     
+     */
+    public NsiRef getAnnulmentReason() {
+        return annulmentReason;
+    }
+
+    /**
+     * Sets the value of the annulmentReason property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NsiRef }
+     *     
+     */
+    public void setAnnulmentReason(NsiRef value) {
+        this.annulmentReason = value;
+    }
+
+    /**
+     * Gets the value of the annulmentInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAnnulmentInfo() {
+        return annulmentInfo;
+    }
+
+    /**
+     * Sets the value of the annulmentInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAnnulmentInfo(String value) {
+        this.annulmentInfo = value;
     }
 
 }

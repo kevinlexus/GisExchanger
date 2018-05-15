@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String250Type"/>
- *         &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType"/>
+ *         &lt;element name="IndicatorValue" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,7 +42,7 @@ public class OtherQualityIndicatorType {
 
     @XmlElement(name = "IndicatorName", required = true)
     protected String indicatorName;
-    @XmlElement(name = "IndicatorValue", required = true)
+    @XmlElement(name = "IndicatorValue")
     protected IndicatorValueType indicatorValue;
 
     /**

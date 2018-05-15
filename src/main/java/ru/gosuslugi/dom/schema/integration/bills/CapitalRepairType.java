@@ -50,6 +50,14 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
+ *         &lt;element name="CalcExplanation" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;minLength value="1"/>
+ *               &lt;maxLength value="4000"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -65,7 +73,8 @@ import javax.xml.bind.annotation.XmlType;
     "moneyRecalculation",
     "moneyDiscount",
     "totalPayable",
-    "orgPPAGUID"
+    "orgPPAGUID",
+    "calcExplanation"
 })
 public class CapitalRepairType {
 
@@ -80,6 +89,8 @@ public class CapitalRepairType {
     @XmlElement(name = "TotalPayable", required = true)
     protected BigDecimal totalPayable;
     protected String orgPPAGUID;
+    @XmlElement(name = "CalcExplanation")
+    protected String calcExplanation;
 
     /**
      * Gets the value of the contribution property.
@@ -224,6 +235,30 @@ public class CapitalRepairType {
      */
     public void setOrgPPAGUID(String value) {
         this.orgPPAGUID = value;
+    }
+
+    /**
+     * Gets the value of the calcExplanation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCalcExplanation() {
+        return calcExplanation;
+    }
+
+    /**
+     * Sets the value of the calcExplanation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCalcExplanation(String value) {
+        this.calcExplanation = value;
     }
 
 }

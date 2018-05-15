@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
@@ -16,7 +15,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
 
 
 /**
- * Сведения об изменении проверки
+ * Сведения об изменении проверки (импорт)
  * 
  * <p>Java class for ExaminationChangeInfoType complex type.
  * 
@@ -29,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *       &lt;sequence>
  *         &lt;element name="ChangeReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *         &lt;element name="ChangeDecisionNumber" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type" minOccurs="0"/>
- *         &lt;element name="ChangeDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="ChangeDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *         &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/>
  *         &lt;element name="AdditionChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *         &lt;element name="Attachments" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
@@ -49,9 +48,6 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "organization",
     "additionChangeInfo",
     "attachments"
-})
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.inspection.ExportExaminationType.ExaminationChangeInfo.class
 })
 public class ExaminationChangeInfoType {
 

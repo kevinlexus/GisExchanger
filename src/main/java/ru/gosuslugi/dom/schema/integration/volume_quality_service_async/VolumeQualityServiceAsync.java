@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "VolumeQualityServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service-async/", wsdlLocation = "file:/C:/work/GIS_MUP/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.9.7.1/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.9.7.1/hcs_wsdl_xsd_v.11.9.7.1/volume-quality/hcs-volume-quality-service-async.wsdl")
+@WebServiceClient(name = "VolumeQualityServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service-async/", wsdlLocation = "file:/C:/work/GIS_MUP/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.11.0.15/hcs_wsdl_xsd_v.11.11.0.15/volume-quality/hcs-volume-quality-service-async.wsdl")
 public class VolumeQualityServiceAsync
     extends Service
 {
@@ -32,7 +32,7 @@ public class VolumeQualityServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/work/GIS_MUP/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.9.7.1/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.9.7.1/hcs_wsdl_xsd_v.11.9.7.1/volume-quality/hcs-volume-quality-service-async.wsdl");
+            url = new URL("file:/C:/work/GIS_MUP/\u0413\u0418\u0421%20\u0416\u041a\u0425_\u0418\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f_v.11.11.0.15/hcs_wsdl_xsd_v.11.11.0.15/volume-quality/hcs-volume-quality-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

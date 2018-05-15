@@ -31,13 +31,13 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}GKN_EGRP_KeyType">
  *                 &lt;sequence>
  *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *                   &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
+ *                   &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
  *                   &lt;element name="State" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *                   &lt;element name="UsedYear" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}UsedYearType" minOccurs="0"/>
- *                   &lt;element name="FloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType" minOccurs="0"/>
+ *                   &lt;element name="FloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType"/>
  *                   &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" minOccurs="0"/>
  *                   &lt;element name="OlsonTZ" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="CulturalHeritage" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *                   &lt;element name="CulturalHeritage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                   &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/extension>
@@ -156,13 +156,13 @@ public class LivingHouseOMSType {
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}GKN_EGRP_KeyType">
      *       &lt;sequence>
      *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
-     *         &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
+     *         &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
      *         &lt;element name="State" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
      *         &lt;element name="UsedYear" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}UsedYearType" minOccurs="0"/>
-     *         &lt;element name="FloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType" minOccurs="0"/>
+     *         &lt;element name="FloorCount" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}FloorType"/>
      *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" minOccurs="0"/>
      *         &lt;element name="OlsonTZ" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="CulturalHeritage" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+     *         &lt;element name="CulturalHeritage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/extension>
@@ -190,20 +190,20 @@ public class LivingHouseOMSType {
 
         @XmlElement(name = "FIASHouseGuid", required = true)
         protected String fiasHouseGuid;
-        @XmlElement(name = "TotalSquare")
+        @XmlElement(name = "TotalSquare", required = true)
         protected BigDecimal totalSquare;
         @XmlElement(name = "State")
         protected NsiRef state;
         @XmlElement(name = "UsedYear")
         protected Short usedYear;
         @XmlElement(name = "FloorCount")
-        protected String floorCount;
+        protected byte floorCount;
         @XmlElement(name = "OKTMO")
         protected OKTMORefType oktmo;
         @XmlElement(name = "OlsonTZ", required = true)
         protected NsiRef olsonTZ;
         @XmlElement(name = "CulturalHeritage")
-        protected Boolean culturalHeritage;
+        protected boolean culturalHeritage;
         @XmlElement(name = "OGFData")
         protected List<OGFData> ogfData;
 
@@ -306,24 +306,16 @@ public class LivingHouseOMSType {
         /**
          * Gets the value of the floorCount property.
          * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
          */
-        public String getFloorCount() {
+        public byte getFloorCount() {
             return floorCount;
         }
 
         /**
          * Sets the value of the floorCount property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
          */
-        public void setFloorCount(String value) {
+        public void setFloorCount(byte value) {
             this.floorCount = value;
         }
 
@@ -378,24 +370,16 @@ public class LivingHouseOMSType {
         /**
          * Gets the value of the culturalHeritage property.
          * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
          */
-        public Boolean isCulturalHeritage() {
+        public boolean isCulturalHeritage() {
             return culturalHeritage;
         }
 
         /**
          * Sets the value of the culturalHeritage property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
          */
-        public void setCulturalHeritage(Boolean value) {
+        public void setCulturalHeritage(boolean value) {
             this.culturalHeritage = value;
         }
 

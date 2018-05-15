@@ -24,7 +24,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *       &lt;sequence>
  *         &lt;element name="DocumentType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="Date" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
  *         &lt;choice>
  *           &lt;element name="HasNoOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;sequence>
@@ -40,7 +40,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
  *                       &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
  *                       &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *                       &lt;element name="MaterialsDirectionDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
  *                       &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *                       &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
  *                       &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
@@ -52,8 +52,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/element>
  *           &lt;/sequence>
  *         &lt;/choice>
- *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="From" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
+ *         &lt;element name="To" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType"/>
  *         &lt;element name="Duration">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -594,7 +594,7 @@ public class ExaminationResultType {
      *         &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
      *         &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
      *         &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+     *         &lt;element name="MaterialsDirectionDate" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateType" minOccurs="0"/>
      *         &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
      *         &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
      *         &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>

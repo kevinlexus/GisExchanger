@@ -111,6 +111,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                                   &lt;complexContent>
  *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
  *                                       &lt;sequence>
+ *                                         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
  *                                       &lt;/sequence>
  *                                     &lt;/extension>
@@ -129,7 +130,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/complexType>
  *         &lt;/element>
  *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/>
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.4""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -185,7 +186,7 @@ public class ImportVolumeAndQualityInformationRequest
      */
     public String getVersion() {
         if (version == null) {
-            return "11.2.0.10";
+            return "11.11.0.4";
         } else {
             return version;
         }
@@ -297,6 +298,7 @@ public class ImportVolumeAndQualityInformationRequest
      *                         &lt;complexContent>
      *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
      *                             &lt;sequence>
+     *                               &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
      *                             &lt;/sequence>
      *                           &lt;/extension>
@@ -643,6 +645,7 @@ public class ImportVolumeAndQualityInformationRequest
          *             &lt;complexContent>
          *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
          *                 &lt;sequence>
+         *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
          *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
          *                 &lt;/sequence>
          *               &lt;/extension>
@@ -706,6 +709,7 @@ public class ImportVolumeAndQualityInformationRequest
              *   &lt;complexContent>
              *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
              *       &lt;sequence>
+             *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
              *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
              *       &lt;/sequence>
              *     &lt;/extension>
@@ -717,14 +721,41 @@ public class ImportVolumeAndQualityInformationRequest
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
+                "notFromContract",
                 "transportGUID"
             })
             public static class ObjectAddress
                 extends ObjectAddressType
             {
 
+                @XmlElement(name = "NotFromContract")
+                protected Boolean notFromContract;
                 @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
                 protected String transportGUID;
+
+                /**
+                 * Gets the value of the notFromContract property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public Boolean isNotFromContract() {
+                    return notFromContract;
+                }
+
+                /**
+                 * Sets the value of the notFromContract property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public void setNotFromContract(Boolean value) {
+                    this.notFromContract = value;
+                }
 
                 /**
                  * Gets the value of the transportGUID property.
