@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.model.exs.Task;
@@ -20,7 +21,7 @@ public interface DeviceMeteringAsyncBindingBuilders {
 	public void importMeteringDeviceValuesAsk(Task task) throws CantSendSoap, CantPrepSoap;
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
 	public void exportMeteringDeviceValuesAsk(Task task) throws CantPrepSoap, WrongGetMethod, IOException, WrongParam;
-	public String exportMeteringDeviceValuesSrv(Task task) throws CantPrepSoap, WrongGetMethod, IOException, WrongParam;
+	public String exportMeteringDeviceValuesSrv(JsonNode json) throws CantPrepSoap, WrongGetMethod, IOException, WrongParam;
 	public void saveValToFile(Task task) throws WrongGetMethod, IOException;
 	public void checkPeriodicTask(Task task) throws WrongParam;	
 }
