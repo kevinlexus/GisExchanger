@@ -27,7 +27,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 import com.dic.bill.dao.AchargeDAO;
 import com.diffplug.common.base.Errors;
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.ChrgDAO;
 import com.ric.bill.dto.OrgDTO;

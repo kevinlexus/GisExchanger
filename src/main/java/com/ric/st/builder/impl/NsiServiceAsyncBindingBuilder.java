@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;

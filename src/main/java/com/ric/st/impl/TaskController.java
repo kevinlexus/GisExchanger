@@ -1,8 +1,5 @@
 package com.ric.st.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -11,22 +8,18 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
-import com.ric.bill.Utl;
-import com.ric.bill.dao.EolinkDAO;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
@@ -35,21 +28,19 @@ import com.ric.bill.mm.TaskMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
+import com.ric.signature.sign.commands.Command;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.HcsBillsAsyncBuilders;
-import com.ric.st.builder.HcsBillsAsyncBuilders2;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HcsPaymentAsyncBuilders;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
-import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.TaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
-import com.ric.signature.sign.commands.Command;
 
 
 /**
@@ -63,7 +54,7 @@ import com.ric.signature.sign.commands.Command;
 public class TaskController implements TaskControllers {
 
 	@Autowired
-	private TaskDAO taskDao; 
+	private TaskDAO taskDao;
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
@@ -81,8 +72,6 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private HcsBillsAsyncBuilders bill;
 	@Autowired
-	private HcsBillsAsyncBuilders2 bill2;
-	@Autowired
 	private HcsPaymentAsyncBuilders pay;
 	@Autowired
 	private TaskBuilders tb;
@@ -94,14 +83,15 @@ public class TaskController implements TaskControllers {
     @Autowired
     private AmqpTemplate ampqTemplate;
 
-    
+
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
-	private RequestConfig reqConfig;	
+	private RequestConfig reqConfig;
 
 	/**
 	 * Задача распределения сальдо
 	 */
+	@Override
 	public void otherTask() {
 		log.info("otherTask started!");
 		//saldoMng.distSalByChPay();
@@ -116,7 +106,8 @@ public class TaskController implements TaskControllers {
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames("soap2gis-in");
         container.setMessageListener(new MessageListener() {
-            public void onMessage(Message message) {
+            @Override
+			public void onMessage(Message message) {
                 String msg = new String(message.getBody());
                 rmqTask(msg);
                 log.info("Rmq message:"+msg);
@@ -164,21 +155,22 @@ public class TaskController implements TaskControllers {
             log.error("rmqTask: Ошибка парсинга json:"+e.getMessage());
         }
 	}
-	
+
 	/**
-	 * Поиск новых действий для обработки 
-	 * @throws WrongGetMethod 
-	 * @throws CantSendSoap 
-	 * @throws CantPrepSoap 
-	 * @throws WrongParam 
-	 * @ver 1.01 
+	 * Поиск новых действий для обработки
+	 * @throws WrongGetMethod
+	 * @throws CantSendSoap
+	 * @throws CantPrepSoap
+	 * @throws WrongParam
+	 * @ver 1.01
 	 */
+	@Override
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
-		
+
 		this.reqConfig = new RequestConfig();
-		this.reqConfig.setUp("0", "0", null, -1, null, null, null, 
+		this.reqConfig.setUp("0", "0", null, -1, null, null, null,
 				config.getCurDt1(), config.getCurDt2());
-		
+
 		// инит. конфига
 		if (!soapConf.setUp(false)) { //TODO отключил синхронизацию справочников
 			// Ошибка обновления справочников
@@ -195,10 +187,10 @@ public class TaskController implements TaskControllers {
 				// Почистить результаты задания
 				taskMng.clearAllResult(task);
 				Eolink eo = task.getEolink();
-				
+
 				Integer appTp = task.getAppTp();
 				String actCd = task.getAct().getCd();
-				String state = task.getState();  
+				String state = task.getState();
 
 				/*if (appTp == 0) {
 					// Квартплата
@@ -228,11 +220,11 @@ public class TaskController implements TaskControllers {
 								hb.checkPeriodicAccExp(task);
 								break;*/
 							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
-								// Проверка наличия заданий по экспорту счетчиков по дому
+								// Проверка наличия заданий по экспорту счетчиков по помещениям дома
 								hb.checkPeriodicMetExp(task);
 								break;
 							case "SYSTEM_CHECK_MET_VAL_TASK" :
-								// Проверка наличия заданий по экспорту показаний счетчиков дома
+								// Проверка наличия заданий по экспорту показаний счетчиков по помещениям дома
 								dm.checkPeriodicTask(task);
 								break;
 							case "SYSTEM_CHECK_ORG_EXP_TASK" :
@@ -270,7 +262,7 @@ public class TaskController implements TaskControllers {
 								taskMng.setState(task, "RPT");
 							}
 						}
-						//taskMng.setState(task, "ACP");						
+						//taskMng.setState(task, "ACP");
 						break;
 					case "GIS_UPD_HOUSE" :
 						// Импорт объектов дома
@@ -282,13 +274,13 @@ public class TaskController implements TaskControllers {
 							// Запрос ответа
 							hb.importHouseUODataAck(task);
 						}
-						
+
 						break;
 					case "GIS_EXP_CONTR":
 						// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
 						hb.setUp();
 						hb.exportContract(task);
-						
+
 						break;
 					case "GIS_EXP_HOUSE":
 						// Экспорт из ГИС ЖКХ объектов дома
@@ -300,7 +292,7 @@ public class TaskController implements TaskControllers {
 							// Запрос ответа
 							hb.exportHouseDataAck(task);
 						}
-						
+
 						break;
 					case "GIS_EXP_ACCS":
 						// Экспорт из ГИС ЖКХ лиц.счетов
@@ -376,10 +368,10 @@ public class TaskController implements TaskControllers {
 						bill.setUp();
 						if (state.equals("INS")) {
 							// Импорт платежных документов по дому
-							bill2.importPaymentDocumentData(task);
+							// bill2.importPaymentDocumentData(task); TODO Убрать коммент!
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
-							bill2.importPaymentDocumentDataAsk(task);
+							// bill2.importPaymentDocumentDataAsk(task); TODO Убрать коммент!
 						}
 						break;
 					case "GIS_EXP_PAY_DETAIL_DOCS":
@@ -399,7 +391,7 @@ public class TaskController implements TaskControllers {
 							os.exportOrgRegistry(task);
 						} else if (state.equals("ACK")) {
 							os.exportOrgRegistryAsk(task);
-						}						
+						}
 						break;
 					case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
 						nsiSv.setUp();
@@ -423,7 +415,7 @@ public class TaskController implements TaskControllers {
 							bill.exportNotificationsOfOrderExecutionAsk(task);
 						}
 						break;
-						
+
 					case "GIS_IMP_SUPPLIER_NOTIFS":
 						pay.setUp();
 						if (state.equals("INS")) {
@@ -434,7 +426,7 @@ public class TaskController implements TaskControllers {
 							pay.importSupplierNotificationsOfOrderExecutionAsk(task);
 						}
 						break;
-						
+
 					case "GIS_IMP_CANCEL_NOTIFS":
 						// Экспорт отмены извещений исполнения документа
 						pay.setUp();
@@ -446,23 +438,23 @@ public class TaskController implements TaskControllers {
 							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
 						break;
-						
+
 					default:
 						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
 						break;
 					}
-				
+
 				} catch (ErrorProcessAnswer | DatatypeConfigurationException | CantPrepSoap e) {
 					e.printStackTrace();
-					log.error("Ошибка при отправке задания Task.id={}, message={}", task.getId(), 
+					log.error("Ошибка при отправке задания Task.id={}, message={}", task.getId(),
 							e.getMessage());
 					//log.error("stackTrace={}", e.getStackTrace().toString());
 					taskMng.setState(task, "ERR");
 					taskMng.setResult(task, e.getMessage());
 				} catch (Exception e) {
 					e.printStackTrace();
-					String errMess = StringUtils.substring(Utl.getStackTraceString(e), 0, 1000); 
-					log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(), 
+					String errMess = StringUtils.substring(Utl.getStackTraceString(e), 0, 1000);
+					log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
 							errMess);
 					//log.error("stackTrace={}", e.getStackTrace());
 					if (!task.getAct().getCd().equals("GIS_SYSTEM_RPT")) {
@@ -470,17 +462,18 @@ public class TaskController implements TaskControllers {
 						taskMng.setState(task, "ERR");
 					}
 					taskMng.setResult(task, errMess);
-					
+
 				}
 
 			}
 
 		}
-		
-		
-		
+
+
+
 	}
 
+	@Override
 	public RequestConfig getReqConfig() {
 		return reqConfig;
 	}

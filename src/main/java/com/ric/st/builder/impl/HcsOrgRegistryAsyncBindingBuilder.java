@@ -27,7 +27,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStat
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgServiceAsync;
 
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;

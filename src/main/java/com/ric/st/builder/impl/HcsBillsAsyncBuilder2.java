@@ -2,12 +2,9 @@ package com.ric.st.builder.impl;
 
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,34 +17,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dic.bill.dao.AchargeDAO;
 import com.diffplug.common.base.Errors;
-import com.ric.bill.Config;
-import com.ric.bill.Utl;
-import com.ric.bill.dao.AflowDAO;
-import com.ric.bill.dao.EolinkDAO;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.PdocDAO;
-import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
 import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.mm.EolinkMng;
 import com.ric.bill.mm.EolinkParMng;
-import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.PdocMng;
-import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
-import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Pdoc;
-import com.ric.bill.model.exs.ServGis;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.Ulist;
 import com.ric.st.ReqProps;
-import com.ric.st.SoapConfigs;
-import com.ric.st.builder.HcsBillsAsyncBuilders;
 import com.ric.st.builder.HcsBillsAsyncBuilders2;
-import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
@@ -59,11 +43,9 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.gosuslugi.dom.schema.integration.base.AckRequest;
-import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.bills.CapitalRepairImportType;
-import ru.gosuslugi.dom.schema.integration.bills.DebtImportType;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest;
 import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest.SupplierIDs;
 import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest;
@@ -72,11 +54,9 @@ import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest.Pa
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource;
-import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption;
 import ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.Consumption.Volume;
-import ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType;
 import ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentType.ChargeInfo;
 import ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentType.PenaltiesAndCourtCosts;
 import ru.gosuslugi.dom.schema.integration.bills.ServiceChargeImportType;
@@ -106,7 +86,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	private ReqProps reqProp;
 	@Autowired
 	private DebMng debMng;
-	
+
 	@Autowired
 	private PdocMng pdocMng;
 	@Autowired
@@ -115,7 +95,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	private BillsServiceAsync service;
 	private BillsPortsTypeAsync port;
 	private SoapBuilder sb;
-	
+
 	/**
 	 * Инициализация
 	 */
@@ -140,7 +120,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ru.gosuslugi.dom.schema.integration.bills.GetStateResult getState2(Task task) {
-		
+
 		// Признак ошибки
 		Boolean err = false;
 		// Признак ошибки в CommonResult
@@ -151,7 +131,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-		
+
 		sb.makeRndMsgGuid();
 		try {
 			state = port.getState(gs);
@@ -165,8 +145,8 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// вернуться, если задание всё еще не выполнено
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			return null;
-		}		
-				
+		}
+
 		// Показать ошибки, если есть
 		if (err) {
 			// Ошибки во время выполнения
@@ -181,9 +161,9 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			task.setState("ERR");
 			task.setResult(errStr);
 		}/* else {
-			
+
 			for (CommonResultType e : state.getImportResult()) {
-					for (Error f: e.getError()) {	
+					for (Error f: e.getError()) {
 						// Найти ПД по Транспортному GUID
 						Pdoc pdoc = pdocDao.getPdocByTGUID(e.getTransportGUID());
 						log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
@@ -193,22 +173,22 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 					};
 			}
 		}*/
-		
-		
+
+
 		return state;
 	}
 
-	
-	
+
+
 	/**
 	 * Экспорт извещений о принятии к исполнению распоряжений с результатами квитирования
-	 * @param task - задание 
+	 * @param task - задание
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, вызов", task.getId());
-		
+
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
@@ -217,16 +197,16 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
-		
-		ExportNotificationsOfOrderExecutionRequest req = new ExportNotificationsOfOrderExecutionRequest(); 
-		
+
+		ExportNotificationsOfOrderExecutionRequest req = new ExportNotificationsOfOrderExecutionRequest();
+
 		req.setId("foo");
 		req.setVersion(req.getVersion());
- 
+
 		SupplierIDs suppId = new SupplierIDs();
 		req.setSupplierIDs(suppId);
 		suppId.setPaymentDocumentID("20КМ615992-01-7104");
-		
+
 		try {
 			ack = port.exportNotificationsOfOrderExecution(req);
 		} catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
@@ -234,7 +214,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			err = true;
 			errMainStr = e.getFaultInfo().getErrorMessage();
 		}
-    	
+
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
@@ -244,22 +224,23 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
 		}
 		return err;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Получить результат экспорта извещений о принятии к исполнению распоряжений с результатами квитирования
 	 * @param task - задание
-	 * @throws CantPrepSoap 
+	 * @throws CantPrepSoap
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, запрос ответа", task.getId());
 		// Трассировка XML
 		sb.setTrace(true);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);	
+		reqProp.setProp(task, sb);
 		// получить состояние
 		ru.gosuslugi.dom.schema.integration.bills.GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -272,20 +253,20 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 					log.info("getNotificationsOfOrderExecutionGUID={}", d.getNotificationsOfOrderExecutionGUID());
 				});
 			});
-			
+
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
-			
+
 		}
 	}
 
 	/**
 	 * Импорт платежных документов по дому - запрос
 	 * внимание! проверить наличие утверждённого устава, с необходимыми услугами
-	 * в т.ч. дополнительными! 
-	 * Иначе будет SRV008076 - 
+	 * в т.ч. дополнительными!
+	 * Иначе будет SRV008076 -
 	 * Некорректный состав услуг или некорректное указание реквизитов по услугам
-	 * @param task - задание 
+	 * @param task - задание
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -299,8 +280,8 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
-		
-		ImportPaymentDocumentRequest req = new ImportPaymentDocumentRequest(); 
+
+		ImportPaymentDocumentRequest req = new ImportPaymentDocumentRequest();
 
 		req.setId("foo");
 		req.setVersion(req.getVersion());
@@ -312,19 +293,19 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// добавить не более 1000 вхождений ПД
 			addPaymentDocument(t, house, req);
 		}));
-		
+
 /*		taskDao.getByTaskAddrTp(task, "Платёжный документ", null).stream().filter(t-> t.getAct().getCd().equals("GIS_IMP_PAY_DOC"))
 		.forEach(Errors.rethrow().wrap(t-> {
 			log.info("Добавление платежного документа, Task.id={}", t.getId());
 			addPaymentDocument(t, house, req);
 		}));
-*/		
-		// отзываемые платежные документы 
+*/
+		// отзываемые платежные документы
 		// req.getWithdrawPaymentDocument().add(wdPd);
-		
+
 		// проверять ли расчет документов?
 		req.setConfirmAmountsCorrect(true);
-		
+
 		try {
 			ack = port.importPaymentDocumentData(req);
 		} catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
@@ -332,7 +313,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			err = true;
 			errMainStr = e.getFaultInfo().getErrorMessage();
 		}
-    	
+
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
@@ -349,8 +330,8 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	 * Добавление платежного документа
 	 * @param pdoc - ПД
 	 * @param req - запрос
-	 * @throws CantPrepSoap 
-	 * @throws WrongGetMethod 
+	 * @throws CantPrepSoap
+	 * @throws WrongGetMethod
 	 */
 	private void addPaymentDocument(Pdoc pdoc, Eolink house, ImportPaymentDocumentRequest req) throws CantPrepSoap, WrongGetMethod {
 		PaymentDocument pd = new PaymentDocument();
@@ -363,12 +344,12 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// Организация
 		Eolink uk = house.getParent();
 		// Тип информационной системы
-		Integer appTp = uk.getAppTp(); 
+		Integer appTp = uk.getAppTp();
 		// лицевой счет
 		Eolink acc = pdoc.getEolink();
 		// GUID лицевого счета
 		String accGuid = acc.getGuid();
-		
+
 		// дата ПД (обычно последнее число расчетного месяца)
 		Date dt = pdoc.getDt();
 		if (dt == null) {
@@ -382,24 +363,24 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		Integer month = Integer.valueOf(Utl.ltrim(Utl.getPeriodMonth(period),"0"));
 		// год ПД
 		Short year = Short.valueOf(Utl.getPeriodYear(period));
-		
+
 		// лиц.счет
 		pd.setAccountGuid(accGuid);
-		
+
 		// Номер ПД из биллинга
 		if (pdoc.getCd() == null) {
 			throw new CantPrepSoap("Не заполнен CD документа");
 		}
 		pd.setPaymentDocumentNumber(pdoc.getCd());
-		
+
 		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk);
-		
+
 		// обновить услугами из справочника ГИС
 		lstSum.stream().forEach(t-> {
-			Ulist ulist = em.find(Ulist.class, t.getUlistId()); 
+			Ulist ulist = em.find(Ulist.class, t.getUlistId());
 			t.setUlist(ulist);
 		});
-		
+
 		ChargeInfo chrgInfo = new ChargeInfo();
 		// начисления по видам услуг
 		for (SumChrgRec t: lstSum) {
@@ -414,7 +395,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 				pd.getChargeInfo().add(chrgInfo);
 			} else if (t.getUlist().getTp().equals(1)) {
 				log.info("ПД: lstSum Ulist.id={}, tp={}", t.getUlist().getId(), t.getUlist().getTp());
-				// 1 - коммунальная (напр.Х.В.), 
+				// 1 - коммунальная (напр.Х.В.),
 				chrgInfo = new ChargeInfo();
 				pd.getChargeInfo().add(chrgInfo);
 				chrgInfo.setMunicipalService(addMunService(t, "NO", "M"));
@@ -443,7 +424,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			}
 
 		}
-		
+
 		// неустойки и судебные расходы (пени)
 		PenaltiesAndCourtCosts penCourtCost = new PenaltiesAndCourtCosts();
 		// вид неустойки и судебных расходов. НСИ 329 "Неустойки и судебные расходы":
@@ -461,7 +442,7 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		pd.getPenaltiesAndCourtCosts().add(penCourtCost );
 
 		log.info("ПД: pen={}", pen);
-		
+
 		// задолженность за предыдущие периоды по капремонту (не обязательный по документации)
 		/*DebtImportType capDebt = new DebtImportType();
 		capDebt.setMonth(value);
@@ -476,14 +457,14 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		pdServDebt.setHousingService(value2 );
 		pdServDebt.setMunicipalService(value);
 		pd.getChargeDebt().add(pdServDebt);*/
-		
+
 		Double totalD = lstSum.stream()
 				.mapToDouble(t -> t.getSumma()).sum();
 		BigDecimal totalPeriod = Utl.getBigDecimalRound(totalD, 2);
 		log.info("ПД: totalPeriod={}", totalPeriod);
 		// сумма к оплате за расчетный период по услугам, руб. (по всем услугам за расчетный период)
 		pd.setTotalPayableByChargeInfo(totalPeriod);
-		
+
 		// получить сальдо на начало периода
 		BigDecimal sal = Utl.nvl(debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk), BigDecimal.ZERO);
 		//BigDecimal sal = BigDecimal.valueOf(1111.11D);
@@ -493,21 +474,21 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		BigDecimal debt = BigDecimal.ZERO;
 		// аванс
 		BigDecimal advnc = BigDecimal.ZERO;
-	
+
 		if (sal.compareTo(BigDecimal.ZERO) == 1) {
 			debt = sal;
 		} else if (sal.compareTo(BigDecimal.ZERO) == -1) {
-			advnc = sal; 
+			advnc = sal;
 		}
-		
+
 		// задолженность за предыдущие периоды, руб.
 		log.info("ПД: debt={}", debt);
 		pd.setDebtPreviousPeriods(debt);
-		
+
 		// аванс на начало расчетного периода, руб.
 		log.info("ПД: advnc={}", advnc);
 		pd.setAdvanceBllingPeriod(advnc);
-		
+
 		// сумма к оплате с учетом рассрочки платежа и процентов за рассрочку, руб.
 		// рассрочка возможна только при наличии хотя бы одной коммунальной услуги в ПД с рассрочкой.
 		// log.info("ПД: totalPeriod={}", totalPeriod);
@@ -515,14 +496,14 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 		// учтены платежи, поступившие до указанного числа расчетного периода включительно
 		pd.setPaymentsTaken(day);
-		
+
 		// итого к оплате по неустойкам и судебным издержкам, руб. (итого по всем неустойкам и судебным издержкам).
 		// заполняется только для ПД с типом = Текущий
 		pd.setTotalByPenaltiesAndCourtCosts(pen);
-		
+
 		// итого к оплате за расчетный период всего, руб. (по всему платежному документу)
 		pd.setTotalPayableByPD(totalPeriod);
-		
+
 		// итого к оплате за расчетный период c учетом задолженности/переплаты, руб. (по всему платежному документу)
 		BigDecimal totalPayableByPd = sal.add(totalPeriod).add(pen);
 		log.info("ПД: totalPayableByPDWithDebtAndAdvance={}", totalPayableByPd);
@@ -530,54 +511,54 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 		// справочная информация. Составляющие стоимости электрической энергии.
 		// pd.getComponentsOfCost()
-		
+
 		// оплачено денежных средств, руб (не обязательно) сказано в ГИС, что эта сумма автоматически осуществит квитирование предыдущ. ПД
-		//pd.setPaidCash(BigDecimal.valueOf(3444.73D)); 
-		
+		//pd.setPaidCash(BigDecimal.valueOf(3444.73D));
+
 		// дата последней поступившей оплаты (не обязательно)
 		//pd.setDateOfLastReceivedPayment(value);
-		
+
 		// сохранить транспортный GUID платежного документа
 		String tguid = Utl.getRndUuid().toString();
 		pd.setTransportGUID(tguid);
 		pdoc.setTguid(tguid);
-		
+
 		// Идентификатор платежного документа ?????
 		// pd.setPaymentDocumentID(value);
-		
+
 		req.getPaymentDocument().add(pd);
 		req.setMonth(month);
 		req.setYear(year);
-		
+
 		// платежные реквизиты
 		PaymentInformation payInfo = new PaymentInformation();
 		req.getPaymentInformation().add(payInfo);
-		
+
 		// платежные реквизиты (указать РКЦ здесь)
 		OrgDTO orgDto = orgMng.getOrgDTO(uk);
 		log.info("ПД: BIK=#{}#", orgDto.getBik());
 		payInfo.setBankBIK(orgDto.getBik());
 		log.info("ПД: OperAccount=#{}#", orgDto.getOperAcc());
 		payInfo.setOperatingAccountNumber(orgDto.getOperAcc());
-		
+
 		payInfo.setBankBIK("043207612");
 		payInfo.setOperatingAccountNumber("40703810526020101092");
-		
-		// Транспортный GUID платежных реквизитов   
+
+		// Транспортный GUID платежных реквизитов
 		String tguidPay = Utl.getRndUuid().toString();
 		payInfo.setTransportGUID(tguidPay);
-		
-		// сослаться на TGUID платежных реквизитов   
+
+		// сослаться на TGUID платежных реквизитов
 		pd.setPaymentInformationKey(tguidPay);
-		
+
 	}
 
 	/*
 	 * добавить жилищную услугу
-	 * @param rec - запись начисления 
+	 * @param rec - запись начисления
 	 * @param calcExpl - порядок расчетов
 	 */
-	private HousingService addHousingService(SumChrgRec rec, 
+	private HousingService addHousingService(SumChrgRec rec,
 			String calcExpl, List<SumChrgRec> lstSum) {
 		NsiRef mres;
 		HousingService housService = new HousingService();
@@ -587,9 +568,9 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		housService.setRate(BigDecimal.valueOf(rec.getPrice()));
 		// итог по данной услуге (Жилищная услуга + услуги на ОИ)
 		Double total = lstSum.stream()
-				.filter(t -> t.getUlist().equals(rec.getUlist()) 
-						|| t.getUlist().getParent2()!=null 
-						&& t.getUlist().getParent2().equals(rec.getUlist()) 
+				.filter(t -> t.getUlist().equals(rec.getUlist())
+						|| t.getUlist().getParent2()!=null
+						&& t.getUlist().getParent2().equals(rec.getUlist())
 						&& t.getUlist().getTp().equals(3))
 				.mapToDouble(t -> t.getSumma()).sum();
 		// всего начислено за расчетный период (без перерасчетов и льгот), руб.
@@ -598,8 +579,8 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		housService.setTotalPayable(Utl.getBigDecimalRound(total,2));
 		// порядок расчетов
 		housService.setCalcExplanation(calcExpl);
-		
-		
+
+
 		// РЕСУРСЫ НА ОИ
 		for (SumChrgRec t: lstSum.stream() // найти дочерние записи (Усл. на ОИ)
 				.filter(e -> e.getUlist().getParent2()!=null && e.getUlist().getParent2().equals(rec.getUlist()))
@@ -608,15 +589,15 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 			// услуга ГИС ЖКХ
 			NsiRef servType = ulistMng.getNsiElem(t.getUlist());
-			
+
 			MunicipalResource mr = new MunicipalResource();
 			mr.setServiceType(servType);
-			ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption consum = 
+			ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption consum =
 					new	ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption();
-			
-			ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption.Volume volume = 
+
+			ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption.Volume volume =
 					new ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.MunicipalResource.Consumption.Volume();
-	
+
 			// способ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
 			volume.setDeterminingMethod("N");
 			// тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление, house(O)verallNeeds - общедомовые нужды
@@ -627,14 +608,14 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// потребление при содержании общего имущества (м3)
 			volume.setValue(Utl.getBigDecimalRound(t.getVol(), 5));
 			consum.setVolume(volume);
-			
+
 			// потребление
 			mr.setConsumption(consum);
-			// Тариф, руб./ед.изм. (для Х.В. на ОИ - это м3) 
+			// Тариф, руб./ед.изм. (для Х.В. на ОИ - это м3)
 			mr.setRate(BigDecimal.valueOf(t.getPrice()));
 			// всего начислено за расчетный период, руб (потребление * тариф, округлить!)
 			mr.setAccountingPeriodTotal(Utl.getBigDecimalRound(t.getSumma(),2));
-			
+
 			// Справочная информация
 			//ServiceInformation servInf = new ServiceInformation();
 			// Норматив потребления при содержании общего имущества (м3 на м2)
@@ -650,15 +631,15 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// К оплате за коммунальный ресурс потребления при содержании общего имущества (расценка на площадь)
 			mr.setMunicipalServiceCommunalConsumptionPayable(Utl.getBigDecimalRound(t.getSumma(),2)); // TODO
 			mr.setServiceCharge(servChrg);
-			housService.getMunicipalResource().add(mr ); 
+			housService.getMunicipalResource().add(mr );
 		}
-		
+
 		return housService;
 	}
-	
+
 	/*
 	 * добавить муниципальную услугу
-	 * @param rec - запись начисления 
+	 * @param rec - запись начисления
 	 * @param detMethod - cпособ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
 	 */
 	private MunicipalService addMunService(SumChrgRec rec, String calcExpl, String detMethod) {
@@ -667,15 +648,15 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 		// внутренний справочник организации №51
 		mres = ulistMng.getNsiElem(rec.getUlist());
 		Consumption consump = new Consumption();
-		
+
 		Volume volume = new Volume();
-		
+
 		// Способ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
 		volume.setDeterminingMethod(detMethod);
 		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление
 		volume.setType("I");
 		volume.setValue(Utl.getBigDecimalRound(rec.getVol(), 5));
-		
+
 		consump.getVolume().add(volume);
 		munService.setConsumption(consump);
 		munService.setServiceType(mres);
@@ -691,14 +672,14 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 
 	/*
 	 * добавить дополнительную услугу
-	 * @param rec - запись начисления 
+	 * @param rec - запись начисления
 	 */
 	private AdditionalService addAdditionalService(SumChrgRec rec, String calcExpl) {
 		NsiRef mres;
 		AdditionalService additionalService = new AdditionalService();
 		// внутренний справочник организации №1
 		mres = ulistMng.getNsiElem(rec.getUlist());
-		
+
 		ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption consumption =
 				new ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption();
 		ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.Consumption.Volume volume =
@@ -723,16 +704,17 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 	/**
 	 * Получить результат импорта платежного документа
 	 * @param task - задание
-	 * @throws CantPrepSoap 
+	 * @throws CantPrepSoap
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importPaymentDocumentDataAsk(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, импорт платежных документов по дому, запрос ответа", task.getId());
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);	
+		reqProp.setProp(task, sb);
 		// Трассировка XML
 		sb.setTrace(true);
-		
+
 		// получить состояние
 		ru.gosuslugi.dom.schema.integration.bills.GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -740,44 +722,46 @@ public class HcsBillsAsyncBuilder2 implements HcsBillsAsyncBuilders2 {
 			// не обработано
 			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-			
+
 			retState.getImportResult().stream().forEach(t -> {
 				// Найти ПД по Транспортному GUID
-				Pdoc pdoc = pdocDao.getPdocByTGUID(t.getTransportGUID());
-				
-				boolean isErr = false; 
-				for (Error f: t.getError()) {	
+				Pdoc pdoc = pdocDao.getByTGUID(t.getTransportGUID());
+
+				boolean isErr = false;
+				for (Error f: t.getError()) {
 					log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
 					String errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
 					log.error(errStr);
 					isErr = true;
 				};
 
-				log.info("После импорта платежного документа по Task.id={} и TGUID={}, получены следующие параметры:", 
+				log.info("После импорта платежного документа по Task.id={} и TGUID={}, получены следующие параметры:",
 						reqProp.getFoundTask().getId(), t.getTransportGUID());
 				log.info("GUID={}, UniqueNumber={}", t.getGUID(), t.getUniqueNumber());
-				
+
 				// записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
-				pdoc.setGuid(t.getGUID());
-				pdoc.setUn(t.getUniqueNumber());
-				
-				// установить статус
-				if (pdoc.getStatus().equals(0) && pdoc.getV().equals(1)) {
+				if (pdoc.getGuid() == null) {
+					pdoc.setGuid(t.getGUID());
+					pdoc.setUn(t.getUniqueNumber());
+				}
+
+				// установить статус, если не было ошибки
+				if (!isErr && pdoc.getStatus().equals(0) && pdoc.getV().equals(1)) {
 					// если был "добавлен" и "действующий", то статус - загружен
 					pdoc.setStatus(1);
-				} else if (pdoc.getStatus().equals(1) && pdoc.getV().equals(0)) {
+				} else if (!isErr && pdoc.getStatus().equals(1) && pdoc.getV().equals(0)) {
 					// если был "загружен" и "отменен", то статус - отменен
 					// статус - отменен
 					pdoc.setStatus(2);
 				}
-				
+
 			});
-			
+
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
-			
+
 		}
 	}
 
-	
+
 }

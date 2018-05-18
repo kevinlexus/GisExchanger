@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.st.SoapBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.sun.xml.ws.developer.WSBindingProvider;

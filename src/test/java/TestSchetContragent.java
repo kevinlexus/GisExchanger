@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.ServGis;

@@ -31,7 +31,7 @@ import com.dic.bill.dao.AchargeDAO;
 import com.dic.bill.dao.ApenyaDAO;
 import com.dic.bill.dao.SaldoUslDAO;
 import com.diffplug.common.base.Errors;
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.ChrgDAO;
 import com.ric.bill.dao.TempLskDAO;

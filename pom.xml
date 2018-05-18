@@ -38,6 +38,13 @@
 
 	<dependencies>
 
+		<!-- BillCommon -->
+		<dependency>
+			<groupId>com.ric.cmn</groupId>
+			<artifactId>BillCommon</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 		  <groupId>org.quartz-scheduler</groupId>

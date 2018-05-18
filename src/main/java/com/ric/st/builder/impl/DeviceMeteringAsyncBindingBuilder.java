@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.WrongGetMethod;

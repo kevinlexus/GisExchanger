@@ -46,11 +46,11 @@ public class TestPdoc {
     public void testPdoc() throws Exception {
 		log.info("Start");
 
-		pdocDao.getPdocForLoadByHouseWithEntry(7570).stream().forEach(t-> {
+		pdocDao.getForLoadByHouseWithEntry(7570).stream().forEach(t-> {
 			log.info("Платежный документ для лс с подъездом, Pdoc.id={}, Pdoc.cd={}", t.getId(), t.getCd());
 		}); ;
 		
-		pdocDao.getPdocForLoadByHouseWOEntry(7570).stream().forEach(t-> {
+		pdocDao.getForLoadByHouseWOEntry(7570).stream().forEach(t-> {
 			log.info("Платежный документ для лс без подъезда, Pdoc.id={}, Pdoc.cd={}", t.getId(), t.getCd());
 		}); ;
 

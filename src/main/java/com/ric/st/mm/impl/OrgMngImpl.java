@@ -27,7 +27,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiListType;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 import com.diffplug.common.base.Errors;
-import com.ric.bill.Utl;
+import com.ric.cmn.Utl;
 import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.model.bs.Org;
 import com.ric.bill.model.exs.Eolink;
