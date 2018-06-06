@@ -6,33 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.BindingProvider;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.gosuslugi.dom.schema.integration.base.AckRequest;
-import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
-import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
-import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
-import ru.gosuslugi.dom.schema.integration.device_metering.ExportMeteringDeviceHistoryResultType;
-import ru.gosuslugi.dom.schema.integration.device_metering_service_async.Fault;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportDataProviderRequest;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest.SearchCriteria;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStateResult;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgPortsTypeAsync;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgServiceAsync;
-
-import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.EolinkMng;
-import com.ric.bill.model.bs.Lst;
+import com.ric.bill.mm.TaskMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.ReqProps;
@@ -41,9 +24,18 @@ import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
-import com.ric.st.impl.SoapConfig;
-import com.ric.bill.mm.TaskMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
+
+import lombok.extern.slf4j.Slf4j;
+import ru.gosuslugi.dom.schema.integration.base.AckRequest;
+import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
+import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
+import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest.SearchCriteria;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStateResult;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgPortsTypeAsync;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgServiceAsync;
 
 @Service
 @Slf4j
@@ -58,7 +50,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
-	private PseudoTaskBuilders ptb; 
+	private PseudoTaskBuilders ptb;
 	@Autowired
 	private ReqProps reqProp;
 
@@ -67,6 +59,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 	private SoapBuilder sb;
 
+	@Override
 	public void setUp() throws CantSendSoap {
     	// создать сервис и порт
 		service = new RegOrgServiceAsync();
@@ -79,9 +72,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		// логгинг запросов
     	sb.setTrace(false);
 	}
-	
 
-	
+
+
 	/**
 	 * Получить состояние запроса
 	 * @param task - задание
@@ -90,18 +83,18 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public GetStateResult getState2(Task task) {
-		
+
 		// Признак ошибки
 		Boolean err = false;
 		// Признак ошибки в CommonResult
 		Boolean errChld = false;
 		String errStr = null;
 		GetStateResult state = null;
-		
+
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-		
+
 		sb.makeRndMsgGuid();
 		try {
 			state = port.getState(gs);
@@ -115,8 +108,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			// вернуться, если задание всё еще не выполнено
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			return null;
-		}		
-				
+		}
+
 		// Показать ошибки, если есть
 		if (err) {
 			// Ошибки во время выполнения
@@ -131,9 +124,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			task.setState("ERR");
 			task.setResult(errStr);
 		} else {
-			
+
 			for (CommonResultType e : state.getImportResult()) {
-					for (Error f: e.getError()) {	
+					for (Error f: e.getError()) {
 						// Найти элемент задания по Транспортному GUID
 						Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
 						// Установить статусы ошибки по заданиям
@@ -146,7 +139,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 					};
 			}
 		}
-		
+
 		if (!err) {
 			// если в главном задании нет ошибок, но в любом дочернем задании обнаружена ошибка - статус - "Ошибка"
 			// и если уже не установлен признак ошибки
@@ -157,17 +150,18 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				log.error("Ошибки в элементе CommonResult");
 			}
 		}
-		
+
 		return state;
 	}
 
 	/**
 	 * Экспорт данных провайдера
 	 */
+	@Override
 	public void exportDataProvider() {
 	/*	ExportDataProviderRequest req = new ExportDataProviderRequest();
 		req.setVersion(req.getVersion());
-		
+
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -190,28 +184,29 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			// Ошибок нет
 			retState.getState().getExportDataProviderResult().stream().forEach(t->{
 				log.info("Provider={}", t.getDataProviderGUID());
-			});		
+			});
 		}
 		*/
 	}
 
 	/**
 	 * Экспорт данных организации
-	 * @return 
-	 * @throws CantPrepSoap 
+	 * @return
+	 * @throws CantPrepSoap
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
 		//log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
 		sb.setTrace(false);
 		// Установить параметры SOAP
-		reqProp.setPropWOGUID(task, sb);	
+		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
-		Eolink eolOrg = reqProp.getFoundTask().getEolink(); 
-		String reu = eolOrg.getReu(); 
+		Eolink eolOrg = reqProp.getFoundTask().getEolink();
+		String reu = eolOrg.getReu();
 
 		ExportOrgRegistryRequest req = new ExportOrgRegistryRequest();
 
@@ -235,7 +230,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			err = true;
 			errMainStr = "Отсутствует ОГРН!";
 		}
-		
+
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
@@ -244,17 +239,17 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			reqProp.getFoundTask().setState("ACK");
 			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
 		}
-		
+
 		return err;
 		}
-	
+
 	/**
 	 * Получить результат экспорта параметров организации
 	 * @param task - задание
-	 * @throws WrongGetMethod 
-	 * @throws IOException 
-	 * @throws CantPrepSoap 
-	 * @throws WrongParam 
+	 * @throws WrongGetMethod
+	 * @throws IOException
+	 * @throws CantPrepSoap
+	 * @throws WrongParam
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -263,7 +258,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		sb.setTrace(false);
 		// Установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
-		Eolink eolOrg = reqProp.getFoundTask().getEolink(); 
+		Eolink eolOrg = reqProp.getFoundTask().getEolink();
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -279,23 +274,23 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				} else {
 					//log.info("По Организации: {} получен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
 				}
-			});		
-			
+			});
+
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
 		}
-	}	
-	
+	}
+
 	/**
 	 * Проверить наличие заданий на выгрузку параметров организаций
 	 * и если их нет, - создать
 	 * @param task
-	 * @throws WrongParam 
+	 * @throws WrongParam
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicTask(Task task) throws WrongParam {
-		log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, вызов", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если их нет
 		String actTp = "GIS_EXP_ORG";
@@ -310,7 +305,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, выполнено!", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, выполнено!", task.getId());
 	}
 
 

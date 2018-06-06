@@ -11,7 +11,6 @@ import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +18,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ric.bill.Config;
 import com.ric.bill.RequestConfig;
-import com.ric.cmn.Utl;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.ErrorProcessAnswer;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.TaskMng;
-import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
+import com.ric.cmn.Utl;
 import com.ric.signature.sign.commands.Command;
 import com.ric.st.TaskControllers;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
@@ -75,8 +73,6 @@ public class TaskController implements TaskControllers {
 	private HcsPaymentAsyncBuilders pay;
 	@Autowired
 	private TaskBuilders tb;
-    @Autowired
-	private ApplicationContext ctx;
 	public Command sc;
 	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
@@ -181,14 +177,11 @@ public class TaskController implements TaskControllers {
 		// цикл
 		while(flag) {
 			// перебрать все необработанные действия
+			//log.info("******* начало обработки действий *******");
 			for (Task task: taskDao.getAllUnprocessed()) {
-				String objTp, objTpx="xxx";
 				//log.info("task.id={}", task.getId());
 				// Почистить результаты задания
 				taskMng.clearAllResult(task);
-				Eolink eo = task.getEolink();
-
-				Integer appTp = task.getAppTp();
 				String actCd = task.getAct().getCd();
 				String state = task.getState();
 
@@ -215,10 +208,6 @@ public class TaskController implements TaskControllers {
 								// Проверка наличия заданий по экспорту объектов дома
 								hb.checkPeriodicHouseExp(task);
 								break;
-/*							case "SYSTEM_CHECK_HOUSE_ACC_TASK" :
-								// Проверка наличия заданий по экспорту лицевых счетов по дому
-								hb.checkPeriodicAccExp(task);
-								break;*/
 							case "SYSTEM_CHECK_HOUSE_MET_TASK" :
 								// Проверка наличия заданий по экспорту счетчиков по помещениям дома
 								hb.checkPeriodicMetExp(task);
@@ -235,10 +224,18 @@ public class TaskController implements TaskControllers {
 								// Проверка наличия заданий по экспорту справочников организации
 								nsiSv.checkPeriodicTask(task);
 								break;
-							/*case "SYSTEM_CHECK_HOUSE_PREP_TASK" :
-								// Проверка наличия заданий по подготовке импорта объектов дома
-								hb.checkPeriodicHousePrepImp(task);
-								break;*/
+							case "SYSTEM_CHECK_IMP_PD" :
+								// Проверка наличия заданий по импорту ПД
+								bill.checkPeriodicImpPd(task);
+								break;
+							case "SYSTEM_CHECK_IMP_SUP_NOTIF" :
+								// Проверка наличия заданий по импорту Извещений по ПД
+								pay.checkPeriodicSupplierImpNotif(task);
+								break;
+							case "SYSTEM_CHECK_IMP_SUP_NOTIF_CANCEL" :
+								// Проверка наличия заданий по импорту отмены Извещений по ПД
+								pay.checkPeriodicImpCancelNotif(task);
+								break;
 							}
 						}
 						break;
@@ -252,7 +249,6 @@ public class TaskController implements TaskControllers {
 						// Запуск повторяемого задания, если задано
 						TaskPar taskPar = tb.getTrgTask(task);
 						if (taskPar!= null) {
-							log.info("******* Строка расписания, TaskPar.id={}", taskPar.getId());
 							// активировать все зависимые задания
 							tb.activateRptTask(task);
 							// добавить в список выполненных заданий
@@ -364,14 +360,26 @@ public class TaskController implements TaskControllers {
 							bill.importPaymentDocumentDataAsk(task);
 						}
 						break;
-					case "GIS_IMP_PAY_DOCS2":
-						bill.setUp();
+					case "GIS_IMP_SUP_NOTIFS":
+						pay.setUp();
 						if (state.equals("INS")) {
-							// Импорт платежных документов по дому
-							// bill2.importPaymentDocumentData(task); TODO Убрать коммент!
+							// Импорт извещений исполнения распоряжений
+							pay.importSupplierNotificationsOfOrderExecution(task);
 						} else if (state.equals("ACK")) {
 							// Запрос ответа
-							// bill2.importPaymentDocumentDataAsk(task); TODO Убрать коммент!
+							pay.importSupplierNotificationsOfOrderExecutionAsk(task);
+						}
+						break;
+
+					case "GIS_IMP_CANCEL_NOTIFS":
+						// Экспорт отмены извещений исполнения документа
+						pay.setUp();
+						if (state.equals("INS")) {
+							// Экспорт отмены извещений исполнения документа
+							pay.importNotificationsOfOrderExecutionCancelation(task);
+						} else if (state.equals("ACK")) {
+							// Запрос ответа
+							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
 						}
 						break;
 					case "GIS_EXP_PAY_DETAIL_DOCS":
@@ -415,30 +423,6 @@ public class TaskController implements TaskControllers {
 							bill.exportNotificationsOfOrderExecutionAsk(task);
 						}
 						break;
-
-					case "GIS_IMP_SUPPLIER_NOTIFS":
-						pay.setUp();
-						if (state.equals("INS")) {
-							// Импорт извещений исполнения распоряжений
-							pay.importSupplierNotificationsOfOrderExecution(task);
-						} else if (state.equals("ACK")) {
-							// Запрос ответа
-							pay.importSupplierNotificationsOfOrderExecutionAsk(task);
-						}
-						break;
-
-					case "GIS_IMP_CANCEL_NOTIFS":
-						// Экспорт отмены извещений исполнения документа
-						pay.setUp();
-						if (state.equals("INS")) {
-							// Экспорт отмены извещений исполнения документа
-							pay.importNotificationsOfOrderExecutionCancelation(task);
-						} else if (state.equals("ACK")) {
-							// Запрос ответа
-							pay.importNotificationsOfOrderExecutionCancelationAsk(task);
-						}
-						break;
-
 					default:
 						log.error("Ошибка! Нет обработчика по заданию с типом={}", actCd);
 						break;
@@ -466,6 +450,7 @@ public class TaskController implements TaskControllers {
 				}
 
 			}
+			//log.info("******* окончание обработки действий *******");
 
 		}
 

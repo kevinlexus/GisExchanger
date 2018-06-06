@@ -3,7 +3,6 @@ package com.ric.st.builder.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,13 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.cmn.Utl;
 import com.ric.bill.dao.TaskDAO;
 import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
-import com.ric.bill.model.exs.TaskToTask;
+import com.ric.cmn.Utl;
 import com.ric.st.builder.TaskBuilders;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,14 +49,14 @@ public class TaskBuilder implements TaskBuilders {
 	List<Integer> lstTrg = new ArrayList<Integer>();
 	// Список обработанных событий в расписании
 	List<Integer> lstTrgProc = new ArrayList<Integer>();
-	
+
 	// класс расписания задачи
     /*private class Schedule {
     	Task task;
     	TaskPar taskPar;
     	Integer trgBySched; // установлено/снято загрузчиком расписаний
-    	Integer trgByCtrl; // установлено/снято обработчиком заданий 
-    	
+    	Integer trgByCtrl; // установлено/снято обработчиком заданий
+
     	// конструктор
     	public Schedule (Task task, TaskPar taskPar) {
     		this.task = task;
@@ -83,21 +80,22 @@ public class TaskBuilder implements TaskBuilders {
 		public void setTrgByCtrl(Integer trgByCtrl) {
 			this.trgByCtrl = trgByCtrl;
 		}
-		
+
     }*/
 
     /**
      * Активация повторяемого задания
      * @param - task - повторяемое задание
-     * @throws WrongGetMethod 
+     * @throws WrongGetMethod
      */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void activateRptTask(Task task) throws WrongGetMethod {
 		Task foundTask = em.find(Task.class, task.getId());
-		log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
+		//log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
 		/* найти все связи с зависимыми записями, в заданиях которых нет родителя (главные),
-		   а так же если у этих заданий либо не имеется зависимых заданий, либо имеются и 
-		   они НЕ находятся в статусах INS, ACK (т.е. на обработке)   
+		   а так же если у этих заданий либо не имеется зависимых заданий, либо имеются и
+		   они НЕ находятся в статусах INS, ACK (т.е. на обработке)
 		   (по определённому типу связи)
 		*/
 		foundTask.getInside().stream()
@@ -111,34 +109,34 @@ public class TaskBuilder implements TaskBuilders {
 			List<Task> slave = t.getChild().getSlave();
 			// текущее задание
 			Task current = t.getChild();
-			if (!Utl.in(current.getState(), "INS", "ACK" )) {
-				// если не выполняется 
+			if (!Utl.in(current.getState(), "INS", "ACK", "ERA" )) {
+				// если не выполняется и без ошибки запроса статуса "ERA"
 				if (master == null && slave.size() == 0) {
 					// нет зависимых по DEP_ID заданий
-			    	log.info("------------Основное задание Task.id={} НЕТ Зависимых заданий, ВКЛ!", current.getId());
+			    	//log.info("------------Основное задание Task.id={} НЕТ Зависимых заданий, ВКЛ!", current.getId());
 			    	// и нет зависимых заданий, то поставить на выполнение
 			    	current.setState("INS");
 				} else {
 		    		// есть зависимые задания, проверить их статусы
-			    	log.info("------------Основное задание Task.id={} Есть Зависимые задания!", current.getId());
+			    	//log.info("------------Основное задание Task.id={} Есть Зависимые задания!", current.getId());
 					if(slave.stream()
-					    .filter(e -> Utl.in(e.getState(), "INS", "ACK" )).count() == 0L) {
-				    	// зависимые задания, не выполняются, поставить на выполнение основное и зависимые
-				    	log.info("------------Основное задание Task.id={} Зависимые задания НЕ выполняются, ВКЛ!", current.getId());
+					    .filter(e -> Utl.in(e.getState(), "INS", "ACK", "ERA" )).count() == 0L) {
+				    	// зависимые задания, не выполняются и без ошибки запроса статуса "ERA", поставить на выполнение основное и зависимые
+				    	//log.info("------------Основное задание Task.id={} Зависимые задания НЕ выполняются, ВКЛ!", current.getId());
 				    	current.setState("INS");
 				    	slave.stream().forEach(e -> {
-					    	log.info("------------Зависимое задание Task.id={}, ВКЛ!", e.getId());
+					    	//log.info("------------Зависимое задание Task.id={}, ВКЛ!", e.getId());
 					    	e.setState("INS");
 				    	});
 					} else {
-				    	log.info("------------Основное задание Task.id={} Зависимые задания выполняются, НЕ ВКЛ!", current.getId());
+				    	//log.info("------------Основное задание Task.id={} Зависимые задания выполняются, НЕ ВКЛ!", current.getId());
 					}
 				}
-				
+
 			}
-				
+
 	    });
-		
+
 		/*foundTask.getInside().stream()
 			.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
 		    .filter(t-> t.getChild().getParent() == null)
@@ -146,7 +144,7 @@ public class TaskBuilder implements TaskBuilders {
 		    	// получить основные задания
 			    if (!t.getChild().getState().equals("INS") && !t.getChild().getState().equals("ACK")) {
 			    	log.info("------------Найдено основное задание Task.id={}", t.getId());
-			    	// если не выполняется 
+			    	// если не выполняется
 			    	if (t.getSlave().size() == 0) {
 				    	log.info("------------Основное задание Task.id={} НЕТ зависимых заданий, ВКЛ!", t.getChild().getId());
 				    	// и нет зависимых заданий, то поставить на выполнение
@@ -157,7 +155,7 @@ public class TaskBuilder implements TaskBuilders {
 			    		if (t.getChild().getInside().stream()
 							.filter(e-> e.getTp().getCd().equals("Связь повторяемого задания"))
 						    .filter(e-> e.getChild().getParent() == null)
-						    .filter(e -> e.getChild().getState().equals("INS") || // выполняются 
+						    .filter(e -> e.getChild().getState().equals("INS") || // выполняются
 						    		e.getChild().getState().equals("ACK"))
 				    		.count() == 0L ) {
 					    	// дочерние задания, не выполняются, поставить на выполнение основное
@@ -171,11 +169,11 @@ public class TaskBuilder implements TaskBuilders {
 							    		e.getChild().setState("INS");
 								    	log.info("------------Дочернее задание Task.id={} ВКЛ!", e.getChild().getId());
 						    		});
-				    		
+
 			    		} else {
 					    	log.info("------------Основное задание Task.id={} Дочерние задания выполняются, НЕ ВКЛ!", t.getChild().getId());
 			    		}
-			    		
+
 			    	}
 				    //log.info("******* Задание поставлено на выполнение: Task.id={}, state={}", t.getChild().getId(), t.getChild().getState());
 			    }
@@ -225,7 +223,7 @@ public class TaskBuilder implements TaskBuilders {
 			// рекурсивно вызвать себя же
 			copyTask(t, foundElem, tp);
 		};
-		
+
 	}*/
 
 	/**
@@ -242,7 +240,7 @@ public class TaskBuilder implements TaskBuilders {
         	em.persist(foundElem);
     	});
     }*/
-    
+
 	/**
 	 * Копировать дочерние связи задания, зависимости
 	 * @param src - источник
@@ -259,12 +257,12 @@ public class TaskBuilder implements TaskBuilders {
     		} else {
     			// зависимое задание из другой иерархии, вне данного копирования
         		crTask.setDepTask(src.getDepTask());
-    			log.info("Элемент зависимости возможно относится к другой иерархии, не связанной с текущим копированием Task id={}", 
+    			log.info("Элемент зависимости возможно относится к другой иерархии, не связанной с текущим копированием Task id={}",
     					src.getDepTask().getId());
-    			
+
     		}
     	}
-    	
+
     	// скопировать связи по TASKXTASK
     	src.getInside().stream().forEach(t-> {
     		TaskToTask foundElem = em.find(TaskToTask.class, t.getId());
@@ -285,9 +283,9 @@ public class TaskBuilder implements TaskBuilders {
 
     		em.persist(foundElem);
     	});
-    	
+
     }*/
-    
+
     /**
      * Загрузка списка запланированных задач
      */
@@ -295,7 +293,7 @@ public class TaskBuilder implements TaskBuilders {
     public void timer() {
     	loadSchedules();
     }
-    
+
     /**
      * Загрузка списка запланированных задач
      */
@@ -306,14 +304,14 @@ public class TaskBuilder implements TaskBuilders {
 
     /**
      * Определить статусы заданий
-     * @throws java.text.ParseException 
+     * @throws java.text.ParseException
      */
     @Scheduled(fixedDelay =1000)
     public void checkSchedule() throws java.text.ParseException {
         Date dt = new Date();
         if (lstSched!=null) {
 		for (TaskPar t: lstSched){
-		    	//log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1()); 
+		    	//log.info("Expression TaskPar.id={} s1={}", t.getId(), t.getS1());
 	    		CronExpression exp = new CronExpression(t.getS1());
 	    		// либо удовлетворено условие по дате-времени, либо ручной запуск state --> "INS"
 	    		if (exp.isSatisfiedBy(dt) || t.getTask().getState().equals("INS")) {
@@ -330,7 +328,7 @@ public class TaskBuilder implements TaskBuilders {
 	    			// Убрать все отметки если есть отметка о выполнении задания
 	    	    	if (lstTrgProc.contains(t.getId())) {
 	        			//log.info("Убрать отметки!");
-	
+
 		    			for (Iterator<Integer> iter = lstTrg.listIterator(); iter.hasNext(); ) {
 							if (iter.next().equals(t.getId())) {
 								iter.remove();
@@ -347,15 +345,16 @@ public class TaskBuilder implements TaskBuilders {
         }
 
     }
-    
-    
+
+
     /**
      * Проверить, выполнять ли задание
      * @param task
-     * @return 
-     * @return 
+     * @return
+     * @return
      */
-    public TaskPar getTrgTask(Task task) {
+    @Override
+	public TaskPar getTrgTask(Task task) {
     	// проверить, если поступило в обработку, но еще не выполнено
     	for (TaskPar t : task.getTaskPar().stream()
     			.filter(t-> t.getPar().getCd().equals("ГИС ЖКХ.Crone"))
@@ -367,21 +366,22 @@ public class TaskBuilder implements TaskBuilders {
     	};
     	return null;
     }
-    
+
     /**
      * Отметить выполненное задание
      * @param task
-     * @return 
+     * @return
      */
-    public void setProcTask(TaskPar taskPar) {
-    	//log.info("..............Попытка отметить что выполнено задание!"); 
+    @Override
+	public void setProcTask(TaskPar taskPar) {
+    	//log.info("..............Попытка отметить что выполнено задание!");
     	//log.info("..............Попытка отметить что выполнено задание TaskPar.id={}", taskPar.getId());
-    	// проверить, что еще не выполнено 
+    	// проверить, что еще не выполнено
     	if (!lstTrgProc.contains(taskPar.getId())) {
     		// добавить отметку о выполнении
         	lstTrgProc.add(taskPar.getId());
         	//log.info("..............Отмечено что выполнено задание TaskPar.id={}", taskPar.getId());
-        	//log.info("..............Отмечено что выполнено задание!"); 
+        	//log.info("..............Отмечено что выполнено задание!");
     	}
     }
 
@@ -394,5 +394,5 @@ public class TaskBuilder implements TaskBuilders {
     			.filter(d-> d.getPar().getCd().equals("ГИС ЖКХ.Crone"))
     			.collect(Collectors.toList());
     }
-    
+
 }

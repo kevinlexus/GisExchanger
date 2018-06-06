@@ -1,14 +1,9 @@
 package com.ric.st.builder.impl;
 
 
-import static org.hamcrest.CoreMatchers.hasItem;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
@@ -29,7 +23,6 @@ import com.ric.bill.mm.TaskMng;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.Ulist;
 import com.ric.bill.model.exs.UlistTp;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
@@ -47,7 +40,6 @@ import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ExportDataProviderNsiItemRequest;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementFieldType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementType;
 import ru.gosuslugi.dom.schema.integration.nsi_service_async.NsiPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_service_async.NsiServiceAsync;
@@ -59,7 +51,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	@Autowired
 	private ApplicationContext ctx;
 	@Autowired
-	private UlistDAO ulistDao; 
+	private UlistDAO ulistDao;
     @PersistenceContext
     private EntityManager em;
 	@Autowired
@@ -73,12 +65,13 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	@Autowired
 	private EolinkDAO eolinkDao;
 	@Autowired
-	private PseudoTaskBuilders ptb; 
+	private PseudoTaskBuilders ptb;
 
 	private NsiServiceAsync service;
 	private NsiPortsTypeAsync port;
-	private SoapBuilder sb; 
+	private SoapBuilder sb;
 
+	@Override
 	public void setUp() throws CantSendSoap {
     	// создать сервис и порт
 		service = new NsiServiceAsync();
@@ -98,7 +91,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public ru.gosuslugi.dom.schema.integration.nsi.GetStateResult getState2(Task task) {
-		
+
 		// Признак ошибки
 		Boolean err = false;
 		// Признак ошибки в CommonResult
@@ -109,7 +102,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-		
+
 		sb.makeRndMsgGuid();
 		try {
 			state = port.getState(gs);
@@ -123,8 +116,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			// вернуться, если задание всё еще не выполнено
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			return null;
-		}		
-				
+		}
+
 		// Показать ошибки, если есть
 		if (err) {
 			// Ошибки во время выполнения
@@ -139,9 +132,9 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			task.setState("ERR");
 			task.setResult(errStr);
 		} else {
-			
+
 			for (CommonResultType e : state.getImportResult()) {
-					for (Error f: e.getError()) {	
+					for (Error f: e.getError()) {
 						// Найти элемент задания по Транспортному GUID
 						Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
 						// Установить статусы ошибки по заданиям
@@ -154,7 +147,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 					};
 			}
 		}
-		
+
 		if (!err) {
 			// если в главном задании нет ошибок, но в любом дочернем задании обнаружена ошибка - статус - "Ошибка"
 			// и если уже не установлен признак ошибки
@@ -165,19 +158,20 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 				log.error("Ошибки в элементе CommonResult");
 			}
 		}
-		
+
 		return state;
 
 	}
 
-	
+
 	/**
-	 * Получить внутренний справочник организации 
+	 * Получить внутренний справочник организации
 	 * @param task - задание
-	 * @throws WrongGetMethod 
-	 * @throws DatatypeConfigurationException 
+	 * @throws WrongGetMethod
+	 * @throws DatatypeConfigurationException
 	 * @throws CantPrepSoap
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportDataProviderNsiItem(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		log.info("******* Task.id={}, экспорт внутреннего справочника организации, вызов", task.getId());
@@ -189,7 +183,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
-		
+
 		ExportDataProviderNsiItemRequest req = new ExportDataProviderNsiItemRequest();
 		req.setId("foo");
 		req.setVersion(req.getVersion());
@@ -202,7 +196,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			err = true;
 			errMainStr = e.getFaultInfo().getErrorMessage();
 		}
-		
+
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
@@ -215,19 +209,20 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	}
 
 	/**
-	 * Получить результат запроса внутреннего справочника организации 
+	 * Получить результат запроса внутреннего справочника организации
 	 * @param task - задание
-	 * @throws WrongGetMethod 
-	 * @throws IOException 
-	 * @throws CantPrepSoap 
-	 * @throws WrongParam 
+	 * @throws WrongGetMethod
+	 * @throws IOException
+	 * @throws CantPrepSoap
+	 * @throws WrongParam
 	 */
+	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
 		log.info("******* Task.id={}, экспорт внутреннего справочника организации, запрос ответа", task.getId());
 		sb.setTrace(true);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);	
+		reqProp.setProp(task, sb);
 		// получить состояние запроса
 		ru.gosuslugi.dom.schema.integration.nsi.GetStateResult retState = getState2(reqProp.getFoundTask());
 		if (retState == null) {
@@ -238,12 +233,12 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			String grp = "NSI";
 			Double regNum = taskParMng.getDbl(task, "ГИС ЖКХ.Номер справочника");
 			int tp = regNum.intValue();
-			// получить из нашей базы 
+			// получить из нашей базы
 			UlistTp ulistTp = ulistDao.getListTp(grp, eolink, tp);
 			String prefix = ulistMng.getPrefixedCD(String.valueOf(tp), grp);
 			if (ulistTp == null) {
 				// не найден заголовок, создать новый
-				ulistTp= new UlistTp(prefix, tp, "Внутренний справочник организации", 
+				ulistTp= new UlistTp(prefix, tp, "Внутренний справочник организации",
 						new Date(), grp, null, eolink);
 				em.persist(ulistTp);
 				log.info("Создан заголовочный элемент ListTp :{}", prefix);
@@ -257,7 +252,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 				}
 				*/
 			}
-			
+
 			// загрузить полученные элементы
 			Integer idx = 0;
 			for (NsiElementType t :retState.getNsiItem().getNsiElement()){
@@ -268,19 +263,19 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			reqProp.getFoundTask().setState("ACP");
 		}
 
-		
+
 	}
 
 	/**
 	 * Проверить наличие заданий по экспорту справочников организации
 	 * и если их нет, - создать
 	 * @param task
-	 * @throws WrongParam 
+	 * @throws WrongParam
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicTask(Task task) throws WrongParam {
-		log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, вызов", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если их нет
 		// добавить как зависимое задание к системному повторяемому заданию
@@ -299,13 +294,13 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			ptb.addTaskPar("ГИС ЖКХ.Номер справочника", 51D, null, null, null);
 			ptb.addAsChild(parentCD);
 			ptb.save();
-			
+
 			log.info("Добавлено задание по экспорту справочников организации по Организации Eolink.id={}", e.getId());
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, выполнено!", task.getId());
-		
+		//log.info("******* Task.id={}, проверка наличия заданий по экспорту справочников организации, выполнено!", task.getId());
+
 	}
-	
+
 }

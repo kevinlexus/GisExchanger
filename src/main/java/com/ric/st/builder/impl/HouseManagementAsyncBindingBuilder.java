@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.diffplug.common.base.Errors;
-import com.ric.cmn.Utl;
 import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.EolinkToEolinkDAO;
 import com.ric.bill.dao.KartDAO;
@@ -48,6 +47,7 @@ import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.TaskPar;
 import com.ric.bill.model.oralv.Ko;
+import com.ric.cmn.Utl;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
 import com.ric.st.TaskControllers;
@@ -606,9 +606,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					if (t.getStatusRootDoc().equals("Active")) {
 						// Создать задание на выгрузку показаний по созданному счетчику, если он активен
 						Task taskParent = new Task(reqProp.getFoundTask().getEolink(), null, null, "INS", actParent,
-								null, null, null, null, null, null, 0, userId);
+								null, null, null, null, null, null, 0, userId, 0);
 						Task taskChild = new Task(rootEol, null, null, "INS", actChild,
-								null, null, null, null, null, null, 0, userId);
+								null, null, null, null, null, null, 0, userId, 0);
 
 						// Установить дату снятия показаний - с самого начала месяца
 						Par par = parDao.getByCd(-1, "Счетчик.ДатаСнятияПоказания");
@@ -2430,7 +2430,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicHouseExp(Task task) throws WrongParam {
-		log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, вызов", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на экспорт объектов дома, если их нет
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE", "SYSTEM_RPT_HOUSE_EXP")) {
@@ -2463,7 +2463,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, выполнено!", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, выполнено!", task.getId());
 	}
 
 	/**
@@ -2533,7 +2533,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicMetExp(Task task) throws WrongParam {
-		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, вызов", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на выгрузку счетчиков ИПУ дома, если их нет
 		String actTp = "GIS_EXP_METERS";
@@ -2550,7 +2550,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, выполнено!", task.getId());
+		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку счетчиков ИПУ, выполнено!", task.getId());
 	}
 
 	/**

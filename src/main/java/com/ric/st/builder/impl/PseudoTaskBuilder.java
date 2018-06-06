@@ -7,12 +7,9 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ric.bill.dao.ParDAO;
 import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.dao.TaskToTaskDAO;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.LstMng;
 import com.ric.bill.mm.TaskEolinkParMng;
@@ -49,7 +46,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
     private EntityManager em;
 	@Autowired
 	private TaskDAO taskDao;
-	
+
 	private Task task;
 
 	/* инициализация
@@ -62,7 +59,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void setUp(Eolink eolink, Task parent, String actCd, String state) {
 		setUp(eolink, parent, null, actCd, state);
 	}
-	
+
 	/* инициализация
 	 * @param eolink - объект к которому привязано задание
 	 * @param parent - родительское задание (необязательный параметр)
@@ -76,8 +73,8 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		Integer userId = soapConfig.getCurUser().getId();
 
 		task = new Task(eolink, parent, master, state, actVal,
-				null, null, null, null, null, null, 0, userId);
-		
+				null, null, null, null, null, null, 0, userId, 0);
+
 	}
 
 	/**
@@ -95,11 +92,11 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		if (!par.getDataTp().equals("SI")) {
 			throw new WrongParam("Некорректное использоваение параметра ="+parCd+" тип - не SI");
 		}
-		
+
 		Double valN1 = null;
 		String valS1 = null;
 		Date valD1 = null;
-		
+
 		if (par.getTp().equals("NM")) {
 			if (s1!=null || b1!=null || d1!=null) {
 				throw new WrongParam("Параметр ="+parCd+" имеет тип NM!");
@@ -130,7 +127,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		TaskPar taskPar = new TaskPar(task, par, valN1, valS1, valD1);
 		task.getTaskPar().add(taskPar);
 	}
-	
+
 	// переписать параметры в объект Eolink
 	@Override
 	public void saveToEolink() {
@@ -142,10 +139,10 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void save() {
 		em.persist(task);
 	}
-	
+
 	/**
 	 * Добавить задание как зависимое, в список выполнения другого задания
-	 * @param cd - CD ведущее задания 
+	 * @param cd - CD ведущее задания
 	 */
 	@Override
 	public void addAsChild(String cd) {
@@ -153,19 +150,19 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		Lst lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
 		parent.getInside().add(t);
-		
+
 	}
 
 	/**
 	 * Добавить задание как зависимое, в список выполнения другого задания
-	 * @param parent - ведущее задание 
+	 * @param parent - ведущее задание
 	 */
 	@Override
 	public void addAsChild(Task parent) {
 		Lst lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
 		parent.getInside().add(t);
-		
+
 	}
 
 	@Override
