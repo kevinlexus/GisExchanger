@@ -223,6 +223,55 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 	}
 
+    /**
+     * Получить состояние запроса
+     * @param msgGuid - guid сообщения
+     * @return
+     */
+    private GetStateResult getStateSrv(String msgGuid) {
+
+        // Признак ошибки в CommonResult
+        Boolean errChld = false;
+        ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult state = null;
+
+        GetStateRequest gs = new GetStateRequest();
+        gs.setMessageGUID(msgGuid);
+        sb.setSign(false); // не подписывать запрос состояния!
+        sb.makeRndMsgGuid();
+        try {
+            state = port.getState(gs);
+        } catch (Fault e) {
+            e.printStackTrace();
+            ampqLog("ERROR: GetStateSrv, port.getState fault:"+e.getMessage());
+            return null;
+        } catch (Exception e) {
+            ampqLog("ERROR: getStateSvr, port.getState:"+e.getMessage());
+        }
+
+        if (state != null && state.getRequestState() != 3) {
+            // вернуться, если задание всё еще не выполнено
+            ampqLog("Статус запроса для "+msgGuid+" :"+state.getRequestState());
+            return null;
+        }
+
+        if (state.getErrorMessage() != null
+                && state.getErrorMessage().getErrorCode() != null) {
+            // Ошибки контролей или бизнес-процесса
+            ampqLog(String.format("ERROR: getStateSrv: errCode: %s, errStr: %s",
+                    state.getErrorMessage().getErrorCode(),
+                    state.getErrorMessage().getDescription()));
+            return null;
+            }
+        for (CommonResultType e : state.getImportResult()) {
+            for (Error f: e.getError()) {
+                 ampqLog(String.format("Список ощибок:\nError code=%s, Description=%s", f.getErrorCode(), f.getDescription()));
+                 errChld = true;
+            }
+        }
+
+        return errChld ? null : state;
+
+    }
 	/**
 	 * Импортировать показания счетчиков
 	 *
@@ -578,7 +627,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String rootGuid = jsonGetStr(json, "rootGuid");
         String messageGuid = jsonGetStr(json, "messageGuid");
         String orgGuid = jsonGetStr(json, "orgGuid");
-        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\\n",
+        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
                 "FIASHouseGuid", FIASHouseGuid,
                 "meteringType", meteringType,
                 "resourceType", resourceType,
@@ -595,23 +644,19 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         if (messageGuid != null) {
             //переходник
             ampqLog("Получен messageGuid");
-            Task t = new Task();
-            t.setMsgGuid(messageGuid);
             // получить состояние запроса
-            GetStateResult retState = getState2(t);
+            GetStateResult retState = getStateSrv(messageGuid);
             if (retState == null) {
                 ampqLog("ERROR: exportMeteringDeviceValuesSrv resState : NULL");
-            } else if (!t.getState().equals("ERR")
-                    && !t.getState().equals("ERS")) {
-                    // пользователь
-                    try {
-                        ret = mapper.writeValueAsString(
-                            retState.getExportMeteringDeviceHistoryResult());
-                        ampqLog("JSON :" + ret);
-                    } catch (Exception e) {
-                        ampqLog("ERROR: mapper.writeValueAsString:"+e.getMessage());
-                    }
-                }
+                return ret;
+            }
+            try {
+                ret = mapper.writeValueAsString(
+                      retState.getExportMeteringDeviceHistoryResult());
+                ampqLog("JSON :" + ret);
+            } catch (Exception e) {
+                ampqLog("ERROR: mapper.writeValueAsString:"+e.getMessage());
+            }
         } else if (FIASHouseGuid != null) {
             ampqLog("Получен FIASHouseGuid");
             ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
