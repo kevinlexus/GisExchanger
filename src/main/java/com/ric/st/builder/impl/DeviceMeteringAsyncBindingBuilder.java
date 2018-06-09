@@ -577,13 +577,21 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String resourceType = jsonGetStr(json, "resourceType");
         String rootGuid = jsonGetStr(json, "rootGuid");
         String messageGuid = jsonGetStr(json, "messageGuid");
-        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
+        String orgGuid = jsonGetStr(json, "orgGuid");
+        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\\n",
                 "FIASHouseGuid", FIASHouseGuid,
                 "meteringType", meteringType,
                 "resourceType", resourceType,
                 "rootGuid", rootGuid,
-                "messageGuid", messageGuid
+                "messageGuid", messageGuid,
+                "orgGuid", orgGuid
                 ));
+        if (orgGuid != null) {
+            sb.setPpGuid(orgGuid);
+        } else {
+            ampqLog("Error: нужен orgGuid");
+        }
+
         if (messageGuid != null) {
             //переходник
             ampqLog("Получен messageGuid");
