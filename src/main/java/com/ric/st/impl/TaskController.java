@@ -116,7 +116,8 @@ public class TaskController implements TaskControllers {
 	 */
 	private void rmqTask(String message) {
 	    /*
-	        message: {"cmd":"exportMeteringDeviceValues",
+	        message:
+	                {"cmd":"exportMeteringDeviceValues",
 	                  "data" :
 	                      {
 	                      "FIASHouseGuid" : "fiasguid",

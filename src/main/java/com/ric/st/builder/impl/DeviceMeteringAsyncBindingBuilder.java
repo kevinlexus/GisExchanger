@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -105,12 +106,16 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private PseudoTaskBuilders ptb;
 	@Autowired
 	TaskControllers taskCtrl;
+    @Autowired
+    private AmqpTemplate ampq;
 
 
 	@Value("${appTp}")
 	private String appTp;
 	@Value("${pathCounter}")
 	private String pathCounter;
+	@Value("${logQueue:soap2gis-log}")
+	private String logQueue;
 
 	private DeviceMeteringServiceAsync service;
 	private DeviceMeteringPortTypesAsync port;
@@ -532,7 +537,17 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 	}
 
+	/**
+	 * Отправляет строку в лог ampq
+	 */
+	//TODO: сделать нормальный класс
+	private void ampqLog(String s) {
+	    ampq.convertAndSend(logQueue, s);
+	}
 
+	/**
+	 * Получает из jsonNode значение поля в виде строки
+	 */
 	private String jsonGetStr(JsonNode json, String field) {
 	    JsonNode node = json.get(field);
 	    if (node == null || !node.isValueNode()) return null;
@@ -540,11 +555,17 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	}
 
 	@Override
-	public String exportMeteringDeviceValuesSrv(JsonNode json) throws WrongGetMethod, IOException, WrongParam {
-	    String ret = null;
+	public String exportMeteringDeviceValuesSrv(JsonNode json) {
+	    String ret = "error";
 	    ObjectMapper mapper = new ObjectMapper();
 
 	    log.info("******* ampq экспорт показаний счетчиков");
+	    ampqLog("Экспорт показаний");
+	    try {
+	        ampqLog(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
+	    } catch (Exception e) {
+	        ampqLog("ERROR: mapper:"+e.getMessage());
+	    }
 
         AckRequest ack = null;
         // для обработки ошибок
@@ -556,22 +577,35 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String resourceType = jsonGetStr(json, "resourceType");
         String rootGuid = jsonGetStr(json, "rootGuid");
         String messageGuid = jsonGetStr(json, "messageGuid");
+        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
+                "FIASHouseGuid", FIASHouseGuid,
+                "meteringType", meteringType,
+                "resourceType", resourceType,
+                "rootGuid", rootGuid,
+                "messageGuid", messageGuid
+                ));
         if (messageGuid != null) {
             //переходник
+            ampqLog("Получен messageGuid");
             Task t = new Task();
             t.setMsgGuid(messageGuid);
             // получить состояние запроса
             GetStateResult retState = getState2(t);
             if (retState == null) {
-                log.info("exportMeteringDeviceValuesSrv resState : NULL");
+                ampqLog("ERROR: exportMeteringDeviceValuesSrv resState : NULL");
             } else if (!t.getState().equals("ERR")
                     && !t.getState().equals("ERS")) {
                     // пользователь
-                    ret = mapper.writeValueAsString(
+                    try {
+                        ret = mapper.writeValueAsString(
                             retState.getExportMeteringDeviceHistoryResult());
-                    log.info("JSON :" + ret);
+                        ampqLog("JSON :" + ret);
+                    } catch (Exception e) {
+                        ampqLog("ERROR: mapper.writeValueAsString:"+e.getMessage());
+                    }
                 }
         } else if (FIASHouseGuid != null) {
+            ampqLog("Получен FIASHouseGuid");
             ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
 
             req.setId("foo");
@@ -581,21 +615,23 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             boolean ok = false;
             NsiRef tp = null;
             if (meteringType != null) {
-                log.info("Тип прибора учета1={}", meteringType);
+                ampqLog("Тип прибора учета1="+meteringType);
                 tp = ulistMng.getNsiElem("NSI", 27, "Тип прибора учета", meteringType);
                 req.getMeteringDeviceType().add(tp);
                 ok = true;
             } else if (resourceType != null) {
+                ampqLog("Тип ресурса="+resourceType);
                 tp = ulistMng.getNsiElem("NSI", 2, "Вид коммунального ресурса", resourceType);
                 req.getMunicipalResource().add(tp);
                 ok = true;
             } else if (rootGuid != null) {
+                ampqLog("Корневой guid="+rootGuid);
                 req.getMeteringDeviceRootGUID().add(rootGuid);
                 ok = true;
             }
             if (!ok) {
-                log.error("Ошибка в формате входящего json.");
-                return null;
+                ampqLog("ERROR: Ошибка в формате входящего json.");
+                return ret;
                 //error, return
             }
             // Искать ли архивные
@@ -605,11 +641,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             // дата с которой получить показания
             try {
                 req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
-            } catch (DatatypeConfigurationException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            } catch (Exception e) {
+                ampqLog("ERROR: reqInputDateFrom:"+e.getMessage());
             }
-
 
             try {
                 ack = port.exportMeteringDeviceHistory(req);
@@ -617,15 +651,19 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 e.printStackTrace();
                 err = true;
                 errMainStr = e.getFaultInfo().getErrorMessage();
+            } catch (Exception e) {
+                ampqLog("ERROR: "+e.getMessage());
+                err = true;
+                errMainStr = "Java exception";
             }
 
             if (err) {
-                log.info("Ошибка при отправке XML: "+errMainStr);
+                ampqLog("ERROR: Ошибка при отправке XML: "+errMainStr);
             } else {
                 // Установить статус "Запрос статуса"
                 //reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
                 ret = "{\"messageGuid\":\""+ack.getAck().getMessageGUID()+"\"}";
-                log.info("JSON :" + ret);
+                ampqLog("JSON :" + ret);
             }
         }
         return ret;
