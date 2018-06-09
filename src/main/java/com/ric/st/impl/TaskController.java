@@ -139,6 +139,7 @@ public class TaskController implements TaskControllers {
             if (cmd != null && json.has("data")
                     && cmd.equals("exportMeteringDeviceValues"))
                 try {
+                    dm.setUp();
                     String ret = dm.exportMeteringDeviceValuesSrv(json.get("data"));
                     ampqTemplate.convertAndSend("soap2gis-out", ret);
                 } catch (Exception e) {
