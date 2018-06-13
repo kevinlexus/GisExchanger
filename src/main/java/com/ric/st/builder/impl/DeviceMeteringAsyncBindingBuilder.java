@@ -230,8 +230,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
      */
     private GetStateResult getStateSrv(String msgGuid) {
 
-        // Признак ошибки в CommonResult
-        Boolean errChld = false;
         ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult state = null;
 
         GetStateRequest gs = new GetStateRequest();
@@ -260,16 +258,14 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             ampqLog(String.format("ERROR: getStateSrv: errCode: %s, errStr: %s",
                     state.getErrorMessage().getErrorCode(),
                     state.getErrorMessage().getDescription()));
-            return null;
             }
         for (CommonResultType e : state.getImportResult()) {
             for (Error f: e.getError()) {
                  ampqLog(String.format("Список ощибок:\nError code=%s, Description=%s", f.getErrorCode(), f.getDescription()));
-                 errChld = true;
             }
         }
 
-        return errChld ? null : state;
+        return state;
 
     }
 	/**
