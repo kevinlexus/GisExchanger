@@ -631,7 +631,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 "resourceType", resourceType,
                 "rootGuid", rootGuid,
                 "messageGuid", messageGuid,
-                "orgGuid", orgGuid
+                "orgGuid", orgGuid,
+                "date", dateStr
                 ));
         if (orgGuid != null) {
             sb.setPpGuid(orgGuid);
