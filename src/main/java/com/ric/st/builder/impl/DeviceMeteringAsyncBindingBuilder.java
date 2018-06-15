@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -623,13 +624,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String rootGuid = jsonGetStr(json, "rootGuid");
         String messageGuid = jsonGetStr(json, "messageGuid");
         String orgGuid = jsonGetStr(json, "orgGuid");
+        String dateStr = jsonGetStr(json, "date");
         ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
                 "FIASHouseGuid", FIASHouseGuid,
                 "meteringType", meteringType,
                 "resourceType", resourceType,
                 "rootGuid", rootGuid,
                 "messageGuid", messageGuid,
-                "orgGuid", orgGuid
+                "orgGuid", orgGuid,
+                "date", dateStr
                 ));
         if (orgGuid != null) {
             sb.setPpGuid(orgGuid);
@@ -689,10 +692,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             req.setExcludeISValues(true);
             // дата с которой получить показания
             try {
-                req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
+                SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
+                Date dt = dateStr != null ?
+                        parser.parse(dateStr) :
+                        taskCtrl.getReqConfig().getCurDt1();
+                req.setInputDateFrom(Utl.getXMLDate(dt));
             } catch (Exception e) {
                 ampqLog("ERROR: reqInputDateFrom:"+e.getMessage());
             }
+
 
             try {
                 ack = port.exportMeteringDeviceHistory(req);

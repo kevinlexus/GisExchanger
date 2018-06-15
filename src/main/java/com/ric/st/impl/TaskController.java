@@ -125,7 +125,8 @@ public class TaskController implements TaskControllers {
 	                      "resourceType" : "resource type",
 	                      "rootGuid" : "root guid",
 	                      "messageGuid" : "message guid",
-	                      "orgGuid" : "org Guid"
+	                      "orgGuid" : "org Guid",
+	                      "date" : "dd-MM-yyyy"
 	                      }
 	                  }
 	    */
