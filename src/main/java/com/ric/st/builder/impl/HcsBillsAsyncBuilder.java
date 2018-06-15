@@ -22,6 +22,7 @@ import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.PdocDAO;
 import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
+import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.PdocMng;
@@ -139,7 +140,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		} catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
 			e.printStackTrace();
 			err = true;
-			errStr = "Запрос вернул ошибку!";
+			errStr = "Запрос вернул ошибку, смотреть в логе!";
 		}
 
 		if (state != null && state.getRequestState() != 3) {
@@ -163,14 +164,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Показать ошибки, если есть
 		if (err) {
 			// Ошибки во время выполнения
-			log.info(errStr);
-			task.setResult(errStr);
+			reqProp.getFoundTask().setResult(errStr);
+			reqProp.getFoundTask().setState("ERR");
 			log.error("Task.id={}, ОШИБКА выполнения запроса = {}", task.getId(), errStr);
 		} else if (!err && state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
 			// Ошибки контролей или бизнес-процесса
-			// task.setState("ERR");
 			errStr = state.getErrorMessage().getDescription();
-			task.setResult(errStr);
+			reqProp.getFoundTask().setResult(errStr);
+			reqProp.getFoundTask().setState("ERR");
 			log.error("Task.id={}, ОШИБКА контроля или бизнес-процесса = {}", task.getId(), errStr);
 		}
 		return state;
@@ -291,7 +292,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 				.collect(Collectors.toList())) {
 			// добавить не более 1000 вхождений ПД
 			log.info("Добавление платежного документа, Pdoc.id={}", t.getId());
-			addPaymentDocument(t, house, req);
+			addPaymentDocument(t, house, req, reqProp.getAppTp());
 			isExistJob = true;
 		}
 
@@ -351,10 +352,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * Добавление платежного документа
 	 * @param pdoc - ПД
 	 * @param req - запрос
+	 * @param appTp - тип информационной системы
 	 * @throws CantPrepSoap
 	 * @throws WrongGetMethod
 	 */
-	private void addPaymentDocument(Pdoc pdoc, Eolink house, ImportPaymentDocumentRequest req) throws CantPrepSoap, WrongGetMethod {
+	private void addPaymentDocument(Pdoc pdoc, Eolink house, ImportPaymentDocumentRequest req, Integer appTp) throws CantPrepSoap, WrongGetMethod {
 		PaymentDocument pd = new PaymentDocument();
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
@@ -368,14 +370,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		Eolink acc = pdoc.getEolink();
 		// GUID лицевого счета
 		String accGuid = acc.getGuid();
-		// Тип информационной системы
-		Integer appTp = uk.getAppTp();
 
 		// дата ПД (обычно последнее число расчетного месяца)
 		Date dt = pdoc.getDt();
 		if (dt == null) {
 			throw new CantPrepSoap("Не заполнена дата Платежного Документа");
 		}
+
 		// период ПД в формате YYYYMM
 		String period = Utl.getPeriodFromDate(dt);
 		// день ПД
@@ -384,6 +385,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		Integer month = Integer.valueOf(Utl.ltrim(Utl.getPeriodMonth(period),"0"));
 		// год ПД
 		Short year = Short.valueOf(Utl.getPeriodYear(period));
+		// № ПД
+		String cd = null;
+		if (pdoc.getCd() == null) {
+			// если не проставлен № документа в биллинге
+			if (appTp==0) {
+				// старая разработка
+				cd = "ПД_".concat(uk.getReu().concat("_").concat(period).concat("_").concat(String.valueOf(pdoc.getId())));
+				pdoc.setCd(cd);
+				log.info("ПД: проставлен № документа cd={}", cd);
+			} // TODO прочие разработки
+		}
 
 		// лиц.счет
 		pd.setAccountGuid(accGuid);
@@ -394,7 +406,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		}
 		pd.setPaymentDocumentNumber(pdoc.getCd());
 
-		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk);
+		List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getLsk(), acc.getKoObj(), period, uk, appTp);
 
 /*		log.info("Суммы по документу:");
 		Double itg = 0D;
@@ -467,7 +479,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		//- Судебные издержки.
 
 
-		BigDecimal pen = debMng.getPenAmnt(acc.getLsk(), acc.getKoObj(), period, uk);
+		BigDecimal pen = debMng.getPenAmnt(acc.getLsk(), acc.getKoObj(), period, appTp);
 		if (pen.compareTo(BigDecimal.ZERO) != 0) {
 			// добавить только в случае суммы <> 0, иначе НЕ сквитируется ПД
 			NsiRef servType = ulistMng.getNsiElem("NSI", 329, "Вид начисления", "Пени");
@@ -495,36 +507,42 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		pdServDebt.setMunicipalService(value);
 		pd.getChargeDebt().add(pdServDebt);*/
 
-		Double totalD = lstSum.stream().filter(t-> !t.getUlist().getTp().equals(4)) // Итог без капремонта!
+		// Итого начислено
+		Double totalD = lstSum.stream()//.filter(t-> !t.getUlist().getTp().equals(4)) // Итог без капремонта!
 				.mapToDouble(t -> t.getSumma()).sum();
 		BigDecimal totalPeriod = Utl.getBigDecimalRound(totalD, 2);
-		log.info("ПД: totalPeriod={}", totalPeriod);
+		log.info("ПД: итого начислено за период ={}", totalPeriod);
 		// сумма к оплате за расчетный период по услугам, руб. (по всем услугам за расчетный период)
 		// pd.setTotalPayableByChargeInfo(totalPeriod); ОТКЛЮЧИЛ!
 
-		// получить сальдо на начало периода
-		BigDecimal sal = Utl.nvl(debMng.getDebAmnt(acc.getLsk(), acc.getKoObj(), period, uk), BigDecimal.ZERO);
-		//BigDecimal sal = BigDecimal.valueOf(1111.11D);
-		//BigDecimal sal = BigDecimal.valueOf(0D);
-		log.info("ПД: sal={}", sal);
-		// задолженность
+		// получить запись сальдо
+		SumSaldoRecDTO sumSaldo = debMng.getSumSaldo(acc.getLsk(), acc.getKoObj(),
+				period, reqProp.getAppTp());
+
+		// вычесть текущую оплату
+		BigDecimal salAmnt = sumSaldo.getInSal().subtract(sumSaldo.getPayment());
+
+		log.info("ПД: сальдо на начало периода={}, минус оплата={}, итого={}",
+				sumSaldo.getInSal(), sumSaldo.getPayment(), salAmnt);
+
+
+		// задолженность за предыдущие периоды
 		BigDecimal debt = BigDecimal.ZERO;
-		// аванс
-		BigDecimal advnc = BigDecimal.ZERO;
-
-		if (sal.compareTo(BigDecimal.ZERO) == 1) {
-			debt = sal;
-		} else if (sal.compareTo(BigDecimal.ZERO) == -1) {
-			advnc = sal;
+		if (salAmnt.compareTo(BigDecimal.ZERO) == 1) {
+			debt = salAmnt;
 		}
-
-		// задолженность за предыдущие периоды, руб.
-		log.info("ПД: debt={}", debt);
+		log.info("ПД: задолженность за предыдущие периоды={}", debt);
 		pd.setDebtPreviousPeriods(debt);
 
-		// аванс на начало расчетного периода, руб.
-		log.info("ПД: advnc={}", advnc);
+		// аванс на начало периода
+		BigDecimal advnc = BigDecimal.ZERO;
+		if (sumSaldo.getInSal().compareTo(BigDecimal.ZERO) == -1) {
+			advnc = sumSaldo.getInSal();
+		}
+		log.info("ПД: аванс на начало расчетного периода={}", advnc);
 		pd.setAdvanceBllingPeriod(advnc);
+
+		log.info("ПД: начисление={}", totalPeriod);
 
 		// сумма к оплате с учетом рассрочки платежа и процентов за рассрочку, руб.
 		// рассрочка возможна только при наличии хотя бы одной коммунальной услуги в ПД с рассрочкой.
@@ -552,7 +570,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// pd.getComponentsOfCost()
 
 		// оплачено денежных средств, руб (не обязательно) сказано в ГИС, что эта сумма автоматически осуществит квитирование предыдущ. ПД
-		//pd.setPaidCash(BigDecimal.valueOf(3444.73D));
+		pd.setPaidCash(sumSaldo.getPayment());
+		log.info("ПД: оплачено={}", sumSaldo.getPayment());
 
 		// дата последней поступившей оплаты (не обязательно)
 		//pd.setDateOfLastReceivedPayment(value);
@@ -574,7 +593,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		req.getPaymentInformation().add(payInfo);
 
 		// платежные реквизиты (указать РКЦ здесь)
-		OrgDTO orgDto = orgMng.getOrgDTO(uk);
+		OrgDTO orgDto = orgMng.getOrgDTO(reqProp.getAppTp());
 		log.info("ПД: BIK=#{}#", orgDto.getBik());
 		payInfo.setBankBIK(orgDto.getBik());
 		log.info("ПД: OperAccount=#{}#", orgDto.getOperAcc());
@@ -627,7 +646,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			totalSum = totalSum.add(BigDecimal.valueOf(t.getSumma()));
 			totalPrice = totalPrice.add(BigDecimal.valueOf(t.getPrice()));
 	    }
-	    totalSum = new BigDecimal("1045.51");
+	    //totalSum = new BigDecimal("1045.51");
 	    BigDecimal checkSum = BigDecimal.valueOf(rec.getSqr()).multiply(totalPrice);
 		log.info("ПД: ИТОГО по Жилищной услуге: площадь={}, цена={}, сумма={}, проверочная сумма={}",
 					rec.getSqr(), totalPrice, totalSum, checkSum.setScale(2, RoundingMode.HALF_UP));
@@ -739,18 +758,23 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		// Для Отопления
 		//if ()
-		if (appTp==0 && Utl.nvl(rec.getUlist().getPrepTp(), 0)==1) {
+/*		if (appTp==0 && Utl.nvl(rec.getUlist().getPrepTp(), 0)==1) {
 			// старая разработка и тип подготовки услуги = 1 (только для Отопления)
 			// общая площадь
 			BigDecimal sqr = Utl.getBigDecimalRound(rec.getSqr(), 5);
 			// вспомогательный коэфф
-			BigDecimal coeff = Utl.getBigDecimalRound(rec.getCoeff(),5);
+			BigDecimal coeff = BigDecimal.ZERO;
+			if (rec.getCoeff() != null) {
+				coeff = BigDecimal.valueOf(rec.getCoeff());
+			}
 			// для отопления: Объем гКал =  м2 * коэфф
 			vol = sqr.multiply(coeff);
-		} else {
+	    	log.info("ПД: Отопление: площадь={}, коэфф={}, объем={}",
+	    			sqr, coeff, vol);
+		} else {*/
 			// прочие разработки
 			vol = Utl.getBigDecimalRound(rec.getVol(), 5);
-		}
+		//}
 
 		volume.setValue(vol);
 		//volume.setValue(new BigDecimal("5"));
@@ -799,9 +823,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Тип предоставления услуги: (I)ndividualConsumption - индивидульное потребление
 		volume.setType("I");
 		// Потребление
-		volume.setValue(BigDecimal.valueOf(rec.getVol()));
+		volume.setValue(BigDecimal.valueOf(rec.getSqr()));
 		consumption.getVolume().add(volume);
-		BigDecimal checkSum = BigDecimal.valueOf(rec.getVol()).multiply(BigDecimal.valueOf(rec.getPrice()));
+		BigDecimal checkSum = BigDecimal.valueOf(rec.getSqr()).multiply(BigDecimal.valueOf(rec.getPrice()));
     	log.info("ПД: цена={}, объем={}, сумма={}, проверочная сумма={}",
     			rec.getPrice(), rec.getVol(), rec.getSumma(), checkSum
     			);
@@ -846,12 +870,22 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 				boolean isErr = false;
 				for (Error f: t.getError()) {
-					log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
-					String errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
-					log.error(errStr);
-					// пометить документ, что загружен с ошибкой
-					pdoc.setErr(1);
-					isErr = true;
+
+					if (f.getErrorCode().equals("SRV008070") && pdoc.getStatus().equals(1) && pdoc.getV().equals(0)) {
+						// если пришёл ответ от ГИС "SRV008070" (ПД уже отменён)
+						// и если ПД был "загружен" и "отменен", то отметить статус - отменен
+						pdoc.setStatus(2);
+						// флаг ошибки, чтоб не обработался ниже
+						isErr = true;
+					} else {
+						// прочие варианты
+						log.error("Произошла ОШИБКА при загрузке Платежного документа Pdoc.id={}", pdoc.getId());
+						String errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
+						log.error(errStr);
+						// пометить документ, что загружен с ошибкой
+						pdoc.setErr(1);
+						isErr = true;
+					}
 				};
 
 				if (!isErr) {

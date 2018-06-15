@@ -73,7 +73,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 		Integer userId = soapConfig.getCurUser().getId();
 
 		task = new Task(eolink, parent, master, state, actVal,
-				null, null, null, null, null, null, 0, userId, 0);
+				null, null, null, null, null, null, userId, 0);
 
 	}
 

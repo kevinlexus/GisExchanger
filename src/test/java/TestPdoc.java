@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ric.bill.dao.NotifDAO;
 import com.ric.bill.dao.PdocDAO;
 import com.ric.bill.mm.PdocMng;
+import com.ric.st.mm.DebMng;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,8 @@ public class TestPdoc {
 	private NotifDAO notifDao;
 	@Autowired
 	private PdocMng pdocMng;
+	@Autowired
+	private DebMng debMng;
 
 	@Test
     public void testPdoc() throws Exception {
@@ -56,6 +59,9 @@ public class TestPdoc {
 			log.info("Платежный документ Pdoc.id={}, Pdoc.cd={}", t.getId(), t.getCd());
 		}); ;
 */
+		//BigDecimal sal = Utl.nvl(debMng.getDebAmnt("62020006", null, "201805", 0), BigDecimal.ZERO);
+		//log.info("ПД: sal={}", sal);
+
 		notifDao.getForLoadByHouseWithEntry(7570).forEach(t-> {
 			log.info("Платежный документ Notif.id={}", t.getId());
 		});

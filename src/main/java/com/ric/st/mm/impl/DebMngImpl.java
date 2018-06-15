@@ -10,7 +10,8 @@ import com.dic.bill.dao.ApenyaDAO;
 import com.dic.bill.dao.SaldoUslDAO;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.hotora.SaldoDAO;
-import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.dto.SumSaldoRec;
+import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.model.oralv.Ko;
 import com.ric.cmn.Utl;
 import com.ric.st.mm.DebMng;
@@ -42,24 +43,48 @@ public class DebMngImpl implements DebMng {
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
 	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
-	 * @param uk - УК из Eolink
+	 * @param appTp - тип информационной системы
 	 */
 	@Override
-	public BigDecimal getDebAmnt(String lsk, Ko ko, String period, Eolink uk) {
-		BigDecimal sal = null;
-		// Тип информационной системы
-		Integer appTp = uk.getAppTp();
-		//Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
-		if (appTp==0) {
+	public SumSaldoRecDTO getSumSaldo(String lsk, Ko ko, String period, Integer appTp) {
+		SumSaldoRecDTO sal = null;
+		if (appTp.equals(0)) {
 			// старая разработка
-			sal = saldoDao.getAmntByLsk(lsk, period);
-		} else if (appTp==1) {
+			SumSaldoRec sumSaldoRec = saldoDao.getSaldoByLsk(lsk, period);
+			sal = getSalAsDTO(sumSaldoRec);
+		} else if (appTp.equals(1)) {
 			// новая разработка
 			// TODO
-		} else if (appTp==2) {
+		} else if (appTp.equals(2)) {
 			// экспериментальная разработка
-			sal = saldoUslDao.getAmntByLsk(lsk, period);
+			SumSaldoRec sumSaldoRec = saldoDao.getSaldoByLsk(lsk, period);
+			sal = getSalAsDTO(sumSaldoRec);
 		}
+		return sal;
+	}
+
+	/**
+	 * Преобразовать сальдо в DTO
+	 * @param sumSaldoRec - запись сальдо
+	 * @return
+	 */
+	private SumSaldoRecDTO getSalAsDTO(SumSaldoRec sumSaldoRec) {
+		SumSaldoRecDTO sal;
+		// сложить дебет и кредит, вх. сальдо
+		BigDecimal inSal = Utl.nvl(sumSaldoRec.getIndebet(), BigDecimal.ZERO).add(
+				Utl.nvl(sumSaldoRec.getInkredit(), BigDecimal.ZERO));
+		// сложить дебет и кредит, исх. сальдо
+		BigDecimal outSal = Utl.nvl(sumSaldoRec.getOutdebet(), BigDecimal.ZERO).add(
+				Utl.nvl(sumSaldoRec.getOutkredit(), BigDecimal.ZERO));
+		sal = SumSaldoRecDTO.builder()
+		.withIndebet(sumSaldoRec.getIndebet())
+		.withInkredit(sumSaldoRec.getInkredit())
+		.withOutkredit(sumSaldoRec.getOutkredit())
+		.withOutdebet(sumSaldoRec.getOutdebet())
+		.withPayment(sumSaldoRec.getPayment())
+		.withInSal(inSal)
+		.withOutSal(outSal)
+		.build();
 		return sal;
 	}
 
@@ -68,17 +93,16 @@ public class DebMngImpl implements DebMng {
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
 	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
-	 * @param uk - УК из Eolink
+	 * @param appTp - тип информационной системы
 	 *
 	 */
 	@Override
-	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Eolink uk) {
+	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp) {
 		// пеня по основным услугам
 		BigDecimal penMain = BigDecimal.ZERO;
 		// пеня по капремонту
 		BigDecimal penCap = BigDecimal.ZERO;
-		// Тип информационной системы
-		Integer appTp = uk.getAppTp();
+		//
 		Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
 		if (appTp==0) {
 			// старая разработка

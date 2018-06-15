@@ -256,7 +256,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	public void exportOrgRegistryAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
 		//log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
 		sb.setTrace(false);
-		// Установить параметры SOAP
+		// установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
 		// получить состояние запроса
@@ -269,10 +269,10 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 			retState.getExportOrgRegistryResult().stream().forEach(t->{
 				if (eolOrg.getGuid() == null) {
-					//log.info("По Организации: {} сохранен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
+					log.info("По Организации: Eolink.id={} сохранен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 					eolOrg.setGuid(t.getOrgPPAGUID());
 				} else {
-					//log.info("По Организации: {} получен GUID={}", eolOrg.getReu(), t.getOrgPPAGUID());
+					log.info("По Организации: Eolink.id={} получен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 				}
 			});
 
@@ -292,16 +292,19 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	public void checkPeriodicTask(Task task) throws WrongParam {
 		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
-		// создать по всем организациям задания, если их нет
+		// создать по всем организациям задания, если у них нет родительской (по главным)
 		String actTp = "GIS_EXP_ORG";
 		String parentCD = "SYSTEM_RPT_ORG_EXP";
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
-			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "INS");
-			// добавить как зависимое задание к системному повторяемому заданию
-			ptb.addAsChild(parentCD);
-			ptb.save();
-			log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
+			// по главным Организациям!
+			if (e.getParent()==null) {
+				// статус - STP, остановлено (будет запускаться другим заданием)
+				ptb.setUp(e, null, actTp, "INS");
+				// добавить как зависимое задание к системному повторяемому заданию
+				ptb.addAsChild(parentCD);
+				ptb.save();
+				log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
+			}
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");

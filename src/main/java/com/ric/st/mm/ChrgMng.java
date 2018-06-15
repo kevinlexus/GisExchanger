@@ -2,7 +2,6 @@ package com.ric.st.mm;
 
 import java.util.List;
 
-import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.oralv.Ko;
@@ -14,5 +13,5 @@ import com.ric.bill.model.oralv.Ko;
  */
 public interface ChrgMng {
 
-	public List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk);
+	List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk, Integer appTp);
 }

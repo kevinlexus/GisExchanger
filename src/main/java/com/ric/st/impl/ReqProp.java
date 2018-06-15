@@ -14,8 +14,6 @@ import com.ric.bill.model.exs.Task;
 import com.ric.st.ReqProps;
 import com.ric.st.excp.CantPrepSoap;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Хранилище настроек SOAP запроса
  * @author lev
@@ -30,7 +28,7 @@ public class ReqProp implements ReqProps {
 	private EolinkMng eolinkMng;
 	@Autowired
 	private SoapConfig config;
-	
+
 	Task foundTask;
 	String houseGuid;
 	String ppGuid;
@@ -40,42 +38,55 @@ public class ReqProp implements ReqProps {
 	SoapBuilder sb;
 	Eolink org;
 	Integer appTp;
-	/* 
+	/*
 	 * Установить значения настроек
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void setProp(Task task, SoapBuilder sb) throws CantPrepSoap {
 		foundTask = em.find(Task.class, task.getId());
-		reu = task.getEolink().getReu();
-		kul = task.getEolink().getKul();
-		nd = task.getEolink().getNd();
-		houseGuid = task.getEolink().getGuid();
-		if (reu == null) {
-			// нет кода РЭУ
-			throw new CantPrepSoap("Нет кода рэу в Eolink.reu по Task.id="+task.getId());
-		}
-		// Установить PPGUID
-		org = eolinkMng.getEolinkByReuKulNdTp(reu, null, null, null, null, "Организация");
-		if (org == null) {
-			// нет Организации
-			throw new CantPrepSoap("Не заведена запись организации в Eolink по Task.id="+task.getId());
-		}
+		Eolink eolink = task.getEolink();
+		reu = eolink.getReu();
+		kul = eolink.getKul();
+		nd = eolink.getNd();
+		houseGuid = eolink.getGuid();
+
+		// получить PPGUID
+		Eolink org = getOrgWithPPGUID(eolink, task);
 		ppGuid = org.getGuid();
-		if (ppGuid == null) {
-			// нет Организации
-			throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
-		}
 		appTp = org.getAppTp();
-		if (appTp == null) {
-			// нет типа Приложения
-			throw new CantPrepSoap("Не заведен appTp приложения по Eolink.id="+org.getId());
-		}
-		
+
 		sb.setPpGuid(ppGuid);
 	}
-	
-	/* 
+
+	/**
+	 * Получить рекурсивно eolink, содержащий PPGUID Организации и другие параметры
+	 * @param eolink - текущий уровень объекта
+	 * @param task - задание
+	 * @return
+	 * @throws CantPrepSoap
+	 */
+	private Eolink getOrgWithPPGUID(Eolink eolink, Task task) throws CantPrepSoap {
+		Eolink eolFound = null;
+		if (eolink.getObjTp().getCd().equals("Организация") && eolink.getParent() == null) {
+			// родительская организация
+			if (eolink.getGuid() == null ) {
+				// нет PPGUID
+				throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
+			} else {
+				// вернуть объект, содержащий PPGUID
+				eolFound = eolink;
+			}
+		} else {
+			// не организация, или не родительская организация
+			// получить объект, содержащий PPGUID, у уровня выше
+			eolFound = getOrgWithPPGUID(eolink.getParent(), task);
+		}
+		return eolFound;
+
+	}
+
+	/*
 	 * Установить значения настроек
 	 */
 	@Override

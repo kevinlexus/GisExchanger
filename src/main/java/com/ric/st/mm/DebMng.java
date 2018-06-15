@@ -1,12 +1,8 @@
 package com.ric.st.mm;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import com.ric.bill.dto.OrgDTO;
-import com.ric.bill.dto.SumChrgRec;
-import com.ric.bill.dto.SumDebRec;
-import com.ric.bill.model.exs.Eolink;
+import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.model.oralv.Ko;
 
 /**
@@ -16,6 +12,6 @@ import com.ric.bill.model.oralv.Ko;
  */
 public interface DebMng {
 
-	public BigDecimal getDebAmnt(String lsk, Ko ko, String period, Eolink uk);
-	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Eolink uk);
+	BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp);
+	SumSaldoRecDTO getSumSaldo(String lsk, Ko ko, String period, Integer appTp);
 }
