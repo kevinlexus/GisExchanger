@@ -625,6 +625,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String messageGuid = jsonGetStr(json, "messageGuid");
         String orgGuid = jsonGetStr(json, "orgGuid");
         String dateStr = jsonGetStr(json, "date");
+        String arhiveDateFrom = jsonGetStr(json, "achiveDateFrom");
+        String arhiveDateTo = jsonGetStr(json, "achiveDateTo");
+        String getAchive = jsonGetStr(json, "getAchive");
+        String excludeISValues = jsonGetStr(json, "excludeISValues");
         ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
                 "FIASHouseGuid", FIASHouseGuid,
                 "meteringType", meteringType,
@@ -632,8 +636,16 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 "rootGuid", rootGuid,
                 "messageGuid", messageGuid,
                 "orgGuid", orgGuid,
-                "date", dateStr
+                "date", dateStr,
+                "achiveDateFrom", arhiveDateFrom,
+                "achiveDateTo", arhiveDateTo,
+                "getAchive", getAchive,
+                "excludeISValues", excludeISValues
                 ));
+        boolean achive = getAchive.equals("true");
+        boolean excludeIS = excludeISValues.equals("true");
+
+        sb.setTrace(false);
         if (orgGuid != null) {
             sb.setPpGuid(orgGuid);
         } else {
@@ -687,12 +699,26 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 //error, return
             }
             // Искать ли архивные
-            req.setSerchArchived(false);
+            req.setSerchArchived(achive);
+
+            SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
+            if (arhiveDateFrom != null && arhiveDateTo != null) {
+                try {
+                    Date dtAchiveFrom = parser.parse(arhiveDateFrom);
+                    Date dtAchiveTo = parser.parse(arhiveDateTo);
+                    req.setArchiveDateFrom(Utl.getXMLDate(dtAchiveFrom));
+                    req.setArchiveDateTo(Utl.getXMLDate(dtAchiveTo));
+                } catch (Exception e) {
+                    ampqLog("ERROR: acrive date parse:"+e.getMessage());
+                }
+
+            }
+
             // Отключить показания отправленные информационной системой
-            req.setExcludeISValues(true);
+            req.setExcludeISValues(excludeIS);
             // дата с которой получить показания
+
             try {
-                SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
                 Date dt = dateStr != null ?
                         parser.parse(dateStr) :
                         taskCtrl.getReqConfig().getCurDt1();
