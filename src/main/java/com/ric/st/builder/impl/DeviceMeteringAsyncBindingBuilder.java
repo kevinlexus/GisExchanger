@@ -642,8 +642,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 "getAchive", getAchive,
                 "excludeISValues", excludeISValues
                 ));
-        boolean achive = getAchive.equals("true");
-        boolean excludeIS = excludeISValues.equals("true");
+        boolean achive = getAchive != null && getAchive.equals("true");
+        boolean excludeIS = excludeISValues != null && excludeISValues.equals("true");
 
         sb.setTrace(false);
         if (orgGuid != null) {
