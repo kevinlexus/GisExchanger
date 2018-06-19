@@ -2,8 +2,8 @@ package com.ric.st.mm;
 
 import java.math.BigDecimal;
 
-import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.model.oralv.Ko;
+import com.ric.dto.SumSaldoRecDTO;
 
 /**
  * Интерфейс сервиса получения данных о задолженности, пени из разных источников

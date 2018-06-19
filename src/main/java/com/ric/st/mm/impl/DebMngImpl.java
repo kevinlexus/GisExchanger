@@ -10,10 +10,10 @@ import com.dic.bill.dao.ApenyaDAO;
 import com.dic.bill.dao.SaldoUslDAO;
 import com.ric.bill.dao.AflowDAO;
 import com.ric.bill.dao.hotora.SaldoDAO;
-import com.ric.bill.dto.SumSaldoRec;
-import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.model.oralv.Ko;
 import com.ric.cmn.Utl;
+import com.ric.dto.SumSaldoRec;
+import com.ric.dto.SumSaldoRecDTO;
 import com.ric.st.mm.DebMng;
 
 import lombok.extern.slf4j.Slf4j;

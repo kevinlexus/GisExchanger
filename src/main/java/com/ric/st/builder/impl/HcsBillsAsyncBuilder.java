@@ -22,7 +22,6 @@ import com.ric.bill.dao.EolinkDAO;
 import com.ric.bill.dao.PdocDAO;
 import com.ric.bill.dto.OrgDTO;
 import com.ric.bill.dto.SumChrgRec;
-import com.ric.bill.dto.SumSaldoRecDTO;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.PdocMng;
@@ -31,6 +30,7 @@ import com.ric.bill.model.exs.Pdoc;
 import com.ric.bill.model.exs.Task;
 import com.ric.bill.model.exs.Ulist;
 import com.ric.cmn.Utl;
+import com.ric.dto.SumSaldoRecDTO;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.HcsBillsAsyncBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
@@ -536,8 +536,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		// аванс на начало периода
 		BigDecimal advnc = BigDecimal.ZERO;
-		if (sumSaldo.getInSal().compareTo(BigDecimal.ZERO) == -1) {
-			advnc = sumSaldo.getInSal();
+		if (salAmnt.compareTo(BigDecimal.ZERO) == -1) {
+			advnc = salAmnt.abs();
 		}
 		log.info("ПД: аванс на начало расчетного периода={}", advnc);
 		pd.setAdvanceBllingPeriod(advnc);
