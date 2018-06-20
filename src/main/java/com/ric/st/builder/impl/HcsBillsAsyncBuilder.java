@@ -455,16 +455,18 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 				if (pd.getCapitalRepairCharge() != null) {
 					throw new CantPrepSoap("Не допускается заполнение в ПД услуги Капремонт более одного раза!");
 				}
-				log.info("ПД: Капремонт цена={}, сумма={}", t.getPrice(), t.getSumma());
+				BigDecimal summa = BigDecimal.valueOf(t.getSumma());
+				summa = summa.setScale(2);
+				log.info("ПД: Капремонт цена={}, сумма={}", t.getPrice(), summa);
 				CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
 				// размер взноса на кв.м, руб (расценка)
 				capRepChrg.setContribution(BigDecimal.valueOf(t.getPrice()));
 				capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
 				capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
 				// всего начислено за расчетный период (без перерасчетов и льгот), руб.
-				capRepChrg.setAccountingPeriodTotal(BigDecimal.valueOf(t.getSumma()));
+				capRepChrg.setAccountingPeriodTotal(summa);
 				// итого к оплате за расчетный период, руб.
-				capRepChrg.setTotalPayable(BigDecimal.valueOf(t.getSumma()));
+				capRepChrg.setTotalPayable(summa);
 				pd.setCapitalRepairCharge(capRepChrg );
 			}
 
@@ -520,7 +522,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 				period, reqProp.getAppTp());
 
 		// вычесть текущую оплату
-		BigDecimal salAmnt = sumSaldo.getInSal().subtract(sumSaldo.getPayment());
+		BigDecimal salAmnt = BigDecimal.ZERO;
+		if (sumSaldo!=null) {
+			BigDecimal inSal = Utl.nvl(sumSaldo.getInSal(), BigDecimal.ZERO);
+			BigDecimal pay = Utl.nvl(sumSaldo.getPayment(), BigDecimal.ZERO);
+			salAmnt = inSal.subtract(pay);
+		}
 
 		log.info("ПД: сальдо на начало периода={}, минус оплата={}, итого={}",
 				sumSaldo.getInSal(), sumSaldo.getPayment(), salAmnt);
@@ -653,13 +660,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		log.info("");
 
 		// всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		housService.setAccountingPeriodTotal(totalSum);
+		housService.setAccountingPeriodTotal(totalSum.setScale(2));
 		// итого к оплате за расчетный период, руб.
-		housService.setTotalPayable(totalSum);
+		housService.setTotalPayable(totalSum.setScale(2));
 		// порядок расчетов
 		housService.setCalcExplanation(calcExpl);
 		// цена услуги
-		housService.setRate(totalPrice);
+		housService.setRate(totalPrice.setScale(2));
 
 		// РЕСУРСЫ НА ОИ
 		for (SumChrgRec t: lstSum.stream() // найти дочерние записи (Усл. на ОИ)
@@ -695,17 +702,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			// потребление при содержании общего имущества (м2)
 //			volume.setValue(new BigDecimal("44.7"));
 //			consum.setVolume(volume);
-			volume.setValue(BigDecimal.valueOf(t.getSqr()));
+			volume.setValue(BigDecimal.valueOf(t.getSqr()).setScale(2));
 			consum.setVolume(volume);
 
 			// потребление
 			mr.setConsumption(consum);
 			// Тариф, руб./ед.изм. (для Х.В. на ОИ - это м2)
 //			mr.setRate(new BigDecimal("2"));
-			mr.setRate(BigDecimal.valueOf(t.getPrice()));
+			mr.setRate(BigDecimal.valueOf(t.getPrice()).setScale(2));
 			// всего начислено за расчетный период, руб (потребление * тариф)
 //			mr.setAccountingPeriodTotal(new BigDecimal("89.4"));
-			mr.setAccountingPeriodTotal(BigDecimal.valueOf(t.getSumma()));
+			mr.setAccountingPeriodTotal(BigDecimal.valueOf(t.getSumma()).setScale(2));
 
 			// Справочная информация
 /*			ServiceInformation servInf = new ServiceInformation();
@@ -721,7 +728,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			servChrg.setMoneyRecalculation(BigDecimal.valueOf(0D));
 			// К оплате за коммунальный ресурс потребления при содержании общего имущества (расценка на площадь)
 			//mr.setMunicipalServiceCommunalConsumptionPayable(new BigDecimal("89.4")); // TODO
-			mr.setMunicipalServiceCommunalConsumptionPayable(BigDecimal.valueOf(t.getSumma())); // TODO
+			mr.setMunicipalServiceCommunalConsumptionPayable(BigDecimal.valueOf(t.getSumma()).setScale(2)); // TODO
 			mr.setServiceCharge(servChrg);
 			housService.getMunicipalResource().add(mr );
 		}
@@ -788,11 +795,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     			);
     	log.info("");
 
-		munService.setRate(BigDecimal.valueOf(rec.getPrice()));
+		munService.setRate(BigDecimal.valueOf(rec.getPrice()).setScale(2));
 		// Итого к оплате за расчетный период, руб.
-		munService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()));
+		munService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()).setScale(2));
 		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		munService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()));
+		munService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()).setScale(2));
 
 //		log.info("Расчет: vol={}, price={}, amnt={}, summa={}", vol, rec.getPrice(),
 //				vol.multiply(BigDecimal.valueOf(rec.getPrice())), rec.getSumma());
@@ -833,11 +840,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 	  	additionalService.setConsumption(consumption);
 		additionalService.setServiceType(mres);
-		additionalService.setRate(BigDecimal.valueOf(rec.getPrice()));
+		additionalService.setRate(BigDecimal.valueOf(rec.getPrice()).setScale(2));
 		// Итого к оплате за расчетный период, руб.
-		additionalService.setTotalPayable(Utl.getBigDecimalRound(rec.getSumma(),2));
+		additionalService.setTotalPayable(BigDecimal.valueOf(rec.getSumma()).setScale(2));
 		// Всего начислено за расчетный период (без перерасчетов и льгот), руб.
-		additionalService.setAccountingPeriodTotal(Utl.getBigDecimalRound(rec.getSumma(),2));
+		additionalService.setAccountingPeriodTotal(BigDecimal.valueOf(rec.getSumma()).setScale(2));
 		// Порядок расчетов
 		additionalService.setCalcExplanation(calcExpl);
 		return additionalService;

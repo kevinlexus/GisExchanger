@@ -74,6 +74,8 @@ import ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseUOType
 import ru.gosuslugi.dom.schema.integration.house_management.ClosedAccountAttributesType;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.OverhaulFormingKindOMSDescision;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.OverhaulFormingKindProtocol;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportCAChAsyncRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportCAChRequestCriteriaType;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseRequest;
@@ -1224,7 +1226,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт лицевых счетов, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		sb.setTrace(true);
+		sb.setTrace(false);
 
 		ExportAccountRequest req = new ExportAccountRequest();
 		req.setId("foo");
@@ -1281,6 +1283,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
 			// Ошибок не найдено
 			for (ExportAccountResultType t : retState.getExportAccountResult()) {
+
 				// примечание по объекту
 				String comm = null;
 				String guid = null;
@@ -1300,7 +1303,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					}
 
 				}
-				// Найти лицевой счет
+				// найти лицевой счет
 				Eolink accountEol = eolinkMng.getEolinkByGuid(t.getAccountGUID());
 				String num;
 				// усечь № лиц.счета до 8 знаков
@@ -1309,6 +1312,23 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				} else {
 					num = t.getAccountNumber();
 				}
+
+				// #####################
+				OverhaulFormingKindProtocol protocol = t.getAccountReasons().getOverhaulFormingKindProtocol();
+				if (protocol!=null) {
+					log.info("########## Лиц.счет={}, Протокол решения собственников о выбранном "
+							+ "способе формирования фонда капитального ремонта, GUID={}",
+							num,
+							protocol.getOverhaulFormingKindProtocolGUID());
+				}
+				OverhaulFormingKindOMSDescision decision = t.getAccountReasons().getOverhaulFormingKindOMSDescision();
+				if (decision!=null) {
+					log.info("########## Лиц.счет={}, Решение ОМС о выбранном способе "
+							+ "формирования фонда капитального ремонта, GUID={}",
+							num,
+							decision.getOverhaulFormingKindOMSDescisionGUID());
+				}
+				// #####################
 
 				if (accountEol == null) {
 					// Создать новый лицевой счет
