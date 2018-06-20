@@ -629,7 +629,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String arhiveDateTo = jsonGetStr(json, "achiveDateTo");
         String getAchive = jsonGetStr(json, "getAchive");
         String excludeISValues = jsonGetStr(json, "excludeISValues");
-        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
+        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n"+
+                              "%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
                 "FIASHouseGuid", FIASHouseGuid,
                 "meteringType", meteringType,
                 "resourceType", resourceType,
