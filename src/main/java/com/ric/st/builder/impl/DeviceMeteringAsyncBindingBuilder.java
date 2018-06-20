@@ -625,9 +625,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         String messageGuid = jsonGetStr(json, "messageGuid");
         String orgGuid = jsonGetStr(json, "orgGuid");
         String dateStr = jsonGetStr(json, "date");
-        String arhiveDateFrom = jsonGetStr(json, "achiveDateFrom");
-        String arhiveDateTo = jsonGetStr(json, "achiveDateTo");
-        String getAchive = jsonGetStr(json, "getAchive");
+        String archiveDateFrom = jsonGetStr(json, "archiveDateFrom");
+        String archiveDateTo = jsonGetStr(json, "archiveDateTo");
+        String getArchive = jsonGetStr(json, "getArchive");
         String excludeISValues = jsonGetStr(json, "excludeISValues");
         ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n"+
                               "%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
@@ -638,12 +638,12 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 "messageGuid", messageGuid,
                 "orgGuid", orgGuid,
                 "date", dateStr,
-                "achiveDateFrom", arhiveDateFrom,
-                "achiveDateTo", arhiveDateTo,
-                "getAchive", getAchive,
+                "achiveDateFrom", archiveDateFrom,
+                "achiveDateTo", archiveDateTo,
+                "getAchive", getArchive,
                 "excludeISValues", excludeISValues
                 ));
-        boolean achive = getAchive != null && getAchive.equals("true");
+        boolean achive = getArchive != null && getArchive.equals("true");
         boolean excludeIS = excludeISValues != null && excludeISValues.equals("true");
 
         sb.setTrace(false);
@@ -703,10 +703,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             req.setSerchArchived(achive);
 
             SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
-            if (arhiveDateFrom != null && arhiveDateTo != null) {
+            if (archiveDateFrom != null && archiveDateTo != null) {
                 try {
-                    Date dtAchiveFrom = parser.parse(arhiveDateFrom);
-                    Date dtAchiveTo = parser.parse(arhiveDateTo);
+                    Date dtAchiveFrom = parser.parse(archiveDateFrom);
+                    Date dtAchiveTo = parser.parse(archiveDateTo);
                     req.setArchiveDateFrom(Utl.getXMLDate(dtAchiveFrom));
                     req.setArchiveDateTo(Utl.getXMLDate(dtAchiveTo));
                 } catch (Exception e) {
