@@ -7,24 +7,26 @@ import com.ric.st.impl.SoapBuilder;
 
 public interface ReqProps {
 
-	public void setProp(Task task, SoapBuilder sb) throws CantPrepSoap;
+	void setProp(Task task, SoapBuilder sb) throws CantPrepSoap;
 
-	public void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap;
-		
-	public Task getFoundTask();
+	void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap;
 
-	public String getHouseGuid();
+	Task getFoundTask();
 
-	public String getPpGuid();
+	String getHouseGuid();
 
-	public String getReu();
+	String getPpGuid();
 
-	public String getKul();
+	String getReu();
 
-	public String getNd();
-	
-	public Eolink getOrg();
-	
-	public Integer getAppTp();
-	
+	String getKul();
+
+	String getNd();
+
+	Eolink getOrg();
+
+	Integer getAppTp();
+
+	SoapBuilder getSb();
+
 }

@@ -358,6 +358,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 */
 	private void addPaymentDocument(Pdoc pdoc, Eolink house, ImportPaymentDocumentRequest req, Integer appTp) throws CantPrepSoap, WrongGetMethod {
 		PaymentDocument pd = new PaymentDocument();
+		// оступ
+		log.info("");
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.2, лс: 64010002
 		// String accGuid = "10d522fa-e2da-4f05-8dbc-3625069eeb88";
 		// ТСЖ "Золотые купола", ул. Двужильного, 36а, кв.4, лс: 64010004
@@ -455,21 +457,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 				if (pd.getCapitalRepairCharge() != null) {
 					throw new CantPrepSoap("Не допускается заполнение в ПД услуги Капремонт более одного раза!");
 				}
-				BigDecimal summa = BigDecimal.valueOf(t.getSumma());
-				summa = summa.setScale(2);
-				log.info("ПД: Капремонт цена={}, сумма={}", t.getPrice(), summa);
-				CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
-				// размер взноса на кв.м, руб (расценка)
-				capRepChrg.setContribution(BigDecimal.valueOf(t.getPrice()));
-				capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
-				capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
-				// всего начислено за расчетный период (без перерасчетов и льгот), руб.
-				capRepChrg.setAccountingPeriodTotal(summa);
-				// итого к оплате за расчетный период, руб.
-				capRepChrg.setTotalPayable(summa);
-				pd.setCapitalRepairCharge(capRepChrg );
+				addCapitalRepair(pd, t.getPrice(), t.getSumma());
 			}
 
+		}
+
+		if (pd.getCapitalRepairCharge() == null) {
+			// добавить капремонт с 0 ценой и суммой
+			// в случае если он вообще не добавлен (например льгота 70 летним)
+			// TODO - как быть в домах, где нет спецсчета?
+			log.info("ПД: Добавлен Капремонт с пустой расценкой и суммой!");
+			addCapitalRepair(pd, 0D, 0D);
 		}
 
 		// неустойки и судебные расходы (пени)
@@ -616,6 +614,31 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// сослаться на TGUID платежных реквизитов
 		pd.setPaymentInformationKey(tguidPay);
 
+	}
+
+	/**
+	 * добавить запись о капремонте
+	 * @param pd - ПД
+	 * @param price - цена
+	 * @param summa - сумма
+	 * @throws CantPrepSoap
+	 */
+	private void addCapitalRepair(PaymentDocument pd, Double price, Double summa) {
+		BigDecimal priceBd = BigDecimal.valueOf(price);
+		BigDecimal summaBd = BigDecimal.valueOf(summa);
+		summaBd = summaBd.setScale(2);
+		priceBd = priceBd.setScale(2);
+		log.info("ПД: Капремонт цена={}, сумма={}", priceBd, summaBd);
+		CapitalRepairImportType capRepChrg = new CapitalRepairImportType();
+		// размер взноса на кв.м, руб (расценка)
+		capRepChrg.setContribution(priceBd);
+		capRepChrg.setMoneyRecalculation(BigDecimal.ZERO);
+		capRepChrg.setMoneyDiscount(BigDecimal.ZERO);
+		// всего начислено за расчетный период (без перерасчетов и льгот), руб.
+		capRepChrg.setAccountingPeriodTotal(summaBd);
+		// итого к оплате за расчетный период, руб.
+		capRepChrg.setTotalPayable(summaBd);
+		pd.setCapitalRepairCharge(capRepChrg );
 	}
 
 	/*

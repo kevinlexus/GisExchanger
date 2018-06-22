@@ -56,6 +56,7 @@ public class ReqProp implements ReqProps {
 		ppGuid = org.getGuid();
 		appTp = org.getAppTp();
 
+		this.sb = sb;
 		sb.setPpGuid(ppGuid);
 	}
 
@@ -93,11 +94,14 @@ public class ReqProp implements ReqProps {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap {
 		foundTask = em.find(Task.class, task.getId());
-		reu = task.getEolink().getReu();
-		kul = task.getEolink().getKul();
-		nd = task.getEolink().getNd();
-		houseGuid = task.getEolink().getGuid();
+		if (task.getEolink() != null) {
+			reu = task.getEolink().getReu();
+			kul = task.getEolink().getKul();
+			nd = task.getEolink().getNd();
+			houseGuid = task.getEolink().getGuid();
+		}
 		// GUID текущей организации
+		this.sb = sb;
 		sb.setPpGuid(config.getOrgPPGuid());
 	}
 
@@ -141,4 +145,8 @@ public class ReqProp implements ReqProps {
 		return appTp;
 	}
 
+	@Override
+	public SoapBuilder getSb() {
+		return this.sb;
+	}
 }

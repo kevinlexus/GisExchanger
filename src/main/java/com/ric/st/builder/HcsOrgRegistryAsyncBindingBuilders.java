@@ -1,8 +1,5 @@
 package com.ric.st.builder;
 
-import java.io.IOException;
-
-import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.model.exs.Task;
 import com.ric.st.excp.CantPrepSoap;
@@ -13,11 +10,12 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStat
 
 public interface HcsOrgRegistryAsyncBindingBuilders {
 
-	public void setUp() throws CantSendSoap;
-	public GetStateResult getState2(Task task);
-	public void exportDataProvider();	
-	public boolean exportOrgRegistry(Task task) throws CantPrepSoap;
-	public void exportOrgRegistryAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam;
-	public void checkPeriodicTask(Task task) throws WrongParam;
-	
+	void setUp() throws CantSendSoap;
+	GetStateResult getState2(Task task);
+	boolean exportOrgRegistry(Task task) throws CantPrepSoap;
+	void exportOrgRegistryAsk(Task task) throws CantPrepSoap;
+	void checkPeriodicTask(Task task) throws WrongParam;
+	boolean exportDataProvider(Task task) throws CantPrepSoap;
+	void exportDataProviderAsk(Task task) throws CantPrepSoap;
+
 }

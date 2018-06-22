@@ -31,6 +31,7 @@ import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportDataProviderRequest;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest.SearchCriteria;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStateResult;
@@ -157,9 +158,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	/**
 	 * Экспорт данных провайдера
 	 */
-	@Override
+/*	@Override
 	public void exportDataProvider() {
-	/*	ExportDataProviderRequest req = new ExportDataProviderRequest();
+		ExportDataProviderRequest req = new ExportDataProviderRequest();
 		req.setVersion(req.getVersion());
 
 		AckRequest ack = null;
@@ -175,7 +176,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			err = true;
 		}
 
-		RetState retState = getState(ack);
+		RetState retState = getState2(ack);
 		if (err || retState.getErr()) {
 			// Ошибка
 			log.info("Ошибка выполнения запроса = {}", retState.getErrStr());
@@ -186,8 +187,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				log.info("Provider={}", t.getDataProviderGUID());
 			});
 		}
-		*/
-	}
+
+	}*/
 
 	/**
 	 * Экспорт данных организации
@@ -198,7 +199,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
 		//log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
-		sb.setTrace(false);
+		sb.setTrace(true);
 		// Установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
@@ -206,7 +207,6 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		Boolean err = false;
 		String errMainStr = null;
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
-		String reu = eolOrg.getReu();
 
 		ExportOrgRegistryRequest req = new ExportOrgRegistryRequest();
 
@@ -253,9 +253,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void exportOrgRegistryAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
+	public void exportOrgRegistryAsk(Task task) throws CantPrepSoap {
 		//log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
-		sb.setTrace(false);
+		sb.setTrace(true);
 		// установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
@@ -274,6 +274,80 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				} else {
 					log.info("По Организации: Eolink.id={} получен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 				}
+			});
+
+			// Установить статус выполнения задания
+			reqProp.getFoundTask().setState("ACP");
+		}
+	}
+
+	/**
+	 * Экспорт данных провайдера
+	 * @return
+	 * @throws CantPrepSoap
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public boolean exportDataProvider(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт сведений о поставщиках данных, вызов", task.getId());
+		// Установить параметры SOAP
+		sb.setTrace(true);
+
+		reqProp.setPropWOGUID(task, sb);
+		AckRequest ack = null;
+		// для обработки ошибок
+		Boolean err = false;
+		String errMainStr = null;
+
+		ExportDataProviderRequest req = new ExportDataProviderRequest();
+		req.setIsActual(true);
+		req.setId("foo");
+		req.setVersion(req.getVersion());
+		try {
+			ack = port.exportDataProvider(req);
+		} catch (ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.Fault e1) {
+			e1.printStackTrace();
+			err = true;
+			errMainStr = "Ошибка выполнения основного SOAP запроса!";
+		}
+
+		if (err) {
+			reqProp.getFoundTask().setState("ERR");
+			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+		} else {
+			// Установить статус "Запрос статуса"
+			reqProp.getFoundTask().setState("ACK");
+			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+		}
+
+		return err;
+		}
+
+	/**
+	 * Получить результат экспорта данных провайдера
+	 * @param task - задание
+	 * @throws WrongGetMethod
+	 * @throws IOException
+	 * @throws CantPrepSoap
+	 * @throws WrongParam
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void exportDataProviderAsk(Task task) throws CantPrepSoap {
+		log.info("******* Task.id={}, экспорт сведений о поставщиках данных, запрос ответа", task.getId());
+		// установить параметры SOAP
+		reqProp.setPropWOGUID(task, sb);
+		sb.setTrace(false);
+		// получить состояние запроса
+		GetStateResult retState = getState2(reqProp.getFoundTask());
+
+		if (retState == null) {
+			// не обработано
+			return;
+		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
+
+			retState.getExportDataProviderResult().stream().forEach(t->{
+					log.info("Получен DATA PROVIDER GUID={}", t.getDataProviderGUID());
 			});
 
 			// Установить статус выполнения задания

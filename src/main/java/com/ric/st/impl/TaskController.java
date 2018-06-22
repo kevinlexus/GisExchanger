@@ -405,6 +405,15 @@ public class TaskController implements TaskControllers {
 							os.exportOrgRegistryAsk(task);
 						}
 						break;
+					case "GIS_EXP_DATA_PROVIDER":
+						// Экспорт сведений о поставщиках данных
+						os.setUp();
+						if (state.equals("INS")) {
+							os.exportDataProvider(task);
+						} else if (state.equals("ACK")) {
+							os.exportDataProviderAsk(task);
+						}
+						break;
 					case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
 						nsiSv.setUp();
 						if (state.equals("INS")) {

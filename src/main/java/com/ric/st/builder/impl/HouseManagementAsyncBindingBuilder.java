@@ -594,25 +594,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					for (String lskGUID: lstAccGuid) {
 						lskEol = eolinkMng.getEolinkByGuid(lskGUID);
 						eolToEolMng.saveParentChild(lskEol, rootEol, "Логическая связь");
-						/*if (lskEol.getKoObj()!= null) {
-							log.info("################# lskEol.Ko.id={}", lskEol.getKoObj().getId());
-						} else {
-							log.info("################# lskEol.id={}", lskEol.getId());
-						}*/
 					}
 
 					// заполнить Ko счетчика по последнему лицевому счету
 					// (нельзя ко всем, так как Eolink - Ko - связь один к одному
-					if (lskEol!= null/* && lskEol.getKoObj()!= null*/ && rootEol.getKoObj() == null) {
-/*						log.info("################# Eolink.id={}, lskEol.id={}, number={}, servCd={}",
-								lskEol.getId(), lskEol.getKoObj().getId(),
+					if (lskEol!= null && lskEol.getKoObj()!= null && rootEol.getKoObj() == null) {
+						Ko meterKo = meterLogMng.getKoByLskNum(lskEol.getKoObj(),
 								t.getBasicChatacteristicts().getMeteringDeviceNumber(), servCd);
-*/						Ko meterKo = meterLogMng.getKoByLskNum(lskEol.getKoObj(),
-								t.getBasicChatacteristicts().getMeteringDeviceNumber(), servCd);
-/*						if (meterKo!=null) {
-							log.info("################# MeterKo.id={}", meterKo.getId());
-						}
-*/						rootEol.setKoObj(meterKo);
+						rootEol.setKoObj(meterKo);
 					}
 
 				}
@@ -865,6 +854,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 			if (ah != null) {
 				// Многоквартирный дом
+				// статус - активный
+				houseEol.setStatus(1);
 				HouseBasicExportType bc = ah.getBasicCharacteristicts();
 
 				ptb.setUp(houseEol, task, "GIS_TMP", null);
