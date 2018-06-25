@@ -664,7 +664,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 						&& t.getUlist().getTp().equals(3)).collect(Collectors.toList());
 		// показать составляющие услуги:
 	    for (SumChrgRec t : lst) {
-	    	log.info("ПД: Услуга:");
+/*	    	log.info("ПД: Услуга:");
 	    	t.getUlist().getChild().forEach(d -> {
 		    	log.info("Вид={}, Услуга={}", d.getName(),
 		    			d.getS1());
@@ -672,7 +672,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 	    	log.info("ПД: цена={}, сумма={}",
 	    			t.getPrice(),
-	    			t.getSumma());
+	    			t.getSumma());*/
 			totalSum = totalSum.add(BigDecimal.valueOf(t.getSumma()));
 			totalPrice = totalPrice.add(BigDecimal.valueOf(t.getPrice()));
 	    }
