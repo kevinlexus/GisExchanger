@@ -108,9 +108,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	TaskControllers taskCtrl;
     @Autowired
-    private AmqpTemplate ampq;
+    private AmqpTemplate amqp;
 
-
+    @Value("${amqpOn:true}")
+    private boolean amqpOn;
 	@Value("${appTp}")
 	private String appTp;
 	@Value("${pathCounter}")
@@ -588,7 +589,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 */
 	//TODO: сделать нормальный класс
 	private void ampqLog(String s) {
-	    ampq.convertAndSend(logQueue, s);
+	    if (amqpOn) amqp.convertAndSend(logQueue, s);
 	}
 
 	/**
