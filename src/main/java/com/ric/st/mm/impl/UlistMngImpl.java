@@ -544,6 +544,8 @@ public class UlistMngImpl implements UlistMng {
 			usl = "015";
 		} else if (servCd.equals("Электрическая энергия")) {
 			usl = "024";
+		} else if (servCd.equals("Отопление")) {
+			usl = "007";
 		}
 		return usl;
 	}
@@ -560,12 +562,16 @@ public class UlistMngImpl implements UlistMng {
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Горячая вода");
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresEl =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Электрическая энергия");
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresOt =
+				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Отопление");
 		if (nsi.getGUID().equals(mresHw.getGUID())) {
 			return "Холодная вода";
 		} else if (nsi.getGUID().equals(mresGw.getGUID())) {
 			return "Горячая вода";
 		} else if (nsi.getGUID().equals(mresEl.getGUID())) {
 			return "Электроснабжение";
+		} else if (nsi.getGUID().equals(mresOt.getGUID())) {
+			return "Отопление";
 		} else {
 			return null;
 		}

@@ -566,7 +566,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					log.info("Попытка отметить счетчик АКТИВНЫМ");
 				}
 
-				// проверить, заполнить usl
+/*				if (rootEol.getGuid().equals("6d16d2b9-5146-4467-8fb9-99ff1d5ed766")) {
+					log.info("6d16d2b9-5146-4467-8fb9-99ff1d5ed766");
+				}
+*/				// проверить, заполнить usl
 				if (munResNenerg.size() > 0) {
 					// Коммунальные услуги, получить первый попавшийся код усл
 					// может в Отоплении будут другие коды услуг!

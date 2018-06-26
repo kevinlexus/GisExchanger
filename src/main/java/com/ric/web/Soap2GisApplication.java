@@ -40,6 +40,9 @@ public class Soap2GisApplication implements CommandLineRunner {
         }
     	System.out.println("*********** CLASSPATH *********");
 
+    	String workingDir = System.getProperty("user.dir");
+ 	    System.out.println("Current working directory : " + workingDir);
+
 		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
 
