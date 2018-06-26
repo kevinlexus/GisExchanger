@@ -1340,7 +1340,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							.withUn(t.getUnifiedAccountNumber())
 							.withLsk(num)
 							.withObjTp(addrTp)
-							.withAppTp(reqProp.getAppTp())
+							//.withAppTp(reqProp.getAppTp())
 							.withParent(parentEol)
 							.withUser(config.getCurUser())
 							.withComm(comm)
