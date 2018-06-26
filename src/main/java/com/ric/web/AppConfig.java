@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @ComponentScan({"com.ric.st", "com.ric.bill.dao", "com.dic.bill", "com.dic.bill.dao", "com.ric.bill.dao.hotora",
 	"com.ric.bill.mm", "com.ric.bill", "com.ric.st.builder"}) // это нужно чтобы работали Unit-тесты! (по сути можно закомментить)
-@ImportResource({"c:\\progs\\soap2gis\\res\\spring.xml"})
+@ImportResource({"file:.\\config\\spring.xml"})
 @EnableCaching
 @EnableJpaRepositories(basePackages= {"com.ric.bill.dao", "com.dic.bill.dao", "com.ric.bill.dao.hotora"})
 @EnableScheduling
