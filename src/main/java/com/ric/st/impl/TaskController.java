@@ -78,9 +78,9 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
     @Autowired
-    private AmqpTemplate ampqTemplate;
-    @Value("${ampqOn:true}")
-    private boolean ampqOn;
+    private AmqpTemplate amqpTemplate;
+    @Value("${amqpOn:true}")
+    private boolean amqpOn;
 
 
 
@@ -146,7 +146,7 @@ public class TaskController implements TaskControllers {
                 try {
                     dm.setUp();
                     String ret = dm.exportMeteringDeviceValuesSrv(json.get("data"));
-                    if (ampqOn) ampqTemplate.convertAndSend("soap2gis-out", ret);
+                    if (amqpOn) amqpTemplate.convertAndSend("soap2gis-out", ret);
                 } catch (Exception e) {
                     log.error("Ощибка при экспорте показаний счётчиков:"+e.getMessage());
                     e.printStackTrace();
