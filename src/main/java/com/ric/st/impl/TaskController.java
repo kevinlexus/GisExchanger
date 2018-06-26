@@ -11,6 +11,7 @@ import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +78,9 @@ public class TaskController implements TaskControllers {
 	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
     @Autowired
-    private AmqpTemplate ampqTemplate;
+    private AmqpTemplate amqpTemplate;
+    @Value("${amqpOn:true}")
+    private boolean amqpOn;
 
 
 
@@ -143,7 +146,7 @@ public class TaskController implements TaskControllers {
                 try {
                     dm.setUp();
                     String ret = dm.exportMeteringDeviceValuesSrv(json.get("data"));
-                    ampqTemplate.convertAndSend("soap2gis-out", ret);
+                    if (amqpOn) amqpTemplate.convertAndSend("soap2gis-out", ret);
                 } catch (Exception e) {
                     log.error("Ощибка при экспорте показаний счётчиков:"+e.getMessage());
                     e.printStackTrace();
