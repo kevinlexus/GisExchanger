@@ -71,7 +71,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
 
 		// логгинг запросов
-    	sb.setTrace(false);
+    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 	}
 
 
@@ -198,8 +198,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
+		taskMng.logTask(task, true, null);
 		//log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
@@ -234,10 +235,14 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+			taskMng.logTask(task, false, false);
+
 		} else {
 			// Установить статус "Запрос статуса"
 			reqProp.getFoundTask().setState("ACK");
 			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+			taskMng.logTask(task, false, true);
+
 		}
 
 		return err;
@@ -254,8 +259,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportOrgRegistryAsk(Task task) throws CantPrepSoap {
+		taskMng.logTask(task, true, null);
 		//log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
@@ -278,6 +284,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
+			taskMng.logTask(task, false, true);
+
 		}
 	}
 
@@ -289,9 +297,11 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportDataProvider(Task task) throws CantPrepSoap {
-		log.info("******* Task.id={}, экспорт сведений о поставщиках данных, вызов", task.getId());
+		//log.info("******* Task.id={}, экспорт сведений о поставщиках данных, вызов", task.getId());
+		taskMng.logTask(task, true, null);
+
 		// Установить параметры SOAP
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 
 		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
@@ -314,10 +324,14 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+			taskMng.logTask(task, false, false);
+
 		} else {
 			// Установить статус "Запрос статуса"
 			reqProp.getFoundTask().setState("ACK");
 			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+			taskMng.logTask(task, false, true);
+
 		}
 
 		return err;
@@ -334,10 +348,12 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDataProviderAsk(Task task) throws CantPrepSoap {
-		log.info("******* Task.id={}, экспорт сведений о поставщиках данных, запрос ответа", task.getId());
+		//log.info("******* Task.id={}, экспорт сведений о поставщиках данных, запрос ответа", task.getId());
+		taskMng.logTask(task, true, null);
+
 		// установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
-		sb.setTrace(false);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -352,6 +368,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
+			taskMng.logTask(task, false, true);
+
 		}
 	}
 

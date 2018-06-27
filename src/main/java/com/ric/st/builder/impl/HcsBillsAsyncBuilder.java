@@ -25,6 +25,7 @@ import com.ric.bill.dto.SumChrgRec;
 import com.ric.bill.excp.WrongGetMethod;
 import com.ric.bill.excp.WrongParam;
 import com.ric.bill.mm.PdocMng;
+import com.ric.bill.mm.TaskMng;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Pdoc;
 import com.ric.bill.model.exs.Task;
@@ -95,6 +96,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	private EolinkDAO eolinkDao;
 	@Autowired
 	private PseudoTaskBuilders ptb;
+	@Autowired
+	private TaskMng taskMng;
 
 	private BillsServiceAsync service;
 	private BillsPortsTypeAsync port;
@@ -113,7 +116,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
 
 		// логгинг запросов
-    	sb.setTrace(false);
+    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 	}
 
 
@@ -133,7 +136,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-		sb.setTrace(false);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		sb.makeRndMsgGuid();
 		try {
 			state = port.getState(gs);
@@ -186,12 +189,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
-		log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, вызов", task.getId());
+		//log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, вызов", task.getId());
+		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -217,10 +221,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		if (err) {
 			reqProp.getFoundTask().setState("ERR");
 			reqProp.getFoundTask().setResult("Ошибка при отправке XML: "+errMainStr);
+			taskMng.logTask(task, false, false);
+
 		} else {
 			// Установить статус "Запрос статуса"
 			reqProp.getFoundTask().setState("ACK");
 			reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+			taskMng.logTask(task, false, true);
+
 		}
 	}
 
@@ -233,9 +241,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap {
-		log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, запрос ответа", task.getId());
+		//log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, запрос ответа", task.getId());
+		taskMng.logTask(task, true, null);
+
 		// Трассировка XML
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// получить состояние
@@ -253,6 +263,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
+			taskMng.logTask(task, false, true);
+
 
 		}
 	}
@@ -268,10 +280,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
+		taskMng.logTask(task, true, null);
+
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -880,11 +894,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void importPaymentDocumentDataAsk(Task task) throws CantPrepSoap {
-		log.info("******* Task.id={}, импорт платежных документов по дому, запрос ответа", task.getId());
+		//log.info("******* Task.id={}, импорт платежных документов по дому, запрос ответа", task.getId());
+		taskMng.logTask(task, true, null);
+
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
-		sb.setTrace(false);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 
 		// получить состояние
 		ru.gosuslugi.dom.schema.integration.bills.GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -943,6 +959,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
+			taskMng.logTask(task, false, true);
 
 		}
 	}

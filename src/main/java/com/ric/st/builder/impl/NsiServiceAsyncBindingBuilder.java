@@ -81,7 +81,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
     	sb = ctx.getBean(SoapBuilder.class);
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
 		// логгинг запросов
-    	sb.setTrace(false);
+    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 	}
 
 	/**
@@ -174,12 +174,13 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportDataProviderNsiItem(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
-		log.info("******* Task.id={}, экспорт внутреннего справочника организации, вызов", task.getId());
+		//log.info("******* Task.id={}, экспорт внутреннего справочника организации, вызов", task.getId());
+		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		AckRequest ack = null;
 		// Трассировка XML
-		sb.setTrace(true);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
@@ -219,8 +220,9 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
-		log.info("******* Task.id={}, экспорт внутреннего справочника организации, запрос ответа", task.getId());
-		sb.setTrace(true);
+		//log.info("******* Task.id={}, экспорт внутреннего справочника организации, запрос ответа", task.getId());
+		taskMng.logTask(task, true, null);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// получить состояние запроса

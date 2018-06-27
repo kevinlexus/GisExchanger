@@ -48,14 +48,16 @@ public class SoapBuilder implements SoapBuilders{
 	private WSBindingProvider ws;
 	private RequestHeader rh;
 	// GUID организации, от которой отправляется запрос
-	private String ppGuid; 
+	private String ppGuid;
 
+	@Override
 	public void makeRndMsgGuid() {
     	UUID messGUID = Utl.getRndUuid();
 		rh.setMessageGUID(messGUID.toString());
 	}
 
 	// подписывать ли XML
+	@Override
 	public void setSign(boolean sign) {
     	// подписывать ли XML?
     	if (sign) {
@@ -63,13 +65,14 @@ public class SoapBuilder implements SoapBuilders{
     	} else {
     		bp.getRequestContext().remove("sign", "");
     	}
-    	
+
     	// Получить объект подписывания
     	//bp.getRequestContext().put("sc", taskCtrl.sc);
-    	
+
 	}
-	
+
 	// логгировать ли обмен
+	@Override
 	public void setTrace(boolean trace) {
     	if (trace) {
         	bp.getRequestContext().put("trace", "");
@@ -80,21 +83,22 @@ public class SoapBuilder implements SoapBuilders{
 
 	/**
 	 * Инициализация
-	 * @param port 
+	 * @param port
 	 * @param port2
 	 * @param sign - подписать XML?
 	 * @throws CantSendSoap
 	 */
+	@Override
 	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign) throws CantSendSoap {
-		bp = (BindingProvider) port;
+		bp = port;
 		ws = (WSBindingProvider) port;
 		rh = new RequestHeader();
-		
+
 		// подпись
 		setSign(sign);
-		
+
     	rh.setIsOperatorSignature(true);
-    	
+
     	// установить Random Message GUID и дату
     	GregorianCalendar c = new GregorianCalendar();
 		c.setTime(new Date());
@@ -108,9 +112,9 @@ public class SoapBuilder implements SoapBuilders{
 		rh.setDate(cl);
     	UUID messGUID = Utl.getRndUuid();
 		rh.setMessageGUID(messGUID.toString());
-    	
+
     	ws.setOutboundHeaders(rh);
-		
+
 		String endPoint = (String) bp.getRequestContext().get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
 		String urlStr = endPoint;
 		String path = null;
@@ -120,17 +124,17 @@ public class SoapBuilder implements SoapBuilders{
 			e.printStackTrace();
 			throw new CantSendSoap("Ошибка при определении хоста");
 		}
-		
+
 		Map<String, List<String>> requestHeaders = new HashMap<>();
         @SuppressWarnings("restriction")
 		String authorization = new sun.misc.BASE64Encoder().encode((config.getBscLogin()+":"+config.getBscPass()).getBytes());
 		requestHeaders.put("Authorization", Arrays.asList("Basic " + authorization));
 		requestHeaders.put("X-Client-Cert-Fingerprint", Arrays.asList(config.getFingerPrint()));
-		
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, 
+
+		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
 				config.getSrvTestHost()+path);
 		bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
-		
+
 		// добавить хэндлер, для установщика подписи ЭЦП
 		Binding binding = bp.getBinding();
     	List<Handler> handlerChain = binding.getHandlerChain();
@@ -138,16 +142,19 @@ public class SoapBuilder implements SoapBuilders{
     	binding.setHandlerChain(handlerChain);
 	}
 
-	
+
+	@Override
 	public String getPpGuid() {
 		return ppGuid;
 	}
 
+	@Override
 	public void setPpGuid(String ppGuid) {
 		this.ppGuid = ppGuid;
 		rh.setOrgPPAGUID(ppGuid);
 	}
 
+	@Override
 	public void closeResource() throws CantSendSoap {
 	   	try {
 			ws.close();
@@ -155,11 +162,11 @@ public class SoapBuilder implements SoapBuilders{
 			e.printStackTrace();
 			throw new CantSendSoap("Ошибка при освобождении ресурса WSBindingProvider");
 		}
-		
+
 	}
 
 
-	
-	
-	
+
+
+
 }
