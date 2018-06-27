@@ -23,7 +23,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;sequence>
  *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.1""/>
  *     &lt;/extension>
@@ -46,7 +46,7 @@ public class ExportExaminationsRequest
     @XmlElement(name = "From", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar from;
-    @XmlElement(name = "To", required = true)
+    @XmlElement(name = "To")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar to;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)

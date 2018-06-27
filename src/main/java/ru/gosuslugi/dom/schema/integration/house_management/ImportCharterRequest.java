@@ -196,6 +196,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType">
  *                   &lt;sequence>
  *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
+ *                     &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *                   &lt;/sequence>
  *                 &lt;/extension>
  *               &lt;/complexContent>
@@ -2325,6 +2326,7 @@ public class ImportCharterRequest
      *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType">
      *       &lt;sequence>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
+     *         &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>
@@ -2335,7 +2337,8 @@ public class ImportCharterRequest
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "charterVersionGUID"
+        "charterVersionGUID",
+        "rollToDate"
     })
     public static class RollOverCharter
         extends RollOverType
@@ -2343,6 +2346,9 @@ public class ImportCharterRequest
 
         @XmlElement(name = "CharterVersionGUID", required = true)
         protected String charterVersionGUID;
+        @XmlElement(name = "RollToDate")
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar rollToDate;
 
         /**
          * Gets the value of the charterVersionGUID property.
@@ -2366,6 +2372,30 @@ public class ImportCharterRequest
          */
         public void setCharterVersionGUID(String value) {
             this.charterVersionGUID = value;
+        }
+
+        /**
+         * Gets the value of the rollToDate property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public XMLGregorianCalendar getRollToDate() {
+            return rollToDate;
+        }
+
+        /**
+         * Sets the value of the rollToDate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setRollToDate(XMLGregorianCalendar value) {
+            this.rollToDate = value;
         }
 
     }

@@ -214,6 +214,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                             &lt;sequence>
  *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}LicenseRequest" minOccurs="0"/>
  *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractVersionGUID"/>
+ *                               &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *                             &lt;/sequence>
  *                           &lt;/extension>
  *                         &lt;/complexContent>
@@ -555,6 +556,7 @@ public class ImportContractRequest
      *                   &lt;sequence>
      *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}LicenseRequest" minOccurs="0"/>
      *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractVersionGUID"/>
+     *                     &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
      *                   &lt;/sequence>
      *                 &lt;/extension>
      *               &lt;/complexContent>
@@ -2770,6 +2772,7 @@ public class ImportContractRequest
          *       &lt;sequence>
          *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}LicenseRequest" minOccurs="0"/>
          *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractVersionGUID"/>
+         *         &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
          *       &lt;/sequence>
          *     &lt;/extension>
          *   &lt;/complexContent>
@@ -2781,7 +2784,8 @@ public class ImportContractRequest
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "licenseRequest",
-            "contractVersionGUID"
+            "contractVersionGUID",
+            "rollToDate"
         })
         public static class RollOverContract
             extends RollOverType
@@ -2791,6 +2795,9 @@ public class ImportContractRequest
             protected Boolean licenseRequest;
             @XmlElement(name = "ContractVersionGUID", required = true)
             protected String contractVersionGUID;
+            @XmlElement(name = "RollToDate")
+            @XmlSchemaType(name = "date")
+            protected XMLGregorianCalendar rollToDate;
 
             /**
              * Gets the value of the licenseRequest property.
@@ -2838,6 +2845,30 @@ public class ImportContractRequest
              */
             public void setContractVersionGUID(String value) {
                 this.contractVersionGUID = value;
+            }
+
+            /**
+             * Gets the value of the rollToDate property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link XMLGregorianCalendar }
+             *     
+             */
+            public XMLGregorianCalendar getRollToDate() {
+                return rollToDate;
+            }
+
+            /**
+             * Sets the value of the rollToDate property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link XMLGregorianCalendar }
+             *     
+             */
+            public void setRollToDate(XMLGregorianCalendar value) {
+                this.rollToDate = value;
             }
 
         }

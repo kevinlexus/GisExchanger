@@ -17,6 +17,8 @@ import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportMeteringDeviceDataRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportMeteringDeviceDataResult;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportRolloverStatusCAChRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportRolloverStatusCAChResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusCAChRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusCAChResult;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusPublicPropertyContractRequest;
@@ -464,6 +466,22 @@ public interface HouseManagementPortsType {
     public ru.gosuslugi.dom.schema.integration.base.ImportResult importSupplyResourceContractProjectData(
         @WebParam(name = "importSupplyResourceContractProjectRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "importSupplyResourceContractProjectRequest")
         ImportSupplyResourceContractProjectRequest importSupplyResourceContractProjectRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт статусов автопролонгации договоров управления, уставов
+     * 
+     * @param exportRolloverStatusCAChRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.house_management.ExportRolloverStatusCAChResult
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportRolloverStatusCACh")
+    @WebResult(name = "exportRolloverStatusCAChResult", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "tns:exportRolloverStatusCAChResult")
+    public ExportRolloverStatusCAChResult exportRolloverStatusCACh(
+        @WebParam(name = "exportRolloverStatusCAChRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportRolloverStatusCAChRequest")
+        ExportRolloverStatusCAChRequest exportRolloverStatusCAChRequest)
         throws Fault
     ;
 

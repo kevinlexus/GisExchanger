@@ -29,7 +29,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *         &lt;element name="Name" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
  *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
  *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="SumAcceptedWorks" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
+ *         &lt;element name="SumAcceptedWorks" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
  *         &lt;element name="PerformerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
  *         &lt;element name="CustomerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
  *         &lt;element name="AttachCertificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>

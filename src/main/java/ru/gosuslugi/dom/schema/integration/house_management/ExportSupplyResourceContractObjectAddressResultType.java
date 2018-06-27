@@ -24,7 +24,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType">
  *       &lt;sequence>
- *         &lt;element name="Pair" maxOccurs="100">
+ *         &lt;element name="Pair" maxOccurs="100" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType">
@@ -164,7 +164,7 @@ public class ExportSupplyResourceContractObjectAddressResultType
     extends ObjectAddressType
 {
 
-    @XmlElement(name = "Pair", required = true)
+    @XmlElement(name = "Pair")
     protected List<ExportSupplyResourceContractObjectAddressResultType.Pair> pair;
     @XmlElement(name = "Quality")
     protected List<ExportSupplyResourceContractObjectAddressResultType.Quality> quality;

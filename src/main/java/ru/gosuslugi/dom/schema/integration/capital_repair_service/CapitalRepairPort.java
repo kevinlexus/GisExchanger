@@ -417,7 +417,7 @@ public interface CapitalRepairPort {
     ;
 
     /**
-     * Импорт решений/информации о порядке представления платежных документов
+     * Экспорт решений/информации о порядке представления платежных документов
      * 
      * @param exportDecisionsOrderOfProvidingPDRequest
      * @return

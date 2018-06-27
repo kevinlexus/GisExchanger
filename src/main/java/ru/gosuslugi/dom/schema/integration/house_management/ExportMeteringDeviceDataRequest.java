@@ -22,24 +22,27 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
- *         &lt;sequence>
- *           &lt;element name="IsCurrentOrganization" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *           &lt;element name="UpdateDateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *           &lt;choice minOccurs="0">
- *             &lt;element name="MeteringDeviceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *             &lt;element name="MunicipalResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *           &lt;/choice>
- *           &lt;element name="ArchiveDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *           &lt;element name="ArchiveDateFrom" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *           &lt;element name="SearchArchived" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *           &lt;element name="CommissioningDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *           &lt;element name="CommissioningDateFrom" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *         &lt;/sequence>
- *       &lt;/choice>
+ *       &lt;sequence>
+ *         &lt;choice>
+ *           &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *           &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
+ *           &lt;sequence>
+ *             &lt;element name="IsCurrentOrganization" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *             &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *             &lt;element name="UpdateDateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *             &lt;choice minOccurs="0">
+ *               &lt;element name="MeteringDeviceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+ *               &lt;element name="MunicipalResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+ *             &lt;/choice>
+ *             &lt;element name="ArchiveDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *             &lt;element name="ArchiveDateFrom" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *             &lt;element name="SearchArchived" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *             &lt;element name="CommissioningDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *             &lt;element name="CommissioningDateFrom" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *           &lt;/sequence>
+ *         &lt;/choice>
+ *         &lt;element name="IncludeFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *       &lt;/sequence>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.2""/>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -61,7 +64,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "archiveDateFrom",
     "searchArchived",
     "commissioningDateTo",
-    "commissioningDateFrom"
+    "commissioningDateFrom",
+    "includeFIASHouseGuid"
 })
 @XmlRootElement(name = "exportMeteringDeviceDataRequest")
 public class ExportMeteringDeviceDataRequest
@@ -97,6 +101,8 @@ public class ExportMeteringDeviceDataRequest
     @XmlElement(name = "CommissioningDateFrom")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar commissioningDateFrom;
+    @XmlElement(name = "IncludeFIASHouseGuid")
+    protected Boolean includeFIASHouseGuid;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -386,6 +392,30 @@ public class ExportMeteringDeviceDataRequest
      */
     public void setCommissioningDateFrom(XMLGregorianCalendar value) {
         this.commissioningDateFrom = value;
+    }
+
+    /**
+     * Gets the value of the includeFIASHouseGuid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeFIASHouseGuid() {
+        return includeFIASHouseGuid;
+    }
+
+    /**
+     * Sets the value of the includeFIASHouseGuid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeFIASHouseGuid(Boolean value) {
+        this.includeFIASHouseGuid = value;
     }
 
     /**

@@ -30,7 +30,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="StartYear" type="{http://www.w3.org/2001/XMLSchema}gYear"/>
- *         &lt;element name="EndYear" type="{http://www.w3.org/2001/XMLSchema}gYear"/>
+ *         &lt;element name="EndYear" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}YearUpTo2060Type"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

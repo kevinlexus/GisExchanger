@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
@@ -24,23 +25,11 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *       &lt;sequence>
  *         &lt;choice>
  *           &lt;sequence>
- *             &lt;element name="Price">
- *               &lt;simpleType>
- *                 &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType">
- *                   &lt;totalDigits value="10"/>
- *                 &lt;/restriction>
- *               &lt;/simpleType>
- *             &lt;/element>
- *             &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType"/>
- *             &lt;element name="Count">
- *               &lt;simpleType>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
- *                   &lt;maxExclusive value="999"/>
- *                 &lt;/restriction>
- *               &lt;/simpleType>
- *             &lt;/element>
+ *             &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
+ *             &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
+ *             &lt;element name="Count" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCountType" minOccurs="0"/>
+ *             &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
  *           &lt;/sequence>
- *           &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType"/>
  *           &lt;element name="Excluded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
  *         &lt;element name="WorkItemNSI" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -81,6 +70,7 @@ public class WorkingListItemType {
     @XmlElement(name = "Amount")
     protected BigDecimal amount;
     @XmlElement(name = "Count")
+    @XmlSchemaType(name = "nonNegativeInteger")
     protected Integer count;
     @XmlElement(name = "TotalCost")
     protected BigDecimal totalCost;

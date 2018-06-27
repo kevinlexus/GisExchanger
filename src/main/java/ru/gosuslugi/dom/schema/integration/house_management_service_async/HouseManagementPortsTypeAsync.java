@@ -14,6 +14,7 @@ import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountRequest
 import ru.gosuslugi.dom.schema.integration.house_management.ExportCAChAsyncRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportMeteringDeviceDataRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportRolloverStatusCAChRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusCAChRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportStatusPublicPropertyContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressRequest;
@@ -472,6 +473,22 @@ public interface HouseManagementPortsTypeAsync {
     public AckRequest importSupplyResourceContractProjectData(
         @WebParam(name = "importSupplyResourceContractProjectRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "importSupplyResourceContractProjectRequest")
         ImportSupplyResourceContractProjectRequest importSupplyResourceContractProjectRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт статусов автопролонгации договоров управления, уставов
+     * 
+     * @param exportRolloverStatusCAChRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportRolloverStatusCACh")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "AckRequest")
+    public AckRequest exportRolloverStatusCACh(
+        @WebParam(name = "exportRolloverStatusCAChRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportRolloverStatusCAChRequest")
+        ExportRolloverStatusCAChRequest exportRolloverStatusCAChRequest)
         throws Fault
     ;
 

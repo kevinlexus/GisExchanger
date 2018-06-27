@@ -63,6 +63,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="rolloverCAChStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportRolloverStatusCAChResultType"/>
  *       &lt;/choice>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
  *     &lt;/extension>
@@ -85,7 +86,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "votingProtocol",
     "exportSupplyResourceContractResult",
     "exportAccountIndividualServicesResult",
-    "exportSupplyResourceContractObjectAddress"
+    "exportSupplyResourceContractObjectAddress",
+    "rolloverCAChStatus"
 })
 @XmlRootElement(name = "getStateResult")
 public class GetStateResult
@@ -107,6 +109,7 @@ public class GetStateResult
     protected List<GetStateResult.ExportSupplyResourceContractResult> exportSupplyResourceContractResult;
     protected List<ExportAccountIndividualServicesResultType> exportAccountIndividualServicesResult;
     protected List<GetStateResult.ExportSupplyResourceContractObjectAddress> exportSupplyResourceContractObjectAddress;
+    protected ExportRolloverStatusCAChResultType rolloverCAChStatus;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -446,6 +449,30 @@ public class GetStateResult
             exportSupplyResourceContractObjectAddress = new ArrayList<GetStateResult.ExportSupplyResourceContractObjectAddress>();
         }
         return this.exportSupplyResourceContractObjectAddress;
+    }
+
+    /**
+     * Gets the value of the rolloverCAChStatus property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExportRolloverStatusCAChResultType }
+     *     
+     */
+    public ExportRolloverStatusCAChResultType getRolloverCAChStatus() {
+        return rolloverCAChStatus;
+    }
+
+    /**
+     * Sets the value of the rolloverCAChStatus property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExportRolloverStatusCAChResultType }
+     *     
+     */
+    public void setRolloverCAChStatus(ExportRolloverStatusCAChResultType value) {
+        this.rolloverCAChStatus = value;
     }
 
     /**

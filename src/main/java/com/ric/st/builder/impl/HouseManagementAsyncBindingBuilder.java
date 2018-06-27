@@ -43,10 +43,8 @@ import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.ar.Kart;
 import com.ric.bill.model.bs.AddrTp;
 import com.ric.bill.model.bs.Lst;
-import com.ric.bill.model.bs.Par;
 import com.ric.bill.model.exs.Eolink;
 import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.TaskPar;
 import com.ric.bill.model.oralv.Ko;
 import com.ric.cmn.Utl;
 import com.ric.st.ReqProps;
@@ -72,6 +70,7 @@ import ru.gosuslugi.dom.schema.integration.house_management.AccountType.Accommod
 import ru.gosuslugi.dom.schema.integration.house_management.AccountType.PayerInfo;
 import ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseUOType.BasicCharacteristicts;
 import ru.gosuslugi.dom.schema.integration.house_management.ClosedAccountAttributesType;
+import ru.gosuslugi.dom.schema.integration.house_management.DeviceMunicipalResourceType;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.OverhaulFormingKindOMSDescision;
@@ -109,8 +108,10 @@ import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicC
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicCharacteristicsType.NonResidentialPremiseDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceBasicCharacteristicsType.ResidentialPremiseDevice;
 import ru.gosuslugi.dom.schema.integration.house_management.MeteringDeviceFullInformationType;
-import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceElectricType;
-import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceNotElectricType;
+import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceElectricBaseType;
+import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceElectricExportType;
+import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceNotElectricBaseType;
+import ru.gosuslugi.dom.schema.integration.house_management.MunicipalResourceNotElectricExportType;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementServiceAsync;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
@@ -356,7 +357,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт приборов учета, вызов", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		sb.setTrace(true);
+		sb.setTrace(false);
 
 		AckRequest ack = null;
 
@@ -420,7 +421,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт приборов учета, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		sb.setTrace(true);
+		sb.setTrace(false);
 
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 
@@ -431,21 +432,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			// не обработано
 			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-			// пользователь
-			Integer userId = soapConfig.getCurUser().getId();
-			Lst actParent = lstMng.getByCD("GIS_EXP_METER_VALS");
-			Lst actChild = lstMng.getByCD("GIS_EXP_METER_VAL");
 			// Ошибок не найдено
-			for (ExportMeteringDeviceDataResultType d : retState.getExportMeteringDeviceDataResult()) {
-				ExportMeteringDeviceDataResultType t = d;
-
+			for (ExportMeteringDeviceDataResultType t : retState.getExportMeteringDeviceDataResult()) {
 				// тип счетчика: 0 - жилой ИПУ, 1 - не жилой ИПУ, 2 - общедомовой ПУ
 				Integer meterTp = null;
-				log.info("Получен счетчик:");
-				log.info("Root GUID={}", t.getMeteringDeviceRootGUID());
-				//log.info("Version GUID={}", t.getMeteringDeviceVersionGUID());
-				log.info("GISGKHNumber={}", t.getMeteringDeviceGISGKHNumber());
-				log.info("Серийный номер={}", t.getBasicChatacteristicts().getMeteringDeviceNumber());
+				log.trace("Получен счетчик:");
+				log.trace("Root GUID={}", t.getMeteringDeviceRootGUID());
+				log.trace("Version GUID={}", t.getMeteringDeviceVersionGUID());
+				log.trace("GISGKHNumber={}", t.getMeteringDeviceGISGKHNumber());
+				log.trace("Серийный номер={}", t.getBasicChatacteristicts().getMeteringDeviceNumber());
 
 				String premiseGUID = null;
 				if (t.getBasicChatacteristicts().getResidentialPremiseDevice() != null) {
@@ -453,11 +448,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					// получить GUID помещения
 					meterTp = 0;
 					premiseGUID = t.getBasicChatacteristicts().getResidentialPremiseDevice().getPremiseGUID();
-					log.info("Cчетчик ЖИЛОГО помещения, GUID={}", premiseGUID);
+					log.trace("Cчетчик ЖИЛОГО помещения, GUID={}", premiseGUID);
 				} else if (t.getBasicChatacteristicts().getNonResidentialPremiseDevice() != null) {
 					// Счетчик не жилого помещения
 					// получить GUID помещения
-					log.info("Cчетчик НЕЖИЛОГО помещения, GUID={}", premiseGUID);
+					log.trace("Cчетчик НЕЖИЛОГО помещения, GUID={}", premiseGUID);
 					premiseGUID = t.getBasicChatacteristicts().getNonResidentialPremiseDevice().getPremiseGUID();
 					meterTp = 1;
 				} else if (t.getBasicChatacteristicts().getApartmentHouseDevice() != null) {
@@ -495,16 +490,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				}
 
 				// найти корневую запись счетчика
-				Eolink rootEol = eolinkMng.getEolinkByGuid(t.getMeteringDeviceRootGUID());
+				Eolink rootEol = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());
 				// найти версию счетчика, по GUID
-				Eolink versionEol = eolinkMng.getEolinkByGuid(t.getMeteringDeviceVersionGUID());
+				Eolink versionEol = eolinkDao.getEolinkByGuid(t.getMeteringDeviceVersionGUID());
 				// найти помещение, к которому прикреплен счетчик
-				Eolink premiseEol = eolinkMng.getEolinkByGuid(premiseGUID);
-
-				List<MunicipalResourceNotElectricType> munResNenerg
-					= t.getMunicipalResourceNotEnergy();
-				MunicipalResourceElectricType munResEl
-					= t.getMunicipalResourceEnergy();
+				Eolink premiseEol = eolinkDao.getEolinkByGuid(premiseGUID);
 				String usl = null;
 
 				String servCd = null;
@@ -534,11 +524,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 								.withStatus(1).build();
 					}
 
-					log.info("Попытка создать запись корневого счетчика в Eolink: GUID={}", t.getMeteringDeviceRootGUID());
+					log.trace("Попытка создать запись корневого счетчика в Eolink: GUID={}", t.getMeteringDeviceRootGUID());
 					em.persist(rootEol);
 
-					if (t.getStatusRootDoc().equals("Active")) {
+					/* выключил! создает путаницу
+					 * if (t.getStatusRootDoc().equals("Active")) {
 						// Создать задание на выгрузку показаний по созданному счетчику, если он активен
+						Integer userId = soapConfig.getCurUser().getId();
+						Lst actChild = lstMng.getByCD("GIS_EXP_METER_VAL");
+						Lst actParent = lstMng.getByCD("GIS_EXP_METER_VALS");
 						Task taskParent = new Task(reqProp.getFoundTask().getEolink(), null, null, "INS", actParent,
 								null, null, null, null, null, null, userId, 0);
 						Task taskChild = new Task(rootEol, null, null, "INS", actChild,
@@ -552,42 +546,64 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 						taskParent.getChild().add(taskChild);
 						em.persist(taskParent);
-					}
+					}*/
 				}
 
 				// обновить параметры созданного счетчика или уже имеющегося
 				if (Utl.nvl(rootEol.getStatus(),0) == 1 && t.getStatusRootDoc().equals("Archival")) {
 					// счетчик активный, отметить архивным
 					rootEol.setStatus(0);
-					log.info("Попытка отметить счетчик АРХИВНЫМ");
+					log.trace("Попытка отметить счетчик АРХИВНЫМ");
 				} else if (Utl.nvl(rootEol.getStatus(),0) != 1 && t.getStatusRootDoc().equals("Active")) {
 					// счетчик архивный, отметить активным
 					rootEol.setStatus(1);
-					log.info("Попытка отметить счетчик АКТИВНЫМ");
+					log.trace("Попытка отметить счетчик АКТИВНЫМ");
 				}
 
-/*				if (rootEol.getGuid().equals("6d16d2b9-5146-4467-8fb9-99ff1d5ed766")) {
-					log.info("6d16d2b9-5146-4467-8fb9-99ff1d5ed766");
+				if (rootEol.getGuid().equals("7552c05e-d80b-4573-a2ba-6a99d587274f")
+						|| rootEol.getGuid().equals("108f346e-a33b-4c43-a345-bfd011c7af19")) {
+					log.trace("--------------{}, {}----{}------",
+							 t.getMunicipalResourceEnergy(), t.getMunicipalResourceNotEnergy(), t.getMunicipalResources());
 				}
-*/				// проверить, заполнить usl
-				if (munResNenerg.size() > 0) {
-					// Коммунальные услуги, получить первый попавшийся код усл
-					// может в Отоплении будут другие коды услуг!
-					for (MunicipalResourceNotElectricType m: munResNenerg) {
-						//log.info("res.GUID={}", m.getMunicipalResource().getGUID());
-						usl = ulistMng.getUslByResource(m.getMunicipalResource());
-						servCd = ulistMng.getServCdByResource(m.getMunicipalResource());
-						//log.info("res.usl={}, servCd={}", usl, servCd);
-						break;
+
+				log.trace("isConsumedVolume={}",
+						t.getBasicChatacteristicts().isConsumedVolume());
+
+				// счетчик предоставляет ОБЪЕМ
+				for (DeviceMunicipalResourceType d: t.getMunicipalResources()) {
+					usl = ulistMng.getUslByResource(d.getMunicipalResource());
+					servCd = ulistMng.getServCdByResource(d.getMunicipalResource());
+					break; // TODO Lev: Сделал выход, по первому элементу, пока так, в будущем
+						   // надо будет сделать возможность наличия несколько услуг для одного счетчика!
+				}
+
+				if (usl!=null) { // TODO Lev: проверить логику выгрузки ГИС данных элементов
+					// счетчик предоставляет ПОКАЗАНИЯ
+					List<MunicipalResourceNotElectricExportType> munResNenerg
+							= t.getMunicipalResourceNotEnergy();
+					MunicipalResourceElectricExportType munResEl
+							= t.getMunicipalResourceEnergy();
+					// проверить, заполнить usl
+					if (munResNenerg.size() > 0) {
+						// Коммунальные услуги, получить первый попавшийся код усл
+						// может в Отоплении будут другие коды услуг!
+						for (MunicipalResourceNotElectricExportType m: munResNenerg) {
+							//log.trace("res.GUID={}", m.getMunicipalResource().getGUID());
+							usl = ulistMng.getUslByResource(m.getMunicipalResource());
+							servCd = ulistMng.getServCdByResource(m.getMunicipalResource());
+							//log.trace("res.usl={}, servCd={}", usl, servCd);
+							break;
+						}
+					} else if (munResEl != null) {
+						// Электроэнергия
+						usl = "024";
+						servCd = "Электроснабжение";
 					}
-				} else if (munResEl != null) {
-					// Электроэнергия
-					usl = "024";
-					servCd = "Электроснабжение";
 				}
+
 				if (rootEol.getUsl() == null) {
 					rootEol.setUsl(usl);
-					log.info("Попытка отметить счетчик кодом услуги usl={}", usl);
+					log.trace("Попытка отметить счетчик кодом услуги usl={}", usl);
 				}
 
 				// привязать счетчик к лиц.счетам
@@ -595,22 +611,18 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 					Eolink lskEol = null;
 					// счетчик жилых или нежилых помещений
 					for (String lskGUID: lstAccGuid) {
-						lskEol = eolinkMng.getEolinkByGuid(lskGUID);
+						lskEol = eolinkDao.getEolinkByGuid(lskGUID);
 						eolToEolMng.saveParentChild(lskEol, rootEol, "Логическая связь");
 					}
 
 					// заполнить Ko счетчика по последнему лицевому счету
 					// (нельзя ко всем, так как Eolink - Ko - связь один к одному
-					if (lskEol!= null && lskEol.getKoObj()!= null && rootEol.getKoObj() == null) {
+					if (servCd!= null && lskEol!= null && lskEol.getKoObj()!= null && rootEol.getKoObj() == null) {
 						Ko meterKo = meterLogMng.getKoByLskNum(lskEol.getKoObj(),
 								t.getBasicChatacteristicts().getMeteringDeviceNumber(), servCd);
 						rootEol.setKoObj(meterKo);
 					}
-
 				}
-
-
-
 
 				// параметры счетчика
 				eolinkParMng.setStr(rootEol, "Счетчик.НомерПУ", t.getBasicChatacteristicts().getMeteringDeviceNumber());
@@ -620,6 +632,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						Utl.getDateFromXmlGregCal(t.getBasicChatacteristicts().getCommissioningDate()));
 				eolinkParMng.setDate(rootEol, "Счетчик.ДатаУстановки",
 						Utl.getDateFromXmlGregCal(t.getBasicChatacteristicts().getInstallationDate()));
+				eolinkParMng.setBool(rootEol, "ГИС ЖКХ.Признак_ПУ_КР", t.getBasicChatacteristicts().isConsumedVolume());
 
 				if (versionEol == null) {
 					// не найдена версия счетчика, создать
@@ -635,13 +648,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 					// пометить прочие записи неактивными
 					eolinkMng.setChildActive(rootEol, "СчетчикВерсия", 0);
-					log.info("Попытка создать запись версии счетчика в Eolink: GUID={}", t.getMeteringDeviceVersionGUID());
+					log.trace("Попытка создать запись версии счетчика в Eolink: GUID={}", t.getMeteringDeviceVersionGUID());
 					em.persist(versionEol);
 				}
-
-
 			}
 			reqProp.getFoundTask().setState("ACP");
+			log.info("******* Task.id={}, экспорт приборов учета выполнен", task.getId());
 		}
 	}
 
@@ -714,7 +726,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 						// Устав ТСЖ
 						contractGUID = t.getCharter().getCharterGUID();
 					}
-					Eolink contrEol = eolinkMng.getEolinkByGuid(contractGUID);
+					Eolink contrEol = eolinkDao.getEolinkByGuid(contractGUID);
 					if (contrEol == null) {
 						// Документ не существует в базе, - создать
 						AddrTp addrTp = lstMng.getAddrTpByCD("Документ");
@@ -787,7 +799,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public Boolean exportHouseData(Task task) throws CantPrepSoap {
 		log.info("******* Task.id={}, экспорт объектов дома, вызов", task.getId());
 		// Установить параметры SOAP
-		sb.setTrace(true);
+		sb.setTrace(false);
 
 		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -837,7 +849,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
-		sb.setTrace(true);
+		sb.setTrace(false);
 
 		// дом
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -890,7 +902,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				List<String> lstEntryGuid = new ArrayList<String>();
 				for (Entrance t: ah.getEntrance()) {
 					log.info("Подъезд: №={}, GUID={}", t.getEntranceNum(), t.getEntranceGUID());
-					Eolink entryEol = eolinkMng.getEolinkByGuid(t.getEntranceGUID());
+					Eolink entryEol = eolinkDao.getEolinkByGuid(t.getEntranceGUID());
 					lstEntryGuid.add(t.getEntranceGUID());
 					if (entryEol == null) {
 						// не найдено, создать подъезд
@@ -949,11 +961,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				ah.getResidentialPremises().stream().forEach(Errors.rethrow().wrap(t-> {
 					log.info("Жилое помещение: №={}, UniqNumber={}, GUID={}",
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
+					Eolink premisEol = eolinkDao.getEolinkByGuid(t.getPremisesGUID());
 					// обработка номера помещения
 					String num;
 					num = prepNum(t);
-
+					if (t.getPremisesNum().equals("128")) {
+						log.info("check");
+					}
 					if (premisEol == null) {
 						// не найдено, создать помещение
 						AddrTp addrTp = lstMng.getAddrTpByCD("Квартира");
@@ -1068,7 +1082,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				for (NonResidentialPremises t : ah.getNonResidentialPremises()) {
 					log.info("Нежилое помещение: №={}, UniqNumber={}, GUID={}",
 							t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-					Eolink premisEol = eolinkMng.getEolinkByGuid(t.getPremisesGUID());
+					Eolink premisEol = eolinkDao.getEolinkByGuid(t.getPremisesGUID());
 					// обработка номера помещения
 					String num;
 					num = prepNum(t);
@@ -1298,7 +1312,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 				}
 				// найти лицевой счет
-				Eolink accountEol = eolinkMng.getEolinkByGuid(t.getAccountGUID());
+				Eolink accountEol = eolinkDao.getEolinkByGuid(t.getAccountGUID());
 				String num;
 				// усечь № лиц.счета до 8 знаков
 				if (t.getAccountNumber().length() > 8) {
@@ -1322,13 +1336,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 							num,
 							decision.getOverhaulFormingKindOMSDescisionGUID());
 				}
-				// #####################
 
 				if (accountEol == null) {
 					// Создать новый лицевой счет
 
 					// Найти объект на который ссылаться
-					Eolink parentEol = eolinkMng.getEolinkByGuid(guid);
+					Eolink parentEol = eolinkDao.getEolinkByGuid(guid);
 					if (parentEol == null) {
 						throw new ErrorProcessAnswer("Не найдено помещение для прикрепления лицевого счета!");
 					}
@@ -2212,6 +2225,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				bc.setMeteringDeviceModel(teParMng.getStr(t, "Счетчик.Модель"));
 				bc.setMeteringDeviceStamp(teParMng.getStr(t, "ПУ.Марка"));
 
+				// признак, что прибор передаёт объем потребленного ресурса КР
+				Boolean isVol = teParMng.getBool(t, "ГИС ЖКХ.Признак_ПУ_КР");
+				if (isVol!=null) {
+					bc.setConsumedVolume(teParMng.getBool(t, "ГИС ЖКХ.Признак_ПУ_КР"));
+				} else {
+					bc.setConsumedVolume(false);
+				}
+
 				if (premiseEol.getObjTp().getCd().equals("Квартира")) {
 					// Жилое помещение
 					ResidentialPremiseDevice premiseRsd = new ResidentialPremiseDevice();
@@ -2253,7 +2274,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				mdinf.setNotLinkedWithMetering(true);
 
 				// Сведения о коммунальном ресурсе и базовые показания ПУ (тепловая энергия, газ, горячая вода, холодная вода, сточные бытовые воды)
-				MunicipalResourceNotElectricType munResNenerg = new MunicipalResourceNotElectricType();
+				MunicipalResourceNotElectricBaseType munResNenerg = new MunicipalResourceNotElectricBaseType();
 
 				NsiRef mres = null;
 				// Получить ресурс по коду USL
@@ -2262,12 +2283,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 				if (ulistMng.getResType(e.getUsl()) != 1) {
 					// Не эл.энерг.
 					munResNenerg.setMunicipalResource(mres);
-					munResNenerg.setMeteringValue(BigDecimal.valueOf(taskParMng.getDbl(t, "Счетчик.Показ(Т1)")));
+					munResNenerg.setMeteringValue(String.valueOf(taskParMng.getDbl(t, "Счетчик.Показ(Т1)")));
 					mdinf.getMunicipalResourceNotEnergy().add(munResNenerg);
 				} else {
 					// Сведения о коммунальном ресурсе и базовые показания ПУ (электрическая энергия)
-					MunicipalResourceElectricType mresEl = new MunicipalResourceElectricType();
-					mresEl.setMeteringValueT1(BigDecimal.valueOf(taskParMng.getDbl(t, "Счетчик.Показ(Т1)")));
+					MunicipalResourceElectricBaseType mresEl = new MunicipalResourceElectricBaseType();
+					mresEl.setMeteringValueT1(String.valueOf(taskParMng.getDbl(t, "Счетчик.Показ(Т1)")));
 					mdinf.setMunicipalResourceEnergy(mresEl);
 				}
 

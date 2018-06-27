@@ -48,19 +48,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegOrgType }
-     * 
-     */
-    public RegOrgType createRegOrgType() {
-        return new RegOrgType();
-    }
-
-    /**
      * Create an instance of {@link RegOrgVersionType }
      * 
      */
     public RegOrgVersionType createRegOrgVersionType() {
         return new RegOrgVersionType();
+    }
+
+    /**
+     * Create an instance of {@link RegOrgType }
+     * 
+     */
+    public RegOrgType createRegOrgType() {
+        return new RegOrgType();
     }
 
     /**

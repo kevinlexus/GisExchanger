@@ -104,6 +104,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                           &lt;/complexContent>
  *                         &lt;/complexType>
  *                       &lt;/element>
+ *                       &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                     &lt;/sequence>
  *                   &lt;/restriction>
  *                 &lt;/complexContent>
@@ -1072,6 +1073,7 @@ public class PaymentDocumentType {
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
+     *         &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -1088,7 +1090,8 @@ public class PaymentDocumentType {
         "accountingPeriodTotal",
         "calcExplanation",
         "serviceCharge",
-        "consumption"
+        "consumption",
+        "orgPPAGUID"
     })
     public static class Insurance {
 
@@ -1106,6 +1109,7 @@ public class PaymentDocumentType {
         protected ServiceChargeImportType serviceCharge;
         @XmlElement(name = "Consumption")
         protected PaymentDocumentType.Insurance.Consumption consumption;
+        protected String orgPPAGUID;
 
         /**
          * Gets the value of the insuranceProductGUID property.
@@ -1273,6 +1277,30 @@ public class PaymentDocumentType {
          */
         public void setConsumption(PaymentDocumentType.Insurance.Consumption value) {
             this.consumption = value;
+        }
+
+        /**
+         * Gets the value of the orgPPAGUID property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getOrgPPAGUID() {
+            return orgPPAGUID;
+        }
+
+        /**
+         * Sets the value of the orgPPAGUID property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setOrgPPAGUID(String value) {
+            this.orgPPAGUID = value;
         }
 
 

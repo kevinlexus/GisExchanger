@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueBaseType;
 
 
 /**
@@ -62,11 +63,12 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *         &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Certificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
- *           &lt;element name="MunicipalResourceNotEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceNotElectricType" maxOccurs="3"/>
- *           &lt;element name="MunicipalResourceEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceElectricType"/>
+ *           &lt;element name="MunicipalResourceNotEnergy" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+ *           &lt;element name="MunicipalResourceEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceElectricUpdateType"/>
  *         &lt;/choice>
  *         &lt;element name="FirstVerificationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="FactorySealDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="ConsumedVolume" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="NotLinkedWithMetering" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="LinkedWithMetering">
@@ -120,9 +122,10 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
+ *                           &lt;choice>
+ *                             &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                             &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                           &lt;/sequence>
+ *                           &lt;/choice>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
@@ -131,9 +134,10 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
+ *                           &lt;choice>
+ *                             &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *                             &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                           &lt;/sequence>
+ *                           &lt;/choice>
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
@@ -187,6 +191,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "municipalResourceEnergy",
     "firstVerificationDate",
     "factorySealDate",
+    "consumedVolume",
     "notLinkedWithMetering",
     "linkedWithMetering",
     "addressChatacteristicts"
@@ -211,15 +216,17 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
     @XmlElement(name = "Certificate")
     protected List<AttachmentType> certificate;
     @XmlElement(name = "MunicipalResourceNotEnergy")
-    protected List<MunicipalResourceNotElectricType> municipalResourceNotEnergy;
+    protected List<OneRateMeteringValueBaseType> municipalResourceNotEnergy;
     @XmlElement(name = "MunicipalResourceEnergy")
-    protected MunicipalResourceElectricType municipalResourceEnergy;
+    protected MunicipalResourceElectricUpdateType municipalResourceEnergy;
     @XmlElement(name = "FirstVerificationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar firstVerificationDate;
     @XmlElement(name = "FactorySealDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar factorySealDate;
+    @XmlElement(name = "ConsumedVolume")
+    protected Boolean consumedVolume;
     @XmlElement(name = "NotLinkedWithMetering")
     protected Boolean notLinkedWithMetering;
     @XmlElement(name = "LinkedWithMetering")
@@ -447,13 +454,13 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link MunicipalResourceNotElectricType }
+     * {@link OneRateMeteringValueBaseType }
      * 
      * 
      */
-    public List<MunicipalResourceNotElectricType> getMunicipalResourceNotEnergy() {
+    public List<OneRateMeteringValueBaseType> getMunicipalResourceNotEnergy() {
         if (municipalResourceNotEnergy == null) {
-            municipalResourceNotEnergy = new ArrayList<MunicipalResourceNotElectricType>();
+            municipalResourceNotEnergy = new ArrayList<OneRateMeteringValueBaseType>();
         }
         return this.municipalResourceNotEnergy;
     }
@@ -463,10 +470,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      * 
      * @return
      *     possible object is
-     *     {@link MunicipalResourceElectricType }
+     *     {@link MunicipalResourceElectricUpdateType }
      *     
      */
-    public MunicipalResourceElectricType getMunicipalResourceEnergy() {
+    public MunicipalResourceElectricUpdateType getMunicipalResourceEnergy() {
         return municipalResourceEnergy;
     }
 
@@ -475,10 +482,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      * 
      * @param value
      *     allowed object is
-     *     {@link MunicipalResourceElectricType }
+     *     {@link MunicipalResourceElectricUpdateType }
      *     
      */
-    public void setMunicipalResourceEnergy(MunicipalResourceElectricType value) {
+    public void setMunicipalResourceEnergy(MunicipalResourceElectricUpdateType value) {
         this.municipalResourceEnergy = value;
     }
 
@@ -528,6 +535,30 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      */
     public void setFactorySealDate(XMLGregorianCalendar value) {
         this.factorySealDate = value;
+    }
+
+    /**
+     * Gets the value of the consumedVolume property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isConsumedVolume() {
+        return consumedVolume;
+    }
+
+    /**
+     * Sets the value of the consumedVolume property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setConsumedVolume(Boolean value) {
+        this.consumedVolume = value;
     }
 
     /**
@@ -639,9 +670,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
+     *                 &lt;choice>
+     *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *                   &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                 &lt;/sequence>
+     *                 &lt;/choice>
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
@@ -650,9 +682,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
+     *                 &lt;choice>
+     *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
      *                   &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                 &lt;/sequence>
+     *                 &lt;/choice>
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
@@ -865,9 +898,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
          * &lt;complexType>
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
+         *       &lt;choice>
+         *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
          *         &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *       &lt;/sequence>
+         *       &lt;/choice>
          *     &lt;/restriction>
          *   &lt;/complexContent>
          * &lt;/complexType>
@@ -877,25 +911,60 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
+            "fiasHouseGuid",
             "isChangeToFIASHouseGuid"
         })
         public static class ApartmentHouseDevice {
 
-            protected boolean isChangeToFIASHouseGuid;
+            @XmlElement(name = "FIASHouseGuid")
+            protected String fiasHouseGuid;
+            protected Boolean isChangeToFIASHouseGuid;
+
+            /**
+             * Gets the value of the fiasHouseGuid property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getFIASHouseGuid() {
+                return fiasHouseGuid;
+            }
+
+            /**
+             * Sets the value of the fiasHouseGuid property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setFIASHouseGuid(String value) {
+                this.fiasHouseGuid = value;
+            }
 
             /**
              * Gets the value of the isChangeToFIASHouseGuid property.
              * 
+             * @return
+             *     possible object is
+             *     {@link Boolean }
+             *     
              */
-            public boolean isIsChangeToFIASHouseGuid() {
+            public Boolean isIsChangeToFIASHouseGuid() {
                 return isChangeToFIASHouseGuid;
             }
 
             /**
              * Sets the value of the isChangeToFIASHouseGuid property.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link Boolean }
+             *     
              */
-            public void setIsChangeToFIASHouseGuid(boolean value) {
+            public void setIsChangeToFIASHouseGuid(Boolean value) {
                 this.isChangeToFIASHouseGuid = value;
             }
 
@@ -966,9 +1035,10 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
          * &lt;complexType>
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
+         *       &lt;choice>
+         *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
          *         &lt;element name="isChangeToFIASHouseGuid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *       &lt;/sequence>
+         *       &lt;/choice>
          *     &lt;/restriction>
          *   &lt;/complexContent>
          * &lt;/complexType>
@@ -978,25 +1048,60 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
+            "fiasHouseGuid",
             "isChangeToFIASHouseGuid"
         })
         public static class CollectiveDevice {
 
-            protected boolean isChangeToFIASHouseGuid;
+            @XmlElement(name = "FIASHouseGuid")
+            protected String fiasHouseGuid;
+            protected Boolean isChangeToFIASHouseGuid;
+
+            /**
+             * Gets the value of the fiasHouseGuid property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getFIASHouseGuid() {
+                return fiasHouseGuid;
+            }
+
+            /**
+             * Sets the value of the fiasHouseGuid property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setFIASHouseGuid(String value) {
+                this.fiasHouseGuid = value;
+            }
 
             /**
              * Gets the value of the isChangeToFIASHouseGuid property.
              * 
+             * @return
+             *     possible object is
+             *     {@link Boolean }
+             *     
              */
-            public boolean isIsChangeToFIASHouseGuid() {
+            public Boolean isIsChangeToFIASHouseGuid() {
                 return isChangeToFIASHouseGuid;
             }
 
             /**
              * Sets the value of the isChangeToFIASHouseGuid property.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link Boolean }
+             *     
              */
-            public void setIsChangeToFIASHouseGuid(boolean value) {
+            public void setIsChangeToFIASHouseGuid(Boolean value) {
                 this.isChangeToFIASHouseGuid = value;
             }
 

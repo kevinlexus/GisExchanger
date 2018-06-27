@@ -209,10 +209,10 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Reminder" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckPositiveType"/>
+ *         &lt;element name="Reminder" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckType"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *           &lt;element name="Debt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckPositiveType"/>
+ *           &lt;element name="Debt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyKopeckType"/>
  *         &lt;/choice>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Purpose" minOccurs="0"/>
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}PDServiceName" minOccurs="0"/>

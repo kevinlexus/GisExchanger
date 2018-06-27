@@ -167,7 +167,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;/element>
  *                   &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *                   &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *                   &lt;element name="Duration">
+ *                   &lt;element name="Duration" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -559,7 +559,7 @@ public class ExportExaminationType {
      *         &lt;/element>
      *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
      *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
-     *         &lt;element name="Duration">
+     *         &lt;element name="Duration" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -632,7 +632,7 @@ public class ExportExaminationType {
         @XmlElement(name = "To")
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar to;
-        @XmlElement(name = "Duration", required = true)
+        @XmlElement(name = "Duration")
         protected ExportExaminationType.ExaminationInfo.Duration duration;
         @XmlElement(name = "CooperationWith")
         protected String cooperationWith;

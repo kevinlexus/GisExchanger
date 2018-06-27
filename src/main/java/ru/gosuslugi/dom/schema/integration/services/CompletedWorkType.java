@@ -28,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="photos" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="MonthlyWork">
+ *         &lt;element name="MonthlyWork" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -44,6 +44,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;element name="ActTransportGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *           &lt;element name="ActGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *         &lt;/choice>
+ *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
+ *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
  *         &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -59,6 +61,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "monthlyWork",
     "actTransportGUID",
     "actGUID",
+    "price",
+    "amount",
     "totalCost"
 })
 @XmlSeeAlso({
@@ -69,12 +73,16 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
 public class CompletedWorkType {
 
     protected List<AttachmentType> photos;
-    @XmlElement(name = "MonthlyWork", required = true)
+    @XmlElement(name = "MonthlyWork")
     protected CompletedWorkType.MonthlyWork monthlyWork;
     @XmlElement(name = "ActTransportGUID")
     protected String actTransportGUID;
     @XmlElement(name = "ActGUID")
     protected String actGUID;
+    @XmlElement(name = "Price")
+    protected BigDecimal price;
+    @XmlElement(name = "Amount")
+    protected BigDecimal amount;
     @XmlElement(name = "TotalCost")
     protected BigDecimal totalCost;
 
@@ -177,6 +185,54 @@ public class CompletedWorkType {
      */
     public void setActGUID(String value) {
         this.actGUID = value;
+    }
+
+    /**
+     * Gets the value of the price property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    /**
+     * Sets the value of the price property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setPrice(BigDecimal value) {
+        this.price = value;
+    }
+
+    /**
+     * Gets the value of the amount property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    /**
+     * Sets the value of the amount property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setAmount(BigDecimal value) {
+        this.amount = value;
     }
 
     /**

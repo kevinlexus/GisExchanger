@@ -31,7 +31,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="Charge" maxOccurs="unbounded">
+ *                   &lt;element name="Charge">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -191,7 +191,7 @@ public class GetStateResult
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="Charge" maxOccurs="unbounded">
+     *         &lt;element name="Charge">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -217,35 +217,30 @@ public class GetStateResult
     public static class ExportPaymentDocumentDetailsResult {
 
         @XmlElement(name = "Charge", required = true)
-        protected List<GetStateResult.ExportPaymentDocumentDetailsResult.Charge> charge;
+        protected GetStateResult.ExportPaymentDocumentDetailsResult.Charge charge;
 
         /**
          * Gets the value of the charge property.
          * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the charge property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getCharge().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link GetStateResult.ExportPaymentDocumentDetailsResult.Charge }
-         * 
-         * 
+         * @return
+         *     possible object is
+         *     {@link GetStateResult.ExportPaymentDocumentDetailsResult.Charge }
+         *     
          */
-        public List<GetStateResult.ExportPaymentDocumentDetailsResult.Charge> getCharge() {
-            if (charge == null) {
-                charge = new ArrayList<GetStateResult.ExportPaymentDocumentDetailsResult.Charge>();
-            }
-            return this.charge;
+        public GetStateResult.ExportPaymentDocumentDetailsResult.Charge getCharge() {
+            return charge;
+        }
+
+        /**
+         * Sets the value of the charge property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link GetStateResult.ExportPaymentDocumentDetailsResult.Charge }
+         *     
+         */
+        public void setCharge(GetStateResult.ExportPaymentDocumentDetailsResult.Charge value) {
+            this.charge = value;
         }
 
 

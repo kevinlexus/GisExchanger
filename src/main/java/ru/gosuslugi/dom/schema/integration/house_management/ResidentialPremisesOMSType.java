@@ -28,8 +28,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;/choice>
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="PremisesCharacteristic" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
- *         &lt;choice>
+ *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
+ *         &lt;choice minOccurs="0">
  *           &lt;element name="GrossArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
  *           &lt;element name="NoGrossArea" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
@@ -66,7 +66,7 @@ public class ResidentialPremisesOMSType
     protected String fiasChildHouseGuid;
     @XmlElement(name = "PremisesCharacteristic")
     protected NsiRef premisesCharacteristic;
-    @XmlElement(name = "TotalArea", required = true)
+    @XmlElement(name = "TotalArea")
     protected BigDecimal totalArea;
     @XmlElement(name = "GrossArea")
     protected BigDecimal grossArea;

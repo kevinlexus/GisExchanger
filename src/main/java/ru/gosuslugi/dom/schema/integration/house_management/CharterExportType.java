@@ -40,7 +40,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="NoCharterApproveProtocol" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="AttachmentCharter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
+ *         &lt;element name="AttachmentCharter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="AutomaticRollOverOneYear" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -55,7 +56,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "dateDetails",
     "meetingProtocol",
     "noCharterApproveProtocol",
-    "attachmentCharter"
+    "attachmentCharter",
+    "automaticRollOverOneYear"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.class
@@ -71,8 +73,10 @@ public class CharterExportType {
     protected CharterExportType.MeetingProtocol meetingProtocol;
     @XmlElement(name = "NoCharterApproveProtocol")
     protected Boolean noCharterApproveProtocol;
-    @XmlElement(name = "AttachmentCharter", required = true)
+    @XmlElement(name = "AttachmentCharter")
     protected List<AttachmentType> attachmentCharter;
+    @XmlElement(name = "AutomaticRollOverOneYear")
+    protected Boolean automaticRollOverOneYear;
 
     /**
      * Gets the value of the date property.
@@ -197,6 +201,30 @@ public class CharterExportType {
             attachmentCharter = new ArrayList<AttachmentType>();
         }
         return this.attachmentCharter;
+    }
+
+    /**
+     * Gets the value of the automaticRollOverOneYear property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isAutomaticRollOverOneYear() {
+        return automaticRollOverOneYear;
+    }
+
+    /**
+     * Sets the value of the automaticRollOverOneYear property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setAutomaticRollOverOneYear(Boolean value) {
+        this.automaticRollOverOneYear = value;
     }
 
 

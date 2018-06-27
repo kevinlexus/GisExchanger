@@ -12,8 +12,9 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.BaseType;
-import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMeteringValueType;
-import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMeteringValueBaseType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueBaseType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.VolumeMeteringValueBaseType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -27,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *         &lt;element name="MeteringDevicesValues" maxOccurs="1000">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -43,30 +44,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                         &lt;complexContent>
  *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                             &lt;sequence>
- *                               &lt;element name="CurrentValue" maxOccurs="3" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ControlValue" maxOccurs="3" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
+ *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+ *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
  *                               &lt;element name="VerificationValue" minOccurs="0">
  *                                 &lt;complexType>
  *                                   &lt;complexContent>
@@ -75,8 +54,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
- *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
+ *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+ *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
  *                                         &lt;choice>
  *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -97,30 +76,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                         &lt;complexContent>
  *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                             &lt;sequence>
- *                               &lt;element name="CurrentValue" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="ControlValue" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
- *                                       &lt;sequence>
- *                                         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
+ *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
+ *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
  *                               &lt;element name="VerificationValue" minOccurs="0">
  *                                 &lt;complexType>
  *                                   &lt;complexContent>
@@ -129,8 +86,40 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
- *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+ *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+ *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+ *                                         &lt;choice>
+ *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+ *                                         &lt;/choice>
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+ *                                       &lt;/sequence>
+ *                                     &lt;/restriction>
+ *                                   &lt;/complexContent>
+ *                                 &lt;/complexType>
+ *                               &lt;/element>
+ *                             &lt;/sequence>
+ *                           &lt;/restriction>
+ *                         &lt;/complexContent>
+ *                       &lt;/complexType>
+ *                     &lt;/element>
+ *                     &lt;element name="VolumeDeviceValue">
+ *                       &lt;complexType>
+ *                         &lt;complexContent>
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                             &lt;sequence>
+ *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+ *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+ *                               &lt;element name="VerificationValue" minOccurs="0">
+ *                                 &lt;complexType>
+ *                                   &lt;complexContent>
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                                       &lt;sequence>
+ *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+ *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
  *                                         &lt;choice>
  *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -171,7 +160,7 @@ public class ImportMeteringDeviceValuesRequest
     extends BaseType
 {
 
-    @XmlElement(name = "FIASHouseGuid", required = true)
+    @XmlElement(name = "FIASHouseGuid")
     protected String fiasHouseGuid;
     @XmlElement(name = "MeteringDevicesValues", required = true)
     protected List<ImportMeteringDeviceValuesRequest.MeteringDevicesValues> meteringDevicesValues;
@@ -280,30 +269,8 @@ public class ImportMeteringDeviceValuesRequest
      *               &lt;complexContent>
      *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                   &lt;sequence>
-     *                     &lt;element name="CurrentValue" maxOccurs="3" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-     *                             &lt;sequence>
-     *                               &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="ControlValue" maxOccurs="3" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-     *                             &lt;sequence>
-     *                               &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
+     *                     &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+     *                     &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
      *                     &lt;element name="VerificationValue" minOccurs="0">
      *                       &lt;complexType>
      *                         &lt;complexContent>
@@ -312,8 +279,8 @@ public class ImportMeteringDeviceValuesRequest
      *                               &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
      *                               &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
      *                               &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-     *                               &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
+     *                               &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+     *                               &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
      *                               &lt;choice>
      *                                 &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *                                 &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -334,30 +301,8 @@ public class ImportMeteringDeviceValuesRequest
      *               &lt;complexContent>
      *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                   &lt;sequence>
-     *                     &lt;element name="CurrentValue" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-     *                             &lt;sequence>
-     *                               &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="ControlValue" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-     *                             &lt;sequence>
-     *                               &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
+     *                     &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
+     *                     &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
      *                     &lt;element name="VerificationValue" minOccurs="0">
      *                       &lt;complexType>
      *                         &lt;complexContent>
@@ -366,8 +311,40 @@ public class ImportMeteringDeviceValuesRequest
      *                               &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
      *                               &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
      *                               &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                               &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
-     *                               &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+     *                               &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+     *                               &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+     *                               &lt;choice>
+     *                                 &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+     *                                 &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+     *                               &lt;/choice>
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+     *                             &lt;/sequence>
+     *                           &lt;/restriction>
+     *                         &lt;/complexContent>
+     *                       &lt;/complexType>
+     *                     &lt;/element>
+     *                   &lt;/sequence>
+     *                 &lt;/restriction>
+     *               &lt;/complexContent>
+     *             &lt;/complexType>
+     *           &lt;/element>
+     *           &lt;element name="VolumeDeviceValue">
+     *             &lt;complexType>
+     *               &lt;complexContent>
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                   &lt;sequence>
+     *                     &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+     *                     &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+     *                     &lt;element name="VerificationValue" minOccurs="0">
+     *                       &lt;complexType>
+     *                         &lt;complexContent>
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                             &lt;sequence>
+     *                               &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *                               &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *                               &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *                               &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+     *                               &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
      *                               &lt;choice>
      *                                 &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *                                 &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -397,7 +374,8 @@ public class ImportMeteringDeviceValuesRequest
         "meteringDeviceRootGUID",
         "meteringDeviceVersionGUID",
         "oneRateDeviceValue",
-        "electricDeviceValue"
+        "electricDeviceValue",
+        "volumeDeviceValue"
     })
     public static class MeteringDevicesValues {
 
@@ -409,6 +387,8 @@ public class ImportMeteringDeviceValuesRequest
         protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue oneRateDeviceValue;
         @XmlElement(name = "ElectricDeviceValue")
         protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue electricDeviceValue;
+        @XmlElement(name = "VolumeDeviceValue")
+        protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue volumeDeviceValue;
 
         /**
          * Gets the value of the meteringDeviceRootGUID property.
@@ -506,6 +486,30 @@ public class ImportMeteringDeviceValuesRequest
             this.electricDeviceValue = value;
         }
 
+        /**
+         * Gets the value of the volumeDeviceValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue }
+         *     
+         */
+        public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue getVolumeDeviceValue() {
+            return volumeDeviceValue;
+        }
+
+        /**
+         * Sets the value of the volumeDeviceValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue }
+         *     
+         */
+        public void setVolumeDeviceValue(ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue value) {
+            this.volumeDeviceValue = value;
+        }
+
 
         /**
          * <p>Java class for anonymous complex type.
@@ -517,30 +521,8 @@ public class ImportMeteringDeviceValuesRequest
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="CurrentValue" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ControlValue" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
+         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
+         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueImportType" minOccurs="0"/>
          *         &lt;element name="VerificationValue" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
@@ -549,8 +531,8 @@ public class ImportMeteringDeviceValuesRequest
          *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
          *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
          *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
-         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
          *                   &lt;choice>
          *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
          *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -578,9 +560,9 @@ public class ImportMeteringDeviceValuesRequest
         public static class ElectricDeviceValue {
 
             @XmlElement(name = "CurrentValue")
-            protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue currentValue;
+            protected ElectricMeteringValueImportType currentValue;
             @XmlElement(name = "ControlValue")
-            protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue controlValue;
+            protected ElectricMeteringValueImportType controlValue;
             @XmlElement(name = "VerificationValue")
             protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue verificationValue;
 
@@ -589,10 +571,10 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * @return
              *     possible object is
-             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue }
+             *     {@link ElectricMeteringValueImportType }
              *     
              */
-            public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue getCurrentValue() {
+            public ElectricMeteringValueImportType getCurrentValue() {
                 return currentValue;
             }
 
@@ -601,10 +583,10 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * @param value
              *     allowed object is
-             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue }
+             *     {@link ElectricMeteringValueImportType }
              *     
              */
-            public void setCurrentValue(ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue value) {
+            public void setCurrentValue(ElectricMeteringValueImportType value) {
                 this.currentValue = value;
             }
 
@@ -613,10 +595,10 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * @return
              *     possible object is
-             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue }
+             *     {@link ElectricMeteringValueImportType }
              *     
              */
-            public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue getControlValue() {
+            public ElectricMeteringValueImportType getControlValue() {
                 return controlValue;
             }
 
@@ -625,10 +607,10 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * @param value
              *     allowed object is
-             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue }
+             *     {@link ElectricMeteringValueImportType }
              *     
              */
-            public void setControlValue(ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.ControlValue value) {
+            public void setControlValue(ElectricMeteringValueImportType value) {
                 this.controlValue = value;
             }
 
@@ -665,185 +647,13 @@ public class ImportMeteringDeviceValuesRequest
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-             *       &lt;sequence>
-             *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "dateValue",
-                "transportGUID"
-            })
-            public static class ControlValue
-                extends ElectricMeteringValueType
-            {
-
-                @XmlElement(name = "DateValue", required = true)
-                @XmlSchemaType(name = "date")
-                protected XMLGregorianCalendar dateValue;
-                @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
-                protected String transportGUID;
-
-                /**
-                 * Gets the value of the dateValue property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateValue() {
-                    return dateValue;
-                }
-
-                /**
-                 * Sets the value of the dateValue property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateValue(XMLGregorianCalendar value) {
-                    this.dateValue = value;
-                }
-
-                /**
-                 * Gets the value of the transportGUID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getTransportGUID() {
-                    return transportGUID;
-                }
-
-                /**
-                 * Sets the value of the transportGUID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setTransportGUID(String value) {
-                    this.transportGUID = value;
-                }
-
-            }
-
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType">
-             *       &lt;sequence>
-             *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "dateValue",
-                "transportGUID"
-            })
-            public static class CurrentValue
-                extends ElectricMeteringValueType
-            {
-
-                @XmlElement(name = "DateValue", required = true)
-                @XmlSchemaType(name = "date")
-                protected XMLGregorianCalendar dateValue;
-                @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
-                protected String transportGUID;
-
-                /**
-                 * Gets the value of the dateValue property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateValue() {
-                    return dateValue;
-                }
-
-                /**
-                 * Sets the value of the dateValue property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateValue(XMLGregorianCalendar value) {
-                    this.dateValue = value;
-                }
-
-                /**
-                 * Gets the value of the transportGUID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getTransportGUID() {
-                    return transportGUID;
-                }
-
-                /**
-                 * Sets the value of the transportGUID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setTransportGUID(String value) {
-                    this.transportGUID = value;
-                }
-
-            }
-
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
-             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
              *         &lt;choice>
              *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
              *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -880,9 +690,9 @@ public class ImportMeteringDeviceValuesRequest
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar sealDate;
                 @XmlElement(name = "StartValue", required = true)
-                protected ElectricMeteringValueType startValue;
+                protected ElectricMeteringValueBaseType startValue;
                 @XmlElement(name = "EndValue", required = true)
-                protected ElectricMeteringValueType endValue;
+                protected ElectricMeteringValueBaseType endValue;
                 @XmlElement(name = "PlannedVerification")
                 protected Boolean plannedVerification;
                 @XmlElement(name = "VerificationReason")
@@ -967,10 +777,10 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * @return
                  *     possible object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public ElectricMeteringValueType getStartValue() {
+                public ElectricMeteringValueBaseType getStartValue() {
                     return startValue;
                 }
 
@@ -979,10 +789,10 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public void setStartValue(ElectricMeteringValueType value) {
+                public void setStartValue(ElectricMeteringValueBaseType value) {
                     this.startValue = value;
                 }
 
@@ -991,10 +801,10 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * @return
                  *     possible object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public ElectricMeteringValueType getEndValue() {
+                public ElectricMeteringValueBaseType getEndValue() {
                     return endValue;
                 }
 
@@ -1003,10 +813,10 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public void setEndValue(ElectricMeteringValueType value) {
+                public void setEndValue(ElectricMeteringValueBaseType value) {
                     this.endValue = value;
                 }
 
@@ -1097,30 +907,8 @@ public class ImportMeteringDeviceValuesRequest
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="CurrentValue" maxOccurs="3" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="ControlValue" maxOccurs="3" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-         *                 &lt;sequence>
-         *                   &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
+         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
          *         &lt;element name="VerificationValue" minOccurs="0">
          *           &lt;complexType>
          *             &lt;complexContent>
@@ -1129,8 +917,8 @@ public class ImportMeteringDeviceValuesRequest
          *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
          *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
          *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
+         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
          *                   &lt;choice>
          *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
          *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -1158,9 +946,9 @@ public class ImportMeteringDeviceValuesRequest
         public static class OneRateDeviceValue {
 
             @XmlElement(name = "CurrentValue")
-            protected List<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue> currentValue;
+            protected List<OneRateMeteringValueImportType> currentValue;
             @XmlElement(name = "ControlValue")
-            protected List<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.ControlValue> controlValue;
+            protected List<OneRateMeteringValueImportType> controlValue;
             @XmlElement(name = "VerificationValue")
             protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue verificationValue;
 
@@ -1182,13 +970,13 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * <p>
              * Objects of the following type(s) are allowed in the list
-             * {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue }
+             * {@link OneRateMeteringValueImportType }
              * 
              * 
              */
-            public List<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue> getCurrentValue() {
+            public List<OneRateMeteringValueImportType> getCurrentValue() {
                 if (currentValue == null) {
-                    currentValue = new ArrayList<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue>();
+                    currentValue = new ArrayList<OneRateMeteringValueImportType>();
                 }
                 return this.currentValue;
             }
@@ -1211,13 +999,13 @@ public class ImportMeteringDeviceValuesRequest
              * 
              * <p>
              * Objects of the following type(s) are allowed in the list
-             * {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.ControlValue }
+             * {@link OneRateMeteringValueImportType }
              * 
              * 
              */
-            public List<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.ControlValue> getControlValue() {
+            public List<OneRateMeteringValueImportType> getControlValue() {
                 if (controlValue == null) {
-                    controlValue = new ArrayList<ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.ControlValue>();
+                    controlValue = new ArrayList<OneRateMeteringValueImportType>();
                 }
                 return this.controlValue;
             }
@@ -1255,185 +1043,13 @@ public class ImportMeteringDeviceValuesRequest
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-             *       &lt;sequence>
-             *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "dateValue",
-                "transportGUID"
-            })
-            public static class ControlValue
-                extends OneRateMeteringValueType
-            {
-
-                @XmlElement(name = "DateValue", required = true)
-                @XmlSchemaType(name = "date")
-                protected XMLGregorianCalendar dateValue;
-                @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
-                protected String transportGUID;
-
-                /**
-                 * Gets the value of the dateValue property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateValue() {
-                    return dateValue;
-                }
-
-                /**
-                 * Sets the value of the dateValue property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateValue(XMLGregorianCalendar value) {
-                    this.dateValue = value;
-                }
-
-                /**
-                 * Gets the value of the transportGUID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getTransportGUID() {
-                    return transportGUID;
-                }
-
-                /**
-                 * Sets the value of the transportGUID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setTransportGUID(String value) {
-                    this.transportGUID = value;
-                }
-
-            }
-
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType">
-             *       &lt;sequence>
-             *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "dateValue",
-                "transportGUID"
-            })
-            public static class CurrentValue
-                extends OneRateMeteringValueType
-            {
-
-                @XmlElement(name = "DateValue", required = true)
-                @XmlSchemaType(name = "date")
-                protected XMLGregorianCalendar dateValue;
-                @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
-                protected String transportGUID;
-
-                /**
-                 * Gets the value of the dateValue property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateValue() {
-                    return dateValue;
-                }
-
-                /**
-                 * Sets the value of the dateValue property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateValue(XMLGregorianCalendar value) {
-                    this.dateValue = value;
-                }
-
-                /**
-                 * Gets the value of the transportGUID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getTransportGUID() {
-                    return transportGUID;
-                }
-
-                /**
-                 * Sets the value of the transportGUID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setTransportGUID(String value) {
-                    this.transportGUID = value;
-                }
-
-            }
-
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
+             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
              *         &lt;choice>
              *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
              *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
@@ -1470,9 +1086,9 @@ public class ImportMeteringDeviceValuesRequest
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar sealDate;
                 @XmlElement(name = "StartValue", required = true)
-                protected List<OneRateMeteringValueType> startValue;
+                protected List<OneRateMeteringValueBaseType> startValue;
                 @XmlElement(name = "EndValue", required = true)
-                protected List<OneRateMeteringValueType> endValue;
+                protected List<OneRateMeteringValueBaseType> endValue;
                 @XmlElement(name = "PlannedVerification")
                 protected Boolean plannedVerification;
                 @XmlElement(name = "VerificationReason")
@@ -1570,13 +1186,13 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * <p>
                  * Objects of the following type(s) are allowed in the list
-                 * {@link OneRateMeteringValueType }
+                 * {@link OneRateMeteringValueBaseType }
                  * 
                  * 
                  */
-                public List<OneRateMeteringValueType> getStartValue() {
+                public List<OneRateMeteringValueBaseType> getStartValue() {
                     if (startValue == null) {
-                        startValue = new ArrayList<OneRateMeteringValueType>();
+                        startValue = new ArrayList<OneRateMeteringValueBaseType>();
                     }
                     return this.startValue;
                 }
@@ -1599,13 +1215,419 @@ public class ImportMeteringDeviceValuesRequest
                  * 
                  * <p>
                  * Objects of the following type(s) are allowed in the list
-                 * {@link OneRateMeteringValueType }
+                 * {@link OneRateMeteringValueBaseType }
                  * 
                  * 
                  */
-                public List<OneRateMeteringValueType> getEndValue() {
+                public List<OneRateMeteringValueBaseType> getEndValue() {
                     if (endValue == null) {
-                        endValue = new ArrayList<OneRateMeteringValueType>();
+                        endValue = new ArrayList<OneRateMeteringValueBaseType>();
+                    }
+                    return this.endValue;
+                }
+
+                /**
+                 * Gets the value of the plannedVerification property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public Boolean isPlannedVerification() {
+                    return plannedVerification;
+                }
+
+                /**
+                 * Sets the value of the plannedVerification property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public void setPlannedVerification(Boolean value) {
+                    this.plannedVerification = value;
+                }
+
+                /**
+                 * Gets the value of the verificationReason property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link NsiRef }
+                 *     
+                 */
+                public NsiRef getVerificationReason() {
+                    return verificationReason;
+                }
+
+                /**
+                 * Sets the value of the verificationReason property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link NsiRef }
+                 *     
+                 */
+                public void setVerificationReason(NsiRef value) {
+                    this.verificationReason = value;
+                }
+
+                /**
+                 * Gets the value of the transportGUID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getTransportGUID() {
+                    return transportGUID;
+                }
+
+                /**
+                 * Sets the value of the transportGUID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setTransportGUID(String value) {
+                    this.transportGUID = value;
+                }
+
+            }
+
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueImportType" maxOccurs="3" minOccurs="0"/>
+         *         &lt;element name="VerificationValue" minOccurs="0">
+         *           &lt;complexType>
+         *             &lt;complexContent>
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *                 &lt;sequence>
+         *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+         *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+         *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+         *                   &lt;choice>
+         *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+         *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+         *                   &lt;/choice>
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+         *                 &lt;/sequence>
+         *               &lt;/restriction>
+         *             &lt;/complexContent>
+         *           &lt;/complexType>
+         *         &lt;/element>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "currentValue",
+            "controlValue",
+            "verificationValue"
+        })
+        public static class VolumeDeviceValue {
+
+            @XmlElement(name = "CurrentValue")
+            protected List<VolumeMeteringValueImportType> currentValue;
+            @XmlElement(name = "ControlValue")
+            protected List<VolumeMeteringValueImportType> controlValue;
+            @XmlElement(name = "VerificationValue")
+            protected ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue verificationValue;
+
+            /**
+             * Gets the value of the currentValue property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the currentValue property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getCurrentValue().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link VolumeMeteringValueImportType }
+             * 
+             * 
+             */
+            public List<VolumeMeteringValueImportType> getCurrentValue() {
+                if (currentValue == null) {
+                    currentValue = new ArrayList<VolumeMeteringValueImportType>();
+                }
+                return this.currentValue;
+            }
+
+            /**
+             * Gets the value of the controlValue property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the controlValue property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getControlValue().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link VolumeMeteringValueImportType }
+             * 
+             * 
+             */
+            public List<VolumeMeteringValueImportType> getControlValue() {
+                if (controlValue == null) {
+                    controlValue = new ArrayList<VolumeMeteringValueImportType>();
+                }
+                return this.controlValue;
+            }
+
+            /**
+             * Gets the value of the verificationValue property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue }
+             *     
+             */
+            public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue getVerificationValue() {
+                return verificationValue;
+            }
+
+            /**
+             * Sets the value of the verificationValue property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue }
+             *     
+             */
+            public void setVerificationValue(ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue value) {
+                this.verificationValue = value;
+            }
+
+
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType>
+             *   &lt;complexContent>
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+             *       &lt;sequence>
+             *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+             *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
+             *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3" minOccurs="0"/>
+             *         &lt;choice>
+             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+             *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
+             *         &lt;/choice>
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
+             *       &lt;/sequence>
+             *     &lt;/restriction>
+             *   &lt;/complexContent>
+             * &lt;/complexType>
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "startDateValue",
+                "endDateValue",
+                "sealDate",
+                "startValue",
+                "endValue",
+                "plannedVerification",
+                "verificationReason",
+                "transportGUID"
+            })
+            public static class VerificationValue {
+
+                @XmlElement(name = "StartDateValue", required = true)
+                @XmlSchemaType(name = "date")
+                protected XMLGregorianCalendar startDateValue;
+                @XmlElement(name = "EndDateValue", required = true)
+                @XmlSchemaType(name = "date")
+                protected XMLGregorianCalendar endDateValue;
+                @XmlElement(name = "SealDate", required = true)
+                @XmlSchemaType(name = "date")
+                protected XMLGregorianCalendar sealDate;
+                @XmlElement(name = "StartValue")
+                protected List<VolumeMeteringValueBaseType> startValue;
+                @XmlElement(name = "EndValue")
+                protected List<VolumeMeteringValueBaseType> endValue;
+                @XmlElement(name = "PlannedVerification")
+                protected Boolean plannedVerification;
+                @XmlElement(name = "VerificationReason")
+                protected NsiRef verificationReason;
+                @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
+                protected String transportGUID;
+
+                /**
+                 * Gets the value of the startDateValue property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getStartDateValue() {
+                    return startDateValue;
+                }
+
+                /**
+                 * Sets the value of the startDateValue property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setStartDateValue(XMLGregorianCalendar value) {
+                    this.startDateValue = value;
+                }
+
+                /**
+                 * Gets the value of the endDateValue property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getEndDateValue() {
+                    return endDateValue;
+                }
+
+                /**
+                 * Sets the value of the endDateValue property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setEndDateValue(XMLGregorianCalendar value) {
+                    this.endDateValue = value;
+                }
+
+                /**
+                 * Gets the value of the sealDate property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getSealDate() {
+                    return sealDate;
+                }
+
+                /**
+                 * Sets the value of the sealDate property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setSealDate(XMLGregorianCalendar value) {
+                    this.sealDate = value;
+                }
+
+                /**
+                 * Gets the value of the startValue property.
+                 * 
+                 * <p>
+                 * This accessor method returns a reference to the live list,
+                 * not a snapshot. Therefore any modification you make to the
+                 * returned list will be present inside the JAXB object.
+                 * This is why there is not a <CODE>set</CODE> method for the startValue property.
+                 * 
+                 * <p>
+                 * For example, to add a new item, do as follows:
+                 * <pre>
+                 *    getStartValue().add(newItem);
+                 * </pre>
+                 * 
+                 * 
+                 * <p>
+                 * Objects of the following type(s) are allowed in the list
+                 * {@link VolumeMeteringValueBaseType }
+                 * 
+                 * 
+                 */
+                public List<VolumeMeteringValueBaseType> getStartValue() {
+                    if (startValue == null) {
+                        startValue = new ArrayList<VolumeMeteringValueBaseType>();
+                    }
+                    return this.startValue;
+                }
+
+                /**
+                 * Gets the value of the endValue property.
+                 * 
+                 * <p>
+                 * This accessor method returns a reference to the live list,
+                 * not a snapshot. Therefore any modification you make to the
+                 * returned list will be present inside the JAXB object.
+                 * This is why there is not a <CODE>set</CODE> method for the endValue property.
+                 * 
+                 * <p>
+                 * For example, to add a new item, do as follows:
+                 * <pre>
+                 *    getEndValue().add(newItem);
+                 * </pre>
+                 * 
+                 * 
+                 * <p>
+                 * Objects of the following type(s) are allowed in the list
+                 * {@link VolumeMeteringValueBaseType }
+                 * 
+                 * 
+                 */
+                public List<VolumeMeteringValueBaseType> getEndValue() {
+                    if (endValue == null) {
+                        endValue = new ArrayList<VolumeMeteringValueBaseType>();
                     }
                     return this.endValue;
                 }

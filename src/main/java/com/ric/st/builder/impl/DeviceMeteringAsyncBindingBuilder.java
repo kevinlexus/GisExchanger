@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -58,14 +57,17 @@ import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
+import ru.gosuslugi.dom.schema.integration.device_metering.ElectricCurrentMeteringValueExportType;
+import ru.gosuslugi.dom.schema.integration.device_metering.ElectricMeteringValueImportType;
 import ru.gosuslugi.dom.schema.integration.device_metering.ExportMeteringDeviceHistoryRequest;
 import ru.gosuslugi.dom.schema.integration.device_metering.ExportMeteringDeviceHistoryResultType;
 import ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue;
-import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.CurrentValue;
 import ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue;
+import ru.gosuslugi.dom.schema.integration.device_metering.OneRateCurrentMeteringValueExportType;
+import ru.gosuslugi.dom.schema.integration.device_metering.OneRateMeteringValueImportType;
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.DeviceMeteringPortTypesAsync;
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.DeviceMeteringServiceAsync;
 import ru.gosuslugi.dom.schema.integration.device_metering_service_async.Fault;
@@ -314,21 +316,21 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 			if (ulistMng.getResType(meter.getUsl()) == 1) {
 				ElectricDeviceValue elVal = new ElectricDeviceValue();
-				CurrentValue currElVal = new CurrentValue();
+				ElectricMeteringValueImportType currElVal = new ElectricMeteringValueImportType();
 
 				// Дата снятия показания
 				currElVal.setDateValue(Utl.getXMLDate(dtGet));
 
 				// показания по тарифам
 				Double metVal = taskParMng.getDbl(t, "Счетчик.Показ(Т1)");
-				currElVal.setMeteringValueT1(BigDecimal.valueOf(metVal));
+				currElVal.setMeteringValueT1(String.valueOf(metVal));
 				metVal = taskParMng.getDbl(t, "Счетчик.Показ(Т2)");
 				if (metVal != null) {
-					currElVal.setMeteringValueT2(BigDecimal.valueOf(metVal));
+					currElVal.setMeteringValueT2(String.valueOf(metVal));
 				}
 				metVal = taskParMng.getDbl(t, "Счетчик.Показ(Т3)");
 				if (metVal != null) {
-					currElVal.setMeteringValueT3(BigDecimal.valueOf(metVal));
+					currElVal.setMeteringValueT3(String.valueOf(metVal));
 				}
 
 				currElVal.setTransportGUID(tguid);
@@ -337,13 +339,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				val.setElectricDeviceValue(elVal );
 			} else if (ulistMng.getResType(meter.getUsl()) == 0) {
 				OneRateDeviceValue oneRateVal = new OneRateDeviceValue();
-				ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue currOneRateVal =
-						new ru.gosuslugi.dom.schema.integration.device_metering.ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.CurrentValue();
+				OneRateMeteringValueImportType currOneRateVal =
+						new OneRateMeteringValueImportType();
 				currOneRateVal.setDateValue(Utl.getXMLDate(dtGet));
 
 				// показания по тарифам
 				Double metVal = taskParMng.getDbl(t, "Счетчик.Показ(Т1)");
-				currOneRateVal.setMeteringValue(BigDecimal.valueOf(metVal));
+				currOneRateVal.setMeteringValue(String.valueOf(metVal));
 
 				// Получить ресурс по коду USL
 				NsiRef mres = ulistMng.getResourceByUsl(meter.getUsl());
@@ -530,7 +532,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				Lst actVal = lstMng.getByCD("GIS_TMP");
 				for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
 				// найти счетчик по GUID
-				Eolink meter = eolinkMng.getEolinkByGuid(t.getMeteringDeviceRootGUID());
+				Eolink meter = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());
 				if (meter == null) {
 					// счетчик не найден, создать задание на его выгрузку из ГИС (в нём же выгрузятся показания)
 					log.info("При выгрузке показаний, счетчик с GUID={} НЕ НАЙДЕН, ожидается его экспорт из ГИС",
@@ -542,7 +544,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				} else {
 					// счетчик найден, выгрузить по нему последние показания
 					if (t.getOneRateDeviceValue() != null) {
-						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportOneRateMeteringValueKindType.CurrentValue e :
+						for (OneRateCurrentMeteringValueExportType e :
 								t.getOneRateDeviceValue().getValues().getCurrentValue()) {
 							log.info("показания по OneRateDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
 									e.getMeteringValue());
@@ -552,7 +554,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 						}
 					}
 					if (t.getElectricDeviceValue() != null) {
-						for (ru.gosuslugi.dom.schema.integration.device_metering.ExportElectricMeteringValueKindType.CurrentValue e :
+						for (ElectricCurrentMeteringValueExportType e :
 							t.getElectricDeviceValue().getValues().getCurrentValue()) {
 							log.info("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
 									e.getMeteringValueT1());
@@ -770,47 +772,36 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 * @throws WrongParam
 	 */
 	private void saveVal(Task task, Eolink meter, Integer userId, Lst actVal, String rootGUID,
-			BigDecimal val, Date dtVal, Date dtEnter) throws WrongGetMethod, IOException, WrongParam {
-		/*log.info("Check meter id={}", meter.getId());
-		if (meter.getId().equals(12078)) {
-			log.info("Check");
-		}*/
+			String val, Date dtVal, Date dtEnter) throws WrongGetMethod, IOException, WrongParam {
+		if (val != null) {
+			Double valD = Double.parseDouble(val);
+			// последняя дата снятия показания
+			Date dtVal2 = eolinkParMng.getDate(meter, "Счетчик.ДатаСнятияПоказания");
+			// дата внесения показания в ГИС
+			Date dtEnter2 = eolinkParMng.getDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания");
+			//log.info("date1={}, date2={}", dtVal, dtVal2);
+			log.info("дата-время снятия из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
+			log.info("дата-время внесения из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
+			if (dtVal2 == null || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) > 0 // дата новее в ГИС
+					 || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) == 0 // дата та же в ГИС, дата внесения новее
+					 	&& dtEnter.getTime() > dtEnter2.getTime()
+					) {
+					// получить текущие показания по счетчику
+					Double prevVal = eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)");
+					if (prevVal == null || prevVal!= valD) {
+						// Если показания изменились, записать в Eolink
+						// дочернее псевдозадание, хранящее принятые показания по счетчику
+						log.info("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата снятия={}, дата внесения в ГИС={}",
+								rootGUID, val, dtVal, dtEnter);
 
-		// последняя дата снятия показания
-		Date dtVal2 = eolinkParMng.getDate(meter, "Счетчик.ДатаСнятияПоказания");
-		// дата внесения показания в ГИС
-		Date dtEnter2 = eolinkParMng.getDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания");
-		//log.info("date1={}, date2={}", dtVal, dtVal2);
-		log.info("дата-время снятия из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
-		log.info("дата-время внесения из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
-		if (dtVal2 == null || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) > 0 // дата новее в ГИС
-				 || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) == 0 // дата та же в ГИС, дата внесения новее
-				 	&& dtEnter.getTime() > dtEnter2.getTime()
-				) {
-			// получить текущие показания по счетчику
-			Double prevVal = eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)");
-			if (prevVal == null || BigDecimal.valueOf(prevVal).compareTo(val) !=0) {
-				// Если показания изменились, записать в Eolink
-				// дочернее псевдозадание, хранящее принятые показания по счетчику
-				log.info("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата снятия={}, дата внесения в ГИС={}",
-						rootGUID, val, dtVal, dtEnter);
+						eolinkParMng.setDbl(meter, "Счетчик.ПоказПредыдущее(Т1)", prevVal);
+						eolinkParMng.setDbl(meter, "Счетчик.Показ(Т1)", valD);
+						eolinkParMng.setDate(meter, "Счетчик.ДатаСнятияПоказания", dtVal);
+						eolinkParMng.setDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", dtEnter);
+						eolinkParMng.setDbl(meter, "ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D);
+					}
 
-				eolinkParMng.setDbl(meter, "Счетчик.ПоказПредыдущее(Т1)", prevVal);
-				eolinkParMng.setDbl(meter, "Счетчик.Показ(Т1)", val.doubleValue());
-				eolinkParMng.setDate(meter, "Счетчик.ДатаСнятияПоказания", dtVal);
-				eolinkParMng.setDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", dtEnter);
-				eolinkParMng.setDbl(meter, "ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D);
-
-				/*ptb.setUp(meter, task, "GIS_TMP", null);
-				ptb.addTaskPar("Счетчик.ПоказПредыдущее(Т1)", prevVal, null, null, null);
-				ptb.addTaskPar("Счетчик.Показ(Т1)", val.doubleValue(), null, null, null);
-				ptb.addTaskPar("Счетчик.ДатаСнятияПоказания", null, null, null, dtVal);
-				ptb.addTaskPar("ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", null, null, null, dtEnter);
-				ptb.addTaskPar("ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D, null, null, null);
-				ptb.saveToEolink();
-				*/
 			}
-
 		}
 	}
 

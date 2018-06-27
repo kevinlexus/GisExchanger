@@ -30,35 +30,59 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportElectricMeteringValueType }
+     * Create an instance of {@link OneRateMeteringValueExportWithTSType }
      * 
      */
-    public ExportElectricMeteringValueType createExportElectricMeteringValueType() {
-        return new ExportElectricMeteringValueType();
+    public OneRateMeteringValueExportWithTSType createOneRateMeteringValueExportWithTSType() {
+        return new OneRateMeteringValueExportWithTSType();
     }
 
     /**
-     * Create an instance of {@link ExportOneRateMeteringValueType }
+     * Create an instance of {@link ElectricMeteringValueExportWithTSType }
      * 
      */
-    public ExportOneRateMeteringValueType createExportOneRateMeteringValueType() {
-        return new ExportOneRateMeteringValueType();
+    public ElectricMeteringValueExportWithTSType createElectricMeteringValueExportWithTSType() {
+        return new ElectricMeteringValueExportWithTSType();
     }
 
     /**
-     * Create an instance of {@link OneRateMeteringValueType }
+     * Create an instance of {@link OneRateMeteringValueBaseType }
      * 
      */
-    public OneRateMeteringValueType createOneRateMeteringValueType() {
-        return new OneRateMeteringValueType();
+    public OneRateMeteringValueBaseType createOneRateMeteringValueBaseType() {
+        return new OneRateMeteringValueBaseType();
     }
 
     /**
-     * Create an instance of {@link ElectricMeteringValueType }
+     * Create an instance of {@link OneRateMeteringValueExportType }
      * 
      */
-    public ElectricMeteringValueType createElectricMeteringValueType() {
-        return new ElectricMeteringValueType();
+    public OneRateMeteringValueExportType createOneRateMeteringValueExportType() {
+        return new OneRateMeteringValueExportType();
+    }
+
+    /**
+     * Create an instance of {@link ElectricMeteringValueExportType }
+     * 
+     */
+    public ElectricMeteringValueExportType createElectricMeteringValueExportType() {
+        return new ElectricMeteringValueExportType();
+    }
+
+    /**
+     * Create an instance of {@link ElectricMeteringValueBaseType }
+     * 
+     */
+    public ElectricMeteringValueBaseType createElectricMeteringValueBaseType() {
+        return new ElectricMeteringValueBaseType();
+    }
+
+    /**
+     * Create an instance of {@link VolumeMeteringValueBaseType }
+     * 
+     */
+    public VolumeMeteringValueBaseType createVolumeMeteringValueBaseType() {
+        return new VolumeMeteringValueBaseType();
     }
 
 }

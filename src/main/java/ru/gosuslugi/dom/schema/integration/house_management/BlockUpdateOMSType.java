@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -28,12 +27,13 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *       &lt;sequence>
  *         &lt;element name="BlockNum" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesNumType"/>
  *         &lt;element name="PremisesCharacteristic" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
+ *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="GrossArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
  *           &lt;element name="NoGrossArea" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
- *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="AnnulmentReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
+ *         &lt;element name="AnnulmentInfo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="Category" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockCategoryType" minOccurs="0"/>
@@ -52,7 +52,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "totalArea",
     "grossArea",
     "noGrossArea",
-    "terminationDate",
+    "annulmentReason",
+    "annulmentInfo",
     "ogfData",
     "informationConfirmed",
     "category"
@@ -68,15 +69,16 @@ public class BlockUpdateOMSType
     protected String blockNum;
     @XmlElement(name = "PremisesCharacteristic")
     protected NsiRef premisesCharacteristic;
-    @XmlElement(name = "TotalArea", required = true)
+    @XmlElement(name = "TotalArea")
     protected BigDecimal totalArea;
     @XmlElement(name = "GrossArea")
     protected BigDecimal grossArea;
     @XmlElement(name = "NoGrossArea")
     protected Boolean noGrossArea;
-    @XmlElement(name = "TerminationDate")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "AnnulmentReason")
+    protected NsiRef annulmentReason;
+    @XmlElement(name = "AnnulmentInfo")
+    protected String annulmentInfo;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
     @XmlElement(name = "InformationConfirmed")
@@ -206,27 +208,51 @@ public class BlockUpdateOMSType
     }
 
     /**
-     * Gets the value of the terminationDate property.
+     * Gets the value of the annulmentReason property.
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link NsiRef }
      *     
      */
-    public XMLGregorianCalendar getTerminationDate() {
-        return terminationDate;
+    public NsiRef getAnnulmentReason() {
+        return annulmentReason;
     }
 
     /**
-     * Sets the value of the terminationDate property.
+     * Sets the value of the annulmentReason property.
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link NsiRef }
      *     
      */
-    public void setTerminationDate(XMLGregorianCalendar value) {
-        this.terminationDate = value;
+    public void setAnnulmentReason(NsiRef value) {
+        this.annulmentReason = value;
+    }
+
+    /**
+     * Gets the value of the annulmentInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAnnulmentInfo() {
+        return annulmentInfo;
+    }
+
+    /**
+     * Sets the value of the annulmentInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAnnulmentInfo(String value) {
+        this.annulmentInfo = value;
     }
 
     /**

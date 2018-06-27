@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -20,10 +21,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
+ *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
  *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
  *         &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
- *         &lt;element name="Count" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
+ *         &lt;element name="Count" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCountType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -48,7 +49,8 @@ public class WorkingListItemExportType {
     @XmlElement(name = "TotalCost")
     protected BigDecimal totalCost;
     @XmlElement(name = "Count")
-    protected BigDecimal count;
+    @XmlSchemaType(name = "nonNegativeInteger")
+    protected Integer count;
 
     /**
      * Gets the value of the price property.
@@ -127,10 +129,10 @@ public class WorkingListItemExportType {
      * 
      * @return
      *     possible object is
-     *     {@link BigDecimal }
+     *     {@link Integer }
      *     
      */
-    public BigDecimal getCount() {
+    public Integer getCount() {
         return count;
     }
 
@@ -139,10 +141,10 @@ public class WorkingListItemExportType {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigDecimal }
+     *     {@link Integer }
      *     
      */
-    public void setCount(BigDecimal value) {
+    public void setCount(Integer value) {
         this.count = value;
     }
 

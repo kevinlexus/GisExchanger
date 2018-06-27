@@ -6,10 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -29,26 +27,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="FactoryNum" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="Type" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *         &lt;element name="OperatingLimit" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *               &lt;minInclusive value="0"/>
- *               &lt;maxInclusive value="9999"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;sequence minOccurs="0">
- *           &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *           &lt;element name="AnnulmentInfo" minOccurs="0">
- *             &lt;simpleType>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                 &lt;minLength value="1"/>
- *                 &lt;maxLength value="250"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/element>
- *         &lt;/sequence>
+ *         &lt;element name="AnnulmentReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
+ *         &lt;element name="AnnulmentInfo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -63,9 +44,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "fiasChildHouseGuid",
     "factoryNum",
     "type",
-    "operatingLimit",
     "ogfData",
-    "terminationDate",
+    "annulmentReason",
     "annulmentInfo"
 })
 @XmlSeeAlso({
@@ -81,13 +61,10 @@ public class LiftUpdateOMSType {
     protected String factoryNum;
     @XmlElement(name = "Type")
     protected NsiRef type;
-    @XmlElement(name = "OperatingLimit")
-    protected Integer operatingLimit;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
-    @XmlElement(name = "TerminationDate")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "AnnulmentReason")
+    protected NsiRef annulmentReason;
     @XmlElement(name = "AnnulmentInfo")
     protected String annulmentInfo;
 
@@ -188,30 +165,6 @@ public class LiftUpdateOMSType {
     }
 
     /**
-     * Gets the value of the operatingLimit property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getOperatingLimit() {
-        return operatingLimit;
-    }
-
-    /**
-     * Sets the value of the operatingLimit property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setOperatingLimit(Integer value) {
-        this.operatingLimit = value;
-    }
-
-    /**
      * Gets the value of the ogfData property.
      * 
      * <p>
@@ -241,27 +194,27 @@ public class LiftUpdateOMSType {
     }
 
     /**
-     * Gets the value of the terminationDate property.
+     * Gets the value of the annulmentReason property.
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link NsiRef }
      *     
      */
-    public XMLGregorianCalendar getTerminationDate() {
-        return terminationDate;
+    public NsiRef getAnnulmentReason() {
+        return annulmentReason;
     }
 
     /**
-     * Sets the value of the terminationDate property.
+     * Sets the value of the annulmentReason property.
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link NsiRef }
      *     
      */
-    public void setTerminationDate(XMLGregorianCalendar value) {
-        this.terminationDate = value;
+    public void setAnnulmentReason(NsiRef value) {
+        this.annulmentReason = value;
     }
 
     /**

@@ -30,6 +30,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *           &lt;element name="isCRAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="isRCAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *           &lt;element name="isOGVorOMSAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *           &lt;element name="isTKOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;/choice>
  *         &lt;element name="CreationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="LivingPersonsNumber" minOccurs="0">
@@ -98,6 +99,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
     "isCRAccount",
     "isRCAccount",
     "isOGVorOMSAccount",
+    "isTKOAccount",
     "creationDate",
     "livingPersonsNumber",
     "totalSquare",
@@ -117,6 +119,7 @@ public class AccountType {
     protected Boolean isCRAccount;
     protected Boolean isRCAccount;
     protected Boolean isOGVorOMSAccount;
+    protected Boolean isTKOAccount;
     @XmlElement(name = "CreationDate")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar creationDate;
@@ -253,6 +256,30 @@ public class AccountType {
      */
     public void setIsOGVorOMSAccount(Boolean value) {
         this.isOGVorOMSAccount = value;
+    }
+
+    /**
+     * Gets the value of the isTKOAccount property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIsTKOAccount() {
+        return isTKOAccount;
+    }
+
+    /**
+     * Sets the value of the isTKOAccount property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIsTKOAccount(Boolean value) {
+        this.isTKOAccount = value;
     }
 
     /**

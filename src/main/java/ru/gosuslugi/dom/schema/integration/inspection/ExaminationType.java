@@ -167,7 +167,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;element name="Object" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
  *                   &lt;element name="From" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
  *                   &lt;element name="To" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType" minOccurs="0"/>
- *                   &lt;element name="Duration">
+ *                   &lt;element name="Duration" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -460,7 +460,7 @@ public class ExaminationType {
      *         &lt;element name="Object" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
      *         &lt;element name="From" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType"/>
      *         &lt;element name="To" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedDateTimeType" minOccurs="0"/>
-     *         &lt;element name="Duration">
+     *         &lt;element name="Duration" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -533,7 +533,7 @@ public class ExaminationType {
         @XmlElement(name = "To")
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar to;
-        @XmlElement(name = "Duration", required = true)
+        @XmlElement(name = "Duration")
         protected ExaminationType.ExaminationInfo.Duration duration;
         @XmlElement(name = "CooperationWith")
         protected String cooperationWith;

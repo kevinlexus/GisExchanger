@@ -20,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <pre>
  * &lt;complexType name="exportMeteringDeviceDataResultType">
  *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType">
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationExportType">
  *       &lt;sequence>
  *         &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
  *         &lt;element name="StatusRootDoc">
@@ -67,7 +67,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "meteringDeviceGISGKHNumber"
 })
 public class ExportMeteringDeviceDataResultType
-    extends MeteringDeviceFullInformationType
+    extends MeteringDeviceFullInformationExportType
 {
 
     @XmlElement(name = "MeteringDeviceRootGUID", required = true)

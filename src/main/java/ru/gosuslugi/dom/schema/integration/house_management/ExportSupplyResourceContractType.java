@@ -2,6 +2,7 @@
 package ru.gosuslugi.dom.schema.integration.house_management;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -72,7 +73,13 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/complexType>
  *           &lt;/element>
  *         &lt;/choice>
- *         &lt;element name="ComptetionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;choice>
+ *           &lt;element name="IndefiniteTerm" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *           &lt;sequence>
+ *             &lt;element name="AutomaticRollOverOneYear" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *             &lt;element name="ComptetionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *           &lt;/sequence>
+ *         &lt;/choice>
  *         &lt;element name="VolumeDepends" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="Period" minOccurs="0">
  *           &lt;complexType>
@@ -84,13 +91,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element name="StartDate">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                                   &lt;minInclusive value="1"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
+ *                             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
  *                             &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
@@ -102,13 +103,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                           &lt;sequence>
- *                             &lt;element name="EndDate">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                                   &lt;minInclusive value="-1"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
+ *                             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
  *                             &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *                           &lt;/sequence>
  *                         &lt;/restriction>
@@ -128,15 +123,36 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;choice>
- *                     &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                     &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
  *                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+ *                     &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                   &lt;/choice>
  *                 &lt;/restriction>
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
  *           &lt;element name="LivingHouseOwner">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;choice>
+ *                     &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
+ *                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+ *                     &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *                   &lt;/choice>
+ *                 &lt;/restriction>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="Organization">
+ *             &lt;complexType>
+ *               &lt;complexContent>
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType">
+ *                 &lt;/extension>
+ *               &lt;/complexContent>
+ *             &lt;/complexType>
+ *           &lt;/element>
+ *           &lt;element name="ApartmentBuildingRepresentativeOwner">
  *             &lt;complexType>
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -149,11 +165,16 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
- *           &lt;element name="Organization">
+ *           &lt;element name="ApartmentBuildingSoleOwner">
  *             &lt;complexType>
  *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType">
- *                 &lt;/extension>
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                   &lt;choice>
+ *                     &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *                     &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
+ *                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+ *                   &lt;/choice>
+ *                 &lt;/restriction>
  *               &lt;/complexContent>
  *             &lt;/complexType>
  *           &lt;/element>
@@ -189,7 +210,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                     &lt;/complexType>
  *                   &lt;/element>
  *                   &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                   &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
@@ -382,6 +403,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
 @XmlType(name = "ExportSupplyResourceContractType", propOrder = {
     "isContract",
     "isNotContract",
+    "indefiniteTerm",
+    "automaticRollOverOneYear",
     "comptetionDate",
     "volumeDepends",
     "period",
@@ -390,6 +413,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "apartmentBuildingOwner",
     "livingHouseOwner",
     "organization",
+    "apartmentBuildingRepresentativeOwner",
+    "apartmentBuildingSoleOwner",
     "isPlannedVolume",
     "plannedVolumeType",
     "contractSubject",
@@ -413,6 +438,10 @@ public class ExportSupplyResourceContractType {
     protected ExportSupplyResourceContractType.IsContract isContract;
     @XmlElement(name = "IsNotContract")
     protected ExportSupplyResourceContractType.IsNotContract isNotContract;
+    @XmlElement(name = "IndefiniteTerm")
+    protected Boolean indefiniteTerm;
+    @XmlElement(name = "AutomaticRollOverOneYear")
+    protected Boolean automaticRollOverOneYear;
     @XmlElement(name = "ComptetionDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar comptetionDate;
@@ -430,6 +459,10 @@ public class ExportSupplyResourceContractType {
     protected ExportSupplyResourceContractType.LivingHouseOwner livingHouseOwner;
     @XmlElement(name = "Organization")
     protected ExportSupplyResourceContractType.Organization organization;
+    @XmlElement(name = "ApartmentBuildingRepresentativeOwner")
+    protected ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner apartmentBuildingRepresentativeOwner;
+    @XmlElement(name = "ApartmentBuildingSoleOwner")
+    protected ExportSupplyResourceContractType.ApartmentBuildingSoleOwner apartmentBuildingSoleOwner;
     @XmlElement(name = "IsPlannedVolume")
     protected boolean isPlannedVolume;
     @XmlElement(name = "PlannedVolumeType")
@@ -503,6 +536,54 @@ public class ExportSupplyResourceContractType {
      */
     public void setIsNotContract(ExportSupplyResourceContractType.IsNotContract value) {
         this.isNotContract = value;
+    }
+
+    /**
+     * Gets the value of the indefiniteTerm property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIndefiniteTerm() {
+        return indefiniteTerm;
+    }
+
+    /**
+     * Sets the value of the indefiniteTerm property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIndefiniteTerm(Boolean value) {
+        this.indefiniteTerm = value;
+    }
+
+    /**
+     * Gets the value of the automaticRollOverOneYear property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isAutomaticRollOverOneYear() {
+        return automaticRollOverOneYear;
+    }
+
+    /**
+     * Sets the value of the automaticRollOverOneYear property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setAutomaticRollOverOneYear(Boolean value) {
+        this.automaticRollOverOneYear = value;
     }
 
     /**
@@ -700,6 +781,54 @@ public class ExportSupplyResourceContractType {
      */
     public void setOrganization(ExportSupplyResourceContractType.Organization value) {
         this.organization = value;
+    }
+
+    /**
+     * Gets the value of the apartmentBuildingRepresentativeOwner property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner }
+     *     
+     */
+    public ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner getApartmentBuildingRepresentativeOwner() {
+        return apartmentBuildingRepresentativeOwner;
+    }
+
+    /**
+     * Sets the value of the apartmentBuildingRepresentativeOwner property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner }
+     *     
+     */
+    public void setApartmentBuildingRepresentativeOwner(ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner value) {
+        this.apartmentBuildingRepresentativeOwner = value;
+    }
+
+    /**
+     * Gets the value of the apartmentBuildingSoleOwner property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExportSupplyResourceContractType.ApartmentBuildingSoleOwner }
+     *     
+     */
+    public ExportSupplyResourceContractType.ApartmentBuildingSoleOwner getApartmentBuildingSoleOwner() {
+        return apartmentBuildingSoleOwner;
+    }
+
+    /**
+     * Sets the value of the apartmentBuildingSoleOwner property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExportSupplyResourceContractType.ApartmentBuildingSoleOwner }
+     *     
+     */
+    public void setApartmentBuildingSoleOwner(ExportSupplyResourceContractType.ApartmentBuildingSoleOwner value) {
+        this.apartmentBuildingSoleOwner = value;
     }
 
     /**
@@ -1037,6 +1166,117 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;choice>
+     *         &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
+     *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+     *         &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+     *       &lt;/choice>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "regOrg",
+        "ind",
+        "noData"
+    })
+    public static class ApartmentBuildingOwner {
+
+        @XmlElement(name = "RegOrg")
+        protected DRSORegOrgType regOrg;
+        @XmlElement(name = "Ind")
+        protected DRSOIndType ind;
+        @XmlElement(name = "NoData")
+        protected Boolean noData;
+
+        /**
+         * Gets the value of the regOrg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DRSORegOrgType }
+         *     
+         */
+        public DRSORegOrgType getRegOrg() {
+            return regOrg;
+        }
+
+        /**
+         * Sets the value of the regOrg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DRSORegOrgType }
+         *     
+         */
+        public void setRegOrg(DRSORegOrgType value) {
+            this.regOrg = value;
+        }
+
+        /**
+         * Gets the value of the ind property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DRSOIndType }
+         *     
+         */
+        public DRSOIndType getInd() {
+            return ind;
+        }
+
+        /**
+         * Sets the value of the ind property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DRSOIndType }
+         *     
+         */
+        public void setInd(DRSOIndType value) {
+            this.ind = value;
+        }
+
+        /**
+         * Gets the value of the noData property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isNoData() {
+            return noData;
+        }
+
+        /**
+         * Sets the value of the noData property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setNoData(Boolean value) {
+            this.noData = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;choice>
      *         &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *         &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
      *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
@@ -1054,7 +1294,118 @@ public class ExportSupplyResourceContractType {
         "regOrg",
         "ind"
     })
-    public static class ApartmentBuildingOwner {
+    public static class ApartmentBuildingRepresentativeOwner {
+
+        @XmlElement(name = "NoData")
+        protected Boolean noData;
+        @XmlElement(name = "RegOrg")
+        protected DRSORegOrgType regOrg;
+        @XmlElement(name = "Ind")
+        protected DRSOIndType ind;
+
+        /**
+         * Gets the value of the noData property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isNoData() {
+            return noData;
+        }
+
+        /**
+         * Sets the value of the noData property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setNoData(Boolean value) {
+            this.noData = value;
+        }
+
+        /**
+         * Gets the value of the regOrg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DRSORegOrgType }
+         *     
+         */
+        public DRSORegOrgType getRegOrg() {
+            return regOrg;
+        }
+
+        /**
+         * Sets the value of the regOrg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DRSORegOrgType }
+         *     
+         */
+        public void setRegOrg(DRSORegOrgType value) {
+            this.regOrg = value;
+        }
+
+        /**
+         * Gets the value of the ind property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DRSOIndType }
+         *     
+         */
+        public DRSOIndType getInd() {
+            return ind;
+        }
+
+        /**
+         * Sets the value of the ind property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DRSOIndType }
+         *     
+         */
+        public void setInd(DRSOIndType value) {
+            this.ind = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;choice>
+     *         &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+     *         &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
+     *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+     *       &lt;/choice>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "noData",
+        "regOrg",
+        "ind"
+    })
+    public static class ApartmentBuildingSoleOwner {
 
         @XmlElement(name = "NoData")
         protected Boolean noData;
@@ -1255,7 +1606,7 @@ public class ExportSupplyResourceContractType {
      *           &lt;/complexType>
      *         &lt;/element>
      *         &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *         &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
@@ -1282,7 +1633,7 @@ public class ExportSupplyResourceContractType {
         @XmlElement(name = "StartSupplyDate", required = true)
         @XmlSchemaType(name = "date")
         protected XMLGregorianCalendar startSupplyDate;
-        @XmlElement(name = "EndSupplyDate", required = true)
+        @XmlElement(name = "EndSupplyDate")
         @XmlSchemaType(name = "date")
         protected XMLGregorianCalendar endSupplyDate;
         @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
@@ -1779,9 +2130,9 @@ public class ExportSupplyResourceContractType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;choice>
-     *         &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *         &lt;element name="RegOrg" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSORegOrgType"/>
      *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOIndType"/>
+     *         &lt;element name="NoData" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *       &lt;/choice>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -1792,42 +2143,18 @@ public class ExportSupplyResourceContractType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "noData",
         "regOrg",
-        "ind"
+        "ind",
+        "noData"
     })
     public static class LivingHouseOwner {
 
-        @XmlElement(name = "NoData")
-        protected Boolean noData;
         @XmlElement(name = "RegOrg")
         protected DRSORegOrgType regOrg;
         @XmlElement(name = "Ind")
         protected DRSOIndType ind;
-
-        /**
-         * Gets the value of the noData property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Boolean }
-         *     
-         */
-        public Boolean isNoData() {
-            return noData;
-        }
-
-        /**
-         * Sets the value of the noData property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Boolean }
-         *     
-         */
-        public void setNoData(Boolean value) {
-            this.noData = value;
-        }
+        @XmlElement(name = "NoData")
+        protected Boolean noData;
 
         /**
          * Gets the value of the regOrg property.
@@ -1875,6 +2202,30 @@ public class ExportSupplyResourceContractType {
          */
         public void setInd(DRSOIndType value) {
             this.ind = value;
+        }
+
+        /**
+         * Gets the value of the noData property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isNoData() {
+            return noData;
+        }
+
+        /**
+         * Sets the value of the noData property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setNoData(Boolean value) {
+            this.noData = value;
         }
 
     }
@@ -2155,13 +2506,7 @@ public class ExportSupplyResourceContractType {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element name="StartDate">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                         &lt;minInclusive value="1"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
+     *                   &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
      *                   &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *                 &lt;/sequence>
      *               &lt;/restriction>
@@ -2173,13 +2518,7 @@ public class ExportSupplyResourceContractType {
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *                 &lt;sequence>
-     *                   &lt;element name="EndDate">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                         &lt;minInclusive value="-1"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
+     *                   &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
      *                   &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
      *                 &lt;/sequence>
      *               &lt;/restriction>
@@ -2265,13 +2604,7 @@ public class ExportSupplyResourceContractType {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="EndDate">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-         *               &lt;minInclusive value="-1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
+         *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
          *         &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
          *       &lt;/sequence>
          *     &lt;/restriction>
@@ -2288,24 +2621,32 @@ public class ExportSupplyResourceContractType {
         })
         public static class End {
 
-            @XmlElement(name = "EndDate")
-            protected byte endDate;
+            @XmlElement(name = "EndDate", required = true)
+            protected BigInteger endDate;
             @XmlElement(name = "NextMonth")
             protected Boolean nextMonth;
 
             /**
              * Gets the value of the endDate property.
              * 
+             * @return
+             *     possible object is
+             *     {@link BigInteger }
+             *     
              */
-            public byte getEndDate() {
+            public BigInteger getEndDate() {
                 return endDate;
             }
 
             /**
              * Sets the value of the endDate property.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link BigInteger }
+             *     
              */
-            public void setEndDate(byte value) {
+            public void setEndDate(BigInteger value) {
                 this.endDate = value;
             }
 
@@ -2346,13 +2687,7 @@ public class ExportSupplyResourceContractType {
          *   &lt;complexContent>
          *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
          *       &lt;sequence>
-         *         &lt;element name="StartDate">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-         *               &lt;minInclusive value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
+         *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}integer"/>
          *         &lt;element name="NextMonth" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
          *       &lt;/sequence>
          *     &lt;/restriction>
@@ -2369,24 +2704,32 @@ public class ExportSupplyResourceContractType {
         })
         public static class Start {
 
-            @XmlElement(name = "StartDate")
-            protected byte startDate;
+            @XmlElement(name = "StartDate", required = true)
+            protected BigInteger startDate;
             @XmlElement(name = "NextMonth")
             protected Boolean nextMonth;
 
             /**
              * Gets the value of the startDate property.
              * 
+             * @return
+             *     possible object is
+             *     {@link BigInteger }
+             *     
              */
-            public byte getStartDate() {
+            public BigInteger getStartDate() {
                 return startDate;
             }
 
             /**
              * Sets the value of the startDate property.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link BigInteger }
+             *     
              */
-            public void setStartDate(byte value) {
+            public void setStartDate(BigInteger value) {
                 this.startDate = value;
             }
 

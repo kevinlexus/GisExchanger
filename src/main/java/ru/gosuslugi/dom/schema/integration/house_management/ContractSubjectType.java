@@ -41,7 +41,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="StartSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="EndSupplyDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="PlannedVolume" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -90,7 +90,7 @@ public class ContractSubjectType {
     @XmlElement(name = "StartSupplyDate", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar startSupplyDate;
-    @XmlElement(name = "EndSupplyDate", required = true)
+    @XmlElement(name = "EndSupplyDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar endSupplyDate;
     @XmlElement(name = "PlannedVolume")

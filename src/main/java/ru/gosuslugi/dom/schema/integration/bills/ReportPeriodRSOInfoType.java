@@ -27,8 +27,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;maxExclusive value="10000000000"/>
- *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="12"/>
+ *               &lt;pattern value="-?\d{0,10}(\.\d{0,2})?"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -36,13 +35,24 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
  *               &lt;maxExclusive value="10000000000"/>
- *               &lt;fractionDigits value="2"/>
- *               &lt;totalDigits value="12"/>
+ *               &lt;pattern value="-?\d{0,10}(\.\d{0,2})?"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="Debts" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
- *         &lt;element name="Overpayment" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType"/>
+ *         &lt;element name="Debts">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;pattern value="\d{0,10}(\.\d{0,2})?"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
+ *         &lt;element name="Overpayment">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;pattern value="\d{0,10}(\.\d{0,2})?"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *         &lt;element name="Paid" type="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneySettlementsType" minOccurs="0"/>
  *         &lt;element name="SupportingDocuments" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>

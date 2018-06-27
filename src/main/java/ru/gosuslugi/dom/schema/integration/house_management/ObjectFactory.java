@@ -1,9 +1,11 @@
 
 package ru.gosuslugi.dom.schema.integration.house_management;
 
+import java.math.BigInteger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
 
@@ -42,7 +44,14 @@ public class ObjectFactory {
     private final static QName _ContractStatus_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "ContractStatus");
     private final static QName _ContractObjectVersionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "ContractObjectVersionGUID");
     private final static QName _CharterPaymentsInfoVersionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "CharterPaymentsInfoVersionGUID");
+    private final static QName _TerminationDate_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "TerminationDate");
     private final static QName _NoRSOGKNEGRPRegistered_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "No_RSO_GKN_EGRP_Registered");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChPreviousContractVersionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "PreviousContractVersionGUID");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChState_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "State");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChContractObject_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "ContractObject");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChIsRollover_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "IsRollover");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChVersionNumber_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "VersionNumber");
+    private final static QName _ExportRolloverStatusCAChResultTypeStatusCAChRolloverDescription_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/house-management/", "RolloverDescription");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.house_management
@@ -252,6 +261,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MunicipalResourceNotElectricExportType }
+     * 
+     */
+    public MunicipalResourceNotElectricExportType createMunicipalResourceNotElectricExportType() {
+        return new MunicipalResourceNotElectricExportType();
+    }
+
+    /**
      * Create an instance of {@link MeteringDeviceToUpdateAfterDevicesValuesType }
      * 
      */
@@ -452,6 +469,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MeteringDeviceFullInformationExportType }
+     * 
+     */
+    public MeteringDeviceFullInformationExportType createMeteringDeviceFullInformationExportType() {
+        return new MeteringDeviceFullInformationExportType();
+    }
+
+    /**
      * Create an instance of {@link DateDetailsExportType }
      * 
      */
@@ -561,6 +586,14 @@ public class ObjectFactory {
      */
     public ExportSupplyResourceContractType.Period createExportSupplyResourceContractTypePeriod() {
         return new ExportSupplyResourceContractType.Period();
+    }
+
+    /**
+     * Create an instance of {@link MunicipalResourceElectricExportType }
+     * 
+     */
+    public MunicipalResourceElectricExportType createMunicipalResourceElectricExportType() {
+        return new MunicipalResourceElectricExportType();
     }
 
     /**
@@ -964,6 +997,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportRolloverStatusCAChResultType }
+     * 
+     */
+    public ExportRolloverStatusCAChResultType createExportRolloverStatusCAChResultType() {
+        return new ExportRolloverStatusCAChResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportRolloverStatusCAChResultType.Status }
+     * 
+     */
+    public ExportRolloverStatusCAChResultType.Status createExportRolloverStatusCAChResultTypeStatus() {
+        return new ExportRolloverStatusCAChResultType.Status();
+    }
+
+    /**
+     * Create an instance of {@link ExportRolloverStatusCAChResultType.Status.CACh }
+     * 
+     */
+    public ExportRolloverStatusCAChResultType.Status.CACh createExportRolloverStatusCAChResultTypeStatusCACh() {
+        return new ExportRolloverStatusCAChResultType.Status.CACh();
+    }
+
+    /**
      * Create an instance of {@link ExportAccountResultType }
      * 
      */
@@ -1172,11 +1229,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportRolloverStatusCAChResult }
+     * 
+     */
+    public ExportRolloverStatusCAChResult createExportRolloverStatusCAChResult() {
+        return new ExportRolloverStatusCAChResult();
+    }
+
+    /**
      * Create an instance of {@link RightOrEncumbrance }
      * 
      */
     public RightOrEncumbrance createRightOrEncumbrance() {
         return new RightOrEncumbrance();
+    }
+
+    /**
+     * Create an instance of {@link ExportRolloverStatusCAChRequest }
+     * 
+     */
+    public ExportRolloverStatusCAChRequest createExportRolloverStatusCAChRequest() {
+        return new ExportRolloverStatusCAChRequest();
     }
 
     /**
@@ -1772,14 +1845,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MunicipalResourceNotElectricType }
-     * 
-     */
-    public MunicipalResourceNotElectricType createMunicipalResourceNotElectricType() {
-        return new MunicipalResourceNotElectricType();
-    }
-
-    /**
      * Create an instance of {@link EntranceUOType }
      * 
      */
@@ -1897,6 +1962,14 @@ public class ObjectFactory {
      */
     public RoomUpdateUOType createRoomUpdateUOType() {
         return new RoomUpdateUOType();
+    }
+
+    /**
+     * Create an instance of {@link DeviceMunicipalResourceType }
+     * 
+     */
+    public DeviceMunicipalResourceType createDeviceMunicipalResourceType() {
+        return new DeviceMunicipalResourceType();
     }
 
     /**
@@ -2044,6 +2117,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MunicipalResourceElectricBaseType }
+     * 
+     */
+    public MunicipalResourceElectricBaseType createMunicipalResourceElectricBaseType() {
+        return new MunicipalResourceElectricBaseType();
+    }
+
+    /**
      * Create an instance of {@link ResidentialPremisesUpdateESPType }
      * 
      */
@@ -2156,6 +2237,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MunicipalResourceNotElectricBaseType }
+     * 
+     */
+    public MunicipalResourceNotElectricBaseType createMunicipalResourceNotElectricBaseType() {
+        return new MunicipalResourceNotElectricBaseType();
+    }
+
+    /**
      * Create an instance of {@link NonResidentialPremisesRSOType }
      * 
      */
@@ -2193,6 +2282,14 @@ public class ObjectFactory {
      */
     public RoomUOType createRoomUOType() {
         return new RoomUOType();
+    }
+
+    /**
+     * Create an instance of {@link MunicipalResourceElectricUpdateType }
+     * 
+     */
+    public MunicipalResourceElectricUpdateType createMunicipalResourceElectricUpdateType() {
+        return new MunicipalResourceElectricUpdateType();
     }
 
     /**
@@ -2332,14 +2429,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MunicipalResourceElectricType }
-     * 
-     */
-    public MunicipalResourceElectricType createMunicipalResourceElectricType() {
-        return new MunicipalResourceElectricType();
-    }
-
-    /**
      * Create an instance of {@link TerminateType }
      * 
      */
@@ -2385,6 +2474,14 @@ public class ObjectFactory {
      */
     public AccountReasonsImportType.SocialHireContract createAccountReasonsImportTypeSocialHireContract() {
         return new AccountReasonsImportType.SocialHireContract();
+    }
+
+    /**
+     * Create an instance of {@link AccountReasonsImportType.TKOContract }
+     * 
+     */
+    public AccountReasonsImportType.TKOContract createAccountReasonsImportTypeTKOContract() {
+        return new AccountReasonsImportType.TKOContract();
     }
 
     /**
@@ -2449,6 +2546,14 @@ public class ObjectFactory {
      */
     public DateDetailsType.PaymentInterval createDateDetailsTypePaymentInterval() {
         return new DateDetailsType.PaymentInterval();
+    }
+
+    /**
+     * Create an instance of {@link MunicipalResourceNotElectricExportType.MeteringValueInDefaultUnit }
+     * 
+     */
+    public MunicipalResourceNotElectricExportType.MeteringValueInDefaultUnit createMunicipalResourceNotElectricExportTypeMeteringValueInDefaultUnit() {
+        return new MunicipalResourceNotElectricExportType.MeteringValueInDefaultUnit();
     }
 
     /**
@@ -2633,6 +2738,22 @@ public class ObjectFactory {
      */
     public SupplyResourceContractType.Organization createSupplyResourceContractTypeOrganization() {
         return new SupplyResourceContractType.Organization();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractType.ApartmentBuildingRepresentativeOwner }
+     * 
+     */
+    public SupplyResourceContractType.ApartmentBuildingRepresentativeOwner createSupplyResourceContractTypeApartmentBuildingRepresentativeOwner() {
+        return new SupplyResourceContractType.ApartmentBuildingRepresentativeOwner();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractType.ApartmentBuildingSoleOwner }
+     * 
+     */
+    public SupplyResourceContractType.ApartmentBuildingSoleOwner createSupplyResourceContractTypeApartmentBuildingSoleOwner() {
+        return new SupplyResourceContractType.ApartmentBuildingSoleOwner();
     }
 
     /**
@@ -2924,6 +3045,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SupplyResourceContractProjectType.ApartmentBuildingSoleOwner }
+     * 
+     */
+    public SupplyResourceContractProjectType.ApartmentBuildingSoleOwner createSupplyResourceContractProjectTypeApartmentBuildingSoleOwner() {
+        return new SupplyResourceContractProjectType.ApartmentBuildingSoleOwner();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.ApartmentBuildingRepresentativeOwner }
+     * 
+     */
+    public SupplyResourceContractProjectType.ApartmentBuildingRepresentativeOwner createSupplyResourceContractProjectTypeApartmentBuildingRepresentativeOwner() {
+        return new SupplyResourceContractProjectType.ApartmentBuildingRepresentativeOwner();
+    }
+
+    /**
      * Create an instance of {@link SupplyResourceContractProjectType.ContractSubject }
      * 
      */
@@ -3001,6 +3138,14 @@ public class ObjectFactory {
      */
     public PublicPropertyContractType.RentAgrConfirmationDocument.ProtocolMeetingOwners createPublicPropertyContractTypeRentAgrConfirmationDocumentProtocolMeetingOwners() {
         return new PublicPropertyContractType.RentAgrConfirmationDocument.ProtocolMeetingOwners();
+    }
+
+    /**
+     * Create an instance of {@link MeteringDeviceFullInformationExportType.LinkedWithMetering }
+     * 
+     */
+    public MeteringDeviceFullInformationExportType.LinkedWithMetering createMeteringDeviceFullInformationExportTypeLinkedWithMetering() {
+        return new MeteringDeviceFullInformationExportType.LinkedWithMetering();
     }
 
     /**
@@ -3196,6 +3341,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner }
+     * 
+     */
+    public ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner createExportSupplyResourceContractTypeApartmentBuildingRepresentativeOwner() {
+        return new ExportSupplyResourceContractType.ApartmentBuildingRepresentativeOwner();
+    }
+
+    /**
+     * Create an instance of {@link ExportSupplyResourceContractType.ApartmentBuildingSoleOwner }
+     * 
+     */
+    public ExportSupplyResourceContractType.ApartmentBuildingSoleOwner createExportSupplyResourceContractTypeApartmentBuildingSoleOwner() {
+        return new ExportSupplyResourceContractType.ApartmentBuildingSoleOwner();
+    }
+
+    /**
      * Create an instance of {@link ExportSupplyResourceContractType.PlannedVolume }
      * 
      */
@@ -3273,6 +3434,14 @@ public class ObjectFactory {
      */
     public ExportSupplyResourceContractType.Period.End createExportSupplyResourceContractTypePeriodEnd() {
         return new ExportSupplyResourceContractType.Period.End();
+    }
+
+    /**
+     * Create an instance of {@link MunicipalResourceElectricExportType.MeteringValueInDefaultUnit }
+     * 
+     */
+    public MunicipalResourceElectricExportType.MeteringValueInDefaultUnit createMunicipalResourceElectricExportTypeMeteringValueInDefaultUnit() {
+        return new MunicipalResourceElectricExportType.MeteringValueInDefaultUnit();
     }
 
     /**
@@ -4188,6 +4357,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportRolloverStatusCAChResultType.Status.CACh.ContractObject }
+     * 
+     */
+    public ExportRolloverStatusCAChResultType.Status.CACh.ContractObject createExportRolloverStatusCAChResultTypeStatusCAChContractObject() {
+        return new ExportRolloverStatusCAChResultType.Status.CACh.ContractObject();
+    }
+
+    /**
      * Create an instance of {@link ExportAccountResultType.AccountReasons.Contract }
      * 
      */
@@ -4566,12 +4743,75 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "TerminationDate")
+    public JAXBElement<XMLGregorianCalendar> createTerminationDate(XMLGregorianCalendar value) {
+        return new JAXBElement<XMLGregorianCalendar>(_TerminationDate_QNAME, XMLGregorianCalendar.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Boolean }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "No_RSO_GKN_EGRP_Registered")
     public JAXBElement<Boolean> createNoRSOGKNEGRPRegistered(Boolean value) {
         return new JAXBElement<Boolean>(_NoRSOGKNEGRPRegistered_QNAME, Boolean.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "PreviousContractVersionGUID", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<String> createExportRolloverStatusCAChResultTypeStatusCAChPreviousContractVersionGUID(String value) {
+        return new JAXBElement<String>(_ExportRolloverStatusCAChResultTypeStatusCAChPreviousContractVersionGUID_QNAME, String.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "State", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<String> createExportRolloverStatusCAChResultTypeStatusCAChState(String value) {
+        return new JAXBElement<String>(_ExportRolloverStatusCAChResultTypeStatusCAChState_QNAME, String.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExportRolloverStatusCAChResultType.Status.CACh.ContractObject }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "ContractObject", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<ExportRolloverStatusCAChResultType.Status.CACh.ContractObject> createExportRolloverStatusCAChResultTypeStatusCAChContractObject(ExportRolloverStatusCAChResultType.Status.CACh.ContractObject value) {
+        return new JAXBElement<ExportRolloverStatusCAChResultType.Status.CACh.ContractObject>(_ExportRolloverStatusCAChResultTypeStatusCAChContractObject_QNAME, ExportRolloverStatusCAChResultType.Status.CACh.ContractObject.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Boolean }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "IsRollover", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<Boolean> createExportRolloverStatusCAChResultTypeStatusCAChIsRollover(Boolean value) {
+        return new JAXBElement<Boolean>(_ExportRolloverStatusCAChResultTypeStatusCAChIsRollover_QNAME, Boolean.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "VersionNumber", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<BigInteger> createExportRolloverStatusCAChResultTypeStatusCAChVersionNumber(BigInteger value) {
+        return new JAXBElement<BigInteger>(_ExportRolloverStatusCAChResultTypeStatusCAChVersionNumber_QNAME, BigInteger.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", name = "RolloverDescription", scope = ExportRolloverStatusCAChResultType.Status.CACh.class)
+    public JAXBElement<String> createExportRolloverStatusCAChResultTypeStatusCAChRolloverDescription(String value) {
+        return new JAXBElement<String>(_ExportRolloverStatusCAChResultTypeStatusCAChRolloverDescription_QNAME, String.class, ExportRolloverStatusCAChResultType.Status.CACh.class, value);
     }
 
 }

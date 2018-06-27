@@ -41,6 +41,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element name="ActGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
+ *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
+ *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
  *         &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -55,6 +57,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "photos",
     "monthlyWork",
     "actGUID",
+    "price",
+    "amount",
     "totalCost"
 })
 @XmlSeeAlso({
@@ -67,6 +71,10 @@ public class CompletedWorkExportType {
     protected CompletedWorkExportType.MonthlyWork monthlyWork;
     @XmlElement(name = "ActGUID")
     protected String actGUID;
+    @XmlElement(name = "Price")
+    protected BigDecimal price;
+    @XmlElement(name = "Amount")
+    protected BigDecimal amount;
     @XmlElement(name = "TotalCost")
     protected BigDecimal totalCost;
 
@@ -145,6 +153,54 @@ public class CompletedWorkExportType {
      */
     public void setActGUID(String value) {
         this.actGUID = value;
+    }
+
+    /**
+     * Gets the value of the price property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    /**
+     * Sets the value of the price property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setPrice(BigDecimal value) {
+        this.price = value;
+    }
+
+    /**
+     * Gets the value of the amount property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    /**
+     * Sets the value of the amount property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setAmount(BigDecimal value) {
+        this.amount = value;
     }
 
     /**

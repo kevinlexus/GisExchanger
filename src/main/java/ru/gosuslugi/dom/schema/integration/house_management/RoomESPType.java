@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}GKN_EGRP_KeyType">
  *       &lt;sequence>
  *         &lt;element name="RoomNumber" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesNumType"/>
- *         &lt;element name="Square" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
+ *         &lt;element name="Square" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="InformationConfirmed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
@@ -51,7 +51,7 @@ public class RoomESPType
 
     @XmlElement(name = "RoomNumber", required = true)
     protected String roomNumber;
-    @XmlElement(name = "Square", required = true)
+    @XmlElement(name = "Square")
     protected BigDecimal square;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;

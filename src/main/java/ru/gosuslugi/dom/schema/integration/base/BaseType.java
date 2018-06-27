@@ -9,21 +9,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import org.w3._2000._09.xmldsig_.SignatureType;
-import ru.gosuslugi.dom.schema.integration.bills.ExportInsuranceProductRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ExportInsuranceProductResult;
-import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionPaginalRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionPaginalResult;
-import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ExportNotificationsOfOrderExecutionResult;
-import ru.gosuslugi.dom.schema.integration.bills.ExportPaymentDocumentRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ExportPaymentDocumentResult;
-import ru.gosuslugi.dom.schema.integration.bills.ExportSettlementsRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ExportSettlementsResult;
-import ru.gosuslugi.dom.schema.integration.bills.ImportAcknowledgmentRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ImportIKUSettlementsRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ImportInsuranceProductRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest;
-import ru.gosuslugi.dom.schema.integration.bills.ImportRSOSettlementsRequest;
+import ru.gosuslugi.dom.schema.integration.volume_quality.ImportIntervalRequest;
+import ru.gosuslugi.dom.schema.integration.volume_quality.ImportVolumeAndQualityInformationRequest;
 
 
 /**
@@ -54,21 +41,8 @@ import ru.gosuslugi.dom.schema.integration.bills.ImportRSOSettlementsRequest;
 })
 @XmlSeeAlso({
     ImportResult.class,
-    ExportInsuranceProductResult.class,
-    ImportAcknowledgmentRequest.class,
-    ExportSettlementsRequest.class,
-    ExportSettlementsResult.class,
-    ExportNotificationsOfOrderExecutionPaginalResult.class,
-    ExportInsuranceProductRequest.class,
-    ImportPaymentDocumentRequest.class,
-    ImportInsuranceProductRequest.class,
-    ExportNotificationsOfOrderExecutionPaginalRequest.class,
-    ExportPaymentDocumentRequest.class,
-    ExportNotificationsOfOrderExecutionResult.class,
-    ExportPaymentDocumentResult.class,
-    ImportRSOSettlementsRequest.class,
-    ImportIKUSettlementsRequest.class,
-    ExportNotificationsOfOrderExecutionRequest.class,
+    ImportVolumeAndQualityInformationRequest.class,
+    ImportIntervalRequest.class,
     BaseAsyncResponseType.class
 })
 public class BaseType {

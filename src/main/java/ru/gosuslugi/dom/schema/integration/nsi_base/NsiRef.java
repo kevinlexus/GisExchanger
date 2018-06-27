@@ -4,6 +4,7 @@ package ru.gosuslugi.dom.schema.integration.nsi_base;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -41,6 +42,13 @@ import javax.xml.bind.annotation.XmlType;
     "code",
     "guid",
     "name"
+})
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.ServiceType.class,
+    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.MunicipalResource.class,
+    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.QualityIndicatorResource.class,
+    ru.gosuslugi.dom.schema.integration.volume_quality.VolumeResourcesType.ServiceType.class,
+    ru.gosuslugi.dom.schema.integration.volume_quality.VolumeResourcesType.MunicipalResource.class
 })
 public class NsiRef {
 

@@ -40,7 +40,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Org">
+ *         &lt;element name="Org" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -147,7 +147,7 @@ public class DisqualifiedPersonType {
 
     @XmlElement(name = "DisqualifiedPerson", required = true)
     protected DisqualifiedPersonType.DisqualifiedPerson disqualifiedPerson;
-    @XmlElement(name = "Org", required = true)
+    @XmlElement(name = "Org")
     protected DisqualifiedPersonType.Org org;
     @XmlElement(name = "Judgement", required = true)
     protected DisqualifiedPersonType.Judgement judgement;

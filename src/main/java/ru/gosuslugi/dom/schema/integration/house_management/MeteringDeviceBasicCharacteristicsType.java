@@ -61,12 +61,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="FactorySealDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="TemperatureSensor" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="PressureSensor" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="ConsumedVolume" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;choice>
  *           &lt;element name="CollectiveDevice">
  *             &lt;complexType>
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
+ *                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                     &lt;element name="TemperatureSensingElementInfo" minOccurs="0">
  *                       &lt;simpleType>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -119,6 +121,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *               &lt;complexContent>
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                   &lt;sequence>
+ *                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *                     &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
  *                     &lt;element name="Certificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100" minOccurs="0"/>
  *                   &lt;/sequence>
@@ -175,6 +178,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "factorySealDate",
     "temperatureSensor",
     "pressureSensor",
+    "consumedVolume",
     "collectiveDevice",
     "residentialPremiseDevice",
     "nonResidentialPremiseDevice",
@@ -212,6 +216,8 @@ public class MeteringDeviceBasicCharacteristicsType {
     protected boolean temperatureSensor;
     @XmlElement(name = "PressureSensor")
     protected boolean pressureSensor;
+    @XmlElement(name = "ConsumedVolume")
+    protected Boolean consumedVolume;
     @XmlElement(name = "CollectiveDevice")
     protected MeteringDeviceBasicCharacteristicsType.CollectiveDevice collectiveDevice;
     @XmlElement(name = "ResidentialPremiseDevice")
@@ -490,6 +496,30 @@ public class MeteringDeviceBasicCharacteristicsType {
     }
 
     /**
+     * Gets the value of the consumedVolume property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isConsumedVolume() {
+        return consumedVolume;
+    }
+
+    /**
+     * Sets the value of the consumedVolume property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setConsumedVolume(Boolean value) {
+        this.consumedVolume = value;
+    }
+
+    /**
      * Gets the value of the collectiveDevice property.
      * 
      * @return
@@ -644,6 +674,7 @@ public class MeteringDeviceBasicCharacteristicsType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *         &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
      *         &lt;element name="Certificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100" minOccurs="0"/>
      *       &lt;/sequence>
@@ -656,15 +687,42 @@ public class MeteringDeviceBasicCharacteristicsType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
+        "fiasHouseGuid",
         "accountGUID",
         "certificate"
     })
     public static class ApartmentHouseDevice {
 
+        @XmlElement(name = "FIASHouseGuid")
+        protected String fiasHouseGuid;
         @XmlElement(name = "AccountGUID", required = true)
         protected List<String> accountGUID;
         @XmlElement(name = "Certificate")
         protected List<AttachmentType> certificate;
+
+        /**
+         * Gets the value of the fiasHouseGuid property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getFIASHouseGuid() {
+            return fiasHouseGuid;
+        }
+
+        /**
+         * Sets the value of the fiasHouseGuid property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setFIASHouseGuid(String value) {
+            this.fiasHouseGuid = value;
+        }
 
         /**
          * Gets the value of the accountGUID property.
@@ -858,6 +916,7 @@ public class MeteringDeviceBasicCharacteristicsType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
      *         &lt;element name="TemperatureSensingElementInfo" minOccurs="0">
      *           &lt;simpleType>
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -884,6 +943,7 @@ public class MeteringDeviceBasicCharacteristicsType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
+        "fiasHouseGuid",
         "temperatureSensingElementInfo",
         "pressureSensingElementInfo",
         "projectRegistrationNode",
@@ -891,6 +951,8 @@ public class MeteringDeviceBasicCharacteristicsType {
     })
     public static class CollectiveDevice {
 
+        @XmlElement(name = "FIASHouseGuid")
+        protected String fiasHouseGuid;
         @XmlElement(name = "TemperatureSensingElementInfo")
         protected String temperatureSensingElementInfo;
         @XmlElement(name = "PressureSensingElementInfo")
@@ -899,6 +961,30 @@ public class MeteringDeviceBasicCharacteristicsType {
         protected List<AttachmentType> projectRegistrationNode;
         @XmlElement(name = "Certificate")
         protected List<AttachmentType> certificate;
+
+        /**
+         * Gets the value of the fiasHouseGuid property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getFIASHouseGuid() {
+            return fiasHouseGuid;
+        }
+
+        /**
+         * Sets the value of the fiasHouseGuid property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setFIASHouseGuid(String value) {
+            this.fiasHouseGuid = value;
+        }
 
         /**
          * Gets the value of the temperatureSensingElementInfo property.

@@ -122,6 +122,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *         &lt;element name="SignedOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="CommissioningPermitAgreement" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Charter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="AutomaticRollOverOneYear" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -148,7 +149,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "agreementAttachment",
     "signedOwners",
     "commissioningPermitAgreement",
-    "charter"
+    "charter",
+    "automaticRollOverOneYear"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.class
@@ -192,6 +194,8 @@ public class ContractExportType {
     protected List<AttachmentType> commissioningPermitAgreement;
     @XmlElement(name = "Charter")
     protected List<AttachmentType> charter;
+    @XmlElement(name = "AutomaticRollOverOneYear")
+    protected Boolean automaticRollOverOneYear;
 
     /**
      * Gets the value of the docNum property.
@@ -624,6 +628,30 @@ public class ContractExportType {
             charter = new ArrayList<AttachmentType>();
         }
         return this.charter;
+    }
+
+    /**
+     * Gets the value of the automaticRollOverOneYear property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isAutomaticRollOverOneYear() {
+        return automaticRollOverOneYear;
+    }
+
+    /**
+     * Sets the value of the automaticRollOverOneYear property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setAutomaticRollOverOneYear(Boolean value) {
+        this.automaticRollOverOneYear = value;
     }
 
 

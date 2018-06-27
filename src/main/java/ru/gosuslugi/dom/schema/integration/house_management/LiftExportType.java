@@ -1,7 +1,6 @@
 
 package ru.gosuslugi.dom.schema.integration.house_management;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,14 +29,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="FactoryNum" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Type" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="OperatingLimit" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="TerminationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}TerminationDate" minOccurs="0"/>
+ *         &lt;element name="AnnulmentReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
  *         &lt;element name="AnnulmentInfo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -53,9 +47,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "fiasChildHouseGuid",
     "factoryNum",
     "type",
-    "operatingLimit",
     "ogfData",
     "terminationDate",
+    "annulmentReason",
     "annulmentInfo"
 })
 @XmlSeeAlso({
@@ -71,13 +65,13 @@ public class LiftExportType {
     protected String factoryNum;
     @XmlElement(name = "Type", required = true)
     protected NsiRef type;
-    @XmlElement(name = "OperatingLimit")
-    protected BigInteger operatingLimit;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
     @XmlElement(name = "TerminationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar terminationDate;
+    @XmlElement(name = "AnnulmentReason")
+    protected NsiRef annulmentReason;
     @XmlElement(name = "AnnulmentInfo")
     protected String annulmentInfo;
 
@@ -178,30 +172,6 @@ public class LiftExportType {
     }
 
     /**
-     * Gets the value of the operatingLimit property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getOperatingLimit() {
-        return operatingLimit;
-    }
-
-    /**
-     * Sets the value of the operatingLimit property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setOperatingLimit(BigInteger value) {
-        this.operatingLimit = value;
-    }
-
-    /**
      * Gets the value of the ogfData property.
      * 
      * <p>
@@ -252,6 +222,30 @@ public class LiftExportType {
      */
     public void setTerminationDate(XMLGregorianCalendar value) {
         this.terminationDate = value;
+    }
+
+    /**
+     * Gets the value of the annulmentReason property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NsiRef }
+     *     
+     */
+    public NsiRef getAnnulmentReason() {
+        return annulmentReason;
+    }
+
+    /**
+     * Sets the value of the annulmentReason property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NsiRef }
+     *     
+     */
+    public void setAnnulmentReason(NsiRef value) {
+        this.annulmentReason = value;
     }
 
     /**

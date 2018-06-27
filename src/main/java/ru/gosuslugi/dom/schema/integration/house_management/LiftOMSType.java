@@ -27,14 +27,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
  *         &lt;element name="FactoryNum" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Type" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="OperatingLimit" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *               &lt;minInclusive value="0"/>
- *               &lt;maxInclusive value="9999"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
  *         &lt;element name="OGFData" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OGFData" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -50,7 +42,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "fiasChildHouseGuid",
     "factoryNum",
     "type",
-    "operatingLimit",
     "ogfData"
 })
 @XmlSeeAlso({
@@ -66,8 +57,6 @@ public class LiftOMSType {
     protected String factoryNum;
     @XmlElement(name = "Type", required = true)
     protected NsiRef type;
-    @XmlElement(name = "OperatingLimit")
-    protected Integer operatingLimit;
     @XmlElement(name = "OGFData")
     protected List<OGFData> ogfData;
 
@@ -165,30 +154,6 @@ public class LiftOMSType {
      */
     public void setType(NsiRef value) {
         this.type = value;
-    }
-
-    /**
-     * Gets the value of the operatingLimit property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getOperatingLimit() {
-        return operatingLimit;
-    }
-
-    /**
-     * Sets the value of the operatingLimit property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setOperatingLimit(Integer value) {
-        this.operatingLimit = value;
     }
 
     /**

@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -512,6 +513,7 @@ public class UlistMngImpl implements UlistMng {
 	 * Получить коммунальный ресурс NSI по коду USL
 	 */
 	@Override
+    @Cacheable(cacheNames="UlistMngImpl.getResourceByUsl", key="{#usl }")
 	public ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef getResourceByUsl(String usl) {
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mres = null;
 		switch (usl) {
@@ -535,6 +537,7 @@ public class UlistMngImpl implements UlistMng {
 	 * Получить код USL по коммунальному ресурсу NSI по коду USL
 	 */
 	@Override
+    @Cacheable(cacheNames="UlistMngImpl.getUslByResource", key="{#nsi.getGUID() }")
 	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
 		String usl = null;
 		String servCd = getServCdByResource(nsi);
@@ -544,8 +547,6 @@ public class UlistMngImpl implements UlistMng {
 			usl = "015";
 		} else if (servCd.equals("Электрическая энергия")) {
 			usl = "024";
-		} else if (servCd.equals("Отопление")) {
-			usl = "007";
 		}
 		return usl;
 	}
@@ -554,24 +555,21 @@ public class UlistMngImpl implements UlistMng {
 	 * Получить CD услуги Serv по коммунальному ресурсу NSI по коду USL
 	 */
 	@Override
+    @Cacheable(cacheNames="UlistMngImpl.getServCdByResource", key="{#nsi.getGUID() }")
 	public String getServCdByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
-
+		//log.info("NSI guid={}", nsi.getGUID());
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresHw =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Холодная вода");
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresGw =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Горячая вода");
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresEl =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Электрическая энергия");
-		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresOt =
-				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Отопление");
 		if (nsi.getGUID().equals(mresHw.getGUID())) {
 			return "Холодная вода";
 		} else if (nsi.getGUID().equals(mresGw.getGUID())) {
 			return "Горячая вода";
 		} else if (nsi.getGUID().equals(mresEl.getGUID())) {
 			return "Электроснабжение";
-		} else if (nsi.getGUID().equals(mresOt.getGUID())) {
-			return "Отопление";
 		} else {
 			return null;
 		}

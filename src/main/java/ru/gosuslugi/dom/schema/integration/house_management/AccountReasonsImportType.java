@@ -79,6 +79,29 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="TKOContract" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;choice>
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
+ *                   &lt;sequence>
+ *                     &lt;element name="ContractNumber">
+ *                       &lt;simpleType>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *                           &lt;minLength value="1"/>
+ *                           &lt;maxLength value="30"/>
+ *                         &lt;/restriction>
+ *                       &lt;/simpleType>
+ *                     &lt;/element>
+ *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                     &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *                   &lt;/sequence>
+ *                 &lt;/choice>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -90,7 +113,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AccountReasonsImportType", propOrder = {
     "supplyResourceContract",
-    "socialHireContract"
+    "socialHireContract",
+    "tkoContract"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.class
@@ -101,6 +125,8 @@ public class AccountReasonsImportType {
     protected List<AccountReasonsImportType.SupplyResourceContract> supplyResourceContract;
     @XmlElement(name = "SocialHireContract")
     protected AccountReasonsImportType.SocialHireContract socialHireContract;
+    @XmlElement(name = "TKOContract")
+    protected List<AccountReasonsImportType.TKOContract> tkoContract;
 
     /**
      * Gets the value of the supplyResourceContract property.
@@ -153,6 +179,35 @@ public class AccountReasonsImportType {
      */
     public void setSocialHireContract(AccountReasonsImportType.SocialHireContract value) {
         this.socialHireContract = value;
+    }
+
+    /**
+     * Gets the value of the tkoContract property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the tkoContract property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getTKOContract().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link AccountReasonsImportType.TKOContract }
+     * 
+     * 
+     */
+    public List<AccountReasonsImportType.TKOContract> getTKOContract() {
+        if (tkoContract == null) {
+            tkoContract = new ArrayList<AccountReasonsImportType.TKOContract>();
+        }
+        return this.tkoContract;
     }
 
 
@@ -458,6 +513,156 @@ public class AccountReasonsImportType {
          */
         public void setIsContract(Boolean value) {
             this.isContract = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;choice>
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
+     *         &lt;sequence>
+     *           &lt;element name="ContractNumber">
+     *             &lt;simpleType>
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *                 &lt;minLength value="1"/>
+     *                 &lt;maxLength value="30"/>
+     *               &lt;/restriction>
+     *             &lt;/simpleType>
+     *           &lt;/element>
+     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *           &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/>
+     *         &lt;/sequence>
+     *       &lt;/choice>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "contractGUID",
+        "contractNumber",
+        "signingDate",
+        "dateEntry"
+    })
+    public static class TKOContract {
+
+        @XmlElement(name = "ContractGUID")
+        protected String contractGUID;
+        @XmlElement(name = "ContractNumber")
+        protected String contractNumber;
+        @XmlElement(name = "SigningDate")
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar signingDate;
+        @XmlElement(name = "DateEntry")
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar dateEntry;
+
+        /**
+         * Gets the value of the contractGUID property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getContractGUID() {
+            return contractGUID;
+        }
+
+        /**
+         * Sets the value of the contractGUID property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setContractGUID(String value) {
+            this.contractGUID = value;
+        }
+
+        /**
+         * Gets the value of the contractNumber property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getContractNumber() {
+            return contractNumber;
+        }
+
+        /**
+         * Sets the value of the contractNumber property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setContractNumber(String value) {
+            this.contractNumber = value;
+        }
+
+        /**
+         * Gets the value of the signingDate property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public XMLGregorianCalendar getSigningDate() {
+            return signingDate;
+        }
+
+        /**
+         * Sets the value of the signingDate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setSigningDate(XMLGregorianCalendar value) {
+            this.signingDate = value;
+        }
+
+        /**
+         * Gets the value of the dateEntry property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public XMLGregorianCalendar getDateEntry() {
+            return dateEntry;
+        }
+
+        /**
+         * Sets the value of the dateEntry property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setDateEntry(XMLGregorianCalendar value) {
+            this.dateEntry = value;
         }
 
     }

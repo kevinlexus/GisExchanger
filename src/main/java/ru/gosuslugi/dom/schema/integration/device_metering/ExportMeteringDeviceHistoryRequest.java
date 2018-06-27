@@ -38,6 +38,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="ArchiveDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="inputDateFrom" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
  *         &lt;element name="inputDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="ExcludePersonAsDataSource" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="ExcludeCurrentOrgAsDataSource" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="ExcludeOtherOrgAsDataSource" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
@@ -61,6 +64,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "archiveDateTo",
     "inputDateFrom",
     "inputDateTo",
+    "excludePersonAsDataSource",
+    "excludeCurrentOrgAsDataSource",
+    "excludeOtherOrgAsDataSource",
     "excludeISValues"
 })
 @XmlRootElement(name = "exportMeteringDeviceHistoryRequest")
@@ -94,6 +100,12 @@ public class ExportMeteringDeviceHistoryRequest
     protected XMLGregorianCalendar inputDateFrom;
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar inputDateTo;
+    @XmlElement(name = "ExcludePersonAsDataSource")
+    protected Boolean excludePersonAsDataSource;
+    @XmlElement(name = "ExcludeCurrentOrgAsDataSource")
+    protected Boolean excludeCurrentOrgAsDataSource;
+    @XmlElement(name = "ExcludeOtherOrgAsDataSource")
+    protected Boolean excludeOtherOrgAsDataSource;
     protected Boolean excludeISValues;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
@@ -375,6 +387,78 @@ public class ExportMeteringDeviceHistoryRequest
      */
     public void setInputDateTo(XMLGregorianCalendar value) {
         this.inputDateTo = value;
+    }
+
+    /**
+     * Gets the value of the excludePersonAsDataSource property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isExcludePersonAsDataSource() {
+        return excludePersonAsDataSource;
+    }
+
+    /**
+     * Sets the value of the excludePersonAsDataSource property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExcludePersonAsDataSource(Boolean value) {
+        this.excludePersonAsDataSource = value;
+    }
+
+    /**
+     * Gets the value of the excludeCurrentOrgAsDataSource property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isExcludeCurrentOrgAsDataSource() {
+        return excludeCurrentOrgAsDataSource;
+    }
+
+    /**
+     * Sets the value of the excludeCurrentOrgAsDataSource property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExcludeCurrentOrgAsDataSource(Boolean value) {
+        this.excludeCurrentOrgAsDataSource = value;
+    }
+
+    /**
+     * Gets the value of the excludeOtherOrgAsDataSource property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isExcludeOtherOrgAsDataSource() {
+        return excludeOtherOrgAsDataSource;
+    }
+
+    /**
+     * Sets the value of the excludeOtherOrgAsDataSource property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExcludeOtherOrgAsDataSource(Boolean value) {
+        this.excludeOtherOrgAsDataSource = value;
     }
 
     /**

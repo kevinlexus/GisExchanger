@@ -22,8 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}PremisesBasicUOType">
  *       &lt;sequence>
  *         &lt;element name="FIASChildHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType" minOccurs="0"/>
- *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType"/>
- *         &lt;element name="IsCommonProperty" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="TotalArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaType" minOccurs="0"/>
+ *         &lt;element name="IsCommonProperty" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -47,10 +47,10 @@ public class NonResidentialPremisesUOType
 
     @XmlElement(name = "FIASChildHouseGuid")
     protected String fiasChildHouseGuid;
-    @XmlElement(name = "TotalArea", required = true)
+    @XmlElement(name = "TotalArea")
     protected BigDecimal totalArea;
     @XmlElement(name = "IsCommonProperty")
-    protected boolean isCommonProperty;
+    protected Boolean isCommonProperty;
 
     /**
      * Gets the value of the fiasChildHouseGuid property.
@@ -103,16 +103,24 @@ public class NonResidentialPremisesUOType
     /**
      * Gets the value of the isCommonProperty property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
      */
-    public boolean isIsCommonProperty() {
+    public Boolean isIsCommonProperty() {
         return isCommonProperty;
     }
 
     /**
      * Sets the value of the isCommonProperty property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
      */
-    public void setIsCommonProperty(boolean value) {
+    public void setIsCommonProperty(Boolean value) {
         this.isCommonProperty = value;
     }
 

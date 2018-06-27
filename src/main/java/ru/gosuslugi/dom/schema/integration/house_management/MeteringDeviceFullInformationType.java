@@ -6,7 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -46,8 +45,9 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;/element>
  *         &lt;/choice>
  *         &lt;choice>
- *           &lt;element name="MunicipalResourceNotEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceNotElectricType" maxOccurs="3"/>
- *           &lt;element name="MunicipalResourceEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceElectricType"/>
+ *           &lt;element name="MunicipalResourceNotEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceNotElectricBaseType" maxOccurs="3"/>
+ *           &lt;element name="MunicipalResourceEnergy" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MunicipalResourceElectricBaseType"/>
+ *           &lt;element name="MunicipalResources" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMunicipalResourceType" maxOccurs="3"/>
  *         &lt;/choice>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -63,10 +63,8 @@ import javax.xml.bind.annotation.XmlType;
     "notLinkedWithMetering",
     "linkedWithMetering",
     "municipalResourceNotEnergy",
-    "municipalResourceEnergy"
-})
-@XmlSeeAlso({
-    ExportMeteringDeviceDataResultType.class
+    "municipalResourceEnergy",
+    "municipalResources"
 })
 public class MeteringDeviceFullInformationType {
 
@@ -77,9 +75,11 @@ public class MeteringDeviceFullInformationType {
     @XmlElement(name = "LinkedWithMetering")
     protected MeteringDeviceFullInformationType.LinkedWithMetering linkedWithMetering;
     @XmlElement(name = "MunicipalResourceNotEnergy")
-    protected List<MunicipalResourceNotElectricType> municipalResourceNotEnergy;
+    protected List<MunicipalResourceNotElectricBaseType> municipalResourceNotEnergy;
     @XmlElement(name = "MunicipalResourceEnergy")
-    protected MunicipalResourceElectricType municipalResourceEnergy;
+    protected MunicipalResourceElectricBaseType municipalResourceEnergy;
+    @XmlElement(name = "MunicipalResources")
+    protected List<DeviceMunicipalResourceType> municipalResources;
 
     /**
      * Gets the value of the basicChatacteristicts property.
@@ -171,13 +171,13 @@ public class MeteringDeviceFullInformationType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link MunicipalResourceNotElectricType }
+     * {@link MunicipalResourceNotElectricBaseType }
      * 
      * 
      */
-    public List<MunicipalResourceNotElectricType> getMunicipalResourceNotEnergy() {
+    public List<MunicipalResourceNotElectricBaseType> getMunicipalResourceNotEnergy() {
         if (municipalResourceNotEnergy == null) {
-            municipalResourceNotEnergy = new ArrayList<MunicipalResourceNotElectricType>();
+            municipalResourceNotEnergy = new ArrayList<MunicipalResourceNotElectricBaseType>();
         }
         return this.municipalResourceNotEnergy;
     }
@@ -187,10 +187,10 @@ public class MeteringDeviceFullInformationType {
      * 
      * @return
      *     possible object is
-     *     {@link MunicipalResourceElectricType }
+     *     {@link MunicipalResourceElectricBaseType }
      *     
      */
-    public MunicipalResourceElectricType getMunicipalResourceEnergy() {
+    public MunicipalResourceElectricBaseType getMunicipalResourceEnergy() {
         return municipalResourceEnergy;
     }
 
@@ -199,11 +199,40 @@ public class MeteringDeviceFullInformationType {
      * 
      * @param value
      *     allowed object is
-     *     {@link MunicipalResourceElectricType }
+     *     {@link MunicipalResourceElectricBaseType }
      *     
      */
-    public void setMunicipalResourceEnergy(MunicipalResourceElectricType value) {
+    public void setMunicipalResourceEnergy(MunicipalResourceElectricBaseType value) {
         this.municipalResourceEnergy = value;
+    }
+
+    /**
+     * Gets the value of the municipalResources property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the municipalResources property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getMunicipalResources().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link DeviceMunicipalResourceType }
+     * 
+     * 
+     */
+    public List<DeviceMunicipalResourceType> getMunicipalResources() {
+        if (municipalResources == null) {
+            municipalResources = new ArrayList<DeviceMunicipalResourceType>();
+        }
+        return this.municipalResources;
     }
 
 

@@ -217,6 +217,24 @@ public class CacheService {
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 300)))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
+	      cacheManager.createCache("EolinkDAOImpl.getEolinkByGuid", new MutableConfiguration<>()
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setStoreByValue(false)
+		  	        .setStatisticsEnabled(false));
+	      cacheManager.createCache("UlistMngImpl.getUslByResource", new MutableConfiguration<>()
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setStoreByValue(false)
+		  	        .setStatisticsEnabled(false));
+	      cacheManager.createCache("UlistMngImpl.getServCdByResource", new MutableConfiguration<>()
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setStoreByValue(false)
+		  	        .setStatisticsEnabled(false));
+	      cacheManager.createCache("UlistMngImpl.getResourceByUsl", new MutableConfiguration<>()
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setStoreByValue(false)
+		  	        .setStatisticsEnabled(false));
+
+
 /*	 Пока отключил     cacheManager.createCache("Config.getCalendarCurrentPeriod", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10)))
 		  	        .setStoreByValue(false)

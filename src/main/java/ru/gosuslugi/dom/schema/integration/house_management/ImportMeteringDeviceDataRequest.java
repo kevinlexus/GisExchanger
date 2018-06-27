@@ -12,8 +12,9 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.BaseType;
-import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMeteringValueType;
-import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMeteringValueBaseType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueBaseType;
+import ru.gosuslugi.dom.schema.integration.metering_device_base.VolumeMeteringValueBaseType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -27,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent>
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
  *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
  *         &lt;element name="MeteringDevice" maxOccurs="100">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -77,9 +78,10 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                                             &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *                                             &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
  *                                           &lt;/choice>
- *                                           &lt;choice>
- *                                             &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
- *                                             &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+ *                                           &lt;choice minOccurs="0">
+ *                                             &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+ *                                             &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+ *                                             &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
  *                                           &lt;/choice>
  *                                           &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
  *                                         &lt;/sequence>
@@ -118,7 +120,7 @@ public class ImportMeteringDeviceDataRequest
     extends BaseType
 {
 
-    @XmlElement(name = "FIASHouseGuid", required = true)
+    @XmlElement(name = "FIASHouseGuid")
     protected String fiasHouseGuid;
     @XmlElement(name = "MeteringDevice", required = true)
     protected List<ImportMeteringDeviceDataRequest.MeteringDevice> meteringDevice;
@@ -261,9 +263,10 @@ public class ImportMeteringDeviceDataRequest
      *                                   &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
      *                                   &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
      *                                 &lt;/choice>
-     *                                 &lt;choice>
-     *                                   &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-     *                                   &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+     *                                 &lt;choice minOccurs="0">
+     *                                   &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+     *                                   &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+     *                                   &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
      *                                 &lt;/choice>
      *                                 &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
      *                               &lt;/sequence>
@@ -420,9 +423,10 @@ public class ImportMeteringDeviceDataRequest
          *                       &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
          *                       &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
          *                     &lt;/choice>
-         *                     &lt;choice>
-         *                       &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-         *                       &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+         *                     &lt;choice minOccurs="0">
+         *                       &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+         *                       &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+         *                       &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
          *                     &lt;/choice>
          *                     &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
          *                   &lt;/sequence>
@@ -738,9 +742,10 @@ public class ImportMeteringDeviceDataRequest
              *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
              *           &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
              *         &lt;/choice>
-             *         &lt;choice>
-             *           &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueType" maxOccurs="3"/>
-             *           &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueType"/>
+             *         &lt;choice minOccurs="0">
+             *           &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
+             *           &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
+             *           &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
              *         &lt;/choice>
              *         &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
              *       &lt;/sequence>
@@ -758,6 +763,7 @@ public class ImportMeteringDeviceDataRequest
                 "reasonVerification",
                 "deviceValueMunicipalResourceNotElectric",
                 "deviceValueMunicipalResourceElectric",
+                "volumeDeviceValues",
                 "replacingMeteringDeviceVersionGUID"
             })
             public static class ReplaceDevice {
@@ -770,9 +776,11 @@ public class ImportMeteringDeviceDataRequest
                 @XmlElement(name = "ReasonVerification")
                 protected NsiRef reasonVerification;
                 @XmlElement(name = "DeviceValueMunicipalResourceNotElectric")
-                protected List<OneRateMeteringValueType> deviceValueMunicipalResourceNotElectric;
+                protected List<OneRateMeteringValueBaseType> deviceValueMunicipalResourceNotElectric;
                 @XmlElement(name = "DeviceValueMunicipalResourceElectric")
-                protected ElectricMeteringValueType deviceValueMunicipalResourceElectric;
+                protected ElectricMeteringValueBaseType deviceValueMunicipalResourceElectric;
+                @XmlElement(name = "VolumeDeviceValues")
+                protected List<VolumeMeteringValueBaseType> volumeDeviceValues;
                 @XmlElement(name = "ReplacingMeteringDeviceVersionGUID", required = true)
                 protected String replacingMeteringDeviceVersionGUID;
 
@@ -866,13 +874,13 @@ public class ImportMeteringDeviceDataRequest
                  * 
                  * <p>
                  * Objects of the following type(s) are allowed in the list
-                 * {@link OneRateMeteringValueType }
+                 * {@link OneRateMeteringValueBaseType }
                  * 
                  * 
                  */
-                public List<OneRateMeteringValueType> getDeviceValueMunicipalResourceNotElectric() {
+                public List<OneRateMeteringValueBaseType> getDeviceValueMunicipalResourceNotElectric() {
                     if (deviceValueMunicipalResourceNotElectric == null) {
-                        deviceValueMunicipalResourceNotElectric = new ArrayList<OneRateMeteringValueType>();
+                        deviceValueMunicipalResourceNotElectric = new ArrayList<OneRateMeteringValueBaseType>();
                     }
                     return this.deviceValueMunicipalResourceNotElectric;
                 }
@@ -882,10 +890,10 @@ public class ImportMeteringDeviceDataRequest
                  * 
                  * @return
                  *     possible object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public ElectricMeteringValueType getDeviceValueMunicipalResourceElectric() {
+                public ElectricMeteringValueBaseType getDeviceValueMunicipalResourceElectric() {
                     return deviceValueMunicipalResourceElectric;
                 }
 
@@ -894,11 +902,40 @@ public class ImportMeteringDeviceDataRequest
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link ElectricMeteringValueType }
+                 *     {@link ElectricMeteringValueBaseType }
                  *     
                  */
-                public void setDeviceValueMunicipalResourceElectric(ElectricMeteringValueType value) {
+                public void setDeviceValueMunicipalResourceElectric(ElectricMeteringValueBaseType value) {
                     this.deviceValueMunicipalResourceElectric = value;
+                }
+
+                /**
+                 * Gets the value of the volumeDeviceValues property.
+                 * 
+                 * <p>
+                 * This accessor method returns a reference to the live list,
+                 * not a snapshot. Therefore any modification you make to the
+                 * returned list will be present inside the JAXB object.
+                 * This is why there is not a <CODE>set</CODE> method for the volumeDeviceValues property.
+                 * 
+                 * <p>
+                 * For example, to add a new item, do as follows:
+                 * <pre>
+                 *    getVolumeDeviceValues().add(newItem);
+                 * </pre>
+                 * 
+                 * 
+                 * <p>
+                 * Objects of the following type(s) are allowed in the list
+                 * {@link VolumeMeteringValueBaseType }
+                 * 
+                 * 
+                 */
+                public List<VolumeMeteringValueBaseType> getVolumeDeviceValues() {
+                    if (volumeDeviceValues == null) {
+                        volumeDeviceValues = new ArrayList<VolumeMeteringValueBaseType>();
+                    }
+                    return this.volumeDeviceValues;
                 }
 
                 /**
