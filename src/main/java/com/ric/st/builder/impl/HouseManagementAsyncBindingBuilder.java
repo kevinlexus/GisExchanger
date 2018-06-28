@@ -2524,6 +2524,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		//log.info("******* Task.id={}, проверка наличия заданий на экспорт объектов дома, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на экспорт объектов дома, если их нет
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", "GIS_EXP_HOUSE", "SYSTEM_RPT_HOUSE_EXP")) {
 			//log.info("По дому eolink.id={} не найдено задание типа GIS_EXP_HOUSE", e.getId());
 			// статус - INS, остановлено (будет запускаться системным заданием)
@@ -2549,7 +2551,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			// (будет запускаться системным заданием)
 			ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
 
-			log.info("Добавлено задание на экспорт объектов дома по Дому Eolink.id={}", e.getId());
+			log.info("Добавлено задание на экспорт объектов по Дому Eolink.id={}", e.getId());
+			a++;
+			if (a>=10) {
+				break;
+			}
 		};
 
 		// Установить статус выполнения задания
@@ -2629,6 +2635,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		// создать по всем домам задания на выгрузку счетчиков ИПУ
 		String actTp = "GIS_EXP_METERS";
 		String parentCD = "SYSTEM_RPT_HOUSE_EXP";
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "STP");
@@ -2637,6 +2645,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на выгрузку счетчиков ИПУ по Дому Eolink.id={}", e.getId());
+			a++;
+			if (a>=10) {
+				break;
+			}
+
 		};
 
 		// Установить статус выполнения задания

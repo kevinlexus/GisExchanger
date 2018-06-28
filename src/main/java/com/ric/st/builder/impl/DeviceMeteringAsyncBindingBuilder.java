@@ -922,6 +922,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		// создать по всем домам задания, если их нет
 		String actTp = "GIS_EXP_METER_VALS";
 		String parentCD = "SYSTEM_RPT_MET_EXP_VAL";
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "STP");
@@ -932,6 +934,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.trace("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
+			a++;
+			if (a>=10) {
+				break;
+			}
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");

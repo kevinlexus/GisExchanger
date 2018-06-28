@@ -387,6 +387,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		// создать по всем организациям задания, если у них нет родительской (по главным)
 		String actTp = "GIS_EXP_ORG";
 		String parentCD = "SYSTEM_RPT_ORG_EXP";
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// по главным Организациям!
 			if (e.getParent()==null) {
@@ -396,6 +398,10 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				ptb.addAsChild(parentCD);
 				ptb.save();
 				log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
+				a++;
+				if (a>=10) {
+					break;
+				}
 			}
 		};
 		// Установить статус выполнения задания

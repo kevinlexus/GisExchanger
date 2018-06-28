@@ -283,6 +283,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		// добавить как зависимое задание к системному повторяемому заданию
 		String actTp = "GIS_EXP_DATA_PROVIDER_NSI_ITEM";
 		String parentCD = "SYSTEM_RPT_REF_EXP";
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// статус - INS, чтобы сразу выполнилось
 			ptb.setUp(e, null, actTp, "INS");
@@ -298,6 +300,10 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 			ptb.save();
 
 			log.info("Добавлено задание по экспорту справочников организации по Организации Eolink.id={}", e.getId());
+			a++;
+			if (a>=10) {
+				break;
+			}
 		};
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");

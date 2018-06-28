@@ -978,6 +978,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// создать по всем домам задания на импорт ПД, если их нет
 		String actTp = "GIS_IMP_PAY_DOCS";
 		String parentCD = "SYSTEM_RPT_IMP_PD";
+		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
 			ptb.setUp(e, null, actTp, "STP");
@@ -985,6 +987,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			ptb.addAsChild(parentCD);
 			ptb.save();
 			log.info("Добавлено задание на импорт ПД по Дому Eolink.id={}", e.getId());
+			a++;
+			if (a>=10) {
+				break;
+			}
 		};
 
 		// Установить статус выполнения задания
