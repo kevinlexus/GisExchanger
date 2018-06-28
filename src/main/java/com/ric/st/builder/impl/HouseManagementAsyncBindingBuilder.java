@@ -17,6 +17,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -174,6 +175,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	private HouseManagementServiceAsync service;
 	private HouseManagementPortsTypeAsync port;
 	private SoapBuilder sb;
+
+    @Value("${appTp}")
+    private Integer appTp;
 
 	/**
 	 * Инициализация - создать сервис и порт
@@ -2524,7 +2528,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			//log.info("По дому eolink.id={} не найдено задание типа GIS_EXP_HOUSE", e.getId());
 			// статус - INS, остановлено (будет запускаться системным заданием)
 			ptb.setUp(e, null, "GIS_EXP_HOUSE", "STP");
-			if (reqProp.getAppTp() != 2) {
+			if (appTp != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}
@@ -2536,7 +2540,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 			// создать зависимое задание, выгрузки лиц.счетов. оно не должно запуститься до выполнения ведущего
 			ptb.setUp(e, null, parent, "GIS_EXP_ACCS", "STP");
-			if (reqProp.getAppTp() != 2) {
+			if (appTp != 2) {
 				// если не эксп. версия приложения, до добавлять в конце экспорта задание на импорт
 				ptb.addTaskPar("ГИС ЖКХ.Подготовить задание на импорт", null, null, true, null);
 			}

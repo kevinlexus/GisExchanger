@@ -71,10 +71,15 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state) {
 		Lst actVal = lstMng.getByCD(actCd);
 		Integer userId = soapConfig.getCurUser().getId();
-
-		task = new Task(eolink, parent, master, state, actVal,
-				null, null, null, null, null, null, userId, 0);
-
+		task = Task.builder()
+			.withEolink(eolink)
+			.withParent(parent)
+			.withMaster(master)
+			.withState(state)
+			.withAct(actVal)
+			.withFk_user(userId)
+			.withErrAckCnt(0)
+			.withTrace(0).build();
 	}
 
 	/**
