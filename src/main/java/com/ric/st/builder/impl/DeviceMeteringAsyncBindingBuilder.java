@@ -935,7 +935,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			ptb.save();
 			log.trace("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
 			a++;
-			if (a>=10) {
+			if (a>=100) {
 				break;
 			}
 		};

@@ -988,7 +988,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 			ptb.save();
 			log.info("Добавлено задание на импорт ПД по Дому Eolink.id={}", e.getId());
 			a++;
-			if (a>=10) {
+			if (a>=100) {
 				break;
 			}
 		};

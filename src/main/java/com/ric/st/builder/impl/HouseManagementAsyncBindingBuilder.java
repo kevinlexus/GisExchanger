@@ -1805,7 +1805,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		}
 
 		// Добавить подъезды
-		taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "Подъезд", null, reqProp.getAppTp()).stream().filter(t-> t.getAct().getCd().equals("GIS_ADD_ENTRY"))
+		taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "Подъезд", null,
+				reqProp.getAppTp()).stream().filter(t-> t.getAct().getCd().equals("GIS_ADD_ENTRY"))
 			.forEach(Errors.rethrow().wrap(t-> {
 			log.trace("Добавление подъезда, Task.id={}", t.getId());
 	    	EntranceToCreate ec = new EntranceToCreate();
@@ -2553,7 +2554,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 			log.info("Добавлено задание на экспорт объектов по Дому Eolink.id={}", e.getId());
 			a++;
-			if (a>=10) {
+			if (a>=100) {
 				break;
 			}
 		};
@@ -2646,7 +2647,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 			ptb.save();
 			log.info("Добавлено задание на выгрузку счетчиков ИПУ по Дому Eolink.id={}", e.getId());
 			a++;
-			if (a>=10) {
+			if (a>=100) {
 				break;
 			}
 

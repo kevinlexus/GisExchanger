@@ -218,19 +218,23 @@ public class CacheService {
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("EolinkDAOImpl.getEolinkByGuid", new MutableConfiguration<>()
-		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("UlistMngImpl.getUslByResource", new MutableConfiguration<>()
-		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("UlistMngImpl.getServCdByResource", new MutableConfiguration<>()
-		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("UlistMngImpl.getResourceByUsl", new MutableConfiguration<>()
-		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 10000)))
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
+		  	        .setStoreByValue(false)
+		  	        .setStatisticsEnabled(false));
+	      cacheManager.createCache("TaskDAOImpl.getByCd", new MutableConfiguration<>()
+		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
 

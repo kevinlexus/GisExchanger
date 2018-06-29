@@ -399,7 +399,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 				ptb.save();
 				log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
 				a++;
-				if (a>=10) {
+				if (a>=100) {
 					break;
 				}
 			}

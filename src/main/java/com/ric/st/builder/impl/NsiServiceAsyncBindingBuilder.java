@@ -301,7 +301,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 
 			log.info("Добавлено задание по экспорту справочников организации по Организации Eolink.id={}", e.getId());
 			a++;
-			if (a>=10) {
+			if (a>=100) {
 				break;
 			}
 		};
