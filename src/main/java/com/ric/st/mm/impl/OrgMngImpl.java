@@ -1,5 +1,6 @@
 package com.ric.st.mm.impl;
 
+import com.ric.bill.model.exs.Eolink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,71 +22,71 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OrgMngImpl implements OrgMng {
 
-@Autowired
-@Qualifier("OrgDAO_BWC")
-com.ric.bill.dao.OrgDAO orgDao;
+    @Autowired
+    @Qualifier("OrgDAO_BWC")
+    com.ric.bill.dao.OrgDAO orgDao;
 
-@Autowired
-@Qualifier("OrgDAO_DWC")
-com.dic.bill.dao.OrgDAO orgDao2;
+    @Autowired
+    @Qualifier("OrgDAO_DWC")
+    com.dic.bill.dao.OrgDAO orgDao2;
 
-@Autowired
-@Qualifier("OrgDAO_BWC_hotora")
-com.ric.bill.dao.hotora.OrgDAO orgDao3;
+    @Autowired
+    @Qualifier("OrgDAO_BWC_hotora")
+    com.ric.bill.dao.hotora.OrgDAO orgDao3;
+
+    /**
+     * Получить DTO организации РКЦ
+     * @param appTp - тип информационной системы
+     */
+    @Override
+    public OrgDTO getOrgDTO(Integer appTp) {
+
+        OrgDTO orgDto = null;
+        if (appTp==0) {
+            // старая разработка
+            log.info("================CHECK");
+            com.ric.bill.model.hotora.oralv.Org org = orgDao3.getByCD("МП \"РИЦ\"");
+            orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
+            SchetContragent schetContr = org.getSchetContr();
+            orgDto.setBik(schetContr.getBik());
+            orgDto.setInn(schetContr.getInn());
+            orgDto.setOperAcc(schetContr.getOperAcc());
+        } else if (appTp==1) {
+            // новая разработка
+            Org org = orgDao.getByCD("МП \"РИЦ\"");
+
+            orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
+            orgDto.setBik(org.getBik());
+            orgDto.setInn(org.getInn());
+            orgDto.setOperAcc(org.getOperAcc());
+        } else if (appTp==2) {
+            // экспериментальная разработка
+            com.dic.bill.model.scott.Org org = orgDao2.getByOrgTp("РКЦ");
+
+            orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
+            orgDto.setBik(org.getBik());
+            orgDto.setInn(org.getInn());
+            orgDto.setOperAcc(org.getOperAcc());
+        }
+
+        return orgDto;
+
+    }
 
 /**
- * Получить DTO организации РКЦ
- * @param appTp - тип информационной системы
+ * Получить DTO организации
+ * @param uk - Eolink УК
  */
-@Override
-public OrgDTO getOrgDTO(Integer appTp) {
-
-	OrgDTO orgDto = null;
-	if (appTp==0) {
-		// старая разработка
-		log.info("================CHECK");
-		com.ric.bill.model.hotora.oralv.Org org = orgDao3.getByCD("МП \"РИЦ\"");
-		orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
-		SchetContragent schetContr = org.getSchetContr();
-		orgDto.setBik(schetContr.getBik());
-		orgDto.setInn(schetContr.getInn());
-		orgDto.setOperAcc(schetContr.getOperAcc());
-	} else if (appTp==1) {
-		// новая разработка
-		Org org = orgDao.getByCD("МП \"РИЦ\"");
-
-		orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
-		orgDto.setBik(org.getBik());
-		orgDto.setInn(org.getInn());
-		orgDto.setOperAcc(org.getOperAcc());
-	} else if (appTp==2) {
-		// экспериментальная разработка
-		com.dic.bill.model.scott.Org org = orgDao2.getByOrgTp("РКЦ");
-
-		orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
-		orgDto.setBik(org.getBik());
-		orgDto.setInn(org.getInn());
-		orgDto.setOperAcc(org.getOperAcc());
-	}
-
-	return orgDto;
-
-}
-
-/**
- * Получить DTO организации - пока закомментировал, не удалять! Lev 21.03.2018
- * @param eolinkUk - Eolink УК
- */
-/*	@Override
+	@Override
 	public OrgDTO getOrgDTO(Eolink uk) {
 
 		// Тип информационной системы
 		Integer appTp = uk.getAppTp();
-		OrgDTO orgDto;
+		OrgDTO orgDto = null;
 		if (appTp==0) {
 			// старая разработка
 
-		} else if (appTp==2) {
+		} else if (appTp==1) {
 			// новая разработка
 			Org org = orgDao.getByKlsk(uk.getKoObj().getId());
 			orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
@@ -99,10 +100,11 @@ public OrgDTO getOrgDTO(Integer appTp) {
 			orgDto.setBik(org.getBik());
 			orgDto.setInn(org.getInn());
 			orgDto.setOperAcc(org.getOperAcc());
+            orgDto.setOperAccGis(org.getOperAccGis());
 		}
 
 		return orgDto;
-	} */
+	}
 
 
 }

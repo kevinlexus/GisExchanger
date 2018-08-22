@@ -17,9 +17,9 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
 
 /**
  * <p>Java class for exportRolloverStatusCAChResultType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="exportRolloverStatusCAChResultType">
  *   &lt;complexContent>
@@ -94,8 +94,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "exportRolloverStatusCAChResultType", propOrder = {
@@ -111,25 +111,25 @@ public class ExportRolloverStatusCAChResultType {
 
     /**
      * Gets the value of the orgPPAGUID property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the orgPPAGUID property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getOrgPPAGUID().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getOrgPPAGUID() {
         if (orgPPAGUID == null) {
@@ -140,11 +140,11 @@ public class ExportRolloverStatusCAChResultType {
 
     /**
      * Gets the value of the status property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link ExportRolloverStatusCAChResultType.Status }
-     *     
+     *
      */
     public ExportRolloverStatusCAChResultType.Status getStatus() {
         return status;
@@ -152,11 +152,11 @@ public class ExportRolloverStatusCAChResultType {
 
     /**
      * Sets the value of the status property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link ExportRolloverStatusCAChResultType.Status }
-     *     
+     *
      */
     public void setStatus(ExportRolloverStatusCAChResultType.Status value) {
         this.status = value;
@@ -165,9 +165,9 @@ public class ExportRolloverStatusCAChResultType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -231,8 +231,8 @@ public class ExportRolloverStatusCAChResultType {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -248,25 +248,25 @@ public class ExportRolloverStatusCAChResultType {
 
         /**
          * Gets the value of the caCh property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the caCh property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getCACh().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link ExportRolloverStatusCAChResultType.Status.CACh }
-         * 
-         * 
+         *
+         *
          */
         public List<ExportRolloverStatusCAChResultType.Status.CACh> getCACh() {
             if (caCh == null) {
@@ -277,11 +277,11 @@ public class ExportRolloverStatusCAChResultType {
 
         /**
          * Gets the value of the errorMessage property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link ErrorMessageType }
-         *     
+         *
          */
         public ErrorMessageType getErrorMessage() {
             return errorMessage;
@@ -289,11 +289,11 @@ public class ExportRolloverStatusCAChResultType {
 
         /**
          * Sets the value of the errorMessage property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link ErrorMessageType }
-         *     
+         *
          */
         public void setErrorMessage(ErrorMessageType value) {
             this.errorMessage = value;
@@ -302,9 +302,9 @@ public class ExportRolloverStatusCAChResultType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -357,8 +357,8 @@ public class ExportRolloverStatusCAChResultType {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -383,31 +383,31 @@ public class ExportRolloverStatusCAChResultType {
             protected List<JAXBElement<?>> content;
 
             /**
-             * Gets the rest of the content model. 
-             * 
+             * Gets the rest of the content model.
+             *
              * <p>
-             * You are getting this "catch-all" property because of the following reason: 
-             * The field name "CharterVersionGUID" is used by two different parts of a schema. See: 
-             * line 3403 of file:/C:/Progs/Soap2Gis/wsdl/hcs_wsdl_xsd_v.11.13.0.11/house-management/hcs-house-management-types.xsd
-             * line 3401 of file:/C:/Progs/Soap2Gis/wsdl/hcs_wsdl_xsd_v.11.13.0.11/house-management/hcs-house-management-types.xsd
+             * You are getting this "catch-all" property because of the following reason:
+             * The field name "CharterVersionGUID" is used by two different parts of a schema. See:
+             * line 3403 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.11.13.0.11/house-management/hcs-house-management-types.xsd
+             * line 3401 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.11.13.0.11/house-management/hcs-house-management-types.xsd
              * <p>
-             * To get rid of this property, apply a property customization to one 
-             * of both of the following declarations to change their names: 
+             * To get rid of this property, apply a property customization to one
+             * of both of the following declarations to change their names:
              * Gets the value of the content property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the content property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getContent().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JAXBElement }{@code <}{@link String }{@code >}
@@ -422,8 +422,8 @@ public class ExportRolloverStatusCAChResultType {
              * {@link JAXBElement }{@code <}{@link ExportRolloverStatusCAChResultType.Status.CACh.ContractObject }{@code >}
              * {@link JAXBElement }{@code <}{@link Boolean }{@code >}
              * {@link JAXBElement }{@code <}{@link CharterStatusType }{@code >}
-             * 
-             * 
+             *
+             *
              */
             public List<JAXBElement<?>> getContent() {
                 if (content == null) {
@@ -435,9 +435,9 @@ public class ExportRolloverStatusCAChResultType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -454,8 +454,8 @@ public class ExportRolloverStatusCAChResultType {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -484,11 +484,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Gets the value of the fiasHouseGuid property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getFIASHouseGuid() {
                     return fiasHouseGuid;
@@ -496,11 +496,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the fiasHouseGuid property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setFIASHouseGuid(String value) {
                     this.fiasHouseGuid = value;
@@ -515,11 +515,11 @@ public class ExportRolloverStatusCAChResultType {
                  *  Terminated - расторгнут
                  *  Reviewed - рассмотрен
                  *  Locked - заблокирован
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link StatusMKDType }
-                 *     
+                 *
                  */
                 public StatusMKDType getManagedObjectStatus() {
                     return managedObjectStatus;
@@ -527,11 +527,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the managedObjectStatus property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link StatusMKDType }
-                 *     
+                 *
                  */
                 public void setManagedObjectStatus(StatusMKDType value) {
                     this.managedObjectStatus = value;
@@ -539,11 +539,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Gets the value of the contractObjectVersionGUID property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getContractObjectVersionGUID() {
                     return contractObjectVersionGUID;
@@ -551,11 +551,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the contractObjectVersionGUID property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setContractObjectVersionGUID(String value) {
                     this.contractObjectVersionGUID = value;
@@ -563,11 +563,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Gets the value of the isConflicted property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link Boolean }
-                 *     
+                 *
                  */
                 public Boolean isIsConflicted() {
                     return isConflicted;
@@ -575,11 +575,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the isConflicted property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link Boolean }
-                 *     
+                 *
                  */
                 public void setIsConflicted(Boolean value) {
                     this.isConflicted = value;
@@ -587,11 +587,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Gets the value of the isBlocked property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link Boolean }
-                 *     
+                 *
                  */
                 public Boolean isIsBlocked() {
                     return isBlocked;
@@ -599,11 +599,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the isBlocked property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link Boolean }
-                 *     
+                 *
                  */
                 public void setIsBlocked(Boolean value) {
                     this.isBlocked = value;
@@ -611,11 +611,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Gets the value of the previousContractObjectVersionGUID property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getPreviousContractObjectVersionGUID() {
                     return previousContractObjectVersionGUID;
@@ -623,11 +623,11 @@ public class ExportRolloverStatusCAChResultType {
 
                 /**
                  * Sets the value of the previousContractObjectVersionGUID property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setPreviousContractObjectVersionGUID(String value) {
                     this.previousContractObjectVersionGUID = value;

@@ -3,3 +3,6 @@
 /logs/
 /target/
 /hs_err_pid13500.log
+/.idea/
+/.mvn/
+/.settings/

@@ -1,21 +1,14 @@
-import static org.junit.Assert.*;
-
-import java.text.ParseException;
-import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.ric.bill.dao.PdocDAO;
+import com.ric.bill.model.exs.Pdoc;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
-import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,18 +16,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 
 import com.dic.bill.dao.AchargeDAO;
 import com.ric.bill.dao.AflowDAO;
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.ServGis;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.hotora.scott.Usl;
-import com.ric.st.builder.impl.DeviceMeteringAsyncBindingBuilder;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Исправный модуль, для тестирования Spring beans 
+ * Исправный модуль, для тестирования Spring beans
  * @author lev
  *
  */
@@ -52,7 +39,7 @@ public class TestDAOMeth {
 	private AchargeDAO achargeDao;
 	@Autowired
 	private AflowDAO aflowDao;
-	
+
 	/**
 	 * Проверить, работают ли запросы
 	 * @throws Exception
@@ -63,11 +50,13 @@ public class TestDAOMeth {
 		log.info("-----------------Begin");
 
 		aflowDao.getChrgGrp("62020006", "201801", 117661).stream().forEach(t-> {
-			log.info("Ulist.Id={}, summa={}, price={}, vol={}", 
-					t.getUlistId(), t.getSumma(), t.getPrice(), t.getVol());
+			log.info("Ulist.Id={}, summa={}, price={}, vol={}",
+					t.getUlistId(), t.getChrg(), t.getPrice(), t.getVol());
 		});
 
 		log.info("-----------------End");
     }
+
+
 
 }

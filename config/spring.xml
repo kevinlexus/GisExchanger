@@ -10,22 +10,22 @@
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<cache:annotation-driven />
 	<aop:aspectj-autoproxy />
-	
+
 	<!-- Aspect -->
 	<bean id="logAspect" class="com.ric.st.aspect.LoggingAspect" />
-	
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.100.188:1521:RKCDB" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@127.0.0.1:1521:ORCL" />
 
  		<property name="user" value="gen" />
-		<property name="password" value="X,m[;@GU%6K{/YP+" />
+		<property name="password" value="buzzlighter" />
 		<property name="maxIdleTime" value="30" />
 		<property name="maxPoolSize" value="100" />
 		<property name="minPoolSize" value="10" />
@@ -37,6 +37,7 @@
 		<property name="numHelperThreads" value="10" />  <!-- Чтобы не было APPARENT DEADLOCK - попробовал -->
 	</bean>
 
+<!-- пока закомментил 18.07.2018
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
 		id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -44,6 +45,7 @@
 
 	<tx:annotation-driven mode="proxy"
 		transaction-manager="transactionManager" />
+-->
 
 	<context:spring-configured />
 	<context:annotation-config />

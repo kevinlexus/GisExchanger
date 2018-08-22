@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
+import com.ric.st.impl.SoapConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -69,8 +70,9 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	private NotifDAO notifDao;
 	@Autowired
 	private TaskMng taskMng;
+	@Autowired
+	private SoapConfig soapConfig;
 
-	private PaymentsServiceAsync service;
 	private PaymentPortsTypeAsync port;
 	private SoapBuilder sb;
 
@@ -84,7 +86,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	 */
 	@Override
 	public void setUp() throws CantSendSoap {
-		service = new PaymentsServiceAsync();
+		PaymentsServiceAsync service = new PaymentsServiceAsync();
     	port = service.getPaymentPortAsync();
 
     	// подоготовительный объект для SOAP
@@ -93,7 +95,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 		// логгинг запросов
 		//log.info("reqProp.getFoundTask().getTrace()={}", reqProp.getFoundTask().getTrace());
-    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
+    	sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));;
 	}
 
 
@@ -102,7 +104,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	 * @param task - задание
 	 */
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public GetStateResult getState2(Task task) {
 
 		// Признак ошибки
@@ -113,7 +115,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
+		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));;
 
 		sb.makeRndMsgGuid();
 		try {
@@ -230,7 +232,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 	/**
 	 * Добавление извещения
-	 * @param notif - извещение
+	 * @param notification - извещение
 	 * @param req - запрос
 	 * @throws CantPrepSoap
 	 * @throws WrongGetMethod
@@ -244,15 +246,19 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 		// идентификатор ПД
 		notif.setPaymentDocumentID(pd.getUn());
-		// сумма в рублях
-		notif.setAmount(BigDecimal.valueOf(notification.getSumma()));
+		// сумма в копейках
+		notif.setAmount(BigDecimal.valueOf(notification.getSumma()).multiply(BigDecimal.valueOf(100)));
 		// дата внесения оплаты (в случае отсутствия: дата поступления средств)
 		notif.setOrderDate(Utl.getXMLDate(notification.getDt()));
 		OrderPeriod period = new OrderPeriod();
-		period.setMonth(3);
-		short year = 2018;
+		// период извещения
+		String periodFromDt = Utl.getPeriodFromDate(notification.getDt());
+		period.setMonth(Integer.valueOf(Utl.getPeriodMonth(periodFromDt)));
+		short year = Integer.valueOf(Utl.getPeriodYear(periodFromDt)).shortValue();
 		period.setYear(year);
 		notif.setOrderPeriod(period );
+		// почистить результат
+		notification.setResult(null);
 
 		// транспортный GUID извещения
 		String tguid = Utl.getRndUuid().toString();
@@ -297,6 +303,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 					log.error(errStr);
 					// пометить документ, что загружен с ошибкой
 					notif.setErr(1);
+					notif.setResult(errStr);
 					isErr = true;
 				};
 
@@ -320,6 +327,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 						// статус - отменен
 						notif.setStatus(2);
 					}
+					notif.setResult(null);
 				}
 
 			});
@@ -403,7 +411,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 	/**
 	 * Добавление аннулирования извещения
-	 * @param notif - извещение
+	 * @param notification - извещение
 	 * @param req - запрос
 	 * @throws CantPrepSoap
 	 * @throws WrongGetMethod
@@ -594,7 +602,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		String parentCD = "SYSTEM_RPT_IMP_SUP_NOTIF";
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP");
+			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
 			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
 			ptb.save();
@@ -622,7 +630,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		String parentCD = "SYSTEM_RPT_IMP_NOTIF_CANCEL";
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP");
+			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
 			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
 			ptb.save();

@@ -19,8 +19,8 @@ public interface UlistMng {
 	String getPrefixedCD(String cd, String grp);
 	NsiItemType getNsi(String grp, BigInteger id) throws CantGetNSI;
 	NsiRef getNsiElem(String grp, Integer id, String name, String value);
-	ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef
-			getNsiElem(String grp, Integer id, String name, String value, Eolink org);
+	//ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef
+	//		getNsiElem(String grp, Integer id, String name, String value, Eolink org);
 	ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef
 			getNsiElem(Ulist elem);
 	void loadNsi(String grp) throws CantUpdNSI;
@@ -28,7 +28,7 @@ public interface UlistMng {
 	void showAll();
 	NsiRef getResourceByUsl(String usl);
 	Integer getResType(String usl);
-	Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx);
+	Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx, String org);
 	String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi);
 	String getServCdByResource(NsiRef nsi);
 

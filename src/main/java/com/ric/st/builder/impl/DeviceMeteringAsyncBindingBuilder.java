@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,8 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
-import org.springframework.amqp.core.AmqpTemplate;
+import com.ric.bill.model.exs.*;
+import com.ric.st.dao.UlistDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -37,9 +39,6 @@ import com.ric.bill.mm.TaskEolinkParMng;
 import com.ric.bill.mm.TaskMng;
 import com.ric.bill.mm.TaskParMng;
 import com.ric.bill.model.bs.Lst;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.TaskPar;
 import com.ric.cmn.Utl;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
@@ -90,9 +89,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Autowired
 	private TaskDAO taskDao;
 	@Autowired
-	private EolinkMng eolinkMng;
-	@Autowired
 	private EolinkDAO eolinkDao;
+    @Autowired
+    private UlistDAO ulistDao;
 	@Autowired
 	private TaskEolinkParMng teParMng;
 	@Autowired
@@ -109,11 +108,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private PseudoTaskBuilders ptb;
 	@Autowired
 	TaskControllers taskCtrl;
-    @Autowired
-    private AmqpTemplate amqp;
 
-    @Value("${amqpOn:true}")
-    private boolean amqpOn;
 	@Value("${appTp}")
 	private String appTp;
 	@Value("${pathCounter}")
@@ -244,28 +239,21 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             state = port.getState(gs);
         } catch (Fault e) {
             e.printStackTrace();
-            ampqLog("ERROR: GetStateSrv, port.getState fault:"+e.getMessage());
             return null;
         } catch (Exception e) {
-            ampqLog("ERROR: getStateSvr, port.getState:"+e.getMessage());
         }
 
         if (state != null && state.getRequestState() != 3) {
             // вернуться, если задание всё еще не выполнено
-            ampqLog("Статус запроса для "+msgGuid+" :"+state.getRequestState());
             return null;
         }
 
         if (state.getErrorMessage() != null
                 && state.getErrorMessage().getErrorCode() != null) {
             // Ошибки контролей или бизнес-процесса
-            ampqLog(String.format("ERROR: getStateSrv: errCode: %s, errStr: %s",
-                    state.getErrorMessage().getErrorCode(),
-                    state.getErrorMessage().getDescription()));
             }
         for (CommonResultType e : state.getImportResult()) {
             for (Error f: e.getError()) {
-                 ampqLog(String.format("Список ощибок:\nError code=%s, Description=%s", f.getErrorCode(), f.getDescription()));
             }
         }
 
@@ -436,10 +424,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
-		//log.info("******* Task.id={}, экспорт показаний счетчиков, вызов", task.getId());
 		taskMng.logTask(task, true, null);
-
-		//sb.setTrace2(reqProp.getFoundTask().getTrace().equals(1));
 		// Установить параметры SOAP
 		reqProp.setProp(task, sb);
 		// Трассировка XML
@@ -455,10 +440,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		req.setVersion(req.getVersion());
 		req.setFIASHouseGuid(reqProp.getHouseGuid());
 
+		// индивидуальные приборы учета
+        NsiRef tp = ulistMng.getNsiElem("NSI", 27, "Тип прибора учета", "Индивидуальный");
+        req.getMeteringDeviceType().add(tp);
+
 		// опции проверки
-		Boolean checkOneOpt=false;
+/*		Boolean checkOneOpt=false;
 		Boolean checkTwoOpt=false;
 		// Добавить параметры фильтрации показаний
+		не удалять закомментированное, в будущем может пригодиться! ред. 27.07.2018
 		for (TaskPar p :task.getTaskPar()) {
 
 			// Фильтр - Тип - виды приборов учета
@@ -480,15 +470,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 				req.getMunicipalResource().add(tp);
 			}
 		}
-
-		// Фильтр - приборы учета по RootGuid, кроме дочерних временных заданий
-		for (Task t: task.getChild().stream().filter(t-> t.getAct().getCd().equals("GIS_EXP_METER_VAL"))
-				.collect(Collectors.toList())) {
-			if (checkOneOpt || checkTwoOpt) {
-				throw new CantPrepSoap("Некорректное количество критериев запроса!");
-			}
-			req.getMeteringDeviceRootGUID().add(t.getEolink().getGuid());
-		}
+*/
 
 		// Искать ли архивные
 		req.setSerchArchived(false);
@@ -532,7 +514,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
-		//log.info("******* Task.id={}, экспорт показаний счетчиков, запрос ответа", task.getId());
 		taskMng.logTask(task, true, null);
 
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
@@ -545,283 +526,90 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 			// не обработано
 			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-				// пользователь
-				Integer userId = soapConfig.getCurUser().getId();
-				Lst actVal = lstMng.getByCD("GIS_TMP");
 				for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
 				// найти счетчик по GUID
 				Eolink meter = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());
 				if (meter == null) {
-					// счетчик не найден, создать задание на его выгрузку из ГИС (в нём же выгрузятся показания)
+					// счетчик не найден
 					log.trace("При выгрузке показаний, счетчик с GUID={} НЕ НАЙДЕН, ожидается его экспорт из ГИС",
 							t.getMeteringDeviceRootGUID());
-
-					/*ptb.setUp(reqProp.getFoundTask().getEolink(), null, "GIS_EXP_METERS", "INS");
-					ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
-					ptb.save();*/
 				} else {
 					// счетчик найден, выгрузить по нему последние показания
 					if (t.getOneRateDeviceValue() != null) {
 						for (OneRateCurrentMeteringValueExportType e :
 								t.getOneRateDeviceValue().getValues().getCurrentValue()) {
-							log.trace("показания по OneRateDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
+							log.trace("Получены показания по OneRateDeviceValue: " +
+                                    "MeteringDeviceRootGUID={} DateValue={}, EnterIntoSystem={}, OrgPPAGUID={}, ReadingSource={}, val={}",
+									t.getMeteringDeviceRootGUID(), e.getDateValue(),
+                                    e.getEnterIntoSystem(), e.getOrgPPAGUID(), e.getReadingsSource(),
 									e.getMeteringValue());
-							// записать объем по счетчику в EOLINK
-							saveVal(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValue(),
-									Utl.getDateFromXmlGregCal(e.getDateValue()), Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()));
+							// записать объем по счетчику
+							saveVal(meter,
+                                    e.getMeteringValue(),
+                                    Utl.getDateFromXmlGregCal(e.getDateValue()),
+                                    Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()),
+                                    e.getOrgPPAGUID(),
+                                    e.getReadingsSource(),
+                                    e.getMunicipalResource());
 						}
 					}
 					if (t.getElectricDeviceValue() != null) {
 						for (ElectricCurrentMeteringValueExportType e :
 							t.getElectricDeviceValue().getValues().getCurrentValue()) {
-							log.trace("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}", t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
+							log.trace("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}",
+									t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
 									e.getMeteringValueT1());
-							//log.trace("TGUID={}", e.s);
-							// записать объем по счетчику в EOLINK
-							saveVal(task, meter, userId, actVal, t.getMeteringDeviceRootGUID(), e.getMeteringValueT1(),
-									Utl.getDateFromXmlGregCal(e.getDateValue()), Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()));
+                            // записать объем по счетчику
+                            saveVal(meter,
+                                    e.getMeteringValueT1(),
+                                    Utl.getDateFromXmlGregCal(e.getDateValue()),
+                                    Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()),
+                                    e.getOrgPPAGUID(),
+                                    e.getReadingsSource(),
+                                    null);
+
+
 						}
-
 					}
-
 				}
 				}
 				// Установить статус выполнения задания
 				reqProp.getFoundTask().setState("ACP");
 				taskMng.logTask(task, false, true);
-
 			}
-
-
-			/*Path path = null;
-			if (Utl.nvl(taskParMng.getBool(task, "ГИС ЖКХ.Выгрузить в файл"), false)) {
-				// создать файл
-				path = Paths.get(config.getPathCounter());
-				if (Files.exists(path)) {
-					Files.delete(path);
-				}
-				Path writer = Files.createFile(path);
-			}*/
-
-
 	}
 
 	/**
-	 * Отправляет строку в лог ampq
-	 */
-	//TODO: сделать нормальный класс
-	private void ampqLog(String s) {
-	    if (amqpOn) amqp.convertAndSend(logQueue, s);
-	}
-
-	/**
-	 * Получает из jsonNode значение поля в виде строки
-	 */
-	private String jsonGetStr(JsonNode json, String field) {
-	    JsonNode node = json.get(field);
-	    if (node == null || !node.isValueNode()) return null;
-	    return node.asText();
-	}
-
-	@Override
-	public String exportMeteringDeviceValuesSrv(JsonNode json) {
-	    String ret = "error";
-	    ObjectMapper mapper = new ObjectMapper();
-
-	    log.trace("******* ampq экспорт показаний счетчиков");
-	    ampqLog("Экспорт показаний");
-	    try {
-	        ampqLog(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
-	    } catch (Exception e) {
-	        ampqLog("ERROR: mapper:"+e.getMessage());
-	    }
-
-        AckRequest ack = null;
-        // для обработки ошибок
-        boolean err = false;
-        String errMainStr = null;
-        // Параметры запроса
-        String FIASHouseGuid = jsonGetStr(json, "FIASHouseGuid");
-        String meteringType = jsonGetStr(json, "meteringType");
-        String resourceType = jsonGetStr(json, "resourceType");
-        String rootGuid = jsonGetStr(json, "rootGuid");
-        String messageGuid = jsonGetStr(json, "messageGuid");
-        String orgGuid = jsonGetStr(json, "orgGuid");
-        String dateStr = jsonGetStr(json, "date");
-        String archiveDateFrom = jsonGetStr(json, "archiveDateFrom");
-        String archiveDateTo = jsonGetStr(json, "archiveDateTo");
-        String getArchive = jsonGetStr(json, "getArchive");
-        String excludeISValues = jsonGetStr(json, "excludeISValues");
-        ampqLog(String.format("Parsing results:\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n"+
-                              "%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n%s:%s;\n",
-                "FIASHouseGuid", FIASHouseGuid,
-                "meteringType", meteringType,
-                "resourceType", resourceType,
-                "rootGuid", rootGuid,
-                "messageGuid", messageGuid,
-                "orgGuid", orgGuid,
-                "date", dateStr,
-                "achiveDateFrom", archiveDateFrom,
-                "achiveDateTo", archiveDateTo,
-                "getAchive", getArchive,
-                "excludeISValues", excludeISValues
-                ));
-        boolean achive = getArchive != null && getArchive.equals("true");
-        boolean excludeIS = excludeISValues != null && excludeISValues.equals("true");
-
-        sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
-        if (orgGuid != null) {
-            sb.setPpGuid(orgGuid);
-        } else {
-            ampqLog("Error: нужен orgGuid");
-        }
-
-        if (messageGuid != null) {
-            //переходник
-            ampqLog("Получен messageGuid");
-            // получить состояние запроса
-            GetStateResult retState = getStateSrv(messageGuid);
-            if (retState == null) {
-                ampqLog("ERROR: exportMeteringDeviceValuesSrv resState : NULL");
-                return ret;
-            }
-            try {
-                ret = mapper.writeValueAsString(
-                      retState.getExportMeteringDeviceHistoryResult());
-                ampqLog("JSON :" + ret);
-            } catch (Exception e) {
-                ampqLog("ERROR: mapper.writeValueAsString:"+e.getMessage());
-            }
-        } else if (FIASHouseGuid != null) {
-            ampqLog("Получен FIASHouseGuid");
-            ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
-
-            req.setId("foo");
-            req.setVersion(req.getVersion());
-            req.setFIASHouseGuid(FIASHouseGuid);
-
-            boolean ok = false;
-            NsiRef tp = null;
-            if (meteringType != null) {
-                ampqLog("Тип прибора учета1="+meteringType);
-                tp = ulistMng.getNsiElem("NSI", 27, "Тип прибора учета", meteringType);
-                req.getMeteringDeviceType().add(tp);
-                ok = true;
-            } else if (resourceType != null) {
-                ampqLog("Тип ресурса="+resourceType);
-                tp = ulistMng.getNsiElem("NSI", 2, "Вид коммунального ресурса", resourceType);
-                req.getMunicipalResource().add(tp);
-                ok = true;
-            } else if (rootGuid != null) {
-                ampqLog("Корневой guid="+rootGuid);
-                req.getMeteringDeviceRootGUID().add(rootGuid);
-                ok = true;
-            }
-            if (!ok) {
-                ampqLog("ERROR: Ошибка в формате входящего json.");
-                return ret;
-                //error, return
-            }
-            // Искать ли архивные
-            req.setSerchArchived(achive);
-
-            SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
-            if (archiveDateFrom != null && archiveDateTo != null) {
-                try {
-                    Date dtAchiveFrom = parser.parse(archiveDateFrom);
-                    Date dtAchiveTo = parser.parse(archiveDateTo);
-                    req.setArchiveDateFrom(Utl.getXMLDate(dtAchiveFrom));
-                    req.setArchiveDateTo(Utl.getXMLDate(dtAchiveTo));
-                } catch (Exception e) {
-                    ampqLog("ERROR: acrive date parse:"+e.getMessage());
-                }
-
-            }
-
-            // Отключить показания отправленные информационной системой
-            req.setExcludeISValues(excludeIS);
-            // дата с которой получить показания
-
-            try {
-                Date dt = dateStr != null ?
-                        parser.parse(dateStr) :
-                        taskCtrl.getReqConfig().getCurDt1();
-                req.setInputDateFrom(Utl.getXMLDate(dt));
-            } catch (Exception e) {
-                ampqLog("ERROR: reqInputDateFrom:"+e.getMessage());
-            }
-
-
-            try {
-                ack = port.exportMeteringDeviceHistory(req);
-            } catch (Fault e) {
-                e.printStackTrace();
-                err = true;
-                errMainStr = e.getFaultInfo().getErrorMessage();
-            } catch (Exception e) {
-                ampqLog("ERROR: "+e.getMessage());
-                err = true;
-                errMainStr = "Java exception";
-            }
-
-            if (err) {
-                ampqLog("ERROR: Ошибка при отправке XML: "+errMainStr);
-            } else {
-                // Установить статус "Запрос статуса"
-                //reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
-                ret = "{\"messageGuid\":\""+ack.getAck().getMessageGUID()+"\"}";
-                ampqLog("JSON :" + ret);
-            }
-        }
-        return ret;
-    }
-
-
-	/**
-	 * Записать показание по счетчику в EOLINK
-	 * @param task - текущее задание
+	 * Записать показание по счетчику
 	 * @param meter - счетчик
-	 * @param userId - Id пользователя
-	 * @param actVal - тип задания
-	 * @param rootGUID - Root GUID счетчика
 	 * @param val - принятое от ГИС показание
 	 * @param dtVal - дата снятия
 	 * @param dtEnter - дата внесения в ГИС
+     * @param orgGUID - организация которая внесла
+     * @param readingSrc - кем внесено
 	 * @throws WrongGetMethod
 	 * @throws IOException
 	 * @throws WrongParam
 	 */
-	private void saveVal(Task task, Eolink meter, Integer userId, Lst actVal, String rootGUID,
-			String val, Date dtVal, Date dtEnter) throws WrongGetMethod, IOException, WrongParam {
+	private void saveVal(Eolink meter, String val, Date dtVal,
+                         Date dtEnter, String orgGUID, String readingSrc,
+                         NsiRef munRes)
+            throws WrongGetMethod, IOException, WrongParam {
 		if (val != null) {
 			Double valD = Double.parseDouble(val);
-			// последняя дата снятия показания
-			Date dtVal2 = eolinkParMng.getDate(meter, "Счетчик.ДатаСнятияПоказания");
-			// дата внесения показания в ГИС
-			Date dtEnter2 = eolinkParMng.getDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания");
-			//log.trace("date1={}, date2={}", dtVal, dtVal2);
-			log.trace("дата-время снятия из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
-			log.trace("дата-время внесения из ГИС={}, дата-время из Базы={}", dtVal.getTime(), dtVal2.getTime());
-			if (dtVal2 == null || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) > 0 // дата новее в ГИС
-					 || Utl.truncDate(dtVal).compareTo(Utl.truncDate(dtVal2)) == 0 // дата та же в ГИС, дата внесения новее
-					 	&& dtEnter.getTime() > dtEnter2.getTime()
-					) {
-					// получить текущие показания по счетчику
-					Double prevVal = eolinkParMng.getDbl(meter, "Счетчик.Показ(Т1)");
-					if (prevVal == null || prevVal!= valD) {
-						// Если показания изменились, записать в Eolink
-						// дочернее псевдозадание, хранящее принятые показания по счетчику
-						log.trace("Попытка по счетчику rootGUID={}, принять следующие показания:T1={}, дата снятия={}, дата внесения в ГИС={}",
-								rootGUID, val, dtVal, dtEnter);
-
-						eolinkParMng.setDbl(meter, "Счетчик.ПоказПредыдущее(Т1)", prevVal);
-						eolinkParMng.setDbl(meter, "Счетчик.Показ(Т1)", valD);
-						eolinkParMng.setDate(meter, "Счетчик.ДатаСнятияПоказания", dtVal);
-						eolinkParMng.setDate(meter, "ГИС ЖКХ.Счетчик.ДатаВнесенияПоказания", dtEnter);
-						eolinkParMng.setDbl(meter, "ГИС ЖКХ.Счетчик.СтатусОбработкиПоказания", 1D);
-					}
-
-			}
+            Ulist lst = null;
+			if (munRes != null) {
+                lst = ulistDao.getListElemByGUID(munRes.getGUID());
+            }
+            MeterVal meterVal = MeterVal.MeterValBuilder.aMeterVal()
+                    .withDtEnter(dtEnter)
+                    .withEolink(meter)
+                    .withOrgGuid(orgGUID)
+                    .withReadingSource(readingSrc)
+                    .withUlist(lst)
+                    .withVal(new BigDecimal(val))
+                    .build();
+            em.persist(meterVal);
 		}
 	}
 
@@ -917,6 +705,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicTask(Task task) throws WrongParam {
+		if (1==1) {
+			return;
+		}
 		//log.trace("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания, если их нет
@@ -926,7 +717,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP");
+			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Холодная вода", null, null);
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Горячая вода", null, null);
 			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Электрическая энергия", null, null);

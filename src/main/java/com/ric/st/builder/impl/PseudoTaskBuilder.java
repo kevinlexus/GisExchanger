@@ -56,8 +56,8 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 * @param state - статус состояния
 	 */
 	@Override
-	public void setUp(Eolink eolink, Task parent, String actCd, String state) {
-		setUp(eolink, parent, null, actCd, state);
+	public void setUp(Eolink eolink, Task parent, String actCd, String state, Integer userId) {
+		setUp(eolink, parent, null, actCd, state, userId);
 	}
 
 	/* инициализация
@@ -68,9 +68,9 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 * @param state - статус состояния
 	 */
 	@Override
-	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state) {
+	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state, Integer userId) {
 		Lst actVal = lstMng.getByCD(actCd);
-		Integer userId = soapConfig.getCurUser().getId();
+//		Integer userId = soapConfig.getCurUser().getId();
 		task = Task.builder()
 			.withEolink(eolink)
 			.withParent(parent)
@@ -152,10 +152,12 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	@Override
 	public void addAsChild(String cd) {
 		Task parent = taskDao.getByCd(cd);
+		log.info("******* Прикреплено дочернее задание к родительскому Parent Task.id={}", parent.getId());
 		Lst lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
-		parent.getInside().add(t);
-
+		//parent.getInside().add(t);
+		task.getOutside().add(t);
+		log.info("******* parent.id={}, getInside().size()={}", parent.getId(), parent.getInside().size());
 	}
 
 	/**
@@ -166,8 +168,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void addAsChild(Task parent) {
 		Lst lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
-		parent.getInside().add(t);
-
+		task.getOutside().add(t);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class UlistDAOImpl implements UlistDAO {
 
 	//конструктор
     public UlistDAOImpl() {
-    	
+
     }
 
     /*
@@ -48,10 +48,10 @@ public class UlistDAOImpl implements UlistDAO {
      * @param grp
      */
     /**
-     * 
+     *
      * @param grp - группа справочника
      * @param eolink - организация
-     * @param fkExt - код справочника 
+     * @param fkExt - код справочника
      * @return
      */
     public UlistTp getListTp(String grp, Eolink eolink, Integer fkExt) {
@@ -63,7 +63,7 @@ public class UlistDAOImpl implements UlistDAO {
 			return (UlistTp) query.getSingleResult();
 		} catch (NoResultException e) {
 		  return null;
-		} 
+		}
     }
 
     /* Получить список элементов справочника по группе и id
@@ -76,13 +76,13 @@ public class UlistDAOImpl implements UlistDAO {
 		query.setParameter("id", id.intValue());
 		return query.getResultList();
     }*/
-    
+
     public void delListByListTp(UlistTp ulistTp) {
 		Query query =em.createQuery("delete from Ulist where ulistTp=:ulistTp");
 		query.setParameter("ulistTp", ulistTp);
 		query.executeUpdate();
     }
-    
+
     public int delListByParent(Ulist parent) {
         Query query = em.createQuery("delete from Ulist where parent = :parent");
         query.setParameter("parent", parent);
@@ -105,7 +105,7 @@ public class UlistDAOImpl implements UlistDAO {
 		Ulist chld = (Ulist) query.getSingleResult();
 		return chld.getParent();
     }
-    
+
     @Override
     public Ulist getListElem(String cd, String name, String guid,Date dt1, Date dt2,
 			Boolean actual, UlistTp ulistTp, Integer npp, String value, Ulist parent,
@@ -151,6 +151,7 @@ public class UlistDAOImpl implements UlistDAO {
 		return res;
     }
 
+/*
     @Override
     public Ulist getListElemByCd(String cd, Boolean actual) {
         Query query = em.createQuery("select t from Ulist t where t.cd = :cd and (t.actual = :actual or :actual is null)");
@@ -168,6 +169,44 @@ public class UlistDAOImpl implements UlistDAO {
         }
         catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
         return res;
+    }
+*/
+
+	/**
+	 * Получить элемент справочника по GUID
+	 * @param guid - GUID
+	 * @return - элемент справочника
+	 */
+	@Override
+	public Ulist getListElemByGUID(String guid) {
+		Query query = em.createQuery("select t from com.ric.bill.model.exs.Ulist t where t.guid = :guid");
+		query.setParameter("guid", guid);
+        Ulist ulist;
+        try {
+            ulist = (Ulist) query.getSingleResult();
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+        return ulist;
+	}
+
+    /**
+     * Получить элемент справочника по GUID
+     * @return - элемент справочника
+     */
+    @Override
+    public Ulist getListElemByParent(Integer parentId, String cd) {
+        Query query = em.createQuery("select t from com.ric.bill.model.exs.Ulist t " +
+                "join t.parent p where p.id=:parentId and t.cd = :cd");
+        query.setParameter("parentId", parentId);
+        query.setParameter("cd", cd);
+        Ulist ulist;
+        try {
+            ulist = (Ulist) query.getSingleResult();
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+        return ulist;
     }
 
     /* Получить элемент справочника по группе, коду группы, cd элемента, id организации

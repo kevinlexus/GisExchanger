@@ -57,7 +57,7 @@ public class DebMngImpl implements DebMng {
 			// TODO
 		} else if (appTp.equals(2)) {
 			// экспериментальная разработка
-			SumSaldoRec sumSaldoRec = saldoDao.getSaldoByLsk(lsk, period);
+			SumSaldoRec sumSaldoRec = saldoUslDao.getSaldoByLsk(lsk, period);
 			sal = getSalAsDTO(sumSaldoRec);
 		}
 		return sal;
@@ -76,7 +76,7 @@ public class DebMngImpl implements DebMng {
 		// сложить дебет и кредит, исх. сальдо
 		BigDecimal outSal = Utl.nvl(sumSaldoRec.getOutdebet(), BigDecimal.ZERO).add(
 				Utl.nvl(sumSaldoRec.getOutkredit(), BigDecimal.ZERO));
-		sal = SumSaldoRecDTO.builder()
+		sal = SumSaldoRecDTO.SumSaldoRecDTOBuilder.aSumSaldoRecDTO()
 		.withIndebet(sumSaldoRec.getIndebet())
 		.withInkredit(sumSaldoRec.getInkredit())
 		.withOutkredit(sumSaldoRec.getOutkredit())

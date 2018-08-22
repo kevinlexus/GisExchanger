@@ -137,8 +137,6 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
-
 		}
 		if (state.getErrorMessage() != null && state.getErrorMessage().getErrorCode() != null) {
 			log.info("Вложенная ошибка XML: код={},  описание={}", state.getErrorMessage().getErrorCode(),  state.getErrorMessage().getDescription());

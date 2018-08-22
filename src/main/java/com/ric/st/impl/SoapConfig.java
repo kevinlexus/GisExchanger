@@ -22,7 +22,7 @@ public class SoapConfig implements SoapConfigs {
 
 
 	@Autowired
-	private UlistMng ulistMng; 
+	private UlistMng ulistMng;
 	@Autowired
 	private TaskController taskContr;
 	@Autowired
@@ -39,7 +39,7 @@ public class SoapConfig implements SoapConfigs {
 	private String signPass;
 	@Value("${signPath}")
 	private String signPath;
-	
+
 	// Пользователь, от имени которого выполняются процессы
 	private User user;
 
@@ -48,9 +48,9 @@ public class SoapConfig implements SoapConfigs {
 		return 0; // HOTORA
 		//return 1; Direct (на прямую))
 	}
-	
+
 	/**
-	 *	Получить OrgPPGUID организации 
+	 *	Получить OrgPPGUID организации
 	 */
 	public String getOrgPPGuid() {
 		// Базовый GUID организации, осуществляющей обмен! (для справочников NSI и т.п.)
@@ -58,14 +58,14 @@ public class SoapConfig implements SoapConfigs {
 		//return "9b051b50-937d-44f7-b03b-ff621d84ea3d"; // МП "РИЦ" (СИТ-2)
 		//return "d2bf560f-bccb-41d0-8c7a-54de0c5049ec"; // МП "РИЦ" (Пром)
 		return baseOrgGUID;
-		
-		
+
+
 		//return "b9fe4d27-020d-44dc-8bfd-b5972a504f45"; // Металлплощадка (СИТ-2)
 		//return "b21dadf0-e7e6-4824-aa04-19bd617bb3e1"; // ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "УПРАВЛЯЮЩАЯ КОМПАНИЯ ЖИЛКОМСЕРВИС"  (Пром)
 		//return null;
 		//return "a81aaf05-6afd-4795-b40c-f62b82c350b5"; // ООО "УК Металлплощадка" (СИТ-1) взято на странице Личный кабинет -> Информационные системы -> Поставщики инф.
 		//return "44de0b23-6e64-4f5c-ab56-d7c67e4c8f55"; // ТСЖ " АПРЕЛЬ" (Пром)
-		
+
 		//return null;
 	}
 
@@ -85,7 +85,7 @@ public class SoapConfig implements SoapConfigs {
 	public boolean isSrvTest() {
 		return true;
 	}
-	
+
 	/**
 	 * Получить fingerprint
 	 */
@@ -101,7 +101,7 @@ public class SoapConfig implements SoapConfigs {
 		return basicLogin;
 		//return "sit";
 	}
-	
+
 	/**
 	 * Получить пароль basic-авторизации
 	 */
@@ -110,7 +110,7 @@ public class SoapConfig implements SoapConfigs {
 		return basicPass;
 		//return "xw{p&&Ee3b9r8?amJv*]";
 	}
-	
+
 	/**
 	 * Вернуть префикс CD элементов в справочниках локальной системы
 	 * @return
@@ -118,7 +118,7 @@ public class SoapConfig implements SoapConfigs {
 	public String getPrefixGis() {
 		return "GIS";
 	}
-	
+
 	public void setXmlLog() {
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
@@ -128,9 +128,10 @@ public class SoapConfig implements SoapConfigs {
 
 
 	/**
-	 * Выполнить загрузку справочников 
-	 * @return - выполнено успешно? 
+	 * Выполнить загрузку справочников
+	 * @return - выполнено успешно?
 	 */
+/*
 	boolean refreshNsi() {
 		// загрузить справочники
 		try {
@@ -143,12 +144,13 @@ public class SoapConfig implements SoapConfigs {
 		}
 		return true;
 	}
+*/
 
-	
+
 	public Boolean setUp(Boolean isLoadRef) {
 		log.info("загрузка данных пользователя");
 		this.user = userDao.getByCd("GEN");
-		
+
 		/*log.info("проверка обновлений справочников");
 		if (isLoadRef) {
 			if (!refreshNsi()) {
@@ -156,18 +158,18 @@ public class SoapConfig implements SoapConfigs {
 				return false;
 			}
 		}*/
-		
+
 		// Инициализация сервиса ulistMng
 		/*if (!ulistMng.setUp()) {
 			log.error("Ошибка инициализации сервиса ulistMng!");
 			return false;
 		}*/
-		
+
     	return true;
 	}
 
 	/**
-	 * Вернуть пользователя, от имени которого выполняются процессы 
+	 * Вернуть пользователя, от имени которого выполняются процессы
 	 */
 	public User getCurUser() {
 		return this.user;
@@ -189,5 +191,5 @@ public class SoapConfig implements SoapConfigs {
 		this.signPath = signPath;
 	}
 
-	
+
 }

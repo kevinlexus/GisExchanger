@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.BindingProvider;
 
+import com.ric.st.impl.SoapConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	private PseudoTaskBuilders ptb;
 	@Autowired
 	private ReqProps reqProp;
+	@Autowired
+	private SoapConfig soapConfig;
 
 	private RegOrgServiceAsync service;
 	private RegOrgPortsTypeAsync port;
@@ -275,8 +278,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 			retState.getExportOrgRegistryResult().stream().forEach(t->{
 				if (eolOrg.getGuid() == null) {
-					log.info("По Организации: Eolink.id={} сохранен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 					eolOrg.setGuid(t.getOrgPPAGUID());
+					log.info("По Организации: Eolink.id={} сохранен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 				} else {
 					log.info("По Организации: Eolink.id={} получен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());
 				}
@@ -285,7 +288,6 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
 			taskMng.logTask(task, false, true);
-
 		}
 	}
 
@@ -393,11 +395,11 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 			// по главным Организациям!
 			if (e.getParent()==null) {
 				// статус - STP, остановлено (будет запускаться другим заданием)
-				ptb.setUp(e, null, actTp, "INS");
+				ptb.setUp(e, null, actTp, "INS", soapConfig.getCurUser().getId());
 				// добавить как зависимое задание к системному повторяемому заданию
 				ptb.addAsChild(parentCD);
 				ptb.save();
-				log.info("Добавлено задание на выгрузку параметров организаций по Организации Eolink.id={}", e.getId());
+				log.info("Добавлено задание на выгрузку параметров организации по Организации Eolink.id={}", e.getId());
 				a++;
 				if (a>=100) {
 					break;

@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
+import com.ric.st.impl.SoapConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	private EolinkDAO eolinkDao;
 	@Autowired
 	private PseudoTaskBuilders ptb;
+	@Autowired
+	private SoapConfig soapConfig;
 
 	private NsiServiceAsync service;
 	private NsiPortsTypeAsync port;
@@ -86,7 +89,6 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 
 	/**
 	 * Получить состояние запроса
-	 * @param msgGuid - GUID запроса
 	 * @return
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -244,21 +246,13 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 						new Date(), grp, null, eolink);
 				em.persist(ulistTp);
 				log.info("Создан заголовочный элемент ListTp :{}", prefix);
-			} else {
-				// найден заголовок, удалить имеющиеся дочерние элементы
-				/*
-				Iterator<Ulist> it = ulistTp.getUlist().iterator();
-				while (it.hasNext()) {
-					it.next();
-					it.remove();
-				}
-				*/
 			}
+			String org = ulistTp.getEolink().getReu();
 
 			// загрузить полученные элементы
 			Integer idx = 0;
 			for (NsiElementType t :retState.getNsiItem().getNsiElement()){
-				idx = ulistMng.mergeElement(ulistTp, grp, tp, t, idx);
+                idx = ulistMng.mergeElement(ulistTp, grp, tp, t, idx, org);
 			}
 
 			// Установить статус выполнения задания
@@ -287,14 +281,14 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		int a=1;
 		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
 			// статус - INS, чтобы сразу выполнилось
-			ptb.setUp(e, null, actTp, "INS");
+			ptb.setUp(e, null, actTp, "INS", soapConfig.getCurUser().getId());
 			// Справочник № 1
 			ptb.addTaskPar("ГИС ЖКХ.Номер справочника", 1D, null, null, null);
 			ptb.addAsChild(parentCD);
 			ptb.save();
 
 			// Справочник № 51
-			ptb.setUp(e, null, actTp, "INS");
+			ptb.setUp(e, null, actTp, "INS", soapConfig.getCurUser().getId());
 			ptb.addTaskPar("ГИС ЖКХ.Номер справочника", 51D, null, null, null);
 			ptb.addAsChild(parentCD);
 			ptb.save();

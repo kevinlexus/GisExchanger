@@ -1,6 +1,7 @@
 package com.ric.st.mm;
 
 import com.ric.bill.dto.OrgDTO;
+import com.ric.bill.model.exs.Eolink;
 
 /**
  * Интерфейс сервиса организации
@@ -10,4 +11,6 @@ import com.ric.bill.dto.OrgDTO;
 public interface OrgMng {
 
 	OrgDTO getOrgDTO(Integer appTp);
+
+    OrgDTO getOrgDTO(Eolink uk);
 }

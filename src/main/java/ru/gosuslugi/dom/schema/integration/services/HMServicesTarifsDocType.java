@@ -22,11 +22,11 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
 
 /**
  * Документ. Тарифы ЖКУ
- * 
+ *
  * <p>Java class for HMServicesTarifsDocType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="HMServicesTarifsDocType">
  *   &lt;complexContent>
@@ -127,8 +127,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HMServicesTarifsDocType", propOrder = {
@@ -176,11 +176,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the effectivePeriodFrom property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public XMLGregorianCalendar getEffectivePeriodFrom() {
         return effectivePeriodFrom;
@@ -188,11 +188,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the effectivePeriodFrom property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public void setEffectivePeriodFrom(XMLGregorianCalendar value) {
         this.effectivePeriodFrom = value;
@@ -200,11 +200,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the effectivePeriodTo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public XMLGregorianCalendar getEffectivePeriodTo() {
         return effectivePeriodTo;
@@ -212,11 +212,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the effectivePeriodTo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public void setEffectivePeriodTo(XMLGregorianCalendar value) {
         this.effectivePeriodTo = value;
@@ -224,11 +224,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the cancelServicesTarifDocGUID property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCancelServicesTarifDocGUID() {
         return cancelServicesTarifDocGUID;
@@ -236,11 +236,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the cancelServicesTarifDocGUID property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCancelServicesTarifDocGUID(String value) {
         this.cancelServicesTarifDocGUID = value;
@@ -248,7 +248,7 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the isPublished property.
-     * 
+     *
      */
     public boolean isIsPublished() {
         return isPublished;
@@ -256,7 +256,7 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the isPublished property.
-     * 
+     *
      */
     public void setIsPublished(boolean value) {
         this.isPublished = value;
@@ -264,11 +264,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the region property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link RegionType }
-     *     
+     *
      */
     public RegionType getRegion() {
         return region;
@@ -276,11 +276,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the region property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link RegionType }
-     *     
+     *
      */
     public void setRegion(RegionType value) {
         this.region = value;
@@ -288,11 +288,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the gku property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link HMServicesTarifsDocType.GKU }
-     *     
+     *
      */
     public HMServicesTarifsDocType.GKU getGKU() {
         return gku;
@@ -300,11 +300,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the gku property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link HMServicesTarifsDocType.GKU }
-     *     
+     *
      */
     public void setGKU(HMServicesTarifsDocType.GKU value) {
         this.gku = value;
@@ -312,11 +312,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the ku property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link HMServicesTarifsDocType.KU }
-     *     
+     *
      */
     public HMServicesTarifsDocType.KU getKU() {
         return ku;
@@ -324,11 +324,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the ku property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link HMServicesTarifsDocType.KU }
-     *     
+     *
      */
     public void setKU(HMServicesTarifsDocType.KU value) {
         this.ku = value;
@@ -336,11 +336,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the isOverhaul property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Boolean }
-     *     
+     *
      */
     public Boolean isIsOverhaul() {
         return isOverhaul;
@@ -348,11 +348,11 @@ public class HMServicesTarifsDocType
 
     /**
      * Sets the value of the isOverhaul property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Boolean }
-     *     
+     *
      */
     public void setIsOverhaul(Boolean value) {
         this.isOverhaul = value;
@@ -360,25 +360,25 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the oktmOs property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the oktmOs property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getOKTMOs().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link OKTMORefType }
-     * 
-     * 
+     *
+     *
      */
     public List<OKTMORefType> getOKTMOs() {
         if (oktmOs == null) {
@@ -389,25 +389,25 @@ public class HMServicesTarifsDocType
 
     /**
      * Gets the value of the serviceType property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the serviceType property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getServiceType().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getServiceType() {
         if (serviceType == null) {
@@ -419,9 +419,9 @@ public class HMServicesTarifsDocType
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -453,8 +453,8 @@ public class HMServicesTarifsDocType
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -476,25 +476,25 @@ public class HMServicesTarifsDocType
 
         /**
          * Gets the value of the mServiceType property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the mServiceType property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getMServiceType().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link NsiRef }
-         * 
-         * 
+         *
+         *
          */
         public List<NsiRef> getMServiceType() {
             if (mServiceType == null) {
@@ -505,11 +505,11 @@ public class HMServicesTarifsDocType
 
         /**
          * Gets the value of the municipalities property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link OKTMORefType }
-         *     
+         *
          */
         public OKTMORefType getMunicipalities() {
             return municipalities;
@@ -517,11 +517,11 @@ public class HMServicesTarifsDocType
 
         /**
          * Sets the value of the municipalities property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link OKTMORefType }
-         *     
+         *
          */
         public void setMunicipalities(OKTMORefType value) {
             this.municipalities = value;
@@ -529,25 +529,25 @@ public class HMServicesTarifsDocType
 
         /**
          * Gets the value of the rsoOrganizationGUID property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the rsoOrganizationGUID property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getRSOOrganizationGUID().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link RegOrgVersionType }
-         * 
-         * 
+         *
+         *
          */
         public List<RegOrgVersionType> getRSOOrganizationGUID() {
             if (rsoOrganizationGUID == null) {
@@ -558,25 +558,25 @@ public class HMServicesTarifsDocType
 
         /**
          * Gets the value of the ski property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the ski property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSKI().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link HMServicesTarifsDocType.GKU.SKI }
-         * 
-         * 
+         *
+         *
          */
         public List<HMServicesTarifsDocType.GKU.SKI> getSKI() {
             if (ski == null) {
@@ -588,9 +588,9 @@ public class HMServicesTarifsDocType
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -609,8 +609,8 @@ public class HMServicesTarifsDocType
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -623,11 +623,11 @@ public class HMServicesTarifsDocType
 
             /**
              * Gets the value of the name property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getName() {
                 return name;
@@ -635,11 +635,11 @@ public class HMServicesTarifsDocType
 
             /**
              * Sets the value of the name property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setName(String value) {
                 this.name = value;
@@ -652,9 +652,9 @@ public class HMServicesTarifsDocType
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -683,8 +683,8 @@ public class HMServicesTarifsDocType
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -697,25 +697,25 @@ public class HMServicesTarifsDocType
 
         /**
          * Gets the value of the mServiceType property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the mServiceType property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getMServiceType().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link HMServicesTarifsDocType.KU.MServiceType }
-         * 
-         * 
+         *
+         *
          */
         public List<HMServicesTarifsDocType.KU.MServiceType> getMServiceType() {
             if (mServiceType == null) {
@@ -727,9 +727,9 @@ public class HMServicesTarifsDocType
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -748,8 +748,8 @@ public class HMServicesTarifsDocType
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -763,36 +763,36 @@ public class HMServicesTarifsDocType
             protected List<JAXBElement<String>> rest;
 
             /**
-             * Gets the rest of the content model. 
-             * 
+             * Gets the rest of the content model.
+             *
              * <p>
-             * You are getting this "catch-all" property because of the following reason: 
-             * The field name "Name" is used by two different parts of a schema. See: 
-             * line 1293 of file:/C:/Progs/Soap2Gis/wsdl/hcs_wsdl_xsd_v.11.13.0.11/services/hcs-services-types.xsd
-             * line 27 of file:/C:/Progs/Soap2Gis/wsdl/hcs_wsdl_xsd_v.11.13.0.11/lib/hcs-nsi-base.xsd
+             * You are getting this "catch-all" property because of the following reason:
+             * The field name "Name" is used by two different parts of a schema. See:
+             * line 1293 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.11.13.0.11/services/hcs-services-types.xsd
+             * line 27 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.11.13.0.11/lib/hcs-nsi-base.xsd
              * <p>
-             * To get rid of this property, apply a property customization to one 
-             * of both of the following declarations to change their names: 
+             * To get rid of this property, apply a property customization to one
+             * of both of the following declarations to change their names:
              * Gets the value of the rest property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the rest property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getRest().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JAXBElement }{@code <}{@link String }{@code >}
-             * 
-             * 
+             *
+             *
              */
             public List<JAXBElement<String>> getRest() {
                 if (rest == null) {

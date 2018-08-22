@@ -4,9 +4,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +37,11 @@ public class AppConfig  implements ApplicationContextAware {
 	@Autowired
 	DataSource ds;
 
+	/**
+	 * Инициализация Application context
+	 * @param context
+	 * @throws BeansException
+	 */
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
 		ctx = context;
@@ -62,26 +64,6 @@ public class AppConfig  implements ApplicationContextAware {
 	    factory.setJpaProperties(jpaProperties);
 	    factory.afterPropertiesSet();
 	    return factory;
-	}
-
-	@Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
-    }
-	/**
-	 * Бин для фабрики соединения ampq
-	 */
-	@Bean
-	public ConnectionFactory connectionFactory(
-	        @Value("${rmqHost}") String rmqHost,
-	        @Value("${rmqUser}") String rmqUser,
-	        @Value("${rmqPassword}") String rmqPassword) {
-	    log.info("Создание конфигурации соединения. Host:{}, user:{}",rmqHost,rmqUser);
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(rmqHost);
-        connectionFactory.setUsername(rmqUser);
-        connectionFactory.setPassword(rmqPassword);
-        return connectionFactory;
 	}
 }
 
