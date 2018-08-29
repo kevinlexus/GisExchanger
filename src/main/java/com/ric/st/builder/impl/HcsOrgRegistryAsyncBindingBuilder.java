@@ -202,10 +202,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean exportOrgRegistry(Task task) throws CantPrepSoap {
 		taskMng.logTask(task, true, null);
-		//log.info("******* Task.id={}, экспорт параметров организации, вызов", task.getId());
+        // Установить параметры SOAP
+        reqProp.setPropWOGUID(task, sb);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
-		// Установить параметры SOAP
-		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -263,10 +262,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportOrgRegistryAsk(Task task) throws CantPrepSoap {
 		taskMng.logTask(task, true, null);
-		//log.info("******* Task.id={}, экспорт параметров организации, запрос ответа", task.getId());
+        // установить параметры SOAP
+        reqProp.setPropWOGUID(task, sb);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
-		// установить параметры SOAP
-		reqProp.setPropWOGUID(task, sb);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -302,10 +300,10 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		//log.info("******* Task.id={}, экспорт сведений о поставщиках данных, вызов", task.getId());
 		taskMng.logTask(task, true, null);
 
+        reqProp.setPropWOGUID(task, sb);
 		// Установить параметры SOAP
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 
-		reqProp.setPropWOGUID(task, sb);
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;

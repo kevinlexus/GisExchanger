@@ -109,7 +109,7 @@ public class TaskController implements TaskControllers {
 		// цикл
 		while(flag) {
 			// перебрать все необработанные задания
-			log.info("******* начало обработки заданий *******");
+			//log.info("******* начало обработки заданий *******");
 			for (Task t: taskDao.getAllUnprocessed()) {
 				//log.info("task.id={}", task.getId());
 				// получить задание заново (могло измениться в базе)
@@ -170,7 +170,7 @@ public class TaskController implements TaskControllers {
 							TaskPar taskPar = tb.getTrgTask(task);
 							if (taskPar!= null) {
 								// активировать все зависимые задания
-								log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
+								//log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
 								tb.activateRptTask(task);
 								// добавить в список выполненных заданий
 								tb.setProcTask(taskPar);
@@ -408,7 +408,7 @@ public class TaskController implements TaskControllers {
 				}
 
 			}
-			log.info("******* окончание обработки заданий *******");
+//			log.info("******* окончание обработки заданий *******");
 
 			try {
 				Thread.sleep(1000);

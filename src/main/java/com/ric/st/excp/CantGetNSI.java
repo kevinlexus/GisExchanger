@@ -5,7 +5,6 @@ package com.ric.st.excp;
  * @author lev
  *
  */
-@SuppressWarnings("serial")
 public class CantGetNSI  extends Exception {
 
 	public CantGetNSI(String message) {

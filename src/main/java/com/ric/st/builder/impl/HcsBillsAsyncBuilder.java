@@ -200,7 +200,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
-		//log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, вызов", task.getId());
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
@@ -217,9 +216,20 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		req.setId("foo");
 		req.setVersion(req.getVersion());
 
-		SupplierIDs suppId = new SupplierIDs();
-		req.setSupplierIDs(suppId);
-		suppId.setPaymentDocumentID("20КМ615992-01-7104");
+        ExportNotificationsOfOrderExecutionRequest.Notifications notif =
+                new ExportNotificationsOfOrderExecutionRequest.Notifications();
+        // начиная с даты
+        notif.setDateFrom(Utl.getXMLDate(Utl.getDateFromStr("23.08.2018")));
+        // интервал дней
+        notif.setDaysInterval(Byte.valueOf("7"));
+        // состояния квитирования
+        notif.getAckStatus().add(Byte.valueOf("0")); // ред.29.08.2018 - аннулирован ??? как быть? обратная проводка по ПД? TODO
+        notif.getAckStatus().add(Byte.valueOf("1"));
+        notif.getAckStatus().add(Byte.valueOf("2"));
+        notif.getAckStatus().add(Byte.valueOf("3"));
+        notif.getAckStatus().add(Byte.valueOf("4"));
+        notif.getAckStatus().add(Byte.valueOf("5"));
+        req.setNotifications(notif);
 
 		try {
 			ack = port.exportNotificationsOfOrderExecution(req);
@@ -252,7 +262,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap {
-		//log.info("******* Task.id={}, экспорт изввещений о принятии к исполнению распоряжений с результатами квитирования, запрос ответа", task.getId());
 		taskMng.logTask(task, true, null);
 
 		// Трассировка XML
@@ -270,12 +279,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 					log.info("getNotificationsOfOrderExecutionGUID={}", d.getNotificationsOfOrderExecutionGUID());
 				});
 			});
-
 			// Установить статус выполнения задания
 			reqProp.getFoundTask().setState("ACP");
 			taskMng.logTask(task, false, true);
-
-
 		}
 	}
 
@@ -373,6 +379,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 log.trace("pdoc.isWithdraw()={}", paymentDocument.isWithdraw());
                 // найти ПД и обновить статусы
                 Pdoc pdoc = pdocDao.getByCD(paymentDocument.getPaymentDocumentNumber());
+                Integer month = paymentDocument.getMonth();
+                Short year = paymentDocument.getYear();
+                String stMonth = Utl.lpad(String.valueOf(month), "0", 2);
+                String stYear = Utl.lpad(String.valueOf(year), "0", 4);
+                Date dt = Utl.getLastDate(Utl.getDateFromPeriod(stYear.concat(stMonth)));
+
                 if (pdoc != null) {
                     if (pdoc.getUn() == null) {
                         // по каким то причинам пустой ID документа в ГИС, заполнить его
@@ -393,6 +405,18 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                         log.trace("Был отменен в биллинге, отмечен как \"Загружен\" при экспорте!");
                         pdoc.setComm("Был отменен в биллинге, отмечен как \"Загружен\" при экспорте!");
                     }
+/*
+                    log.info("1={},2={}",
+                            paymentDocument.getTotalPayableByPDWithDebtAndAdvance(), // всего по ПД
+                            paymentDocument.getTotalPayableByPD() // тек.начисл+сальдо по пени
+                    );
+*/
+                    // итого долг, в т.ч. пеня
+                    pdoc.setSummaOut(paymentDocument.getTotalPayableByPDWithDebtAndAdvance());
+                    // итого пеня
+                    pdoc.setPenyaOut(paymentDocument.getTotalByPenaltiesAndCourtCosts());
+                    // дата ПД
+                    pdoc.setDt(dt);
                 } else {
                     // вообще нет документа в биллинге - создать
                     if (!Utl.nvl(paymentDocument.isWithdraw(), false)) {
@@ -406,6 +430,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                                         .withStatus(1) // статус - загруженный
                                         .withV(1) // действующий
                                         .withComm("Не был обнаружен в биллинге, создан при экспорте!")
+                                        .withSummaOut(paymentDocument.getTotalPayableByPDWithDebtAndAdvance()) // итого долг, в т.ч. пеня
+                                        .withPenyaOut(paymentDocument.getTotalByPenaltiesAndCourtCosts()) // итого пеня
+                                        .withDt(dt)
                                         .build();
                                 em.persist(pdoc);
                             log.trace("Не был обнаружен в биллинге, создан при экспорте! CD={}, Un={}",
@@ -1279,7 +1306,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // создать по всем домам задания на экспорт ПД, если их нет
         actTp = "GIS_EXP_PAY_DOCS";
         parentCD = "SYSTEM_RPT_EXP_PD";
-        // создавать по 10 штук, иначе -блокировка Task (нужен коммит)
+        // создавать по 100 штук, иначе -блокировка Task (нужен коммит)
         a=1;
         for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
             // статус - STP, остановлено (будет запускаться другим заданием)
@@ -1293,6 +1320,24 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 break;
             }
         }
+
+		// создать по всем домам задания на экспорт Извещений по ПД, если их нет
+		actTp = "GIS_EXP_NOTIF";
+		parentCD = "SYSTEM_RPT_EXP_NOTIF";
+		// создавать по 100 штук, иначе -блокировка Task (нужен коммит)
+		a=1;
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
+			// статус - STP, остановлено (будет запускаться другим заданием)
+			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
+			// добавить как зависимое задание к системному повторяемому заданию
+			ptb.addAsChild(parentCD);
+			ptb.save();
+			log.info("Добавлено задание на экспорт Извещений по Дому Eolink.id={}", e.getId());
+			a++;
+			if (a++>=100) {
+				break;
+			}
+		}
 
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");

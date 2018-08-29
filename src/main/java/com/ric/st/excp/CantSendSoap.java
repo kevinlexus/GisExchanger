@@ -5,7 +5,6 @@ package com.ric.st.excp;
  * @author lev
  *
  */
-@SuppressWarnings("serial")
 public class CantSendSoap  extends Exception {
 
 	public CantSendSoap(String message) {
