@@ -97,7 +97,8 @@ public class SoapBuilder implements SoapBuilders{
 		// подпись
 		setSign(sign);
 
-    	rh.setIsOperatorSignature(true);
+		// подпись оператора?
+		rh.setIsOperatorSignature(true);
 
     	// установить Random Message GUID и дату
     	GregorianCalendar c = new GregorianCalendar();

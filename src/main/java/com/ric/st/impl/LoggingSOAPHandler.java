@@ -43,7 +43,7 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 
     }
 
-   
+
 	public void close(MessageContext arg0) {
 
 	}
@@ -66,7 +66,7 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 				log.info("Sended XML:");
 				dumpSOAPMessage(soapMsg);
 			}
-    	   
+
        } else {
 		Boolean sign = false;
 		if(context.containsKey("sign")){
@@ -76,11 +76,11 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 		}
 
 //		SignCommand sc = (SignCommand) context.get("sc");
-		
+
 		SOAPEnvelope soapEnv = null;
 		try {
 			soapEnv = soapMsg.getSOAPPart().getEnvelope();
-			
+
 		} catch (SOAPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// подпись элемента
 		Node nd = null;
 		if (sign) {
@@ -110,46 +110,47 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 				sgn = Soap2GisApplication.sc.signElem((String) bs.toString(), "foo", "foo");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
+
 				e1.printStackTrace();
 			}
-			
+
 			// Получить элемент подписи
 	        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 	        try {
 	        	domFactory.setNamespaceAware(true);
-	        	
+
 //	            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
 //	            dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", Boolean.TRUE);
 //	            dbf.setNamespaceAware(true);
-	        	
+
 	            DocumentBuilder builder = domFactory.newDocumentBuilder();
 	            InputSource is = new InputSource(new StringReader(sgn));
 	            Document dDoc = builder.parse(is);
-	
-	            
+
+
 	            XPath xpath = XPathFactory.newInstance().newXPath();
 	            javax.xml.xpath.XPathExpression expr = xpath.compile("//*[local-name()='Signature']");
 	            Object result = expr.evaluate(dDoc, XPathConstants.NODESET);
 	            NodeList nodes = (NodeList) result;
-	
+
 	            nd = nodes.item(0);
-	            
+
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 		}
-        // 
-        
+        //
+
 		if (sign) {
 	        Node itm = null;
 			try {
 		        SOAPBody body = soapMsg.getSOAPBody();
 				//NodeList blst = body.getElementsByTagNameNS("*", "exportNsiItemRequest");
 		        //soapMsg.getSOAPPart().getEnvelope().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:soap", "http://schemas.xmlsoap.org/soap/envelope/");
-		        
+
 		        itm = findElem(body, "Id", "foo");
 				Node itm2 = itm.getFirstChild();
-				
+
 				Document doc = body.getOwnerDocument();
 				doc.adoptNode(nd);
 				//doc.importNode(nd, false);
@@ -186,7 +187,7 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 		}
 		return null;
 	}
-	
+
 	public Set<QName> getHeaders() {
 		return null;
 	}
@@ -206,9 +207,9 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
         }
         log.info("getMessageEncoding-2");
         return encoding;
-    }	
-    
-    
+    }
+
+
     /**
      * Dump SOAP Message to console
      *
@@ -230,11 +231,11 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	    	
+
 	    }
     }
-    
-    
+
+
     /**
      * Handles SOAP-Errors.
      *
@@ -268,5 +269,5 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
         return true;
     }
 
-    
+
 }
