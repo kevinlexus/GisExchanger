@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -14,54 +15,55 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CapitalRepairType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Contribution">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
- *               &lt;totalDigits value="18"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="AccountingPeriodTotal">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
- *               &lt;totalDigits value="18"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="MoneyRecalculation">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;totalDigits value="18"/>
- *               &lt;fractionDigits value="2"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyDiscount"/>
- *         &lt;element name="TotalPayable">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;totalDigits value="18"/>
- *               &lt;fractionDigits value="2"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *         &lt;element name="CalcExplanation" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;minLength value="1"/>
- *               &lt;maxLength value="4000"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CapitalRepairType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Contribution"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"&gt;
+ *               &lt;totalDigits value="18"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="AccountingPeriodTotal"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;totalDigits value="18"/&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="MoneyRecalculation" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;totalDigits value="18"/&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills/}MoneyDiscount" minOccurs="0"/&gt;
+ *         &lt;element name="TotalPayable"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;totalDigits value="18"/&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="CalcExplanation" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;minLength value="1"/&gt;
+ *               &lt;maxLength value="4000"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -76,15 +78,18 @@ import javax.xml.bind.annotation.XmlType;
     "orgPPAGUID",
     "calcExplanation"
 })
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.bills.PaymentDocumentExportType.CapitalRepairCharge.class
+})
 public class CapitalRepairType {
 
     @XmlElement(name = "Contribution", required = true)
     protected BigDecimal contribution;
     @XmlElement(name = "AccountingPeriodTotal", required = true)
     protected BigDecimal accountingPeriodTotal;
-    @XmlElement(name = "MoneyRecalculation", required = true)
+    @XmlElement(name = "MoneyRecalculation")
     protected BigDecimal moneyRecalculation;
-    @XmlElement(name = "MoneyDiscount", required = true)
+    @XmlElement(name = "MoneyDiscount")
     protected BigDecimal moneyDiscount;
     @XmlElement(name = "TotalPayable", required = true)
     protected BigDecimal totalPayable;

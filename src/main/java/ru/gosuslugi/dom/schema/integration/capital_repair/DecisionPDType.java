@@ -18,46 +18,49 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="DecisionPDType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DecisionCommonType">
- *       &lt;sequence>
- *         &lt;element name="Reason">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element name="Protocol">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
- *                         &lt;/extension>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;element name="DecisionDocument">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;choice>
- *                             &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/>
- *                             &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                           &lt;/choice>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Model" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ModelType"/>
- *         &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="DecisionPDType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DecisionCommonType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Reason"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element name="Protocol"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType"&gt;
+ *                         &lt;/extension&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="DecisionDocument"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;choice&gt;
+ *                             &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/&gt;
+ *                             &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                           &lt;/choice&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Model" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ModelType"/&gt;
+ *         &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *         &lt;element name="TermForGranting" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}TermForGrantingType" minOccurs="0"/&gt;
+ *         &lt;element name="TermDay" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}TermDayType" minOccurs="0"/&gt;
+ *         &lt;element name="TermQualification" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}TermQualificationType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -66,11 +69,14 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
 @XmlType(name = "DecisionPDType", propOrder = {
     "reason",
     "model",
-    "organization"
+    "organization",
+    "termForGranting",
+    "termDay",
+    "termQualification"
 })
 @XmlSeeAlso({
-    ExportDecisionPDType.class,
-    ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.LoadDecision.class
+    ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsOrderOfProvidingPDRequest.ImportDecision.LoadDecision.class,
+    ExportDecisionPDType.class
 })
 public class DecisionPDType
     extends DecisionCommonType
@@ -83,6 +89,15 @@ public class DecisionPDType
     protected ModelType model;
     @XmlElement(name = "Organization", required = true)
     protected RegOrgType organization;
+    @XmlElement(name = "TermForGranting")
+    @XmlSchemaType(name = "string")
+    protected TermForGrantingType termForGranting;
+    @XmlElement(name = "TermDay")
+    @XmlSchemaType(name = "positiveInteger")
+    protected Integer termDay;
+    @XmlElement(name = "TermQualification")
+    @XmlSchemaType(name = "string")
+    protected TermQualificationType termQualification;
 
     /**
      * Gets the value of the reason property.
@@ -156,6 +171,78 @@ public class DecisionPDType
         this.organization = value;
     }
 
+    /**
+     * Gets the value of the termForGranting property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TermForGrantingType }
+     *     
+     */
+    public TermForGrantingType getTermForGranting() {
+        return termForGranting;
+    }
+
+    /**
+     * Sets the value of the termForGranting property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TermForGrantingType }
+     *     
+     */
+    public void setTermForGranting(TermForGrantingType value) {
+        this.termForGranting = value;
+    }
+
+    /**
+     * Gets the value of the termDay property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getTermDay() {
+        return termDay;
+    }
+
+    /**
+     * Sets the value of the termDay property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setTermDay(Integer value) {
+        this.termDay = value;
+    }
+
+    /**
+     * Gets the value of the termQualification property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TermQualificationType }
+     *     
+     */
+    public TermQualificationType getTermQualification() {
+        return termQualification;
+    }
+
+    /**
+     * Sets the value of the termQualification property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TermQualificationType }
+     *     
+     */
+    public void setTermQualification(TermQualificationType value) {
+        this.termQualification = value;
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -163,34 +250,34 @@ public class DecisionPDType
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="Protocol">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="DecisionDocument">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;choice>
-     *                   &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/>
-     *                   &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                 &lt;/choice>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="Protocol"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType"&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="DecisionDocument"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;choice&gt;
+     *                   &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/&gt;
+     *                   &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                 &lt;/choice&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -262,16 +349,16 @@ public class DecisionPDType
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;choice>
-         *         &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/>
-         *         &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *       &lt;/choice>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;choice&gt;
+         *         &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/&gt;
+         *         &lt;element name="DocumentIsAbsent" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *       &lt;/choice&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -345,12 +432,12 @@ public class DecisionPDType
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType"&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

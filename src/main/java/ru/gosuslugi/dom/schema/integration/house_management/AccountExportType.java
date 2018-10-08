@@ -21,67 +21,67 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccountExportType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="isUOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isRSOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isCRAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isRCAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isOGVorOMSAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isTKOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="CreationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="LivingPersonsNumber" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/>
- *         &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/>
- *         &lt;element name="ResidentialSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/>
- *         &lt;element name="HeatedArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/>
- *         &lt;element name="Closed" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ClosedAccountAttributesType" minOccurs="0"/>
- *         &lt;element name="Accommodation" maxOccurs="unbounded">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;choice>
- *                     &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *                     &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;/choice>
- *                   &lt;element name="SharePercent" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                         &lt;minInclusive value="0"/>
- *                         &lt;fractionDigits value="2"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="PayerInfo">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="IsRenter" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;element name="isAccountsDivided" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;choice minOccurs="0">
- *                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}AccountIndExportType"/>
- *                     &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AccountExportType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="isUOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isRSOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isCRAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isRCAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isOGVorOMSAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isTKOAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="CreationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="LivingPersonsNumber" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/&gt;
+ *         &lt;element name="TotalSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/&gt;
+ *         &lt;element name="ResidentialSquare" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/&gt;
+ *         &lt;element name="HeatedArea" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}PremisesAreaExportType" minOccurs="0"/&gt;
+ *         &lt;element name="Closed" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ClosedAccountAttributesType" minOccurs="0"/&gt;
+ *         &lt;element name="Accommodation" maxOccurs="unbounded"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *                     &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;element name="SharePercent" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                         &lt;minInclusive value="0"/&gt;
+ *                         &lt;fractionDigits value="2"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PayerInfo"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="IsRenter" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;element name="isAccountsDivided" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;choice minOccurs="0"&gt;
+ *                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}AccountIndExportType"/&gt;
+ *                     &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -480,27 +480,27 @@ public class AccountExportType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;choice>
-     *           &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
-     *           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;/choice>
-     *         &lt;element name="SharePercent" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;minInclusive value="0"/>
-     *               &lt;fractionDigits value="2"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+     *           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;element name="SharePercent" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *               &lt;minInclusive value="0"/&gt;
+     *               &lt;fractionDigits value="2"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -628,20 +628,20 @@ public class AccountExportType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="IsRenter" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *         &lt;element name="isAccountsDivided" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *         &lt;choice minOccurs="0">
-     *           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}AccountIndExportType"/>
-     *           &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="IsRenter" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *         &lt;element name="isAccountsDivided" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *         &lt;choice minOccurs="0"&gt;
+     *           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}AccountIndExportType"/&gt;
+     *           &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgVersionType"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

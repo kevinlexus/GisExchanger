@@ -42,14 +42,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NsiElementEnumFieldType }
-     * 
-     */
-    public NsiElementEnumFieldType createNsiElementEnumFieldType() {
-        return new NsiElementEnumFieldType();
-    }
-
-    /**
      * Create an instance of {@link NsiElementNsiRefFieldType }
      * 
      */
@@ -66,59 +58,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NsiElementIntegerFieldType }
+     * Create an instance of {@link NsiElementEnumFieldType }
      * 
      */
-    public NsiElementIntegerFieldType createNsiElementIntegerFieldType() {
-        return new NsiElementIntegerFieldType();
-    }
-
-    /**
-     * Create an instance of {@link NsiItemInfoType }
-     * 
-     */
-    public NsiItemInfoType createNsiItemInfoType() {
-        return new NsiItemInfoType();
-    }
-
-    /**
-     * Create an instance of {@link NsiElementBooleanFieldType }
-     * 
-     */
-    public NsiElementBooleanFieldType createNsiElementBooleanFieldType() {
-        return new NsiElementBooleanFieldType();
-    }
-
-    /**
-     * Create an instance of {@link NsiElementAttachmentFieldType }
-     * 
-     */
-    public NsiElementAttachmentFieldType createNsiElementAttachmentFieldType() {
-        return new NsiElementAttachmentFieldType();
-    }
-
-    /**
-     * Create an instance of {@link NsiElementStringFieldType }
-     * 
-     */
-    public NsiElementStringFieldType createNsiElementStringFieldType() {
-        return new NsiElementStringFieldType();
-    }
-
-    /**
-     * Create an instance of {@link NsiListType }
-     * 
-     */
-    public NsiListType createNsiListType() {
-        return new NsiListType();
-    }
-
-    /**
-     * Create an instance of {@link NsiElementType }
-     * 
-     */
-    public NsiElementType createNsiElementType() {
-        return new NsiElementType();
+    public NsiElementEnumFieldType createNsiElementEnumFieldType() {
+        return new NsiElementEnumFieldType();
     }
 
     /**
@@ -130,6 +74,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NsiItemInfoType }
+     * 
+     */
+    public NsiItemInfoType createNsiItemInfoType() {
+        return new NsiItemInfoType();
+    }
+
+    /**
+     * Create an instance of {@link NsiListType }
+     * 
+     */
+    public NsiListType createNsiListType() {
+        return new NsiListType();
+    }
+
+    /**
      * Create an instance of {@link NsiItemType }
      * 
      */
@@ -138,19 +98,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NsiElementOkeiRefFieldType }
+     * Create an instance of {@link NsiElementType }
      * 
      */
-    public NsiElementOkeiRefFieldType createNsiElementOkeiRefFieldType() {
-        return new NsiElementOkeiRefFieldType();
+    public NsiElementType createNsiElementType() {
+        return new NsiElementType();
     }
 
     /**
-     * Create an instance of {@link NsiElementDateFieldType }
+     * Create an instance of {@link NsiElementStringFieldType }
      * 
      */
-    public NsiElementDateFieldType createNsiElementDateFieldType() {
-        return new NsiElementDateFieldType();
+    public NsiElementStringFieldType createNsiElementStringFieldType() {
+        return new NsiElementStringFieldType();
+    }
+
+    /**
+     * Create an instance of {@link NsiElementBooleanFieldType }
+     * 
+     */
+    public NsiElementBooleanFieldType createNsiElementBooleanFieldType() {
+        return new NsiElementBooleanFieldType();
     }
 
     /**
@@ -162,19 +130,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NsiElementDateFieldType }
+     * 
+     */
+    public NsiElementDateFieldType createNsiElementDateFieldType() {
+        return new NsiElementDateFieldType();
+    }
+
+    /**
+     * Create an instance of {@link NsiElementIntegerFieldType }
+     * 
+     */
+    public NsiElementIntegerFieldType createNsiElementIntegerFieldType() {
+        return new NsiElementIntegerFieldType();
+    }
+
+    /**
+     * Create an instance of {@link NsiElementOkeiRefFieldType }
+     * 
+     */
+    public NsiElementOkeiRefFieldType createNsiElementOkeiRefFieldType() {
+        return new NsiElementOkeiRefFieldType();
+    }
+
+    /**
+     * Create an instance of {@link NsiElementAttachmentFieldType }
+     * 
+     */
+    public NsiElementAttachmentFieldType createNsiElementAttachmentFieldType() {
+        return new NsiElementAttachmentFieldType();
+    }
+
+    /**
      * Create an instance of {@link NsiElementFiasAddressRefFieldType.NsiRef }
      * 
      */
     public NsiElementFiasAddressRefFieldType.NsiRef createNsiElementFiasAddressRefFieldTypeNsiRef() {
         return new NsiElementFiasAddressRefFieldType.NsiRef();
-    }
-
-    /**
-     * Create an instance of {@link NsiElementEnumFieldType.Position }
-     * 
-     */
-    public NsiElementEnumFieldType.Position createNsiElementEnumFieldTypePosition() {
-        return new NsiElementEnumFieldType.Position();
     }
 
     /**
@@ -194,8 +186,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link NsiElementEnumFieldType.Position }
      * 
+     */
+    public NsiElementEnumFieldType.Position createNsiElementEnumFieldTypePosition() {
+        return new NsiElementEnumFieldType.Position();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/nsi-base/", name = "ListGroup")
     public JAXBElement<String> createListGroup(String value) {

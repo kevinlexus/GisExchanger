@@ -25,13 +25,13 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _ErrorMessage_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "ErrorMessage");
-    private final static QName _OrgPPAGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "orgPPAGUID");
+    private final static QName _Month_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Month");
     private final static QName _Year_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Year");
+    private final static QName _ErrorMessage_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "ErrorMessage");
     private final static QName _TransportGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "TransportGUID");
     private final static QName _ModificationDate_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "ModificationDate");
     private final static QName _OKEI_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "OKEI");
-    private final static QName _Month_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Month");
+    private final static QName _OrgPPAGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "orgPPAGUID");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.base
@@ -57,14 +57,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BaseAsyncResponseType }
-     * 
-     */
-    public BaseAsyncResponseType createBaseAsyncResponseType() {
-        return new BaseAsyncResponseType();
-    }
-
-    /**
      * Create an instance of {@link BaseType }
      * 
      */
@@ -81,51 +73,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateRequest }
+     * Create an instance of {@link BaseAsyncResponseType }
      * 
      */
-    public GetStateRequest createGetStateRequest() {
-        return new GetStateRequest();
+    public BaseAsyncResponseType createBaseAsyncResponseType() {
+        return new BaseAsyncResponseType();
     }
 
     /**
-     * Create an instance of {@link ImportResult }
+     * Create an instance of {@link RequestHeader }
      * 
      */
-    public ImportResult createImportResult() {
-        return new ImportResult();
-    }
-
-    /**
-     * Create an instance of {@link AckRequest.Ack }
-     * 
-     */
-    public AckRequest.Ack createAckRequestAck() {
-        return new AckRequest.Ack();
-    }
-
-    /**
-     * Create an instance of {@link Attachment }
-     * 
-     */
-    public Attachment createAttachment() {
-        return new Attachment();
-    }
-
-    /**
-     * Create an instance of {@link Fault }
-     * 
-     */
-    public Fault createFault() {
-        return new Fault();
-    }
-
-    /**
-     * Create an instance of {@link ISRequestHeader }
-     * 
-     */
-    public ISRequestHeader createISRequestHeader() {
-        return new ISRequestHeader();
+    public RequestHeader createRequestHeader() {
+        return new RequestHeader();
     }
 
     /**
@@ -145,11 +105,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RequestHeader }
+     * Create an instance of {@link ISRequestHeader }
      * 
      */
-    public RequestHeader createRequestHeader() {
-        return new RequestHeader();
+    public ISRequestHeader createISRequestHeader() {
+        return new ISRequestHeader();
     }
 
     /**
@@ -161,43 +121,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegionType }
+     * Create an instance of {@link Attachment }
      * 
      */
-    public RegionType createRegionType() {
-        return new RegionType();
+    public Attachment createAttachment() {
+        return new Attachment();
     }
 
     /**
-     * Create an instance of {@link AttachmentWODescriptionType }
+     * Create an instance of {@link Fault }
      * 
      */
-    public AttachmentWODescriptionType createAttachmentWODescriptionType() {
-        return new AttachmentWODescriptionType();
+    public Fault createFault() {
+        return new Fault();
     }
 
     /**
-     * Create an instance of {@link AttachmentType }
+     * Create an instance of {@link ImportResult }
      * 
      */
-    public AttachmentType createAttachmentType() {
-        return new AttachmentType();
+    public ImportResult createImportResult() {
+        return new ImportResult();
     }
 
     /**
-     * Create an instance of {@link DocumentPortalType }
+     * Create an instance of {@link AckRequest.Ack }
      * 
      */
-    public DocumentPortalType createDocumentPortalType() {
-        return new DocumentPortalType();
+    public AckRequest.Ack createAckRequestAck() {
+        return new AckRequest.Ack();
     }
 
     /**
-     * Create an instance of {@link OKTMORefType }
+     * Create an instance of {@link GetStateRequest }
      * 
      */
-    public OKTMORefType createOKTMORefType() {
-        return new OKTMORefType();
+    public GetStateRequest createGetStateRequest() {
+        return new GetStateRequest();
     }
 
     /**
@@ -209,6 +169,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AttachmentType }
+     * 
+     */
+    public AttachmentType createAttachmentType() {
+        return new AttachmentType();
+    }
+
+    /**
+     * Create an instance of {@link AttachmentWODescriptionType }
+     * 
+     */
+    public AttachmentWODescriptionType createAttachmentWODescriptionType() {
+        return new AttachmentWODescriptionType();
+    }
+
+    /**
+     * Create an instance of {@link RegionType }
+     * 
+     */
+    public RegionType createRegionType() {
+        return new RegionType();
+    }
+
+    /**
+     * Create an instance of {@link OKTMORefType }
+     * 
+     */
+    public OKTMORefType createOKTMORefType() {
+        return new OKTMORefType();
+    }
+
+    /**
+     * Create an instance of {@link DocumentPortalType }
+     * 
+     */
+    public DocumentPortalType createDocumentPortalType() {
+        return new DocumentPortalType();
+    }
+
+    /**
      * Create an instance of {@link CommonResultType.Error }
      * 
      */
@@ -217,26 +217,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ErrorMessageType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
      */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "ErrorMessage")
-    public JAXBElement<ErrorMessageType> createErrorMessage(ErrorMessageType value) {
-        return new JAXBElement<ErrorMessageType>(_ErrorMessage_QNAME, ErrorMessageType.class, null, value);
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Month")
+    public JAXBElement<Integer> createMonth(Integer value) {
+        return new JAXBElement<Integer>(_Month_QNAME, Integer.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "orgPPAGUID")
-    public JAXBElement<String> createOrgPPAGUID(String value) {
-        return new JAXBElement<String>(_OrgPPAGUID_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Short }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Year")
     public JAXBElement<Short> createYear(Short value) {
@@ -244,8 +243,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ErrorMessageType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ErrorMessageType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "ErrorMessage")
+    public JAXBElement<ErrorMessageType> createErrorMessage(ErrorMessageType value) {
+        return new JAXBElement<ErrorMessageType>(_ErrorMessage_QNAME, ErrorMessageType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "TransportGUID")
     public JAXBElement<String> createTransportGUID(String value) {
@@ -253,8 +269,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "ModificationDate")
     public JAXBElement<XMLGregorianCalendar> createModificationDate(XMLGregorianCalendar value) {
@@ -262,8 +282,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "OKEI")
     public JAXBElement<String> createOKEI(String value) {
@@ -271,12 +295,16 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Month")
-    public JAXBElement<Integer> createMonth(Integer value) {
-        return new JAXBElement<Integer>(_Month_QNAME, Integer.class, null, value);
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "orgPPAGUID")
+    public JAXBElement<String> createOrgPPAGUID(String value) {
+        return new JAXBElement<String>(_OrgPPAGUID_QNAME, String.class, null, value);
     }
 
 }

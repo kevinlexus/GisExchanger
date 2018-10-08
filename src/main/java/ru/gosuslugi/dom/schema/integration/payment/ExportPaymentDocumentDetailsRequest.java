@@ -16,56 +16,110 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID"/>
- *           &lt;sequence>
- *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/>
- *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/>
- *             &lt;choice>
- *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
- *               &lt;sequence>
- *                 &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *                 &lt;choice>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber"/>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber"/>
- *                 &lt;/choice>
- *               &lt;/sequence>
- *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/>
- *             &lt;/choice>
- *           &lt;/sequence>
- *         &lt;/choice>
- *         &lt;element name="AmountRequired" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Individual"/>
- *                   &lt;element name="Legal">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
- *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/&gt;
+ *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/&gt;
+ *             &lt;choice&gt;
+ *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+ *               &lt;sequence&gt;
+ *                 &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *                 &lt;choice minOccurs="0"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ResidentialPremise"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="255"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="ResidentialPremiseRoom" minOccurs="0"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="255"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ResidentialBlock"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="255"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="ResidentialBlockRoom" minOccurs="0"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="255"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="NonResidentialApartment"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                         &lt;maxLength value="255"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="NonResidentialBlock"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                         &lt;maxLength value="255"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/choice&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber"/&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber"/&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/sequence&gt;
+ *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/&gt;
+ *             &lt;/choice&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="AmountRequired" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Individual"/&gt;
+ *                   &lt;element name="Legal"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+ *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -77,6 +131,12 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
     "month",
     "unifiedAccountNumber",
     "fiasHouseGuid",
+    "residentialPremise",
+    "residentialPremiseRoom",
+    "residentialBlock",
+    "residentialBlockRoom",
+    "nonResidentialApartment",
+    "nonResidentialBlock",
     "accountNumber",
     "paymentDocumentNumber",
     "serviceID",
@@ -97,6 +157,18 @@ public class ExportPaymentDocumentDetailsRequest
     protected String unifiedAccountNumber;
     @XmlElement(name = "FIASHouseGuid")
     protected String fiasHouseGuid;
+    @XmlElement(name = "ResidentialPremise")
+    protected String residentialPremise;
+    @XmlElement(name = "ResidentialPremiseRoom")
+    protected String residentialPremiseRoom;
+    @XmlElement(name = "ResidentialBlock")
+    protected String residentialBlock;
+    @XmlElement(name = "ResidentialBlockRoom")
+    protected String residentialBlockRoom;
+    @XmlElement(name = "NonResidentialApartment")
+    protected String nonResidentialApartment;
+    @XmlElement(name = "NonResidentialBlock")
+    protected String nonResidentialBlock;
     @XmlElement(name = "AccountNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
     protected String accountNumber;
     @XmlElement(name = "PaymentDocumentNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
@@ -229,6 +301,150 @@ public class ExportPaymentDocumentDetailsRequest
     }
 
     /**
+     * Gets the value of the residentialPremise property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getResidentialPremise() {
+        return residentialPremise;
+    }
+
+    /**
+     * Sets the value of the residentialPremise property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setResidentialPremise(String value) {
+        this.residentialPremise = value;
+    }
+
+    /**
+     * Gets the value of the residentialPremiseRoom property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getResidentialPremiseRoom() {
+        return residentialPremiseRoom;
+    }
+
+    /**
+     * Sets the value of the residentialPremiseRoom property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setResidentialPremiseRoom(String value) {
+        this.residentialPremiseRoom = value;
+    }
+
+    /**
+     * Gets the value of the residentialBlock property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getResidentialBlock() {
+        return residentialBlock;
+    }
+
+    /**
+     * Sets the value of the residentialBlock property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setResidentialBlock(String value) {
+        this.residentialBlock = value;
+    }
+
+    /**
+     * Gets the value of the residentialBlockRoom property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getResidentialBlockRoom() {
+        return residentialBlockRoom;
+    }
+
+    /**
+     * Sets the value of the residentialBlockRoom property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setResidentialBlockRoom(String value) {
+        this.residentialBlockRoom = value;
+    }
+
+    /**
+     * Gets the value of the nonResidentialApartment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNonResidentialApartment() {
+        return nonResidentialApartment;
+    }
+
+    /**
+     * Sets the value of the nonResidentialApartment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNonResidentialApartment(String value) {
+        this.nonResidentialApartment = value;
+    }
+
+    /**
+     * Gets the value of the nonResidentialBlock property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNonResidentialBlock() {
+        return nonResidentialBlock;
+    }
+
+    /**
+     * Sets the value of the nonResidentialBlock property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNonResidentialBlock(String value) {
+        this.nonResidentialBlock = value;
+    }
+
+    /**
      * Gets the value of the accountNumber property.
      * 
      * @return
@@ -333,11 +549,7 @@ public class ExportPaymentDocumentDetailsRequest
      *     
      */
     public String getVersion() {
-        if (version == null) {
-            return "10.0.1.1";
-        } else {
-            return version;
-        }
+        return version;
     }
 
     /**
@@ -359,27 +571,27 @@ public class ExportPaymentDocumentDetailsRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Individual"/>
-     *         &lt;element name="Legal">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Individual"/&gt;
+     *         &lt;element name="Legal"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -451,16 +663,16 @@ public class ExportPaymentDocumentDetailsRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

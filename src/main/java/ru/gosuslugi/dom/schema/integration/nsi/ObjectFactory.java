@@ -30,19 +30,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ImportAdditionalServicesRequest }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportNsiPagingItemResult }
-     * 
-     */
-    public ExportNsiPagingItemResult createExportNsiPagingItemResult() {
-        return new ExportNsiPagingItemResult();
+    public ImportAdditionalServicesRequest createImportAdditionalServicesRequest() {
+        return new ImportAdditionalServicesRequest();
     }
 
     /**
@@ -62,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportCapitalRepairWorkRequest }
+     * 
+     */
+    public ImportCapitalRepairWorkRequest createImportCapitalRepairWorkRequest() {
+        return new ImportCapitalRepairWorkRequest();
+    }
+
+    /**
      * Create an instance of {@link ImportCommunalInfrastructureSystemRequest }
      * 
      */
@@ -78,43 +78,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportAdditionalServicesRequest }
+     * Create an instance of {@link ExportNsiPagingItemResult }
      * 
      */
-    public ImportAdditionalServicesRequest createImportAdditionalServicesRequest() {
-        return new ImportAdditionalServicesRequest();
+    public ExportNsiPagingItemResult createExportNsiPagingItemResult() {
+        return new ExportNsiPagingItemResult();
     }
 
     /**
-     * Create an instance of {@link ImportCapitalRepairWorkRequest }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ImportCapitalRepairWorkRequest createImportCapitalRepairWorkRequest() {
-        return new ImportCapitalRepairWorkRequest();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
-     * Create an instance of {@link GetStateResult.NsiPagingItem }
+     * Create an instance of {@link ExportNsiItemResult }
      * 
      */
-    public GetStateResult.NsiPagingItem createGetStateResultNsiPagingItem() {
-        return new GetStateResult.NsiPagingItem();
+    public ExportNsiItemResult createExportNsiItemResult() {
+        return new ExportNsiItemResult();
     }
 
     /**
-     * Create an instance of {@link ExportDataProviderNsiPagingItemRequest }
+     * Create an instance of {@link ImportAdditionalServicesRequest.ImportAdditionalServiceType }
      * 
      */
-    public ExportDataProviderNsiPagingItemRequest createExportDataProviderNsiPagingItemRequest() {
-        return new ExportDataProviderNsiPagingItemRequest();
+    public ImportAdditionalServicesRequest.ImportAdditionalServiceType createImportAdditionalServicesRequestImportAdditionalServiceType() {
+        return new ImportAdditionalServicesRequest.ImportAdditionalServiceType();
     }
 
     /**
-     * Create an instance of {@link ExportNsiPagingItemResult.NsiItem }
+     * Create an instance of {@link ImportAdditionalServicesRequest.RecoverAdditionalServiceType }
      * 
      */
-    public ExportNsiPagingItemResult.NsiItem createExportNsiPagingItemResultNsiItem() {
-        return new ExportNsiPagingItemResult.NsiItem();
+    public ImportAdditionalServicesRequest.RecoverAdditionalServiceType createImportAdditionalServicesRequestRecoverAdditionalServiceType() {
+        return new ImportAdditionalServicesRequest.RecoverAdditionalServiceType();
+    }
+
+    /**
+     * Create an instance of {@link ImportAdditionalServicesRequest.DeleteAdditionalServiceType }
+     * 
+     */
+    public ImportAdditionalServicesRequest.DeleteAdditionalServiceType createImportAdditionalServicesRequestDeleteAdditionalServiceType() {
+        return new ImportAdditionalServicesRequest.DeleteAdditionalServiceType();
     }
 
     /**
@@ -163,6 +171,30 @@ public class ObjectFactory {
      */
     public ImportOrganizationWorksRequest.DeleteOrganizationWork createImportOrganizationWorksRequestDeleteOrganizationWork() {
         return new ImportOrganizationWorksRequest.DeleteOrganizationWork();
+    }
+
+    /**
+     * Create an instance of {@link ImportCapitalRepairWorkType }
+     * 
+     */
+    public ImportCapitalRepairWorkType createImportCapitalRepairWorkType() {
+        return new ImportCapitalRepairWorkType();
+    }
+
+    /**
+     * Create an instance of {@link ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork }
+     * 
+     */
+    public ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork createImportCapitalRepairWorkRequestRecoverCapitalRepairWork() {
+        return new ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork();
+    }
+
+    /**
+     * Create an instance of {@link ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork }
+     * 
+     */
+    public ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork createImportCapitalRepairWorkRequestDeleteCapitalRepairWork() {
+        return new ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork();
     }
 
     /**
@@ -222,59 +254,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiItemResult }
+     * Create an instance of {@link ExportDataProviderNsiPagingItemRequest }
      * 
      */
-    public ExportNsiItemResult createExportNsiItemResult() {
-        return new ExportNsiItemResult();
+    public ExportDataProviderNsiPagingItemRequest createExportDataProviderNsiPagingItemRequest() {
+        return new ExportDataProviderNsiPagingItemRequest();
     }
 
     /**
-     * Create an instance of {@link ImportAdditionalServicesRequest.ImportAdditionalServiceType }
+     * Create an instance of {@link ExportNsiPagingItemResult.NsiItem }
      * 
      */
-    public ImportAdditionalServicesRequest.ImportAdditionalServiceType createImportAdditionalServicesRequestImportAdditionalServiceType() {
-        return new ImportAdditionalServicesRequest.ImportAdditionalServiceType();
+    public ExportNsiPagingItemResult.NsiItem createExportNsiPagingItemResultNsiItem() {
+        return new ExportNsiPagingItemResult.NsiItem();
     }
 
     /**
-     * Create an instance of {@link ImportAdditionalServicesRequest.RecoverAdditionalServiceType }
+     * Create an instance of {@link GetStateResult.NsiPagingItem }
      * 
      */
-    public ImportAdditionalServicesRequest.RecoverAdditionalServiceType createImportAdditionalServicesRequestRecoverAdditionalServiceType() {
-        return new ImportAdditionalServicesRequest.RecoverAdditionalServiceType();
-    }
-
-    /**
-     * Create an instance of {@link ImportAdditionalServicesRequest.DeleteAdditionalServiceType }
-     * 
-     */
-    public ImportAdditionalServicesRequest.DeleteAdditionalServiceType createImportAdditionalServicesRequestDeleteAdditionalServiceType() {
-        return new ImportAdditionalServicesRequest.DeleteAdditionalServiceType();
-    }
-
-    /**
-     * Create an instance of {@link ImportCapitalRepairWorkType }
-     * 
-     */
-    public ImportCapitalRepairWorkType createImportCapitalRepairWorkType() {
-        return new ImportCapitalRepairWorkType();
-    }
-
-    /**
-     * Create an instance of {@link ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork }
-     * 
-     */
-    public ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork createImportCapitalRepairWorkRequestRecoverCapitalRepairWork() {
-        return new ImportCapitalRepairWorkRequest.RecoverCapitalRepairWork();
-    }
-
-    /**
-     * Create an instance of {@link ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork }
-     * 
-     */
-    public ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork createImportCapitalRepairWorkRequestDeleteCapitalRepairWork() {
-        return new ImportCapitalRepairWorkRequest.DeleteCapitalRepairWork();
+    public GetStateResult.NsiPagingItem createGetStateResultNsiPagingItem() {
+        return new GetStateResult.NsiPagingItem();
     }
 
 }

@@ -23,40 +23,43 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ContractPaymentsInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="HouseManagementPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/>
- *         &lt;element name="Protocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="ServicePayment" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Type">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;length value="1"/>
- *               &lt;enumeration value="P"/>
- *               &lt;enumeration value="C"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ContractPaymentsInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="HouseManagementPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyPositiveType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Protocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="ServicePayment" maxOccurs="unbounded" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Type"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;length value="1"/&gt;
+ *               &lt;enumeration value="P"/&gt;
+ *               &lt;enumeration value="C"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -67,13 +70,14 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "endDate",
     "houseManagementPaymentSize",
     "protocol",
+    "votingProtocolGUID",
     "servicePayment",
     "type",
     "contractObjectVersionGUID"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractPaymentsInfo.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlaceContractPaymentsInfo.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlaceContractPaymentsInfo.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractPaymentsInfo.class
 })
 public class ContractPaymentsInfoType {
 
@@ -87,6 +91,8 @@ public class ContractPaymentsInfoType {
     protected BigDecimal houseManagementPaymentSize;
     @XmlElement(name = "Protocol")
     protected List<AttachmentType> protocol;
+    @XmlElement(name = "VotingProtocolGUID")
+    protected String votingProtocolGUID;
     @XmlElement(name = "ServicePayment")
     protected List<ContractPaymentsInfoType.ServicePayment> servicePayment;
     @XmlElement(name = "Type", required = true)
@@ -196,6 +202,30 @@ public class ContractPaymentsInfoType {
     }
 
     /**
+     * Gets the value of the votingProtocolGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVotingProtocolGUID() {
+        return votingProtocolGUID;
+    }
+
+    /**
+     * Sets the value of the votingProtocolGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVotingProtocolGUID(String value) {
+        this.votingProtocolGUID = value;
+    }
+
+    /**
      * Gets the value of the servicePayment property.
      * 
      * <p>
@@ -279,16 +309,16 @@ public class ContractPaymentsInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

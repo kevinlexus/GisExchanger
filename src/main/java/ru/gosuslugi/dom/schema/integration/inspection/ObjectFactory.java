@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportExaminationsRequest }
-     * 
-     */
-    public ImportExaminationsRequest createImportExaminationsRequest() {
-        return new ImportExaminationsRequest();
-    }
-
-    /**
      * Create an instance of {@link ImportInspectionPlanRequest }
      * 
      */
@@ -46,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ScheduledExaminationSubjectInfoType }
+     * Create an instance of {@link ImportExaminationsRequest }
      * 
      */
-    public ScheduledExaminationSubjectInfoType createScheduledExaminationSubjectInfoType() {
-        return new ScheduledExaminationSubjectInfoType();
+    public ImportExaminationsRequest createImportExaminationsRequest() {
+        return new ImportExaminationsRequest();
     }
 
     /**
@@ -102,22 +94,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType }
-     * 
-     */
-    public ScheduledExaminationSubjectInPlanInfoType createScheduledExaminationSubjectInPlanInfoType() {
-        return new ScheduledExaminationSubjectInPlanInfoType();
-    }
-
-    /**
-     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType }
-     * 
-     */
-    public ExportUnscheduledExaminationSubjectInfoType createExportUnscheduledExaminationSubjectInfoType() {
-        return new ExportUnscheduledExaminationSubjectInfoType();
-    }
-
-    /**
      * Create an instance of {@link ExaminationType }
      * 
      */
@@ -158,6 +134,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ResultsInfoType }
+     * 
+     */
+    public ResultsInfoType createResultsInfoType() {
+        return new ResultsInfoType();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationResultsType }
+     * 
+     */
+    public ExportExaminationResultsType createExportExaminationResultsType() {
+        return new ExportExaminationResultsType();
+    }
+
+    /**
+     * Create an instance of {@link ExaminationResultType }
+     * 
+     */
+    public ExaminationResultType createExaminationResultType() {
+        return new ExaminationResultType();
+    }
+
+    /**
      * Create an instance of {@link ExportPlannedExaminationType }
      * 
      */
@@ -190,6 +190,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType }
+     * 
+     */
+    public ExportUnscheduledExaminationSubjectInfoType createExportUnscheduledExaminationSubjectInfoType() {
+        return new ExportUnscheduledExaminationSubjectInfoType();
+    }
+
+    /**
      * Create an instance of {@link UnscheduledExaminationSubjectInfoType }
      * 
      */
@@ -198,43 +206,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ResultsInfoType }
+     * Create an instance of {@link ScheduledExaminationSubjectInfoType }
      * 
      */
-    public ResultsInfoType createResultsInfoType() {
-        return new ResultsInfoType();
+    public ScheduledExaminationSubjectInfoType createScheduledExaminationSubjectInfoType() {
+        return new ScheduledExaminationSubjectInfoType();
     }
 
     /**
-     * Create an instance of {@link ExaminationResultType }
+     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType }
      * 
      */
-    public ExaminationResultType createExaminationResultType() {
-        return new ExaminationResultType();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationResultsType }
-     * 
-     */
-    public ExportExaminationResultsType createExportExaminationResultsType() {
-        return new ExportExaminationResultsType();
-    }
-
-    /**
-     * Create an instance of {@link ImportInspectionPlanRequest.ImportInspectionPlan }
-     * 
-     */
-    public ImportInspectionPlanRequest.ImportInspectionPlan createImportInspectionPlanRequestImportInspectionPlan() {
-        return new ImportInspectionPlanRequest.ImportInspectionPlan();
-    }
-
-    /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination createImportExaminationsRequestImportExamination() {
-        return new ImportExaminationsRequest.ImportExamination();
+    public ScheduledExaminationSubjectInPlanInfoType createScheduledExaminationSubjectInPlanInfoType() {
+        return new ScheduledExaminationSubjectInPlanInfoType();
     }
 
     /**
@@ -243,6 +227,14 @@ public class ObjectFactory {
      */
     public ExportExaminationResultType createExportExaminationResultType() {
         return new ExportExaminationResultType();
+    }
+
+    /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination createImportExaminationsRequestImportExamination() {
+        return new ImportExaminationsRequest.ImportExamination();
     }
 
     /**
@@ -259,6 +251,54 @@ public class ObjectFactory {
      */
     public ExportInspectionPlanResultType.PlannedExamination createExportInspectionPlanResultTypePlannedExamination() {
         return new ExportInspectionPlanResultType.PlannedExamination();
+    }
+
+    /**
+     * Create an instance of {@link ImportInspectionPlanRequest.ImportInspectionPlan }
+     * 
+     */
+    public ImportInspectionPlanRequest.ImportInspectionPlan createImportInspectionPlanRequestImportInspectionPlan() {
+        return new ImportInspectionPlanRequest.ImportInspectionPlan();
+    }
+
+    /**
+     * Create an instance of {@link ExportInspectionPlansRequest }
+     * 
+     */
+    public ExportInspectionPlansRequest createExportInspectionPlansRequest() {
+        return new ExportInspectionPlansRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportInspectionPlansResult }
+     * 
+     */
+    public ExportInspectionPlansResult createExportInspectionPlansResult() {
+        return new ExportInspectionPlansResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationsRequest }
+     * 
+     */
+    public ExportExaminationsRequest createExportExaminationsRequest() {
+        return new ExportExaminationsRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationsResult }
+     * 
+     */
+    public ExportExaminationsResult createExportExaminationsResult() {
+        return new ExportExaminationsResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationURIStateRequest }
+     * 
+     */
+    public ExportExaminationURIStateRequest createExportExaminationURIStateRequest() {
+        return new ExportExaminationURIStateRequest();
     }
 
     /**
@@ -286,46 +326,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportInspectionPlansRequest }
-     * 
-     */
-    public ExportInspectionPlansRequest createExportInspectionPlansRequest() {
-        return new ExportInspectionPlansRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationsRequest }
-     * 
-     */
-    public ExportExaminationsRequest createExportExaminationsRequest() {
-        return new ExportExaminationsRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationsResult }
-     * 
-     */
-    public ExportExaminationsResult createExportExaminationsResult() {
-        return new ExportExaminationsResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportInspectionPlansResult }
-     * 
-     */
-    public ExportInspectionPlansResult createExportInspectionPlansResult() {
-        return new ExportInspectionPlansResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationURIStateRequest }
-     * 
-     */
-    public ExportExaminationURIStateRequest createExportExaminationURIStateRequest() {
-        return new ExportExaminationURIStateRequest();
-    }
-
-    /**
      * Create an instance of {@link CitizenInfoType }
      * 
      */
@@ -342,6 +342,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InspectionPlanType }
+     * 
+     */
+    public InspectionPlanType createInspectionPlanType() {
+        return new InspectionPlanType();
+    }
+
+    /**
+     * Create an instance of {@link ExaminationChangeInfoType }
+     * 
+     */
+    public ExaminationChangeInfoType createExaminationChangeInfoType() {
+        return new ExaminationChangeInfoType();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationChangeInfoType }
+     * 
+     */
+    public ExportExaminationChangeInfoType createExportExaminationChangeInfoType() {
+        return new ExportExaminationChangeInfoType();
+    }
+
+    /**
      * Create an instance of {@link ExaminationEventType }
      * 
      */
@@ -350,27 +374,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportCancelledInfoWithAttachmentsType }
+     * Create an instance of {@link ExaminationPlaceType }
      * 
      */
-    public ExportCancelledInfoWithAttachmentsType createExportCancelledInfoWithAttachmentsType() {
-        return new ExportCancelledInfoWithAttachmentsType();
+    public ExaminationPlaceType createExaminationPlaceType() {
+        return new ExaminationPlaceType();
     }
 
     /**
-     * Create an instance of {@link ExportProsecutorAgreementInformationType }
+     * Create an instance of {@link PreceptType }
      * 
      */
-    public ExportProsecutorAgreementInformationType createExportProsecutorAgreementInformationType() {
-        return new ExportProsecutorAgreementInformationType();
-    }
-
-    /**
-     * Create an instance of {@link ProsecutorAgreementInformationType }
-     * 
-     */
-    public ProsecutorAgreementInformationType createProsecutorAgreementInformationType() {
-        return new ProsecutorAgreementInformationType();
+    public PreceptType createPreceptType() {
+        return new PreceptType();
     }
 
     /**
@@ -382,11 +398,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link OffenceType }
+     * 
+     */
+    public OffenceType createOffenceType() {
+        return new OffenceType();
+    }
+
+    /**
      * Create an instance of {@link ExportOffenceType }
      * 
      */
     public ExportOffenceType createExportOffenceType() {
         return new ExportOffenceType();
+    }
+
+    /**
+     * Create an instance of {@link CancelledInfoWithAttachmentsType }
+     * 
+     */
+    public CancelledInfoWithAttachmentsType createCancelledInfoWithAttachmentsType() {
+        return new CancelledInfoWithAttachmentsType();
+    }
+
+    /**
+     * Create an instance of {@link ExportCancelledInfoWithAttachmentsType }
+     * 
+     */
+    public ExportCancelledInfoWithAttachmentsType createExportCancelledInfoWithAttachmentsType() {
+        return new ExportCancelledInfoWithAttachmentsType();
+    }
+
+    /**
+     * Create an instance of {@link FulfilePreceptType }
+     * 
+     */
+    public FulfilePreceptType createFulfilePreceptType() {
+        return new FulfilePreceptType();
     }
 
     /**
@@ -406,83 +454,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InspectionPlanType }
+     * Create an instance of {@link ProsecutorAgreementInformationType }
      * 
      */
-    public InspectionPlanType createInspectionPlanType() {
-        return new InspectionPlanType();
+    public ProsecutorAgreementInformationType createProsecutorAgreementInformationType() {
+        return new ProsecutorAgreementInformationType();
     }
 
     /**
-     * Create an instance of {@link CancelledInfoWithAttachmentsType }
+     * Create an instance of {@link ExportProsecutorAgreementInformationType }
      * 
      */
-    public CancelledInfoWithAttachmentsType createCancelledInfoWithAttachmentsType() {
-        return new CancelledInfoWithAttachmentsType();
-    }
-
-    /**
-     * Create an instance of {@link FulfilePreceptType }
-     * 
-     */
-    public FulfilePreceptType createFulfilePreceptType() {
-        return new FulfilePreceptType();
-    }
-
-    /**
-     * Create an instance of {@link ExaminationPlaceType }
-     * 
-     */
-    public ExaminationPlaceType createExaminationPlaceType() {
-        return new ExaminationPlaceType();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationChangeInfoType }
-     * 
-     */
-    public ExportExaminationChangeInfoType createExportExaminationChangeInfoType() {
-        return new ExportExaminationChangeInfoType();
-    }
-
-    /**
-     * Create an instance of {@link OffenceType }
-     * 
-     */
-    public OffenceType createOffenceType() {
-        return new OffenceType();
-    }
-
-    /**
-     * Create an instance of {@link ExaminationChangeInfoType }
-     * 
-     */
-    public ExaminationChangeInfoType createExaminationChangeInfoType() {
-        return new ExaminationChangeInfoType();
-    }
-
-    /**
-     * Create an instance of {@link PreceptType }
-     * 
-     */
-    public PreceptType createPreceptType() {
-        return new PreceptType();
-    }
-
-    /**
-     * Create an instance of {@link ScheduledExaminationSubjectInfoType.Organization }
-     * 
-     */
-    public ScheduledExaminationSubjectInfoType.Organization createScheduledExaminationSubjectInfoTypeOrganization() {
-        return new ScheduledExaminationSubjectInfoType.Organization();
-    }
-
-    /**
-     * Create an instance of {@link ScheduledExaminationSubjectInfoType.Individual }
-     * 
-     */
-    public ScheduledExaminationSubjectInfoType.Individual createScheduledExaminationSubjectInfoTypeIndividual() {
-        return new ScheduledExaminationSubjectInfoType.Individual();
+    public ExportProsecutorAgreementInformationType createExportProsecutorAgreementInformationType() {
+        return new ExportProsecutorAgreementInformationType();
     }
 
     /**
@@ -582,38 +566,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType.Organization }
-     * 
-     */
-    public ScheduledExaminationSubjectInPlanInfoType.Organization createScheduledExaminationSubjectInPlanInfoTypeOrganization() {
-        return new ScheduledExaminationSubjectInPlanInfoType.Organization();
-    }
-
-    /**
-     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType.Individual }
-     * 
-     */
-    public ScheduledExaminationSubjectInPlanInfoType.Individual createScheduledExaminationSubjectInPlanInfoTypeIndividual() {
-        return new ScheduledExaminationSubjectInPlanInfoType.Individual();
-    }
-
-    /**
-     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType.Organization }
-     * 
-     */
-    public ExportUnscheduledExaminationSubjectInfoType.Organization createExportUnscheduledExaminationSubjectInfoTypeOrganization() {
-        return new ExportUnscheduledExaminationSubjectInfoType.Organization();
-    }
-
-    /**
-     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType.Individual }
-     * 
-     */
-    public ExportUnscheduledExaminationSubjectInfoType.Individual createExportUnscheduledExaminationSubjectInfoTypeIndividual() {
-        return new ExportUnscheduledExaminationSubjectInfoType.Individual();
-    }
-
-    /**
      * Create an instance of {@link ExaminationType.NotificationInfo }
      * 
      */
@@ -678,6 +630,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ResultsInfoType.FinishedInfo }
+     * 
+     */
+    public ResultsInfoType.FinishedInfo createResultsInfoTypeFinishedInfo() {
+        return new ResultsInfoType.FinishedInfo();
+    }
+
+    /**
+     * Create an instance of {@link ResultsInfoType.FamiliarizationInfo }
+     * 
+     */
+    public ResultsInfoType.FamiliarizationInfo createResultsInfoTypeFamiliarizationInfo() {
+        return new ResultsInfoType.FamiliarizationInfo();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationResultsType.IdentifiedOffencesInfo }
+     * 
+     */
+    public ExportExaminationResultsType.IdentifiedOffencesInfo createExportExaminationResultsTypeIdentifiedOffencesInfo() {
+        return new ExportExaminationResultsType.IdentifiedOffencesInfo();
+    }
+
+    /**
+     * Create an instance of {@link ExportExaminationResultsType.Duration }
+     * 
+     */
+    public ExportExaminationResultsType.Duration createExportExaminationResultsTypeDuration() {
+        return new ExportExaminationResultsType.Duration();
+    }
+
+    /**
+     * Create an instance of {@link ExaminationResultType.IdentifiedOffencesInfo }
+     * 
+     */
+    public ExaminationResultType.IdentifiedOffencesInfo createExaminationResultTypeIdentifiedOffencesInfo() {
+        return new ExaminationResultType.IdentifiedOffencesInfo();
+    }
+
+    /**
+     * Create an instance of {@link ExaminationResultType.Duration }
+     * 
+     */
+    public ExaminationResultType.Duration createExaminationResultTypeDuration() {
+        return new ExaminationResultType.Duration();
+    }
+
+    /**
      * Create an instance of {@link ExportPlannedExaminationType.RegulatoryAuthorityInformation }
      * 
      */
@@ -710,6 +710,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType.Organization }
+     * 
+     */
+    public ExportUnscheduledExaminationSubjectInfoType.Organization createExportUnscheduledExaminationSubjectInfoTypeOrganization() {
+        return new ExportUnscheduledExaminationSubjectInfoType.Organization();
+    }
+
+    /**
+     * Create an instance of {@link ExportUnscheduledExaminationSubjectInfoType.Individual }
+     * 
+     */
+    public ExportUnscheduledExaminationSubjectInfoType.Individual createExportUnscheduledExaminationSubjectInfoTypeIndividual() {
+        return new ExportUnscheduledExaminationSubjectInfoType.Individual();
+    }
+
+    /**
      * Create an instance of {@link UnscheduledExaminationSubjectInfoType.Organization }
      * 
      */
@@ -726,75 +742,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ResultsInfoType.FinishedInfo }
+     * Create an instance of {@link ScheduledExaminationSubjectInfoType.Organization }
      * 
      */
-    public ResultsInfoType.FinishedInfo createResultsInfoTypeFinishedInfo() {
-        return new ResultsInfoType.FinishedInfo();
+    public ScheduledExaminationSubjectInfoType.Organization createScheduledExaminationSubjectInfoTypeOrganization() {
+        return new ScheduledExaminationSubjectInfoType.Organization();
     }
 
     /**
-     * Create an instance of {@link ResultsInfoType.FamiliarizationInfo }
+     * Create an instance of {@link ScheduledExaminationSubjectInfoType.Individual }
      * 
      */
-    public ResultsInfoType.FamiliarizationInfo createResultsInfoTypeFamiliarizationInfo() {
-        return new ResultsInfoType.FamiliarizationInfo();
+    public ScheduledExaminationSubjectInfoType.Individual createScheduledExaminationSubjectInfoTypeIndividual() {
+        return new ScheduledExaminationSubjectInfoType.Individual();
     }
 
     /**
-     * Create an instance of {@link ExaminationResultType.IdentifiedOffencesInfo }
+     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType.Organization }
      * 
      */
-    public ExaminationResultType.IdentifiedOffencesInfo createExaminationResultTypeIdentifiedOffencesInfo() {
-        return new ExaminationResultType.IdentifiedOffencesInfo();
+    public ScheduledExaminationSubjectInPlanInfoType.Organization createScheduledExaminationSubjectInPlanInfoTypeOrganization() {
+        return new ScheduledExaminationSubjectInPlanInfoType.Organization();
     }
 
     /**
-     * Create an instance of {@link ExaminationResultType.Duration }
+     * Create an instance of {@link ScheduledExaminationSubjectInPlanInfoType.Individual }
      * 
      */
-    public ExaminationResultType.Duration createExaminationResultTypeDuration() {
-        return new ExaminationResultType.Duration();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationResultsType.IdentifiedOffencesInfo }
-     * 
-     */
-    public ExportExaminationResultsType.IdentifiedOffencesInfo createExportExaminationResultsTypeIdentifiedOffencesInfo() {
-        return new ExportExaminationResultsType.IdentifiedOffencesInfo();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationResultsType.Duration }
-     * 
-     */
-    public ExportExaminationResultsType.Duration createExportExaminationResultsTypeDuration() {
-        return new ExportExaminationResultsType.Duration();
-    }
-
-    /**
-     * Create an instance of {@link ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination }
-     * 
-     */
-    public ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination createImportInspectionPlanRequestImportInspectionPlanImportPlannedExamination() {
-        return new ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination();
-    }
-
-    /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportPrecept }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination.ImportPrecept createImportExaminationsRequestImportExaminationImportPrecept() {
-        return new ImportExaminationsRequest.ImportExamination.ImportPrecept();
-    }
-
-    /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportOffence }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination.ImportOffence createImportExaminationsRequestImportExaminationImportOffence() {
-        return new ImportExaminationsRequest.ImportExamination.ImportOffence();
+    public ScheduledExaminationSubjectInPlanInfoType.Individual createScheduledExaminationSubjectInPlanInfoTypeIndividual() {
+        return new ScheduledExaminationSubjectInPlanInfoType.Individual();
     }
 
     /**
@@ -814,6 +790,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportPrecept }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination.ImportPrecept createImportExaminationsRequestImportExaminationImportPrecept() {
+        return new ImportExaminationsRequest.ImportExamination.ImportPrecept();
+    }
+
+    /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportOffence }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination.ImportOffence createImportExaminationsRequestImportExaminationImportOffence() {
+        return new ImportExaminationsRequest.ImportExamination.ImportOffence();
+    }
+
+    /**
      * Create an instance of {@link ExportInspectionPlanResultType.InspectionPlan }
      * 
      */
@@ -827,6 +819,14 @@ public class ObjectFactory {
      */
     public ExportInspectionPlanResultType.PlannedExamination.PlannedExaminationInfo createExportInspectionPlanResultTypePlannedExaminationPlannedExaminationInfo() {
         return new ExportInspectionPlanResultType.PlannedExamination.PlannedExaminationInfo();
+    }
+
+    /**
+     * Create an instance of {@link ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination }
+     * 
+     */
+    public ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination createImportInspectionPlanRequestImportInspectionPlanImportPlannedExamination() {
+        return new ImportInspectionPlanRequest.ImportInspectionPlan.ImportPlannedExamination();
     }
 
 }

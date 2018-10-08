@@ -17,31 +17,31 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GKNRelationshipStatusType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Status">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;length value="1"/>
- *               &lt;enumeration value="C"/>
- *               &lt;enumeration value="D"/>
- *               &lt;enumeration value="N"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;choice>
- *           &lt;element name="AppartmentHouseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="LivingHouseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="NonResidentialPremiseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremiseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="ResidentialPremiseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremiseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="RoomAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="GKNRelationshipStatusType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Status"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;length value="1"/&gt;
+ *               &lt;enumeration value="C"/&gt;
+ *               &lt;enumeration value="D"/&gt;
+ *               &lt;enumeration value="N"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="AppartmentHouseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="LivingHouseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="NonResidentialPremiseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremiseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="ResidentialPremiseAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremiseAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="RoomAcceptedParameter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomAcceptedParameterType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -19,71 +19,71 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="ImportMainMunicipalService" maxOccurs="1000" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                     &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="MunicipalServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="GeneralNeeds" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
- *                   &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
- *                   &lt;choice>
- *                     &lt;element name="SortOrder">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;maxLength value="3"/>
- *                           &lt;minLength value="1"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="SortOrderNotDefined" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="RecoverMainMunicipalService" maxOccurs="1000" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;element name="HierarchyRecover" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="DeleteMainMunicipalService" maxOccurs="1000" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.4""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ImportMainMunicipalService" maxOccurs="1000" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                     &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="MunicipalServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element name="GeneralNeeds" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+ *                   &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="SortOrder"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;maxLength value="3"/&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="SortOrderNotDefined" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="RecoverMainMunicipalService" maxOccurs="1000" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                   &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;element name="HierarchyRecover" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="DeleteMainMunicipalService" maxOccurs="1000" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                   &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.4""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -230,16 +230,16 @@ public class ImportMunicipalServicesRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *         &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -313,35 +313,35 @@ public class ImportMunicipalServicesRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;sequence>
-     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *           &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="MunicipalServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="GeneralNeeds" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *         &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *         &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
-     *         &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
-     *         &lt;choice>
-     *           &lt;element name="SortOrder">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;maxLength value="3"/>
-     *                 &lt;minLength value="1"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="SortOrderNotDefined" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *           &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;element name="MunicipalServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="GeneralNeeds" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *         &lt;element name="SelfProduced" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *         &lt;element name="MainMunicipalServiceName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+     *         &lt;element name="MunicipalResourceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="SortOrder"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                 &lt;maxLength value="3"/&gt;
+     *                 &lt;minLength value="1"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="SortOrderNotDefined" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -632,17 +632,17 @@ public class ImportMunicipalServicesRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;element name="HierarchyRecover" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *         &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *         &lt;element name="HierarchyRecover" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

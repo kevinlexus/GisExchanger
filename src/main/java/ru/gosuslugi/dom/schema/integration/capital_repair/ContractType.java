@@ -23,46 +23,46 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ContractType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Sum" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;choice>
- *           &lt;element name="Customer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *           &lt;element name="Individual">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType">
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *         &lt;element name="Performer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *         &lt;element name="Work" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractType" maxOccurs="10000"/>
- *         &lt;element name="AttachContract" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/>
- *         &lt;choice>
- *           &lt;element name="WarrantyMonthCount" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
- *           &lt;element name="WarrantyNotSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="AttachOutlay" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/>
- *           &lt;element name="OutlayMissing" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="TenderInetAddress" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
- *           &lt;element name="TenderNotProvided" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="Dissolve" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DissolveContractType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ContractType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="Sum" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Customer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *           &lt;element name="Individual"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType"&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="Performer" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *         &lt;element name="Work" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractType" maxOccurs="10000"/&gt;
+ *         &lt;element name="AttachContract" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="WarrantyMonthCount" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/&gt;
+ *           &lt;element name="WarrantyNotSet" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="AttachOutlay" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/&gt;
+ *           &lt;element name="OutlayMissing" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="TenderInetAddress" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/&gt;
+ *           &lt;element name="TenderNotProvided" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="Dissolve" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DissolveContractType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -558,12 +558,12 @@ public class ContractType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType">
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}IndividualType"&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

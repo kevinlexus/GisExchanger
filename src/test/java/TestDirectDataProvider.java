@@ -1,8 +1,8 @@
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.dao.NotifDAO;
-import com.ric.bill.dao.PdocDAO;
-import com.ric.bill.mm.PdocMng;
-import com.ric.bill.model.exs.Eolink;
+import com.dic.bill.dao.EolinkDAO;
+import com.dic.bill.dao.NotifDAO;
+import com.dic.bill.dao.PdocDAO;
+import com.dic.bill.mm.PdocMng;
+import com.dic.bill.model.exs.Eolink;
 import com.ric.st.DataProviders;
 import com.ric.st.impl.DirectDataProvider;
 import com.ric.st.mm.DebMng;

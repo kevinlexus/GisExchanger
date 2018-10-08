@@ -20,18 +20,18 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TerminationInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Reason" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type"/>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type" minOccurs="0"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="AttachDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TerminationInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Reason" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type"/&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type" minOccurs="0"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="AttachDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

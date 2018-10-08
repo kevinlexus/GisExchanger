@@ -17,248 +17,248 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="QualityServicesType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ObjectAddress">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
- *                 &lt;sequence>
- *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;choice>
- *           &lt;element name="ColdWater">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="IsSignedAct">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="ColdWaterConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityDays">
- *                                             &lt;simpleType>
- *                                               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType">
- *                                               &lt;/restriction>
- *                                             &lt;/simpleType>
- *                                           &lt;/element>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="HotWater">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="IsSignedAct">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="TemperatureConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                               &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                               &lt;element name="HotWaterConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="Electricity">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="IsSignedAct">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="ElectricityConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="Gas">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="IsSignedAct">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="GasConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="Heating">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;choice>
- *                     &lt;element name="IsSignedAct">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="HeatingConformity">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;choice>
- *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                         &lt;sequence>
- *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="NotConformityTemperature">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                                                     &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/restriction>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/choice>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="QualityServicesType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ObjectAddress"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ColdWater"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsSignedAct"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ColdWaterConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityDays"&gt;
+ *                                             &lt;simpleType&gt;
+ *                                               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"&gt;
+ *                                               &lt;/restriction&gt;
+ *                                             &lt;/simpleType&gt;
+ *                                           &lt;/element&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="HotWater"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsSignedAct"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="TemperatureConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                               &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                               &lt;element name="HotWaterConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Electricity"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsSignedAct"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ElectricityConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Gas"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsSignedAct"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="GasConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Heating"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsSignedAct"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="HeatingConformity"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;choice&gt;
+ *                                         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="NotConformityTemperature"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+ *                                                     &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/restriction&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/choice&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -441,47 +441,47 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="IsSignedAct">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ColdWaterConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityDays">
-     *                                 &lt;simpleType>
-     *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType">
-     *                                   &lt;/restriction>
-     *                                 &lt;/simpleType>
-     *                               &lt;/element>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="IsSignedAct"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="ColdWaterConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityDays"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -553,36 +553,36 @@ public class QualityServicesType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ColdWaterConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityDays">
-         *                       &lt;simpleType>
-         *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType">
-         *                         &lt;/restriction>
-         *                       &lt;/simpleType>
-         *                     &lt;/element>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ColdWaterConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityDays"&gt;
+         *                       &lt;simpleType&gt;
+         *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"&gt;
+         *                         &lt;/restriction&gt;
+         *                       &lt;/simpleType&gt;
+         *                     &lt;/element&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -681,24 +681,24 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityDays">
-             *             &lt;simpleType>
-             *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType">
-             *               &lt;/restriction>
-             *             &lt;/simpleType>
-             *           &lt;/element>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityDays"&gt;
+             *             &lt;simpleType&gt;
+             *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"&gt;
+             *               &lt;/restriction&gt;
+             *             &lt;/simpleType&gt;
+             *           &lt;/element&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -803,40 +803,40 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="IsSignedAct">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ElectricityConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="IsSignedAct"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="ElectricityConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -908,29 +908,29 @@ public class QualityServicesType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ElectricityConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ElectricityConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -975,19 +975,19 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1092,42 +1092,42 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="IsSignedAct">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="GasConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="IsSignedAct"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="GasConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1199,31 +1199,31 @@ public class QualityServicesType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="GasConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="GasConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1322,19 +1322,19 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1439,53 +1439,53 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="IsSignedAct">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="HeatingConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityTemperature">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *                                         &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-     *                                       &lt;/sequence>
-     *                                     &lt;/restriction>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="IsSignedAct"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="HeatingConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityTemperature"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+     *                                         &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/restriction&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1557,42 +1557,42 @@ public class QualityServicesType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="HeatingConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityTemperature">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                             &lt;sequence>
-         *                               &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-         *                               &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-         *                             &lt;/sequence>
-         *                           &lt;/restriction>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="HeatingConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityTemperature"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+         *                               &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/restriction&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1664,31 +1664,31 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityTemperature">
-             *             &lt;complexType>
-             *               &lt;complexContent>
-             *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                   &lt;sequence>
-             *                     &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-             *                     &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-             *                   &lt;/sequence>
-             *                 &lt;/restriction>
-             *               &lt;/complexContent>
-             *             &lt;/complexType>
-             *           &lt;/element>
-             *           &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityTemperature"&gt;
+             *             &lt;complexType&gt;
+             *               &lt;complexContent&gt;
+             *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                   &lt;sequence&gt;
+             *                     &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+             *                     &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+             *                   &lt;/sequence&gt;
+             *                 &lt;/restriction&gt;
+             *               &lt;/complexContent&gt;
+             *             &lt;/complexType&gt;
+             *           &lt;/element&gt;
+             *           &lt;element name="NotConformityHours" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1814,16 +1814,16 @@ public class QualityServicesType {
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
-                 *         &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-                 *         &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="TemperatureExcess" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+                 *         &lt;element name="TemperatureDecline" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType" minOccurs="0"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/restriction&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1903,59 +1903,59 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="IsSignedAct">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="TemperatureConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                   &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                   &lt;element name="HotWaterConformity">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;choice>
-     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                             &lt;sequence>
-     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/choice>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="IsSignedAct"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="TemperatureConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                   &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                   &lt;element name="HotWaterConformity"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;choice&gt;
+     *                             &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/choice&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+     *                   &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="IsNotSignedAct" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -2027,48 +2027,48 @@ public class QualityServicesType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="TemperatureConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *         &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *         &lt;element name="HotWaterConformity">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;choice>
-         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                   &lt;sequence>
-         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/choice>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/>
-         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="TemperatureConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="DurationDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *         &lt;element name="VolumeDeg40" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *         &lt;element name="HotWaterConformity"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;choice&gt;
+         *                   &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/choice&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="DurationPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceNumberType"/&gt;
+         *         &lt;element name="DaysPressure25" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -2248,19 +2248,19 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityDays" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorServiceDaysType"/&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -2361,19 +2361,19 @@ public class QualityServicesType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *         &lt;sequence>
-             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/>
-             *         &lt;/sequence>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="Conformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;sequence&gt;
+             *           &lt;element name="NotConformed" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="NotConformityTemperature" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}NotConformityTemperatureHotWaterType"/&gt;
+             *         &lt;/sequence&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -2478,15 +2478,15 @@ public class QualityServicesType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
-     *       &lt;sequence>
-     *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

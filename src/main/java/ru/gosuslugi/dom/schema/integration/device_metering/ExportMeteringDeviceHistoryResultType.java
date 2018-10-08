@@ -18,125 +18,125 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="exportMeteringDeviceHistoryResultType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
- *         &lt;choice>
- *           &lt;element name="OneRateDeviceValue">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3" minOccurs="0"/>
- *                     &lt;element name="Values" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
- *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
- *                               &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
- *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
- *                                         &lt;choice>
- *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                                         &lt;/choice>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="ElectricDeviceValue">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType" minOccurs="0"/>
- *                     &lt;element name="Values" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
- *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
- *                               &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
- *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
- *                                         &lt;choice>
- *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                                         &lt;/choice>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="VolumeDeviceValue">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueExportType">
- *                   &lt;sequence>
- *                     &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *         &lt;element name="ArchivedValues" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="exportMeteringDeviceHistoryResultType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="OneRateDeviceValue"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3" minOccurs="0"/&gt;
+ *                     &lt;element name="Values" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                               &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+ *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+ *                                         &lt;choice&gt;
+ *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                                         &lt;/choice&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="ElectricDeviceValue"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType" minOccurs="0"/&gt;
+ *                     &lt;element name="Values" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                               &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                               &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+ *                                         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+ *                                         &lt;choice&gt;
+ *                                           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                                         &lt;/choice&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="VolumeDeviceValue"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueExportType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="ArchivedValues" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -289,15 +289,15 @@ public class ExportMeteringDeviceHistoryResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -344,47 +344,47 @@ public class ExportMeteringDeviceHistoryResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType" minOccurs="0"/>
-     *         &lt;element name="Values" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-     *                             &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-     *                             &lt;choice>
-     *                               &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                             &lt;/choice>
-     *                           &lt;/sequence>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType" minOccurs="0"/&gt;
+     *         &lt;element name="Values" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                   &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                   &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+     *                             &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+     *                             &lt;choice&gt;
+     *                               &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                             &lt;/choice&gt;
+     *                           &lt;/sequence&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -456,36 +456,36 @@ public class ExportMeteringDeviceHistoryResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-         *                   &lt;choice>
-         *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *                   &lt;/choice>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *         &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+         *                   &lt;choice&gt;
+         *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *                   &lt;/choice&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -625,23 +625,23 @@ public class ExportMeteringDeviceHistoryResultType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/>
-             *         &lt;choice>
-             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-             *         &lt;/choice>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}ElectricMeteringValueExportType"/&gt;
+             *         &lt;choice&gt;
+             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+             *         &lt;/choice&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -857,47 +857,47 @@ public class ExportMeteringDeviceHistoryResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3" minOccurs="0"/>
-     *         &lt;element name="Values" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;sequence>
-     *                             &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-     *                             &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-     *                             &lt;choice>
-     *                               &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                               &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                             &lt;/choice>
-     *                           &lt;/sequence>
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="BaseValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3" minOccurs="0"/&gt;
+     *         &lt;element name="Values" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                   &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                   &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+     *                             &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+     *                             &lt;choice&gt;
+     *                               &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                             &lt;/choice&gt;
+     *                           &lt;/sequence&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -974,36 +974,36 @@ public class ExportMeteringDeviceHistoryResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-         *                   &lt;choice>
-         *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *                   &lt;/choice>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="CurrentValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *         &lt;element name="ControlValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateCurrentMeteringValueExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *         &lt;element name="VerificationValue" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                   &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+         *                   &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+         *                   &lt;choice&gt;
+         *                     &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                     &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *                   &lt;/choice&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1143,23 +1143,23 @@ public class ExportMeteringDeviceHistoryResultType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/>
-             *         &lt;choice>
-             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-             *         &lt;/choice>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="StartDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="EndDateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="SealDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;element name="StartValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+             *         &lt;element name="EndValue" type="{http://dom.gosuslugi.ru/schema/integration/device-metering/}OneRateMeteringValueExportType" maxOccurs="3"/&gt;
+             *         &lt;choice&gt;
+             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="VerificationReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+             *         &lt;/choice&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1385,15 +1385,15 @@ public class ExportMeteringDeviceHistoryResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueExportType">
-     *       &lt;sequence>
-     *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/device-metering/}VolumeMeteringValueExportType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="excludeISValues" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

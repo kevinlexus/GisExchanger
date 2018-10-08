@@ -38,38 +38,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DecreeInfoType }
-     * 
-     */
-    public DecreeInfoType createDecreeInfoType() {
-        return new DecreeInfoType();
-    }
-
-    /**
-     * Create an instance of {@link DecreeInfoType.ReviewResult }
-     * 
-     */
-    public DecreeInfoType.ReviewResult createDecreeInfoTypeReviewResult() {
-        return new DecreeInfoType.ReviewResult();
-    }
-
-    /**
-     * Create an instance of {@link DecreeInfoType.Offender }
-     * 
-     */
-    public DecreeInfoType.Offender createDecreeInfoTypeOffender() {
-        return new DecreeInfoType.Offender();
-    }
-
-    /**
-     * Create an instance of {@link ExportAttachmentType }
-     * 
-     */
-    public ExportAttachmentType createExportAttachmentType() {
-        return new ExportAttachmentType();
-    }
-
-    /**
      * Create an instance of {@link ExportDecreeInfoType }
      * 
      */
@@ -94,6 +62,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportAttachmentType }
+     * 
+     */
+    public ExportAttachmentType createExportAttachmentType() {
+        return new ExportAttachmentType();
+    }
+
+    /**
+     * Create an instance of {@link DecreeInfoType }
+     * 
+     */
+    public DecreeInfoType createDecreeInfoType() {
+        return new DecreeInfoType();
+    }
+
+    /**
+     * Create an instance of {@link DecreeInfoType.ReviewResult }
+     * 
+     */
+    public DecreeInfoType.ReviewResult createDecreeInfoTypeReviewResult() {
+        return new DecreeInfoType.ReviewResult();
+    }
+
+    /**
+     * Create an instance of {@link DecreeInfoType.Offender }
+     * 
+     */
+    public DecreeInfoType.Offender createDecreeInfoTypeOffender() {
+        return new DecreeInfoType.Offender();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecreeType }
+     * 
+     */
+    public ExportDecreeType createExportDecreeType() {
+        return new ExportDecreeType();
+    }
+
+    /**
      * Create an instance of {@link ImportDecreesAndDocumentsRequest.ImportDecreesAndDocuments }
      * 
      */
@@ -107,22 +115,6 @@ public class ObjectFactory {
      */
     public ImportDecreesAndDocumentsRequest.ImportDecreesAndDocuments.Decree createImportDecreesAndDocumentsRequestImportDecreesAndDocumentsDecree() {
         return new ImportDecreesAndDocumentsRequest.ImportDecreesAndDocuments.Decree();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecreeType }
-     * 
-     */
-    public ExportDecreeType createExportDecreeType() {
-        return new ExportDecreeType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**
@@ -142,6 +134,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
+     * Create an instance of {@link ProceduralDocumentType }
+     * 
+     */
+    public ProceduralDocumentType createProceduralDocumentType() {
+        return new ProceduralDocumentType();
+    }
+
+    /**
+     * Create an instance of {@link ChangeReasonType }
+     * 
+     */
+    public ChangeReasonType createChangeReasonType() {
+        return new ChangeReasonType();
+    }
+
+    /**
      * Create an instance of {@link CancelReasonType }
      * 
      */
@@ -158,27 +174,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ChangeReasonType }
-     * 
-     */
-    public ChangeReasonType createChangeReasonType() {
-        return new ChangeReasonType();
-    }
-
-    /**
      * Create an instance of {@link ExportProceduralDocumentType }
      * 
      */
     public ExportProceduralDocumentType createExportProceduralDocumentType() {
         return new ExportProceduralDocumentType();
-    }
-
-    /**
-     * Create an instance of {@link ExportCancelReasonType }
-     * 
-     */
-    public ExportCancelReasonType createExportCancelReasonType() {
-        return new ExportCancelReasonType();
     }
 
     /**
@@ -190,11 +190,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ProceduralDocumentType }
+     * Create an instance of {@link ExportCancelReasonType }
      * 
      */
-    public ProceduralDocumentType createProceduralDocumentType() {
-        return new ProceduralDocumentType();
+    public ExportCancelReasonType createExportCancelReasonType() {
+        return new ExportCancelReasonType();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecreeInfoType.ReviewResult.DisqualificationPeriod }
+     * 
+     */
+    public ExportDecreeInfoType.ReviewResult.DisqualificationPeriod createExportDecreeInfoTypeReviewResultDisqualificationPeriod() {
+        return new ExportDecreeInfoType.ReviewResult.DisqualificationPeriod();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecreeInfoType.Offender.OfficialName }
+     * 
+     */
+    public ExportDecreeInfoType.Offender.OfficialName createExportDecreeInfoTypeOffenderOfficialName() {
+        return new ExportDecreeInfoType.Offender.OfficialName();
+    }
+
+    /**
+     * Create an instance of {@link ExportAttachmentType.Attachment }
+     * 
+     */
+    public ExportAttachmentType.Attachment createExportAttachmentTypeAttachment() {
+        return new ExportAttachmentType.Attachment();
     }
 
     /**
@@ -214,27 +238,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportAttachmentType.Attachment }
+     * Create an instance of {@link ExportDecreeType.ControlOrganization }
      * 
      */
-    public ExportAttachmentType.Attachment createExportAttachmentTypeAttachment() {
-        return new ExportAttachmentType.Attachment();
+    public ExportDecreeType.ControlOrganization createExportDecreeTypeControlOrganization() {
+        return new ExportDecreeType.ControlOrganization();
     }
 
     /**
-     * Create an instance of {@link ExportDecreeInfoType.ReviewResult.DisqualificationPeriod }
+     * Create an instance of {@link ExportDecreeType.ProceduralDocuments }
      * 
      */
-    public ExportDecreeInfoType.ReviewResult.DisqualificationPeriod createExportDecreeInfoTypeReviewResultDisqualificationPeriod() {
-        return new ExportDecreeInfoType.ReviewResult.DisqualificationPeriod();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecreeInfoType.Offender.OfficialName }
-     * 
-     */
-    public ExportDecreeInfoType.Offender.OfficialName createExportDecreeInfoTypeOffenderOfficialName() {
-        return new ExportDecreeInfoType.Offender.OfficialName();
+    public ExportDecreeType.ProceduralDocuments createExportDecreeTypeProceduralDocuments() {
+        return new ExportDecreeType.ProceduralDocuments();
     }
 
     /**
@@ -259,22 +275,6 @@ public class ObjectFactory {
      */
     public ImportDecreesAndDocumentsRequest.ImportDecreesAndDocuments.Decree.DecreeInfo createImportDecreesAndDocumentsRequestImportDecreesAndDocumentsDecreeDecreeInfo() {
         return new ImportDecreesAndDocumentsRequest.ImportDecreesAndDocuments.Decree.DecreeInfo();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecreeType.ControlOrganization }
-     * 
-     */
-    public ExportDecreeType.ControlOrganization createExportDecreeTypeControlOrganization() {
-        return new ExportDecreeType.ControlOrganization();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecreeType.ProceduralDocuments }
-     * 
-     */
-    public ExportDecreeType.ProceduralDocuments createExportDecreeTypeProceduralDocuments() {
-        return new ExportDecreeType.ProceduralDocuments();
     }
 
 }

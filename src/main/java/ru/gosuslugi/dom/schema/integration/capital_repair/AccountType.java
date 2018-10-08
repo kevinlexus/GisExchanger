@@ -17,23 +17,23 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccountType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="CredOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *         &lt;element name="BIKCredOrg">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType">
- *               &lt;pattern value="\d{9}"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AccountType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="CredOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *         &lt;element name="BIKCredOrg"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"&gt;
+ *               &lt;pattern value="\d{9}"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -45,9 +45,9 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "number"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.capital_repair.ExportAccountType.Details.class,
+    ru.gosuslugi.dom.schema.integration.capital_repair.ImportAccountRegionalOperatorRequest.ImportAccountRegOperator.LoadAccountRegOperator.class,
     ru.gosuslugi.dom.schema.integration.capital_repair.ImportAccountSpecialRequest.ImportAccountSpecial.LoadChangeAccountSpecial.class,
-    ru.gosuslugi.dom.schema.integration.capital_repair.ImportAccountRegionalOperatorRequest.ImportAccountRegOperator.LoadAccountRegOperator.class
+    ru.gosuslugi.dom.schema.integration.capital_repair.ExportAccountType.Details.class
 })
 public class AccountType {
 

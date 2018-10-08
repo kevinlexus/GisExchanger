@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _PaymentDocumentNumber_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/bills-base/", "PaymentDocumentNumber");
     private final static QName _PaymentDocumentID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/bills-base/", "PaymentDocumentID");
+    private final static QName _PaymentDocumentNumber_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/bills-base/", "PaymentDocumentNumber");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.bills_base
@@ -35,21 +35,29 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/", name = "PaymentDocumentNumber")
-    public JAXBElement<String> createPaymentDocumentNumber(String value) {
-        return new JAXBElement<String>(_PaymentDocumentNumber_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/", name = "PaymentDocumentID")
     public JAXBElement<String> createPaymentDocumentID(String value) {
         return new JAXBElement<String>(_PaymentDocumentID_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/", name = "PaymentDocumentNumber")
+    public JAXBElement<String> createPaymentDocumentNumber(String value) {
+        return new JAXBElement<String>(_PaymentDocumentNumber_QNAME, String.class, null, value);
     }
 
 }

@@ -18,32 +18,32 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" maxOccurs="1000"/>
- *         &lt;sequence>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
- *           &lt;choice>
- *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" maxOccurs="1000"/>
- *             &lt;sequence>
- *               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *               &lt;choice>
- *                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" maxOccurs="1000"/>
- *                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" maxOccurs="1000"/>
- *               &lt;/choice>
- *             &lt;/sequence>
- *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" maxOccurs="1000"/>
- *             &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
- *           &lt;/choice>
- *         &lt;/sequence>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" maxOccurs="1000"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/&gt;
+ *           &lt;choice&gt;
+ *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" maxOccurs="1000"/&gt;
+ *             &lt;sequence&gt;
+ *               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *               &lt;choice&gt;
+ *                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" maxOccurs="1000"/&gt;
+ *                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" maxOccurs="1000"/&gt;
+ *               &lt;/choice&gt;
+ *             &lt;/sequence&gt;
+ *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" maxOccurs="1000"/&gt;
+ *             &lt;element name="AccountGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/&gt;
+ *           &lt;/choice&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -341,11 +341,7 @@ public class ExportPaymentDocumentRequest
      *     
      */
     public String getVersion() {
-        if (version == null) {
-            return "11.2.0.10";
-        } else {
-            return version;
-        }
+        return version;
     }
 
     /**

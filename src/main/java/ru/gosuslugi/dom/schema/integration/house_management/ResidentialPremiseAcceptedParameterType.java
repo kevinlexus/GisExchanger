@@ -12,18 +12,18 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="ResidentialPremiseAcceptedParameterType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="PremisesNum"/>
- *     &lt;enumeration value="EntranceNum"/>
- *     &lt;enumeration value="PremisesCharacteristic"/>
- *     &lt;enumeration value="RoomsNum"/>
- *     &lt;enumeration value="TotalArea"/>
- *     &lt;enumeration value="GrossArea"/>
- *     &lt;enumeration value="ResidentialHouseType"/>
- *     &lt;enumeration value="TerminationDate"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="ResidentialPremiseAcceptedParameterType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="PremisesNum"/&gt;
+ *     &lt;enumeration value="EntranceNum"/&gt;
+ *     &lt;enumeration value="PremisesCharacteristic"/&gt;
+ *     &lt;enumeration value="RoomsNum"/&gt;
+ *     &lt;enumeration value="TotalArea"/&gt;
+ *     &lt;enumeration value="GrossArea"/&gt;
+ *     &lt;enumeration value="ResidentialHouseType"/&gt;
+ *     &lt;enumeration value="TerminationDate"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

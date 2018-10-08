@@ -2,52 +2,38 @@
 package ru.gosuslugi.dom.schema.integration.services;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
 
 
 /**
- * Базовый тип выполненной работы
+ * Базовый тип выполненной работы для экспорта
  * 
  * <p>Java class for CompletedWorkExportType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CompletedWorkExportType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="photos" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="MonthlyWork">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="count" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
- *                   &lt;element name="WorkDate" type="{http://www.w3.org/2001/XMLSchema}date" maxOccurs="unbounded" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="ActGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
- *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
- *         &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CompletedWorkExportType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="photos" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="MonthlyWork" type="{http://dom.gosuslugi.ru/schema/integration/services/}MonthlyWorkType" minOccurs="0"/&gt;
+ *         &lt;element name="ActGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/&gt;
+ *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkAmountType" minOccurs="0"/&gt;
+ *         &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -62,13 +48,14 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "totalCost"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.services.CompletedWorksByPeriodExportType.PlannedWork.class
+    ru.gosuslugi.dom.schema.integration.services.CompletedWorksByPeriodExportType.PlannedWork.class,
+    ru.gosuslugi.dom.schema.integration.services.CompletedWorksByPeriodExportType.UnplannedWork.class
 })
 public class CompletedWorkExportType {
 
     protected List<AttachmentType> photos;
-    @XmlElement(name = "MonthlyWork", required = true)
-    protected CompletedWorkExportType.MonthlyWork monthlyWork;
+    @XmlElement(name = "MonthlyWork")
+    protected MonthlyWorkType monthlyWork;
     @XmlElement(name = "ActGUID")
     protected String actGUID;
     @XmlElement(name = "Price")
@@ -112,10 +99,10 @@ public class CompletedWorkExportType {
      * 
      * @return
      *     possible object is
-     *     {@link CompletedWorkExportType.MonthlyWork }
+     *     {@link MonthlyWorkType }
      *     
      */
-    public CompletedWorkExportType.MonthlyWork getMonthlyWork() {
+    public MonthlyWorkType getMonthlyWork() {
         return monthlyWork;
     }
 
@@ -124,10 +111,10 @@ public class CompletedWorkExportType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CompletedWorkExportType.MonthlyWork }
+     *     {@link MonthlyWorkType }
      *     
      */
-    public void setMonthlyWork(CompletedWorkExportType.MonthlyWork value) {
+    public void setMonthlyWork(MonthlyWorkType value) {
         this.monthlyWork = value;
     }
 
@@ -225,96 +212,6 @@ public class CompletedWorkExportType {
      */
     public void setTotalCost(BigDecimal value) {
         this.totalCost = value;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="count" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
-     *         &lt;element name="WorkDate" type="{http://www.w3.org/2001/XMLSchema}date" maxOccurs="unbounded" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "count",
-        "workDate"
-    })
-    public static class MonthlyWork {
-
-        @XmlElement(required = true)
-        @XmlSchemaType(name = "nonNegativeInteger")
-        protected BigInteger count;
-        @XmlElement(name = "WorkDate")
-        @XmlSchemaType(name = "date")
-        protected List<XMLGregorianCalendar> workDate;
-
-        /**
-         * Gets the value of the count property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link BigInteger }
-         *     
-         */
-        public BigInteger getCount() {
-            return count;
-        }
-
-        /**
-         * Sets the value of the count property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link BigInteger }
-         *     
-         */
-        public void setCount(BigInteger value) {
-            this.count = value;
-        }
-
-        /**
-         * Gets the value of the workDate property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the workDate property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getWorkDate().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link XMLGregorianCalendar }
-         * 
-         * 
-         */
-        public List<XMLGregorianCalendar> getWorkDate() {
-            if (workDate == null) {
-                workDate = new ArrayList<XMLGregorianCalendar>();
-            }
-            return this.workDate;
-        }
-
     }
 
 }

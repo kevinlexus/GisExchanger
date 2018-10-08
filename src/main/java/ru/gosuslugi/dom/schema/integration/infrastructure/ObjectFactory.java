@@ -62,14 +62,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportOKIRequest.RKIItem }
-     * 
-     */
-    public ImportOKIRequest.RKIItem createImportOKIRequestRKIItem() {
-        return new ImportOKIRequest.RKIItem();
-    }
-
-    /**
      * Create an instance of {@link ExportOKIResultType }
      * 
      */
@@ -78,11 +70,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ImportOKIRequest.RKIItem }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
+    public ImportOKIRequest.RKIItem createImportOKIRequestRKIItem() {
+        return new ImportOKIRequest.RKIItem();
     }
 
     /**
@@ -99,6 +91,14 @@ public class ObjectFactory {
      */
     public ExportOKIResult createExportOKIResult() {
         return new ExportOKIResult();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -158,19 +158,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportOKIRequest.RKIItem.OKI }
-     * 
-     */
-    public ImportOKIRequest.RKIItem.OKI createImportOKIRequestRKIItemOKI() {
-        return new ImportOKIRequest.RKIItem.OKI();
-    }
-
-    /**
      * Create an instance of {@link ExportOKIResultType.OKI }
      * 
      */
     public ExportOKIResultType.OKI createExportOKIResultTypeOKI() {
         return new ExportOKIResultType.OKI();
+    }
+
+    /**
+     * Create an instance of {@link ImportOKIRequest.RKIItem.OKI }
+     * 
+     */
+    public ImportOKIRequest.RKIItem.OKI createImportOKIRequestRKIItemOKI() {
+        return new ImportOKIRequest.RKIItem.OKI();
     }
 
 }

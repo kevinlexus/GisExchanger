@@ -17,17 +17,17 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ContractServiceType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ContractServiceType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -39,22 +39,22 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "endDate"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractObject.HouseService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractObject.AddService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.ContractObject.HouseService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.ContractObject.AddService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlacingContract.ContractObject.HouseService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlacingContract.ContractObject.AddService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Add.HouseService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Add.AddService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Edit.HouseService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Edit.AddService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.PlacingCharter.ContractObject.HouseService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.PlacingCharter.ContractObject.AddService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.EditCharter.ContractObject.Add.HouseService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.EditCharter.ContractObject.Add.AddService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.EditCharter.ContractObject.Edit.HouseService.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.EditCharter.ContractObject.Edit.AddService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlacingContract.ContractObject.HouseService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.PlacingContract.ContractObject.AddService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Add.HouseService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Add.AddService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Edit.HouseService.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.EditContract.ContractObject.Edit.AddService.class
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractObject.HouseService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.ContractObject.AddService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.ContractObject.HouseService.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.ContractObject.AddService.class
 })
 public class ContractServiceType {
 

@@ -18,40 +18,40 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="exportExaminationURIStateResultType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;choice>
- *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;sequence>
- *             &lt;element name="ShouldBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *             &lt;element name="URIRegistrationNumber" minOccurs="0">
- *               &lt;simpleType>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *                   &lt;minInclusive value="0"/>
- *                 &lt;/restriction>
- *               &lt;/simpleType>
- *             &lt;/element>
- *             &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *             &lt;element name="URIExaminationState">
- *               &lt;simpleType>
- *                 &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/inspection/}URIExaminationStateType">
- *                   &lt;enumeration value="Placed"/>
- *                   &lt;enumeration value="NotPlaced"/>
- *                   &lt;enumeration value="Sent"/>
- *                   &lt;enumeration value="NotSent"/>
- *                 &lt;/restriction>
- *               &lt;/simpleType>
- *             &lt;/element>
- *             &lt;element name="ReceievedFromURI" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;/sequence>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="exportExaminationURIStateResultType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="ShouldBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *             &lt;element name="URIRegistrationNumber" minOccurs="0"&gt;
+ *               &lt;simpleType&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
+ *                   &lt;minInclusive value="0"/&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/simpleType&gt;
+ *             &lt;/element&gt;
+ *             &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *             &lt;element name="URIExaminationState"&gt;
+ *               &lt;simpleType&gt;
+ *                 &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/inspection/}URIExaminationStateType"&gt;
+ *                   &lt;enumeration value="Placed"/&gt;
+ *                   &lt;enumeration value="NotPlaced"/&gt;
+ *                   &lt;enumeration value="Sent"/&gt;
+ *                   &lt;enumeration value="NotSent"/&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/simpleType&gt;
+ *             &lt;/element&gt;
+ *             &lt;element name="ReceievedFromURI" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

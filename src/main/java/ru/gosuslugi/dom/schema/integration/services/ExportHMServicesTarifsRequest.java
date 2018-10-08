@@ -23,45 +23,45 @@ import ru.gosuslugi.dom.schema.integration.base.RegionType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="ServiceType">
- *           &lt;simpleType>
- *             &lt;restriction>
- *               &lt;simpleType>
- *                 &lt;list>
- *                   &lt;simpleType>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *                       &lt;enumeration value="M"/>
- *                       &lt;enumeration value="O"/>
- *                       &lt;enumeration value="S"/>
- *                       &lt;enumeration value="R"/>
- *                       &lt;enumeration value="C"/>
- *                     &lt;/restriction>
- *                   &lt;/simpleType>
- *                 &lt;/list>
- *               &lt;/simpleType>
- *               &lt;minLength value="1"/>
- *               &lt;maxLength value="2"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;choice>
- *           &lt;element name="Municipalities" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/>
- *         &lt;/choice>
- *         &lt;sequence minOccurs="0">
- *           &lt;element name="EffectivePeriodTo" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *           &lt;element name="EffectivePeriodFrom" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;/sequence>
- *         &lt;element name="IsPublished" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ServiceType"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction&gt;
+ *               &lt;simpleType&gt;
+ *                 &lt;list&gt;
+ *                   &lt;simpleType&gt;
+ *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *                       &lt;enumeration value="M"/&gt;
+ *                       &lt;enumeration value="O"/&gt;
+ *                       &lt;enumeration value="S"/&gt;
+ *                       &lt;enumeration value="R"/&gt;
+ *                       &lt;enumeration value="C"/&gt;
+ *                     &lt;/restriction&gt;
+ *                   &lt;/simpleType&gt;
+ *                 &lt;/list&gt;
+ *               &lt;/simpleType&gt;
+ *               &lt;minLength value="1"/&gt;
+ *               &lt;maxLength value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Municipalities" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *           &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;sequence minOccurs="0"&gt;
+ *           &lt;element name="EffectivePeriodTo" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *           &lt;element name="EffectivePeriodFrom" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element name="IsPublished" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

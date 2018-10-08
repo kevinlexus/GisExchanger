@@ -15,56 +15,32 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgRoo
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/>
- *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgRootAndVersionType"/>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgRootAndVersionType"/&gt;
+ *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "ind",
-    "org"
+    "org",
+    "ind"
 })
 @XmlRootElement(name = "VoteInitiators")
 public class VoteInitiators {
 
-    @XmlElement(name = "Ind")
-    protected VotingInitiatorIndType ind;
     @XmlElement(name = "Org")
     protected RegOrgRootAndVersionType org;
-
-    /**
-     * Gets the value of the ind property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link VotingInitiatorIndType }
-     *     
-     */
-    public VotingInitiatorIndType getInd() {
-        return ind;
-    }
-
-    /**
-     * Sets the value of the ind property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link VotingInitiatorIndType }
-     *     
-     */
-    public void setInd(VotingInitiatorIndType value) {
-        this.ind = value;
-    }
+    @XmlElement(name = "Ind")
+    protected VotingInitiatorIndType ind;
 
     /**
      * Gets the value of the org property.
@@ -88,6 +64,30 @@ public class VoteInitiators {
      */
     public void setOrg(RegOrgRootAndVersionType value) {
         this.org = value;
+    }
+
+    /**
+     * Gets the value of the ind property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link VotingInitiatorIndType }
+     *     
+     */
+    public VotingInitiatorIndType getInd() {
+        return ind;
+    }
+
+    /**
+     * Sets the value of the ind property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link VotingInitiatorIndType }
+     *     
+     */
+    public void setInd(VotingInitiatorIndType value) {
+        this.ind = value;
     }
 
 }

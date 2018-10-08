@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMeteringValueBaseType;
 
@@ -17,30 +18,30 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMetering
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="MunicipalResourceElectricBaseType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="TransformationRatio" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;fractionDigits value="2"/>
- *               &lt;minInclusive value="0"/>
- *               &lt;maxInclusive value="999999999999999.99"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Unit" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;enumeration value="245"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="MunicipalResourceElectricBaseType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;element name="TransformationRatio" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *               &lt;maxInclusive value="999999999999999.99"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Unit" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;enumeration value="245"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -49,6 +50,9 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMetering
 @XmlType(name = "MunicipalResourceElectricBaseType", propOrder = {
     "transformationRatio",
     "unit"
+})
+@XmlSeeAlso({
+    MunicipalResourceElectricExportType2 .class
 })
 public class MunicipalResourceElectricBaseType
     extends ElectricMeteringValueBaseType

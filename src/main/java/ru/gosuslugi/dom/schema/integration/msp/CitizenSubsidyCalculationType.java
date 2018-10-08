@@ -19,27 +19,27 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CitizenSubsidyCalculationType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="PeriodDate" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/>
- *         &lt;element name="CalculationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="FamilySize">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *               &lt;minInclusive value="0"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="ActualExpensesSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/>
- *         &lt;element name="SubsidySum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType" minOccurs="0"/>
- *         &lt;element name="RecalculationSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType" minOccurs="0"/>
- *         &lt;element name="TotalSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CitizenSubsidyCalculationType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="PeriodDate" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/&gt;
+ *         &lt;element name="CalculationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="FamilySize"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="ActualExpensesSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/&gt;
+ *         &lt;element name="SubsidySum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType" minOccurs="0"/&gt;
+ *         &lt;element name="RecalculationSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType" minOccurs="0"/&gt;
+ *         &lt;element name="TotalSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

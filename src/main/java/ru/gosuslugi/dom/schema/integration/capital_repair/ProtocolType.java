@@ -21,20 +21,23 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ProtocolType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;sequence>
- *           &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
- *           &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *           &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/>
- *         &lt;/sequence>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ProtocolType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/&gt;
+ *           &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/&gt;
+ *             &lt;element name="DocumentIsNotAvailable" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;/choice&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -44,7 +47,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "votingProtocolGUID",
     "number",
     "date",
-    "attachment"
+    "attachment",
+    "documentIsNotAvailable"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.capital_repair.DecisionType.Protocol.class,
@@ -61,6 +65,8 @@ public class ProtocolType {
     protected XMLGregorianCalendar date;
     @XmlElement(name = "Attachment")
     protected List<AttachmentType> attachment;
+    @XmlElement(name = "DocumentIsNotAvailable")
+    protected Boolean documentIsNotAvailable;
 
     /**
      * Gets the value of the votingProtocolGUID property.
@@ -161,6 +167,30 @@ public class ProtocolType {
             attachment = new ArrayList<AttachmentType>();
         }
         return this.attachment;
+    }
+
+    /**
+     * Gets the value of the documentIsNotAvailable property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isDocumentIsNotAvailable() {
+        return documentIsNotAvailable;
+    }
+
+    /**
+     * Sets the value of the documentIsNotAvailable property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setDocumentIsNotAvailable(Boolean value) {
+        this.documentIsNotAvailable = value;
     }
 
 }

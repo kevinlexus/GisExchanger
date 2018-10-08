@@ -18,19 +18,19 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ResourceType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="MunicipalResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="TotalLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *         &lt;element name="IndustrialLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *         &lt;element name="SocialLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *         &lt;element name="PopulationLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ResourceType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="MunicipalResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="TotalLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *         &lt;element name="IndustrialLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *         &lt;element name="SocialLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *         &lt;element name="PopulationLoad" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

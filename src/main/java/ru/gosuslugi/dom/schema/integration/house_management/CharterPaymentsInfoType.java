@@ -23,56 +23,56 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CharterPaymentsInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="MaintenanceAndRepairsForMembers" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="MaintenanceAndRepairsForMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
- *                   &lt;element name="MaintenanceAndRepairsForMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="MaintenanceAndRepairsForNonMembersInfo" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="MaintenanceAndRepairsForNonMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
- *                   &lt;element name="MaintenanceAndRepairsForNonMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="ServicePayment" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;choice minOccurs="0">
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
- *           &lt;element name="AllContractObjects" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CharterPaymentsInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="MaintenanceAndRepairsForMembers" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="MaintenanceAndRepairsForMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/&gt;
+ *                   &lt;element name="MaintenanceAndRepairsForMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="MaintenanceAndRepairsForNonMembersInfo" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="MaintenanceAndRepairsForNonMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/&gt;
+ *                   &lt;element name="MaintenanceAndRepairsForNonMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="ServicePayment" maxOccurs="unbounded" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice minOccurs="0"&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+ *           &lt;element name="AllContractObjects" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -88,8 +88,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "allContractObjects"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.CharterPaymentsInfo.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.PlaceCharterPaymentsInfo.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.PlaceCharterPaymentsInfo.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.CharterPaymentsInfo.class
 })
 public class CharterPaymentsInfoType {
 
@@ -290,16 +290,16 @@ public class CharterPaymentsInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="MaintenanceAndRepairsForMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
-     *         &lt;element name="MaintenanceAndRepairsForMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="MaintenanceAndRepairsForMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/&gt;
+     *         &lt;element name="MaintenanceAndRepairsForMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -378,16 +378,16 @@ public class CharterPaymentsInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="MaintenanceAndRepairsForNonMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/>
-     *         &lt;element name="MaintenanceAndRepairsForNonMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="MaintenanceAndRepairsForNonMembersPaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}SmallMoneyType"/&gt;
+     *         &lt;element name="MaintenanceAndRepairsForNonMembersProtocol" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -466,16 +466,16 @@ public class CharterPaymentsInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="ServicePaymentSize" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}CaCHPaymentsMoneyType" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

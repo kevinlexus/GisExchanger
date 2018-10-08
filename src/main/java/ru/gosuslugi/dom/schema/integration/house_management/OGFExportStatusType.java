@@ -15,12 +15,12 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OGFExportStatusType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}GKN_EGRP_KeyExportType">
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="OGFExportStatusType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}GKN_EGRP_KeyExportType"&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "OGFExportStatusType")
 @XmlSeeAlso({
     HouseBasicExportType.class,
-    PremisesBasicExportType.class,
-    BlockExportType.class
+    BlockExportType.class,
+    PremisesBasicExportType.class
 })
 public class OGFExportStatusType
     extends GKNEGRPKeyExportType

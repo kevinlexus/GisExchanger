@@ -22,44 +22,44 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="DecisionType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DecisionCommonType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="Protocol">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="DecisionDocument" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/>
- *           &lt;element name="DocumentGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="FormationFundInSpecialAccount">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="AccountCreationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="CreditOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *                     &lt;element name="BIKCredOrg" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/>
- *                     &lt;element name="AccountNumber" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/>
- *                     &lt;element name="AccountOpeningDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="FormationFundInRegOperatorAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="DecisionType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DecisionCommonType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Protocol"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType"&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="DecisionDocument" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}DocumentDecisionType"/&gt;
+ *           &lt;element name="DocumentGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="FormationFundInSpecialAccount"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="AccountCreationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="CreditOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *                     &lt;element name="BIKCredOrg" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/&gt;
+ *                     &lt;element name="AccountNumber" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/&gt;
+ *                     &lt;element name="AccountOpeningDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="FormationFundInRegOperatorAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -73,8 +73,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "formationFundInRegOperatorAccount"
 })
 @XmlSeeAlso({
-    ExportDecisionType.class,
-    ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsFormingFundRequest.ImportDecision.LoadDecision.class
+    ru.gosuslugi.dom.schema.integration.capital_repair.ImportDecisionsFormingFundRequest.ImportDecision.LoadDecision.class,
+    ExportDecisionType.class
 })
 public class DecisionType
     extends DecisionCommonType
@@ -218,19 +218,19 @@ public class DecisionType
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="AccountCreationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="CreditOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
-     *         &lt;element name="BIKCredOrg" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/>
-     *         &lt;element name="AccountNumber" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/>
-     *         &lt;element name="AccountOpeningDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="AccountCreationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;element name="CreditOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+     *         &lt;element name="BIKCredOrg" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/&gt;
+     *         &lt;element name="AccountNumber" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}AccountNumberType"/&gt;
+     *         &lt;element name="AccountOpeningDocument" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="100"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -391,12 +391,12 @@ public class DecisionType
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType">
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ProtocolType"&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

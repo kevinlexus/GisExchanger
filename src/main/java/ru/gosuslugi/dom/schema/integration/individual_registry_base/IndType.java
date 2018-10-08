@@ -17,21 +17,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="IndType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}Sex" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}DateOfBirth" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}SNILS"/>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}ID"/>
- *         &lt;/choice>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}PlaceBirth" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="IndType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}Sex" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}DateOfBirth" minOccurs="0"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}SNILS"/&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}ID"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}PlaceBirth" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

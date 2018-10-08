@@ -19,28 +19,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ExportCitizenCompensationType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Overview">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenCompensationOverviewType">
- *                 &lt;sequence>
- *                   &lt;element name="CitizenCompensationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/msp/}Status"/>
- *                 &lt;/sequence>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Calculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ExportCitizenCompensationCalculationType" maxOccurs="1000" minOccurs="0"/>
- *         &lt;element name="Payment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ExportPaymentType" maxOccurs="1000" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ExportCitizenCompensationType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Overview"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenCompensationOverviewType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="CitizenCompensationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/msp/}Status"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Calculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ExportCitizenCompensationCalculationType" maxOccurs="1000" minOccurs="0"/&gt;
+ *         &lt;element name="Payment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ExportPaymentType" maxOccurs="1000" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -149,16 +149,16 @@ public class ExportCitizenCompensationType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenCompensationOverviewType">
-     *       &lt;sequence>
-     *         &lt;element name="CitizenCompensationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/msp/}Status"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenCompensationOverviewType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="CitizenCompensationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/msp/}Status"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

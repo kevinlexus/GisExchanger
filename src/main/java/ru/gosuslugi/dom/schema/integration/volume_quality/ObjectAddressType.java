@@ -16,18 +16,18 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ObjectAddressType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *         &lt;element name="ApartmentNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/>
- *         &lt;element name="BlockNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/>
- *         &lt;element name="RoomNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ObjectAddressType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *         &lt;element name="ApartmentNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/&gt;
+ *         &lt;element name="BlockNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/&gt;
+ *         &lt;element name="RoomNumber" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}PremisesNumType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -41,8 +41,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.volume_quality.ImportVolumeAndQualityInformationRequest.ImportVolumeAndQualityInformation.DeleteAddressObject.ObjectAddress.class,
-    ru.gosuslugi.dom.schema.integration.volume_quality.QualityServicesType.ObjectAddress.class,
     ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.ObjectAddress.class,
+    ru.gosuslugi.dom.schema.integration.volume_quality.QualityServicesType.ObjectAddress.class,
     ru.gosuslugi.dom.schema.integration.volume_quality.VolumeResourcesType.ObjectAddress.class
 })
 public class ObjectAddressType {

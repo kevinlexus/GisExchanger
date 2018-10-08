@@ -44,7 +44,7 @@ public class SignCommand implements Command {
 
 	private SignParameters parameters;
     private XadesSigner signer;
-    
+
     //конструктор
     public SignCommand(SignParameters parameters) {
         //System.out.println("############ SIGNCOMMAND CONSTRUCTOR START!");
@@ -57,10 +57,10 @@ public class SignCommand implements Command {
     public SignCommand(String signPass, String signPath) throws Exception {
         //System.out.println("############ SIGN COMMAND START!");
         // инициализируем Apache Santuario
-        
+
         org.apache.xml.security.Init.init();
         //System.out.println("############ SIGN COMMAND INIT!");
-        
+
 
         // загружаем криптопровайдер
     	Provider provider = ProviderFactory.createProvider("com.digt.trusted.jce.provider.DIGTProvider", null);
@@ -73,7 +73,7 @@ public class SignCommand implements Command {
         KeyStore keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
         KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", storePassword);
 
-        
+
         // выводим информацию о хранилище
         System.out.println("Keystore type: " + keyStore.getType());
         System.out.println("Keystore provider: " + provider.getName());
@@ -110,16 +110,16 @@ public class SignCommand implements Command {
             }
         }
         System.out.println("--------------------------------");
-        
+
         // загружаем закрытый ключ
         //String key = "FAT12\\6CFAFBEC_CRT\\de263rIl.000\\946E"; // - новый
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";  - старый
-        //String key = "REGISTRY\\\\de263_Iliasov_till_2018chk3"; 
-        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; 
+        //String key = "REGISTRY\\\\de263_Iliasov_till_2018chk3";
+        //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE";
         //String key = "FAT12\\75EEB634\\INN00420.000\\68D6"; // - новый
         //String key = "FAT12\\6CFAFBEC_CRT\\le-d483a.000\\9EDE"; // - новый
         //String key = "REGISTRY\\\\de263_Iliasov_till_2018reg";
-        
+
         KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
         if (keyEntry == null) {
             throw new KeyException("Key not found: " + signPath);
@@ -153,49 +153,60 @@ public class SignCommand implements Command {
         signer = profile.newSigner();
         //System.out.println("############ SIGN COMMAND END!");
     }
-    
+
     public SignCommand(int i) {
 		// TODO Auto-generated constructor stub
 	}
 
 	public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
         //System.out.println("############ SIGN ELEM START!");
-
-    	// загружаем проверяемый XML-документ
+        System.out.println("############ SIGN ELEM1:"+doc);
+        System.out.println("############ SIGN ELEM2:"+signedElementId);
+        System.out.println("############ SIGN ELEM3:"+containerElementId);
+        // загружаем проверяемый XML-документ
         //Document document = XMLParser.parseXml(parameters.getInputFile());
         Document document = XMLParser.parseXml(doc);
-        
+        //System.out.println("SC 2.0");
+
         // объявляем атрибут Id в качестве идентифицирующего
         IdResolver.resolveIds(document.getDocumentElement());
+        //System.out.println("SC 2.1");
 
-        
         // ищем подписываемый элемент
         Element signedElement = document.getElementById(signedElementId);
         if (signedElement == null) {
             throw new ElementNotFoundException("Element to be signed not found: " + signedElementId);
         }
+        //System.out.println("SC 2.2");
 
         // ищем элемент, в который нужно поместить подпись; если не указан, помещаем подпись в подписываемый элемент
         Element signatureContainer = document.getElementById(containerElementId);
         if (signatureContainer == null) {
             throw new ElementNotFoundException("Container element not found: " + containerElementId);
         }
+        //System.out.println("SC 2.3");
 
         // настраиваем подписываемые данные
         DataObjectDesc obj = new DataObjectReference('#' + signedElementId);
+        //System.out.println("SC 2.4");
 
         if (containerElementId.equals(signedElementId)) {
             // если подпись помещается в подписываемый элемент, применяем трансформацию enveloped signature transform
             // если этого не сделать, подпись нельзя будет проверить
+            //System.out.println("SC 2.5");
             obj.withTransform(new EnvelopedSignatureTransform());
         }
+        //System.out.println("SC 2.6");
 
         // применяем трансформацию Exclusive XML Canonicalization 1.0 without comments (комментарии исключаются из подписываемых данных)
         obj.withTransform(new ExclusiveCanonicalXMLWithoutComments());
+        //System.out.println("SC 2.7");
 
         // создаем подпись
         SignedDataObjects dataObjs = new SignedDataObjects(obj);
+        //System.out.println("SC 2.8");
         signer.sign(dataObjs, signatureContainer, SignatureAppendingStrategies.AsFirstChild);
+        //System.out.println("SC 2.9");
 
         return XMLPrinter.toString(document);
     }

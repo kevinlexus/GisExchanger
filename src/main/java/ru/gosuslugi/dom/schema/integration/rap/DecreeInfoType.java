@@ -23,108 +23,108 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="DecreeInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Offender">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;sequence>
- *                     &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *                     &lt;element name="OfficialName" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType">
- *                             &lt;sequence>
- *                               &lt;element name="Position">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type">
- *                                     &lt;minLength value="1"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="ControlRoleCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="Person" type="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"/>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="ReviewResult">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="ResultKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="DecreeDocument" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ProceduralDocumentType"/>
- *                   &lt;element name="PunishmentKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100" minOccurs="0"/>
- *                   &lt;element name="TakingDecisionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                   &lt;element name="TakingDecisionAuthorityName" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;minLength value="0"/>
- *                         &lt;maxLength value="2500"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="PositionOfAcceptedPerson">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type">
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/>
- *                   &lt;element name="ProceedingDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType"/>
- *                   &lt;element name="Fine" type="{http://dom.gosuslugi.ru/schema/integration/rap/}FineType" minOccurs="0"/>
- *                   &lt;element name="FinePaymentDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType" minOccurs="0"/>
- *                   &lt;element name="DisqualificationPeriod" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;choice>
- *                             &lt;element name="Months">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *                                   &lt;minExclusive value="0"/>
- *                                   &lt;maxExclusive value="1000"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                             &lt;element name="Years">
- *                               &lt;simpleType>
- *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *                                   &lt;minExclusive value="0"/>
- *                                   &lt;maxExclusive value="1000"/>
- *                                 &lt;/restriction>
- *                               &lt;/simpleType>
- *                             &lt;/element>
- *                           &lt;/choice>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/>
- *                   &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/>
- *                   &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="DecreeInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Offender"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *                     &lt;element name="OfficialName" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="Position"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type"&gt;
+ *                                     &lt;minLength value="1"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="ControlRoleCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="Person" type="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"/&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="ReviewResult"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ResultKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element name="DecreeDocument" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ProceduralDocumentType"/&gt;
+ *                   &lt;element name="PunishmentKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100" minOccurs="0"/&gt;
+ *                   &lt;element name="TakingDecisionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                   &lt;element name="TakingDecisionAuthorityName" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;minLength value="0"/&gt;
+ *                         &lt;maxLength value="2500"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="PositionOfAcceptedPerson"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/&gt;
+ *                   &lt;element name="ProceedingDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType"/&gt;
+ *                   &lt;element name="Fine" type="{http://dom.gosuslugi.ru/schema/integration/rap/}FineType" minOccurs="0"/&gt;
+ *                   &lt;element name="FinePaymentDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType" minOccurs="0"/&gt;
+ *                   &lt;element name="DisqualificationPeriod" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;choice&gt;
+ *                             &lt;element name="Months"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="Years"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                           &lt;/choice&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+ *                   &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/&gt;
+ *                   &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -199,36 +199,36 @@ public class DecreeInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;sequence>
-     *           &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
-     *           &lt;element name="OfficialName" minOccurs="0">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType">
-     *                   &lt;sequence>
-     *                     &lt;element name="Position">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type">
-     *                           &lt;minLength value="1"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="ControlRoleCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="Person" type="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element name="Organization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+     *           &lt;element name="OfficialName" minOccurs="0"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="Position"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type"&gt;
+     *                           &lt;minLength value="1"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="ControlRoleCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;element name="Person" type="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -359,21 +359,21 @@ public class DecreeInfoType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType">
-         *       &lt;sequence>
-         *         &lt;element name="Position">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type">
-         *               &lt;minLength value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/rap/}DecreeIndType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="Position"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String300Type"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -424,66 +424,66 @@ public class DecreeInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="ResultKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="DecreeDocument" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ProceduralDocumentType"/>
-     *         &lt;element name="PunishmentKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100" minOccurs="0"/>
-     *         &lt;element name="TakingDecisionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="TakingDecisionAuthorityName" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;minLength value="0"/>
-     *               &lt;maxLength value="2500"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="PositionOfAcceptedPerson">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type">
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/>
-     *         &lt;element name="ProceedingDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType"/>
-     *         &lt;element name="Fine" type="{http://dom.gosuslugi.ru/schema/integration/rap/}FineType" minOccurs="0"/>
-     *         &lt;element name="FinePaymentDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType" minOccurs="0"/>
-     *         &lt;element name="DisqualificationPeriod" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;choice>
-     *                   &lt;element name="Months">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
-     *                         &lt;minExclusive value="0"/>
-     *                         &lt;maxExclusive value="1000"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                   &lt;element name="Years">
-     *                     &lt;simpleType>
-     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
-     *                         &lt;minExclusive value="0"/>
-     *                         &lt;maxExclusive value="1000"/>
-     *                       &lt;/restriction>
-     *                     &lt;/simpleType>
-     *                   &lt;/element>
-     *                 &lt;/choice>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/>
-     *         &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/>
-     *         &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ResultKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="DecreeDocument" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ProceduralDocumentType"/&gt;
+     *         &lt;element name="PunishmentKind" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100" minOccurs="0"/&gt;
+     *         &lt;element name="TakingDecisionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="TakingDecisionAuthorityName" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;minLength value="0"/&gt;
+     *               &lt;maxLength value="2500"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="PositionOfAcceptedPerson"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/&gt;
+     *         &lt;element name="ProceedingDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType"/&gt;
+     *         &lt;element name="Fine" type="{http://dom.gosuslugi.ru/schema/integration/rap/}FineType" minOccurs="0"/&gt;
+     *         &lt;element name="FinePaymentDate" type="{http://dom.gosuslugi.ru/schema/integration/rap/}LimitedDateType" minOccurs="0"/&gt;
+     *         &lt;element name="DisqualificationPeriod" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;choice&gt;
+     *                   &lt;element name="Months"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="Years"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                 &lt;/choice&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+     *         &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/&gt;
+     *         &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -891,30 +891,30 @@ public class DecreeInfoType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;choice>
-         *         &lt;element name="Months">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
-         *               &lt;minExclusive value="0"/>
-         *               &lt;maxExclusive value="1000"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="Years">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
-         *               &lt;minExclusive value="0"/>
-         *               &lt;maxExclusive value="1000"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *       &lt;/choice>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;choice&gt;
+         *         &lt;element name="Months"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Years"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/choice&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

@@ -16,35 +16,35 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;sequence>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *           &lt;element name="ProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *         &lt;/sequence>
- *         &lt;choice>
- *           &lt;element name="Protocol">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ProtocolType">
- *                   &lt;sequence>
- *                     &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="Revert" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="Delete" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *           &lt;element name="ProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Protocol"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ProtocolType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="Revert" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="Delete" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -257,15 +257,15 @@ public class ImportVotingProtocolRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ProtocolType">
-     *       &lt;sequence>
-     *         &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ProtocolType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Placing" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

@@ -4,7 +4,6 @@ package ru.gosuslugi.dom.schema.integration.nsi_base;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,23 +15,23 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="nsiRef">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Code" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiCodeType"/>
- *         &lt;element name="GUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;element name="Name" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
- *               &lt;maxLength value="1200"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="nsiRef"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Code" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiCodeType"/&gt;
+ *         &lt;element name="GUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="Name" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+ *               &lt;maxLength value="1200"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -42,13 +41,6 @@ import javax.xml.bind.annotation.XmlType;
     "code",
     "guid",
     "name"
-})
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.ServiceType.class,
-    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.MunicipalResource.class,
-    ru.gosuslugi.dom.schema.integration.volume_quality.QualityResourcesType.QualityIndicatorResource.class,
-    ru.gosuslugi.dom.schema.integration.volume_quality.VolumeResourcesType.ServiceType.class,
-    ru.gosuslugi.dom.schema.integration.volume_quality.VolumeResourcesType.MunicipalResource.class
 })
 public class NsiRef {
 

@@ -23,61 +23,61 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CreditContractType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="CreditAgreement" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="LoanAgreement" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="Creditor" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/>
- *         &lt;element name="BIKCredOrg" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType">
- *               &lt;pattern value="\d{9}"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Lender" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;choice>
- *           &lt;element name="Term">
- *             &lt;simpleType>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *                 &lt;minExclusive value="0"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/element>
- *           &lt;element name="Termless" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="InterestRate">
- *             &lt;simpleType>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                 &lt;minExclusive value="0"/>
- *                 &lt;fractionDigits value="2"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/element>
- *           &lt;element name="InterestFree" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="InterestRateNote" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/>
- *         &lt;element name="Amount">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType">
- *               &lt;minExclusive value="0"/>
- *               &lt;fractionDigits value="2"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="AmountNote" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/>
- *         &lt;element name="AttachContract" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CreditContractType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="CreditAgreement" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="LoanAgreement" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="Creditor" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/&gt;
+ *         &lt;element name="BIKCredOrg" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"&gt;
+ *               &lt;pattern value="\d{9}"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Lender" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/base/}String255Type"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Term"&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                 &lt;minExclusive value="0"/&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Termless" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="InterestRate"&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                 &lt;minExclusive value="0"/&gt;
+ *                 &lt;fractionDigits value="2"/&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="InterestFree" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="InterestRateNote" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/&gt;
+ *         &lt;element name="Amount"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"&gt;
+ *               &lt;minExclusive value="0"/&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="AmountNote" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/&gt;
+ *         &lt;element name="AttachContract" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="1000"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

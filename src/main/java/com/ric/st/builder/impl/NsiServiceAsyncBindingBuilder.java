@@ -17,14 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.TaskMng;
-import com.ric.bill.mm.TaskParMng;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.UlistTp;
+import com.dic.bill.dao.EolinkDAO;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.TaskMng;
+import com.dic.bill.mm.TaskParMng;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
+import com.dic.bill.model.exs.UlistTp;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
@@ -189,7 +189,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 
 		ExportDataProviderNsiItemRequest req = new ExportDataProviderNsiItemRequest();
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		Double regNum = taskParMng.getDbl(task, "ГИС ЖКХ.Номер справочника");
 		req.setRegistryNumber(BigInteger.valueOf(regNum.longValue()));
 		try {

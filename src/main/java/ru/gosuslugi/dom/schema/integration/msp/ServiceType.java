@@ -12,26 +12,26 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="ServiceType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="ColdWater"/>
- *     &lt;enumeration value="HotWater"/>
- *     &lt;enumeration value="Sewerage"/>
- *     &lt;enumeration value="Electricity"/>
- *     &lt;enumeration value="Gas"/>
- *     &lt;enumeration value="SolidFuel"/>
- *     &lt;enumeration value="LiquidGas"/>
- *     &lt;enumeration value="Heating"/>
- *     &lt;enumeration value="Waste"/>
- *     &lt;enumeration value="Maintenance"/>
- *     &lt;enumeration value="Repairs"/>
- *     &lt;enumeration value="Rent"/>
- *     &lt;enumeration value="CollectiveHotWater"/>
- *     &lt;enumeration value="CollectiveColdWater"/>
- *     &lt;enumeration value="CollectiveElectricity"/>
- *     &lt;enumeration value="CollectiveSewerage"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="ServiceType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="ColdWater"/&gt;
+ *     &lt;enumeration value="HotWater"/&gt;
+ *     &lt;enumeration value="Sewerage"/&gt;
+ *     &lt;enumeration value="Electricity"/&gt;
+ *     &lt;enumeration value="Gas"/&gt;
+ *     &lt;enumeration value="SolidFuel"/&gt;
+ *     &lt;enumeration value="LiquidGas"/&gt;
+ *     &lt;enumeration value="Heating"/&gt;
+ *     &lt;enumeration value="Waste"/&gt;
+ *     &lt;enumeration value="Maintenance"/&gt;
+ *     &lt;enumeration value="Repairs"/&gt;
+ *     &lt;enumeration value="Rent"/&gt;
+ *     &lt;enumeration value="CollectiveHotWater"/&gt;
+ *     &lt;enumeration value="CollectiveColdWater"/&gt;
+ *     &lt;enumeration value="CollectiveElectricity"/&gt;
+ *     &lt;enumeration value="CollectiveSewerage"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

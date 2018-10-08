@@ -1,7 +1,7 @@
 package com.ric.st;
 
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.impl.SoapBuilder;
 
@@ -15,8 +15,6 @@ public interface ReqProps {
 
 	String getHouseGuid();
 
-	String getPpGuid();
-
 	String getReu();
 
 	String getKul();
@@ -27,6 +25,6 @@ public interface ReqProps {
 
 	Integer getAppTp();
 
-	SoapBuilder getSb();
+	String getGisVersion();
 
 }

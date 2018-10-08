@@ -16,15 +16,15 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="NsiElementAttachmentFieldType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementFieldType">
- *       &lt;sequence>
- *         &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="NsiElementAttachmentFieldType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementFieldType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Document" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

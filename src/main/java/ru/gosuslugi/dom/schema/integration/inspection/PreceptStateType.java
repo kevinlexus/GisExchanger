@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="PreceptStateType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *     &lt;enumeration value="Active"/>
- *     &lt;enumeration value="Cancelled"/>
- *     &lt;enumeration value="Fulfiled"/>
- *     &lt;enumeration value="NotFilled"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="PreceptStateType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *     &lt;enumeration value="Active"/&gt;
+ *     &lt;enumeration value="Cancelled"/&gt;
+ *     &lt;enumeration value="Fulfiled"/&gt;
+ *     &lt;enumeration value="NotFilled"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

@@ -13,20 +13,20 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentPeriodType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
- *         &lt;choice>
- *           &lt;element name="isUO" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;element name="isRSO" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PaymentPeriodType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="isUO" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;element name="isRSO" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="RegistrationPeriodStateType">
- *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type">
- *     &lt;enumeration value="Draft"/>
- *     &lt;enumeration value="Placed"/>
- *     &lt;enumeration value="Annulled"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="RegistrationPeriodStateType"&gt;
+ *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"&gt;
+ *     &lt;enumeration value="Draft"/&gt;
+ *     &lt;enumeration value="Placed"/&gt;
+ *     &lt;enumeration value="Annulled"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

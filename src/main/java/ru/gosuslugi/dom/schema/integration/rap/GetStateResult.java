@@ -20,18 +20,18 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType">
- *       &lt;choice minOccurs="0">
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;element name="CommonResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/>
- *         &lt;element name="ExportDecreesAndDocuments" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ExportDecreeType" maxOccurs="unbounded"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.10.0.2""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType"&gt;
+ *       &lt;choice minOccurs="0"&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *         &lt;element name="CommonResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="ExportDecreesAndDocuments" type="{http://dom.gosuslugi.ru/schema/integration/rap/}ExportDecreeType" maxOccurs="unbounded"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.10.0.2""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

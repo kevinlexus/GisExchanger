@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.BindingProvider;
 
+import com.ric.st.ReqProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,8 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
     private EntityManager em;
 	@Autowired
 	private SoapConfig config;
+	@Autowired
+	private ReqProps reqProp;
 
 	private NsiServiceAsync service;
 	private NsiPortsTypeAsync port;
@@ -75,7 +78,7 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
 		req.setId("foo");
 		sb.setSign(true);
 
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		GetStateRequest gs = new GetStateRequest();
 		AckRequest ack = port.exportNsiList(req);
 		gs.setMessageGUID( ack.getAck().getMessageGUID() );
@@ -119,7 +122,7 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
 	    req.setRegistryNumber(id);
 		req.setId("foo");
 		sb.setSign(true);
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		AckRequest ack = port.exportNsiItem(req);
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID( ack.getAck().getMessageGUID() );

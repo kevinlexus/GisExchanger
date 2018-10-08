@@ -21,37 +21,37 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
- *           &lt;element name="CredOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="100"/>
- *           &lt;element name="BIKCredOrg" maxOccurs="100">
- *             &lt;simpleType>
- *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType">
- *                 &lt;pattern value="\d{9}"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/element>
- *           &lt;sequence>
- *             &lt;element name="OpenDateFrom" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *             &lt;element name="OpenDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *           &lt;/sequence>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="WithoutOperationAndBalance" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;sequence>
- *             &lt;element name="ReportingPeriodFrom" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType"/>
- *             &lt;element name="ReportingPeriodTo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType" minOccurs="0"/>
- *           &lt;/sequence>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="12.0.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/&gt;
+ *           &lt;element name="CredOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="100"/&gt;
+ *           &lt;element name="BIKCredOrg" maxOccurs="100"&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"&gt;
+ *                 &lt;pattern value="\d{9}"/&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *           &lt;/element&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="OpenDateFrom" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *             &lt;element name="OpenDateTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="WithoutOperationAndBalance" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="ReportingPeriodFrom" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType"/&gt;
+ *             &lt;element name="ReportingPeriodTo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="12.0.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -104,36 +104,49 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 
 		// подпись элемента
 		Node nd = null;
+		//log.info("SIGN 1.0");
 		if (sign) {
 			String sgn = null;
 	        try {
+				//log.info("SIGN 1.1");
 				sgn = Soap2GisApplication.sc.signElem((String) bs.toString(), "foo", "foo");
+				//log.info("SIGN 1.2");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-
 				e1.printStackTrace();
 			}
 
 			// Получить элемент подписи
+			//log.info("SIGN 1.3");
 	        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 	        try {
+				//log.info("SIGN 1.4");
 	        	domFactory.setNamespaceAware(true);
 
 //	            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
 //	            dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", Boolean.TRUE);
 //	            dbf.setNamespaceAware(true);
 
+				//log.info("SIGN 1.5");
 	            DocumentBuilder builder = domFactory.newDocumentBuilder();
+				//log.info("SIGN 1.6");
 	            InputSource is = new InputSource(new StringReader(sgn));
+				//log.info("SIGN 1.7");
 	            Document dDoc = builder.parse(is);
 
 
+				//log.info("SIGN 1.8");
 	            XPath xpath = XPathFactory.newInstance().newXPath();
+				//log.info("SIGN 1.9");
 	            javax.xml.xpath.XPathExpression expr = xpath.compile("//*[local-name()='Signature']");
+				//log.info("SIGN 1.10");
 	            Object result = expr.evaluate(dDoc, XPathConstants.NODESET);
+				//log.info("SIGN 1.11");
 	            NodeList nodes = (NodeList) result;
+				//log.info("SIGN 1.12");
 
 	            nd = nodes.item(0);
+				//log.info("SIGN 1.13");
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
@@ -144,31 +157,41 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 		if (sign) {
 	        Node itm = null;
 			try {
+				//log.info("SIGN 1.14");
 		        SOAPBody body = soapMsg.getSOAPBody();
 				//NodeList blst = body.getElementsByTagNameNS("*", "exportNsiItemRequest");
 		        //soapMsg.getSOAPPart().getEnvelope().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:soap", "http://schemas.xmlsoap.org/soap/envelope/");
 
+				//log.info("SIGN 1.15");
 		        itm = findElem(body, "Id", "foo");
+				//log.info("SIGN 1.16");
 				Node itm2 = itm.getFirstChild();
+				//log.info("SIGN 1.17");
 
 				Document doc = body.getOwnerDocument();
+				//log.info("SIGN 1.18");
 				doc.adoptNode(nd);
+				//log.info("SIGN 1.19");
 				//doc.importNode(nd, false);
 				itm.insertBefore(nd, itm2);
+				//log.info("SIGN 1.20");
 				// сохранить XML
 				soapMsg.saveChanges();
+				//log.info("SIGN 1.21");
 				//log.info("XML saved!");
 			} catch (SOAPException e1) {
-				log.info("XML DOESN'T saved!");
+				//log.info("XML DOESN'T saved!");
 				e1.printStackTrace();
 			}
 			if (trace) {
-				log.info("Sended XML:");
+				//log.info("Sended XML:");
 				dumpSOAPMessage(soapMsg);
+				//log.info("SIGN 1.22");
 			}
 		    }
 	    }
 		// продолжить выполнение - true
+		//log.info("SIGN 1.23");
 		return true;
 	}
 

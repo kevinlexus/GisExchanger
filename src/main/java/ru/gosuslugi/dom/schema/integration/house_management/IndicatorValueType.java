@@ -17,25 +17,25 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="IndicatorValueType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
- *             &lt;sequence>
- *               &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
- *               &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
- *             &lt;/sequence>
- *           &lt;/choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/>
- *         &lt;/sequence>
- *         &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="IndicatorValueType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *             &lt;sequence&gt;
+ *               &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *               &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *             &lt;/sequence&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlType;
     ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue.class,
+    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.Quality.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractType.OtherQualityIndicator.IndicatorValue.class,
-    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractProjectType.Quality.IndicatorValue.class,
-    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.Quality.IndicatorValue.class
+    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractProjectType.Quality.IndicatorValue.class
 })
 public class IndicatorValueType {
 

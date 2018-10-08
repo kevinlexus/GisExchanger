@@ -20,18 +20,18 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccountIndividualServiceType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="AdditionalService" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AccountIndividualServiceType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="BeginDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="AdditionalService" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -44,8 +44,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "attachment"
 })
 @XmlSeeAlso({
-    ExportAccountIndividualServicesResultType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportAccountIndividualServicesRequest.IndividualService.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportAccountIndividualServicesRequest.IndividualService.class,
+    ExportAccountIndividualServicesResultType.class
 })
 public class AccountIndividualServiceType {
 

@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="BaseKindShortType">
- *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type">
- *     &lt;enumeration value="DRSO"/>
- *     &lt;enumeration value="ManagementContract"/>
- *     &lt;enumeration value="Charter"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="BaseKindShortType"&gt;
+ *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"&gt;
+ *     &lt;enumeration value="DRSO"/&gt;
+ *     &lt;enumeration value="ManagementContract"/&gt;
+ *     &lt;enumeration value="Charter"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

@@ -15,20 +15,20 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="exportDocumentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="DocumentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;choice>
- *           &lt;element name="DocumentFederal" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentFederalExportType"/>
- *           &lt;element name="DocumentRegion" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentRegionExportType"/>
- *           &lt;element name="DocumentMunicipal" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentMunicipalExportType"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="exportDocumentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="DocumentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="DocumentFederal" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentFederalExportType"/&gt;
+ *           &lt;element name="DocumentRegion" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentRegionExportType"/&gt;
+ *           &lt;element name="DocumentMunicipal" type="{http://dom.gosuslugi.ru/schema/integration/uk/}DocumentMunicipalExportType"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

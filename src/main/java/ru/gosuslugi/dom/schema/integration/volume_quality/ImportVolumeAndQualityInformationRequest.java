@@ -19,121 +19,121 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="importVolumeAndQualityInformation">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;element name="Base">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType">
- *                         &lt;/extension>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;element name="RegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/>
- *                   &lt;choice>
- *                     &lt;element name="RegistrationPeriodInformation">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType">
- *                             &lt;sequence>
- *                               &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType">
- *                                       &lt;sequence>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType">
- *                                       &lt;sequence>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType">
- *                                       &lt;sequence>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="PlacingRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="AnnulmentRegistrationPeriod">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="ReasonOfAnnulment">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType">
- *                                     &lt;minLength value="1"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="DeleteProjectRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeleteAddressObject">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="ObjectAddress" maxOccurs="1000">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
- *                                       &lt;sequence>
- *                                         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.4""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="importVolumeAndQualityInformation"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                   &lt;element name="Base"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType"&gt;
+ *                         &lt;/extension&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="RegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="RegistrationPeriodInformation"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="PlacingRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="AnnulmentRegistrationPeriod"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ReasonOfAnnulment"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType"&gt;
+ *                                     &lt;minLength value="1"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="DeleteProjectRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="DeleteAddressObject"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ObjectAddress" maxOccurs="1000"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.4""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -211,110 +211,110 @@ public class ImportVolumeAndQualityInformationRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;element name="Base">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType">
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="RegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/>
-     *         &lt;choice>
-     *           &lt;element name="RegistrationPeriodInformation">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType">
-     *                   &lt;sequence>
-     *                     &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="PlacingRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="AnnulmentRegistrationPeriod">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="ReasonOfAnnulment">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType">
-     *                           &lt;minLength value="1"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="DeleteProjectRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeleteAddressObject">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="ObjectAddress" maxOccurs="1000">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
-     *                             &lt;sequence>
-     *                               &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *         &lt;element name="Base"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType"&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="RegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="RegistrationPeriodInformation"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="PlacingRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="AnnulmentRegistrationPeriod"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="ReasonOfAnnulment"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType"&gt;
+     *                           &lt;minLength value="1"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="DeleteProjectRegistrationPeriod" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="DeleteAddressObject"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="ObjectAddress" maxOccurs="1000"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -549,21 +549,21 @@ public class ImportVolumeAndQualityInformationRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ReasonOfAnnulment">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType">
-         *               &lt;minLength value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ReasonOfAnnulment"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ReasonOfAnnulmentType"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -610,12 +610,12 @@ public class ImportVolumeAndQualityInformationRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType">
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}BaseType"&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -636,26 +636,26 @@ public class ImportVolumeAndQualityInformationRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ObjectAddress" maxOccurs="1000">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
-         *                 &lt;sequence>
-         *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ObjectAddress" maxOccurs="1000"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -705,16 +705,16 @@ public class ImportVolumeAndQualityInformationRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType">
-             *       &lt;sequence>
-             *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}ObjectAddressType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="NotFromContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -792,47 +792,47 @@ public class ImportVolumeAndQualityInformationRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType">
-         *       &lt;sequence>
-         *         &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType">
-         *                 &lt;sequence>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType">
-         *                 &lt;sequence>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType">
-         *                 &lt;sequence>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}RegistrationPeriodType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="QualityResources" maxOccurs="1000" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="QualityServices" maxOccurs="1000" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="VolumeResources" maxOccurs="1000" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -948,15 +948,15 @@ public class ImportVolumeAndQualityInformationRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityResourcesType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1005,15 +1005,15 @@ public class ImportVolumeAndQualityInformationRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}QualityServicesType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1062,15 +1062,15 @@ public class ImportVolumeAndQualityInformationRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourcesType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 

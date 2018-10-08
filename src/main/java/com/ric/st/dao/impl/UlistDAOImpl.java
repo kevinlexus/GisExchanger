@@ -1,20 +1,17 @@
 package com.ric.st.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Ulist;
-import com.ric.bill.model.exs.UlistTp;
-import com.ric.st.builder.impl.HcsBillsAsyncBuilder;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Ulist;
+import com.dic.bill.model.exs.UlistTp;
 import com.ric.st.dao.UlistDAO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -106,72 +103,6 @@ public class UlistDAOImpl implements UlistDAO {
 		return chld.getParent();
     }
 
-    @Override
-    public Ulist getListElem(String cd, String name, String guid,Date dt1, Date dt2,
-			Boolean actual, UlistTp ulistTp, Integer npp, String value, Ulist parent,
-			String refCode, String refGuid, String tp) {
-
-        Query query = em.createQuery("select t from Ulist t where (t.cd = :cd or :cd is null)" +
-                "		and (t.name = :name or :name is null)" +
-                "		and (t.guid = :guid or :guid is null)" +
-                "		and (t.dt1 = :dt1 or :dt1 is null)" +
-                "		and (t.dt2 = :dt2 or :dt2 is null)" +
-                "		and (t.actual = :actual or :actual is null)" +
-                "		and (t.ulistTp = :ulistTp or :ulistTp is null)" +
-                "		and (t.npp = :npp or :npp is null)" +
-                "		and (t.s1 = :s1 or :s1 is null)" +
-                "		and (t.parent = :parent or :parent is null)" +
-                "		and (t.refCode = :refCode or :refCode is null)" +
-                "		and (t.refGuid = :refGuid or :refGuid is null)" +
-                "		and (t.valTp = :tp or :tp is null)");
-        query.setParameter("cd", cd);
-		query.setParameter("name", name);
-		query.setParameter("guid", guid);
-		query.setParameter("dt1", dt1);
-		query.setParameter("dt2", dt2);
-		query.setParameter("actual", actual);
-		query.setParameter("ulistTp", ulistTp);
-		query.setParameter("npp", npp);
-		query.setParameter("s1", value);
-		query.setParameter("parent", parent);
-		query.setParameter("refCode", refCode);
-		query.setParameter("refGuid", refGuid);
-		query.setParameter("tp", tp);
-		Ulist res = null;
-		try {
-		    List<Object> res_list = query.getResultList();
-		    if (!res_list.isEmpty()) {
-		        res = (Ulist)res_list.get(0);
-		    }
-		    if (res_list.size() > 1) {
-		        log.error("Ulist.getListElem : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");
-		    }
-		}
-		catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
-		return res;
-    }
-
-/*
-    @Override
-    public Ulist getListElemByCd(String cd, Boolean actual) {
-        Query query = em.createQuery("select t from Ulist t where t.cd = :cd and (t.actual = :actual or :actual is null)");
-        query.setParameter("cd", cd);
-        query.setParameter("actual", actual);
-        Ulist res = null;
-        try {
-            List<Object> res_list = query.getResultList();
-            if (!res_list.isEmpty()) {
-                res = (Ulist)res_list.get(0);
-            }
-            if (res_list.size() > 1) {
-                log.error("Ulist.getListElemByCd : WARNING! NOT UNIQUE RESULT FOUND. CHECK TABLE U_LIST FOR DUBLICATES.");
-            }
-        }
-        catch (Exception e) {log.error("Ulist.getListElem error:"+e.getMessage());};
-        return res;
-    }
-*/
-
 	/**
 	 * Получить элемент справочника по GUID
 	 * @param guid - GUID
@@ -179,7 +110,7 @@ public class UlistDAOImpl implements UlistDAO {
 	 */
 	@Override
 	public Ulist getListElemByGUID(String guid) {
-		Query query = em.createQuery("select t from com.ric.bill.model.exs.Ulist t where t.guid = :guid");
+		Query query = em.createQuery("select t from com.dic.bill.model.exs.Ulist t where t.guid = :guid");
 		query.setParameter("guid", guid);
         Ulist ulist;
         try {
@@ -195,11 +126,11 @@ public class UlistDAOImpl implements UlistDAO {
      * @return - элемент справочника
      */
     @Override
-    public Ulist getListElemByParent(Integer parentId, String cd) {
-        Query query = em.createQuery("select t from com.ric.bill.model.exs.Ulist t " +
-                "join t.parent p where p.id=:parentId and t.cd = :cd");
+    public Ulist getListElemByParent(Integer parentId, String name) {
+        Query query = em.createQuery("select t from com.dic.bill.model.exs.Ulist t " +
+                "join t.parent p where p.id=:parentId and t.name = :name");
         query.setParameter("parentId", parentId);
-        query.setParameter("cd", cd);
+        query.setParameter("name", name);
         Ulist ulist;
         try {
             ulist = (Ulist) query.getSingleResult();

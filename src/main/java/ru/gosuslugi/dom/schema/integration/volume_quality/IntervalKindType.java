@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="IntervalKindType">
- *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type">
- *     &lt;enumeration value="IntervalInProviding"/>
- *     &lt;enumeration value="RestrictionInProviding"/>
- *     &lt;enumeration value="SuspensionOfProviding"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="IntervalKindType"&gt;
+ *   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"&gt;
+ *     &lt;enumeration value="IntervalInProviding"/&gt;
+ *     &lt;enumeration value="RestrictionInProviding"/&gt;
+ *     &lt;enumeration value="SuspensionOfProviding"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dic.bill.dao.AchargeDAO;
-import com.ric.bill.dao.AflowDAO;
-import com.ric.bill.dao.ChrgDAO;
-import com.ric.bill.dto.SumChrgRec;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.oralv.Ko;
+import com.dic.bill.dto.SumChrgRec;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.oralv.Ko;
 import com.ric.st.mm.ChrgMng;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ChrgMngImpl implements ChrgMng {
 
 	@Autowired
-	private AflowDAO aflowDao;
-	@Autowired
 	private AchargeDAO achrgDao;
-	@Autowired
-	private ChrgDAO chrgDao;
 
 	/**
 	 * Получить записи начисления из разных источников
@@ -46,10 +40,8 @@ public class ChrgMngImpl implements ChrgMng {
 		List<SumChrgRec> lstSum = null;
 		if (appTp==0) {
 			// старая разработка
-			lstSum = aflowDao.getChrgGrp(lsk, period, uk.getId());
 		} else if (appTp==1) {
 			// новая разработка
-			lstSum = chrgDao.getChrgGrp(ko.getId(), Integer.valueOf(period), uk.getId());
 		} else if (appTp==2) {
 			// экспериментальная разработка
 			lstSum = achrgDao.getChrgGrp(lsk, Integer.valueOf(period), uk.getId());

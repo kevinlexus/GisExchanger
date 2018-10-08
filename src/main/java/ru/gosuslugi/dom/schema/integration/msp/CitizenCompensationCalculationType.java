@@ -21,23 +21,23 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CitizenCompensationCalculationType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="PeriodFrom" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="PeriodTo" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="CalculationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="CompensationSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/>
- *         &lt;sequence>
- *           &lt;element name="Actual" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActualCompensationType" maxOccurs="16" minOccurs="0"/>
- *           &lt;element name="Standard" type="{http://dom.gosuslugi.ru/schema/integration/msp/}StandardCompensationType" minOccurs="0"/>
- *           &lt;element name="Fixed" type="{http://dom.gosuslugi.ru/schema/integration/msp/}FixedCompensationType" minOccurs="0"/>
- *         &lt;/sequence>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CitizenCompensationCalculationType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="PeriodFrom" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="PeriodTo" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="CalculationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="CompensationSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyType"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="Actual" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActualCompensationType" maxOccurs="16" minOccurs="0"/&gt;
+ *           &lt;element name="Standard" type="{http://dom.gosuslugi.ru/schema/integration/msp/}StandardCompensationType" minOccurs="0"/&gt;
+ *           &lt;element name="Fixed" type="{http://dom.gosuslugi.ru/schema/integration/msp/}FixedCompensationType" minOccurs="0"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

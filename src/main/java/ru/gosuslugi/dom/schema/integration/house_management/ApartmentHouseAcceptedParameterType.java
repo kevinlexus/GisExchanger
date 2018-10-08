@@ -12,31 +12,31 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="ApartmentHouseAcceptedParameterType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="FiasHouseGuid"/>
- *     &lt;enumeration value="TotalSquare"/>
- *     &lt;enumeration value="State"/>
- *     &lt;enumeration value="InnerWallMaterial"/>
- *     &lt;enumeration value="ProjectSeries"/>
- *     &lt;enumeration value="ProjectType"/>
- *     &lt;enumeration value="BuildingYear"/>
- *     &lt;enumeration value="UsedYear"/>
- *     &lt;enumeration value="TotalWear"/>
- *     &lt;enumeration value="FloorCount"/>
- *     &lt;enumeration value="Energy"/>
- *     &lt;enumeration value="OKTMO"/>
- *     &lt;enumeration value="OlsonTZ"/>
- *     &lt;enumeration value="ResidentialSquare"/>
- *     &lt;enumeration value="CulturalHeritage"/>
- *     &lt;enumeration value="BuiltUpArea"/>
- *     &lt;enumeration value="UndergroundFloorCount"/>
- *     &lt;enumeration value="MinFloorCount"/>
- *     &lt;enumeration value="OverhaulYear"/>
- *     &lt;enumeration value="OverhaulFormingKind"/>
- *     &lt;enumeration value="NonResidentialSquare"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="ApartmentHouseAcceptedParameterType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="FiasHouseGuid"/&gt;
+ *     &lt;enumeration value="TotalSquare"/&gt;
+ *     &lt;enumeration value="State"/&gt;
+ *     &lt;enumeration value="InnerWallMaterial"/&gt;
+ *     &lt;enumeration value="ProjectSeries"/&gt;
+ *     &lt;enumeration value="ProjectType"/&gt;
+ *     &lt;enumeration value="BuildingYear"/&gt;
+ *     &lt;enumeration value="UsedYear"/&gt;
+ *     &lt;enumeration value="TotalWear"/&gt;
+ *     &lt;enumeration value="FloorCount"/&gt;
+ *     &lt;enumeration value="Energy"/&gt;
+ *     &lt;enumeration value="OKTMO"/&gt;
+ *     &lt;enumeration value="OlsonTZ"/&gt;
+ *     &lt;enumeration value="ResidentialSquare"/&gt;
+ *     &lt;enumeration value="CulturalHeritage"/&gt;
+ *     &lt;enumeration value="BuiltUpArea"/&gt;
+ *     &lt;enumeration value="UndergroundFloorCount"/&gt;
+ *     &lt;enumeration value="MinFloorCount"/&gt;
+ *     &lt;enumeration value="OverhaulYear"/&gt;
+ *     &lt;enumeration value="OverhaulFormingKind"/&gt;
+ *     &lt;enumeration value="NonResidentialSquare"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

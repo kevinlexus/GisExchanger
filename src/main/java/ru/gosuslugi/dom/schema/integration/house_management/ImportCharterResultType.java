@@ -16,15 +16,15 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="importCharterResultType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusCAChResultType">
- *       &lt;sequence>
- *         &lt;element name="Error" type="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessageType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="importCharterResultType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusCAChResultType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Error" type="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessageType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

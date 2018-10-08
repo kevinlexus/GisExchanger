@@ -2,9 +2,8 @@ package com.ric.st.mm;
 
 import java.math.BigInteger;
 
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Ulist;
-import com.ric.bill.model.exs.UlistTp;
+import com.dic.bill.model.exs.Ulist;
+import com.dic.bill.model.exs.UlistTp;
 import com.ric.st.excp.CantGetNSI;
 import com.ric.st.excp.CantUpdNSI;
 import com.ric.st.impl.RefStore;

@@ -1,6 +1,6 @@
 package com.ric.st.dto.impl;
 
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.PrepDTOs;
 
 /**
@@ -14,5 +14,5 @@ public class HouseDTO extends BaseDTO implements PrepDTOs {
 	public HouseDTO(Task task) {
 		super(task);
 	}
-	
+
 }

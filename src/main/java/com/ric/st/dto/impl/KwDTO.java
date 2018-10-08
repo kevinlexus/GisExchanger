@@ -1,6 +1,6 @@
 package com.ric.st.dto.impl;
 
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.PrepDTOs;
 
 
@@ -15,12 +15,12 @@ public class KwDTO extends BaseDTO implements PrepDTOs {
 	public KwDTO(Task task) {
 		super(task);
 	}
-	
+
 	// Номер квартиры
 	private String num;
 	// Номер подъезда
 	private String entrNum;
-	
+
 	public String getNum() {
 		return num;
 	}
@@ -33,5 +33,5 @@ public class KwDTO extends BaseDTO implements PrepDTOs {
 	public void setEntrNum(String entrNum) {
 		this.entrNum = entrNum;
 	}
-	
+
 }

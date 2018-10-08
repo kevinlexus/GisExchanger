@@ -18,65 +18,65 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="importCitizenSubsidy" maxOccurs="1000">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="CitizenSubsidyGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;sequence minOccurs="0">
- *                     &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                     &lt;choice>
- *                       &lt;element name="LoadOverview" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyOverviewType"/>
- *                       &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;/choice>
- *                   &lt;/sequence>
- *                   &lt;element name="Calculation" maxOccurs="1000" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                             &lt;choice>
- *                               &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/>
- *                               &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                             &lt;/choice>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;element name="Payment" maxOccurs="1000" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                             &lt;choice>
- *                               &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/>
- *                               &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                             &lt;/choice>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="importCitizenSubsidy" maxOccurs="1000"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="CitizenSubsidyGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;sequence minOccurs="0"&gt;
+ *                     &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                     &lt;choice&gt;
+ *                       &lt;element name="LoadOverview" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyOverviewType"/&gt;
+ *                       &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;/choice&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="Calculation" maxOccurs="1000" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                             &lt;choice&gt;
+ *                               &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/&gt;
+ *                               &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                             &lt;/choice&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="Payment" maxOccurs="1000" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                             &lt;choice&gt;
+ *                               &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/&gt;
+ *                               &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                             &lt;/choice&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -159,54 +159,54 @@ public class ImportCitizenSubsidyRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="CitizenSubsidyGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;sequence minOccurs="0">
-     *           &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *           &lt;choice>
-     *             &lt;element name="LoadOverview" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyOverviewType"/>
-     *             &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;/choice>
-     *         &lt;/sequence>
-     *         &lt;element name="Calculation" maxOccurs="1000" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                   &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *                   &lt;choice>
-     *                     &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/>
-     *                     &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                   &lt;/choice>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="Payment" maxOccurs="1000" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                   &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *                   &lt;choice>
-     *                     &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/>
-     *                     &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                   &lt;/choice>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="CitizenSubsidyGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;sequence minOccurs="0"&gt;
+     *           &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *           &lt;choice&gt;
+     *             &lt;element name="LoadOverview" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyOverviewType"/&gt;
+     *             &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;/choice&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;element name="Calculation" maxOccurs="1000" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *                   &lt;choice&gt;
+     *                     &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/&gt;
+     *                     &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                   &lt;/choice&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="Payment" maxOccurs="1000" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *                   &lt;choice&gt;
+     *                     &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/&gt;
+     *                     &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                   &lt;/choice&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -396,20 +396,20 @@ public class ImportCitizenSubsidyRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *         &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-         *         &lt;choice>
-         *           &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/>
-         *           &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="CalculationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="LoadCalculation" type="{http://dom.gosuslugi.ru/schema/integration/msp/}CitizenSubsidyCalculationType"/&gt;
+         *           &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -537,20 +537,20 @@ public class ImportCitizenSubsidyRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *         &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-         *         &lt;choice>
-         *           &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/>
-         *           &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="PaymentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="LoadPayment" type="{http://dom.gosuslugi.ru/schema/integration/msp/}PaymentType"/&gt;
+         *           &lt;element name="Cancel" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

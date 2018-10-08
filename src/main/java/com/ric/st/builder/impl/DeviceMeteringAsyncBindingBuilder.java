@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +15,10 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 
-import com.ric.bill.model.exs.*;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.MeterVal;
+import com.dic.bill.model.exs.Task;
+import com.dic.bill.model.exs.Ulist;
 import com.ric.st.dao.UlistDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,20 +27,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ric.bill.Config;
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.EolinkMng;
-import com.ric.bill.mm.EolinkParMng;
-import com.ric.bill.mm.LstMng;
-import com.ric.bill.mm.TaskEolinkParMng;
-import com.ric.bill.mm.TaskMng;
-import com.ric.bill.mm.TaskParMng;
-import com.ric.bill.model.bs.Lst;
+import com.dic.bill.dao.EolinkDAO;
+import com.dic.bill.dao.TaskDAO;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.EolinkParMng;
+import com.dic.bill.mm.LstMng;
+import com.dic.bill.mm.TaskEolinkParMng;
+import com.dic.bill.mm.TaskMng;
+import com.dic.bill.mm.TaskParMng;
 import com.ric.cmn.Utl;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
@@ -102,8 +99,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private LstMng lstMng;
 	@Autowired
 	private SoapConfigs soapConfig;
+/*
 	@Autowired
 	private Config config;
+*/
 	@Autowired
 	private PseudoTaskBuilders ptb;
 	@Autowired
@@ -286,7 +285,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		ImportMeteringDeviceValuesRequest req = new ImportMeteringDeviceValuesRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		req.setFIASHouseGuid(reqProp.getHouseGuid());
 
 		List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "СчетчикФизический", null, reqProp.getAppTp()).stream()
@@ -437,7 +436,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		req.setFIASHouseGuid(reqProp.getHouseGuid());
 
 		// индивидуальные приборы учета
@@ -476,8 +475,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		req.setSerchArchived(false);
 		// Отключить показания отправленные информационной системой
 		req.setExcludeISValues(true);
-		// дата с которой получить показания
-		req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
+		// дата с которой получить показания TODO
+		//req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
 
 		try {
 			ack = port.exportMeteringDeviceHistory(req);
@@ -711,29 +710,30 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		//log.trace("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания, если их нет
-		String actTp = "GIS_EXP_METER_VALS";
-		String parentCD = "SYSTEM_RPT_MET_EXP_VAL";
-		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
-		int a=1;
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
-			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
-			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Холодная вода", null, null);
-			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Горячая вода", null, null);
-			ptb.addTaskPar("Счетчик.ВидКоммунРесурса", null, "Электрическая энергия", null, null);
-			// добавить как дочернее задание к системному повторяемому заданию
-			ptb.addAsChild(parentCD);
-			ptb.save();
-			log.trace("Добавлено задание на выгрузку показаний приборов учета по Дому Eolink.id={}", e.getId());
-			a++;
-			if (a>=100) {
-				break;
-			}
-		};
+		createTask("GIS_EXP_METER_VALS", "SYSTEM_RPT_MET_EXP_VAL", "STP", "Дом",
+				"выгрузку показаний приборов учета");
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
 		//log.trace("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, выполнено!", task.getId());
 
 	}
+
+	private void createTask(String actTp, String parentCD, String state, String eolTp, String purpose) {
+		int a;// создавать по 100 штук, иначе -блокировка Task (нужен коммит)
+		a=1;
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp(eolTp, actTp, parentCD)) {
+			// статус - STP, остановлено (будет запускаться другим заданием)
+			ptb.setUp(e, null, actTp, state, soapConfig.getCurUser().getId());
+			// добавить как зависимое задание к системному повторяемому заданию
+			ptb.addAsChild(parentCD);
+			ptb.save();
+			log.info("Добавлено задание на {}, по объекту {}, Eolink.id={}", purpose, eolTp, e.getId());
+			a++;
+			if (a++>=100) {
+				break;
+			}
+		}
+	}
+
 
 }

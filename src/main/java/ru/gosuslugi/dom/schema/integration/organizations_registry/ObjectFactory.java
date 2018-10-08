@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ForeignBranchImportType }
+     * 
+     */
+    public ForeignBranchImportType createForeignBranchImportType() {
+        return new ForeignBranchImportType();
+    }
+
+    /**
      * Create an instance of {@link SubsidiaryImportType }
      * 
      */
@@ -59,22 +67,6 @@ public class ObjectFactory {
      */
     public SubsidiaryImportType.UpdateSubsidiary createSubsidiaryImportTypeUpdateSubsidiary() {
         return new SubsidiaryImportType.UpdateSubsidiary();
-    }
-
-    /**
-     * Create an instance of {@link ForeignBranchImportType }
-     * 
-     */
-    public ForeignBranchImportType createForeignBranchImportType() {
-        return new ForeignBranchImportType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**
@@ -94,6 +86,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
+     * Create an instance of {@link ForeignBranchImportType.UpdateForeignBranch }
+     * 
+     */
+    public ForeignBranchImportType.UpdateForeignBranch createForeignBranchImportTypeUpdateForeignBranch() {
+        return new ForeignBranchImportType.UpdateForeignBranch();
+    }
+
+    /**
      * Create an instance of {@link SubsidiaryImportType.CreateSubsidiary }
      * 
      */
@@ -107,14 +115,6 @@ public class ObjectFactory {
      */
     public SubsidiaryImportType.UpdateSubsidiary.SourceName createSubsidiaryImportTypeUpdateSubsidiarySourceName() {
         return new SubsidiaryImportType.UpdateSubsidiary.SourceName();
-    }
-
-    /**
-     * Create an instance of {@link ForeignBranchImportType.UpdateForeignBranch }
-     * 
-     */
-    public ForeignBranchImportType.UpdateForeignBranch createForeignBranchImportTypeUpdateForeignBranch() {
-        return new ForeignBranchImportType.UpdateForeignBranch();
     }
 
 }

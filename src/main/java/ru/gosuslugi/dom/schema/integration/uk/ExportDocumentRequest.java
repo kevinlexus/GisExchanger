@@ -22,28 +22,28 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="Federal" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *             &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *             &lt;element name="Municipal" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *           &lt;/choice>
- *           &lt;sequence minOccurs="0">
- *             &lt;element name="AcceptStartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *             &lt;element name="AcceptEndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *           &lt;/sequence>
- *           &lt;element name="DocumentType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *         &lt;/sequence>
- *         &lt;element name="DocumentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.2""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="Federal" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *             &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *             &lt;element name="Municipal" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;sequence minOccurs="0"&gt;
+ *             &lt;element name="AcceptStartDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *             &lt;element name="AcceptEndDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *           &lt;element name="DocumentType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element name="DocumentGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.2""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
 
 
 /**
@@ -15,25 +14,25 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element name="PaymentDocumentDetails" type="{http://dom.gosuslugi.ru/schema/integration/payment/}PaymentDocumentDetailsType"/>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;/choice>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID" minOccurs="0"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="PaymentDocumentDetails" type="{http://dom.gosuslugi.ru/schema/integration/payment/}PaymentDocumentDetailsType"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/&gt;
+ *         &lt;element name="PaymentDocumentGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -46,9 +45,9 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "accountNumber",
     "serviceID",
     "paymentDocumentDetails",
-    "errorMessage",
     "year",
-    "month"
+    "month",
+    "paymentDocumentGUID"
 })
 @XmlRootElement(name = "PaymentDocument")
 public class PaymentDocument {
@@ -63,14 +62,14 @@ public class PaymentDocument {
     protected String accountNumber;
     @XmlElement(name = "ServiceID", namespace = "http://dom.gosuslugi.ru/schema/integration/account-base/")
     protected String serviceID;
-    @XmlElement(name = "PaymentDocumentDetails")
+    @XmlElement(name = "PaymentDocumentDetails", required = true)
     protected PaymentDocumentDetailsType paymentDocumentDetails;
-    @XmlElement(name = "ErrorMessage", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
-    protected ErrorMessageType errorMessage;
     @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected Short year;
     @XmlElement(name = "Month", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected Integer month;
+    @XmlElement(name = "PaymentDocumentGUID")
+    protected String paymentDocumentGUID;
 
     /**
      * Gets the value of the paymentDocumentID property.
@@ -217,30 +216,6 @@ public class PaymentDocument {
     }
 
     /**
-     * Gets the value of the errorMessage property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ErrorMessageType }
-     *     
-     */
-    public ErrorMessageType getErrorMessage() {
-        return errorMessage;
-    }
-
-    /**
-     * Sets the value of the errorMessage property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ErrorMessageType }
-     *     
-     */
-    public void setErrorMessage(ErrorMessageType value) {
-        this.errorMessage = value;
-    }
-
-    /**
      * Gets the value of the year property.
      * 
      * @return
@@ -286,6 +261,30 @@ public class PaymentDocument {
      */
     public void setMonth(Integer value) {
         this.month = value;
+    }
+
+    /**
+     * Gets the value of the paymentDocumentGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPaymentDocumentGUID() {
+        return paymentDocumentGUID;
+    }
+
+    /**
+     * Sets the value of the paymentDocumentGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPaymentDocumentGUID(String value) {
+        this.paymentDocumentGUID = value;
     }
 
 }

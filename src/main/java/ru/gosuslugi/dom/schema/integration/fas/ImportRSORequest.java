@@ -21,120 +21,120 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="RSO" maxOccurs="100">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;element name="ActualDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                   &lt;choice>
- *                     &lt;element name="RSOActualDATA">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/>
- *                               &lt;element name="Name">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                     &lt;minLength value="1"/>
- *                                     &lt;maxLength value="255"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                               &lt;choice minOccurs="0">
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
- *                               &lt;/choice>
- *                               &lt;element name="Resource" maxOccurs="unbounded">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/>
- *                                         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="Number">
- *                                           &lt;simpleType>
- *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                               &lt;minLength value="1"/>
- *                                               &lt;maxLength value="50"/>
- *                                             &lt;/restriction>
- *                                           &lt;/simpleType>
- *                                         &lt;/element>
- *                                         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="Number">
- *                                           &lt;simpleType>
- *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                               &lt;minLength value="1"/>
- *                                               &lt;maxLength value="50"/>
- *                                             &lt;/restriction>
- *                                           &lt;/simpleType>
- *                                         &lt;/element>
- *                                         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="RemoveRSO">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
- *                               &lt;choice minOccurs="0">
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
- *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
- *                               &lt;/choice>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="RSO" maxOccurs="100"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                   &lt;element name="ActualDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="RSOActualDATA"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/&gt;
+ *                               &lt;element name="Name"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                     &lt;minLength value="1"/&gt;
+ *                                     &lt;maxLength value="255"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                               &lt;choice minOccurs="0"&gt;
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+ *                               &lt;/choice&gt;
+ *                               &lt;element name="Resource" maxOccurs="unbounded"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/&gt;
+ *                                         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="Number"&gt;
+ *                                           &lt;simpleType&gt;
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                               &lt;minLength value="1"/&gt;
+ *                                               &lt;maxLength value="50"/&gt;
+ *                                             &lt;/restriction&gt;
+ *                                           &lt;/simpleType&gt;
+ *                                         &lt;/element&gt;
+ *                                         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="Number"&gt;
+ *                                           &lt;simpleType&gt;
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                               &lt;minLength value="1"/&gt;
+ *                                               &lt;maxLength value="50"/&gt;
+ *                                             &lt;/restriction&gt;
+ *                                           &lt;/simpleType&gt;
+ *                                         &lt;/element&gt;
+ *                                         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="RemoveRSO"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+ *                               &lt;choice minOccurs="0"&gt;
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+ *                               &lt;/choice&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -217,109 +217,109 @@ public class ImportRSORequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;element name="ActualDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;choice>
-     *           &lt;element name="RSOActualDATA">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/>
-     *                     &lt;element name="Name">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                           &lt;minLength value="1"/>
-     *                           &lt;maxLength value="255"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                     &lt;choice minOccurs="0">
-     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
-     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
-     *                     &lt;/choice>
-     *                     &lt;element name="Resource" maxOccurs="unbounded">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/>
-     *                               &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="Number">
-     *                                 &lt;simpleType>
-     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                     &lt;minLength value="1"/>
-     *                                     &lt;maxLength value="50"/>
-     *                                   &lt;/restriction>
-     *                                 &lt;/simpleType>
-     *                               &lt;/element>
-     *                               &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="Number">
-     *                                 &lt;simpleType>
-     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                     &lt;minLength value="1"/>
-     *                                     &lt;maxLength value="50"/>
-     *                                   &lt;/restriction>
-     *                                 &lt;/simpleType>
-     *                               &lt;/element>
-     *                               &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="RemoveRSO">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-     *                     &lt;choice minOccurs="0">
-     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
-     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
-     *                     &lt;/choice>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *         &lt;element name="ActualDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="RSOActualDATA"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/&gt;
+     *                     &lt;element name="Name"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                           &lt;minLength value="1"/&gt;
+     *                           &lt;maxLength value="255"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                     &lt;choice minOccurs="0"&gt;
+     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+     *                     &lt;/choice&gt;
+     *                     &lt;element name="Resource" maxOccurs="unbounded"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/&gt;
+     *                               &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="Number"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                     &lt;minLength value="1"/&gt;
+     *                                     &lt;maxLength value="50"/&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="Number"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                     &lt;minLength value="1"/&gt;
+     *                                     &lt;maxLength value="50"/&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="RemoveRSO"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+     *                     &lt;choice minOccurs="0"&gt;
+     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+     *                     &lt;/choice&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -446,79 +446,79 @@ public class ImportRSORequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/>
-         *         &lt;element name="Name">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;minLength value="1"/>
-         *               &lt;maxLength value="255"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *         &lt;choice minOccurs="0">
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
-         *         &lt;/choice>
-         *         &lt;element name="Resource" maxOccurs="unbounded">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/>
-         *                   &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="Number">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                         &lt;minLength value="1"/>
-         *                         &lt;maxLength value="50"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                   &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="Number">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                         &lt;minLength value="1"/>
-         *                         &lt;maxLength value="50"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                   &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP" minOccurs="0"/&gt;
+         *         &lt;element name="Name"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *               &lt;maxLength value="255"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="IsEntpr" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *         &lt;choice minOccurs="0"&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+         *         &lt;/choice&gt;
+         *         &lt;element name="Resource" maxOccurs="unbounded"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/&gt;
+         *                   &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="RegistryOfNaturalMonopolies" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="Number"&gt;
+         *                     &lt;simpleType&gt;
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                         &lt;minLength value="1"/&gt;
+         *                         &lt;maxLength value="50"/&gt;
+         *                       &lt;/restriction&gt;
+         *                     &lt;/simpleType&gt;
+         *                   &lt;/element&gt;
+         *                   &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="RegistryGuaranteeingSuppliers" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="Number"&gt;
+         *                     &lt;simpleType&gt;
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                         &lt;minLength value="1"/&gt;
+         *                         &lt;maxLength value="50"/&gt;
+         *                       &lt;/restriction&gt;
+         *                     &lt;/simpleType&gt;
+         *                   &lt;/element&gt;
+         *                   &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -776,23 +776,23 @@ public class ImportRSORequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="Number">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *               &lt;minLength value="1"/>
-             *               &lt;maxLength value="50"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="Number"&gt;
+             *           &lt;simpleType&gt;
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+             *               &lt;minLength value="1"/&gt;
+             *               &lt;maxLength value="50"/&gt;
+             *             &lt;/restriction&gt;
+             *           &lt;/simpleType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -867,23 +867,23 @@ public class ImportRSORequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="Number">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *               &lt;minLength value="1"/>
-             *               &lt;maxLength value="50"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="Number"&gt;
+             *           &lt;simpleType&gt;
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+             *               &lt;minLength value="1"/&gt;
+             *               &lt;maxLength value="50"/&gt;
+             *             &lt;/restriction&gt;
+             *           &lt;/simpleType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -958,16 +958,16 @@ public class ImportRSORequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/>
-             *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="ResourseType" type="{http://dom.gosuslugi.ru/schema/integration/fas/}ResourseType"/&gt;
+             *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType" maxOccurs="unbounded"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1048,20 +1048,20 @@ public class ImportRSORequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-         *         &lt;choice minOccurs="0">
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/>
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+         *         &lt;choice minOccurs="0"&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRN"/&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}OGRNIP"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

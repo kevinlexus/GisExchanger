@@ -13,76 +13,76 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="DateDetailsType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="PeriodMetering">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/>
- *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="PaymentDocumentInterval">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;choice>
- *                     &lt;element name="StartDate">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                           &lt;maxInclusive value="30"/>
- *                           &lt;minInclusive value="1"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                   &lt;choice>
- *                     &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="PaymentInterval">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;choice>
- *                     &lt;element name="StartDate">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
- *                           &lt;maxInclusive value="30"/>
- *                           &lt;minInclusive value="1"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                   &lt;choice>
- *                     &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="DateDetailsType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="PeriodMetering"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/&gt;
+ *                   &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PaymentDocumentInterval"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="StartDate"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte"&gt;
+ *                           &lt;maxInclusive value="30"/&gt;
+ *                           &lt;minInclusive value="1"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PaymentInterval"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="StartDate"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte"&gt;
+ *                           &lt;maxInclusive value="30"/&gt;
+ *                           &lt;minInclusive value="1"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -181,29 +181,29 @@ public class DateDetailsType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;choice>
-     *           &lt;element name="StartDate">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                 &lt;maxInclusive value="30"/>
-     *                 &lt;minInclusive value="1"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *         &lt;choice>
-     *           &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="StartDate"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte"&gt;
+     *                 &lt;maxInclusive value="30"/&gt;
+     *                 &lt;minInclusive value="1"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -331,29 +331,29 @@ public class DateDetailsType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;choice>
-     *           &lt;element name="StartDate">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte">
-     *                 &lt;maxInclusive value="30"/>
-     *                 &lt;minInclusive value="1"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *         &lt;choice>
-     *           &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="StartDate"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}byte"&gt;
+     *                 &lt;maxInclusive value="30"/&gt;
+     *                 &lt;minInclusive value="1"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="LastDay" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="CurrentMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="NextMounth" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -481,16 +481,16 @@ public class DateDetailsType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/>
-     *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="StartDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/&gt;
+     *         &lt;element name="EndDate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeviceMeteringsDaySelectionType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

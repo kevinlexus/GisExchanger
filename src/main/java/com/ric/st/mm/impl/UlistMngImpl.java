@@ -2,7 +2,6 @@ package com.ric.st.mm.impl;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +15,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.diffplug.common.base.Errors;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Ulist;
-import com.ric.bill.model.exs.UlistTp;
+import com.dic.bill.model.exs.Ulist;
+import com.dic.bill.model.exs.UlistTp;
 import com.ric.cmn.Utl;
 import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.dao.UlistDAO;
@@ -216,7 +214,7 @@ public class UlistMngImpl implements UlistMng {
 				t.isIsActual(), ulistTp, 0, null, null, null, null, null);
 */
 	        em.persist(main);
-	        log.info("Создана главная запись CD={}, GUID={}, ID={}", main.getCd(), main.getGuid(), main.getId());
+	        log.info("Создана главная запись GUID={}, ID={}", main.getGuid(), main.getId());
 		} else {
 		    main.setDt1(Utl.getDateFromXmlGregCal(t.getStartDate()));
 		    main.setDt2(Utl.getDateFromXmlGregCal(t.getEndDate()));
@@ -231,7 +229,7 @@ public class UlistMngImpl implements UlistMng {
 		    main.setValTp(null);
 		    main.setParent2(null);
 		    em.persist(main);
-			log.info("Главная запись ID={} CD={},  есть в базе, обновление актуальной информацией...", main.getId(), main.getCd() );
+			log.info("Главная запись ID={},  есть в базе, обновление актуальной информацией...", main.getId());
 		}
 
 		// создать записи fields в Ulist
@@ -270,14 +268,14 @@ public class UlistMngImpl implements UlistMng {
                         null, "ST");
 */
 
-				Ulist old = ulistDao.getListElemByParent(main.getId(), fldCd);
+				Ulist old = ulistDao.getListElemByParent(main.getId(), name);
 				if (old != null) {
 				    copyFrom(ulist, old);
 				    ulist = old;
-					log.info("Поле CD={}, Name={} существует в базе, обновляем S1={}",
-                            fldCd, name, ulist.getS1());
+					log.info("Поле Name={} существует в базе, обновляем S1={}",
+                            name, ulist.getS1());
 				} else {
-                    log.info("Создано поле CD={}, Name={}, S1={}", fldCd, name, ulist.getS1());
+                    log.info("Создано поле Name={}, S1={}", name, ulist.getS1());
                 }
 			} else if (d.getClass().equals(NsiElementNsiRefFieldType.class)) {
 				NsiElementNsiRefFieldType fld = (NsiElementNsiRefFieldType) d;

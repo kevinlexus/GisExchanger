@@ -20,19 +20,19 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OperationAndBalanceInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *         &lt;element name="ReportingPeriod" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType"/>
- *         &lt;element name="PeriodBeginningBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="PeriodEndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="Operation" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}OperationType" maxOccurs="15000" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="OperationAndBalanceInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *         &lt;element name="ReportingPeriod" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ReportingPeriodType"/&gt;
+ *         &lt;element name="PeriodBeginningBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="PeriodEndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="Operation" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}OperationType" maxOccurs="15000" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

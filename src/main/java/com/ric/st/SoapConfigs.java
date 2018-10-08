@@ -1,6 +1,6 @@
 package com.ric.st;
 
-import com.ric.bill.model.sec.User;
+import com.dic.bill.model.sec.User;
 
 public interface SoapConfigs {
 

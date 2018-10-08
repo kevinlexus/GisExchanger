@@ -19,32 +19,32 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="WorkingListItemType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;sequence>
- *             &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/>
- *             &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/base/}VolumeType" minOccurs="0"/>
- *             &lt;element name="Count" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCountType" minOccurs="0"/>
- *             &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/>
- *           &lt;/sequence>
- *           &lt;element name="Excluded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="WorkItemNSI" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="Index" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
- *               &lt;minInclusive value="1"/>
- *               &lt;maxInclusive value="9999"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="WorkingListItemType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="Price" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkPriceType" minOccurs="0"/&gt;
+ *             &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkAmountType" minOccurs="0"/&gt;
+ *             &lt;element name="Count" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCountType" minOccurs="0"/&gt;
+ *             &lt;element name="TotalCost" type="{http://dom.gosuslugi.ru/schema/integration/services/}WorkCostType" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *           &lt;element name="Excluded" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="WorkItemNSI" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="Index" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"&gt;
+ *               &lt;minInclusive value="1"/&gt;
+ *               &lt;maxInclusive value="9999"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -60,8 +60,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "index"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.services.ExportWorkingListResultType.WorkingList.WorkListItem.class,
-    ru.gosuslugi.dom.schema.integration.services.ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem.class
+    ru.gosuslugi.dom.schema.integration.services.ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem.class,
+    ru.gosuslugi.dom.schema.integration.services.ExportWorkingListResultType.WorkingList.WorkListItem.class
 })
 public class WorkingListItemType {
 

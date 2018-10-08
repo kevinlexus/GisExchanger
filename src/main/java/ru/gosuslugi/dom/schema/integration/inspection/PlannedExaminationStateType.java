@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="PlannedExaminationStateType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *     &lt;enumeration value="Planned"/>
- *     &lt;enumeration value="Cancelled"/>
- *     &lt;enumeration value="Finished"/>
- *     &lt;enumeration value="Annulled"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="PlannedExaminationStateType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *     &lt;enumeration value="Planned"/&gt;
+ *     &lt;enumeration value="Cancelled"/&gt;
+ *     &lt;enumeration value="Finished"/&gt;
+ *     &lt;enumeration value="Annulled"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

@@ -16,26 +16,26 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ExportCreditContractType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}CreditContractType">
- *       &lt;sequence>
- *         &lt;element name="Holder" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/>
- *         &lt;element name="RepaymentStatus" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
- *         &lt;element name="TerminationInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}TerminationInfoType" minOccurs="0"/>
- *         &lt;element name="Status">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;enumeration value="Published"/>
- *               &lt;enumeration value="Canceled"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="CreditContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ExportCreditContractType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}CreditContractType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Holder" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType"/&gt;
+ *         &lt;element name="RepaymentStatus" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/&gt;
+ *         &lt;element name="TerminationInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}TerminationInfoType" minOccurs="0"/&gt;
+ *         &lt;element name="Status"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;enumeration value="Published"/&gt;
+ *               &lt;enumeration value="Canceled"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="CreditContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

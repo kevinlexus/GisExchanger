@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ReportPeriodType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ReportPeriodType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -36,9 +36,9 @@ import javax.xml.bind.annotation.XmlType;
     "year"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.bills.ExportSettlementResultType.ReportingPeriod.class,
+    ru.gosuslugi.dom.schema.integration.bills.ImportRSOSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod.class,
     ru.gosuslugi.dom.schema.integration.bills.ImportIKUSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod.class,
-    ru.gosuslugi.dom.schema.integration.bills.ImportRSOSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod.class
+    ru.gosuslugi.dom.schema.integration.bills.ExportSettlementResultType.ReportingPeriod.class
 })
 public class ReportPeriodType {
 

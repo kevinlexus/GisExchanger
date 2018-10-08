@@ -18,144 +18,144 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="exportHouseResultType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="HouseUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;choice>
- *           &lt;element name="ApartmentHouse">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseExportType">
- *                   &lt;sequence>
- *                     &lt;element name="Entrance" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType">
- *                             &lt;sequence>
- *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                               &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType">
- *                             &lt;sequence>
- *                               &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                               &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
- *                                       &lt;sequence>
- *                                         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="Lift" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType">
- *                             &lt;sequence>
- *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                               &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="NonResidentialPremises" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType">
- *                             &lt;sequence>
- *                               &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                               &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="LivingHouse">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseExportType">
- *                   &lt;sequence>
- *                     &lt;choice>
- *                       &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
- *                               &lt;sequence>
- *                                 &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                 &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                 &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                               &lt;/sequence>
- *                             &lt;/extension>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                       &lt;element name="Block" maxOccurs="unbounded" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType">
- *                               &lt;sequence>
- *                                 &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                 &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                 &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                 &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
- *                                         &lt;sequence>
- *                                           &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                                           &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/sequence>
- *                             &lt;/extension>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                     &lt;/choice>
- *                     &lt;element name="HouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="exportHouseResultType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="HouseUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ApartmentHouse"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseExportType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="Entrance" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                               &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                               &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                                         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                                         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="Lift" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                               &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="NonResidentialPremises" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                               &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="LivingHouse"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseExportType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;choice&gt;
+ *                       &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                         &lt;complexType&gt;
+ *                           &lt;complexContent&gt;
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+ *                               &lt;sequence&gt;
+ *                                 &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                                 &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                                 &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                               &lt;/sequence&gt;
+ *                             &lt;/extension&gt;
+ *                           &lt;/complexContent&gt;
+ *                         &lt;/complexType&gt;
+ *                       &lt;/element&gt;
+ *                       &lt;element name="Block" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                         &lt;complexType&gt;
+ *                           &lt;complexContent&gt;
+ *                             &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType"&gt;
+ *                               &lt;sequence&gt;
+ *                                 &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                                 &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                                 &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                 &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *                                           &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                                           &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/extension&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                               &lt;/sequence&gt;
+ *                             &lt;/extension&gt;
+ *                           &lt;/complexContent&gt;
+ *                         &lt;/complexType&gt;
+ *                       &lt;/element&gt;
+ *                     &lt;/choice&gt;
+ *                     &lt;element name="HouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -282,78 +282,78 @@ public class ExportHouseResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseExportType">
-     *       &lt;sequence>
-     *         &lt;element name="Entrance" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                   &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType">
-     *                 &lt;sequence>
-     *                   &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                   &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-     *                           &lt;sequence>
-     *                             &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                             &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                             &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                           &lt;/sequence>
-     *                         &lt;/extension>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="Lift" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                   &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="NonResidentialPremises" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType">
-     *                 &lt;sequence>
-     *                   &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                   &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseExportType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Entrance" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                   &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="ResidentialPremises" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                   &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                             &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                             &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                           &lt;/sequence&gt;
+     *                         &lt;/extension&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="Lift" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                   &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="NonResidentialPremises" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                   &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -528,16 +528,16 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType">
-         *       &lt;sequence>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}EntranceExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="EntranceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -614,16 +614,16 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType">
-         *       &lt;sequence>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LiftExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="LiftGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -700,17 +700,17 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType">
-         *       &lt;sequence>
-         *         &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}NonResidentialPremisesExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -814,30 +814,30 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType">
-         *       &lt;sequence>
-         *         &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-         *                 &lt;sequence>
-         *                   &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *                   &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ResidentialPremisesExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="PremisesUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *                   &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="PremisesGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -971,17 +971,17 @@ public class ExportHouseResultType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-             *       &lt;sequence>
-             *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-             *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+             *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+             *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1089,56 +1089,56 @@ public class ExportHouseResultType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseExportType">
-     *       &lt;sequence>
-     *         &lt;choice>
-     *           &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-     *                   &lt;sequence>
-     *                     &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                     &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                     &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="Block" maxOccurs="unbounded" minOccurs="0">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType">
-     *                   &lt;sequence>
-     *                     &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                     &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                     &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                     &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-     *                             &lt;sequence>
-     *                               &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                               &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *         &lt;/choice>
-     *         &lt;element name="HouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}LivingHouseExportType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                     &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                     &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="Block" maxOccurs="unbounded" minOccurs="0"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                     &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                     &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                     &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+     *                               &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                               &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/choice&gt;
+     *         &lt;element name="HouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1249,30 +1249,30 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType">
-         *       &lt;sequence>
-         *         &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *         &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-         *                 &lt;sequence>
-         *                   &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *                   &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}BlockExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="BlockUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="BlockGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="LivingRoom" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *                   &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1406,17 +1406,17 @@ public class ExportHouseResultType {
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-             *       &lt;sequence>
-             *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-             *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+             *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+             *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1522,17 +1522,17 @@ public class ExportHouseResultType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType">
-         *       &lt;sequence>
-         *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RoomExportType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="LivingRoomUniqueNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+         *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *         &lt;element name="LivingRoomGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

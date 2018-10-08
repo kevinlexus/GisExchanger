@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="DecreeStatusType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Published"/>
- *     &lt;enumeration value="Cancelled"/>
- *     &lt;enumeration value="Annulled"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="DecreeStatusType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="Published"/&gt;
+ *     &lt;enumeration value="Cancelled"/&gt;
+ *     &lt;enumeration value="Annulled"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

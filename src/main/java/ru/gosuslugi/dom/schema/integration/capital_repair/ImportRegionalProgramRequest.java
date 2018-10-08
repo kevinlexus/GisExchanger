@@ -18,41 +18,41 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="importRegionalProgram">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;element name="LoadRegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType" minOccurs="0"/>
- *                   &lt;element name="RegionalProgramDocument" maxOccurs="1000" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType">
- *                         &lt;/extension>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;choice minOccurs="0">
- *                     &lt;element name="DeleteRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="PublishRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="CancelRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="importRegionalProgram"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;element name="LoadRegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType" minOccurs="0"/&gt;
+ *                   &lt;element name="RegionalProgramDocument" maxOccurs="1000" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType"&gt;
+ *                         &lt;/extension&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;choice minOccurs="0"&gt;
+ *                     &lt;element name="DeleteRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="PublishRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="CancelRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -130,30 +130,30 @@ public class ImportRegionalProgramRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;element name="LoadRegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType" minOccurs="0"/>
-     *         &lt;element name="RegionalProgramDocument" maxOccurs="1000" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType">
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;choice minOccurs="0">
-     *           &lt;element name="DeleteRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="PublishRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="CancelRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="TransportGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;element name="LoadRegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType" minOccurs="0"/&gt;
+     *         &lt;element name="RegionalProgramDocument" maxOccurs="1000" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType"&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;choice minOccurs="0"&gt;
+     *           &lt;element name="DeleteRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="PublishRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="CancelRegionalProgram" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -365,12 +365,12 @@ public class ImportRegionalProgramRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType">
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ImportDocumentType"&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

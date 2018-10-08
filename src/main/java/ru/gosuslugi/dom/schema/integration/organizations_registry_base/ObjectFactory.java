@@ -24,13 +24,13 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _FullName_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "FullName");
     private final static QName _CommercialName_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "CommercialName");
     private final static QName _RegOrg_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "RegOrg");
-    private final static QName _FullName_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "FullName");
-    private final static QName _ShortName_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "ShortName");
     private final static QName _RegOrgVersion_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "RegOrgVersion");
-    private final static QName _OrgVersionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "orgVersionGUID");
     private final static QName _OrgRootEntityGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "orgRootEntityGUID");
+    private final static QName _OrgVersionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "orgVersionGUID");
+    private final static QName _ShortName_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", "ShortName");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.organizations_registry_base
@@ -48,14 +48,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegOrgVersionType }
-     * 
-     */
-    public RegOrgVersionType createRegOrgVersionType() {
-        return new RegOrgVersionType();
-    }
-
-    /**
      * Create an instance of {@link RegOrgType }
      * 
      */
@@ -64,19 +56,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegOrgRootAndVersionType }
+     * Create an instance of {@link RegOrgVersionType }
      * 
      */
-    public RegOrgRootAndVersionType createRegOrgRootAndVersionType() {
-        return new RegOrgRootAndVersionType();
-    }
-
-    /**
-     * Create an instance of {@link EntpsType }
-     * 
-     */
-    public EntpsType createEntpsType() {
-        return new EntpsType();
+    public RegOrgVersionType createRegOrgVersionType() {
+        return new RegOrgVersionType();
     }
 
     /**
@@ -96,6 +80,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EntpsType }
+     * 
+     */
+    public EntpsType createEntpsType() {
+        return new EntpsType();
+    }
+
+    /**
+     * Create an instance of {@link RegOrgRootAndVersionType }
+     * 
+     */
+    public RegOrgRootAndVersionType createRegOrgRootAndVersionType() {
+        return new RegOrgRootAndVersionType();
+    }
+
+    /**
      * Create an instance of {@link SubsidiaryType.SourceName }
      * 
      */
@@ -104,26 +104,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "CommercialName")
-    public JAXBElement<String> createCommercialName(String value) {
-        return new JAXBElement<String>(_CommercialName_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "RegOrg")
-    public JAXBElement<RegOrgType> createRegOrg(RegOrgType value) {
-        return new JAXBElement<RegOrgType>(_RegOrg_QNAME, RegOrgType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "FullName")
     public JAXBElement<String> createFullName(String value) {
@@ -131,17 +117,38 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "ShortName")
-    public JAXBElement<String> createShortName(String value) {
-        return new JAXBElement<String>(_ShortName_QNAME, String.class, null, value);
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "CommercialName")
+    public JAXBElement<String> createCommercialName(String value) {
+        return new JAXBElement<String>(_CommercialName_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgVersionType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link RegOrgType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "RegOrg")
+    public JAXBElement<RegOrgType> createRegOrg(RegOrgType value) {
+        return new JAXBElement<RegOrgType>(_RegOrg_QNAME, RegOrgType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgVersionType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link RegOrgVersionType }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "RegOrgVersion")
     public JAXBElement<RegOrgVersionType> createRegOrgVersion(RegOrgVersionType value) {
@@ -149,8 +156,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "orgRootEntityGUID")
+    public JAXBElement<String> createOrgRootEntityGUID(String value) {
+        return new JAXBElement<String>(_OrgRootEntityGUID_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "orgVersionGUID")
     public JAXBElement<String> createOrgVersionGUID(String value) {
@@ -158,12 +182,16 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "orgRootEntityGUID")
-    public JAXBElement<String> createOrgRootEntityGUID(String value) {
-        return new JAXBElement<String>(_OrgRootEntityGUID_QNAME, String.class, null, value);
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/", name = "ShortName")
+    public JAXBElement<String> createShortName(String value) {
+        return new JAXBElement<String>(_ShortName_QNAME, String.class, null, value);
     }
 
 }

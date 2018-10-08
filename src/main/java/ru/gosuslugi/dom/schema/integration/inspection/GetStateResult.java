@@ -20,20 +20,20 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType">
- *       &lt;choice minOccurs="0">
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;element name="CommonResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportInspectionPlanResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportInspectionPlanResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportExaminationResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportExaminationResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportURIExaminationStateResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportExaminationURIStateResultType" maxOccurs="unbounded"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.2""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType"&gt;
+ *       &lt;choice minOccurs="0"&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *         &lt;element name="CommonResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportInspectionPlanResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportInspectionPlanResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportExaminationResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportExaminationResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportURIExaminationStateResult" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}exportExaminationURIStateResultType" maxOccurs="unbounded"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.2""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

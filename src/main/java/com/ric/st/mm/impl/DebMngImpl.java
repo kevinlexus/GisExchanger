@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dic.bill.dao.ApenyaDAO;
 import com.dic.bill.dao.SaldoUslDAO;
-import com.ric.bill.dao.AflowDAO;
-import com.ric.bill.dao.hotora.SaldoDAO;
-import com.ric.bill.model.oralv.Ko;
+import com.dic.bill.model.oralv.Ko;
 import com.ric.cmn.Utl;
 import com.ric.dto.SumSaldoRec;
 import com.ric.dto.SumSaldoRecDTO;
@@ -29,10 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 public class DebMngImpl implements DebMng {
 
 	@Autowired
-	private SaldoDAO saldoDao;
-	@Autowired
-	private AflowDAO aflowDao;
-	@Autowired
 	private ApenyaDAO apenyaDao;
 	@Autowired
 	private SaldoUslDAO saldoUslDao;
@@ -50,11 +44,8 @@ public class DebMngImpl implements DebMng {
 		SumSaldoRecDTO sal = null;
 		if (appTp.equals(0)) {
 			// старая разработка
-			SumSaldoRec sumSaldoRec = saldoDao.getSaldoByLsk(lsk, period);
-			sal = getSalAsDTO(sumSaldoRec);
 		} else if (appTp.equals(1)) {
 			// новая разработка
-			// TODO
 		} else if (appTp.equals(2)) {
 			// экспериментальная разработка
 			SumSaldoRec sumSaldoRec = saldoUslDao.getSaldoByLsk(lsk, period);
@@ -106,12 +97,8 @@ public class DebMngImpl implements DebMng {
 		Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
 		if (appTp==0) {
 			// старая разработка
-			penMain = Utl.nvl(aflowDao.getPenAmnt(lsk, lastDate), BigDecimal.ZERO);
-			penCap = Utl.nvl(aflowDao.getPenAmntByUsl(lsk, "073", lastDate), BigDecimal.ZERO);
-			penMain.add(penCap);
 		} else if (appTp==1) {
 			// новая разработка
-			// TODO
 		} else if (appTp==2) {
 			// экспериментальная разработка
 			// получить всю пеню по лиц.счету

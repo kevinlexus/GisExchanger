@@ -20,245 +20,232 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;sequence>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *         &lt;/sequence>
- *         &lt;choice>
- *           &lt;element name="PlacingCharter">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType">
- *                   &lt;sequence>
- *                     &lt;element name="ContractObject" maxOccurs="unbounded">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                       &lt;sequence>
- *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                       &lt;sequence>
- *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="EditCharter">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType">
- *                   &lt;sequence>
- *                     &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                               &lt;choice>
- *                                 &lt;element name="Add">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
- *                                         &lt;sequence>
- *                                           &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                           &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/extension>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/extension>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="Edit">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
- *                                           &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/>
- *                                           &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/extension>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/extension>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                                         &lt;/sequence>
- *                                       &lt;/extension>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="Exclusion">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
- *                                           &lt;element name="BaseExclusion" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
- *                                           &lt;element name="DateExclusion" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                         &lt;/sequence>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="Annulment">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;sequence>
- *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
- *                                         &lt;/sequence>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/choice>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="RollOverCharter">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType">
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
- *                     &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="TerminateCharter">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}TerminateType">
- *                   &lt;sequence>
- *                     &lt;element name="Reason">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
- *                           &lt;maxLength value="255"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="AnnulmentCharter">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}AnnulmentType">
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="PlaceCharterPaymentsInfo">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoType">
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
- *                   &lt;/sequence>
- *                 &lt;/extension>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="AnnulmentCharterPaymentsInfo">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoVersionGUID"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.9.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="PlacingCharter"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ContractObject" maxOccurs="unbounded"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="EditCharter"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                               &lt;choice&gt;
+ *                                 &lt;element name="Add"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                           &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/extension&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/extension&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/extension&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                                 &lt;element name="Edit"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+ *                                           &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/&gt;
+ *                                           &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/extension&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/extension&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/extension&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                                 &lt;element name="Annulment"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/restriction&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                               &lt;/choice&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="RollOverCharter"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+ *                     &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="TerminateCharter"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}TerminateType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="Reason"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+ *                           &lt;maxLength value="255"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="AnnulmentCharter"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}AnnulmentType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="PlaceCharterPaymentsInfo"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/extension&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="AnnulmentCharterPaymentsInfo"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoVersionGUID"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.9.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -525,15 +512,15 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}AnnulmentType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}AnnulmentType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -582,15 +569,15 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoVersionGUID"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoVersionGUID"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -637,121 +624,108 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType">
-     *       &lt;sequence>
-     *         &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                   &lt;choice>
-     *                     &lt;element name="Add">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-     *                             &lt;sequence>
-     *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                                       &lt;/sequence>
-     *                                     &lt;/extension>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                                       &lt;/sequence>
-     *                                     &lt;/extension>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="Edit">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-     *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/>
-     *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                                       &lt;/sequence>
-     *                                     &lt;/extension>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                                       &lt;/sequence>
-     *                                     &lt;/extension>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="Exclusion">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-     *                               &lt;element name="BaseExclusion" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                               &lt;element name="DateExclusion" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="Annulment">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/choice>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ContractObject" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                   &lt;choice&gt;
+     *                     &lt;element name="Add"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/extension&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/extension&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Edit"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+     *                               &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/&gt;
+     *                               &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/extension&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/extension&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Annulment"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/choice&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -830,110 +804,97 @@ public class ImportCharterRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *         &lt;choice>
-         *           &lt;element name="Add">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-         *                   &lt;sequence>
-         *                     &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                     &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                             &lt;sequence>
-         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                             &lt;/sequence>
-         *                           &lt;/extension>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                             &lt;sequence>
-         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                             &lt;/sequence>
-         *                           &lt;/extension>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *                   &lt;/sequence>
-         *                 &lt;/extension>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="Edit">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-         *                   &lt;sequence>
-         *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-         *                     &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/>
-         *                     &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                             &lt;sequence>
-         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                             &lt;/sequence>
-         *                           &lt;/extension>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                             &lt;sequence>
-         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                             &lt;/sequence>
-         *                           &lt;/extension>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *                   &lt;/sequence>
-         *                 &lt;/extension>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="Exclusion">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;sequence>
-         *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-         *                     &lt;element name="BaseExclusion" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                     &lt;element name="DateExclusion" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                   &lt;/sequence>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="Annulment">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;sequence>
-         *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-         *                   &lt;/sequence>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="Add"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                     &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/extension&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/extension&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/extension&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="Edit"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+         *                     &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/&gt;
+         *                     &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/extension&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/extension&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/extension&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="Annulment"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -943,7 +904,6 @@ public class ImportCharterRequest
             "transportGUID",
             "add",
             "edit",
-            "exclusion",
             "annulment"
         })
         public static class ContractObject {
@@ -954,8 +914,6 @@ public class ImportCharterRequest
             protected ImportCharterRequest.EditCharter.ContractObject.Add add;
             @XmlElement(name = "Edit")
             protected ImportCharterRequest.EditCharter.ContractObject.Edit edit;
-            @XmlElement(name = "Exclusion")
-            protected ImportCharterRequest.EditCharter.ContractObject.Exclusion exclusion;
             @XmlElement(name = "Annulment")
             protected ImportCharterRequest.EditCharter.ContractObject.Annulment annulment;
 
@@ -1032,30 +990,6 @@ public class ImportCharterRequest
             }
 
             /**
-             * Gets the value of the exclusion property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link ImportCharterRequest.EditCharter.ContractObject.Exclusion }
-             *     
-             */
-            public ImportCharterRequest.EditCharter.ContractObject.Exclusion getExclusion() {
-                return exclusion;
-            }
-
-            /**
-             * Sets the value of the exclusion property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link ImportCharterRequest.EditCharter.ContractObject.Exclusion }
-             *     
-             */
-            public void setExclusion(ImportCharterRequest.EditCharter.ContractObject.Exclusion value) {
-                this.exclusion = value;
-            }
-
-            /**
              * Gets the value of the annulment property.
              * 
              * @return
@@ -1086,38 +1020,38 @@ public class ImportCharterRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-             *       &lt;sequence>
-             *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *                 &lt;sequence>
-             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *                 &lt;/sequence>
-             *               &lt;/extension>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *                 &lt;sequence>
-             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *                 &lt;/sequence>
-             *               &lt;/extension>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1255,15 +1189,15 @@ public class ImportCharterRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-                 *       &lt;sequence>
-                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-                 *       &lt;/sequence>
-                 *     &lt;/extension>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1312,15 +1246,15 @@ public class ImportCharterRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-                 *       &lt;sequence>
-                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-                 *       &lt;/sequence>
-                 *     &lt;/extension>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1371,15 +1305,15 @@ public class ImportCharterRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1426,39 +1360,39 @@ public class ImportCharterRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-             *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/>
-             *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *                 &lt;sequence>
-             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *                 &lt;/sequence>
-             *               &lt;/extension>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *                 &lt;sequence>
-             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *                 &lt;/sequence>
-             *               &lt;/extension>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/&gt;
+             *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType" minOccurs="0"/&gt;
+             *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1623,15 +1557,15 @@ public class ImportCharterRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-                 *       &lt;sequence>
-                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-                 *       &lt;/sequence>
-                 *     &lt;/extension>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1680,15 +1614,15 @@ public class ImportCharterRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-                 *       &lt;sequence>
-                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-                 *       &lt;/sequence>
-                 *     &lt;/extension>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1732,118 +1666,6 @@ public class ImportCharterRequest
 
             }
 
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractObjectVersionGUID"/>
-             *         &lt;element name="BaseExclusion" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *         &lt;element name="DateExclusion" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "contractObjectVersionGUID",
-                "baseExclusion",
-                "dateExclusion"
-            })
-            public static class Exclusion {
-
-                @XmlElement(name = "ContractObjectVersionGUID", required = true)
-                protected String contractObjectVersionGUID;
-                @XmlElement(name = "BaseExclusion", required = true)
-                protected BaseServiceCharterType baseExclusion;
-                @XmlElement(name = "DateExclusion", required = true)
-                @XmlSchemaType(name = "date")
-                protected XMLGregorianCalendar dateExclusion;
-
-                /**
-                 * Gets the value of the contractObjectVersionGUID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getContractObjectVersionGUID() {
-                    return contractObjectVersionGUID;
-                }
-
-                /**
-                 * Sets the value of the contractObjectVersionGUID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setContractObjectVersionGUID(String value) {
-                    this.contractObjectVersionGUID = value;
-                }
-
-                /**
-                 * Gets the value of the baseExclusion property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link BaseServiceCharterType }
-                 *     
-                 */
-                public BaseServiceCharterType getBaseExclusion() {
-                    return baseExclusion;
-                }
-
-                /**
-                 * Sets the value of the baseExclusion property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link BaseServiceCharterType }
-                 *     
-                 */
-                public void setBaseExclusion(BaseServiceCharterType value) {
-                    this.baseExclusion = value;
-                }
-
-                /**
-                 * Gets the value of the dateExclusion property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateExclusion() {
-                    return dateExclusion;
-                }
-
-                /**
-                 * Sets the value of the dateExclusion property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateExclusion(XMLGregorianCalendar value) {
-                    this.dateExclusion = value;
-                }
-
-            }
-
         }
 
     }
@@ -1855,15 +1677,15 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterPaymentsInfoType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1912,49 +1734,49 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType">
-     *       &lt;sequence>
-     *         &lt;element name="ContractObject" maxOccurs="unbounded">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-     *                 &lt;sequence>
-     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                   &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                   &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                           &lt;sequence>
-     *                             &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                           &lt;/sequence>
-     *                         &lt;/extension>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-     *                           &lt;sequence>
-     *                             &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-     *                           &lt;/sequence>
-     *                         &lt;/extension>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                   &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ContractObject" maxOccurs="unbounded"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                   &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                   &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                           &lt;/sequence&gt;
+     *                         &lt;/extension&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                     &lt;complexType&gt;
+     *                       &lt;complexContent&gt;
+     *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+     *                           &lt;/sequence&gt;
+     *                         &lt;/extension&gt;
+     *                       &lt;/complexContent&gt;
+     *                     &lt;/complexType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -2006,39 +1828,39 @@ public class ImportCharterRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                 &lt;sequence>
-         *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-         *                 &lt;sequence>
-         *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ManageObjectType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *         &lt;element name="BaseMService" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *         &lt;element name="HouseService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="AddService" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="IsManagedByContract" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -2203,15 +2025,15 @@ public class ImportCharterRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *       &lt;sequence>
-             *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -2260,15 +2082,15 @@ public class ImportCharterRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType">
-             *       &lt;sequence>
-             *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractServiceType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="BaseServiceCharter" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BaseServiceCharterType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -2321,16 +2143,16 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
-     *         &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}RollOverType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+     *         &lt;element name="RollToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -2407,22 +2229,22 @@ public class ImportCharterRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}TerminateType">
-     *       &lt;sequence>
-     *         &lt;element name="Reason">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
-     *               &lt;maxLength value="255"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}TerminateType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Reason"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+     *               &lt;maxLength value="255"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CharterVersionGUID"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

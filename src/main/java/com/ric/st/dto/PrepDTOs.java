@@ -3,7 +3,7 @@ package com.ric.st.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.impl.BaseDTO.Error;
 
 public interface PrepDTOs {

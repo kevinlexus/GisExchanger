@@ -4,21 +4,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
-import com.dic.bill.dao.AchargeDAO;
 import com.ric.st.mm.UlistMng;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ric.bill.Config;
-import com.ric.bill.RequestConfig;
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.ErrorProcessAnswer;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.TaskMng;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.TaskPar;
+//import com.ric.bill.Config;
+import com.dic.bill.RequestConfig;
+import com.dic.bill.dao.TaskDAO;
+import com.ric.cmn.excp.ErrorProcessAnswer;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.TaskMng;
+import com.dic.bill.model.exs.Task;
+import com.dic.bill.model.exs.TaskPar;
 import com.ric.cmn.Utl;
 import com.ric.signature.sign.commands.Command;
 import com.ric.st.TaskControllers;
@@ -33,6 +32,8 @@ import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Date;
 
 
 /**
@@ -49,8 +50,8 @@ public class TaskController implements TaskControllers {
 	private TaskDAO taskDao;
 	@Autowired
 	private TaskMng taskMng;
-	@Autowired
-	private Config config;
+	//@Autowired
+	//private Config config;
 	@Autowired
 	private SoapConfig soapConf;
 	@PersistenceContext
@@ -72,8 +73,6 @@ public class TaskController implements TaskControllers {
 	public Command sc;
 	@Autowired
 	private NsiServiceAsyncBindingBuilders nsiSv;
-	@Autowired
-	AchargeDAO achargeDao;
 
 	// конфиг запроса, сделал здесь, чтобы другие сервисы могли использовать один и тот же запрос
 	private RequestConfig reqConfig;
@@ -89,15 +88,11 @@ public class TaskController implements TaskControllers {
 	@Override
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
 
-		log.info("-----------------Begin");
-        achargeDao.getChrgGrp("00000049", 201404, 706813).forEach(t -> {
-            log.info("Check Ulist.id={}", t.getUlistId());
-        });
-        log.info("-----------------End");
-
-		this.reqConfig = new RequestConfig();
-        this.reqConfig.setUp("0", "0", null, -1, null, null, null,
-                config.getCurDt1(), config.getCurDt2());
+		//this.reqConfig = new RequestConfig();
+//        this.reqConfig.setUp("0", "0", null, -1, null, null, null,
+//                config.getCurDt1(), config.getCurDt2());
+		//this.reqConfig.setUp("0", "0", null, -1, null, null, null, // TODO осмыслить рефакторинг! ред. 12.09.2018
+		//		new Date(), new Date());
 
 		// инит. конфига
 		if (!soapConf.setUp(false)) {
@@ -170,7 +165,7 @@ public class TaskController implements TaskControllers {
 							TaskPar taskPar = tb.getTrgTask(task);
 							if (taskPar!= null) {
 								// активировать все зависимые задания
-								//log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
+								log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
 								tb.activateRptTask(task);
 								// добавить в список выполненных заданий
 								tb.setProcTask(taskPar);
@@ -370,8 +365,9 @@ public class TaskController implements TaskControllers {
 									taskMng.setState(task, "ACP");
 								}
 							break;
-						case "GIS_EXP_NOTIF":
-							// Экспорт извещений исполнения документа
+							case "GIS_EXP_NOTIF_1": case "GIS_EXP_NOTIF_8":
+								case "GIS_EXP_NOTIF_16": case "GIS_EXP_NOTIF_24":
+							// Экспорт извещений исполнения документа по дням выгрузки
 							bill.setUp();
 							if (state.equals("INS")) {
 								// Экспорт извещений исполнения документа

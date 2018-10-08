@@ -12,16 +12,16 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="StatusMKDType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Project"/>
- *     &lt;enumeration value="Rejected"/>
- *     &lt;enumeration value="ApprovalProcess"/>
- *     &lt;enumeration value="Approved"/>
- *     &lt;enumeration value="Locked"/>
- *     &lt;enumeration value="Annul"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="StatusMKDType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="Project"/&gt;
+ *     &lt;enumeration value="Rejected"/&gt;
+ *     &lt;enumeration value="ApprovalProcess"/&gt;
+ *     &lt;enumeration value="Approved"/&gt;
+ *     &lt;enumeration value="Locked"/&gt;
+ *     &lt;enumeration value="Annul"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

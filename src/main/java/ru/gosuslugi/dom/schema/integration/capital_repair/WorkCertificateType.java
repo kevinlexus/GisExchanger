@@ -19,40 +19,40 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="WorkCertificateType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/>
- *         &lt;element name="WorkCost" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *         &lt;element name="WorkValue">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;fractionDigits value="3"/>
- *               &lt;minInclusive value="0"/>
- *               &lt;totalDigits value="20"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;choice>
- *           &lt;element name="AppForUse">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="StartDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="EndDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="NotAppForUse" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="WorkCertificateType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/&gt;
+ *         &lt;element name="WorkCost" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *         &lt;element name="WorkValue"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;fractionDigits value="3"/&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *               &lt;totalDigits value="20"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="AppForUse"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="StartDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="EndDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="NotAppForUse" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -66,8 +66,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "notAppForUse"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.capital_repair.ExportCertificateType.Work.class,
-    ru.gosuslugi.dom.schema.integration.capital_repair.CertificateType.Work.class
+    ru.gosuslugi.dom.schema.integration.capital_repair.CertificateType.Work.class,
+    ru.gosuslugi.dom.schema.integration.capital_repair.ExportCertificateType.Work.class
 })
 public class WorkCertificateType {
 
@@ -209,16 +209,16 @@ public class WorkCertificateType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="StartDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="EndDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="StartDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;element name="EndDateGuarantee" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

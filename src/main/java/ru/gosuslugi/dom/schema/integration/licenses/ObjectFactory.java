@@ -38,14 +38,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDisqualifiedPersonRequest }
-     * 
-     */
-    public ExportDisqualifiedPersonRequest createExportDisqualifiedPersonRequest() {
-        return new ExportDisqualifiedPersonRequest();
-    }
-
-    /**
      * Create an instance of {@link ExportLicenseResult }
      * 
      */
@@ -54,43 +46,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CorrectLicenseType }
+     * Create an instance of {@link ExportDisqualifiedPersonRequest }
      * 
      */
-    public CorrectLicenseType createCorrectLicenseType() {
-        return new CorrectLicenseType();
-    }
-
-    /**
-     * Create an instance of {@link AccompanyingDocumentType }
-     * 
-     */
-    public AccompanyingDocumentType createAccompanyingDocumentType() {
-        return new AccompanyingDocumentType();
-    }
-
-    /**
-     * Create an instance of {@link AccompanyingDocumentType.Document }
-     * 
-     */
-    public AccompanyingDocumentType.Document createAccompanyingDocumentTypeDocument() {
-        return new AccompanyingDocumentType.Document();
-    }
-
-    /**
-     * Create an instance of {@link LicenseType }
-     * 
-     */
-    public LicenseType createLicenseType() {
-        return new LicenseType();
-    }
-
-    /**
-     * Create an instance of {@link LicenseOrganizationType }
-     * 
-     */
-    public LicenseOrganizationType createLicenseOrganizationType() {
-        return new LicenseOrganizationType();
+    public ExportDisqualifiedPersonRequest createExportDisqualifiedPersonRequest() {
+        return new ExportDisqualifiedPersonRequest();
     }
 
     /**
@@ -110,11 +70,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDisqualifiedPersonRequest.DisqualifiedPerson }
+     * Create an instance of {@link AccompanyingDocumentType }
      * 
      */
-    public ExportDisqualifiedPersonRequest.DisqualifiedPerson createExportDisqualifiedPersonRequestDisqualifiedPerson() {
-        return new ExportDisqualifiedPersonRequest.DisqualifiedPerson();
+    public AccompanyingDocumentType createAccompanyingDocumentType() {
+        return new AccompanyingDocumentType();
+    }
+
+    /**
+     * Create an instance of {@link AccompanyingDocumentType.Document }
+     * 
+     */
+    public AccompanyingDocumentType.Document createAccompanyingDocumentTypeDocument() {
+        return new AccompanyingDocumentType.Document();
+    }
+
+    /**
+     * Create an instance of {@link LicenseOrganizationType }
+     * 
+     */
+    public LicenseOrganizationType createLicenseOrganizationType() {
+        return new LicenseOrganizationType();
+    }
+
+    /**
+     * Create an instance of {@link CorrectLicenseType }
+     * 
+     */
+    public CorrectLicenseType createCorrectLicenseType() {
+        return new CorrectLicenseType();
+    }
+
+    /**
+     * Create an instance of {@link LicenseType }
+     * 
+     */
+    public LicenseType createLicenseType() {
+        return new LicenseType();
     }
 
     /**
@@ -142,19 +134,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ExportDisqualifiedPersonRequest.DisqualifiedPerson }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportLicenseResultType }
-     * 
-     */
-    public ExportLicenseResultType createExportLicenseResultType() {
-        return new ExportLicenseResultType();
+    public ExportDisqualifiedPersonRequest.DisqualifiedPerson createExportDisqualifiedPersonRequestDisqualifiedPerson() {
+        return new ExportDisqualifiedPersonRequest.DisqualifiedPerson();
     }
 
     /**
@@ -182,19 +166,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CorrectLicenseType.LicensingAuthority }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public CorrectLicenseType.LicensingAuthority createCorrectLicenseTypeLicensingAuthority() {
-        return new CorrectLicenseType.LicensingAuthority();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
-     * Create an instance of {@link CorrectLicenseType.AccompanyingDocument }
+     * Create an instance of {@link ExportLicenseResultType }
      * 
      */
-    public CorrectLicenseType.AccompanyingDocument createCorrectLicenseTypeAccompanyingDocument() {
-        return new CorrectLicenseType.AccompanyingDocument();
+    public ExportLicenseResultType createExportLicenseResultType() {
+        return new ExportLicenseResultType();
+    }
+
+    /**
+     * Create an instance of {@link HouseType.Contract.Validity }
+     * 
+     */
+    public HouseType.Contract.Validity createHouseTypeContractValidity() {
+        return new HouseType.Contract.Validity();
     }
 
     /**
@@ -214,22 +206,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LicenseType.LicensingAuthority }
-     * 
-     */
-    public LicenseType.LicensingAuthority createLicenseTypeLicensingAuthority() {
-        return new LicenseType.LicensingAuthority();
-    }
-
-    /**
-     * Create an instance of {@link LicenseType.AccompanyingDocument }
-     * 
-     */
-    public LicenseType.AccompanyingDocument createLicenseTypeAccompanyingDocument() {
-        return new LicenseType.AccompanyingDocument();
-    }
-
-    /**
      * Create an instance of {@link LicenseOrganizationType.Legal }
      * 
      */
@@ -246,19 +222,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HouseType.Contract.Validity }
+     * Create an instance of {@link CorrectLicenseType.LicensingAuthority }
      * 
      */
-    public HouseType.Contract.Validity createHouseTypeContractValidity() {
-        return new HouseType.Contract.Validity();
+    public CorrectLicenseType.LicensingAuthority createCorrectLicenseTypeLicensingAuthority() {
+        return new CorrectLicenseType.LicensingAuthority();
     }
 
     /**
-     * Create an instance of {@link ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization }
+     * Create an instance of {@link CorrectLicenseType.AccompanyingDocument }
      * 
      */
-    public ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization createExportDisqualifiedPersonRequestDisqualifiedPersonLicenseOrganization() {
-        return new ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization();
+    public CorrectLicenseType.AccompanyingDocument createCorrectLicenseTypeAccompanyingDocument() {
+        return new CorrectLicenseType.AccompanyingDocument();
+    }
+
+    /**
+     * Create an instance of {@link LicenseType.LicensingAuthority }
+     * 
+     */
+    public LicenseType.LicensingAuthority createLicenseTypeLicensingAuthority() {
+        return new LicenseType.LicensingAuthority();
+    }
+
+    /**
+     * Create an instance of {@link LicenseType.AccompanyingDocument }
+     * 
+     */
+    public LicenseType.AccompanyingDocument createLicenseTypeAccompanyingDocument() {
+        return new LicenseType.AccompanyingDocument();
     }
 
     /**
@@ -291,6 +283,14 @@ public class ObjectFactory {
      */
     public DisqualifiedPersonType.Org.Entrp createDisqualifiedPersonTypeOrgEntrp() {
         return new DisqualifiedPersonType.Org.Entrp();
+    }
+
+    /**
+     * Create an instance of {@link ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization }
+     * 
+     */
+    public ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization createExportDisqualifiedPersonRequestDisqualifiedPersonLicenseOrganization() {
+        return new ExportDisqualifiedPersonRequest.DisqualifiedPerson.LicenseOrganization();
     }
 
 }

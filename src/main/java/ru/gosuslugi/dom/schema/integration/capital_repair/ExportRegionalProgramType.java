@@ -19,18 +19,18 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ExportRegionalProgramType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType">
- *       &lt;sequence>
- *         &lt;element name="Territory" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *         &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;element name="Documents" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportDocumentType" maxOccurs="1000" minOccurs="0"/>
- *         &lt;element name="Status" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}StatusExtendedType"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ExportRegionalProgramType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}RegionalProgramPasportType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Territory" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *         &lt;element name="RegionalProgramGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="Documents" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportDocumentType" maxOccurs="1000" minOccurs="0"/&gt;
+ *         &lt;element name="Status" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}StatusExtendedType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

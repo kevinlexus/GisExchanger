@@ -1,6 +1,6 @@
 package com.ric.st.dto.impl;
 
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.PrepDTOs;
 
 
@@ -15,5 +15,5 @@ public class AccountDTO extends BaseDTO implements PrepDTOs {
 	public AccountDTO(Task task) {
 		super(task);
 	}
-	
+
 }

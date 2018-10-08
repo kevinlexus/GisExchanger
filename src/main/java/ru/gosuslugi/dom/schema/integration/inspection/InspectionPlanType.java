@@ -16,30 +16,30 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="InspectionPlanType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Year" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedYearType"/>
- *         &lt;element name="Sign" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;choice>
- *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;sequence>
- *             &lt;element name="ShouldBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *             &lt;element name="URIRegistrationPlanNumber">
- *               &lt;simpleType>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *                   &lt;minInclusive value="0"/>
- *                   &lt;pattern value="\d{1,12}"/>
- *                 &lt;/restriction>
- *               &lt;/simpleType>
- *             &lt;/element>
- *           &lt;/sequence>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="InspectionPlanType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Year" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}LimitedYearType"/&gt;
+ *         &lt;element name="Sign" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="ShouldBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *             &lt;element name="URIRegistrationPlanNumber"&gt;
+ *               &lt;simpleType&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
+ *                   &lt;minInclusive value="0"/&gt;
+ *                   &lt;pattern value="\d{1,12}"/&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/simpleType&gt;
+ *             &lt;/element&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

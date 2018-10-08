@@ -24,11 +24,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _PaymentInformation_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "PaymentInformation");
-    private final static QName _BillingInfoGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "BillingInfoGUID");
     private final static QName _OrderID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "OrderID");
     private final static QName _OrderIDMultipurpose_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "OrderIDMultipurpose");
     private final static QName _AccountID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "AccountID");
+    private final static QName _PaymentInformation_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "PaymentInformation");
+    private final static QName _BillingInfoGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "BillingInfoGUID");
     private final static QName _NotificationsOfOrderExecutionGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/payments-base/", "NotificationsOfOrderExecutionGUID");
 
     /**
@@ -36,6 +36,22 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link NotificationOfOrderExecution139Type }
+     * 
+     */
+    public NotificationOfOrderExecution139Type createNotificationOfOrderExecution139Type() {
+        return new NotificationOfOrderExecution139Type();
+    }
+
+    /**
+     * Create an instance of {@link NotificationOfOrderExecution139Type.OrderInfo }
+     * 
+     */
+    public NotificationOfOrderExecution139Type.OrderInfo createNotificationOfOrderExecution139TypeOrderInfo() {
+        return new NotificationOfOrderExecution139Type.OrderInfo();
     }
 
     /**
@@ -63,6 +79,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType createAcknowledgmentRequestInfoExportType() {
+        return new AcknowledgmentRequestInfoExportType();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck createAcknowledgmentRequestInfoExportTypePaymentDocumentAck() {
+        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType }
+     * 
+     */
+    public AcknowledgmentRequestInfoType createAcknowledgmentRequestInfoType() {
+        return new AcknowledgmentRequestInfoType();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType.PaymentDocumentAck }
+     * 
+     */
+    public AcknowledgmentRequestInfoType.PaymentDocumentAck createAcknowledgmentRequestInfoTypePaymentDocumentAck() {
+        return new AcknowledgmentRequestInfoType.PaymentDocumentAck();
+    }
+
+    /**
      * Create an instance of {@link NotificationOfOrderExecutionExportType }
      * 
      */
@@ -87,27 +135,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AcknowledgmentRequestInfoType }
+     * Create an instance of {@link PaymentInformationType }
      * 
      */
-    public AcknowledgmentRequestInfoType createAcknowledgmentRequestInfoType() {
-        return new AcknowledgmentRequestInfoType();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoExportType }
-     * 
-     */
-    public AcknowledgmentRequestInfoExportType createAcknowledgmentRequestInfoExportType() {
-        return new AcknowledgmentRequestInfoExportType();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck }
-     * 
-     */
-    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck createAcknowledgmentRequestInfoExportTypePaymentDocumentAck() {
-        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck();
+    public PaymentInformationType createPaymentInformationType() {
+        return new PaymentInformationType();
     }
 
     /**
@@ -119,11 +151,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PaymentInformationType }
+     * Create an instance of {@link PaymentInformationExportType }
      * 
      */
-    public PaymentInformationType createPaymentInformationType() {
-        return new PaymentInformationType();
+    public PaymentInformationExportType createPaymentInformationExportType() {
+        return new PaymentInformationExportType();
     }
 
     /**
@@ -135,11 +167,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PaymentInformationExportType }
+     * Create an instance of {@link NotificationOfOrderExecution139Type.OrderInfo.MonthAndYear }
      * 
      */
-    public PaymentInformationExportType createPaymentInformationExportType() {
-        return new PaymentInformationExportType();
+    public NotificationOfOrderExecution139Type.OrderInfo.MonthAndYear createNotificationOfOrderExecution139TypeOrderInfoMonthAndYear() {
+        return new NotificationOfOrderExecution139Type.OrderInfo.MonthAndYear();
     }
 
     /**
@@ -175,6 +207,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation }
+     * 
+     */
+    public NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation createNotificationOfOrderExecutionTypeRecipientInfoPaymentInformation() {
+        return new NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.AckImpossible }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.AckImpossible createAcknowledgmentRequestInfoExportTypeAckImpossible() {
+        return new AcknowledgmentRequestInfoExportType.AckImpossible();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod createAcknowledgmentRequestInfoExportTypePaymentDocumentAckDelayPeriod() {
+        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType.AckImpossible }
+     * 
+     */
+    public AcknowledgmentRequestInfoType.AckImpossible createAcknowledgmentRequestInfoTypeAckImpossible() {
+        return new AcknowledgmentRequestInfoType.AckImpossible();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType.DelayPeriod }
+     * 
+     */
+    public AcknowledgmentRequestInfoType.DelayPeriod createAcknowledgmentRequestInfoTypeDelayPeriod() {
+        return new AcknowledgmentRequestInfoType.DelayPeriod();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType.PaymentDocumentAck.PaymentInformation }
+     * 
+     */
+    public AcknowledgmentRequestInfoType.PaymentDocumentAck.PaymentInformation createAcknowledgmentRequestInfoTypePaymentDocumentAckPaymentInformation() {
+        return new AcknowledgmentRequestInfoType.PaymentDocumentAck.PaymentInformation();
+    }
+
+    /**
      * Create an instance of {@link NotificationOfOrderExecutionExportType.SupplierInfo }
      * 
      */
@@ -207,66 +287,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AcknowledgmentRequestInfoType.PaymentDocumentAck }
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    public AcknowledgmentRequestInfoType.PaymentDocumentAck createAcknowledgmentRequestInfoTypePaymentDocumentAck() {
-        return new AcknowledgmentRequestInfoType.PaymentDocumentAck();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoType.AckImpossible }
-     * 
-     */
-    public AcknowledgmentRequestInfoType.AckImpossible createAcknowledgmentRequestInfoTypeAckImpossible() {
-        return new AcknowledgmentRequestInfoType.AckImpossible();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoType.DelayPeriod }
-     * 
-     */
-    public AcknowledgmentRequestInfoType.DelayPeriod createAcknowledgmentRequestInfoTypeDelayPeriod() {
-        return new AcknowledgmentRequestInfoType.DelayPeriod();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoExportType.AckImpossible }
-     * 
-     */
-    public AcknowledgmentRequestInfoExportType.AckImpossible createAcknowledgmentRequestInfoExportTypeAckImpossible() {
-        return new AcknowledgmentRequestInfoExportType.AckImpossible();
-    }
-
-    /**
-     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod }
-     * 
-     */
-    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod createAcknowledgmentRequestInfoExportTypePaymentDocumentAckDelayPeriod() {
-        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck.DelayPeriod();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PaymentInformationType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "PaymentInformation")
-    public JAXBElement<PaymentInformationType> createPaymentInformation(PaymentInformationType value) {
-        return new JAXBElement<PaymentInformationType>(_PaymentInformation_QNAME, PaymentInformationType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "BillingInfoGUID")
-    public JAXBElement<String> createBillingInfoGUID(String value) {
-        return new JAXBElement<String>(_BillingInfoGUID_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "OrderID")
     public JAXBElement<String> createOrderID(String value) {
@@ -274,8 +300,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "OrderIDMultipurpose")
     public JAXBElement<String> createOrderIDMultipurpose(String value) {
@@ -283,8 +313,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "AccountID")
     public JAXBElement<String> createAccountID(String value) {
@@ -292,8 +326,38 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PaymentInformationType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link PaymentInformationType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "PaymentInformation")
+    public JAXBElement<PaymentInformationType> createPaymentInformation(PaymentInformationType value) {
+        return new JAXBElement<PaymentInformationType>(_PaymentInformation_QNAME, PaymentInformationType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "BillingInfoGUID")
+    public JAXBElement<String> createBillingInfoGUID(String value) {
+        return new JAXBElement<String>(_BillingInfoGUID_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payments-base/", name = "NotificationsOfOrderExecutionGUID")
     public JAXBElement<String> createNotificationsOfOrderExecutionGUID(String value) {

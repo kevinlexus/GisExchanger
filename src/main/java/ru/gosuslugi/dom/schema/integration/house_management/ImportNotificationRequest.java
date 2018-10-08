@@ -23,128 +23,128 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="notification" maxOccurs="100">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                     &lt;element name="NotificationGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;choice>
- *                     &lt;element name="Create">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="Topic">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
- *                                     &lt;maxLength value="200"/>
- *                                     &lt;minLength value="1"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                               &lt;element name="content" minOccurs="0">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
- *                                     &lt;minLength value="1"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;choice>
- *                                 &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                 &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
- *                                 &lt;element name="RoomOwners">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;choice>
- *                                           &lt;element name="DeptsInforming">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="Account" maxOccurs="unbounded">
- *                                                       &lt;complexType>
- *                                                         &lt;complexContent>
- *                                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                             &lt;sequence>
- *                                                               &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
- *                                                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
- *                                                             &lt;/sequence>
- *                                                           &lt;/restriction>
- *                                                         &lt;/complexContent>
- *                                                       &lt;/complexType>
- *                                                     &lt;/element>
- *                                                   &lt;/sequence>
- *                                                 &lt;/restriction>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="OtherOrganizationSelection">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/restriction>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                           &lt;element name="AccountOpening">
- *                                             &lt;complexType>
- *                                               &lt;complexContent>
- *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                   &lt;sequence>
- *                                                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
- *                                                   &lt;/sequence>
- *                                                 &lt;/restriction>
- *                                               &lt;/complexContent>
- *                                             &lt;/complexType>
- *                                           &lt;/element>
- *                                         &lt;/choice>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
- *                                 &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
- *                               &lt;/choice>
- *                               &lt;choice>
- *                                 &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                 &lt;sequence>
- *                                   &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *                                   &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *                                 &lt;/sequence>
- *                               &lt;/choice>
- *                               &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *                               &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DeleteNotification" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeleteDocType"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.6.0.2""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="notification" maxOccurs="100"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                     &lt;element name="NotificationGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="Create"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="Topic"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+ *                                     &lt;maxLength value="200"/&gt;
+ *                                     &lt;minLength value="1"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                               &lt;element name="content" minOccurs="0"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+ *                                     &lt;minLength value="1"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;choice&gt;
+ *                                 &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                 &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+ *                                 &lt;element name="RoomOwners"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                         &lt;choice&gt;
+ *                                           &lt;element name="DeptsInforming"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="Account" maxOccurs="unbounded"&gt;
+ *                                                       &lt;complexType&gt;
+ *                                                         &lt;complexContent&gt;
+ *                                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                             &lt;sequence&gt;
+ *                                                               &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+ *                                                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+ *                                                             &lt;/sequence&gt;
+ *                                                           &lt;/restriction&gt;
+ *                                                         &lt;/complexContent&gt;
+ *                                                       &lt;/complexType&gt;
+ *                                                     &lt;/element&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/restriction&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="OtherOrganizationSelection"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/restriction&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                           &lt;element name="AccountOpening"&gt;
+ *                                             &lt;complexType&gt;
+ *                                               &lt;complexContent&gt;
+ *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                   &lt;sequence&gt;
+ *                                                     &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+ *                                                   &lt;/sequence&gt;
+ *                                                 &lt;/restriction&gt;
+ *                                               &lt;/complexContent&gt;
+ *                                             &lt;/complexType&gt;
+ *                                           &lt;/element&gt;
+ *                                         &lt;/choice&gt;
+ *                                       &lt;/restriction&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                                 &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+ *                                 &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+ *                               &lt;/choice&gt;
+ *                               &lt;choice&gt;
+ *                                 &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                 &lt;sequence&gt;
+ *                                   &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *                                   &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *                                 &lt;/sequence&gt;
+ *                               &lt;/choice&gt;
+ *                               &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                               &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="DeleteNotification" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeleteDocType"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.6.0.2""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -227,117 +227,117 @@ public class ImportNotificationRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;sequence>
-     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *           &lt;element name="NotificationGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;choice>
-     *           &lt;element name="Create">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="Topic">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
-     *                           &lt;maxLength value="200"/>
-     *                           &lt;minLength value="1"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                     &lt;element name="content" minOccurs="0">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
-     *                           &lt;minLength value="1"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;choice>
-     *                       &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                       &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-     *                       &lt;element name="RoomOwners">
-     *                         &lt;complexType>
-     *                           &lt;complexContent>
-     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                               &lt;choice>
-     *                                 &lt;element name="DeptsInforming">
-     *                                   &lt;complexType>
-     *                                     &lt;complexContent>
-     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                         &lt;sequence>
-     *                                           &lt;element name="Account" maxOccurs="unbounded">
-     *                                             &lt;complexType>
-     *                                               &lt;complexContent>
-     *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                                   &lt;sequence>
-     *                                                     &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
-     *                                                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
-     *                                                   &lt;/sequence>
-     *                                                 &lt;/restriction>
-     *                                               &lt;/complexContent>
-     *                                             &lt;/complexType>
-     *                                           &lt;/element>
-     *                                         &lt;/sequence>
-     *                                       &lt;/restriction>
-     *                                     &lt;/complexContent>
-     *                                   &lt;/complexType>
-     *                                 &lt;/element>
-     *                                 &lt;element name="OtherOrganizationSelection">
-     *                                   &lt;complexType>
-     *                                     &lt;complexContent>
-     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                         &lt;sequence>
-     *                                           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-     *                                         &lt;/sequence>
-     *                                       &lt;/restriction>
-     *                                     &lt;/complexContent>
-     *                                   &lt;/complexType>
-     *                                 &lt;/element>
-     *                                 &lt;element name="AccountOpening">
-     *                                   &lt;complexType>
-     *                                     &lt;complexContent>
-     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                         &lt;sequence>
-     *                                           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-     *                                         &lt;/sequence>
-     *                                       &lt;/restriction>
-     *                                     &lt;/complexContent>
-     *                                   &lt;/complexType>
-     *                                 &lt;/element>
-     *                               &lt;/choice>
-     *                             &lt;/restriction>
-     *                           &lt;/complexContent>
-     *                         &lt;/complexType>
-     *                       &lt;/element>
-     *                       &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
-     *                       &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
-     *                     &lt;/choice>
-     *                     &lt;choice>
-     *                       &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                       &lt;sequence>
-     *                         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
-     *                         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-     *                       &lt;/sequence>
-     *                     &lt;/choice>
-     *                     &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
-     *                     &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="DeleteNotification" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeleteDocType"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *           &lt;element name="NotificationGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="Create"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="Topic"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+     *                           &lt;maxLength value="200"/&gt;
+     *                           &lt;minLength value="1"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                     &lt;element name="content" minOccurs="0"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+     *                           &lt;minLength value="1"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;choice&gt;
+     *                       &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                       &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+     *                       &lt;element name="RoomOwners"&gt;
+     *                         &lt;complexType&gt;
+     *                           &lt;complexContent&gt;
+     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                               &lt;choice&gt;
+     *                                 &lt;element name="DeptsInforming"&gt;
+     *                                   &lt;complexType&gt;
+     *                                     &lt;complexContent&gt;
+     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                         &lt;sequence&gt;
+     *                                           &lt;element name="Account" maxOccurs="unbounded"&gt;
+     *                                             &lt;complexType&gt;
+     *                                               &lt;complexContent&gt;
+     *                                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                                   &lt;sequence&gt;
+     *                                                     &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+     *                                                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+     *                                                   &lt;/sequence&gt;
+     *                                                 &lt;/restriction&gt;
+     *                                               &lt;/complexContent&gt;
+     *                                             &lt;/complexType&gt;
+     *                                           &lt;/element&gt;
+     *                                         &lt;/sequence&gt;
+     *                                       &lt;/restriction&gt;
+     *                                     &lt;/complexContent&gt;
+     *                                   &lt;/complexType&gt;
+     *                                 &lt;/element&gt;
+     *                                 &lt;element name="OtherOrganizationSelection"&gt;
+     *                                   &lt;complexType&gt;
+     *                                     &lt;complexContent&gt;
+     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                         &lt;sequence&gt;
+     *                                           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+     *                                         &lt;/sequence&gt;
+     *                                       &lt;/restriction&gt;
+     *                                     &lt;/complexContent&gt;
+     *                                   &lt;/complexType&gt;
+     *                                 &lt;/element&gt;
+     *                                 &lt;element name="AccountOpening"&gt;
+     *                                   &lt;complexType&gt;
+     *                                     &lt;complexContent&gt;
+     *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                         &lt;sequence&gt;
+     *                                           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+     *                                         &lt;/sequence&gt;
+     *                                       &lt;/restriction&gt;
+     *                                     &lt;/complexContent&gt;
+     *                                   &lt;/complexType&gt;
+     *                                 &lt;/element&gt;
+     *                               &lt;/choice&gt;
+     *                             &lt;/restriction&gt;
+     *                           &lt;/complexContent&gt;
+     *                         &lt;/complexType&gt;
+     *                       &lt;/element&gt;
+     *                       &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+     *                       &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+     *                     &lt;/choice&gt;
+     *                     &lt;choice&gt;
+     *                       &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                       &lt;sequence&gt;
+     *                         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+     *                         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+     *                       &lt;/sequence&gt;
+     *                     &lt;/choice&gt;
+     *                     &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                     &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="DeleteNotification" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DeleteDocType"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -490,99 +490,99 @@ public class ImportNotificationRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="Topic">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
-         *               &lt;maxLength value="200"/>
-         *               &lt;minLength value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *         &lt;element name="content" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType">
-         *               &lt;minLength value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;choice>
-         *           &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-         *           &lt;element name="RoomOwners">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;choice>
-         *                     &lt;element name="DeptsInforming">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                             &lt;sequence>
-         *                               &lt;element name="Account" maxOccurs="unbounded">
-         *                                 &lt;complexType>
-         *                                   &lt;complexContent>
-         *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                                       &lt;sequence>
-         *                                         &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
-         *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
-         *                                       &lt;/sequence>
-         *                                     &lt;/restriction>
-         *                                   &lt;/complexContent>
-         *                                 &lt;/complexType>
-         *                               &lt;/element>
-         *                             &lt;/sequence>
-         *                           &lt;/restriction>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="OtherOrganizationSelection">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                             &lt;sequence>
-         *                               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-         *                             &lt;/sequence>
-         *                           &lt;/restriction>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                     &lt;element name="AccountOpening">
-         *                       &lt;complexType>
-         *                         &lt;complexContent>
-         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                             &lt;sequence>
-         *                               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-         *                             &lt;/sequence>
-         *                           &lt;/restriction>
-         *                         &lt;/complexContent>
-         *                       &lt;/complexType>
-         *                     &lt;/element>
-         *                   &lt;/choice>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
-         *           &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/>
-         *         &lt;/choice>
-         *         &lt;choice>
-         *           &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *           &lt;sequence>
-         *             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
-         *             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-         *           &lt;/sequence>
-         *         &lt;/choice>
-         *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
-         *         &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="Topic"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+         *               &lt;maxLength value="200"/&gt;
+         *               &lt;minLength value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="IsImportant" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *         &lt;element name="content" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType"&gt;
+         *               &lt;minLength value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="IsAll" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *           &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+         *           &lt;element name="RoomOwners"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                   &lt;choice&gt;
+         *                     &lt;element name="DeptsInforming"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="Account" maxOccurs="unbounded"&gt;
+         *                                 &lt;complexType&gt;
+         *                                   &lt;complexContent&gt;
+         *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                                       &lt;sequence&gt;
+         *                                         &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+         *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+         *                                       &lt;/sequence&gt;
+         *                                     &lt;/restriction&gt;
+         *                                   &lt;/complexContent&gt;
+         *                                 &lt;/complexType&gt;
+         *                               &lt;/element&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/restriction&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="OtherOrganizationSelection"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/restriction&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                     &lt;element name="AccountOpening"&gt;
+         *                       &lt;complexType&gt;
+         *                         &lt;complexContent&gt;
+         *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                             &lt;sequence&gt;
+         *                               &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+         *                             &lt;/sequence&gt;
+         *                           &lt;/restriction&gt;
+         *                         &lt;/complexContent&gt;
+         *                       &lt;/complexType&gt;
+         *                     &lt;/element&gt;
+         *                   &lt;/choice&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="SpecialAccountOwner" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+         *           &lt;element name="InspectionAuthority" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" maxOccurs="unbounded"/&gt;
+         *         &lt;/choice&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="IsNotLimit" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *           &lt;sequence&gt;
+         *             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+         *             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+         *           &lt;/sequence&gt;
+         *         &lt;/choice&gt;
+         *         &lt;element name="Attachment" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *         &lt;element name="IsShipOff" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -972,58 +972,58 @@ public class ImportNotificationRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;choice>
-             *         &lt;element name="DeptsInforming">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                 &lt;sequence>
-             *                   &lt;element name="Account" maxOccurs="unbounded">
-             *                     &lt;complexType>
-             *                       &lt;complexContent>
-             *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                           &lt;sequence>
-             *                             &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
-             *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
-             *                           &lt;/sequence>
-             *                         &lt;/restriction>
-             *                       &lt;/complexContent>
-             *                     &lt;/complexType>
-             *                   &lt;/element>
-             *                 &lt;/sequence>
-             *               &lt;/restriction>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="OtherOrganizationSelection">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                 &lt;sequence>
-             *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-             *                 &lt;/sequence>
-             *               &lt;/restriction>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element name="AccountOpening">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                 &lt;sequence>
-             *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-             *                 &lt;/sequence>
-             *               &lt;/restriction>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *       &lt;/choice>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;choice&gt;
+             *         &lt;element name="DeptsInforming"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="Account" maxOccurs="unbounded"&gt;
+             *                     &lt;complexType&gt;
+             *                       &lt;complexContent&gt;
+             *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                           &lt;sequence&gt;
+             *                             &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+             *                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+             *                           &lt;/sequence&gt;
+             *                         &lt;/restriction&gt;
+             *                       &lt;/complexContent&gt;
+             *                     &lt;/complexType&gt;
+             *                   &lt;/element&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/restriction&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="OtherOrganizationSelection"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/restriction&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="AccountOpening"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/restriction&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *       &lt;/choice&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1122,15 +1122,15 @@ public class ImportNotificationRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
-                 *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/restriction&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1182,26 +1182,26 @@ public class ImportNotificationRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
-                 *         &lt;element name="Account" maxOccurs="unbounded">
-                 *           &lt;complexType>
-                 *             &lt;complexContent>
-                 *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *                 &lt;sequence>
-                 *                   &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
-                 *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
-                 *                 &lt;/sequence>
-                 *               &lt;/restriction>
-                 *             &lt;/complexContent>
-                 *           &lt;/complexType>
-                 *         &lt;/element>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="Account" maxOccurs="unbounded"&gt;
+                 *           &lt;complexType&gt;
+                 *             &lt;complexContent&gt;
+                 *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *                 &lt;sequence&gt;
+                 *                   &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+                 *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+                 *                 &lt;/sequence&gt;
+                 *               &lt;/restriction&gt;
+                 *             &lt;/complexContent&gt;
+                 *           &lt;/complexType&gt;
+                 *         &lt;/element&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/restriction&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1251,16 +1251,16 @@ public class ImportNotificationRequest
                      * <p>The following schema fragment specifies the expected content contained within this class.
                      * 
                      * <pre>
-                     * &lt;complexType>
-                     *   &lt;complexContent>
-                     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                     *       &lt;sequence>
-                     *         &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
-                     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/>
-                     *       &lt;/sequence>
-                     *     &lt;/restriction>
-                     *   &lt;/complexContent>
-                     * &lt;/complexType>
+                     * &lt;complexType&gt;
+                     *   &lt;complexContent&gt;
+                     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                     *       &lt;sequence&gt;
+                     *         &lt;element name="TotalDebt" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+                     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber"/&gt;
+                     *       &lt;/sequence&gt;
+                     *     &lt;/restriction&gt;
+                     *   &lt;/complexContent&gt;
+                     * &lt;/complexType&gt;
                      * </pre>
                      * 
                      * 
@@ -1336,15 +1336,15 @@ public class ImportNotificationRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
-                 *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/restriction&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 

@@ -24,17 +24,17 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _OGRN_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OGRN");
-    private final static QName _Web_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Web");
     private final static QName _KPP_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "KPP");
-    private final static QName _Fax_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Fax");
-    private final static QName _Mail_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Mail");
-    private final static QName _NZA_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "NZA");
+    private final static QName _OGRN_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OGRN");
     private final static QName _OGRNIP_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OGRNIP");
-    private final static QName _OKOGU_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OKOGU");
     private final static QName _OKOPF_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OKOPF");
+    private final static QName _OKOGU_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "OKOGU");
     private final static QName _Phone_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Phone");
+    private final static QName _Fax_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Fax");
+    private final static QName _Web_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Web");
+    private final static QName _Mail_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "Mail");
     private final static QName _INN_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "INN");
+    private final static QName _NZA_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/organizations-base/", "NZA");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.organizations_base
@@ -44,26 +44,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OGRN")
-    public JAXBElement<String> createOGRN(String value) {
-        return new JAXBElement<String>(_OGRN_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Web")
-    public JAXBElement<String> createWeb(String value) {
-        return new JAXBElement<String>(_Web_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "KPP")
     public JAXBElement<String> createKPP(String value) {
@@ -71,35 +57,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Fax")
-    public JAXBElement<String> createFax(String value) {
-        return new JAXBElement<String>(_Fax_QNAME, String.class, null, value);
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OGRN")
+    public JAXBElement<String> createOGRN(String value) {
+        return new JAXBElement<String>(_OGRN_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Mail")
-    public JAXBElement<String> createMail(String value) {
-        return new JAXBElement<String>(_Mail_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "NZA")
-    public JAXBElement<String> createNZA(String value) {
-        return new JAXBElement<String>(_NZA_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OGRNIP")
     public JAXBElement<String> createOGRNIP(String value) {
@@ -107,17 +83,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OKOGU")
-    public JAXBElement<String> createOKOGU(String value) {
-        return new JAXBElement<String>(_OKOGU_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OKOPF")
     public JAXBElement<String> createOKOPF(String value) {
@@ -125,8 +96,25 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "OKOGU")
+    public JAXBElement<String> createOKOGU(String value) {
+        return new JAXBElement<String>(_OKOGU_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Phone")
     public JAXBElement<String> createPhone(String value) {
@@ -134,12 +122,68 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Fax")
+    public JAXBElement<String> createFax(String value) {
+        return new JAXBElement<String>(_Fax_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Web")
+    public JAXBElement<String> createWeb(String value) {
+        return new JAXBElement<String>(_Web_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "Mail")
+    public JAXBElement<String> createMail(String value) {
+        return new JAXBElement<String>(_Mail_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "INN")
     public JAXBElement<String> createINN(String value) {
         return new JAXBElement<String>(_INN_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-base/", name = "NZA")
+    public JAXBElement<String> createNZA(String value) {
+        return new JAXBElement<String>(_NZA_QNAME, String.class, null, value);
     }
 
 }

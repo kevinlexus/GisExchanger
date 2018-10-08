@@ -16,41 +16,59 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentInformationType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="RecipientINN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/>
- *         &lt;element name="RecipientKPP" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPPType" minOccurs="0"/>
- *         &lt;element name="BankName">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="45"/>
- *               &lt;minLength value="1"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="PaymentRecipient">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="160"/>
- *               &lt;minLength value="1"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="BankBIK" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/>
- *         &lt;element name="operatingAccountNumber">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;length value="20"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="CorrespondentBankAccount" type="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PaymentInformationType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="RecipientINN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/&gt;
+ *         &lt;element name="RecipientKPP" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPPType" minOccurs="0"/&gt;
+ *         &lt;element name="BankName"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="45"/&gt;
+ *               &lt;minLength value="1"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PaymentRecipient"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="160"/&gt;
+ *               &lt;minLength value="1"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="BankBIK" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}BIKType"/&gt;
+ *         &lt;element name="operatingAccountNumber"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;length value="20"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="CorrespondentBankAccount" type="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountType" minOccurs="0"/&gt;
+ *         &lt;element name="KBK" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;length value="20"/&gt;
+ *               &lt;pattern value="[0-9]{20}"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMOImportType" minOccurs="0"/&gt;
+ *         &lt;element name="NumberBudgetaryAccount" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="30"/&gt;
+ *               &lt;minLength value="1"/&gt;
+ *               &lt;pattern value="[0-9]{1,30}"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -63,10 +81,13 @@ import javax.xml.bind.annotation.XmlType;
     "paymentRecipient",
     "bankBIK",
     "operatingAccountNumber",
-    "correspondentBankAccount"
+    "correspondentBankAccount",
+    "kbk",
+    "oktmo",
+    "numberBudgetaryAccount"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.payment.PaymentDocumentDetailsType.ExecutorInformation.PaymentInformation.class
+    ru.gosuslugi.dom.schema.integration.payments_base.NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation.class
 })
 public class PaymentInformationType {
 
@@ -84,6 +105,12 @@ public class PaymentInformationType {
     protected String operatingAccountNumber;
     @XmlElement(name = "CorrespondentBankAccount")
     protected String correspondentBankAccount;
+    @XmlElement(name = "KBK")
+    protected String kbk;
+    @XmlElement(name = "OKTMO")
+    protected String oktmo;
+    @XmlElement(name = "NumberBudgetaryAccount")
+    protected String numberBudgetaryAccount;
 
     /**
      * Gets the value of the recipientINN property.
@@ -251,6 +278,78 @@ public class PaymentInformationType {
      */
     public void setCorrespondentBankAccount(String value) {
         this.correspondentBankAccount = value;
+    }
+
+    /**
+     * Gets the value of the kbk property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getKBK() {
+        return kbk;
+    }
+
+    /**
+     * Sets the value of the kbk property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setKBK(String value) {
+        this.kbk = value;
+    }
+
+    /**
+     * Gets the value of the oktmo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOKTMO() {
+        return oktmo;
+    }
+
+    /**
+     * Sets the value of the oktmo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOKTMO(String value) {
+        this.oktmo = value;
+    }
+
+    /**
+     * Gets the value of the numberBudgetaryAccount property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNumberBudgetaryAccount() {
+        return numberBudgetaryAccount;
+    }
+
+    /**
+     * Sets the value of the numberBudgetaryAccount property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNumberBudgetaryAccount(String value) {
+        this.numberBudgetaryAccount = value;
     }
 
 }

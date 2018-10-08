@@ -90,46 +90,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDelegatedAccessRequest }
-     * 
-     */
-    public ExportDelegatedAccessRequest createExportDelegatedAccessRequest() {
-        return new ExportDelegatedAccessRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDataProviderResultType }
-     * 
-     */
-    public ExportDataProviderResultType createExportDataProviderResultType() {
-        return new ExportDataProviderResultType();
-    }
-
-    /**
-     * Create an instance of {@link ExportDelegatedAccessType }
-     * 
-     */
-    public ExportDelegatedAccessType createExportDelegatedAccessType() {
-        return new ExportDelegatedAccessType();
-    }
-
-    /**
-     * Create an instance of {@link TerritoryDelegatedAccessRightType }
-     * 
-     */
-    public TerritoryDelegatedAccessRightType createTerritoryDelegatedAccessRightType() {
-        return new TerritoryDelegatedAccessRightType();
-    }
-
-    /**
      * Create an instance of {@link ExportOrgRegistryRequest.SearchCriteria }
      * 
      */
@@ -151,6 +111,54 @@ public class ObjectFactory {
      */
     public ExportDataProviderRequest createExportDataProviderRequest() {
         return new ExportDataProviderRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportDataProviderResult }
+     * 
+     */
+    public ExportDataProviderResult createExportDataProviderResult() {
+        return new ExportDataProviderResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportDataProviderResultType }
+     * 
+     */
+    public ExportDataProviderResultType createExportDataProviderResultType() {
+        return new ExportDataProviderResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportDelegatedAccessRequest }
+     * 
+     */
+    public ExportDelegatedAccessRequest createExportDelegatedAccessRequest() {
+        return new ExportDelegatedAccessRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportDelegatedAccessResult }
+     * 
+     */
+    public ExportDelegatedAccessResult createExportDelegatedAccessResult() {
+        return new ExportDelegatedAccessResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportDelegatedAccessType }
+     * 
+     */
+    public ExportDelegatedAccessType createExportDelegatedAccessType() {
+        return new ExportDelegatedAccessType();
+    }
+
+    /**
+     * Create an instance of {@link ExportObjectsDelegatedAccessRequest }
+     * 
+     */
+    public ExportObjectsDelegatedAccessRequest createExportObjectsDelegatedAccessRequest() {
+        return new ExportObjectsDelegatedAccessRequest();
     }
 
     /**
@@ -178,19 +186,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportObjectsDelegatedAccessRequest }
+     * Create an instance of {@link TerritoryDelegatedAccessRightType }
      * 
      */
-    public ExportObjectsDelegatedAccessRequest createExportObjectsDelegatedAccessRequest() {
-        return new ExportObjectsDelegatedAccessRequest();
+    public TerritoryDelegatedAccessRightType createTerritoryDelegatedAccessRightType() {
+        return new TerritoryDelegatedAccessRightType();
     }
 
     /**
-     * Create an instance of {@link ExportDelegatedAccessResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportDelegatedAccessResult createExportDelegatedAccessResult() {
-        return new ExportDelegatedAccessResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -199,14 +207,6 @@ public class ObjectFactory {
      */
     public RegOrgPPAType createRegOrgPPAType() {
         return new RegOrgPPAType();
-    }
-
-    /**
-     * Create an instance of {@link ExportDataProviderResult }
-     * 
-     */
-    public ExportDataProviderResult createExportDataProviderResult() {
-        return new ExportDataProviderResult();
     }
 
     /**
@@ -242,8 +242,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgPPAType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegOrgPPAType }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link RegOrgPPAType }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/", name = "RegOrgPPA")
     public JAXBElement<RegOrgPPAType> createRegOrgPPA(RegOrgPPAType value) {

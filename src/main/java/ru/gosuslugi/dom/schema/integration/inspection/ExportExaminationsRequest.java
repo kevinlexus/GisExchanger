@@ -18,23 +18,29 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="RegistryNumber" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *           &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "examinationGuid",
+    "registryNumber",
     "from",
     "to"
 })
@@ -43,7 +49,11 @@ public class ExportExaminationsRequest
     extends BaseType
 {
 
-    @XmlElement(name = "From", required = true)
+    @XmlElement(name = "ExaminationGuid")
+    protected String examinationGuid;
+    @XmlElement(name = "RegistryNumber")
+    protected String registryNumber;
+    @XmlElement(name = "From")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar from;
     @XmlElement(name = "To")
@@ -51,6 +61,54 @@ public class ExportExaminationsRequest
     protected XMLGregorianCalendar to;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
+
+    /**
+     * Gets the value of the examinationGuid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getExaminationGuid() {
+        return examinationGuid;
+    }
+
+    /**
+     * Sets the value of the examinationGuid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setExaminationGuid(String value) {
+        this.examinationGuid = value;
+    }
+
+    /**
+     * Gets the value of the registryNumber property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRegistryNumber() {
+        return registryNumber;
+    }
+
+    /**
+     * Sets the value of the registryNumber property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRegistryNumber(String value) {
+        this.registryNumber = value;
+    }
 
     /**
      * Gets the value of the from property.

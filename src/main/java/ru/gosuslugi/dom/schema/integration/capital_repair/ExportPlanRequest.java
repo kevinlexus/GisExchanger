@@ -17,28 +17,28 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;element name="PlanGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;sequence>
- *           &lt;element name="Type">
- *             &lt;simpleType>
- *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type">
- *                 &lt;enumeration value="Plan"/>
- *                 &lt;enumeration value="MunicipalAddressProgram"/>
- *                 &lt;enumeration value="RegionalAddressProgram"/>
- *               &lt;/restriction>
- *             &lt;/simpleType>
- *           &lt;/element>
- *           &lt;element name="Territory" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *         &lt;/sequence>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="PlanGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="Type"&gt;
+ *             &lt;simpleType&gt;
+ *               &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"&gt;
+ *                 &lt;enumeration value="Plan"/&gt;
+ *                 &lt;enumeration value="MunicipalAddressProgram"/&gt;
+ *                 &lt;enumeration value="RegionalAddressProgram"/&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/simpleType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="Territory" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.10""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -8,17 +8,17 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ric.bill.dao.ParDAO;
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.LstMng;
-import com.ric.bill.mm.TaskEolinkParMng;
-import com.ric.bill.model.bs.Lst;
-import com.ric.bill.model.bs.Par;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
-import com.ric.bill.model.exs.TaskPar;
-import com.ric.bill.model.exs.TaskToTask;
+import com.dic.bill.dao.ParDAO;
+import com.dic.bill.dao.TaskDAO;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.LstMng;
+import com.dic.bill.mm.TaskEolinkParMng;
+import com.dic.bill.model.bs.Lst;
+import com.dic.bill.model.bs.Par;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
+import com.dic.bill.model.exs.TaskPar;
+import com.dic.bill.model.exs.TaskToTask;
 import com.ric.st.SoapConfigs;
 import com.ric.st.builder.PseudoTaskBuilders;
 

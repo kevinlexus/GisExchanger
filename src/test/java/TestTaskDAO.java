@@ -12,8 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ric.bill.dao.TaskDAO;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.dao.TaskDAO;
+import com.dic.bill.model.exs.Task;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;

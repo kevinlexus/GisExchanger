@@ -20,92 +20,92 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccountReasonsImportType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SupplyResourceContract" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
- *                   &lt;sequence>
- *                     &lt;element name="ContractNumber">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="30"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="IsContract" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/sequence>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="SocialHireContract" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
- *                   &lt;sequence>
- *                     &lt;element name="ContractNumber">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="30"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="Type">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;length value="1"/>
- *                           &lt;enumeration value="D"/>
- *                           &lt;enumeration value="M"/>
- *                           &lt;enumeration value="S"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="TKOContract" maxOccurs="unbounded" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
- *                   &lt;sequence>
- *                     &lt;element name="ContractNumber">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="30"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                   &lt;/sequence>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="AccountReasonsImportType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="SupplyResourceContract" maxOccurs="unbounded" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ContractNumber"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="30"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="IsContract" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="SocialHireContract" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ContractNumber"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="30"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="Type"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;length value="1"/&gt;
+ *                           &lt;enumeration value="D"/&gt;
+ *                           &lt;enumeration value="M"/&gt;
+ *                           &lt;enumeration value="S"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="TKOContract" maxOccurs="unbounded" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="ContractNumber"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;minLength value="1"/&gt;
+ *                           &lt;maxLength value="30"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -217,36 +217,36 @@ public class AccountReasonsImportType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
-     *         &lt;sequence>
-     *           &lt;element name="ContractNumber">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="30"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *           &lt;element name="Type">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;length value="1"/>
-     *                 &lt;enumeration value="D"/>
-     *                 &lt;enumeration value="M"/>
-     *                 &lt;enumeration value="S"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *         &lt;/sequence>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element name="ContractNumber"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                 &lt;minLength value="1"/&gt;
+     *                 &lt;maxLength value="30"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *           &lt;element name="Type"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                 &lt;length value="1"/&gt;
+     *                 &lt;enumeration value="D"/&gt;
+     *                 &lt;enumeration value="M"/&gt;
+     *                 &lt;enumeration value="S"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/sequence&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -375,27 +375,27 @@ public class AccountReasonsImportType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
-     *         &lt;sequence>
-     *           &lt;element name="ContractNumber">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="30"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *           &lt;element name="IsContract" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/sequence>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element name="ContractNumber"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                 &lt;minLength value="1"/&gt;
+     *                 &lt;maxLength value="30"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *           &lt;element name="IsContract" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/sequence&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -524,27 +524,27 @@ public class AccountReasonsImportType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/>
-     *         &lt;sequence>
-     *           &lt;element name="ContractNumber">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="30"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *           &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;/sequence>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractGUID" minOccurs="0"/&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element name="ContractNumber"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                 &lt;minLength value="1"/&gt;
+     *                 &lt;maxLength value="30"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="SigningDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *           &lt;element name="DateEntry" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;/sequence&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

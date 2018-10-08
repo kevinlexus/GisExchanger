@@ -17,16 +17,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.dao.NotifDAO;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.NotifMng;
-import com.ric.bill.mm.TaskMng;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Notif;
-import com.ric.bill.model.exs.Pdoc;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.dao.EolinkDAO;
+import com.dic.bill.dao.NotifDAO;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.NotifMng;
+import com.dic.bill.mm.TaskMng;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Notif;
+import com.dic.bill.model.exs.Pdoc;
+import com.dic.bill.model.exs.Task;
 import com.ric.cmn.Utl;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.HcsPaymentAsyncBuilders;
@@ -131,7 +131,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 			// контроль кол-ва выполнения запроса
 			Integer errAckCnt = reqProp.getFoundTask().getErrAckCnt();
-			if (errAckCnt.compareTo(1000) < 0) {
+			if (errAckCnt.compareTo(50000) < 0) {
 				// увеличить на 1 кол-во ошибок
 				reqProp.getFoundTask().setErrAckCnt(++errAckCnt);
 			} else {
@@ -180,7 +180,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		ImportSupplierNotificationsOfOrderExecutionRequest req = new ImportSupplierNotificationsOfOrderExecutionRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
 		// дом
 		Eolink house = reqProp.getFoundTask().getEolink();
@@ -361,7 +361,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		ImportNotificationsOfOrderExecutionCancellationRequest req = new ImportNotificationsOfOrderExecutionCancellationRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
 		// дом
 		Eolink house = reqProp.getFoundTask().getEolink();
@@ -525,7 +525,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		ExportPaymentDocumentDetailsRequest req = new ExportPaymentDocumentDetailsRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
 		req.setPaymentDocumentID("70ВВ288566-03-8039");
 
@@ -595,27 +595,16 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicSupplierImpNotif(Task task) throws WrongParam {
-		//log.info("******* Task.id={}, проверка наличия заданий на импорт извещений ПД, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на импорт извещений ПД, если их нет
-		String actTp = "GIS_IMP_SUP_NOTIFS";
-		String parentCD = "SYSTEM_RPT_IMP_SUP_NOTIF";
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
-			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
-			// добавить как зависимое задание к системному повторяемому заданию
-			ptb.addAsChild(parentCD);
-			ptb.save();
-			log.info("Добавлено задание на импорт извещений ПД по Дому Eolink.id={}", e.getId());
-		};
-
+		createTask("GIS_IMP_SUP_NOTIFS", "SYSTEM_RPT_IMP_SUP_NOTIF", "STP", "Дом",
+				"импорт извещений ПД");
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		//log.info("******* Task.id={}, проверка наличия заданий импорт извещений ПД, выполнено!", task.getId());
 	}
 
 	/**
-	 * Проверить наличие заданий на импорт Извещений ПД
+	 * Проверить наличие заданий на импорт отмены Извещений ПД
 	 * и если их нет, - создать
 	 * @param task
 	 * @throws WrongParam
@@ -623,23 +612,29 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicImpCancelNotif(Task task) throws WrongParam {
-		//log.info("******* Task.id={}, проверка наличия заданий на импорт отмены извещений ПД, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем домам задания на импорт отмены извещений ПД, если их нет
-		String actTp = "GIS_IMP_CANCEL_NOTIFS";
-		String parentCD = "SYSTEM_RPT_IMP_NOTIF_CANCEL";
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Дом", actTp, parentCD)) {
+		createTask("GIS_IMP_CANCEL_NOTIFS", "SYSTEM_RPT_IMP_NOTIF_CANCEL", "STP", "Дом",
+				"импорт отмены извещений");
+		// Установить статус выполнения задания
+		foundTask.setState("ACP");
+	}
+
+	private void createTask(String actTp, String parentCD, String state, String eolTp, String purpose) {
+		int a;// создавать по 100 штук, иначе -блокировка Task (нужен коммит)
+		a=1;
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp(eolTp, actTp, parentCD)) {
 			// статус - STP, остановлено (будет запускаться другим заданием)
-			ptb.setUp(e, null, actTp, "STP", soapConfig.getCurUser().getId());
+			ptb.setUp(e, null, actTp, state, soapConfig.getCurUser().getId());
 			// добавить как зависимое задание к системному повторяемому заданию
 			ptb.addAsChild(parentCD);
 			ptb.save();
-			log.info("Добавлено задание на импорт отмены извещений ПД по Дому Eolink.id={}", e.getId());
-		};
-
-		// Установить статус выполнения задания
-		foundTask.setState("ACP");
-		//log.info("******* Task.id={}, проверка наличия заданий импорт отмены извещений ПД, выполнено!", task.getId());
+			log.info("Добавлено задание на {}, по объекту {}, Eolink.id={}", purpose, eolTp, e.getId());
+			a++;
+			if (a++>=100) {
+				break;
+			}
+		}
 	}
 
 }

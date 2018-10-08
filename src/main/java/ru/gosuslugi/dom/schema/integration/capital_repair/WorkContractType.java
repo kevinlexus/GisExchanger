@@ -18,31 +18,31 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="WorkContractType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType">
- *       &lt;sequence>
- *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Cost" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="CostPlan" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="Volume">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *               &lt;minInclusive value="0"/>
- *               &lt;fractionDigits value="3"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
- *           &lt;element name="OtherUnit" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String500Type"/>
- *         &lt;/choice>
- *         &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="WorkContractType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="Cost" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="CostPlan" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="Volume"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *               &lt;fractionDigits value="3"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/&gt;
+ *           &lt;element name="OtherUnit" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String500Type"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String1024Type" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

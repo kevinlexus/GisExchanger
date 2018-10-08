@@ -12,18 +12,18 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="AccessRequestStatus">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Created"/>
- *     &lt;enumeration value="Accepted"/>
- *     &lt;enumeration value="Declined"/>
- *     &lt;enumeration value="Revoked"/>
- *     &lt;enumeration value="Annulled"/>
- *     &lt;enumeration value="Closed"/>
- *     &lt;enumeration value="Preset"/>
- *     &lt;enumeration value="Waiting_approval"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="AccessRequestStatus"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="Created"/&gt;
+ *     &lt;enumeration value="Accepted"/&gt;
+ *     &lt;enumeration value="Declined"/&gt;
+ *     &lt;enumeration value="Revoked"/&gt;
+ *     &lt;enumeration value="Annulled"/&gt;
+ *     &lt;enumeration value="Closed"/&gt;
+ *     &lt;enumeration value="Preset"/&gt;
+ *     &lt;enumeration value="Waiting_approval"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

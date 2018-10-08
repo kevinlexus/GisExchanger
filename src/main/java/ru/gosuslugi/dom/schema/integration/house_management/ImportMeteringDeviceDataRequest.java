@@ -24,88 +24,88 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *         &lt;element name="MeteringDevice" maxOccurs="100">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                   &lt;choice>
- *                     &lt;element name="DeviceDataToCreate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/>
- *                     &lt;element name="DeviceDataToUpdate">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
- *                               &lt;choice>
- *                                 &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/>
- *                                 &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/>
- *                                 &lt;element name="LinkedWithMetering">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;sequence>
- *                                           &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/>
- *                                         &lt;/sequence>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="ArchiveDevice">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;sequence>
- *                                           &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                                         &lt;/sequence>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                                 &lt;element name="ReplaceDevice">
- *                                   &lt;complexType>
- *                                     &lt;complexContent>
- *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                         &lt;sequence>
- *                                           &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                                           &lt;choice>
- *                                             &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                             &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                                           &lt;/choice>
- *                                           &lt;choice minOccurs="0">
- *                                             &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
- *                                             &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
- *                                             &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
- *                                           &lt;/choice>
- *                                           &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
- *                                         &lt;/sequence>
- *                                       &lt;/restriction>
- *                                     &lt;/complexContent>
- *                                   &lt;/complexType>
- *                                 &lt;/element>
- *                               &lt;/choice>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.8""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="MeteringDevice" maxOccurs="100"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="DeviceDataToCreate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/&gt;
+ *                     &lt;element name="DeviceDataToUpdate"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+ *                               &lt;choice&gt;
+ *                                 &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/&gt;
+ *                                 &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/&gt;
+ *                                 &lt;element name="LinkedWithMetering"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/restriction&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                                 &lt;element name="ArchiveDevice"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/restriction&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                                 &lt;element name="ReplaceDevice"&gt;
+ *                                   &lt;complexType&gt;
+ *                                     &lt;complexContent&gt;
+ *                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                         &lt;sequence&gt;
+ *                                           &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                                           &lt;choice&gt;
+ *                                             &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                             &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                                           &lt;/choice&gt;
+ *                                           &lt;choice minOccurs="0"&gt;
+ *                                             &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/&gt;
+ *                                             &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/&gt;
+ *                                             &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/&gt;
+ *                                           &lt;/choice&gt;
+ *                                           &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+ *                                         &lt;/sequence&gt;
+ *                                       &lt;/restriction&gt;
+ *                                     &lt;/complexContent&gt;
+ *                                   &lt;/complexType&gt;
+ *                                 &lt;/element&gt;
+ *                               &lt;/choice&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.8""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -215,76 +215,76 @@ public class ImportMeteringDeviceDataRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *         &lt;choice>
-     *           &lt;element name="DeviceDataToCreate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/>
-     *           &lt;element name="DeviceDataToUpdate">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
-     *                     &lt;choice>
-     *                       &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/>
-     *                       &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/>
-     *                       &lt;element name="LinkedWithMetering">
-     *                         &lt;complexType>
-     *                           &lt;complexContent>
-     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                               &lt;sequence>
-     *                                 &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/>
-     *                               &lt;/sequence>
-     *                             &lt;/restriction>
-     *                           &lt;/complexContent>
-     *                         &lt;/complexType>
-     *                       &lt;/element>
-     *                       &lt;element name="ArchiveDevice">
-     *                         &lt;complexType>
-     *                           &lt;complexContent>
-     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                               &lt;sequence>
-     *                                 &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                               &lt;/sequence>
-     *                             &lt;/restriction>
-     *                           &lt;/complexContent>
-     *                         &lt;/complexType>
-     *                       &lt;/element>
-     *                       &lt;element name="ReplaceDevice">
-     *                         &lt;complexType>
-     *                           &lt;complexContent>
-     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                               &lt;sequence>
-     *                                 &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *                                 &lt;choice>
-     *                                   &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                                   &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                                 &lt;/choice>
-     *                                 &lt;choice minOccurs="0">
-     *                                   &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
-     *                                   &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
-     *                                   &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
-     *                                 &lt;/choice>
-     *                                 &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
-     *                               &lt;/sequence>
-     *                             &lt;/restriction>
-     *                           &lt;/complexContent>
-     *                         &lt;/complexType>
-     *                       &lt;/element>
-     *                     &lt;/choice>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="DeviceDataToCreate" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/&gt;
+     *           &lt;element name="DeviceDataToUpdate"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+     *                     &lt;choice&gt;
+     *                       &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/&gt;
+     *                       &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/&gt;
+     *                       &lt;element name="LinkedWithMetering"&gt;
+     *                         &lt;complexType&gt;
+     *                           &lt;complexContent&gt;
+     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                               &lt;sequence&gt;
+     *                                 &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/&gt;
+     *                               &lt;/sequence&gt;
+     *                             &lt;/restriction&gt;
+     *                           &lt;/complexContent&gt;
+     *                         &lt;/complexType&gt;
+     *                       &lt;/element&gt;
+     *                       &lt;element name="ArchiveDevice"&gt;
+     *                         &lt;complexType&gt;
+     *                           &lt;complexContent&gt;
+     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                               &lt;sequence&gt;
+     *                                 &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                               &lt;/sequence&gt;
+     *                             &lt;/restriction&gt;
+     *                           &lt;/complexContent&gt;
+     *                         &lt;/complexType&gt;
+     *                       &lt;/element&gt;
+     *                       &lt;element name="ReplaceDevice"&gt;
+     *                         &lt;complexType&gt;
+     *                           &lt;complexContent&gt;
+     *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                               &lt;sequence&gt;
+     *                                 &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *                                 &lt;choice&gt;
+     *                                   &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                                   &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                                 &lt;/choice&gt;
+     *                                 &lt;choice minOccurs="0"&gt;
+     *                                   &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/&gt;
+     *                                   &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/&gt;
+     *                                   &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/&gt;
+     *                                 &lt;/choice&gt;
+     *                                 &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+     *                               &lt;/sequence&gt;
+     *                             &lt;/restriction&gt;
+     *                           &lt;/complexContent&gt;
+     *                         &lt;/complexType&gt;
+     *                       &lt;/element&gt;
+     *                     &lt;/choice&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -383,62 +383,62 @@ public class ImportMeteringDeviceDataRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
-         *         &lt;choice>
-         *           &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/>
-         *           &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/>
-         *           &lt;element name="LinkedWithMetering">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;sequence>
-         *                     &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/>
-         *                   &lt;/sequence>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="ArchiveDevice">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;sequence>
-         *                     &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *                   &lt;/sequence>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *           &lt;element name="ReplaceDevice">
-         *             &lt;complexType>
-         *               &lt;complexContent>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                   &lt;sequence>
-         *                     &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-         *                     &lt;choice>
-         *                       &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *                       &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *                     &lt;/choice>
-         *                     &lt;choice minOccurs="0">
-         *                       &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
-         *                       &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
-         *                       &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
-         *                     &lt;/choice>
-         *                     &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
-         *                   &lt;/sequence>
-         *                 &lt;/restriction>
-         *               &lt;/complexContent>
-         *             &lt;/complexType>
-         *           &lt;/element>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="MeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="UpdateBeforeDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceFullInformationType"/&gt;
+         *           &lt;element name="UpdateAfterDevicesValues" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}MeteringDeviceToUpdateAfterDevicesValuesType"/&gt;
+         *           &lt;element name="LinkedWithMetering"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="ArchiveDevice"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="ReplaceDevice"&gt;
+         *             &lt;complexType&gt;
+         *               &lt;complexContent&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                   &lt;sequence&gt;
+         *                     &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+         *                     &lt;choice&gt;
+         *                       &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                       &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *                     &lt;/choice&gt;
+         *                     &lt;choice minOccurs="0"&gt;
+         *                       &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/&gt;
+         *                       &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/&gt;
+         *                       &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/&gt;
+         *                     &lt;/choice&gt;
+         *                     &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+         *                   &lt;/sequence&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/complexContent&gt;
+         *             &lt;/complexType&gt;
+         *           &lt;/element&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -618,15 +618,15 @@ public class ImportMeteringDeviceDataRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="ArchivingReason" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -673,15 +673,15 @@ public class ImportMeteringDeviceDataRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="LinkedMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType" maxOccurs="10"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -733,25 +733,25 @@ public class ImportMeteringDeviceDataRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;choice>
-             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-             *           &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-             *         &lt;/choice>
-             *         &lt;choice minOccurs="0">
-             *           &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/>
-             *           &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/>
-             *           &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/>
-             *         &lt;/choice>
-             *         &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="VerificationDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+             *         &lt;choice&gt;
+             *           &lt;element name="PlannedVerification" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *           &lt;element name="ReasonVerification" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+             *         &lt;/choice&gt;
+             *         &lt;choice minOccurs="0"&gt;
+             *           &lt;element name="DeviceValueMunicipalResourceNotElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType" maxOccurs="3"/&gt;
+             *           &lt;element name="DeviceValueMunicipalResourceElectric" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}ElectricMeteringValueBaseType"/&gt;
+             *           &lt;element name="VolumeDeviceValues" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}VolumeMeteringValueBaseType" maxOccurs="3"/&gt;
+             *         &lt;/choice&gt;
+             *         &lt;element name="ReplacingMeteringDeviceVersionGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 

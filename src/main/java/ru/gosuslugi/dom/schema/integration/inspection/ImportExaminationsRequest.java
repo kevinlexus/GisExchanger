@@ -18,83 +18,83 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;element name="ImportExamination" maxOccurs="1000">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                     &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;element name="SendToURI" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *                   &lt;choice>
- *                     &lt;sequence>
- *                       &lt;choice>
- *                         &lt;element name="Examination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationType" minOccurs="0"/>
- *                         &lt;element name="ResultsInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ResultsInfoType" minOccurs="0"/>
- *                       &lt;/choice>
- *                       &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/>
- *                       &lt;element name="ImportPrecept" maxOccurs="unbounded" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                               &lt;sequence>
- *                                 &lt;sequence>
- *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                   &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                                 &lt;/sequence>
- *                                 &lt;choice>
- *                                   &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/>
- *                                   &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
- *                                   &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/>
- *                                   &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                 &lt;/choice>
- *                               &lt;/sequence>
- *                             &lt;/restriction>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                       &lt;element name="ImportOffence" maxOccurs="unbounded" minOccurs="0">
- *                         &lt;complexType>
- *                           &lt;complexContent>
- *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                               &lt;sequence>
- *                                 &lt;sequence>
- *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                   &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                                 &lt;/sequence>
- *                                 &lt;choice>
- *                                   &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/>
- *                                   &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
- *                                   &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/>
- *                                   &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                                 &lt;/choice>
- *                               &lt;/sequence>
- *                             &lt;/restriction>
- *                           &lt;/complexContent>
- *                         &lt;/complexType>
- *                       &lt;/element>
- *                     &lt;/sequence>
- *                     &lt;element name="CancelExamination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
- *                     &lt;element name="AnnulExamination" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
- *                     &lt;element name="AnnulExaminationResults" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.3.0.8""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ImportExamination" maxOccurs="1000"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                     &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="SendToURI" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;sequence&gt;
+ *                       &lt;choice&gt;
+ *                         &lt;element name="Examination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationType" minOccurs="0"/&gt;
+ *                         &lt;element name="ResultsInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ResultsInfoType" minOccurs="0"/&gt;
+ *                       &lt;/choice&gt;
+ *                       &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/&gt;
+ *                       &lt;element name="ImportPrecept" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                         &lt;complexType&gt;
+ *                           &lt;complexContent&gt;
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                               &lt;sequence&gt;
+ *                                 &lt;sequence&gt;
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                   &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                                 &lt;/sequence&gt;
+ *                                 &lt;choice&gt;
+ *                                   &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/&gt;
+ *                                   &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+ *                                   &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/&gt;
+ *                                   &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                 &lt;/choice&gt;
+ *                               &lt;/sequence&gt;
+ *                             &lt;/restriction&gt;
+ *                           &lt;/complexContent&gt;
+ *                         &lt;/complexType&gt;
+ *                       &lt;/element&gt;
+ *                       &lt;element name="ImportOffence" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                         &lt;complexType&gt;
+ *                           &lt;complexContent&gt;
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                               &lt;sequence&gt;
+ *                                 &lt;sequence&gt;
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                   &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                                 &lt;/sequence&gt;
+ *                                 &lt;choice&gt;
+ *                                   &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+ *                                   &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+ *                                   &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
+ *                                   &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                 &lt;/choice&gt;
+ *                               &lt;/sequence&gt;
+ *                             &lt;/restriction&gt;
+ *                           &lt;/complexContent&gt;
+ *                         &lt;/complexType&gt;
+ *                       &lt;/element&gt;
+ *                     &lt;/sequence&gt;
+ *                     &lt;element name="CancelExamination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+ *                     &lt;element name="AnnulExamination" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+ *                     &lt;element name="AnnulExaminationResults" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.3.0.8""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -177,72 +177,72 @@ public class ImportExaminationsRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;sequence>
-     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *           &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;element name="SendToURI" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
-     *         &lt;choice>
-     *           &lt;sequence>
-     *             &lt;choice>
-     *               &lt;element name="Examination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationType" minOccurs="0"/>
-     *               &lt;element name="ResultsInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ResultsInfoType" minOccurs="0"/>
-     *             &lt;/choice>
-     *             &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/>
-     *             &lt;element name="ImportPrecept" maxOccurs="unbounded" minOccurs="0">
-     *               &lt;complexType>
-     *                 &lt;complexContent>
-     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                     &lt;sequence>
-     *                       &lt;sequence>
-     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                         &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *                       &lt;/sequence>
-     *                       &lt;choice>
-     *                         &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/>
-     *                         &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-     *                         &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/>
-     *                         &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                       &lt;/choice>
-     *                     &lt;/sequence>
-     *                   &lt;/restriction>
-     *                 &lt;/complexContent>
-     *               &lt;/complexType>
-     *             &lt;/element>
-     *             &lt;element name="ImportOffence" maxOccurs="unbounded" minOccurs="0">
-     *               &lt;complexType>
-     *                 &lt;complexContent>
-     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                     &lt;sequence>
-     *                       &lt;sequence>
-     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                         &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *                       &lt;/sequence>
-     *                       &lt;choice>
-     *                         &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/>
-     *                         &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-     *                         &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/>
-     *                         &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *                       &lt;/choice>
-     *                     &lt;/sequence>
-     *                   &lt;/restriction>
-     *                 &lt;/complexContent>
-     *               &lt;/complexType>
-     *             &lt;/element>
-     *           &lt;/sequence>
-     *           &lt;element name="CancelExamination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-     *           &lt;element name="AnnulExamination" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-     *           &lt;element name="AnnulExaminationResults" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *           &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;element name="SendToURI" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;sequence&gt;
+     *             &lt;choice&gt;
+     *               &lt;element name="Examination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationType" minOccurs="0"/&gt;
+     *               &lt;element name="ResultsInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ResultsInfoType" minOccurs="0"/&gt;
+     *             &lt;/choice&gt;
+     *             &lt;element name="ExaminationChangeInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}ExaminationChangeInfoType" minOccurs="0"/&gt;
+     *             &lt;element name="ImportPrecept" maxOccurs="unbounded" minOccurs="0"&gt;
+     *               &lt;complexType&gt;
+     *                 &lt;complexContent&gt;
+     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                     &lt;sequence&gt;
+     *                       &lt;sequence&gt;
+     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                         &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *                       &lt;/sequence&gt;
+     *                       &lt;choice&gt;
+     *                         &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/&gt;
+     *                         &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+     *                         &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/&gt;
+     *                         &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                       &lt;/choice&gt;
+     *                     &lt;/sequence&gt;
+     *                   &lt;/restriction&gt;
+     *                 &lt;/complexContent&gt;
+     *               &lt;/complexType&gt;
+     *             &lt;/element&gt;
+     *             &lt;element name="ImportOffence" maxOccurs="unbounded" minOccurs="0"&gt;
+     *               &lt;complexType&gt;
+     *                 &lt;complexContent&gt;
+     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                     &lt;sequence&gt;
+     *                       &lt;sequence&gt;
+     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                         &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *                       &lt;/sequence&gt;
+     *                       &lt;choice&gt;
+     *                         &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+     *                         &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+     *                         &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
+     *                         &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                       &lt;/choice&gt;
+     *                     &lt;/sequence&gt;
+     *                   &lt;/restriction&gt;
+     *                 &lt;/complexContent&gt;
+     *               &lt;/complexType&gt;
+     *             &lt;/element&gt;
+     *           &lt;/sequence&gt;
+     *           &lt;element name="CancelExamination" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+     *           &lt;element name="AnnulExamination" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="CancelExaminationResults" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+     *           &lt;element name="AnnulExaminationResults" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -594,24 +594,24 @@ public class ImportExaminationsRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;sequence>
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *           &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-         *         &lt;/sequence>
-         *         &lt;choice>
-         *           &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/>
-         *           &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-         *           &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/>
-         *           &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;sequence&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *           &lt;element name="OffenceGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+         *         &lt;/sequence&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+         *           &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+         *           &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
+         *           &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -793,24 +793,24 @@ public class ImportExaminationsRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;sequence>
-         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *           &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-         *         &lt;/sequence>
-         *         &lt;choice>
-         *           &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/>
-         *           &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/>
-         *           &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/>
-         *           &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;sequence&gt;
+         *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *           &lt;element name="PreceptGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+         *         &lt;/sequence&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="Precept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}PreceptType"/&gt;
+         *           &lt;element name="CancelPrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
+         *           &lt;element name="FulfilePrecept" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfilePreceptType"/&gt;
+         *           &lt;element name="DeletePrecept" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

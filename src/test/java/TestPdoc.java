@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ric.bill.dao.NotifDAO;
-import com.ric.bill.dao.PdocDAO;
-import com.ric.bill.mm.PdocMng;
+import com.dic.bill.dao.NotifDAO;
+import com.dic.bill.dao.PdocDAO;
+import com.dic.bill.mm.PdocMng;
 import com.ric.st.mm.DebMng;
 import com.ric.web.AppConfig;
 
@@ -46,6 +46,11 @@ public class TestPdoc {
     public void testPdoc() throws Exception {
 		log.info("Start");
 
+/*
+		BigDecimal bd1 = new BigDecimal("500");
+		BigDecimal bd2 = BigDecimal.valueOf(100);
+		log.info("summa={}", bd1.divide(bd2));
+*/
 /*		pdocDao.getForLoadByHouseWithEntry(7570).stream().forEach(t-> {
 			log.info("Платежный документ для лс с подъездом, Pdoc.id={}, Pdoc.cd={}", t.getId(), t.getCd());
 		}); ;

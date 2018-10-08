@@ -22,38 +22,38 @@ import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="FundSizeInfoType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *         &lt;element name="QuarterPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/>
- *         &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *         &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *         &lt;element name="SentOnCapitalRepair" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="DebtForPerformedWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="PremisesInfo" maxOccurs="5000" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/>
- *                   &lt;element name="AccruedContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *                   &lt;element name="AccruedPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *                   &lt;element name="PaidContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *                   &lt;element name="PaidPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *                   &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="FundSizeInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *         &lt;element name="QuarterPeriod" type="{http://www.w3.org/2001/XMLSchema}gYearMonth"/&gt;
+ *         &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *         &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *         &lt;element name="SentOnCapitalRepair" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="DebtForPerformedWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="PremisesInfo" maxOccurs="5000" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/&gt;
+ *                   &lt;element name="AccruedContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *                   &lt;element name="AccruedPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *                   &lt;element name="PaidContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *                   &lt;element name="PaidPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *                   &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -296,21 +296,21 @@ public class FundSizeInfoType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/>
-     *         &lt;element name="AccruedContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
-     *         &lt;element name="AccruedPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
-     *         &lt;element name="PaidContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
-     *         &lt;element name="PaidPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
-     *         &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="AccountGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *         &lt;element name="StartBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/&gt;
+     *         &lt;element name="AccruedContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+     *         &lt;element name="AccruedPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+     *         &lt;element name="PaidContribution" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+     *         &lt;element name="PaidPenalty" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+     *         &lt;element name="EndBalance" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

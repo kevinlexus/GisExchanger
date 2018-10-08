@@ -21,24 +21,24 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="PaymentType">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token">
- *               &lt;enumeration value="Payment"/>
- *               &lt;enumeration value="Refund"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="PaymentDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="PaymentSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyPositiveType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PaymentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="PaymentType"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
+ *               &lt;enumeration value="Payment"/&gt;
+ *               &lt;enumeration value="Refund"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PaymentDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="PaymentSum" type="{http://dom.gosuslugi.ru/schema/integration/msp/}MoneyPositiveType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

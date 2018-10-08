@@ -30,22 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OneRateMeteringValueExportWithTSType }
-     * 
-     */
-    public OneRateMeteringValueExportWithTSType createOneRateMeteringValueExportWithTSType() {
-        return new OneRateMeteringValueExportWithTSType();
-    }
-
-    /**
-     * Create an instance of {@link ElectricMeteringValueExportWithTSType }
-     * 
-     */
-    public ElectricMeteringValueExportWithTSType createElectricMeteringValueExportWithTSType() {
-        return new ElectricMeteringValueExportWithTSType();
-    }
-
-    /**
      * Create an instance of {@link OneRateMeteringValueBaseType }
      * 
      */
@@ -62,11 +46,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ElectricMeteringValueExportType }
+     * Create an instance of {@link OneRateMeteringValueExportWithTSType }
      * 
      */
-    public ElectricMeteringValueExportType createElectricMeteringValueExportType() {
-        return new ElectricMeteringValueExportType();
+    public OneRateMeteringValueExportWithTSType createOneRateMeteringValueExportWithTSType() {
+        return new OneRateMeteringValueExportWithTSType();
     }
 
     /**
@@ -75,6 +59,22 @@ public class ObjectFactory {
      */
     public ElectricMeteringValueBaseType createElectricMeteringValueBaseType() {
         return new ElectricMeteringValueBaseType();
+    }
+
+    /**
+     * Create an instance of {@link ElectricMeteringValueExportType }
+     * 
+     */
+    public ElectricMeteringValueExportType createElectricMeteringValueExportType() {
+        return new ElectricMeteringValueExportType();
+    }
+
+    /**
+     * Create an instance of {@link ElectricMeteringValueExportWithTSType }
+     * 
+     */
+    public ElectricMeteringValueExportWithTSType createElectricMeteringValueExportWithTSType() {
+        return new ElectricMeteringValueExportWithTSType();
     }
 
     /**

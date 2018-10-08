@@ -16,17 +16,17 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="IndividualType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="LastName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
- *         &lt;element name="FirstName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/>
- *         &lt;element name="Patronymic" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="IndividualType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="LastName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/&gt;
+ *         &lt;element name="FirstName" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type"/&gt;
+ *         &lt;element name="Patronymic" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String50Type" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

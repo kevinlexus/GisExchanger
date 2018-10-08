@@ -22,173 +22,173 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="InfrastructureType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Name">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType">
- *               &lt;minLength value="1"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Base" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="AttachmentList" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element name="EndManagmentDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *           &lt;element name="IndefiniteManagement" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;element name="ManagerOKI" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ManagerOKIType" minOccurs="0"/>
- *         &lt;element name="OKIType">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef">
- *                 &lt;choice minOccurs="0">
- *                   &lt;choice minOccurs="0">
- *                     &lt;element name="WaterIntakeType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                     &lt;element name="ESubstationType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                     &lt;element name="PowerPlantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                   &lt;/choice>
- *                   &lt;element name="FuelType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                   &lt;element name="GasNetworkType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                 &lt;/choice>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Services" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
- *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *         &lt;element name="Adress" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType" minOccurs="0"/>
- *         &lt;element name="CommissioningYear">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}YearType">
- *               &lt;minInclusive value="1850"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="IndependentSource" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="Deterioration" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType">
- *               &lt;maxInclusive value="100"/>
- *               &lt;totalDigits value="3"/>
- *               &lt;fractionDigits value="1"/>
- *               &lt;minInclusive value="0"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="ObjectProperty" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element name="Resources" maxOccurs="unbounded">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
- *                           &lt;sequence>
- *                             &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *                             &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
- *                           &lt;/sequence>
- *                         &lt;/extension>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;sequence>
- *                     &lt;element name="TransportationResources" maxOccurs="unbounded">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
- *                             &lt;sequence>
- *                               &lt;element name="VolumeLosses">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
- *                                     &lt;totalDigits value="8"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="NetPieces" maxOccurs="unbounded">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="Name" minOccurs="0">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType">
- *                                     &lt;maxLength value="100"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="Diameter">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
- *                                     &lt;totalDigits value="8"/>
- *                                     &lt;fractionDigits value="3"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="Length">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
- *                                     &lt;totalDigits value="8"/>
- *                                     &lt;fractionDigits value="3"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="NeedReplaced" minOccurs="0">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
- *                                     &lt;totalDigits value="8"/>
- *                                     &lt;fractionDigits value="3"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/>
- *                               &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                               &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="CountAccidents" minOccurs="0">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
- *                           &lt;maxInclusive value="100"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="OKILinks" minOccurs="0">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
- *                               &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                   &lt;/sequence>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="AddInfo" type="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType" minOccurs="0"/>
- *         &lt;element name="AttachmentsEnergyEfficiency" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="InfrastructureType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Name"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType"&gt;
+ *               &lt;minLength value="1"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Base" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="AttachmentList" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="EndManagmentDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *           &lt;element name="IndefiniteManagement" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="ManagerOKI" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ManagerOKIType" minOccurs="0"/&gt;
+ *         &lt;element name="OKIType"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"&gt;
+ *                 &lt;choice minOccurs="0"&gt;
+ *                   &lt;choice minOccurs="0"&gt;
+ *                     &lt;element name="WaterIntakeType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                     &lt;element name="ESubstationType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                     &lt;element name="PowerPlantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                   &lt;/choice&gt;
+ *                   &lt;element name="FuelType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                   &lt;element name="GasNetworkType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Services" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="OKTMO" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *         &lt;element name="Adress" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType" minOccurs="0"/&gt;
+ *         &lt;element name="CommissioningYear"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}YearType"&gt;
+ *               &lt;minInclusive value="1850"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="IndependentSource" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="Deterioration" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType"&gt;
+ *               &lt;maxInclusive value="100"/&gt;
+ *               &lt;totalDigits value="3"/&gt;
+ *               &lt;fractionDigits value="1"/&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="ObjectProperty" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element name="Resources" maxOccurs="unbounded"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *                             &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/extension&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="TransportationResources" maxOccurs="unbounded"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="VolumeLosses"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+ *                                     &lt;totalDigits value="8"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="NetPieces" maxOccurs="unbounded"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="Name" minOccurs="0"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType"&gt;
+ *                                     &lt;maxLength value="100"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="Diameter"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+ *                                     &lt;totalDigits value="8"/&gt;
+ *                                     &lt;fractionDigits value="3"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="Length"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+ *                                     &lt;totalDigits value="8"/&gt;
+ *                                     &lt;fractionDigits value="3"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="NeedReplaced" minOccurs="0"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+ *                                     &lt;totalDigits value="8"/&gt;
+ *                                     &lt;fractionDigits value="3"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/&gt;
+ *                               &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                               &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="CountAccidents" minOccurs="0"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"&gt;
+ *                           &lt;maxInclusive value="100"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="OKILinks" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+ *                               &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="AddInfo" type="{http://dom.gosuslugi.ru/schema/integration/base/}LongTextType" minOccurs="0"/&gt;
+ *         &lt;element name="AttachmentsEnergyEfficiency" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -213,8 +213,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "attachmentsEnergyEfficiency"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.infrastructure.ExportOKIResultType.OKI.class,
-    ru.gosuslugi.dom.schema.integration.infrastructure.ImportOKIRequest.RKIItem.OKI.class
+    ru.gosuslugi.dom.schema.integration.infrastructure.ImportOKIRequest.RKIItem.OKI.class,
+    ru.gosuslugi.dom.schema.integration.infrastructure.ExportOKIResultType.OKI.class
 })
 public class InfrastructureType {
 
@@ -650,21 +650,21 @@ public class InfrastructureType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef">
-     *       &lt;choice minOccurs="0">
-     *         &lt;choice minOccurs="0">
-     *           &lt;element name="WaterIntakeType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *           &lt;element name="ESubstationType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *           &lt;element name="PowerPlantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *         &lt;/choice>
-     *         &lt;element name="FuelType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *         &lt;element name="GasNetworkType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *       &lt;/choice>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"&gt;
+     *       &lt;choice minOccurs="0"&gt;
+     *         &lt;choice minOccurs="0"&gt;
+     *           &lt;element name="WaterIntakeType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *           &lt;element name="ESubstationType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *           &lt;element name="PowerPlantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *         &lt;/choice&gt;
+     *         &lt;element name="FuelType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *         &lt;element name="GasNetworkType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -821,109 +821,109 @@ public class InfrastructureType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="Resources" maxOccurs="unbounded">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
-     *                 &lt;sequence>
-     *                   &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
-     *                   &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *               &lt;/extension>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *         &lt;sequence>
-     *           &lt;element name="TransportationResources" maxOccurs="unbounded">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
-     *                   &lt;sequence>
-     *                     &lt;element name="VolumeLosses">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-     *                           &lt;totalDigits value="8"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="NetPieces" maxOccurs="unbounded">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="Name" minOccurs="0">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType">
-     *                           &lt;maxLength value="100"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="Diameter">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-     *                           &lt;totalDigits value="8"/>
-     *                           &lt;fractionDigits value="3"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="Length">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-     *                           &lt;totalDigits value="8"/>
-     *                           &lt;fractionDigits value="3"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="NeedReplaced" minOccurs="0">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-     *                           &lt;totalDigits value="8"/>
-     *                           &lt;fractionDigits value="3"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/>
-     *                     &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *                     &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="CountAccidents" minOccurs="0">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger">
-     *                 &lt;maxInclusive value="100"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *           &lt;element name="OKILinks" minOccurs="0">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-     *                     &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *         &lt;/sequence>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="Resources" maxOccurs="unbounded"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+     *                   &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element name="TransportationResources" maxOccurs="unbounded"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="VolumeLosses"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+     *                           &lt;totalDigits value="8"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="NetPieces" maxOccurs="unbounded"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="Name" minOccurs="0"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType"&gt;
+     *                           &lt;maxLength value="100"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Diameter"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+     *                           &lt;totalDigits value="8"/&gt;
+     *                           &lt;fractionDigits value="3"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Length"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+     *                           &lt;totalDigits value="8"/&gt;
+     *                           &lt;fractionDigits value="3"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="NeedReplaced" minOccurs="0"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+     *                           &lt;totalDigits value="8"/&gt;
+     *                           &lt;fractionDigits value="3"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/&gt;
+     *                     &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *                     &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="CountAccidents" minOccurs="0"&gt;
+     *             &lt;simpleType&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"&gt;
+     *                 &lt;maxInclusive value="100"/&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/simpleType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="OKILinks" minOccurs="0"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+     *                     &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *         &lt;/sequence&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1091,48 +1091,48 @@ public class InfrastructureType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="Name" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType">
-         *               &lt;maxLength value="100"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="Diameter">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-         *               &lt;totalDigits value="8"/>
-         *               &lt;fractionDigits value="3"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="Length">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-         *               &lt;totalDigits value="8"/>
-         *               &lt;fractionDigits value="3"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="NeedReplaced" minOccurs="0">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-         *               &lt;totalDigits value="8"/>
-         *               &lt;fractionDigits value="3"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/>
-         *         &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-         *         &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="Name" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ShortTextType"&gt;
+         *               &lt;maxLength value="100"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Diameter"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+         *               &lt;totalDigits value="8"/&gt;
+         *               &lt;fractionDigits value="3"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Length"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+         *               &lt;totalDigits value="8"/&gt;
+         *               &lt;fractionDigits value="3"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="NeedReplaced" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+         *               &lt;totalDigits value="8"/&gt;
+         *               &lt;fractionDigits value="3"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Wearout" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}CentesimalType" minOccurs="0"/&gt;
+         *         &lt;element name="PressureType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+         *         &lt;element name="VoltageType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1341,16 +1341,16 @@ public class InfrastructureType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/>
-         *         &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="SourceOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded"/&gt;
+         *         &lt;element name="ReceiverOKI" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="unbounded" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1434,16 +1434,16 @@ public class InfrastructureType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
-         *       &lt;sequence>
-         *         &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
-         *         &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="SetPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+         *         &lt;element name="SitingPower" type="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1519,22 +1519,22 @@ public class InfrastructureType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType">
-         *       &lt;sequence>
-         *         &lt;element name="VolumeLosses">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType">
-         *               &lt;totalDigits value="8"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *         &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}ResourceType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="VolumeLosses"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/infrastructure/}PowerType"&gt;
+         *               &lt;totalDigits value="8"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="CoolantType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 

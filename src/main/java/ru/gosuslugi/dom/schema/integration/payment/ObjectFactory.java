@@ -35,19 +35,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportNotificationsOfOrderExecutionRequest }
+     * 
+     */
+    public ImportNotificationsOfOrderExecutionRequest createImportNotificationsOfOrderExecutionRequest() {
+        return new ImportNotificationsOfOrderExecutionRequest();
+    }
+
+    /**
      * Create an instance of {@link ExportPaymentDocumentDetailsRequest }
      * 
      */
     public ExportPaymentDocumentDetailsRequest createExportPaymentDocumentDetailsRequest() {
         return new ExportPaymentDocumentDetailsRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**
@@ -59,11 +59,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportNotificationsOfOrderExecutionRequest }
+     * Create an instance of {@link Service }
      * 
      */
-    public ImportNotificationsOfOrderExecutionRequest createImportNotificationsOfOrderExecutionRequest() {
-        return new ImportNotificationsOfOrderExecutionRequest();
+    public Service createService() {
+        return new Service();
     }
 
     /**
@@ -72,6 +72,14 @@ public class ObjectFactory {
      */
     public ImportSupplierNotificationsOfOrderExecutionRequest createImportSupplierNotificationsOfOrderExecutionRequest() {
         return new ImportSupplierNotificationsOfOrderExecutionRequest();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -115,19 +123,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Service.ExecutorInformation }
+     * 
+     */
+    public Service.ExecutorInformation createServiceExecutorInformation() {
+        return new Service.ExecutorInformation();
+    }
+
+    /**
      * Create an instance of {@link ExportPaymentDocumentDetailsRequest.AmountRequired }
      * 
      */
     public ExportPaymentDocumentDetailsRequest.AmountRequired createExportPaymentDocumentDetailsRequestAmountRequired() {
         return new ExportPaymentDocumentDetailsRequest.AmountRequired();
-    }
-
-    /**
-     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge }
-     * 
-     */
-    public ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge createExportPaymentDocumentDetailsResultCharge() {
-        return new ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge();
     }
 
     /**
@@ -139,6 +147,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecution139Type }
+     * 
+     */
+    public ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecution139Type createImportNotificationsOfOrderExecutionRequestNotificationOfOrderExecution139Type() {
+        return new ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecution139Type();
+    }
+
+    /**
      * Create an instance of {@link ImportNotificationsOfOrderExecutionCancellationRequest }
      * 
      */
@@ -147,11 +163,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Individual }
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge }
      * 
      */
-    public Individual createIndividual() {
-        return new Individual();
+    public ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge createExportPaymentDocumentDetailsResultCharge() {
+        return new ru.gosuslugi.dom.schema.integration.payment.ExportPaymentDocumentDetailsResult.Charge();
     }
 
     /**
@@ -160,6 +176,14 @@ public class ObjectFactory {
      */
     public ImportSupplierNotificationsOfOrderExecutionRequest.SupplierNotificationOfOrderExecution createImportSupplierNotificationsOfOrderExecutionRequestSupplierNotificationOfOrderExecution() {
         return new ImportSupplierNotificationsOfOrderExecutionRequest.SupplierNotificationOfOrderExecution();
+    }
+
+    /**
+     * Create an instance of {@link Individual }
+     * 
+     */
+    public Individual createIndividual() {
+        return new Individual();
     }
 
     /**
@@ -227,6 +251,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Service.ExecutorInformation.Legal }
+     * 
+     */
+    public Service.ExecutorInformation.Legal createServiceExecutorInformationLegal() {
+        return new Service.ExecutorInformation.Legal();
+    }
+
+    /**
+     * Create an instance of {@link Service.ExecutorInformation.PaymentInformation }
+     * 
+     */
+    public Service.ExecutorInformation.PaymentInformation createServiceExecutorInformationPaymentInformation() {
+        return new Service.ExecutorInformation.PaymentInformation();
+    }
+
+    /**
      * Create an instance of {@link ExportPaymentDocumentDetailsRequest.AmountRequired.Legal }
      * 
      */
@@ -235,8 +275,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payment/", name = "Purpose")
     public JAXBElement<String> createPurpose(String value) {
@@ -244,8 +288,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/payment/", name = "PDServiceName")
     public JAXBElement<String> createPDServiceName(String value) {

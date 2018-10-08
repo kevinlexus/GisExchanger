@@ -23,94 +23,94 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ExportCategoryType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="CategoryGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;element name="FromDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="ToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *         &lt;element name="Territory">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice>
- *                   &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/>
- *                   &lt;element name="Municipality" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="CategoryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="NsiCategory" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/>
- *         &lt;element name="BudgetLevel">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;enumeration value="Federal"/>
- *               &lt;enumeration value="Regional"/>
- *               &lt;enumeration value="Municipal"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="PayoutTerm" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="ProvisionDocuments" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="DenialReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="SuspensionReasons" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="TerminationReasons" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ResumptionReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="RecalculationReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="RefundReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="Act" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActType" maxOccurs="1000"/>
- *         &lt;choice>
- *           &lt;sequence>
- *             &lt;element name="FixedCompensationSum" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/>
- *             &lt;element name="FixedSumEstablishmentDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *             &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *           &lt;/sequence>
- *           &lt;sequence>
- *             &lt;element name="Description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *           &lt;/sequence>
- *           &lt;element name="Actual" maxOccurs="unbounded">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ServiceType"/>
- *                     &lt;element name="Housing" maxOccurs="3">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;enumeration value="PrivateHousing"/>
- *                           &lt;enumeration value="MunicipalHousing"/>
- *                           &lt;enumeration value="StateHousing"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="NsiDiscountAmountLimitationCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                     &lt;element name="AppliesToAllFamilyMembers" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="DiscountSize">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                           &lt;minInclusive value="0"/>
- *                           &lt;maxInclusive value="100"/>
- *                           &lt;fractionDigits value="2"/>
- *                           &lt;totalDigits value="5"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                     &lt;element name="ValidFrom" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                     &lt;element name="ValidTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                     &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ExportCategoryType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="CategoryGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="FromDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="ToDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="Territory"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;choice&gt;
+ *                   &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/&gt;
+ *                   &lt;element name="Municipality" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+ *                 &lt;/choice&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="CategoryName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="NsiCategory" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
+ *         &lt;element name="BudgetLevel"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;enumeration value="Federal"/&gt;
+ *               &lt;enumeration value="Regional"/&gt;
+ *               &lt;enumeration value="Municipal"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="PayoutTerm" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="ProvisionDocuments" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="DenialReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="SuspensionReasons" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="TerminationReasons" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="ResumptionReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="RecalculationReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="RefundReasons" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="Act" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ActType" maxOccurs="1000"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="FixedCompensationSum" type="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyPositiveType"/&gt;
+ *             &lt;element name="FixedSumEstablishmentDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *             &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="Description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *           &lt;/sequence&gt;
+ *           &lt;element name="Actual" maxOccurs="unbounded"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ServiceType"/&gt;
+ *                     &lt;element name="Housing" maxOccurs="3"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                           &lt;enumeration value="PrivateHousing"/&gt;
+ *                           &lt;enumeration value="MunicipalHousing"/&gt;
+ *                           &lt;enumeration value="StateHousing"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="NsiDiscountAmountLimitationCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                     &lt;element name="AppliesToAllFamilyMembers" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="DiscountSize"&gt;
+ *                       &lt;simpleType&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                           &lt;minInclusive value="0"/&gt;
+ *                           &lt;maxInclusive value="100"/&gt;
+ *                           &lt;fractionDigits value="2"/&gt;
+ *                           &lt;totalDigits value="5"/&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/simpleType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="ValidFrom" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                     &lt;element name="ValidTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                     &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -708,39 +708,39 @@ public class ExportCategoryType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ServiceType"/>
-     *         &lt;element name="Housing" maxOccurs="3">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;enumeration value="PrivateHousing"/>
-     *               &lt;enumeration value="MunicipalHousing"/>
-     *               &lt;enumeration value="StateHousing"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="NsiDiscountAmountLimitationCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *         &lt;element name="AppliesToAllFamilyMembers" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;element name="DiscountSize">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;minInclusive value="0"/>
-     *               &lt;maxInclusive value="100"/>
-     *               &lt;fractionDigits value="2"/>
-     *               &lt;totalDigits value="5"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="ValidFrom" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="ValidTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Service" type="{http://dom.gosuslugi.ru/schema/integration/msp/}ServiceType"/&gt;
+     *         &lt;element name="Housing" maxOccurs="3"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;enumeration value="PrivateHousing"/&gt;
+     *               &lt;enumeration value="MunicipalHousing"/&gt;
+     *               &lt;enumeration value="StateHousing"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="NsiDiscountAmountLimitationCode" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *         &lt;element name="AppliesToAllFamilyMembers" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;element name="DiscountSize"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *               &lt;minInclusive value="0"/&gt;
+     *               &lt;maxInclusive value="100"/&gt;
+     *               &lt;fractionDigits value="2"/&gt;
+     *               &lt;totalDigits value="5"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="ValidFrom" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;element name="ValidTo" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -976,16 +976,16 @@ public class ExportCategoryType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice>
-     *         &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/>
-     *         &lt;element name="Municipality" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;choice&gt;
+     *         &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/&gt;
+     *         &lt;element name="Municipality" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKTMORefType"/&gt;
+     *       &lt;/choice&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

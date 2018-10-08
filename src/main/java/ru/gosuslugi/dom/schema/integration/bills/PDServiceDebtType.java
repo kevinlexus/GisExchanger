@@ -20,69 +20,69 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PDServiceDebtType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="HousingService">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
- *                 &lt;sequence minOccurs="0">
- *                   &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;choice>
- *                               &lt;element name="TotalPayable">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                     &lt;totalDigits value="18"/>
- *                                     &lt;fractionDigits value="2"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                               &lt;element name="TotalSumDebtPayable">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                     &lt;totalDigits value="18"/>
- *                                     &lt;fractionDigits value="2"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                             &lt;/choice>
- *                             &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                           &lt;/sequence>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="AdditionalService">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="MunicipalService">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PDServiceDebtType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="HousingService"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+ *                 &lt;sequence minOccurs="0"&gt;
+ *                   &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;choice&gt;
+ *                               &lt;element name="TotalPayable"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                                     &lt;totalDigits value="18"/&gt;
+ *                                     &lt;fractionDigits value="2"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="TotalSumDebtPayable"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                                     &lt;totalDigits value="18"/&gt;
+ *                                     &lt;fractionDigits value="2"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/choice&gt;
+ *                             &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="AdditionalService"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="MunicipalService"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -184,12 +184,12 @@ public class PDServiceDebtType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -210,43 +210,43 @@ public class PDServiceDebtType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
-     *       &lt;sequence minOccurs="0">
-     *         &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;choice>
-     *                     &lt;element name="TotalPayable">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                           &lt;totalDigits value="18"/>
-     *                           &lt;fractionDigits value="2"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                     &lt;element name="TotalSumDebtPayable">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                           &lt;totalDigits value="18"/>
-     *                           &lt;fractionDigits value="2"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                   &lt;/choice>
-     *                   &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                 &lt;/sequence>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+     *       &lt;sequence minOccurs="0"&gt;
+     *         &lt;element name="MunicipalResource" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;choice&gt;
+     *                     &lt;element name="TotalPayable"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *                           &lt;totalDigits value="18"/&gt;
+     *                           &lt;fractionDigits value="2"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="TotalSumDebtPayable"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *                           &lt;totalDigits value="18"/&gt;
+     *                           &lt;fractionDigits value="2"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/choice&gt;
+     *                   &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -298,33 +298,33 @@ public class PDServiceDebtType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;choice>
-         *           &lt;element name="TotalPayable">
-         *             &lt;simpleType>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                 &lt;totalDigits value="18"/>
-         *                 &lt;fractionDigits value="2"/>
-         *               &lt;/restriction>
-         *             &lt;/simpleType>
-         *           &lt;/element>
-         *           &lt;element name="TotalSumDebtPayable">
-         *             &lt;simpleType>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                 &lt;totalDigits value="18"/>
-         *                 &lt;fractionDigits value="2"/>
-         *               &lt;/restriction>
-         *             &lt;/simpleType>
-         *           &lt;/element>
-         *         &lt;/choice>
-         *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="TotalPayable"&gt;
+         *             &lt;simpleType&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+         *                 &lt;totalDigits value="18"/&gt;
+         *                 &lt;fractionDigits value="2"/&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/simpleType&gt;
+         *           &lt;/element&gt;
+         *           &lt;element name="TotalSumDebtPayable"&gt;
+         *             &lt;simpleType&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+         *                 &lt;totalDigits value="18"/&gt;
+         *                 &lt;fractionDigits value="2"/&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/simpleType&gt;
+         *           &lt;/element&gt;
+         *         &lt;/choice&gt;
+         *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -427,12 +427,12 @@ public class PDServiceDebtType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType">
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ServiceDebtType"&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

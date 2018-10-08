@@ -12,15 +12,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.dao.EolinkDAO;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Исправный модуль, для тестирования Spring beans 
+ * Исправный модуль, для тестирования Spring beans
  * @author lev
  *
  */
@@ -36,7 +36,7 @@ public class TestSomething {
 
 	@Autowired
 	private EolinkDAO eolinkDao;
-	
+
 	@Test
     public void contextLoads() throws Exception {
 		log.info("Start");
@@ -44,10 +44,10 @@ public class TestSomething {
 			Task oneTask = em.find(Task.class, 11913);
 			oneTask.setState(state);
 			assertEquals(oneTask.getState(), state);
-		
+
 		log.info("End");
     }
-    
+
 	@Test
     public void testHQL() throws Exception {
 		log.info("Start");
@@ -55,10 +55,10 @@ public class TestSomething {
 		eolinkDao.getValsNotSaved().stream().forEach(t-> {
 			log.info("Eolink.id={}", t.getId());
 		});;
-		
+
 		log.info("End");
     }
-	
+
 	@Test
     public void testChild() throws Exception {
 		log.info("Start");
@@ -67,9 +67,12 @@ public class TestSomething {
 		eolinkDao.getChildByTp(parent, "Подъезд").stream().forEach(t -> {
 			log.info("Eol={}", t.getId());
 		});;
-		
+
 		log.info("End-1");
     }
+
+
+
 
 	/*    @Transactional(readOnly=false)
 	public void work1() throws EmptyStorable, WrongSetMethod {
@@ -80,14 +83,14 @@ public class TestSomething {
 		Calendar calendar = new GregorianCalendar(2017, Calendar.FEBRUARY, 6);
 		parMng.setDate(rqn, obj, "Начало расчетного периода", calendar.getTime());
 		//d.setDts1(calendar.getTime());
-		
+
 		calendar = new GregorianCalendar(2017, Calendar.FEBRUARY, 8);
 		parMng.setDate(rqn, obj, "Конец расчетного периода", calendar.getTime());
-		
+
 		log.info("Check ={}", obj.getId());
 		log.info("Check dt1={} {}", parMng.getDate(-1, obj, "Начало расчетного периода"));
     	log.info("Check dt1={}", parMng.getDate(-1, obj, "Конец расчетного периода"));
-    	
+
 	}*/
 
 

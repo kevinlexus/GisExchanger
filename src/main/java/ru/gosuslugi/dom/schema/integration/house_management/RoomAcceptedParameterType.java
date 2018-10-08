@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="RoomAcceptedParameterType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="RoomNumber"/>
- *     &lt;enumeration value="Square"/>
- *     &lt;enumeration value="ResidentialHouseType"/>
- *     &lt;enumeration value="TerminationDate"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="RoomAcceptedParameterType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="RoomNumber"/&gt;
+ *     &lt;enumeration value="Square"/&gt;
+ *     &lt;enumeration value="ResidentialHouseType"/&gt;
+ *     &lt;enumeration value="TerminationDate"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

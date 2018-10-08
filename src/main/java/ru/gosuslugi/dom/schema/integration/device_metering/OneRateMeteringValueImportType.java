@@ -18,16 +18,16 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OneRateMeteringValueImportType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType">
- *       &lt;sequence>
- *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="OneRateMeteringValueImportType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="DateValue" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

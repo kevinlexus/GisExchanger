@@ -17,22 +17,24 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ServiceDebtImportType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}DebtImportType">
- *       &lt;sequence>
- *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ServiceDebtImportType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}DebtImportType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="PaymentInformationKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ServiceDebtImportType", propOrder = {
-    "serviceType"
+    "serviceType",
+    "paymentInformationKey"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.HousingService.class,
@@ -45,6 +47,8 @@ public class ServiceDebtImportType
 
     @XmlElement(name = "ServiceType", required = true)
     protected NsiRef serviceType;
+    @XmlElement(name = "PaymentInformationKey")
+    protected String paymentInformationKey;
 
     /**
      * Gets the value of the serviceType property.
@@ -68,6 +72,30 @@ public class ServiceDebtImportType
      */
     public void setServiceType(NsiRef value) {
         this.serviceType = value;
+    }
+
+    /**
+     * Gets the value of the paymentInformationKey property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPaymentInformationKey() {
+        return paymentInformationKey;
+    }
+
+    /**
+     * Sets the value of the paymentInformationKey property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPaymentInformationKey(String value) {
+        this.paymentInformationKey = value;
     }
 
 }

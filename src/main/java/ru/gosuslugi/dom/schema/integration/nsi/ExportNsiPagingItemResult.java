@@ -20,29 +20,29 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;choice>
- *         &lt;element name="NsiItem">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiItemType">
- *                 &lt;sequence>
- *                   &lt;element name="TotalItemsCount" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                   &lt;element name="TotalPages" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                   &lt;element name="CurrentPage" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
- *                 &lt;/sequence>
- *               &lt;/extension>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.5""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="NsiItem"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiItemType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="TotalItemsCount" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *                   &lt;element name="TotalPages" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *                   &lt;element name="CurrentPage" type="{http://www.w3.org/2001/XMLSchema}anyType"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/extension&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.5""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -147,17 +147,17 @@ public class ExportNsiPagingItemResult
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiItemType">
-     *       &lt;sequence>
-     *         &lt;element name="TotalItemsCount" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *         &lt;element name="TotalPages" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *         &lt;element name="CurrentPage" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
-     *       &lt;/sequence>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiItemType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="TotalItemsCount" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="TotalPages" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *         &lt;element name="CurrentPage" type="{http://www.w3.org/2001/XMLSchema}anyType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/extension&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

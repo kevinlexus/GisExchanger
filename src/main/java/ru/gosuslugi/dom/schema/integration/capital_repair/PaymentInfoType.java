@@ -18,27 +18,27 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentInfoType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ShortPaymentInfoType">
- *       &lt;sequence>
- *         &lt;element name="WorkInPayment" maxOccurs="1000">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/>
- *                   &lt;element name="ExpenseofOwners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/>
- *                   &lt;element name="MeansofSupport" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PaymentInfoType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ShortPaymentInfoType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="WorkInPayment" maxOccurs="1000"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/&gt;
+ *                   &lt;element name="ExpenseofOwners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/&gt;
+ *                   &lt;element name="MeansofSupport" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -90,17 +90,17 @@ public class PaymentInfoType
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/>
-     *         &lt;element name="ExpenseofOwners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/>
-     *         &lt;element name="MeansofSupport" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="WorkInContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}WorkContractIdentityType"/&gt;
+     *         &lt;element name="ExpenseofOwners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/&gt;
+     *         &lt;element name="MeansofSupport" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

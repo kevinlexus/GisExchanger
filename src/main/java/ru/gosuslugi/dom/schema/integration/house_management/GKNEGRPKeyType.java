@@ -18,18 +18,18 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GKN_EGRP_KeyType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CadastralNumber"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}No_RSO_GKN_EGRP_Registered"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ConditionalNumber"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}RightOrEncumbrance" maxOccurs="unbounded"/>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="GKN_EGRP_KeyType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}CadastralNumber"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}No_RSO_GKN_EGRP_Registered"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ConditionalNumber"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}RightOrEncumbrance" maxOccurs="unbounded"/&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -42,30 +42,30 @@ import javax.xml.bind.annotation.XmlType;
     "rightOrEncumbrance"
 })
 @XmlSeeAlso({
-    BlockUpdateUOType.class,
-    PremisesBasicUpdateOMSType.class,
-    RoomUpdateESPType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseESPType.BasicCharacteristicts.class,
-    RoomUpdateOMSType.class,
-    RoomOMSType.class,
-    PremisesBasicOMSType.class,
-    RoomUpdateUOType.class,
     HouseBasicUpdateUOType.class,
-    PremisesBasicUpdateUOType.class,
-    RoomESPType.class,
-    PremisesBasicUOType.class,
-    PremisesBasicUpdateESPType.class,
-    BlockUpdateOMSType.class,
-    RoomUOType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseOMSType.BasicCharacteristicts.class,
-    PremisesBasicESPType.class,
     HouseBasicUpdateOMSType.class,
+    HouseBasicUpdateESPType.class,
+    HouseBasicUOType.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseOMSType.BasicCharacteristicts.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseESPType.BasicCharacteristicts.class,
+    ru.gosuslugi.dom.schema.integration.house_management.LivingHouseOMSType.BasicCharacteristicts.class,
     BlockUOType.class,
     BlockOMSType.class,
-    RoomExportType.class,
-    HouseBasicUpdateESPType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.LivingHouseOMSType.BasicCharacteristicts.class,
-    HouseBasicUOType.class
+    BlockUpdateUOType.class,
+    BlockUpdateOMSType.class,
+    PremisesBasicUOType.class,
+    PremisesBasicOMSType.class,
+    PremisesBasicESPType.class,
+    PremisesBasicUpdateUOType.class,
+    PremisesBasicUpdateOMSType.class,
+    PremisesBasicUpdateESPType.class,
+    RoomUOType.class,
+    RoomOMSType.class,
+    RoomESPType.class,
+    RoomUpdateUOType.class,
+    RoomUpdateOMSType.class,
+    RoomUpdateESPType.class,
+    RoomExportType.class
 })
 public class GKNEGRPKeyType {
 

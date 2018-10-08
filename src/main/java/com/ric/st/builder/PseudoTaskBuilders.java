@@ -2,9 +2,9 @@ package com.ric.st.builder;
 
 import java.util.Date;
 
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 
 public interface PseudoTaskBuilders {
 
@@ -33,5 +33,5 @@ public interface PseudoTaskBuilders {
 	public void save();
 	public void addAsChild(String string);
 	public void addAsChild(Task parent);
-	public Task getTask();	
+	public Task getTask();
 }

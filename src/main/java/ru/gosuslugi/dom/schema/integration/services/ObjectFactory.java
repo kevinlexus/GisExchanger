@@ -35,14 +35,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportWorkingPlanRequest }
-     * 
-     */
-    public ExportWorkingPlanRequest createExportWorkingPlanRequest() {
-        return new ExportWorkingPlanRequest();
-    }
-
-    /**
      * Create an instance of {@link ImportWorkingListRequest }
      * 
      */
@@ -59,43 +51,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CompletedWorkType }
+     * Create an instance of {@link ExportWorkingPlanRequest }
      * 
      */
-    public CompletedWorkType createCompletedWorkType() {
-        return new CompletedWorkType();
-    }
-
-    /**
-     * Create an instance of {@link CompletedWorksByPeriodExportType }
-     * 
-     */
-    public CompletedWorksByPeriodExportType createCompletedWorksByPeriodExportType() {
-        return new CompletedWorksByPeriodExportType();
-    }
-
-    /**
-     * Create an instance of {@link CompletedWorksByPeriodExportType.UnplannedWork }
-     * 
-     */
-    public CompletedWorksByPeriodExportType.UnplannedWork createCompletedWorksByPeriodExportTypeUnplannedWork() {
-        return new CompletedWorksByPeriodExportType.UnplannedWork();
-    }
-
-    /**
-     * Create an instance of {@link CompletedWorkExportType }
-     * 
-     */
-    public CompletedWorkExportType createCompletedWorkExportType() {
-        return new CompletedWorkExportType();
-    }
-
-    /**
-     * Create an instance of {@link WorkingListBaseType }
-     * 
-     */
-    public WorkingListBaseType createWorkingListBaseType() {
-        return new WorkingListBaseType();
+    public ExportWorkingPlanRequest createExportWorkingPlanRequest() {
+        return new ExportWorkingPlanRequest();
     }
 
     /**
@@ -123,19 +83,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportWorkingListRequest.ApprovedWorkingListData }
+     * Create an instance of {@link CompletedWorksByPeriodExportType }
      * 
      */
-    public ImportWorkingListRequest.ApprovedWorkingListData createImportWorkingListRequestApprovedWorkingListData() {
-        return new ImportWorkingListRequest.ApprovedWorkingListData();
+    public CompletedWorksByPeriodExportType createCompletedWorksByPeriodExportType() {
+        return new CompletedWorksByPeriodExportType();
     }
 
     /**
-     * Create an instance of {@link WorkingPlanType }
+     * Create an instance of {@link CompletedWorksByPeriodExportType.UnplannedWork }
      * 
      */
-    public WorkingPlanType createWorkingPlanType() {
-        return new WorkingPlanType();
+    public CompletedWorksByPeriodExportType.UnplannedWork createCompletedWorksByPeriodExportTypeUnplannedWork() {
+        return new CompletedWorksByPeriodExportType.UnplannedWork();
+    }
+
+    /**
+     * Create an instance of {@link WorkingListBaseType }
+     * 
+     */
+    public WorkingListBaseType createWorkingListBaseType() {
+        return new WorkingListBaseType();
     }
 
     /**
@@ -179,6 +147,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WorkingPlanType }
+     * 
+     */
+    public WorkingPlanType createWorkingPlanType() {
+        return new WorkingPlanType();
+    }
+
+    /**
      * Create an instance of {@link ExportWorkingListResultType }
      * 
      */
@@ -195,99 +171,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ImportWorkingListRequest.ApprovedWorkingListData }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportHMServicesTarifsResultType }
-     * 
-     */
-    public ExportHMServicesTarifsResultType createExportHMServicesTarifsResultType() {
-        return new ExportHMServicesTarifsResultType();
-    }
-
-    /**
-     * Create an instance of {@link ExportCompletedWorksResultType }
-     * 
-     */
-    public ExportCompletedWorksResultType createExportCompletedWorksResultType() {
-        return new ExportCompletedWorksResultType();
-    }
-
-    /**
-     * Create an instance of {@link ImportCompletedWorksRequest }
-     * 
-     */
-    public ImportCompletedWorksRequest createImportCompletedWorksRequest() {
-        return new ImportCompletedWorksRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportHMServicesTarifsRequest }
-     * 
-     */
-    public ExportHMServicesTarifsRequest createExportHMServicesTarifsRequest() {
-        return new ExportHMServicesTarifsRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportCompletedWorksRequest }
-     * 
-     */
-    public ExportCompletedWorksRequest createExportCompletedWorksRequest() {
-        return new ExportCompletedWorksRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportCompletedWorksResult }
-     * 
-     */
-    public ExportCompletedWorksResult createExportCompletedWorksResult() {
-        return new ExportCompletedWorksResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingPlanResult }
-     * 
-     */
-    public ExportWorkingPlanResult createExportWorkingPlanResult() {
-        return new ExportWorkingPlanResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingPlanRequest.Work }
-     * 
-     */
-    public ExportWorkingPlanRequest.Work createExportWorkingPlanRequestWork() {
-        return new ExportWorkingPlanRequest.Work();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingListResult }
-     * 
-     */
-    public ExportWorkingListResult createExportWorkingListResult() {
-        return new ExportWorkingListResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportHMServicesTarifsResult }
-     * 
-     */
-    public ExportHMServicesTarifsResult createExportHMServicesTarifsResult() {
-        return new ExportHMServicesTarifsResult();
-    }
-
-    /**
-     * Create an instance of {@link ImportWorkingPlanRequest }
-     * 
-     */
-    public ImportWorkingPlanRequest createImportWorkingPlanRequest() {
-        return new ImportWorkingPlanRequest();
+    public ImportWorkingListRequest.ApprovedWorkingListData createImportWorkingListRequestApprovedWorkingListData() {
+        return new ImportWorkingListRequest.ApprovedWorkingListData();
     }
 
     /**
@@ -323,6 +211,102 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportWorkingListResult }
+     * 
+     */
+    public ExportWorkingListResult createExportWorkingListResult() {
+        return new ExportWorkingListResult();
+    }
+
+    /**
+     * Create an instance of {@link ImportWorkingPlanRequest }
+     * 
+     */
+    public ImportWorkingPlanRequest createImportWorkingPlanRequest() {
+        return new ImportWorkingPlanRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportWorkingPlanRequest.Work }
+     * 
+     */
+    public ExportWorkingPlanRequest.Work createExportWorkingPlanRequestWork() {
+        return new ExportWorkingPlanRequest.Work();
+    }
+
+    /**
+     * Create an instance of {@link ExportWorkingPlanResult }
+     * 
+     */
+    public ExportWorkingPlanResult createExportWorkingPlanResult() {
+        return new ExportWorkingPlanResult();
+    }
+
+    /**
+     * Create an instance of {@link ImportCompletedWorksRequest }
+     * 
+     */
+    public ImportCompletedWorksRequest createImportCompletedWorksRequest() {
+        return new ImportCompletedWorksRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportCompletedWorksRequest }
+     * 
+     */
+    public ExportCompletedWorksRequest createExportCompletedWorksRequest() {
+        return new ExportCompletedWorksRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportCompletedWorksResult }
+     * 
+     */
+    public ExportCompletedWorksResult createExportCompletedWorksResult() {
+        return new ExportCompletedWorksResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportCompletedWorksResultType }
+     * 
+     */
+    public ExportCompletedWorksResultType createExportCompletedWorksResultType() {
+        return new ExportCompletedWorksResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportHMServicesTarifsRequest }
+     * 
+     */
+    public ExportHMServicesTarifsRequest createExportHMServicesTarifsRequest() {
+        return new ExportHMServicesTarifsRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportHMServicesTarifsResult }
+     * 
+     */
+    public ExportHMServicesTarifsResult createExportHMServicesTarifsResult() {
+        return new ExportHMServicesTarifsResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportHMServicesTarifsResultType }
+     * 
+     */
+    public ExportHMServicesTarifsResultType createExportHMServicesTarifsResultType() {
+        return new ExportHMServicesTarifsResultType();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
      * Create an instance of {@link WorkingListItemType }
      * 
      */
@@ -331,19 +315,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link WorkingListItemExportType }
+     * Create an instance of {@link MonthlyWorkType }
      * 
      */
-    public WorkingListItemExportType createWorkingListItemExportType() {
-        return new WorkingListItemExportType();
+    public MonthlyWorkType createMonthlyWorkType() {
+        return new MonthlyWorkType();
     }
 
     /**
-     * Create an instance of {@link CompletedWorkType.MonthlyWork }
+     * Create an instance of {@link CompletedWorkType }
      * 
      */
-    public CompletedWorkType.MonthlyWork createCompletedWorkTypeMonthlyWork() {
-        return new CompletedWorkType.MonthlyWork();
+    public CompletedWorkType createCompletedWorkType() {
+        return new CompletedWorkType();
+    }
+
+    /**
+     * Create an instance of {@link CompletedWorkExportType }
+     * 
+     */
+    public CompletedWorkExportType createCompletedWorkExportType() {
+        return new CompletedWorkExportType();
+    }
+
+    /**
+     * Create an instance of {@link HMServicesTarifsDocType.KU.MServiceType }
+     * 
+     */
+    public HMServicesTarifsDocType.KU.MServiceType createHMServicesTarifsDocTypeKUMServiceType() {
+        return new HMServicesTarifsDocType.KU.MServiceType();
+    }
+
+    /**
+     * Create an instance of {@link HMServicesTarifsDocType.GKU.SKI }
+     * 
+     */
+    public HMServicesTarifsDocType.GKU.SKI createHMServicesTarifsDocTypeGKUSKI() {
+        return new HMServicesTarifsDocType.GKU.SKI();
     }
 
     /**
@@ -379,14 +387,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CompletedWorkExportType.MonthlyWork }
-     * 
-     */
-    public CompletedWorkExportType.MonthlyWork createCompletedWorkExportTypeMonthlyWork() {
-        return new CompletedWorkExportType.MonthlyWork();
-    }
-
-    /**
      * Create an instance of {@link WorkingListBaseType.MonthYearFrom }
      * 
      */
@@ -400,38 +400,6 @@ public class ObjectFactory {
      */
     public WorkingListBaseType.MonthYearTo createWorkingListBaseTypeMonthYearTo() {
         return new WorkingListBaseType.MonthYearTo();
-    }
-
-    /**
-     * Create an instance of {@link HMServicesTarifsDocType.KU.MServiceType }
-     * 
-     */
-    public HMServicesTarifsDocType.KU.MServiceType createHMServicesTarifsDocTypeKUMServiceType() {
-        return new HMServicesTarifsDocType.KU.MServiceType();
-    }
-
-    /**
-     * Create an instance of {@link HMServicesTarifsDocType.GKU.SKI }
-     * 
-     */
-    public HMServicesTarifsDocType.GKU.SKI createHMServicesTarifsDocTypeGKUSKI() {
-        return new HMServicesTarifsDocType.GKU.SKI();
-    }
-
-    /**
-     * Create an instance of {@link ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem }
-     * 
-     */
-    public ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem createImportWorkingListRequestApprovedWorkingListDataWorkListItem() {
-        return new ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem();
-    }
-
-    /**
-     * Create an instance of {@link WorkingPlanType.WorkPlanItem }
-     * 
-     */
-    public WorkingPlanType.WorkPlanItem createWorkingPlanTypeWorkPlanItem() {
-        return new WorkingPlanType.WorkPlanItem();
     }
 
     /**
@@ -475,6 +443,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WorkingPlanType.WorkPlanItem }
+     * 
+     */
+    public WorkingPlanType.WorkPlanItem createWorkingPlanTypeWorkPlanItem() {
+        return new WorkingPlanType.WorkPlanItem();
+    }
+
+    /**
      * Create an instance of {@link ExportWorkingListResultType.WorkingList.WorkListItem }
      * 
      */
@@ -483,8 +459,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem }
      * 
+     */
+    public ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem createImportWorkingListRequestApprovedWorkingListDataWorkListItem() {
+        return new ImportWorkingListRequest.ApprovedWorkingListData.WorkListItem();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/services/", name = "WorkListStatus")
     public JAXBElement<String> createWorkListStatus(String value) {
@@ -492,8 +480,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/services/", name = "Name", scope = HMServicesTarifsDocType.KU.MServiceType.class)
     public JAXBElement<String> createHMServicesTarifsDocTypeKUMServiceTypeName(String value) {

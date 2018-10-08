@@ -16,15 +16,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TerminateType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Terminate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="TerminateType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Terminate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -34,12 +34,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "terminate"
 })
 @XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.TerminateContract.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.TerminateCharter.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.Terminate.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.Terminate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResultType.TerminateContract.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.TerminateCharter.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractRequest.Contract.TerminateContract.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.TerminateContract.class
+    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResultType.TerminateContract.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResultType.TerminateContract.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSocialHireContractResultType.TerminateContract.class
 })
 public class TerminateType {
 

@@ -4,13 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.mm.EolinkMng;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.mm.EolinkMng;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.ReqProps;
 import com.ric.st.excp.CantPrepSoap;
 
@@ -28,6 +29,8 @@ public class ReqProp implements ReqProps {
 	private EolinkMng eolinkMng;
 	@Autowired
 	private SoapConfig config;
+	@Value("${gisVersion}")
+	private String gisVersion;
 
 	Task foundTask;
 	String houseGuid;
@@ -69,7 +72,7 @@ public class ReqProp implements ReqProps {
 	 */
 	private Eolink getOrgWithPPGUID(Eolink eolink, Task task) throws CantPrepSoap {
 		Eolink eolFound = null;
-		if (eolink.getObjTp().getCd().equals("Организация") && eolink.getParent() == null) {
+		if (eolink.getObjTp().getCd().equals("Организация")/* && eolink.getParent() == null ред.04.09.2018*/) {
 			// родительская организация
 			if (eolink.getGuid() == null ) {
 				// нет PPGUID
@@ -116,11 +119,6 @@ public class ReqProp implements ReqProps {
 	}
 
 	@Override
-	public String getPpGuid() {
-		return ppGuid;
-	}
-
-	@Override
 	public String getReu() {
 		return reu;
 	}
@@ -146,7 +144,8 @@ public class ReqProp implements ReqProps {
 	}
 
 	@Override
-	public SoapBuilder getSb() {
-		return this.sb;
+	public String getGisVersion() {
+		return gisVersion;
 	}
+
 }

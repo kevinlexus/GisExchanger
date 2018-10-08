@@ -17,21 +17,21 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="VolumeEnergyResourceType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="MeteringDeviceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;sequence>
- *           &lt;element name="VolumeT1" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType"/>
- *           &lt;element name="VolumeT2" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType" minOccurs="0"/>
- *           &lt;element name="VolumeT3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType" minOccurs="0"/>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
- *         &lt;/sequence>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="VolumeEnergyResourceType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="MeteringDeviceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="VolumeT1" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType"/&gt;
+ *           &lt;element name="VolumeT2" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType" minOccurs="0"/&gt;
+ *           &lt;element name="VolumeT3" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}VolumeResourceType" minOccurs="0"/&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

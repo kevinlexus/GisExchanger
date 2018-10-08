@@ -22,43 +22,43 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ShortCertificateType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Name" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="SumAcceptedWorks" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/>
- *         &lt;element name="PerformerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="CustomerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/>
- *         &lt;element name="AttachCertificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/>
- *         &lt;element name="AttachPhotoBefore" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="AttachPhotoAfter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element name="ActSignedRepresentativeOfOwners">
- *             &lt;complexType>
- *               &lt;complexContent>
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                   &lt;sequence>
- *                     &lt;element name="SurnameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
- *                     &lt;element name="NameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
- *                     &lt;element name="PatronymicRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type" minOccurs="0"/>
- *                   &lt;/sequence>
- *                 &lt;/restriction>
- *               &lt;/complexContent>
- *             &lt;/complexType>
- *           &lt;/element>
- *           &lt;element name="ActNotSignedRepresentativeOfOwners" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *         &lt;choice>
- *           &lt;element name="InstallmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}InstallmentInfoType" maxOccurs="unbounded"/>
- *           &lt;element name="InstallmenNotGiven" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ShortCertificateType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Name" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}String512Type"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="SumAcceptedWorks" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyShortType"/&gt;
+ *         &lt;element name="PerformerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="CustomerPenalties" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
+ *         &lt;element name="AttachCertificate" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="AttachPhotoBefore" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="AttachPhotoAfter" type="{http://dom.gosuslugi.ru/schema/integration/base/}AttachmentType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ActSignedRepresentativeOfOwners"&gt;
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="SurnameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+ *                     &lt;element name="NameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+ *                     &lt;element name="PatronymicRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *           &lt;/element&gt;
+ *           &lt;element name="ActNotSignedRepresentativeOfOwners" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="InstallmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}InstallmentInfoType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="InstallmenNotGiven" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -80,8 +80,8 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "installmenNotGiven"
 })
 @XmlSeeAlso({
-    ExportCertificateType.class,
-    CertificateType.class
+    CertificateType.class,
+    ExportCertificateType.class
 })
 public class ShortCertificateType {
 
@@ -452,17 +452,17 @@ public class ShortCertificateType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="SurnameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
-     *         &lt;element name="NameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
-     *         &lt;element name="PatronymicRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="SurnameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+     *         &lt;element name="NameRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+     *         &lt;element name="PatronymicRepresentativeOwners" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

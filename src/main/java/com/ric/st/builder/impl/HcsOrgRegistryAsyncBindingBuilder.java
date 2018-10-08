@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ric.bill.dao.EolinkDAO;
-import com.ric.bill.excp.WrongGetMethod;
-import com.ric.bill.excp.WrongParam;
-import com.ric.bill.mm.TaskMng;
-import com.ric.bill.model.exs.Eolink;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.dao.EolinkDAO;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
+import com.dic.bill.mm.TaskMng;
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
@@ -164,7 +164,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 /*	@Override
 	public void exportDataProvider() {
 		ExportDataProviderRequest req = new ExportDataProviderRequest();
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
 		AckRequest ack = null;
 		// для обработки ошибок
@@ -216,7 +216,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		ExportOrgRegistryRequest req = new ExportOrgRegistryRequest();
 
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
 		if (eolOrg.getOgrn() != null) {
 			SearchCriteria sc = new SearchCriteria();
@@ -316,7 +316,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		ExportDataProviderRequest req = new ExportDataProviderRequest();
 		req.setIsActual(true);
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 		try {
 			ack = port.exportDataProvider(req);
 		} catch (ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.Fault e1) {
@@ -386,33 +386,29 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void checkPeriodicTask(Task task) throws WrongParam {
-		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, вызов", task.getId());
 		Task foundTask = em.find(Task.class, task.getId());
 		// создать по всем организациям задания, если у них нет родительской (по главным)
-		String actTp = "GIS_EXP_ORG";
-		String parentCD = "SYSTEM_RPT_ORG_EXP";
-		// создавать по 10 штук, иначе -блокировка Task (нужен коммит)
-		int a=1;
-		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp("Организация", actTp, parentCD)) {
-			// по главным Организациям!
-			if (e.getParent()==null) {
-				// статус - STP, остановлено (будет запускаться другим заданием)
-				ptb.setUp(e, null, actTp, "INS", soapConfig.getCurUser().getId());
-				// добавить как зависимое задание к системному повторяемому заданию
-				ptb.addAsChild(parentCD);
-				ptb.save();
-				log.info("Добавлено задание на выгрузку параметров организации по Организации Eolink.id={}", e.getId());
-				a++;
-				if (a>=100) {
-					break;
-				}
-			}
-		};
+		createTask("GIS_EXP_ORG", "SYSTEM_RPT_ORG_EXP", "STP", "Организация",
+				"выгрузку параметров организации");
 		// Установить статус выполнения задания
 		foundTask.setState("ACP");
-		//log.info("******* Task.id={}, проверка наличия заданий на выгрузку параметров организаций, выполнено!", task.getId());
 	}
 
-
+	private void createTask(String actTp, String parentCD, String state, String eolTp, String purpose) {
+		int a;// создавать по 100 штук, иначе -блокировка Task (нужен коммит)
+		a=1;
+		for (Eolink e: eolinkDao.getEolinkByTpWoTaskTp(eolTp, actTp, parentCD)) {
+			// статус - STP, остановлено (будет запускаться другим заданием)
+			ptb.setUp(e, null, actTp, state, soapConfig.getCurUser().getId());
+			// добавить как зависимое задание к системному повторяемому заданию
+			ptb.addAsChild(parentCD);
+			ptb.save();
+			log.info("Добавлено задание на {}, по объекту {}, Eolink.id={}", purpose, eolTp, e.getId());
+			a++;
+			if (a++>=100) {
+				break;
+			}
+		}
+	}
 
 }

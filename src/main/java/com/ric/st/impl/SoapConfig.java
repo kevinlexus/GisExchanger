@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.ric.bill.dao.UserDAO;
-import com.ric.bill.excp.EmptyStorable;
-import com.ric.bill.model.sec.User;
+import com.dic.bill.dao.UserDAO;
+import com.ric.cmn.excp.EmptyStorable;
+import com.dic.bill.model.sec.User;
 import com.ric.st.SoapConfigs;
 import com.ric.st.mm.UlistMng;
 

@@ -14,15 +14,15 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="RollOverType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="RollOver" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="RollOverType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="RollOver" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlType;
     "rollOver"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.RollOverCharter.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.RollOverContract.class
+    ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.RollOverContract.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.RollOverCharter.class
 })
 public class RollOverType {
 

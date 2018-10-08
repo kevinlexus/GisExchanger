@@ -19,27 +19,27 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType">
- *       &lt;choice minOccurs="0">
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;element name="ImportResult" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}CapRemCommonResultType" maxOccurs="unbounded"/>
- *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFullContractType" maxOccurs="1000"/>
- *         &lt;element name="Account" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportAccountType" maxOccurs="1000"/>
- *         &lt;element name="Decision" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportDecisionType" maxOccurs="1000"/>
- *         &lt;element name="CreditContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportCreditContractType" maxOccurs="unbounded"/>
- *         &lt;element name="FundSizeInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFundSizeInfoType" maxOccurs="unbounded"/>
- *         &lt;element name="Plan" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportPlanPassportType" maxOccurs="1000"/>
- *         &lt;element name="PlanWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportWorkPlanType" maxOccurs="1000"/>
- *         &lt;element name="RegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramType" maxOccurs="1000"/>
- *         &lt;element name="RegionalProgramWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramWorkType" maxOccurs="1000"/>
- *         &lt;element name="DecisionPD" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportDecisionPDType" maxOccurs="1000"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType"&gt;
+ *       &lt;choice minOccurs="0"&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *         &lt;element name="ImportResult" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}CapRemCommonResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFullContractType" maxOccurs="1000"/&gt;
+ *         &lt;element name="Account" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportAccountType" maxOccurs="1000"/&gt;
+ *         &lt;element name="Decision" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportDecisionType" maxOccurs="1000"/&gt;
+ *         &lt;element name="CreditContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportCreditContractType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="FundSizeInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFundSizeInfoType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="Plan" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportPlanPassportType" maxOccurs="1000"/&gt;
+ *         &lt;element name="PlanWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportWorkPlanType" maxOccurs="1000"/&gt;
+ *         &lt;element name="RegionalProgram" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramType" maxOccurs="1000"/&gt;
+ *         &lt;element name="RegionalProgramWork" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportRegionalProgramWorkType" maxOccurs="1000"/&gt;
+ *         &lt;element name="DecisionPD" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportDecisionPDType" maxOccurs="1000"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

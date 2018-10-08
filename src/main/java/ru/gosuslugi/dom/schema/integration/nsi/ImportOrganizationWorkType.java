@@ -18,26 +18,29 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ImportOrganizationWorkType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;sequence>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *           &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *         &lt;/sequence>
- *         &lt;element name="WorkName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type"/>
- *         &lt;element name="ServiceTypeRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="RequiredServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/>
- *         &lt;choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
- *           &lt;element name="StringDimensionUnit" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/>
- *         &lt;/choice>
- *         &lt;element name="ImportOrganizationWork" type="{http://dom.gosuslugi.ru/schema/integration/nsi/}ImportOrganizationWorkType" maxOccurs="1000" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ImportOrganizationWorkType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *           &lt;choice minOccurs="0"&gt;
+ *             &lt;element name="ElementGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *             &lt;element name="InsertInCopiedWorks" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;/choice&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element name="WorkName" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type"/&gt;
+ *         &lt;element name="ServiceTypeRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="RequiredServiceRef" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="unbounded"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/&gt;
+ *           &lt;element name="StringDimensionUnit" type="{http://dom.gosuslugi.ru/schema/integration/base/}String100Type"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="ImportOrganizationWork" type="{http://dom.gosuslugi.ru/schema/integration/nsi/}ImportOrganizationWorkType" maxOccurs="1000" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -46,6 +49,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlType(name = "ImportOrganizationWorkType", propOrder = {
     "transportGUID",
     "elementGuid",
+    "insertInCopiedWorks",
     "workName",
     "serviceTypeRef",
     "requiredServiceRef",
@@ -59,6 +63,8 @@ public class ImportOrganizationWorkType {
     protected String transportGUID;
     @XmlElement(name = "ElementGuid")
     protected String elementGuid;
+    @XmlElement(name = "InsertInCopiedWorks")
+    protected Boolean insertInCopiedWorks;
     @XmlElement(name = "WorkName", required = true)
     protected String workName;
     @XmlElement(name = "ServiceTypeRef", required = true)
@@ -118,6 +124,30 @@ public class ImportOrganizationWorkType {
      */
     public void setElementGuid(String value) {
         this.elementGuid = value;
+    }
+
+    /**
+     * Gets the value of the insertInCopiedWorks property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isInsertInCopiedWorks() {
+        return insertInCopiedWorks;
+    }
+
+    /**
+     * Sets the value of the insertInCopiedWorks property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setInsertInCopiedWorks(Boolean value) {
+        this.insertInCopiedWorks = value;
     }
 
     /**

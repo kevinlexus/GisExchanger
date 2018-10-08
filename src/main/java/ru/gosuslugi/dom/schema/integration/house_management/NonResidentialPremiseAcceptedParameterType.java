@@ -12,16 +12,16 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="NonResidentialPremiseAcceptedParameterType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="PremisesNum"/>
- *     &lt;enumeration value="Purpose"/>
- *     &lt;enumeration value="Position"/>
- *     &lt;enumeration value="TotalArea"/>
- *     &lt;enumeration value="IsCommonProperty"/>
- *     &lt;enumeration value="TerminationDate"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="NonResidentialPremiseAcceptedParameterType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="PremisesNum"/&gt;
+ *     &lt;enumeration value="Purpose"/&gt;
+ *     &lt;enumeration value="Position"/&gt;
+ *     &lt;enumeration value="TotalArea"/&gt;
+ *     &lt;enumeration value="IsCommonProperty"/&gt;
+ *     &lt;enumeration value="TerminationDate"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * 
  */

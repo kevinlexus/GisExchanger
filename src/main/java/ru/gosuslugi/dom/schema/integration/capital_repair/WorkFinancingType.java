@@ -16,18 +16,18 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="WorkFinancingType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Fund" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/>
- *         &lt;element name="RegionBudget" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/>
- *         &lt;element name="MunicipalBudget" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/>
- *         &lt;element name="Owners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="WorkFinancingType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Fund" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/&gt;
+ *         &lt;element name="RegionBudget" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/&gt;
+ *         &lt;element name="MunicipalBudget" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/&gt;
+ *         &lt;element name="Owners" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveShortType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

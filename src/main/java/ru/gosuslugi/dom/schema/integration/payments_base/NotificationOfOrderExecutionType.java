@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
@@ -20,195 +19,230 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="NotificationOfOrderExecutionType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="SupplierInfo" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="SupplierID" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;maxLength value="25"/>
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="SupplierName" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;maxLength value="160"/>
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="RecipientInfo" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
- *                   &lt;choice>
- *                     &lt;element name="Entpr" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/>
- *                     &lt;element name="Legal">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                             &lt;sequence>
- *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
- *                               &lt;element name="Name">
- *                                 &lt;simpleType>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                     &lt;maxLength value="160"/>
- *                                     &lt;minLength value="1"/>
- *                                   &lt;/restriction>
- *                                 &lt;/simpleType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/restriction>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="EntprFIO">
- *                       &lt;simpleType>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                           &lt;minLength value="1"/>
- *                           &lt;maxLength value="160"/>
- *                         &lt;/restriction>
- *                       &lt;/simpleType>
- *                     &lt;/element>
- *                   &lt;/choice>
- *                   &lt;element name="PaymentInformation" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}PaymentInformationType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="OrderInfo">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
- *                   &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *                   &lt;element name="OrderNum" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;maxLength value="9"/>
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="Amount">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                         &lt;minInclusive value="0"/>
- *                         &lt;totalDigits value="16"/>
- *                         &lt;fractionDigits value="0"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="PaymentPurpose" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;maxLength value="1000"/>
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;element name="Comment" minOccurs="0">
- *                     &lt;simpleType>
- *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                         &lt;maxLength value="210"/>
- *                         &lt;minLength value="1"/>
- *                       &lt;/restriction>
- *                     &lt;/simpleType>
- *                   &lt;/element>
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
- *                     &lt;sequence>
- *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/>
- *                       &lt;sequence minOccurs="0">
- *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
- *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
- *                       &lt;/sequence>
- *                       &lt;sequence>
- *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/>
- *                         &lt;element name="AddressAndConsumer" minOccurs="0">
- *                           &lt;complexType>
- *                             &lt;complexContent>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                 &lt;sequence>
- *                                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
- *                                   &lt;choice>
- *                                     &lt;sequence>
- *                                       &lt;element name="Apartment" minOccurs="0">
- *                                         &lt;simpleType>
- *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                             &lt;minLength value="1"/>
- *                                             &lt;maxLength value="255"/>
- *                                           &lt;/restriction>
- *                                         &lt;/simpleType>
- *                                       &lt;/element>
- *                                       &lt;element name="Placement" minOccurs="0">
- *                                         &lt;simpleType>
- *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                             &lt;minLength value="1"/>
- *                                             &lt;maxLength value="255"/>
- *                                           &lt;/restriction>
- *                                         &lt;/simpleType>
- *                                       &lt;/element>
- *                                     &lt;/sequence>
- *                                     &lt;element name="NonLivingApartment" minOccurs="0">
- *                                       &lt;simpleType>
- *                                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                           &lt;minLength value="1"/>
- *                                           &lt;maxLength value="255"/>
- *                                         &lt;/restriction>
- *                                       &lt;/simpleType>
- *                                     &lt;/element>
- *                                   &lt;/choice>
- *                                   &lt;choice>
- *                                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/>
- *                                     &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/>
- *                                   &lt;/choice>
- *                                 &lt;/sequence>
- *                               &lt;/restriction>
- *                             &lt;/complexContent>
- *                           &lt;/complexType>
- *                         &lt;/element>
- *                         &lt;element name="Service" minOccurs="0">
- *                           &lt;complexType>
- *                             &lt;complexContent>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                 &lt;sequence>
- *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/>
- *                                 &lt;/sequence>
- *                               &lt;/restriction>
- *                             &lt;/complexContent>
- *                           &lt;/complexType>
- *                         &lt;/element>
- *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/>
- *                       &lt;/sequence>
- *                     &lt;/sequence>
- *                   &lt;/sequence>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="NotificationOfOrderExecutionType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="SupplierInfo" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="SupplierID" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;maxLength value="25"/&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="SupplierName" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;maxLength value="160"/&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="RecipientInfo" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+ *                     &lt;choice&gt;
+ *                       &lt;element name="Entpr" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/&gt;
+ *                       &lt;element name="Legal"&gt;
+ *                         &lt;complexType&gt;
+ *                           &lt;complexContent&gt;
+ *                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                               &lt;sequence&gt;
+ *                                 &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+ *                                 &lt;element name="Name"&gt;
+ *                                   &lt;simpleType&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                       &lt;maxLength value="4000"/&gt;
+ *                                       &lt;minLength value="1"/&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/simpleType&gt;
+ *                                 &lt;/element&gt;
+ *                               &lt;/sequence&gt;
+ *                             &lt;/restriction&gt;
+ *                           &lt;/complexContent&gt;
+ *                         &lt;/complexType&gt;
+ *                       &lt;/element&gt;
+ *                       &lt;element name="EntprFIO"&gt;
+ *                         &lt;simpleType&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                             &lt;minLength value="1"/&gt;
+ *                             &lt;maxLength value="160"/&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/simpleType&gt;
+ *                       &lt;/element&gt;
+ *                     &lt;/choice&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;element name="PaymentInformation" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}PaymentInformationType"&gt;
+ *                         &lt;/extension&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="OrderInfo"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/&gt;
+ *                   &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *                   &lt;element name="OrderNum" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;maxLength value="9"/&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="Amount"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                         &lt;minInclusive value="0"/&gt;
+ *                         &lt;totalDigits value="16"/&gt;
+ *                         &lt;fractionDigits value="0"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="PaymentPurpose" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;maxLength value="1000"/&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="Comment" minOccurs="0"&gt;
+ *                     &lt;simpleType&gt;
+ *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                         &lt;maxLength value="210"/&gt;
+ *                         &lt;minLength value="1"/&gt;
+ *                       &lt;/restriction&gt;
+ *                     &lt;/simpleType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/&gt;
+ *                     &lt;sequence&gt;
+ *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/&gt;
+ *                       &lt;sequence minOccurs="0"&gt;
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/&gt;
+ *                       &lt;/sequence&gt;
+ *                       &lt;sequence&gt;
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/&gt;
+ *                         &lt;element name="AddressAndConsumer" minOccurs="0"&gt;
+ *                           &lt;complexType&gt;
+ *                             &lt;complexContent&gt;
+ *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                 &lt;sequence&gt;
+ *                                   &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+ *                                   &lt;choice minOccurs="0"&gt;
+ *                                     &lt;sequence&gt;
+ *                                       &lt;element name="Apartment" minOccurs="0"&gt;
+ *                                         &lt;simpleType&gt;
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                             &lt;minLength value="1"/&gt;
+ *                                             &lt;maxLength value="255"/&gt;
+ *                                           &lt;/restriction&gt;
+ *                                         &lt;/simpleType&gt;
+ *                                       &lt;/element&gt;
+ *                                       &lt;element name="Placement" minOccurs="0"&gt;
+ *                                         &lt;simpleType&gt;
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                             &lt;minLength value="1"/&gt;
+ *                                             &lt;maxLength value="255"/&gt;
+ *                                           &lt;/restriction&gt;
+ *                                         &lt;/simpleType&gt;
+ *                                       &lt;/element&gt;
+ *                                     &lt;/sequence&gt;
+ *                                     &lt;element name="NonLivingApartment"&gt;
+ *                                       &lt;simpleType&gt;
+ *                                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                           &lt;minLength value="1"/&gt;
+ *                                           &lt;maxLength value="255"/&gt;
+ *                                         &lt;/restriction&gt;
+ *                                       &lt;/simpleType&gt;
+ *                                     &lt;/element&gt;
+ *                                     &lt;sequence&gt;
+ *                                       &lt;element name="ResidentialBlock"&gt;
+ *                                         &lt;simpleType&gt;
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                             &lt;minLength value="1"/&gt;
+ *                                             &lt;maxLength value="255"/&gt;
+ *                                           &lt;/restriction&gt;
+ *                                         &lt;/simpleType&gt;
+ *                                       &lt;/element&gt;
+ *                                       &lt;element name="ResidentialBlockRoom" minOccurs="0"&gt;
+ *                                         &lt;simpleType&gt;
+ *                                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                             &lt;minLength value="1"/&gt;
+ *                                             &lt;maxLength value="255"/&gt;
+ *                                           &lt;/restriction&gt;
+ *                                         &lt;/simpleType&gt;
+ *                                       &lt;/element&gt;
+ *                                     &lt;/sequence&gt;
+ *                                     &lt;element name="NonResidentialBlock"&gt;
+ *                                       &lt;simpleType&gt;
+ *                                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                           &lt;minLength value="1"/&gt;
+ *                                           &lt;maxLength value="255"/&gt;
+ *                                         &lt;/restriction&gt;
+ *                                       &lt;/simpleType&gt;
+ *                                     &lt;/element&gt;
+ *                                   &lt;/choice&gt;
+ *                                   &lt;choice&gt;
+ *                                     &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/&gt;
+ *                                     &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/&gt;
+ *                                   &lt;/choice&gt;
+ *                                 &lt;/sequence&gt;
+ *                               &lt;/restriction&gt;
+ *                             &lt;/complexContent&gt;
+ *                           &lt;/complexType&gt;
+ *                         &lt;/element&gt;
+ *                         &lt;element name="Service" minOccurs="0"&gt;
+ *                           &lt;complexType&gt;
+ *                             &lt;complexContent&gt;
+ *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                 &lt;sequence&gt;
+ *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/&gt;
+ *                                 &lt;/sequence&gt;
+ *                               &lt;/restriction&gt;
+ *                             &lt;/complexContent&gt;
+ *                           &lt;/complexType&gt;
+ *                         &lt;/element&gt;
+ *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/&gt;
+ *                       &lt;/sequence&gt;
+ *                     &lt;/sequence&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -218,9 +252,6 @@ import ru.gosuslugi.dom.schema.integration.individual_registry_base.FIOType;
     "supplierInfo",
     "recipientInfo",
     "orderInfo"
-})
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.payment.ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecutionType.class
 })
 public class NotificationOfOrderExecutionType {
 
@@ -310,117 +341,143 @@ public class NotificationOfOrderExecutionType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/>
-     *         &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-     *         &lt;element name="OrderNum" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="9"/>
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="Amount">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *               &lt;minInclusive value="0"/>
-     *               &lt;totalDigits value="16"/>
-     *               &lt;fractionDigits value="0"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="PaymentPurpose" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="1000"/>
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="Comment" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="210"/>
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;sequence>
-     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/>
-     *           &lt;sequence>
-     *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/>
-     *             &lt;sequence minOccurs="0">
-     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/>
-     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/>
-     *             &lt;/sequence>
-     *             &lt;sequence>
-     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/>
-     *               &lt;element name="AddressAndConsumer" minOccurs="0">
-     *                 &lt;complexType>
-     *                   &lt;complexContent>
-     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                       &lt;sequence>
-     *                         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
-     *                         &lt;choice>
-     *                           &lt;sequence>
-     *                             &lt;element name="Apartment" minOccurs="0">
-     *                               &lt;simpleType>
-     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                   &lt;minLength value="1"/>
-     *                                   &lt;maxLength value="255"/>
-     *                                 &lt;/restriction>
-     *                               &lt;/simpleType>
-     *                             &lt;/element>
-     *                             &lt;element name="Placement" minOccurs="0">
-     *                               &lt;simpleType>
-     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                   &lt;minLength value="1"/>
-     *                                   &lt;maxLength value="255"/>
-     *                                 &lt;/restriction>
-     *                               &lt;/simpleType>
-     *                             &lt;/element>
-     *                           &lt;/sequence>
-     *                           &lt;element name="NonLivingApartment" minOccurs="0">
-     *                             &lt;simpleType>
-     *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                 &lt;minLength value="1"/>
-     *                                 &lt;maxLength value="255"/>
-     *                               &lt;/restriction>
-     *                             &lt;/simpleType>
-     *                           &lt;/element>
-     *                         &lt;/choice>
-     *                         &lt;choice>
-     *                           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/>
-     *                           &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/>
-     *                         &lt;/choice>
-     *                       &lt;/sequence>
-     *                     &lt;/restriction>
-     *                   &lt;/complexContent>
-     *                 &lt;/complexType>
-     *               &lt;/element>
-     *               &lt;element name="Service" minOccurs="0">
-     *                 &lt;complexType>
-     *                   &lt;complexContent>
-     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                       &lt;sequence>
-     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/>
-     *                       &lt;/sequence>
-     *                     &lt;/restriction>
-     *                   &lt;/complexContent>
-     *                 &lt;/complexType>
-     *               &lt;/element>
-     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/>
-     *             &lt;/sequence>
-     *           &lt;/sequence>
-     *         &lt;/sequence>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payments-base/}OrderID"/&gt;
+     *         &lt;element name="OrderDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+     *         &lt;element name="OrderNum" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;maxLength value="9"/&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="Amount"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *               &lt;minInclusive value="0"/&gt;
+     *               &lt;totalDigits value="16"/&gt;
+     *               &lt;fractionDigits value="0"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="PaymentPurpose" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;maxLength value="1000"/&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="Comment" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;maxLength value="210"/&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentID" minOccurs="0"/&gt;
+     *           &lt;sequence&gt;
+     *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/bills-base/}PaymentDocumentNumber" minOccurs="0"/&gt;
+     *             &lt;sequence minOccurs="0"&gt;
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month"/&gt;
+     *             &lt;/sequence&gt;
+     *             &lt;sequence&gt;
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}UnifiedAccountNumber" minOccurs="0"/&gt;
+     *               &lt;element name="AddressAndConsumer" minOccurs="0"&gt;
+     *                 &lt;complexType&gt;
+     *                   &lt;complexContent&gt;
+     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                       &lt;sequence&gt;
+     *                         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+     *                         &lt;choice minOccurs="0"&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="Apartment" minOccurs="0"&gt;
+     *                               &lt;simpleType&gt;
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                   &lt;minLength value="1"/&gt;
+     *                                   &lt;maxLength value="255"/&gt;
+     *                                 &lt;/restriction&gt;
+     *                               &lt;/simpleType&gt;
+     *                             &lt;/element&gt;
+     *                             &lt;element name="Placement" minOccurs="0"&gt;
+     *                               &lt;simpleType&gt;
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                   &lt;minLength value="1"/&gt;
+     *                                   &lt;maxLength value="255"/&gt;
+     *                                 &lt;/restriction&gt;
+     *                               &lt;/simpleType&gt;
+     *                             &lt;/element&gt;
+     *                           &lt;/sequence&gt;
+     *                           &lt;element name="NonLivingApartment"&gt;
+     *                             &lt;simpleType&gt;
+     *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                 &lt;minLength value="1"/&gt;
+     *                                 &lt;maxLength value="255"/&gt;
+     *                               &lt;/restriction&gt;
+     *                             &lt;/simpleType&gt;
+     *                           &lt;/element&gt;
+     *                           &lt;sequence&gt;
+     *                             &lt;element name="ResidentialBlock"&gt;
+     *                               &lt;simpleType&gt;
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                   &lt;minLength value="1"/&gt;
+     *                                   &lt;maxLength value="255"/&gt;
+     *                                 &lt;/restriction&gt;
+     *                               &lt;/simpleType&gt;
+     *                             &lt;/element&gt;
+     *                             &lt;element name="ResidentialBlockRoom" minOccurs="0"&gt;
+     *                               &lt;simpleType&gt;
+     *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                   &lt;minLength value="1"/&gt;
+     *                                   &lt;maxLength value="255"/&gt;
+     *                                 &lt;/restriction&gt;
+     *                               &lt;/simpleType&gt;
+     *                             &lt;/element&gt;
+     *                           &lt;/sequence&gt;
+     *                           &lt;element name="NonResidentialBlock"&gt;
+     *                             &lt;simpleType&gt;
+     *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                 &lt;minLength value="1"/&gt;
+     *                                 &lt;maxLength value="255"/&gt;
+     *                               &lt;/restriction&gt;
+     *                             &lt;/simpleType&gt;
+     *                           &lt;/element&gt;
+     *                         &lt;/choice&gt;
+     *                         &lt;choice&gt;
+     *                           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/&gt;
+     *                           &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/&gt;
+     *                         &lt;/choice&gt;
+     *                       &lt;/sequence&gt;
+     *                     &lt;/restriction&gt;
+     *                   &lt;/complexContent&gt;
+     *                 &lt;/complexType&gt;
+     *               &lt;/element&gt;
+     *               &lt;element name="Service" minOccurs="0"&gt;
+     *                 &lt;complexType&gt;
+     *                   &lt;complexContent&gt;
+     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                       &lt;sequence&gt;
+     *                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/&gt;
+     *                       &lt;/sequence&gt;
+     *                     &lt;/restriction&gt;
+     *                   &lt;/complexContent&gt;
+     *                 &lt;/complexType&gt;
+     *               &lt;/element&gt;
+     *               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}AccountNumber" minOccurs="0"/&gt;
+     *             &lt;/sequence&gt;
+     *           &lt;/sequence&gt;
+     *         &lt;/sequence&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -817,47 +874,73 @@ public class NotificationOfOrderExecutionType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/>
-         *         &lt;choice>
-         *           &lt;sequence>
-         *             &lt;element name="Apartment" minOccurs="0">
-         *               &lt;simpleType>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                   &lt;minLength value="1"/>
-         *                   &lt;maxLength value="255"/>
-         *                 &lt;/restriction>
-         *               &lt;/simpleType>
-         *             &lt;/element>
-         *             &lt;element name="Placement" minOccurs="0">
-         *               &lt;simpleType>
-         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                   &lt;minLength value="1"/>
-         *                   &lt;maxLength value="255"/>
-         *                 &lt;/restriction>
-         *               &lt;/simpleType>
-         *             &lt;/element>
-         *           &lt;/sequence>
-         *           &lt;element name="NonLivingApartment" minOccurs="0">
-         *             &lt;simpleType>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                 &lt;minLength value="1"/>
-         *                 &lt;maxLength value="255"/>
-         *               &lt;/restriction>
-         *             &lt;/simpleType>
-         *           &lt;/element>
-         *         &lt;/choice>
-         *         &lt;choice>
-         *           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/>
-         *           &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/>
-         *         &lt;/choice>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/premises-base/}FIASHouseGUIDType"/&gt;
+         *         &lt;choice minOccurs="0"&gt;
+         *           &lt;sequence&gt;
+         *             &lt;element name="Apartment" minOccurs="0"&gt;
+         *               &lt;simpleType&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                   &lt;minLength value="1"/&gt;
+         *                   &lt;maxLength value="255"/&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/simpleType&gt;
+         *             &lt;/element&gt;
+         *             &lt;element name="Placement" minOccurs="0"&gt;
+         *               &lt;simpleType&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                   &lt;minLength value="1"/&gt;
+         *                   &lt;maxLength value="255"/&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/simpleType&gt;
+         *             &lt;/element&gt;
+         *           &lt;/sequence&gt;
+         *           &lt;element name="NonLivingApartment"&gt;
+         *             &lt;simpleType&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                 &lt;minLength value="1"/&gt;
+         *                 &lt;maxLength value="255"/&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/simpleType&gt;
+         *           &lt;/element&gt;
+         *           &lt;sequence&gt;
+         *             &lt;element name="ResidentialBlock"&gt;
+         *               &lt;simpleType&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                   &lt;minLength value="1"/&gt;
+         *                   &lt;maxLength value="255"/&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/simpleType&gt;
+         *             &lt;/element&gt;
+         *             &lt;element name="ResidentialBlockRoom" minOccurs="0"&gt;
+         *               &lt;simpleType&gt;
+         *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                   &lt;minLength value="1"/&gt;
+         *                   &lt;maxLength value="255"/&gt;
+         *                 &lt;/restriction&gt;
+         *               &lt;/simpleType&gt;
+         *             &lt;/element&gt;
+         *           &lt;/sequence&gt;
+         *           &lt;element name="NonResidentialBlock"&gt;
+         *             &lt;simpleType&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                 &lt;minLength value="1"/&gt;
+         *                 &lt;maxLength value="255"/&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/simpleType&gt;
+         *           &lt;/element&gt;
+         *         &lt;/choice&gt;
+         *         &lt;choice&gt;
+         *           &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/&gt;
+         *           &lt;element name="INN" type="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INNType"/&gt;
+         *         &lt;/choice&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -868,6 +951,9 @@ public class NotificationOfOrderExecutionType {
             "apartment",
             "placement",
             "nonLivingApartment",
+            "residentialBlock",
+            "residentialBlockRoom",
+            "nonResidentialBlock",
             "ind",
             "inn"
         })
@@ -881,6 +967,12 @@ public class NotificationOfOrderExecutionType {
             protected String placement;
             @XmlElement(name = "NonLivingApartment")
             protected String nonLivingApartment;
+            @XmlElement(name = "ResidentialBlock")
+            protected String residentialBlock;
+            @XmlElement(name = "ResidentialBlockRoom")
+            protected String residentialBlockRoom;
+            @XmlElement(name = "NonResidentialBlock")
+            protected String nonResidentialBlock;
             @XmlElement(name = "Ind")
             protected FIOType ind;
             @XmlElement(name = "INN")
@@ -983,6 +1075,78 @@ public class NotificationOfOrderExecutionType {
             }
 
             /**
+             * Gets the value of the residentialBlock property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getResidentialBlock() {
+                return residentialBlock;
+            }
+
+            /**
+             * Sets the value of the residentialBlock property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setResidentialBlock(String value) {
+                this.residentialBlock = value;
+            }
+
+            /**
+             * Gets the value of the residentialBlockRoom property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getResidentialBlockRoom() {
+                return residentialBlockRoom;
+            }
+
+            /**
+             * Sets the value of the residentialBlockRoom property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setResidentialBlockRoom(String value) {
+                this.residentialBlockRoom = value;
+            }
+
+            /**
+             * Gets the value of the nonResidentialBlock property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getNonResidentialBlock() {
+                return nonResidentialBlock;
+            }
+
+            /**
+             * Sets the value of the nonResidentialBlock property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setNonResidentialBlock(String value) {
+                this.nonResidentialBlock = value;
+            }
+
+            /**
              * Gets the value of the ind property.
              * 
              * @return
@@ -1039,15 +1203,15 @@ public class NotificationOfOrderExecutionType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/account-base/}ServiceID"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1096,46 +1260,55 @@ public class NotificationOfOrderExecutionType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/>
-     *         &lt;choice>
-     *           &lt;element name="Entpr" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/>
-     *           &lt;element name="Legal">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                   &lt;sequence>
-     *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-     *                     &lt;element name="Name">
-     *                       &lt;simpleType>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                           &lt;maxLength value="160"/>
-     *                           &lt;minLength value="1"/>
-     *                         &lt;/restriction>
-     *                       &lt;/simpleType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/restriction>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="EntprFIO">
-     *             &lt;simpleType>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                 &lt;minLength value="1"/>
-     *                 &lt;maxLength value="160"/>
-     *               &lt;/restriction>
-     *             &lt;/simpleType>
-     *           &lt;/element>
-     *         &lt;/choice>
-     *         &lt;element name="PaymentInformation" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}PaymentInformationType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}INN"/&gt;
+     *           &lt;choice&gt;
+     *             &lt;element name="Entpr" type="{http://dom.gosuslugi.ru/schema/integration/individual-registry-base/}FIOType"/&gt;
+     *             &lt;element name="Legal"&gt;
+     *               &lt;complexType&gt;
+     *                 &lt;complexContent&gt;
+     *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                     &lt;sequence&gt;
+     *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+     *                       &lt;element name="Name"&gt;
+     *                         &lt;simpleType&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                             &lt;maxLength value="4000"/&gt;
+     *                             &lt;minLength value="1"/&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/simpleType&gt;
+     *                       &lt;/element&gt;
+     *                     &lt;/sequence&gt;
+     *                   &lt;/restriction&gt;
+     *                 &lt;/complexContent&gt;
+     *               &lt;/complexType&gt;
+     *             &lt;/element&gt;
+     *             &lt;element name="EntprFIO"&gt;
+     *               &lt;simpleType&gt;
+     *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                   &lt;minLength value="1"/&gt;
+     *                   &lt;maxLength value="160"/&gt;
+     *                 &lt;/restriction&gt;
+     *               &lt;/simpleType&gt;
+     *             &lt;/element&gt;
+     *           &lt;/choice&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;element name="PaymentInformation" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}PaymentInformationType"&gt;
+     *               &lt;/extension&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -1159,7 +1332,7 @@ public class NotificationOfOrderExecutionType {
         @XmlElement(name = "EntprFIO")
         protected String entprFIO;
         @XmlElement(name = "PaymentInformation")
-        protected PaymentInformationType paymentInformation;
+        protected NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation paymentInformation;
 
         /**
          * Gets the value of the inn property.
@@ -1262,10 +1435,10 @@ public class NotificationOfOrderExecutionType {
          * 
          * @return
          *     possible object is
-         *     {@link PaymentInformationType }
+         *     {@link NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation }
          *     
          */
-        public PaymentInformationType getPaymentInformation() {
+        public NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation getPaymentInformation() {
             return paymentInformation;
         }
 
@@ -1274,10 +1447,10 @@ public class NotificationOfOrderExecutionType {
          * 
          * @param value
          *     allowed object is
-         *     {@link PaymentInformationType }
+         *     {@link NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation }
          *     
          */
-        public void setPaymentInformation(PaymentInformationType value) {
+        public void setPaymentInformation(NotificationOfOrderExecutionType.RecipientInfo.PaymentInformation value) {
             this.paymentInformation = value;
         }
 
@@ -1288,23 +1461,23 @@ public class NotificationOfOrderExecutionType {
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/>
-         *         &lt;element name="Name">
-         *           &lt;simpleType>
-         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *               &lt;maxLength value="160"/>
-         *               &lt;minLength value="1"/>
-         *             &lt;/restriction>
-         *           &lt;/simpleType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/organizations-base/}KPP"/&gt;
+         *         &lt;element name="Name"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;maxLength value="4000"/&gt;
+         *               &lt;minLength value="1"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -1371,6 +1544,32 @@ public class NotificationOfOrderExecutionType {
 
         }
 
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}PaymentInformationType"&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "")
+        public static class PaymentInformation
+            extends PaymentInformationType
+        {
+
+
+        }
+
     }
 
 
@@ -1380,30 +1579,30 @@ public class NotificationOfOrderExecutionType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="SupplierID" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="25"/>
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *         &lt;element name="SupplierName" minOccurs="0">
-     *           &lt;simpleType>
-     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *               &lt;maxLength value="160"/>
-     *               &lt;minLength value="1"/>
-     *             &lt;/restriction>
-     *           &lt;/simpleType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="SupplierID" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;maxLength value="25"/&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="SupplierName" minOccurs="0"&gt;
+     *           &lt;simpleType&gt;
+     *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *               &lt;maxLength value="160"/&gt;
+     *               &lt;minLength value="1"/&gt;
+     *             &lt;/restriction&gt;
+     *           &lt;/simpleType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

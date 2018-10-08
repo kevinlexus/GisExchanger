@@ -36,6 +36,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportVolumeAndQualityInformationRequest }
+     * 
+     */
+    public ImportVolumeAndQualityInformationRequest createImportVolumeAndQualityInformationRequest() {
+        return new ImportVolumeAndQualityInformationRequest();
+    }
+
+    /**
      * Create an instance of {@link ImportIntervalRequest }
      * 
      */
@@ -44,11 +52,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportVolumeAndQualityInformationRequest }
+     * Create an instance of {@link IntervalType }
      * 
      */
-    public ImportVolumeAndQualityInformationRequest createImportVolumeAndQualityInformationRequest() {
-        return new ImportVolumeAndQualityInformationRequest();
+    public IntervalType createIntervalType() {
+        return new IntervalType();
     }
 
     /**
@@ -65,22 +73,6 @@ public class ObjectFactory {
      */
     public VolumeResourcesType createVolumeResourcesType() {
         return new VolumeResourcesType();
-    }
-
-    /**
-     * Create an instance of {@link IntervalType }
-     * 
-     */
-    public IntervalType createIntervalType() {
-        return new IntervalType();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType }
-     * 
-     */
-    public QualityResourcesType createQualityResourcesType() {
-        return new QualityResourcesType();
     }
 
     /**
@@ -180,6 +172,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QualityResourcesType }
+     * 
+     */
+    public QualityResourcesType createQualityResourcesType() {
+        return new QualityResourcesType();
+    }
+
+    /**
+     * Create an instance of {@link ImportIntervalRequest.ImportInterval }
+     * 
+     */
+    public ImportIntervalRequest.ImportInterval createImportIntervalRequestImportInterval() {
+        return new ImportIntervalRequest.ImportInterval();
+    }
+
+    /**
      * Create an instance of {@link ImportVolumeAndQualityInformationRequest.ImportVolumeAndQualityInformation }
      * 
      */
@@ -204,14 +212,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportIntervalRequest.ImportInterval }
-     * 
-     */
-    public ImportIntervalRequest.ImportInterval createImportIntervalRequestImportInterval() {
-        return new ImportIntervalRequest.ImportInterval();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */
@@ -220,35 +220,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RegistrationPeriodType }
+     * Create an instance of {@link BaseShortType }
      * 
      */
-    public RegistrationPeriodType createRegistrationPeriodType() {
-        return new RegistrationPeriodType();
-    }
-
-    /**
-     * Create an instance of {@link OtherQualityIndicatorType }
-     * 
-     */
-    public OtherQualityIndicatorType createOtherQualityIndicatorType() {
-        return new OtherQualityIndicatorType();
-    }
-
-    /**
-     * Create an instance of {@link VolumeNotEnergyResourceType }
-     * 
-     */
-    public VolumeNotEnergyResourceType createVolumeNotEnergyResourceType() {
-        return new VolumeNotEnergyResourceType();
-    }
-
-    /**
-     * Create an instance of {@link VolumeEnergyResourceType }
-     * 
-     */
-    public VolumeEnergyResourceType createVolumeEnergyResourceType() {
-        return new VolumeEnergyResourceType();
+    public BaseShortType createBaseShortType() {
+        return new BaseShortType();
     }
 
     /**
@@ -268,14 +244,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ObjectAddressType }
-     * 
-     */
-    public ObjectAddressType createObjectAddressType() {
-        return new ObjectAddressType();
-    }
-
-    /**
      * Create an instance of {@link IndicatorValueType }
      * 
      */
@@ -284,11 +252,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BaseShortType }
+     * Create an instance of {@link ObjectAddressType }
      * 
      */
-    public BaseShortType createBaseShortType() {
-        return new BaseShortType();
+    public ObjectAddressType createObjectAddressType() {
+        return new ObjectAddressType();
+    }
+
+    /**
+     * Create an instance of {@link OtherQualityIndicatorType }
+     * 
+     */
+    public OtherQualityIndicatorType createOtherQualityIndicatorType() {
+        return new OtherQualityIndicatorType();
+    }
+
+    /**
+     * Create an instance of {@link RegistrationPeriodType }
+     * 
+     */
+    public RegistrationPeriodType createRegistrationPeriodType() {
+        return new RegistrationPeriodType();
+    }
+
+    /**
+     * Create an instance of {@link VolumeEnergyResourceType }
+     * 
+     */
+    public VolumeEnergyResourceType createVolumeEnergyResourceType() {
+        return new VolumeEnergyResourceType();
+    }
+
+    /**
+     * Create an instance of {@link VolumeNotEnergyResourceType }
+     * 
+     */
+    public VolumeNotEnergyResourceType createVolumeNotEnergyResourceType() {
+        return new VolumeNotEnergyResourceType();
+    }
+
+    /**
+     * Create an instance of {@link IntervalType.AddressObject }
+     * 
+     */
+    public IntervalType.AddressObject createIntervalTypeAddressObject() {
+        return new IntervalType.AddressObject();
     }
 
     /**
@@ -364,54 +372,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IntervalType.AddressObject }
-     * 
-     */
-    public IntervalType.AddressObject createIntervalTypeAddressObject() {
-        return new IntervalType.AddressObject();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType.ObjectAddress }
-     * 
-     */
-    public QualityResourcesType.ObjectAddress createQualityResourcesTypeObjectAddress() {
-        return new QualityResourcesType.ObjectAddress();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType.ServiceType }
-     * 
-     */
-    public QualityResourcesType.ServiceType createQualityResourcesTypeServiceType() {
-        return new QualityResourcesType.ServiceType();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType.MunicipalResource }
-     * 
-     */
-    public QualityResourcesType.MunicipalResource createQualityResourcesTypeMunicipalResource() {
-        return new QualityResourcesType.MunicipalResource();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType.QualityIndicatorResource }
-     * 
-     */
-    public QualityResourcesType.QualityIndicatorResource createQualityResourcesTypeQualityIndicatorResource() {
-        return new QualityResourcesType.QualityIndicatorResource();
-    }
-
-    /**
-     * Create an instance of {@link QualityResourcesType.OtherQualityIndicatorResource }
-     * 
-     */
-    public QualityResourcesType.OtherQualityIndicatorResource createQualityResourcesTypeOtherQualityIndicatorResource() {
-        return new QualityResourcesType.OtherQualityIndicatorResource();
-    }
-
-    /**
      * Create an instance of {@link QualityServicesType.ObjectAddress }
      * 
      */
@@ -468,6 +428,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QualityResourcesType.ObjectAddress }
+     * 
+     */
+    public QualityResourcesType.ObjectAddress createQualityResourcesTypeObjectAddress() {
+        return new QualityResourcesType.ObjectAddress();
+    }
+
+    /**
+     * Create an instance of {@link QualityResourcesType.ServiceType }
+     * 
+     */
+    public QualityResourcesType.ServiceType createQualityResourcesTypeServiceType() {
+        return new QualityResourcesType.ServiceType();
+    }
+
+    /**
+     * Create an instance of {@link QualityResourcesType.MunicipalResource }
+     * 
+     */
+    public QualityResourcesType.MunicipalResource createQualityResourcesTypeMunicipalResource() {
+        return new QualityResourcesType.MunicipalResource();
+    }
+
+    /**
+     * Create an instance of {@link QualityResourcesType.QualityIndicatorResource }
+     * 
+     */
+    public QualityResourcesType.QualityIndicatorResource createQualityResourcesTypeQualityIndicatorResource() {
+        return new QualityResourcesType.QualityIndicatorResource();
+    }
+
+    /**
+     * Create an instance of {@link QualityResourcesType.OtherQualityIndicatorResource }
+     * 
+     */
+    public QualityResourcesType.OtherQualityIndicatorResource createQualityResourcesTypeOtherQualityIndicatorResource() {
+        return new QualityResourcesType.OtherQualityIndicatorResource();
+    }
+
+    /**
+     * Create an instance of {@link ImportIntervalRequest.ImportInterval.AnnulmentInterval }
+     * 
+     */
+    public ImportIntervalRequest.ImportInterval.AnnulmentInterval createImportIntervalRequestImportIntervalAnnulmentInterval() {
+        return new ImportIntervalRequest.ImportInterval.AnnulmentInterval();
+    }
+
+    /**
      * Create an instance of {@link ImportVolumeAndQualityInformationRequest.ImportVolumeAndQualityInformation.Base }
      * 
      */
@@ -516,16 +524,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportIntervalRequest.ImportInterval.AnnulmentInterval }
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
-     */
-    public ImportIntervalRequest.ImportInterval.AnnulmentInterval createImportIntervalRequestImportIntervalAnnulmentInterval() {
-        return new ImportIntervalRequest.ImportInterval.AnnulmentInterval();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality/", name = "Status")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)

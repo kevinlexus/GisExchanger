@@ -4,6 +4,7 @@ package ru.gosuslugi.dom.schema.integration.house_management;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringValueBaseType;
 
@@ -16,28 +17,28 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="MunicipalResourceNotElectricBaseType">
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="Unit" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;enumeration value="112"/>
- *               &lt;enumeration value="113"/>
- *               &lt;enumeration value="233"/>
- *               &lt;enumeration value="245"/>
- *               &lt;enumeration value="246"/>
- *               &lt;enumeration value="271"/>
- *               &lt;enumeration value="A056"/>
- *               &lt;enumeration value="A058"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="MunicipalResourceNotElectricBaseType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}OneRateMeteringValueBaseType"&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;element name="Unit" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;enumeration value="112"/&gt;
+ *               &lt;enumeration value="113"/&gt;
+ *               &lt;enumeration value="233"/&gt;
+ *               &lt;enumeration value="245"/&gt;
+ *               &lt;enumeration value="246"/&gt;
+ *               &lt;enumeration value="271"/&gt;
+ *               &lt;enumeration value="A056"/&gt;
+ *               &lt;enumeration value="A058"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -45,6 +46,9 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MunicipalResourceNotElectricBaseType", propOrder = {
     "unit"
+})
+@XmlSeeAlso({
+    MunicipalResourceNotElectricExportType2 .class
 })
 public class MunicipalResourceNotElectricBaseType
     extends OneRateMeteringValueBaseType

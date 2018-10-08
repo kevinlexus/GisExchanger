@@ -20,145 +20,210 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType">
- *       &lt;sequence>
- *         &lt;choice>
- *           &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *           &lt;element name="ContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;/choice>
- *         &lt;element name="ObjectAddress" maxOccurs="1000">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;sequence>
- *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                     &lt;element name="ObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
- *                   &lt;/sequence>
- *                   &lt;choice>
- *                     &lt;element name="LoadObject">
- *                       &lt;complexType>
- *                         &lt;complexContent>
- *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType">
- *                             &lt;sequence>
- *                               &lt;element name="Pair" maxOccurs="100">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType">
- *                                       &lt;sequence>
- *                                         &lt;element name="HeatingSystemType" minOccurs="0">
- *                                           &lt;complexType>
- *                                             &lt;complexContent>
- *                                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                                 &lt;sequence>
- *                                                   &lt;element name="OpenOrNot">
- *                                                     &lt;simpleType>
- *                                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                                         &lt;enumeration value="Opened"/>
- *                                                         &lt;enumeration value="Closed"/>
- *                                                       &lt;/restriction>
- *                                                     &lt;/simpleType>
- *                                                   &lt;/element>
- *                                                   &lt;element name="CentralizedOrNot">
- *                                                     &lt;simpleType>
- *                                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                                         &lt;enumeration value="Centralized"/>
- *                                                         &lt;enumeration value="Decentralized"/>
- *                                                       &lt;/restriction>
- *                                                     &lt;/simpleType>
- *                                                   &lt;/element>
- *                                                 &lt;/sequence>
- *                                               &lt;/restriction>
- *                                             &lt;/complexContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
- *                                       &lt;/sequence>
- *                                     &lt;/extension>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *                                         &lt;element name="IndicatorValue">
- *                                           &lt;complexType>
- *                                             &lt;complexContent>
- *                                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType">
- *                                               &lt;/extension>
- *                                             &lt;/complexContent>
- *                                           &lt;/complexType>
- *                                         &lt;/element>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
- *                                         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
- *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                               &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0">
- *                                 &lt;complexType>
- *                                   &lt;complexContent>
- *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                       &lt;sequence>
- *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                                         &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                                         &lt;element name="FlowLineTemperature">
- *                                           &lt;simpleType>
- *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                               &lt;minExclusive value="0"/>
- *                                               &lt;fractionDigits value="1"/>
- *                                             &lt;/restriction>
- *                                           &lt;/simpleType>
- *                                         &lt;/element>
- *                                         &lt;element name="OppositeLineTemperature">
- *                                           &lt;simpleType>
- *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
- *                                               &lt;minExclusive value="0"/>
- *                                               &lt;fractionDigits value="1"/>
- *                                             &lt;/restriction>
- *                                           &lt;/simpleType>
- *                                         &lt;/element>
- *                                       &lt;/sequence>
- *                                     &lt;/restriction>
- *                                   &lt;/complexContent>
- *                                 &lt;/complexType>
- *                               &lt;/element>
- *                             &lt;/sequence>
- *                           &lt;/extension>
- *                         &lt;/complexContent>
- *                       &lt;/complexType>
- *                     &lt;/element>
- *                     &lt;element name="DeleteObject" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *           &lt;element name="ContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="ObjectAddress" maxOccurs="1000"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                     &lt;element name="ObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                   &lt;/sequence&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="LoadObject"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="Pair" maxOccurs="100"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="HeatingSystemType" minOccurs="0"&gt;
+ *                                           &lt;complexType&gt;
+ *                                             &lt;complexContent&gt;
+ *                                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                                 &lt;sequence&gt;
+ *                                                   &lt;element name="OpenOrNot"&gt;
+ *                                                     &lt;simpleType&gt;
+ *                                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                                         &lt;enumeration value="Opened"/&gt;
+ *                                                         &lt;enumeration value="Closed"/&gt;
+ *                                                       &lt;/restriction&gt;
+ *                                                     &lt;/simpleType&gt;
+ *                                                   &lt;/element&gt;
+ *                                                   &lt;element name="CentralizedOrNot"&gt;
+ *                                                     &lt;simpleType&gt;
+ *                                                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                                         &lt;enumeration value="Centralized"/&gt;
+ *                                                         &lt;enumeration value="Decentralized"/&gt;
+ *                                                       &lt;/restriction&gt;
+ *                                                     &lt;/simpleType&gt;
+ *                                                   &lt;/element&gt;
+ *                                                 &lt;/sequence&gt;
+ *                                               &lt;/restriction&gt;
+ *                                             &lt;/complexContent&gt;
+ *                                           &lt;/complexType&gt;
+ *                                         &lt;/element&gt;
+ *                                         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/extension&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                                         &lt;element name="IndicatorValue"&gt;
+ *                                           &lt;complexType&gt;
+ *                                             &lt;complexContent&gt;
+ *                                               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType"&gt;
+ *                                               &lt;/extension&gt;
+ *                                             &lt;/complexContent&gt;
+ *                                           &lt;/complexType&gt;
+ *                                         &lt;/element&gt;
+ *                                         &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/&gt;
+ *                                         &lt;choice&gt;
+ *                                           &lt;sequence&gt;
+ *                                             &lt;choice&gt;
+ *                                               &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *                                               &lt;sequence&gt;
+ *                                                 &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *                                                 &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+ *                                               &lt;/sequence&gt;
+ *                                             &lt;/choice&gt;
+ *                                             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+ *                                           &lt;/sequence&gt;
+ *                                           &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                                         &lt;/choice&gt;
+ *                                         &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *                                         &lt;element name="FlowLineTemperature"&gt;
+ *                                           &lt;simpleType&gt;
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                                               &lt;minExclusive value="0"/&gt;
+ *                                               &lt;fractionDigits value="1"/&gt;
+ *                                             &lt;/restriction&gt;
+ *                                           &lt;/simpleType&gt;
+ *                                         &lt;/element&gt;
+ *                                         &lt;element name="OppositeLineTemperature"&gt;
+ *                                           &lt;simpleType&gt;
+ *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *                                               &lt;minExclusive value="0"/&gt;
+ *                                               &lt;fractionDigits value="1"/&gt;
+ *                                             &lt;/restriction&gt;
+ *                                           &lt;/simpleType&gt;
+ *                                         &lt;/element&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="PlannedVolume" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType"/&gt;
+ *                                         &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType"/&gt;
+ *                                         &lt;element name="FeedingMode"&gt;
+ *                                           &lt;simpleType&gt;
+ *                                             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String250Type"&gt;
+ *                                               &lt;maxLength value="250"/&gt;
+ *                                             &lt;/restriction&gt;
+ *                                           &lt;/simpleType&gt;
+ *                                         &lt;/element&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="CountingResource" minOccurs="0"&gt;
+ *                                 &lt;simpleType&gt;
+ *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *                                     &lt;enumeration value="R"/&gt;
+ *                                     &lt;enumeration value="P"/&gt;
+ *                                   &lt;/restriction&gt;
+ *                                 &lt;/simpleType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *                               &lt;element name="Tariff" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                               &lt;element name="Norm" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                                 &lt;complexType&gt;
+ *                                   &lt;complexContent&gt;
+ *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                                       &lt;sequence&gt;
+ *                                         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                         &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                                       &lt;/sequence&gt;
+ *                                     &lt;/restriction&gt;
+ *                                   &lt;/complexContent&gt;
+ *                                 &lt;/complexType&gt;
+ *                               &lt;/element&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/extension&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                     &lt;element name="DeleteObject" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.7.0.3""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -295,130 +360,195 @@ public class ImportSupplyResourceContractObjectAddressRequest
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;sequence>
-     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *           &lt;element name="ObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/>
-     *         &lt;/sequence>
-     *         &lt;choice>
-     *           &lt;element name="LoadObject">
-     *             &lt;complexType>
-     *               &lt;complexContent>
-     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType">
-     *                   &lt;sequence>
-     *                     &lt;element name="Pair" maxOccurs="100">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType">
-     *                             &lt;sequence>
-     *                               &lt;element name="HeatingSystemType" minOccurs="0">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                                       &lt;sequence>
-     *                                         &lt;element name="OpenOrNot">
-     *                                           &lt;simpleType>
-     *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                               &lt;enumeration value="Opened"/>
-     *                                               &lt;enumeration value="Closed"/>
-     *                                             &lt;/restriction>
-     *                                           &lt;/simpleType>
-     *                                         &lt;/element>
-     *                                         &lt;element name="CentralizedOrNot">
-     *                                           &lt;simpleType>
-     *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                                               &lt;enumeration value="Centralized"/>
-     *                                               &lt;enumeration value="Decentralized"/>
-     *                                             &lt;/restriction>
-     *                                           &lt;/simpleType>
-     *                                         &lt;/element>
-     *                                       &lt;/sequence>
-     *                                     &lt;/restriction>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-     *                             &lt;/sequence>
-     *                           &lt;/extension>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                               &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-     *                               &lt;element name="IndicatorValue">
-     *                                 &lt;complexType>
-     *                                   &lt;complexContent>
-     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType">
-     *                                     &lt;/extension>
-     *                                   &lt;/complexContent>
-     *                                 &lt;/complexType>
-     *                               &lt;/element>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                               &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
-     *                               &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
-     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                     &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0">
-     *                       &lt;complexType>
-     *                         &lt;complexContent>
-     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                             &lt;sequence>
-     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *                               &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                               &lt;element name="FlowLineTemperature">
-     *                                 &lt;simpleType>
-     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                                     &lt;minExclusive value="0"/>
-     *                                     &lt;fractionDigits value="1"/>
-     *                                   &lt;/restriction>
-     *                                 &lt;/simpleType>
-     *                               &lt;/element>
-     *                               &lt;element name="OppositeLineTemperature">
-     *                                 &lt;simpleType>
-     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-     *                                     &lt;minExclusive value="0"/>
-     *                                     &lt;fractionDigits value="1"/>
-     *                                   &lt;/restriction>
-     *                                 &lt;/simpleType>
-     *                               &lt;/element>
-     *                             &lt;/sequence>
-     *                           &lt;/restriction>
-     *                         &lt;/complexContent>
-     *                       &lt;/complexType>
-     *                     &lt;/element>
-     *                   &lt;/sequence>
-     *                 &lt;/extension>
-     *               &lt;/complexContent>
-     *             &lt;/complexType>
-     *           &lt;/element>
-     *           &lt;element name="DeleteObject" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;sequence&gt;
+     *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *           &lt;element name="ObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *         &lt;/sequence&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="LoadObject"&gt;
+     *             &lt;complexType&gt;
+     *               &lt;complexContent&gt;
+     *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType"&gt;
+     *                   &lt;sequence&gt;
+     *                     &lt;element name="Pair" maxOccurs="100"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="HeatingSystemType" minOccurs="0"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                                       &lt;sequence&gt;
+     *                                         &lt;element name="OpenOrNot"&gt;
+     *                                           &lt;simpleType&gt;
+     *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                               &lt;enumeration value="Opened"/&gt;
+     *                                               &lt;enumeration value="Closed"/&gt;
+     *                                             &lt;/restriction&gt;
+     *                                           &lt;/simpleType&gt;
+     *                                         &lt;/element&gt;
+     *                                         &lt;element name="CentralizedOrNot"&gt;
+     *                                           &lt;simpleType&gt;
+     *                                             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                                               &lt;enumeration value="Centralized"/&gt;
+     *                                               &lt;enumeration value="Decentralized"/&gt;
+     *                                             &lt;/restriction&gt;
+     *                                           &lt;/simpleType&gt;
+     *                                         &lt;/element&gt;
+     *                                       &lt;/sequence&gt;
+     *                                     &lt;/restriction&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/extension&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                               &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *                               &lt;element name="IndicatorValue"&gt;
+     *                                 &lt;complexType&gt;
+     *                                   &lt;complexContent&gt;
+     *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType"&gt;
+     *                                     &lt;/extension&gt;
+     *                                   &lt;/complexContent&gt;
+     *                                 &lt;/complexType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                               &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/&gt;
+     *                               &lt;choice&gt;
+     *                                 &lt;sequence&gt;
+     *                                   &lt;choice&gt;
+     *                                     &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+     *                                     &lt;sequence&gt;
+     *                                       &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+     *                                       &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+     *                                     &lt;/sequence&gt;
+     *                                   &lt;/choice&gt;
+     *                                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+     *                                 &lt;/sequence&gt;
+     *                                 &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *                               &lt;/choice&gt;
+     *                               &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+     *                               &lt;element name="FlowLineTemperature"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *                                     &lt;minExclusive value="0"/&gt;
+     *                                     &lt;fractionDigits value="1"/&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                               &lt;element name="OppositeLineTemperature"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+     *                                     &lt;minExclusive value="0"/&gt;
+     *                                     &lt;fractionDigits value="1"/&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="PlannedVolume" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                               &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType"/&gt;
+     *                               &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType"/&gt;
+     *                               &lt;element name="FeedingMode"&gt;
+     *                                 &lt;simpleType&gt;
+     *                                   &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String250Type"&gt;
+     *                                     &lt;maxLength value="250"/&gt;
+     *                                   &lt;/restriction&gt;
+     *                                 &lt;/simpleType&gt;
+     *                               &lt;/element&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="CountingResource" minOccurs="0"&gt;
+     *                       &lt;simpleType&gt;
+     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+     *                           &lt;enumeration value="R"/&gt;
+     *                           &lt;enumeration value="P"/&gt;
+     *                         &lt;/restriction&gt;
+     *                       &lt;/simpleType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+     *                     &lt;element name="Tariff" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                               &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                     &lt;element name="Norm" maxOccurs="unbounded" minOccurs="0"&gt;
+     *                       &lt;complexType&gt;
+     *                         &lt;complexContent&gt;
+     *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                             &lt;sequence&gt;
+     *                               &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                               &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                             &lt;/sequence&gt;
+     *                           &lt;/restriction&gt;
+     *                         &lt;/complexContent&gt;
+     *                       &lt;/complexType&gt;
+     *                     &lt;/element&gt;
+     *                   &lt;/sequence&gt;
+     *                 &lt;/extension&gt;
+     *               &lt;/complexContent&gt;
+     *             &lt;/complexType&gt;
+     *           &lt;/element&gt;
+     *           &lt;element name="DeleteObject" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -544,113 +674,178 @@ public class ImportSupplyResourceContractObjectAddressRequest
          * <p>The following schema fragment specifies the expected content contained within this class.
          * 
          * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType">
-         *       &lt;sequence>
-         *         &lt;element name="Pair" maxOccurs="100">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType">
-         *                 &lt;sequence>
-         *                   &lt;element name="HeatingSystemType" minOccurs="0">
-         *                     &lt;complexType>
-         *                       &lt;complexContent>
-         *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                           &lt;sequence>
-         *                             &lt;element name="OpenOrNot">
-         *                               &lt;simpleType>
-         *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                                   &lt;enumeration value="Opened"/>
-         *                                   &lt;enumeration value="Closed"/>
-         *                                 &lt;/restriction>
-         *                               &lt;/simpleType>
-         *                             &lt;/element>
-         *                             &lt;element name="CentralizedOrNot">
-         *                               &lt;simpleType>
-         *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *                                   &lt;enumeration value="Centralized"/>
-         *                                   &lt;enumeration value="Decentralized"/>
-         *                                 &lt;/restriction>
-         *                               &lt;/simpleType>
-         *                             &lt;/element>
-         *                           &lt;/sequence>
-         *                         &lt;/restriction>
-         *                       &lt;/complexContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-         *                 &lt;/sequence>
-         *               &lt;/extension>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *                   &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-         *                   &lt;element name="IndicatorValue">
-         *                     &lt;complexType>
-         *                       &lt;complexContent>
-         *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType">
-         *                         &lt;/extension>
-         *                       &lt;/complexContent>
-         *                     &lt;/complexType>
-         *                   &lt;/element>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *                   &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
-         *                   &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
-         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *         &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;sequence>
-         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-         *                   &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *                   &lt;element name="FlowLineTemperature">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                         &lt;minExclusive value="0"/>
-         *                         &lt;fractionDigits value="1"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                   &lt;element name="OppositeLineTemperature">
-         *                     &lt;simpleType>
-         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-         *                         &lt;minExclusive value="0"/>
-         *                         &lt;fractionDigits value="1"/>
-         *                       &lt;/restriction>
-         *                     &lt;/simpleType>
-         *                   &lt;/element>
-         *                 &lt;/sequence>
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *     &lt;/extension>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ObjectAddressType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="Pair" maxOccurs="100"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="HeatingSystemType" minOccurs="0"&gt;
+         *                     &lt;complexType&gt;
+         *                       &lt;complexContent&gt;
+         *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                           &lt;sequence&gt;
+         *                             &lt;element name="OpenOrNot"&gt;
+         *                               &lt;simpleType&gt;
+         *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                                   &lt;enumeration value="Opened"/&gt;
+         *                                   &lt;enumeration value="Closed"/&gt;
+         *                                 &lt;/restriction&gt;
+         *                               &lt;/simpleType&gt;
+         *                             &lt;/element&gt;
+         *                             &lt;element name="CentralizedOrNot"&gt;
+         *                               &lt;simpleType&gt;
+         *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *                                   &lt;enumeration value="Centralized"/&gt;
+         *                                   &lt;enumeration value="Decentralized"/&gt;
+         *                                 &lt;/restriction&gt;
+         *                               &lt;/simpleType&gt;
+         *                             &lt;/element&gt;
+         *                           &lt;/sequence&gt;
+         *                         &lt;/restriction&gt;
+         *                       &lt;/complexContent&gt;
+         *                     &lt;/complexType&gt;
+         *                   &lt;/element&gt;
+         *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/extension&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Quality" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                   &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+         *                   &lt;element name="IndicatorValue"&gt;
+         *                     &lt;complexType&gt;
+         *                       &lt;complexContent&gt;
+         *                         &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType"&gt;
+         *                         &lt;/extension&gt;
+         *                       &lt;/complexContent&gt;
+         *                     &lt;/complexType&gt;
+         *                   &lt;/element&gt;
+         *                   &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="OtherQualityIndicator" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                   &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/&gt;
+         *                   &lt;choice&gt;
+         *                     &lt;sequence&gt;
+         *                       &lt;choice&gt;
+         *                         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+         *                         &lt;sequence&gt;
+         *                           &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+         *                           &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+         *                         &lt;/sequence&gt;
+         *                       &lt;/choice&gt;
+         *                       &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+         *                     &lt;/sequence&gt;
+         *                     &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+         *                   &lt;/choice&gt;
+         *                   &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="TemperatureChart" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+         *                   &lt;element name="FlowLineTemperature"&gt;
+         *                     &lt;simpleType&gt;
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+         *                         &lt;minExclusive value="0"/&gt;
+         *                         &lt;fractionDigits value="1"/&gt;
+         *                       &lt;/restriction&gt;
+         *                     &lt;/simpleType&gt;
+         *                   &lt;/element&gt;
+         *                   &lt;element name="OppositeLineTemperature"&gt;
+         *                     &lt;simpleType&gt;
+         *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+         *                         &lt;minExclusive value="0"/&gt;
+         *                         &lt;fractionDigits value="1"/&gt;
+         *                       &lt;/restriction&gt;
+         *                     &lt;/simpleType&gt;
+         *                   &lt;/element&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="PlannedVolume" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                   &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType"/&gt;
+         *                   &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType"/&gt;
+         *                   &lt;element name="FeedingMode"&gt;
+         *                     &lt;simpleType&gt;
+         *                       &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String250Type"&gt;
+         *                         &lt;maxLength value="250"/&gt;
+         *                       &lt;/restriction&gt;
+         *                     &lt;/simpleType&gt;
+         *                   &lt;/element&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="CountingResource" minOccurs="0"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+         *               &lt;enumeration value="R"/&gt;
+         *               &lt;enumeration value="P"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="MeteringDeviceInformation" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+         *         &lt;element name="Tariff" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                   &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Norm" maxOccurs="unbounded" minOccurs="0"&gt;
+         *           &lt;complexType&gt;
+         *             &lt;complexContent&gt;
+         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *                 &lt;sequence&gt;
+         *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                   &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *                 &lt;/sequence&gt;
+         *               &lt;/restriction&gt;
+         *             &lt;/complexContent&gt;
+         *           &lt;/complexType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/extension&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
          * </pre>
          * 
          * 
@@ -660,7 +855,12 @@ public class ImportSupplyResourceContractObjectAddressRequest
             "pair",
             "quality",
             "otherQualityIndicator",
-            "temperatureChart"
+            "temperatureChart",
+            "plannedVolume",
+            "countingResource",
+            "meteringDeviceInformation",
+            "tariff",
+            "norm"
         })
         public static class LoadObject
             extends ObjectAddressType
@@ -674,6 +874,16 @@ public class ImportSupplyResourceContractObjectAddressRequest
             protected List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.OtherQualityIndicator> otherQualityIndicator;
             @XmlElement(name = "TemperatureChart")
             protected List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.TemperatureChart> temperatureChart;
+            @XmlElement(name = "PlannedVolume")
+            protected List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.PlannedVolume> plannedVolume;
+            @XmlElement(name = "CountingResource")
+            protected String countingResource;
+            @XmlElement(name = "MeteringDeviceInformation")
+            protected Boolean meteringDeviceInformation;
+            @XmlElement(name = "Tariff")
+            protected List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Tariff> tariff;
+            @XmlElement(name = "Norm")
+            protected List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Norm> norm;
 
             /**
              * Gets the value of the pair property.
@@ -791,6 +1001,141 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 return this.temperatureChart;
             }
 
+            /**
+             * Gets the value of the plannedVolume property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the plannedVolume property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getPlannedVolume().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.PlannedVolume }
+             * 
+             * 
+             */
+            public List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.PlannedVolume> getPlannedVolume() {
+                if (plannedVolume == null) {
+                    plannedVolume = new ArrayList<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.PlannedVolume>();
+                }
+                return this.plannedVolume;
+            }
+
+            /**
+             * Gets the value of the countingResource property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getCountingResource() {
+                return countingResource;
+            }
+
+            /**
+             * Sets the value of the countingResource property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setCountingResource(String value) {
+                this.countingResource = value;
+            }
+
+            /**
+             * Gets the value of the meteringDeviceInformation property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Boolean }
+             *     
+             */
+            public Boolean isMeteringDeviceInformation() {
+                return meteringDeviceInformation;
+            }
+
+            /**
+             * Sets the value of the meteringDeviceInformation property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Boolean }
+             *     
+             */
+            public void setMeteringDeviceInformation(Boolean value) {
+                this.meteringDeviceInformation = value;
+            }
+
+            /**
+             * Gets the value of the tariff property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the tariff property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getTariff().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Tariff }
+             * 
+             * 
+             */
+            public List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Tariff> getTariff() {
+                if (tariff == null) {
+                    tariff = new ArrayList<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Tariff>();
+                }
+                return this.tariff;
+            }
+
+            /**
+             * Gets the value of the norm property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list,
+             * not a snapshot. Therefore any modification you make to the
+             * returned list will be present inside the JAXB object.
+             * This is why there is not a <CODE>set</CODE> method for the norm property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * <pre>
+             *    getNorm().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Norm }
+             * 
+             * 
+             */
+            public List<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Norm> getNorm() {
+                if (norm == null) {
+                    norm = new ArrayList<ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Norm>();
+                }
+                return this.norm;
+            }
+
 
             /**
              * <p>Java class for anonymous complex type.
@@ -798,18 +1143,113 @@ public class ImportSupplyResourceContractObjectAddressRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-             *         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/>
-             *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *         &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "pairKey",
+                "normGUID"
+            })
+            public static class Norm {
+
+                @XmlElement(name = "PairKey", required = true)
+                protected String pairKey;
+                @XmlElement(name = "NormGUID", required = true)
+                protected String normGUID;
+
+                /**
+                 * Gets the value of the pairKey property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getPairKey() {
+                    return pairKey;
+                }
+
+                /**
+                 * Sets the value of the pairKey property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setPairKey(String value) {
+                    this.pairKey = value;
+                }
+
+                /**
+                 * Gets the value of the normGUID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getNormGUID() {
+                    return normGUID;
+                }
+
+                /**
+                 * Sets the value of the normGUID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setNormGUID(String value) {
+                    this.normGUID = value;
+                }
+
+            }
+
+
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *         &lt;element name="IndicatorName" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}OtherQualityIndicatorNameType"/&gt;
+             *         &lt;choice&gt;
+             *           &lt;sequence&gt;
+             *             &lt;choice&gt;
+             *               &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+             *               &lt;sequence&gt;
+             *                 &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+             *                 &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueNumberType"/&gt;
+             *               &lt;/sequence&gt;
+             *             &lt;/choice&gt;
+             *             &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI" minOccurs="0"/&gt;
+             *           &lt;/sequence&gt;
+             *           &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+             *         &lt;/choice&gt;
+             *         &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -819,7 +1259,11 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 "pairKey",
                 "indicatorName",
                 "number",
-                "okei"
+                "startRange",
+                "endRange",
+                "okei",
+                "correspond",
+                "additionalInformation"
             })
             public static class OtherQualityIndicator {
 
@@ -827,10 +1271,18 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 protected String pairKey;
                 @XmlElement(name = "IndicatorName", required = true)
                 protected String indicatorName;
-                @XmlElement(name = "Number", required = true)
+                @XmlElement(name = "Number")
                 protected BigDecimal number;
-                @XmlElement(name = "OKEI", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
+                @XmlElement(name = "StartRange")
+                protected BigDecimal startRange;
+                @XmlElement(name = "EndRange")
+                protected BigDecimal endRange;
+                @XmlElement(name = "OKEI", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
                 protected String okei;
+                @XmlElement(name = "Correspond")
+                protected Boolean correspond;
+                @XmlElement(name = "AdditionalInformation")
+                protected String additionalInformation;
 
                 /**
                  * Gets the value of the pairKey property.
@@ -905,6 +1357,54 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 }
 
                 /**
+                 * Gets the value of the startRange property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public BigDecimal getStartRange() {
+                    return startRange;
+                }
+
+                /**
+                 * Sets the value of the startRange property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public void setStartRange(BigDecimal value) {
+                    this.startRange = value;
+                }
+
+                /**
+                 * Gets the value of the endRange property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public BigDecimal getEndRange() {
+                    return endRange;
+                }
+
+                /**
+                 * Sets the value of the endRange property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public void setEndRange(BigDecimal value) {
+                    this.endRange = value;
+                }
+
+                /**
                  * Gets the value of the okei property.
                  * 
                  * @return
@@ -928,6 +1428,54 @@ public class ImportSupplyResourceContractObjectAddressRequest
                     this.okei = value;
                 }
 
+                /**
+                 * Gets the value of the correspond property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public Boolean isCorrespond() {
+                    return correspond;
+                }
+
+                /**
+                 * Sets the value of the correspond property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link Boolean }
+                 *     
+                 */
+                public void setCorrespond(Boolean value) {
+                    this.correspond = value;
+                }
+
+                /**
+                 * Gets the value of the additionalInformation property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getAdditionalInformation() {
+                    return additionalInformation;
+                }
+
+                /**
+                 * Sets the value of the additionalInformation property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setAdditionalInformation(String value) {
+                    this.additionalInformation = value;
+                }
+
             }
 
 
@@ -937,41 +1485,41 @@ public class ImportSupplyResourceContractObjectAddressRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType">
-             *       &lt;sequence>
-             *         &lt;element name="HeatingSystemType" minOccurs="0">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *                 &lt;sequence>
-             *                   &lt;element name="OpenOrNot">
-             *                     &lt;simpleType>
-             *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *                         &lt;enumeration value="Opened"/>
-             *                         &lt;enumeration value="Closed"/>
-             *                       &lt;/restriction>
-             *                     &lt;/simpleType>
-             *                   &lt;/element>
-             *                   &lt;element name="CentralizedOrNot">
-             *                     &lt;simpleType>
-             *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-             *                         &lt;enumeration value="Centralized"/>
-             *                         &lt;enumeration value="Decentralized"/>
-             *                       &lt;/restriction>
-             *                     &lt;/simpleType>
-             *                   &lt;/element>
-             *                 &lt;/sequence>
-             *               &lt;/restriction>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/>
-             *       &lt;/sequence>
-             *     &lt;/extension>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ContractSubjectObjectAdressType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="HeatingSystemType" minOccurs="0"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *                 &lt;sequence&gt;
+             *                   &lt;element name="OpenOrNot"&gt;
+             *                     &lt;simpleType&gt;
+             *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+             *                         &lt;enumeration value="Opened"/&gt;
+             *                         &lt;enumeration value="Closed"/&gt;
+             *                       &lt;/restriction&gt;
+             *                     &lt;/simpleType&gt;
+             *                   &lt;/element&gt;
+             *                   &lt;element name="CentralizedOrNot"&gt;
+             *                     &lt;simpleType&gt;
+             *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+             *                         &lt;enumeration value="Centralized"/&gt;
+             *                         &lt;enumeration value="Decentralized"/&gt;
+             *                       &lt;/restriction&gt;
+             *                     &lt;/simpleType&gt;
+             *                   &lt;/element&gt;
+             *                 &lt;/sequence&gt;
+             *               &lt;/restriction&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/extension&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1045,30 +1593,30 @@ public class ImportSupplyResourceContractObjectAddressRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-                 *       &lt;sequence>
-                 *         &lt;element name="OpenOrNot">
-                 *           &lt;simpleType>
-                 *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-                 *               &lt;enumeration value="Opened"/>
-                 *               &lt;enumeration value="Closed"/>
-                 *             &lt;/restriction>
-                 *           &lt;/simpleType>
-                 *         &lt;/element>
-                 *         &lt;element name="CentralizedOrNot">
-                 *           &lt;simpleType>
-                 *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-                 *               &lt;enumeration value="Centralized"/>
-                 *               &lt;enumeration value="Decentralized"/>
-                 *             &lt;/restriction>
-                 *           &lt;/simpleType>
-                 *         &lt;/element>
-                 *       &lt;/sequence>
-                 *     &lt;/restriction>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+                 *       &lt;sequence&gt;
+                 *         &lt;element name="OpenOrNot"&gt;
+                 *           &lt;simpleType&gt;
+                 *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+                 *               &lt;enumeration value="Opened"/&gt;
+                 *               &lt;enumeration value="Closed"/&gt;
+                 *             &lt;/restriction&gt;
+                 *           &lt;/simpleType&gt;
+                 *         &lt;/element&gt;
+                 *         &lt;element name="CentralizedOrNot"&gt;
+                 *           &lt;simpleType&gt;
+                 *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+                 *               &lt;enumeration value="Centralized"/&gt;
+                 *               &lt;enumeration value="Decentralized"/&gt;
+                 *             &lt;/restriction&gt;
+                 *           &lt;/simpleType&gt;
+                 *         &lt;/element&gt;
+                 *       &lt;/sequence&gt;
+                 *     &lt;/restriction&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1144,24 +1692,170 @@ public class ImportSupplyResourceContractObjectAddressRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-             *         &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
-             *         &lt;element name="IndicatorValue">
-             *           &lt;complexType>
-             *             &lt;complexContent>
-             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType">
-             *               &lt;/extension>
-             *             &lt;/complexContent>
-             *           &lt;/complexType>
-             *         &lt;/element>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *         &lt;element name="Volume" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}DRSOVolumeType"/&gt;
+             *         &lt;element name="Unit" type="{http://dom.gosuslugi.ru/schema/integration/base/}OKEIType"/&gt;
+             *         &lt;element name="FeedingMode"&gt;
+             *           &lt;simpleType&gt;
+             *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/base/}String250Type"&gt;
+             *               &lt;maxLength value="250"/&gt;
+             *             &lt;/restriction&gt;
+             *           &lt;/simpleType&gt;
+             *         &lt;/element&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "pairKey",
+                "volume",
+                "unit",
+                "feedingMode"
+            })
+            public static class PlannedVolume {
+
+                @XmlElement(name = "PairKey", required = true)
+                protected String pairKey;
+                @XmlElement(name = "Volume", required = true)
+                protected BigDecimal volume;
+                @XmlElement(name = "Unit", required = true)
+                protected String unit;
+                @XmlElement(name = "FeedingMode", required = true)
+                protected String feedingMode;
+
+                /**
+                 * Gets the value of the pairKey property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getPairKey() {
+                    return pairKey;
+                }
+
+                /**
+                 * Sets the value of the pairKey property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setPairKey(String value) {
+                    this.pairKey = value;
+                }
+
+                /**
+                 * Gets the value of the volume property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public BigDecimal getVolume() {
+                    return volume;
+                }
+
+                /**
+                 * Sets the value of the volume property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link BigDecimal }
+                 *     
+                 */
+                public void setVolume(BigDecimal value) {
+                    this.volume = value;
+                }
+
+                /**
+                 * Gets the value of the unit property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getUnit() {
+                    return unit;
+                }
+
+                /**
+                 * Sets the value of the unit property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setUnit(String value) {
+                    this.unit = value;
+                }
+
+                /**
+                 * Gets the value of the feedingMode property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getFeedingMode() {
+                    return feedingMode;
+                }
+
+                /**
+                 * Sets the value of the feedingMode property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setFeedingMode(String value) {
+                    this.feedingMode = value;
+                }
+
+            }
+
+
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *         &lt;element name="QualityIndicator" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+             *         &lt;element name="IndicatorValue"&gt;
+             *           &lt;complexType&gt;
+             *             &lt;complexContent&gt;
+             *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType"&gt;
+             *               &lt;/extension&gt;
+             *             &lt;/complexContent&gt;
+             *           &lt;/complexType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="AdditionalInformation" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1170,7 +1864,8 @@ public class ImportSupplyResourceContractObjectAddressRequest
             @XmlType(name = "", propOrder = {
                 "pairKey",
                 "qualityIndicator",
-                "indicatorValue"
+                "indicatorValue",
+                "additionalInformation"
             })
             public static class Quality {
 
@@ -1180,6 +1875,8 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 protected NsiRef qualityIndicator;
                 @XmlElement(name = "IndicatorValue", required = true)
                 protected ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue indicatorValue;
+                @XmlElement(name = "AdditionalInformation")
+                protected String additionalInformation;
 
                 /**
                  * Gets the value of the pairKey property.
@@ -1253,6 +1950,30 @@ public class ImportSupplyResourceContractObjectAddressRequest
                     this.indicatorValue = value;
                 }
 
+                /**
+                 * Gets the value of the additionalInformation property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getAdditionalInformation() {
+                    return additionalInformation;
+                }
+
+                /**
+                 * Sets the value of the additionalInformation property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setAdditionalInformation(String value) {
+                    this.additionalInformation = value;
+                }
+
 
                 /**
                  * <p>Java class for anonymous complex type.
@@ -1260,12 +1981,12 @@ public class ImportSupplyResourceContractObjectAddressRequest
                  * <p>The following schema fragment specifies the expected content contained within this class.
                  * 
                  * <pre>
-                 * &lt;complexType>
-                 *   &lt;complexContent>
-                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType">
-                 *     &lt;/extension>
-                 *   &lt;/complexContent>
-                 * &lt;/complexType>
+                 * &lt;complexType&gt;
+                 *   &lt;complexContent&gt;
+                 *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}IndicatorValueType"&gt;
+                 *     &lt;/extension&gt;
+                 *   &lt;/complexContent&gt;
+                 * &lt;/complexType&gt;
                  * </pre>
                  * 
                  * 
@@ -1288,32 +2009,16 @@ public class ImportSupplyResourceContractObjectAddressRequest
              * <p>The following schema fragment specifies the expected content contained within this class.
              * 
              * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-             *         &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/>
-             *         &lt;element name="FlowLineTemperature">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-             *               &lt;minExclusive value="0"/>
-             *               &lt;fractionDigits value="1"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *         &lt;element name="OppositeLineTemperature">
-             *           &lt;simpleType>
-             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
-             *               &lt;minExclusive value="0"/>
-             *               &lt;fractionDigits value="1"/>
-             *             &lt;/restriction>
-             *           &lt;/simpleType>
-             *         &lt;/element>
-             *       &lt;/sequence>
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *         &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
              * </pre>
              * 
              * 
@@ -1321,20 +2026,14 @@ public class ImportSupplyResourceContractObjectAddressRequest
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "pairKey",
-                "outsideTemperature",
-                "flowLineTemperature",
-                "oppositeLineTemperature"
+                "priceGUID"
             })
-            public static class TemperatureChart {
+            public static class Tariff {
 
                 @XmlElement(name = "PairKey", required = true)
                 protected String pairKey;
-                @XmlElement(name = "OutsideTemperature")
-                protected int outsideTemperature;
-                @XmlElement(name = "FlowLineTemperature", required = true)
-                protected BigDecimal flowLineTemperature;
-                @XmlElement(name = "OppositeLineTemperature", required = true)
-                protected BigDecimal oppositeLineTemperature;
+                @XmlElement(name = "PriceGUID", required = true)
+                protected String priceGUID;
 
                 /**
                  * Gets the value of the pairKey property.
@@ -1359,6 +2058,83 @@ public class ImportSupplyResourceContractObjectAddressRequest
                 public void setPairKey(String value) {
                     this.pairKey = value;
                 }
+
+                /**
+                 * Gets the value of the priceGUID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getPriceGUID() {
+                    return priceGUID;
+                }
+
+                /**
+                 * Sets the value of the priceGUID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setPriceGUID(String value) {
+                    this.priceGUID = value;
+                }
+
+            }
+
+
+            /**
+             * <p>Java class for anonymous complex type.
+             * 
+             * <p>The following schema fragment specifies the expected content contained within this class.
+             * 
+             * <pre>
+             * &lt;complexType&gt;
+             *   &lt;complexContent&gt;
+             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+             *       &lt;sequence&gt;
+             *         &lt;element name="OutsideTemperature" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+             *         &lt;element name="FlowLineTemperature"&gt;
+             *           &lt;simpleType&gt;
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+             *               &lt;minExclusive value="0"/&gt;
+             *               &lt;fractionDigits value="1"/&gt;
+             *             &lt;/restriction&gt;
+             *           &lt;/simpleType&gt;
+             *         &lt;/element&gt;
+             *         &lt;element name="OppositeLineTemperature"&gt;
+             *           &lt;simpleType&gt;
+             *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+             *               &lt;minExclusive value="0"/&gt;
+             *               &lt;fractionDigits value="1"/&gt;
+             *             &lt;/restriction&gt;
+             *           &lt;/simpleType&gt;
+             *         &lt;/element&gt;
+             *       &lt;/sequence&gt;
+             *     &lt;/restriction&gt;
+             *   &lt;/complexContent&gt;
+             * &lt;/complexType&gt;
+             * </pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "outsideTemperature",
+                "flowLineTemperature",
+                "oppositeLineTemperature"
+            })
+            public static class TemperatureChart {
+
+                @XmlElement(name = "OutsideTemperature")
+                protected int outsideTemperature;
+                @XmlElement(name = "FlowLineTemperature", required = true)
+                protected BigDecimal flowLineTemperature;
+                @XmlElement(name = "OppositeLineTemperature", required = true)
+                protected BigDecimal oppositeLineTemperature;
 
                 /**
                  * Gets the value of the outsideTemperature property.

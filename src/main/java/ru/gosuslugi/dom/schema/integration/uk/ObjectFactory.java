@@ -34,14 +34,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportDocumentMunicipalRequest }
-     * 
-     */
-    public ImportDocumentMunicipalRequest createImportDocumentMunicipalRequest() {
-        return new ImportDocumentMunicipalRequest();
-    }
-
-    /**
      * Create an instance of {@link ImportDocumentRegionRequest }
      * 
      */
@@ -50,11 +42,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocumentFederalType }
+     * Create an instance of {@link ImportDocumentMunicipalRequest }
      * 
      */
-    public DocumentFederalType createDocumentFederalType() {
-        return new DocumentFederalType();
+    public ImportDocumentMunicipalRequest createImportDocumentMunicipalRequest() {
+        return new ImportDocumentMunicipalRequest();
     }
 
     /**
@@ -66,11 +58,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportDocumentRegionRequest.Document }
+     * Create an instance of {@link DocumentFederalType }
      * 
      */
-    public ImportDocumentRegionRequest.Document createImportDocumentRegionRequestDocument() {
-        return new ImportDocumentRegionRequest.Document();
+    public DocumentFederalType createDocumentFederalType() {
+        return new DocumentFederalType();
     }
 
     /**
@@ -82,27 +74,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ImportDocumentRegionRequest.Document }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDocumentType }
-     * 
-     */
-    public ExportDocumentType createExportDocumentType() {
-        return new ExportDocumentType();
-    }
-
-    /**
-     * Create an instance of {@link ExportDocumentResult }
-     * 
-     */
-    public ExportDocumentResult createExportDocumentResult() {
-        return new ExportDocumentResult();
+    public ImportDocumentRegionRequest.Document createImportDocumentRegionRequestDocument() {
+        return new ImportDocumentRegionRequest.Document();
     }
 
     /**
@@ -114,27 +90,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocumentRegionExportType }
+     * Create an instance of {@link ExportDocumentResult }
      * 
      */
-    public DocumentRegionExportType createDocumentRegionExportType() {
-        return new DocumentRegionExportType();
+    public ExportDocumentResult createExportDocumentResult() {
+        return new ExportDocumentResult();
     }
 
     /**
-     * Create an instance of {@link DocumentRegionType }
+     * Create an instance of {@link ExportDocumentType }
      * 
      */
-    public DocumentRegionType createDocumentRegionType() {
-        return new DocumentRegionType();
+    public ExportDocumentType createExportDocumentType() {
+        return new ExportDocumentType();
     }
 
     /**
-     * Create an instance of {@link DocumentPortalExportType }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public DocumentPortalExportType createDocumentPortalExportType() {
-        return new DocumentPortalExportType();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -146,11 +122,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocumentMunicipalExportType }
+     * Create an instance of {@link DocumentPortalExportType }
      * 
      */
-    public DocumentMunicipalExportType createDocumentMunicipalExportType() {
-        return new DocumentMunicipalExportType();
+    public DocumentPortalExportType createDocumentPortalExportType() {
+        return new DocumentPortalExportType();
     }
 
     /**
@@ -162,11 +138,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DocumentFederalType.Аudience }
+     * Create an instance of {@link DocumentMunicipalExportType }
      * 
      */
-    public DocumentFederalType.Аudience createDocumentFederalTypeАudience() {
-        return new DocumentFederalType.Аudience();
+    public DocumentMunicipalExportType createDocumentMunicipalExportType() {
+        return new DocumentMunicipalExportType();
+    }
+
+    /**
+     * Create an instance of {@link DocumentRegionType }
+     * 
+     */
+    public DocumentRegionType createDocumentRegionType() {
+        return new DocumentRegionType();
+    }
+
+    /**
+     * Create an instance of {@link DocumentRegionExportType }
+     * 
+     */
+    public DocumentRegionExportType createDocumentRegionExportType() {
+        return new DocumentRegionExportType();
     }
 
     /**
@@ -178,19 +170,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportDocumentRegionRequest.Document.ImportDocument }
+     * Create an instance of {@link DocumentFederalType.Аudience }
      * 
      */
-    public ImportDocumentRegionRequest.Document.ImportDocument createImportDocumentRegionRequestDocumentImportDocument() {
-        return new ImportDocumentRegionRequest.Document.ImportDocument();
-    }
-
-    /**
-     * Create an instance of {@link ImportDocumentRegionRequest.Document.AnnulmentDocument }
-     * 
-     */
-    public ImportDocumentRegionRequest.Document.AnnulmentDocument createImportDocumentRegionRequestDocumentAnnulmentDocument() {
-        return new ImportDocumentRegionRequest.Document.AnnulmentDocument();
+    public DocumentFederalType.Аudience createDocumentFederalTypeАudience() {
+        return new DocumentFederalType.Аudience();
     }
 
     /**
@@ -210,8 +194,28 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link ImportDocumentRegionRequest.Document.ImportDocument }
      * 
+     */
+    public ImportDocumentRegionRequest.Document.ImportDocument createImportDocumentRegionRequestDocumentImportDocument() {
+        return new ImportDocumentRegionRequest.Document.ImportDocument();
+    }
+
+    /**
+     * Create an instance of {@link ImportDocumentRegionRequest.Document.AnnulmentDocument }
+     * 
+     */
+    public ImportDocumentRegionRequest.Document.AnnulmentDocument createImportDocumentRegionRequestDocumentAnnulmentDocument() {
+        return new ImportDocumentRegionRequest.Document.AnnulmentDocument();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/uk/", name = "DocumentGUID")
     public JAXBElement<String> createDocumentGUID(String value) {

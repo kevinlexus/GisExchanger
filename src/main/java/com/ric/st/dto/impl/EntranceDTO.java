@@ -1,6 +1,6 @@
 package com.ric.st.dto.impl;
 
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.PrepDTOs;
 
 
@@ -18,7 +18,7 @@ public class EntranceDTO extends BaseDTO implements PrepDTOs {
 
 	// Номер подъезда
 	private String num;
-	
+
 	public String getNum() {
 		return num;
 	}

@@ -16,15 +16,15 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="NsiElementFieldType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Name" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}FieldNameType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="NsiElementFieldType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Name" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}FieldNameType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -34,17 +34,17 @@ import javax.xml.bind.annotation.XmlType;
     "name"
 })
 @XmlSeeAlso({
-    NsiElementIntegerFieldType.class,
-    NsiElementNsiFieldType.class,
-    NsiElementBooleanFieldType.class,
-    NsiElementAttachmentFieldType.class,
     NsiElementStringFieldType.class,
-    NsiElementNsiRefFieldType.class,
+    NsiElementBooleanFieldType.class,
+    NsiElementFloatFieldType.class,
+    NsiElementDateFieldType.class,
+    NsiElementIntegerFieldType.class,
     NsiElementEnumFieldType.class,
+    NsiElementNsiFieldType.class,
+    NsiElementNsiRefFieldType.class,
     NsiElementOkeiRefFieldType.class,
     NsiElementFiasAddressRefFieldType.class,
-    NsiElementDateFieldType.class,
-    NsiElementFloatFieldType.class
+    NsiElementAttachmentFieldType.class
 })
 public abstract class NsiElementFieldType {
 

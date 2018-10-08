@@ -16,25 +16,25 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="IndicatorValueType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/>
- *             &lt;sequence>
- *               &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/>
- *               &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/>
- *             &lt;/sequence>
- *           &lt;/choice>
- *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/>
- *         &lt;/sequence>
- *         &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="IndicatorValueType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/&gt;
+ *             &lt;sequence&gt;
+ *               &lt;element name="StartRange" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/&gt;
+ *               &lt;element name="EndRange" type="{http://dom.gosuslugi.ru/schema/integration/volume-quality/}IndicatorValueNumberType"/&gt;
+ *             &lt;/sequence&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}OKEI"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;element name="Correspond" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.BindingProvider;
 
+import com.ric.st.ReqProps;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,12 @@ public class NsiCommonBindingBuilder implements NsiCommonBindingBuilders {
     private EntityManager em;
 	@Autowired
 	private SoapConfig config;
-    
+	@Autowired
+	private ReqProps reqProp;
+
 	private NsiService service;
 	private NsiPortsType port;
-	private SoapBuilder sb; 
+	private SoapBuilder sb;
 
 	private void setUp() throws CantSendSoap {
     	// создать сервис и порт
@@ -56,43 +59,43 @@ public class NsiCommonBindingBuilder implements NsiCommonBindingBuilders {
 	/**
 	 * Получить список справочников
 	 * @param grp - вид справочника (NSI, NISRAO)
-	 * @throws Fault 
-	 * @throws CantSendSoap 
-	 * @throws CantSignSoap 
+	 * @throws Fault
+	 * @throws CantSendSoap
+	 * @throws CantSignSoap
 	 * @throws Exception
 	 */
-	public ExportNsiListResult getNsiList(String grp) throws Fault, CantSignSoap, CantSendSoap { 
+	public ExportNsiListResult getNsiList(String grp) throws Fault, CantSignSoap, CantSendSoap {
 		// выполнить инициализацию
 		setUp();
 
 		ExportNsiListRequest req = new ExportNsiListRequest();
 		req.setListGroup(grp);
 		req.setId("foo");
-		req.setVersion(req.getVersion());
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
-		
+
 		ExportNsiListResult ex = port.exportNsiList(req);
 		return ex;
 	}
-	
+
 	/**
 	 * Получить справочник
 	 * @param grp - вид справочника (NSI, NISRAO)
-	 * @throws Fault 
-	 * @throws CantSendSoap 
-	 * @throws CantSignSoap 
+	 * @throws Fault
+	 * @throws CantSendSoap
+	 * @throws CantSignSoap
 	 * @throws Exception
 	 */
 	public ExportNsiItemResult getNsiItem(String grp, BigInteger id) throws Fault, CantSignSoap, CantSendSoap {
 		// выполнить инициализацию
 		setUp();
-		
+
 		ExportNsiItemRequest req = new ExportNsiItemRequest();
 	    req.setListGroup(grp);
 	    req.setRegistryNumber(id);
 		//req.setId("foo");
-		req.setVersion(req.getVersion());
-		
+		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
+
 		ExportNsiItemResult ex = port.exportNsiItem(req);
 
 		// освободить ресурсы

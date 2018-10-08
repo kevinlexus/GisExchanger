@@ -19,56 +19,57 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType">
- *       &lt;choice minOccurs="0">
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/>
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ImportResult" maxOccurs="unbounded"/>
- *         &lt;element name="exportHouseResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportHouseResultType"/>
- *         &lt;element name="exportMeteringDeviceDataResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportMeteringDeviceDataResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportStatusCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusCAChResultType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="exportCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportCAChResultType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="exportStatusPublicPropertyContractResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusPublicPropertyContractResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportAccountResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountResultType" maxOccurs="unbounded"/>
- *         &lt;element name="VotingProtocol" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType" maxOccurs="unbounded"/>
- *         &lt;element name="exportSupplyResourceContractResult" maxOccurs="unbounded">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="1000"/>
- *                   &lt;choice>
- *                     &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                     &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="exportAccountIndividualServicesResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountIndividualServicesResultType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="exportSupplyResourceContractObjectAddress" maxOccurs="unbounded">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="ObjectAddress" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractObjectAddressResultType" maxOccurs="1000"/>
- *                   &lt;choice>
- *                     &lt;element name="ExportObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *                     &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *                   &lt;/choice>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="rolloverCAChStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportRolloverStatusCAChResultType"/>
- *       &lt;/choice>
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType"&gt;
+ *       &lt;choice minOccurs="0"&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ImportResult" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportHouseResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportHouseResultType"/&gt;
+ *         &lt;element name="exportMeteringDeviceDataResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportMeteringDeviceDataResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportStatusCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusCAChResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="exportCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportCAChResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="exportStatusPublicPropertyContractResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusPublicPropertyContractResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportAccountResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="VotingProtocol" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportVotingProtocolResultType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="exportSupplyResourceContractResult" maxOccurs="unbounded"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="1000"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                     &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="exportAccountIndividualServicesResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountIndividualServicesResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="exportSupplyResourceContractObjectAddress" maxOccurs="unbounded"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ObjectAddress" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractObjectAddressResultType" maxOccurs="1000"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;element name="ExportObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                     &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="rolloverCAChStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportRolloverStatusCAChResultType"/&gt;
+ *         &lt;element name="exportBriefSocialHireContract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportBriefSocialHireContractResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.0.0.1""/&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -87,7 +88,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "exportSupplyResourceContractResult",
     "exportAccountIndividualServicesResult",
     "exportSupplyResourceContractObjectAddress",
-    "rolloverCAChStatus"
+    "rolloverCAChStatus",
+    "exportBriefSocialHireContract"
 })
 @XmlRootElement(name = "getStateResult")
 public class GetStateResult
@@ -110,6 +112,7 @@ public class GetStateResult
     protected List<ExportAccountIndividualServicesResultType> exportAccountIndividualServicesResult;
     protected List<GetStateResult.ExportSupplyResourceContractObjectAddress> exportSupplyResourceContractObjectAddress;
     protected ExportRolloverStatusCAChResultType rolloverCAChStatus;
+    protected List<ExportBriefSocialHireContractResultType> exportBriefSocialHireContract;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -476,6 +479,35 @@ public class GetStateResult
     }
 
     /**
+     * Gets the value of the exportBriefSocialHireContract property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the exportBriefSocialHireContract property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getExportBriefSocialHireContract().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ExportBriefSocialHireContractResultType }
+     * 
+     * 
+     */
+    public List<ExportBriefSocialHireContractResultType> getExportBriefSocialHireContract() {
+        if (exportBriefSocialHireContract == null) {
+            exportBriefSocialHireContract = new ArrayList<ExportBriefSocialHireContractResultType>();
+        }
+        return this.exportBriefSocialHireContract;
+    }
+
+    /**
      * Gets the value of the version property.
      * 
      * @return
@@ -510,19 +542,19 @@ public class GetStateResult
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="ObjectAddress" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractObjectAddressResultType" maxOccurs="1000"/>
-     *         &lt;choice>
-     *           &lt;element name="ExportObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *           &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ObjectAddress" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractObjectAddressResultType" maxOccurs="1000"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="ExportObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *           &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -628,19 +660,19 @@ public class GetStateResult
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="1000"/>
-     *         &lt;choice>
-     *           &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
-     *           &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
-     *         &lt;/choice>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportSupplyResourceContractResultType" maxOccurs="1000"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *           &lt;element name="ExportContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

@@ -19,26 +19,26 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="NsiElementType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Code" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiCodeType"/>
- *         &lt;element name="GUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/>
- *         &lt;choice>
- *           &lt;element name="Modified" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *           &lt;sequence>
- *             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *           &lt;/sequence>
- *         &lt;/choice>
- *         &lt;element name="IsActual" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="NsiElementField" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementFieldType" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="ChildElement" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="NsiElementType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Code" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiCodeType"/&gt;
+ *         &lt;element name="GUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="Modified" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *             &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="IsActual" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="NsiElementField" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementFieldType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="ChildElement" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}NsiElementType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

@@ -18,64 +18,64 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ExportExaminationResultsType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="DocumentType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/>
- *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/>
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;choice>
- *           &lt;element name="HasNoOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *           &lt;sequence>
- *             &lt;element name="HasOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *             &lt;element name="IdentifiedOffencesInfo" minOccurs="0">
- *               &lt;complexType>
- *                 &lt;complexContent>
- *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                     &lt;sequence>
- *                       &lt;element name="NatureOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="DetailsMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="RegulationOffencedLegalAct" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
- *                       &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
- *                       &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
- *                       &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *                       &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                       &lt;element name="AppealInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *                     &lt;/sequence>
- *                   &lt;/restriction>
- *                 &lt;/complexContent>
- *               &lt;/complexType>
- *             &lt;/element>
- *           &lt;/sequence>
- *         &lt;/choice>
- *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
- *         &lt;element name="Duration" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Days" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
- *                   &lt;element name="Hours" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}TimeUnitCountType" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Place" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *         &lt;element name="InspectionPersons" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *         &lt;element name="AbsentRepresentatives" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="RepresentativesRegionPersons" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *         &lt;element name="SettlingDocumentPlace" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
- *         &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ExportExaminationResultsType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="DocumentType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *         &lt;element name="Number" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String255Type"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="HasNoOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *           &lt;sequence&gt;
+ *             &lt;element name="HasOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *             &lt;element name="IdentifiedOffencesInfo" minOccurs="0"&gt;
+ *               &lt;complexType&gt;
+ *                 &lt;complexContent&gt;
+ *                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                     &lt;sequence&gt;
+ *                       &lt;element name="NatureOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="DetailsMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="RegulationOffencedLegalAct" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+ *                       &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+ *                       &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+ *                       &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *                       &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                       &lt;element name="AppealInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *                     &lt;/sequence&gt;
+ *                   &lt;/restriction&gt;
+ *                 &lt;/complexContent&gt;
+ *               &lt;/complexType&gt;
+ *             &lt;/element&gt;
+ *           &lt;/sequence&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="From" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="To" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="Duration" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Days" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+ *                   &lt;element name="Hours" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}TimeUnitCountType" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="Place" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *         &lt;element name="InspectionPersons" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *         &lt;element name="AbsentRepresentatives" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="RepresentativesRegionPersons" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *         &lt;element name="SettlingDocumentPlace" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+ *         &lt;element name="AdditionalInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String4000Type" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -501,16 +501,16 @@ public class ExportExaminationResultsType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Days" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
-     *         &lt;element name="Hours" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}TimeUnitCountType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Days" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+     *         &lt;element name="Hours" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}TimeUnitCountType" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 
@@ -584,25 +584,25 @@ public class ExportExaminationResultsType {
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="NatureOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="DetailsMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="RegulationOffencedLegalAct" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
-     *         &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
-     *         &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/>
-     *         &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-     *         &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *         &lt;element name="AppealInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="NatureOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="DetailsMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="RegulationOffencedLegalAct" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+     *         &lt;element name="OtherMismatch" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+     *         &lt;element name="PersonsOffenceList" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String1024Type" minOccurs="0"/&gt;
+     *         &lt;element name="MaterialsDirectionAgency" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="MaterialsDirectionDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+     *         &lt;element name="ApplyingMeasures" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="PersonsAdministrativeResponsibilityInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="PermittingDocumensAnnulmentInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *         &lt;element name="AppealInfo" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}String2000Type" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      * 
      * 

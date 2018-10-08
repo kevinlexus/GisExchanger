@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ric.cmn.Utl;
-import com.ric.bill.model.exs.Task;
+import com.dic.bill.model.exs.Task;
 import com.ric.st.dto.PrepDTOs;
 
 /**
@@ -27,7 +27,7 @@ public class BaseDTO implements PrepDTOs {
 	private Task task;
 	// Дата добавления/обновления
 	private Date updDt;
-	
+
 	// Конструктор
 	BaseDTO(Task task) {
 		// Получить транспортный GUID
@@ -43,7 +43,7 @@ public class BaseDTO implements PrepDTOs {
 		private String errorCode;
 		// Описание ошибки из ГИС ЖКХ
 		private String errorDesc;
-		
+
 		// Конструктор
 		public Error(String errorCode, String errorDesc) {
 			super();
@@ -67,8 +67,8 @@ public class BaseDTO implements PrepDTOs {
 			this.errorDesc = errorDesc;
 		}
 	}
-	
-	
+
+
 	public void setGuid(String guid) {
 		this.guid = guid;
 	}
@@ -106,7 +106,7 @@ public class BaseDTO implements PrepDTOs {
 	private void setLstError(List<Error> lstError) {
 		this.lstError = lstError;
 	}
-	
+
 	public Date getUpdDt() {
 	    return this.updDt;
 	}
@@ -123,5 +123,5 @@ public class BaseDTO implements PrepDTOs {
 		this.task = task;
 	}
 
-	
+
 }

@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
-    }
-
-    /**
      * Create an instance of {@link ExportNsiPagingItemResult }
      * 
      */
@@ -46,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult.NsiPagingItem }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public GetStateResult.NsiPagingItem createGetStateResultNsiPagingItem() {
-        return new GetStateResult.NsiPagingItem();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -59,6 +51,30 @@ public class ObjectFactory {
      */
     public ExportNsiListRequest createExportNsiListRequest() {
         return new ExportNsiListRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportNsiListResult }
+     * 
+     */
+    public ExportNsiListResult createExportNsiListResult() {
+        return new ExportNsiListResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportNsiItemRequest }
+     * 
+     */
+    public ExportNsiItemRequest createExportNsiItemRequest() {
+        return new ExportNsiItemRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportNsiItemResult }
+     * 
+     */
+    public ExportNsiItemResult createExportNsiItemResult() {
+        return new ExportNsiItemResult();
     }
 
     /**
@@ -78,27 +94,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiItemRequest }
+     * Create an instance of {@link GetStateResult.NsiPagingItem }
      * 
      */
-    public ExportNsiItemRequest createExportNsiItemRequest() {
-        return new ExportNsiItemRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportNsiListResult }
-     * 
-     */
-    public ExportNsiListResult createExportNsiListResult() {
-        return new ExportNsiListResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportNsiItemResult }
-     * 
-     */
-    public ExportNsiItemResult createExportNsiItemResult() {
-        return new ExportNsiItemResult();
+    public GetStateResult.NsiPagingItem createGetStateResultNsiPagingItem() {
+        return new GetStateResult.NsiPagingItem();
     }
 
 }

@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link VolumeMeteringValueExportBaseType }
+     * 
+     */
+    public VolumeMeteringValueExportBaseType createVolumeMeteringValueExportBaseType() {
+        return new VolumeMeteringValueExportBaseType();
+    }
+
+    /**
      * Create an instance of {@link ElectricMeteringValueExportType }
      * 
      */
@@ -59,46 +67,6 @@ public class ObjectFactory {
      */
     public OneRateMeteringValueExportType createOneRateMeteringValueExportType() {
         return new OneRateMeteringValueExportType();
-    }
-
-    /**
-     * Create an instance of {@link VolumeMeteringValueExportBaseType }
-     * 
-     */
-    public VolumeMeteringValueExportBaseType createVolumeMeteringValueExportBaseType() {
-        return new VolumeMeteringValueExportBaseType();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues createImportMeteringDeviceValuesRequestMeteringDevicesValues() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesVolumeDeviceValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesElectricDeviceValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesOneRateDeviceValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue();
     }
 
     /**
@@ -142,19 +110,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues createImportMeteringDeviceValuesRequestMeteringDevicesValues() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues();
     }
 
     /**
-     * Create an instance of {@link ExportMeteringDeviceHistoryResult }
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue }
      * 
      */
-    public ExportMeteringDeviceHistoryResult createExportMeteringDeviceHistoryResult() {
-        return new ExportMeteringDeviceHistoryResult();
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesVolumeDeviceValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue }
+     * 
+     */
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesElectricDeviceValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue }
+     * 
+     */
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesOneRateDeviceValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue();
     }
 
     /**
@@ -166,43 +150,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OneRateCurrentMeteringValueExportType }
+     * Create an instance of {@link ExportMeteringDeviceHistoryResult }
      * 
      */
-    public OneRateCurrentMeteringValueExportType createOneRateCurrentMeteringValueExportType() {
-        return new OneRateCurrentMeteringValueExportType();
+    public ExportMeteringDeviceHistoryResult createExportMeteringDeviceHistoryResult() {
+        return new ExportMeteringDeviceHistoryResult();
     }
 
     /**
-     * Create an instance of {@link VolumeCurrentMeteringValueExportType }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public VolumeCurrentMeteringValueExportType createVolumeCurrentMeteringValueExportType() {
-        return new VolumeCurrentMeteringValueExportType();
-    }
-
-    /**
-     * Create an instance of {@link VolumeMeteringValueImportType }
-     * 
-     */
-    public VolumeMeteringValueImportType createVolumeMeteringValueImportType() {
-        return new VolumeMeteringValueImportType();
-    }
-
-    /**
-     * Create an instance of {@link ElectricCurrentMeteringValueExportType }
-     * 
-     */
-    public ElectricCurrentMeteringValueExportType createElectricCurrentMeteringValueExportType() {
-        return new ElectricCurrentMeteringValueExportType();
-    }
-
-    /**
-     * Create an instance of {@link ElectricMeteringValueImportType }
-     * 
-     */
-    public ElectricMeteringValueImportType createElectricMeteringValueImportType() {
-        return new ElectricMeteringValueImportType();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -214,11 +174,59 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ElectricMeteringValueImportType }
+     * 
+     */
+    public ElectricMeteringValueImportType createElectricMeteringValueImportType() {
+        return new ElectricMeteringValueImportType();
+    }
+
+    /**
+     * Create an instance of {@link VolumeMeteringValueImportType }
+     * 
+     */
+    public VolumeMeteringValueImportType createVolumeMeteringValueImportType() {
+        return new VolumeMeteringValueImportType();
+    }
+
+    /**
+     * Create an instance of {@link OneRateCurrentMeteringValueExportType }
+     * 
+     */
+    public OneRateCurrentMeteringValueExportType createOneRateCurrentMeteringValueExportType() {
+        return new OneRateCurrentMeteringValueExportType();
+    }
+
+    /**
+     * Create an instance of {@link ElectricCurrentMeteringValueExportType }
+     * 
+     */
+    public ElectricCurrentMeteringValueExportType createElectricCurrentMeteringValueExportType() {
+        return new ElectricCurrentMeteringValueExportType();
+    }
+
+    /**
+     * Create an instance of {@link VolumeCurrentMeteringValueExportType }
+     * 
+     */
+    public VolumeCurrentMeteringValueExportType createVolumeCurrentMeteringValueExportType() {
+        return new VolumeCurrentMeteringValueExportType();
+    }
+
+    /**
      * Create an instance of {@link VolumeMeteringValueExportType.VerificationValue }
      * 
      */
     public VolumeMeteringValueExportType.VerificationValue createVolumeMeteringValueExportTypeVerificationValue() {
         return new VolumeMeteringValueExportType.VerificationValue();
+    }
+
+    /**
+     * Create an instance of {@link VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit }
+     * 
+     */
+    public VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit createVolumeMeteringValueExportBaseTypeMeteringValueInDefaultUnit() {
+        return new VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit();
     }
 
     /**
@@ -235,38 +243,6 @@ public class ObjectFactory {
      */
     public OneRateMeteringValueExportType.MeteringValueInDefaultUnit createOneRateMeteringValueExportTypeMeteringValueInDefaultUnit() {
         return new OneRateMeteringValueExportType.MeteringValueInDefaultUnit();
-    }
-
-    /**
-     * Create an instance of {@link VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit }
-     * 
-     */
-    public VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit createVolumeMeteringValueExportBaseTypeMeteringValueInDefaultUnit() {
-        return new VolumeMeteringValueExportBaseType.MeteringValueInDefaultUnit();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesVolumeDeviceValueVerificationValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesElectricDeviceValueVerificationValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue();
-    }
-
-    /**
-     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue }
-     * 
-     */
-    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesOneRateDeviceValueVerificationValue() {
-        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue();
     }
 
     /**
@@ -299,6 +275,30 @@ public class ObjectFactory {
      */
     public ExportMeteringDeviceHistoryResultType.OneRateDeviceValue.Values.VerificationValue createExportMeteringDeviceHistoryResultTypeOneRateDeviceValueValuesVerificationValue() {
         return new ExportMeteringDeviceHistoryResultType.OneRateDeviceValue.Values.VerificationValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue }
+     * 
+     */
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesVolumeDeviceValueVerificationValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.VolumeDeviceValue.VerificationValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue }
+     * 
+     */
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesElectricDeviceValueVerificationValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue.VerificationValue();
+    }
+
+    /**
+     * Create an instance of {@link ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue }
+     * 
+     */
+    public ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue createImportMeteringDeviceValuesRequestMeteringDevicesValuesOneRateDeviceValueVerificationValue() {
+        return new ImportMeteringDeviceValuesRequest.MeteringDevicesValues.OneRateDeviceValue.VerificationValue();
     }
 
 }

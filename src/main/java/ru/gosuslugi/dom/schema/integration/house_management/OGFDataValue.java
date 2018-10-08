@@ -17,21 +17,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OGFDataValue">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="StringValue" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="FloatValue" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="DateTimeValue" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="IntegerValue" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="BooleanValue" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="NsiCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="File" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/choice>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="OGFDataValue"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="StringValue" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="FloatValue" type="{http://www.w3.org/2001/XMLSchema}float"/&gt;
+ *         &lt;element name="DateTimeValue" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;element name="IntegerValue" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="BooleanValue" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="NsiCode" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="File" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/choice&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
