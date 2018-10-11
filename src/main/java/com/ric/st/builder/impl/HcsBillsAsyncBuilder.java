@@ -221,7 +221,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		AckRequest ack = null;
@@ -331,7 +331,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 
 		// УК
 		Eolink uk = reqProp.getFoundTask().getEolink();
@@ -529,7 +529,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         taskMng.logTask(task, true, null);
 
         // установить параметры SOAP
-        //reqProp.setPropAfter(task, sb);
+        reqProp.setPropAfter(task);
         // трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         AckRequest ack = null;
@@ -608,7 +608,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // Трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         // Установить параметры SOAP
-        //reqProp.setPropAfter(task, sb);
+        reqProp.setPropAfter(task);
         // получить состояние
         ru.gosuslugi.dom.schema.integration.bills.GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -716,7 +716,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		AckRequest ack = null;
@@ -1484,7 +1484,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 

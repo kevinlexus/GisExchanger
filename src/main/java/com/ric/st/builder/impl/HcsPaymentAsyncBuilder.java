@@ -168,7 +168,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	public void importSupplierNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -281,7 +281,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
@@ -349,7 +349,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	public void importNotificationsOfOrderExecutionCancelation(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -447,7 +447,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		// получить состояние
@@ -515,7 +515,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -564,7 +564,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		// получить состояние

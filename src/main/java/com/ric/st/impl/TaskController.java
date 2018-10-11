@@ -165,7 +165,7 @@ public class TaskController implements TaskControllers {
 							TaskPar taskPar = tb.getTrgTask(task);
 							if (taskPar!= null) {
 								// активировать все зависимые задания
-								log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
+								//log.info("******* Активировано повторяемое задание Task.id={}", task.getId());
 								tb.activateRptTask(task);
 								// добавить в список выполненных заданий
 								tb.setProcTask(taskPar);

@@ -275,7 +275,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
@@ -384,7 +384,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -426,7 +426,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
@@ -518,7 +518,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
-		//reqProp.setPropAfter(task, sb);
+		reqProp.setPropAfter(task);
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 
