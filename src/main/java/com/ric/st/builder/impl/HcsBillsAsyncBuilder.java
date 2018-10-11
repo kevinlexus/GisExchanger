@@ -132,13 +132,14 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 * Инициализация
 	 */
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap {
 		BillsServiceAsync service = new BillsServiceAsync();
     	port = service.getBillsPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		//reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
@@ -220,7 +221,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		AckRequest ack = null;
@@ -330,7 +331,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 
 		// УК
 		Eolink uk = reqProp.getFoundTask().getEolink();
@@ -528,7 +529,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         taskMng.logTask(task, true, null);
 
         // установить параметры SOAP
-        reqProp.setProp(task, sb);
+        //reqProp.setPropAfter(task, sb);
         // трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         AckRequest ack = null;
@@ -607,7 +608,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // Трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         // Установить параметры SOAP
-        reqProp.setProp(task, sb);
+        //reqProp.setPropAfter(task, sb);
         // получить состояние
         ru.gosuslugi.dom.schema.integration.bills.GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -630,7 +631,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
                 if (pdoc != null) {
                     if (pdoc.getUn() == null) {
-                        // по каким то причинам пустой ID документа в ГИС, заполнить его
+                        // по каким то причинам пустой ID документа в биллинге, заполнить его
                         log.trace("по каким то причинам пустой ID документа в ГИС, заполнить его PaymentDocumentID={}",
                                 paymentDocument.getPaymentDocumentID());
                         pdoc.setUn(paymentDocument.getPaymentDocumentID());
@@ -715,7 +716,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 		AckRequest ack = null;
@@ -1483,7 +1484,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 

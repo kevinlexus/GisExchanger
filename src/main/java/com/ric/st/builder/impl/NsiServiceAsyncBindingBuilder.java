@@ -75,14 +75,15 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	private SoapBuilder sb;
 
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
     	// создать сервис и порт
 		service = new NsiServiceAsync();
     	port = service.getNsiPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 	}
@@ -179,7 +180,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		//log.info("******* Task.id={}, экспорт внутреннего справочника организации, вызов", task.getId());
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		AckRequest ack = null;
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
@@ -224,9 +225,9 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	public void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
 		//log.info("******* Task.id={}, экспорт внутреннего справочника организации, запрос ответа", task.getId());
 		taskMng.logTask(task, true, null);
-		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// получить состояние запроса
 		ru.gosuslugi.dom.schema.integration.nsi.GetStateResult retState = getState2(reqProp.getFoundTask());
 		if (retState == null) {

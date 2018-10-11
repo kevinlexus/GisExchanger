@@ -178,7 +178,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_UPD_HOUSE" :
 							// Импорт объектов дома
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								// Обновление объектов дома
 								hb.importHouseUOData(task);
@@ -190,13 +190,13 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_CONTR":
 							// Экспорт из ГИС ЖКХ договора управления по указанному в EOLINK дому
-							hb.setUp();
+							hb.setUp(task);
 							hb.exportContract(task);
 
 							break;
 						case "GIS_EXP_CACH_DATA":
 							// Экспорт из ГИС ЖКХ уставов УК
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт уставов
 								hb.exportCaChData(task);
@@ -207,7 +207,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_HOUSE":
 							// Экспорт из ГИС ЖКХ объектов дома
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт объектов дома
 								hb.exportHouseData(task);
@@ -218,7 +218,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_ACCS":
 							// Экспорт из ГИС ЖКХ лиц.счетов
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								hb.exportAccountData(task);
 							} else if (state.equals("ACK")) {
@@ -228,7 +228,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_METERS":
 							// Экспорт из ГИС ЖКХ приборов учета
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								hb.exportDeviceData(task);
 							} else if (state.equals("ACK")) {
@@ -237,7 +237,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_ACCS":
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт лицевых счетов
 								hb.importAccountData(task);
@@ -247,7 +247,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_METERS":
-							hb.setUp();
+							hb.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт счетчиков
 								hb.importMeteringDeviceData(task);
@@ -257,7 +257,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_METER_VALS":
-							dm.setUp();
+							dm.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт показаний счетчиков
 								dm.importMeteringDeviceValues(task);
@@ -267,7 +267,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_EXP_METER_VALS":
-							dm.setUp();
+							dm.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт показаний счетчиков
 								dm.exportMeteringDeviceValues(task);
@@ -277,7 +277,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_PAY_DOCS":
-							bill.setUp();
+							bill.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт платежных документов по дому
 								bill.importPaymentDocumentData(task);
@@ -287,7 +287,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_EXP_PAY_DOCS":
-							bill.setUp();
+							bill.setUp(task);
 							if (state.equals("INS")) {
 								// экспорт платежных документов по дому
 								bill.exportPaymentDocumentData(task);
@@ -297,7 +297,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_SUP_NOTIFS":
-							pay.setUp();
+							pay.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт извещений исполнения распоряжений
 								pay.importSupplierNotificationsOfOrderExecution(task);
@@ -309,7 +309,7 @@ public class TaskController implements TaskControllers {
 
 						case "GIS_IMP_CANCEL_NOTIFS":
 							// Экспорт отмены извещений исполнения документа
-							pay.setUp();
+							pay.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт отмены извещений исполнения документа
 								pay.importNotificationsOfOrderExecutionCancelation(task);
@@ -319,7 +319,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_EXP_PAY_DETAIL_DOCS":
-							pay.setUp();
+							pay.setUp(task);
 							if (state.equals("INS")) {
 								// экспорт детализации платежного документа
 								pay.exportPaymentDocumentDetails(task);
@@ -330,7 +330,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_ORG":
 							// Экспорт данных организации
-							os.setUp();
+							os.setUp(task);
 							if (state.equals("INS")) {
 								os.exportOrgRegistry(task);
 							} else if (state.equals("ACK")) {
@@ -339,7 +339,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_DATA_PROVIDER":
 							// Экспорт сведений о поставщиках данных
-							os.setUp();
+							os.setUp(task);
 							if (state.equals("INS")) {
 								os.exportDataProvider(task);
 							} else if (state.equals("ACK")) {
@@ -347,7 +347,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
-							nsiSv.setUp();
+							nsiSv.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт внутреннего справочника организации
 								nsiSv.exportDataProviderNsiItem(task);
@@ -357,7 +357,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 							case "GIS_EXP_COMMON_NSI_ITEM":
-								nsiSv.setUp();
+								nsiSv.setUp(task);
 								if (state.equals("INS")) {
 									// Экспорт общих справочников
 									ulistMng.loadNsi("NSI");
@@ -368,7 +368,7 @@ public class TaskController implements TaskControllers {
 							case "GIS_EXP_NOTIF_1": case "GIS_EXP_NOTIF_8":
 								case "GIS_EXP_NOTIF_16": case "GIS_EXP_NOTIF_24":
 							// Экспорт извещений исполнения документа по дням выгрузки
-							bill.setUp();
+							bill.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт извещений исполнения документа
 								bill.exportNotificationsOfOrderExecution(task);

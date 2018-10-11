@@ -160,9 +160,9 @@ public class SignCommand implements Command {
 
 	public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
         //System.out.println("############ SIGN ELEM START!");
-        System.out.println("############ SIGN ELEM1:"+doc);
-        System.out.println("############ SIGN ELEM2:"+signedElementId);
-        System.out.println("############ SIGN ELEM3:"+containerElementId);
+        //System.out.println("############ SIGN ELEM1:"+doc);
+        //System.out.println("############ SIGN ELEM2:"+signedElementId);
+        //System.out.println("############ SIGN ELEM3:"+containerElementId);
         // загружаем проверяемый XML-документ
         //Document document = XMLParser.parseXml(parameters.getInputFile());
         Document document = XMLParser.parseXml(doc);
@@ -212,10 +212,10 @@ public class SignCommand implements Command {
     }
 
     public void execute() throws Exception {
-        System.out.println("############ EXECUTE!");
+        //System.out.println("############ EXECUTE!");
         // инициализируем Apache Santuario
         org.apache.xml.security.Init.init();
-        System.out.println("############ INIT!");
+        //System.out.println("############ INIT!");
 
         // загружаем криптопровайдер
         String providerName = parameters.getProviderName();

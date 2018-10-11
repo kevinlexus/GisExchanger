@@ -15,7 +15,7 @@ import ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult;
 public interface DeviceMeteringAsyncBindingBuilders {
 
 	public GetStateResult getState2(Task task);
-	public void setUp() throws CantSendSoap;
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap;
 	public Boolean importMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
 	public void importMeteringDeviceValuesAsk(Task task) throws CantSendSoap, CantPrepSoap;
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;

@@ -10,8 +10,9 @@ public interface SoapBuilders {
 	public void makeRndMsgGuid();
 	public void setSign(boolean sign);
 	public void setTrace(boolean trace);
-	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign) throws CantSendSoap;
-	public String getPpGuid();
-	public void setPpGuid(String ppGuid);
+	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign,
+					  String ppGuid, String hostIp) throws CantSendSoap;
+/*
 	public void closeResource() throws CantSendSoap;
+*/
 }

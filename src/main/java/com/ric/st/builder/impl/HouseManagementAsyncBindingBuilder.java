@@ -156,16 +156,17 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	 * @throws CantSendSoap
 	 */
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
 		service = new HouseManagementServiceAsync();
     	port = service.getHouseManagementPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов, по умолчанию
-    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
+    	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 	}
 
 
@@ -334,7 +335,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 	public Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		AckRequest ack = null;
@@ -413,7 +414,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 
 		String houseGuid = reqProp.getFoundTask().getEolink().getGuid();
 
@@ -542,10 +543,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
         sb.setSign(true);
 
-		reqProp.setProp(task, sb);
 		Eolink house = reqProp.getFoundTask().getEolink();
 		Eolink uk = house.getParent();
 
@@ -605,7 +606,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         taskMng.logTask(task, true, null);
 
         // Установить параметры SOAP
-        reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
         sb.setTrace(reqProp.getFoundTask().getTrace().equals(1));
 
         // получить состояние
@@ -653,9 +654,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
-
-		reqProp.setProp(task, sb);
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
 		String houseGuid = houseEol.getGuid();
 
@@ -706,7 +706,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask().getTrace().equals(1) );
 
 		// дом
@@ -1088,7 +1088,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		ExportAccountRequest req = new ExportAccountRequest();
@@ -1133,7 +1133,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		Eolink houseEol = reqProp.getFoundTask().getEolink();
@@ -1241,7 +1241,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 				}
 
-				// отметить закрытым лс
+				// отметить закрытого лс
 				ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
 				if (t.getClosed()!= null) {
 					// лс закрыт
@@ -1289,9 +1289,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
-
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 
 		ImportAccountRequest req = new ImportAccountRequest();
 		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
@@ -1414,8 +1413,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
-
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		// получить состояние
@@ -1483,7 +1481,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		ImportHouseUORequest req = new ImportHouseUORequest();
 		req.setId("foo");
@@ -1934,7 +1932,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		// получить состояние
@@ -2005,7 +2003,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		ImportMeteringDeviceDataRequest req = new ImportMeteringDeviceDataRequest();
@@ -2226,9 +2224,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 		//log.info("******* Task.id={}, импорт приборов учета, запрос ответа", task.getId());
 		taskMng.logTask(task, true, null);
 
-		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		reqProp.setPropAfter(task);
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());

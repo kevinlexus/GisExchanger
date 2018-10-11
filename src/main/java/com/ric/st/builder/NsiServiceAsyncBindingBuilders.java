@@ -12,8 +12,8 @@ import com.ric.st.excp.CantSendSoap;
 
 public interface NsiServiceAsyncBindingBuilders {
 
-	public void setUp() throws CantSendSoap;
-	public Boolean exportDataProviderNsiItem(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
-	public void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam;
-	public void checkPeriodicTask(Task task) throws WrongParam;
+	void setUp(Task task) throws CantSendSoap, CantPrepSoap;
+	Boolean exportDataProviderNsiItem(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
+	void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam;
+	void checkPeriodicTask(Task task) throws WrongParam;
 }

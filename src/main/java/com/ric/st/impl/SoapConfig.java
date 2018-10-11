@@ -39,6 +39,8 @@ public class SoapConfig implements SoapConfigs {
 	private String signPass;
 	@Value("${signPath}")
 	private String signPath;
+	@Value("${hostIp}")
+	private String hostIp;
 
 	// Пользователь, от имени которого выполняются процессы
 	private User user;
@@ -70,10 +72,11 @@ public class SoapConfig implements SoapConfigs {
 	}
 
 	/**
-	 * Получить URL тестового сервера
+	 * Получить URL endpoint
 	 */
-	public String getSrvTestHost() {
-		return "http://127.0.0.1:8080";
+	public String getHostIp() {
+		return hostIp;
+	//	return "http://127.0.0.1:8080";
 //		return "http://217.107.108.147:10082";
 //		return "http://217.107.108.156:10082";
 //		return "http://api.dom.gosuslugi.ru:443";

@@ -85,13 +85,14 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	 * Инициализация
 	 */
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
 		PaymentsServiceAsync service = new PaymentsServiceAsync();
     	port = service.getPaymentPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов
 		//log.info("reqProp.getFoundTask().getTrace()={}", reqProp.getFoundTask().getTrace());
@@ -167,7 +168,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	public void importSupplierNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -280,7 +281,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 
@@ -348,7 +349,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	public void importNotificationsOfOrderExecutionCancelation(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -445,10 +446,10 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 				//+ "принятии к исполнению распоряжения\", запрос ответа", task.getId());
 		taskMng.logTask(task, true, null);
 
+		// Установить параметры SOAP
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
-		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 
@@ -514,7 +515,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
 		AckRequest ack = null;
@@ -562,11 +563,10 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 	public void exportPaymentDocumentDetailsAsk(Task task) throws CantPrepSoap {
 		taskMng.logTask(task, true, null);
 
-		//log.info("******* Task.id={}, Экспорт детализации платежного документа, запрос ответа", task.getId());
+		// Установить параметры SOAP
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);;
-		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 

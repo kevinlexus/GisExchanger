@@ -64,14 +64,15 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	private SoapBuilder sb;
 
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
     	// создать сервис и порт
 		service = new RegOrgServiceAsync();
     	port = service.getRegOrgAsyncPort();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
@@ -204,8 +205,6 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		taskMng.logTask(task, true, null);
         // Установить параметры SOAP
         reqProp.setPropWOGUID(task, sb);
-		//reqProp.setProp(task, sb);
-
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
 		// для обработки ошибок
@@ -265,9 +264,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	public void exportOrgRegistryAsk(Task task) throws CantPrepSoap {
 		taskMng.logTask(task, true, null);
         // установить параметры SOAP
-		//reqProp.setProp(task, sb);
 		reqProp.setPropWOGUID(task, sb);
-
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
 		// получить состояние запроса
@@ -304,8 +301,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		//log.info("******* Task.id={}, экспорт сведений о поставщиках данных, вызов", task.getId());
 		taskMng.logTask(task, true, null);
 
-        reqProp.setPropWOGUID(task, sb);
 		// Установить параметры SOAP
+        reqProp.setPropWOGUID(task, sb);
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 
 		AckRequest ack = null;

@@ -53,7 +53,7 @@ public class NsiCommonBindingBuilder implements NsiCommonBindingBuilders {
 
     	// подоготовительный объект для SOAP
     	SoapBuilder sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, false);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, false, config.getOrgPPGuid(), config.getHostIp());
 	}
 
 	/**

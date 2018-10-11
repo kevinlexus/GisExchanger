@@ -2,12 +2,13 @@ package com.ric.st;
 
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
+import com.ric.cmn.excp.WrongGetMethod;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.impl.SoapBuilder;
 
 public interface ReqProps {
 
-	void setProp(Task task, SoapBuilder sb) throws CantPrepSoap;
+	void setPropAfter(Task task);
 
 	void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap;
 
@@ -21,10 +22,14 @@ public interface ReqProps {
 
 	String getNd();
 
-	Eolink getOrg();
+	//Eolink getOrg();
 
 	Integer getAppTp();
 
 	String getGisVersion();
 
+	public String getPpGuid();
+	public String getHostIp();
+
+	void setPropBefore(Task task) throws CantPrepSoap;
 }

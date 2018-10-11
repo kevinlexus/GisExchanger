@@ -10,7 +10,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStat
 
 public interface HcsOrgRegistryAsyncBindingBuilders {
 
-	void setUp() throws CantSendSoap;
+	void setUp(Task task) throws CantSendSoap, CantPrepSoap;
 	GetStateResult getState2(Task task);
 	boolean exportOrgRegistry(Task task) throws CantPrepSoap;
 	void exportOrgRegistryAsk(Task task) throws CantPrepSoap;

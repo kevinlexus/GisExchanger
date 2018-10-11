@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface HcsBillsAsyncBuilders {
 
-	void setUp() throws CantSendSoap;
+	void setUp(Task task) throws CantSendSoap;
 	ru.gosuslugi.dom.schema.integration.bills.GetStateResult getState2(Task task);
 	void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
 	void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap, WrongGetMethod, ErrorWhileDist, com.ric.cmn.excp.ErrorWhileDist;
@@ -21,9 +21,9 @@ public interface HcsBillsAsyncBuilders {
 	void exportPaymentDocumentData(Task task) throws CantPrepSoap, WrongGetMethod;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
-	void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap;
+	void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
 
 	void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
-	void importPaymentDocumentDataAsk(Task task) throws CantSendSoap, CantPrepSoap;
+	void importPaymentDocumentDataAsk(Task task) throws CantSendSoap, CantPrepSoap, WrongGetMethod;
 	void checkPeriodicImpExpPd(Task task) throws WrongParam;
 }

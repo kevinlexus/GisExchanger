@@ -47,8 +47,6 @@ public class SoapBuilder implements SoapBuilders{
 	private BindingProvider bp;
 	private WSBindingProvider ws;
 	private RequestHeader rh;
-	// GUID организации, от которой отправляется запрос
-	private String ppGuid;
 
 	@Override
 	public void makeRndMsgGuid() {
@@ -89,7 +87,8 @@ public class SoapBuilder implements SoapBuilders{
 	 * @throws CantSendSoap
 	 */
 	@Override
-	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign) throws CantSendSoap {
+	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign,
+					  String ppGuid, String hostIp) throws CantSendSoap {
 		bp = port;
 		ws = (WSBindingProvider) port;
 		rh = new RequestHeader();
@@ -99,6 +98,8 @@ public class SoapBuilder implements SoapBuilders{
 
 		// подпись оператора?
 		rh.setIsOperatorSignature(true);
+		// GUID УК от которой выполняется запрос
+		rh.setOrgPPAGUID(ppGuid);
 
     	// установить Random Message GUID и дату
     	GregorianCalendar c = new GregorianCalendar();
@@ -132,8 +133,9 @@ public class SoapBuilder implements SoapBuilders{
 		requestHeaders.put("Authorization", Arrays.asList("Basic " + authorization));
 		requestHeaders.put("X-Client-Cert-Fingerprint", Arrays.asList(config.getFingerPrint()));
 
+		System.out.println("*********************hostIp="+hostIp);
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-				config.getSrvTestHost()+path);
+				"http://"+hostIp+path);
 		bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
 
 		// добавить хэндлер, для установщика подписи ЭЦП
@@ -144,7 +146,7 @@ public class SoapBuilder implements SoapBuilders{
 	}
 
 
-	@Override
+/*	@Override
 	public String getPpGuid() {
 		return ppGuid;
 	}
@@ -154,7 +156,8 @@ public class SoapBuilder implements SoapBuilders{
 		this.ppGuid = ppGuid;
 		rh.setOrgPPAGUID(ppGuid);
 	}
-
+*/
+/*
 	@Override
 	public void closeResource() throws CantSendSoap {
 	   	try {
@@ -165,9 +168,6 @@ public class SoapBuilder implements SoapBuilders{
 		}
 
 	}
-
-
-
-
+*/
 
 }

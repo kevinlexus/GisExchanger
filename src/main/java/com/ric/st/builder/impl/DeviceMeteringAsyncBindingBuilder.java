@@ -124,13 +124,14 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	 * @throws CantSendSoap
 	 */
 	@Override
-	public void setUp() throws CantSendSoap {
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
 		service = new DeviceMeteringServiceAsync();
     	port = service.getDeviceMeteringPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true);
+		reqProp.setPropBefore(task);
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
@@ -274,7 +275,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
@@ -383,7 +384,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		taskMng.logTask(task, true, null);
 
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 
 		// получить состояние
 		GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -425,7 +426,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
@@ -517,7 +518,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		// Установить параметры SOAP
-		reqProp.setProp(task, sb);
+		//reqProp.setPropAfter(task, sb);
 		// получить состояние запроса
 		GetStateResult retState = getState2(reqProp.getFoundTask());
 

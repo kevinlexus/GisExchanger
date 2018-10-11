@@ -12,7 +12,7 @@ import ru.gosuslugi.dom.schema.integration.payment.GetStateResult;
 
 public interface HcsPaymentAsyncBuilders {
 
-	public void setUp() throws CantSendSoap;
+	public void setUp(Task task) throws CantSendSoap, CantPrepSoap;
 	public GetStateResult getState2(Task task);
 	public void importNotificationsOfOrderExecutionCancelation(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap;
 	public void importNotificationsOfOrderExecutionCancelationAsk(Task task) throws CantPrepSoap;
