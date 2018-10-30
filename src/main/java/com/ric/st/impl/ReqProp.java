@@ -118,7 +118,7 @@ public class ReqProp implements ReqProps {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap {
-		//foundTask = em.find(Task.class, task.getId());
+		foundTask = em.find(Task.class, task.getId());
 		if (task.getEolink() != null) {
 			reu = task.getEolink().getReu();
 			kul = task.getEolink().getKul();

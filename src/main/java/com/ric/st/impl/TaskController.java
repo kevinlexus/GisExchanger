@@ -39,7 +39,7 @@ import java.util.Date;
 /**
  * Основной контроллер заданий
  * @author lev
- * @version 1.02
+ * @version 1.12
  *
  */
 @Slf4j
@@ -50,8 +50,6 @@ public class TaskController implements TaskControllers {
 	private TaskDAO taskDao;
 	@Autowired
 	private TaskMng taskMng;
-	//@Autowired
-	//private Config config;
 	@Autowired
 	private SoapConfig soapConf;
 	@PersistenceContext
@@ -88,12 +86,6 @@ public class TaskController implements TaskControllers {
 	@Override
 	public void searchTask() throws WrongGetMethod, CantSendSoap, CantPrepSoap, WrongParam {
 
-		//this.reqConfig = new RequestConfig();
-//        this.reqConfig.setUp("0", "0", null, -1, null, null, null,
-//                config.getCurDt1(), config.getCurDt2());
-		//this.reqConfig.setUp("0", "0", null, -1, null, null, null, // TODO осмыслить рефакторинг! ред. 12.09.2018
-		//		new Date(), new Date());
-
 		// инит. конфига
 		if (!soapConf.setUp(false)) {
 			log.error("ОШИБКА инициализации soapConf!");
@@ -104,9 +96,7 @@ public class TaskController implements TaskControllers {
 		// цикл
 		while(flag) {
 			// перебрать все необработанные задания
-			//log.info("******* начало обработки заданий *******");
 			for (Task t: taskDao.getAllUnprocessed()) {
-				//log.info("task.id={}", task.getId());
 				// получить задание заново (могло измениться в базе)
 				Task task = em.find(Task.class, t.getId());
 
@@ -174,7 +164,6 @@ public class TaskController implements TaskControllers {
 									taskMng.setState(task, "RPT");
 								}
 							}
-							//taskMng.setState(task, "ACP");
 							break;
 						case "GIS_UPD_HOUSE" :
 							// Импорт объектов дома
@@ -404,16 +393,12 @@ public class TaskController implements TaskControllers {
 				}
 
 			}
-//			log.info("******* окончание обработки заданий *******");
-
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-
-
 
 	}
 
