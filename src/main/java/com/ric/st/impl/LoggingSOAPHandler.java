@@ -49,12 +49,15 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 	}
 
 	public boolean handleMessage(SOAPMessageContext context) {
-	   Boolean trace = false;
-       if(context.containsKey("trace")){
-		  trace = true;
-	   } else {
-		  trace = false;
-	   }
+		Boolean trace = false;
+		int signerId;
+		if(context.containsKey("trace")){
+			trace = true;
+		} else {
+			trace = false;
+		}
+		String signerIdS = (String) context.get("signerId");
+		signerId = Integer.valueOf(signerIdS);
 
 		Boolean outboundProperty = (Boolean)
 	    		 context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
@@ -74,8 +77,6 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 		} else {
 		  sign = false;
 		}
-
-//		SignCommand sc = (SignCommand) context.get("sc");
 
 		SOAPEnvelope soapEnv = null;
 		try {
@@ -109,7 +110,13 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 			String sgn = null;
 	        try {
 				//log.info("SIGN 1.1");
-				sgn = Soap2GisApplication.sc.signElem((String) bs.toString(), "foo", "foo");
+				if (signerId == 1) {
+					log.info("************* Выбран signerId=1");
+					sgn = Soap2GisApplication.sc.signElem((String) bs.toString(), "foo", "foo");
+				} else {
+					log.info("************* Выбран signerId=2");
+					sgn = Soap2GisApplication.sc2.signElem((String) bs.toString(), "foo", "foo");
+				}
 				//log.info("SIGN 1.2");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

@@ -86,6 +86,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
 	}
 
 	/**

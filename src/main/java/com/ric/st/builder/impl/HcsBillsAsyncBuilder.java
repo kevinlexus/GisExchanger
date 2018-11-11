@@ -140,6 +140,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
+
 	}
 
 

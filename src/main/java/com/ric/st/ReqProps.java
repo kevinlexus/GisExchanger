@@ -32,4 +32,6 @@ public interface ReqProps {
 	public String getHostIp();
 
 	void setPropBefore(Task task) throws CantPrepSoap;
+
+    int getSignerId();
 }

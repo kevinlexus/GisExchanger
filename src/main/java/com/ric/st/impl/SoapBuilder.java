@@ -1,6 +1,5 @@
 package com.ric.st.impl;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -19,6 +18,7 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -37,6 +37,7 @@ import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
  */
 @Service
 @Scope("prototype")
+@Slf4j
 public class SoapBuilder implements SoapBuilders{
 	@Autowired
 	private SoapConfig config;
@@ -64,9 +65,12 @@ public class SoapBuilder implements SoapBuilders{
     		bp.getRequestContext().remove("sign", "");
     	}
 
-    	// Получить объект подписывания
-    	//bp.getRequestContext().put("sc", taskCtrl.sc);
+	}
 
+	// выбрать объект подписывания XML
+	@Override
+	public void setSignerId(int signerId) {
+		bp.getRequestContext().put("signerId", String.valueOf(signerId));
 	}
 
 	// логгировать ли обмен
@@ -84,6 +88,7 @@ public class SoapBuilder implements SoapBuilders{
 	 * @param port
 	 * @param port2
 	 * @param sign - подписать XML?
+	 * @param hostIp - Ip адрес хоста
 	 * @throws CantSendSoap
 	 */
 	@Override
@@ -133,7 +138,7 @@ public class SoapBuilder implements SoapBuilders{
 		requestHeaders.put("Authorization", Arrays.asList("Basic " + authorization));
 		requestHeaders.put("X-Client-Cert-Fingerprint", Arrays.asList(config.getFingerPrint()));
 
-		//System.out.println("*********************hostIp="+hostIp);
+		//log.info("************* Выбран hostIp={}", hostIp);
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
 				"http://"+hostIp+path);
 		bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
@@ -144,30 +149,5 @@ public class SoapBuilder implements SoapBuilders{
     	handlerChain.add(new LoggingSOAPHandler());
     	binding.setHandlerChain(handlerChain);
 	}
-
-
-/*	@Override
-	public String getPpGuid() {
-		return ppGuid;
-	}
-
-	@Override
-	public void setPpGuid(String ppGuid) {
-		this.ppGuid = ppGuid;
-		rh.setOrgPPAGUID(ppGuid);
-	}
-*/
-/*
-	@Override
-	public void closeResource() throws CantSendSoap {
-	   	try {
-			ws.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new CantSendSoap("Ошибка при освобождении ресурса WSBindingProvider");
-		}
-
-	}
-*/
 
 }

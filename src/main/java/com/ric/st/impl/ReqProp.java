@@ -49,6 +49,8 @@ public class ReqProp implements ReqProps {
 	Integer appTp;
 	// УК по данному Task
 	Eolink uk;
+	// Id подписчика XML (если hostIp не заполнен, то определяется по УК)
+	private int signerId;
 
 	/*
 	 * Установить значения настроек до создания объекта SoapBuilder
@@ -81,7 +83,15 @@ public class ReqProp implements ReqProps {
 				throw new CantPrepSoap("Не заполнен параметр hostIp по организации Eolink.id="+uk.getId()
 						+"(ТСЖ Свобод) либо не заполнен application.properties - hostIp (Кис.Полыс.)");
 			}
+			try {
+				Double signerIdD = eolParMng.getDbl(uk, "ГИС ЖКХ.SIGNER_ID");
+				signerId = signerIdD.intValue();
+			} catch (WrongGetMethod wrongGetMethod) {
+				wrongGetMethod.printStackTrace();
+				throw new CantPrepSoap("Ошибка при получении параметра 'ГИС ЖКХ.SIGNER_ID' по организации Eolink.id="+uk.getId());
+			}
 		} else {
+			signerId = 0;
 			hostIp = config.getHostIp();
 		}
 		//log.info("Использованный hostIp={}", hostIp);
@@ -193,10 +203,14 @@ public class ReqProp implements ReqProps {
 		return gisVersion;
 	}
 
+	@Override
 	public String getPpGuid() {
 		return ppGuid;
 	}
+	@Override
 	public String getHostIp() {
 		return hostIp;
 	}
+	@Override
+	public int getSignerId() {	return signerId; }
 }

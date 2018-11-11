@@ -56,7 +56,9 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, false, config.getOrgPPGuid(), config.getHostIp());
-		//sb.setPpGuid(config.getOrgPPGuid());
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
+
 	}
 
 	/**

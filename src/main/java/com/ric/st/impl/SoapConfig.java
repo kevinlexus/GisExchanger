@@ -39,6 +39,10 @@ public class SoapConfig implements SoapConfigs {
 	private String signPass;
 	@Value("${signPath}")
 	private String signPath;
+	@Value("${signPass2}")
+	private String signPass2;
+	@Value("${signPath2}")
+	private String signPath2;
 	@Value("${hostIp}")
 	private String hostIp;
 
@@ -182,17 +186,13 @@ public class SoapConfig implements SoapConfigs {
 		return signPass;
 	}
 
-	public void setSignPass(String signPass) {
-		this.signPass = signPass;
-	}
-
 	public String getSignPath() {
 		return signPath;
 	}
 
-	public void setSignPath(String signPath) {
-		this.signPath = signPath;
-	}
+	public String getSignPass2() {	return signPass2; }
+
+	public String getSignPath2() {	return signPath2; }
 
 
 }

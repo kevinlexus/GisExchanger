@@ -96,7 +96,9 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 
 		// логгинг запросов
 		//log.info("reqProp.getFoundTask().getTrace()={}", reqProp.getFoundTask().getTrace());
-    	sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));;
+    	sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
 	}
 
 

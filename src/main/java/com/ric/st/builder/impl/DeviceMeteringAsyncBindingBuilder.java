@@ -131,10 +131,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
 		reqProp.setPropBefore(task);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
+		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(),
+				reqProp.getHostIp());
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+    	// Id XML подписчика
+    	sb.setSignerId(reqProp.getSignerId());
 	}
 
 

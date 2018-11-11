@@ -5,6 +5,7 @@ import java.net.URLClassLoader;
 
 import javax.security.auth.message.config.AuthConfigFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
@@ -18,9 +19,11 @@ import com.ric.st.impl.SoapConfig;
 import com.ric.st.impl.TaskController;
 
 @SpringBootApplication
+@Slf4j
 public class Soap2GisApplication implements CommandLineRunner {
 
 	public static Command sc;
+    public static Command sc2;
 	private static ApplicationContext applicationContext = null;
 
     //access command line arguments
@@ -34,14 +37,14 @@ public class Soap2GisApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		ClassLoader cl = ClassLoader.getSystemClassLoader();
         URL[] urls = ((URLClassLoader)cl).getURLs();
-    	System.out.println("*********** CLASSPATH *********");
+    	log.info("*********** CLASSPATH *********");
         for(URL url: urls){
         	System.out.println(url.getFile());
         }
-    	System.out.println("*********** CLASSPATH *********");
+        log.info("*********** CLASSPATH *********");
 
     	String workingDir = System.getProperty("user.dir");
- 	    System.out.println("Current working directory : " + workingDir);
+        log.info("Current working directory : " + workingDir);
 
 		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
@@ -65,14 +68,29 @@ public class Soap2GisApplication implements CommandLineRunner {
 
             TaskController taskContr = applicationContext.getBean(TaskController.class);
             SoapConfig soapConfig = applicationContext.getBean(SoapConfig.class);
-            //Создать объект подписывания XML
+            //Создать первый объект подписывания XML
     		try {
     			sc = new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
-    			//System.out.println("Объект подписывания XML СОЗДАН!");
+    			log.info("Объект подписывания XML-1 СОЗДАН!");
     		} catch (Exception e1) {
-    			System.out.println("Объект подписывания XML не создан!");
-    			e1.printStackTrace();
+                log.error("Объект подписывания XML-1 не создан, приложение ОСТАНОВЛЕНО!");
+                log.error("stackTrace={}", e1.getStackTrace().toString());
+                // Завершить выполнение приложения
+                SpringApplication.exit(applicationContext, () -> 0);
     		}
+
+            //Создать второй объект подписывания XML (при наличии)
+            if (soapConfig.getSignPass2() != null) {
+                try {
+                    sc2 = new SignCommand(soapConfig.getSignPass2(), soapConfig.getSignPath2());
+                    log.info("Объект подписывания XML-2 СОЗДАН!");
+                } catch (Exception e1) {
+                    log.error("Объект подписывания XML-2 не создан, приложение ОСТАНОВЛЕНО!");
+                    log.error("stackTrace={}", e1.getStackTrace().toString());
+                    // Завершить выполнение приложения
+                    SpringApplication.exit(applicationContext, () -> 0);
+                }
+            }
 
             try {
 				taskContr.searchTask();

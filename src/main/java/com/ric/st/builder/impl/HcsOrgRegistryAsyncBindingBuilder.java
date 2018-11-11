@@ -76,6 +76,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
 	}
 
 
