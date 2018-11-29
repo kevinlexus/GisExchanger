@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "PaymentsServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/payment-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/payment/hcs-payment-service-async.wsdl")
+@WebServiceClient(name = "PaymentsServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/payment-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/payment/hcs-payment-service-async.wsdl")
 public class PaymentsServiceAsync
     extends Service
 {
@@ -30,7 +30,7 @@ public class PaymentsServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/payment/hcs-payment-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/payment/hcs-payment-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

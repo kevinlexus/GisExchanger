@@ -314,6 +314,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CapitalRepairYearExportType }
+     * 
+     */
+    public CapitalRepairYearExportType createCapitalRepairYearExportType() {
+        return new CapitalRepairYearExportType();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairYearImportType }
+     * 
+     */
+    public CapitalRepairYearImportType createCapitalRepairYearImportType() {
+        return new CapitalRepairYearImportType();
+    }
+
+    /**
      * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct }
      * 
      */
@@ -738,6 +754,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CapitalRepairMonthlyImportType }
+     * 
+     */
+    public CapitalRepairMonthlyImportType createCapitalRepairMonthlyImportType() {
+        return new CapitalRepairMonthlyImportType();
+    }
+
+    /**
      * Create an instance of {@link CapitalRepairType }
      * 
      */
@@ -1039,6 +1063,22 @@ public class ObjectFactory {
      */
     public PDServiceChargeExportType.HousingService.MunicipalResource.Consumption.Volume createPDServiceChargeExportTypeHousingServiceMunicipalResourceConsumptionVolume() {
         return new PDServiceChargeExportType.HousingService.MunicipalResource.Consumption.Volume();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairYearExportType.CapitalRepairMonthlyCharge }
+     * 
+     */
+    public CapitalRepairYearExportType.CapitalRepairMonthlyCharge createCapitalRepairYearExportTypeCapitalRepairMonthlyCharge() {
+        return new CapitalRepairYearExportType.CapitalRepairMonthlyCharge();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairYearImportType.CapitalRepairMonthlyCharge }
+     * 
+     */
+    public CapitalRepairYearImportType.CapitalRepairMonthlyCharge createCapitalRepairYearImportTypeCapitalRepairMonthlyCharge() {
+        return new CapitalRepairYearImportType.CapitalRepairMonthlyCharge();
     }
 
     /**

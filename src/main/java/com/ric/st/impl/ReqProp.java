@@ -91,7 +91,7 @@ public class ReqProp implements ReqProps {
 				throw new CantPrepSoap("Ошибка при получении параметра 'ГИС ЖКХ.SIGNER_ID' по организации Eolink.id="+uk.getId());
 			}
 		} else {
-			signerId = 0;
+			signerId = 1;
 			hostIp = config.getHostIp();
 		}
 		//log.info("Использованный hostIp={}", hostIp);

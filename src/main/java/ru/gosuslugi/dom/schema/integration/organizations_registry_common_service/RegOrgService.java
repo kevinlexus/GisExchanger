@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "RegOrgService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-common-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/organizations-registry-common/hcs-organizations-registry-common-service.wsdl")
+@WebServiceClient(name = "RegOrgService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/organizations-registry-common-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/organizations-registry-common/hcs-organizations-registry-common-service.wsdl")
 public class RegOrgService
     extends Service
 {
@@ -30,7 +30,7 @@ public class RegOrgService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/organizations-registry-common/hcs-organizations-registry-common-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/organizations-registry-common/hcs-organizations-registry-common-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

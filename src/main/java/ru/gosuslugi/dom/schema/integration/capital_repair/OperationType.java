@@ -28,7 +28,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="Source" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
  *         &lt;element name="PaymentInfoGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *         &lt;element name="CreditContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
- *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="Date" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *         &lt;element name="Amount" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}MoneyPositiveType"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -60,7 +60,7 @@ public class OperationType {
     protected String paymentInfoGUID;
     @XmlElement(name = "CreditContractGUID")
     protected String creditContractGUID;
-    @XmlElement(name = "Date", required = true)
+    @XmlElement(name = "Date")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar date;
     @XmlElement(name = "Amount", required = true)

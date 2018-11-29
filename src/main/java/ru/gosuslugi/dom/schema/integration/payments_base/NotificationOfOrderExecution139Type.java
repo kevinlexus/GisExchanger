@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -77,6 +78,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NotificationOfOrderExecution139Type", propOrder = {
     "orderInfo"
+})
+@XmlSeeAlso({
+    ru.gosuslugi.dom.schema.integration.payment.ImportNotificationsOfOrderExecutionRequest.NotificationOfOrderExecution139Type.class
 })
 public class NotificationOfOrderExecution139Type {
 

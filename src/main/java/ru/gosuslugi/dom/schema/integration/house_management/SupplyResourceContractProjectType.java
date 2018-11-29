@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
+import ru.gosuslugi.dom.schema.integration.base.RegionType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgType;
 
@@ -396,6 +397,41 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
+ *         &lt;element name="RegionalSettings" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/&gt;
+ *                   &lt;element name="Tariff" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                   &lt;element name="Norm" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;sequence&gt;
+ *                             &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                           &lt;/sequence&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -434,7 +470,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "meteringDeviceInformation",
     "volumeDepends",
     "oneTimePayment",
-    "accrualProcedure"
+    "accrualProcedure",
+    "regionalSettings"
 })
 public class SupplyResourceContractProjectType {
 
@@ -497,6 +534,8 @@ public class SupplyResourceContractProjectType {
     protected Boolean oneTimePayment;
     @XmlElement(name = "AccrualProcedure")
     protected String accrualProcedure;
+    @XmlElement(name = "RegionalSettings")
+    protected SupplyResourceContractProjectType.RegionalSettings regionalSettings;
 
     /**
      * Gets the value of the isContract property.
@@ -1209,6 +1248,30 @@ public class SupplyResourceContractProjectType {
      */
     public void setAccrualProcedure(String value) {
         this.accrualProcedure = value;
+    }
+
+    /**
+     * Gets the value of the regionalSettings property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SupplyResourceContractProjectType.RegionalSettings }
+     *     
+     */
+    public SupplyResourceContractProjectType.RegionalSettings getRegionalSettings() {
+        return regionalSettings;
+    }
+
+    /**
+     * Sets the value of the regionalSettings property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SupplyResourceContractProjectType.RegionalSettings }
+     *     
+     */
+    public void setRegionalSettings(SupplyResourceContractProjectType.RegionalSettings value) {
+        this.regionalSettings = value;
     }
 
 
@@ -3025,6 +3088,315 @@ public class SupplyResourceContractProjectType {
             extends IndicatorValueType
         {
 
+
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Region" type="{http://dom.gosuslugi.ru/schema/integration/base/}RegionType"/&gt;
+     *         &lt;element name="Tariff" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *         &lt;element name="Norm" maxOccurs="unbounded" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;sequence&gt;
+     *                   &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                 &lt;/sequence&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "region",
+        "tariff",
+        "norm"
+    })
+    public static class RegionalSettings {
+
+        @XmlElement(name = "Region", required = true)
+        protected RegionType region;
+        @XmlElement(name = "Tariff")
+        protected List<SupplyResourceContractProjectType.RegionalSettings.Tariff> tariff;
+        @XmlElement(name = "Norm")
+        protected List<SupplyResourceContractProjectType.RegionalSettings.Norm> norm;
+
+        /**
+         * Gets the value of the region property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link RegionType }
+         *     
+         */
+        public RegionType getRegion() {
+            return region;
+        }
+
+        /**
+         * Sets the value of the region property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link RegionType }
+         *     
+         */
+        public void setRegion(RegionType value) {
+            this.region = value;
+        }
+
+        /**
+         * Gets the value of the tariff property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the tariff property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getTariff().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link SupplyResourceContractProjectType.RegionalSettings.Tariff }
+         * 
+         * 
+         */
+        public List<SupplyResourceContractProjectType.RegionalSettings.Tariff> getTariff() {
+            if (tariff == null) {
+                tariff = new ArrayList<SupplyResourceContractProjectType.RegionalSettings.Tariff>();
+            }
+            return this.tariff;
+        }
+
+        /**
+         * Gets the value of the norm property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the norm property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getNorm().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link SupplyResourceContractProjectType.RegionalSettings.Norm }
+         * 
+         * 
+         */
+        public List<SupplyResourceContractProjectType.RegionalSettings.Norm> getNorm() {
+            if (norm == null) {
+                norm = new ArrayList<SupplyResourceContractProjectType.RegionalSettings.Norm>();
+            }
+            return this.norm;
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="NormGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "pairKey",
+            "normGUID"
+        })
+        public static class Norm {
+
+            @XmlElement(name = "PairKey", required = true)
+            protected String pairKey;
+            @XmlElement(name = "NormGUID", required = true)
+            protected String normGUID;
+
+            /**
+             * Gets the value of the pairKey property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getPairKey() {
+                return pairKey;
+            }
+
+            /**
+             * Sets the value of the pairKey property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setPairKey(String value) {
+                this.pairKey = value;
+            }
+
+            /**
+             * Gets the value of the normGUID property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getNormGUID() {
+                return normGUID;
+            }
+
+            /**
+             * Sets the value of the normGUID property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setNormGUID(String value) {
+                this.normGUID = value;
+            }
+
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;sequence&gt;
+         *         &lt;element name="PairKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="PriceGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *       &lt;/sequence&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "pairKey",
+            "priceGUID"
+        })
+        public static class Tariff {
+
+            @XmlElement(name = "PairKey", required = true)
+            protected String pairKey;
+            @XmlElement(name = "PriceGUID", required = true)
+            protected String priceGUID;
+
+            /**
+             * Gets the value of the pairKey property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getPairKey() {
+                return pairKey;
+            }
+
+            /**
+             * Sets the value of the pairKey property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setPairKey(String value) {
+                this.pairKey = value;
+            }
+
+            /**
+             * Gets the value of the priceGUID property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getPriceGUID() {
+                return priceGUID;
+            }
+
+            /**
+             * Sets the value of the priceGUID property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setPriceGUID(String value) {
+                this.priceGUID = value;
+            }
 
         }
 

@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CapitalRepairAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/capital-repair/hcs-capital-repair-service-async.wsdl")
+@WebServiceClient(name = "CapitalRepairAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/capital-repair/hcs-capital-repair-service-async.wsdl")
 public class CapitalRepairAsyncService
     extends Service
 {
@@ -32,7 +32,7 @@ public class CapitalRepairAsyncService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/capital-repair/hcs-capital-repair-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/capital-repair/hcs-capital-repair-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

@@ -26,6 +26,39 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/house-management/}ImportResult" maxOccurs="unbounded"/&gt;
  *         &lt;element name="exportHouseResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportHouseResultType"/&gt;
+ *         &lt;element name="exportBriefBasicHouseResult"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ResultItem" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportBriefBasicHouseResultType" maxOccurs="unbounded"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="exportBriefApartmentHouseResult"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ApartmentHouseInfo" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BriefApartmentHouseType"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="exportBriefLivingHouseResult"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="ResultItem" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportBriefLivingHouseResultType" maxOccurs="unbounded"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
  *         &lt;element name="exportMeteringDeviceDataResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportMeteringDeviceDataResultType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="exportStatusCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportStatusCAChResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="exportCAChResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportCAChResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
@@ -47,7 +80,6 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="exportAccountIndividualServicesResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountIndividualServicesResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="exportSupplyResourceContractObjectAddress" maxOccurs="unbounded"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
@@ -63,6 +95,25 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
+ *         &lt;element name="exportBriefSupplyResourceContractResult" maxOccurs="unbounded"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportBriefSupplyResourceContractResultType" maxOccurs="unbounded"/&gt;
+ *                   &lt;choice&gt;
+ *                     &lt;sequence&gt;
+ *                       &lt;element name="NextPageContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                       &lt;element name="NextPageObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                     &lt;/sequence&gt;
+ *                     &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *                   &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="exportAccountIndividualServicesResult" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportAccountIndividualServicesResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="rolloverCAChStatus" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportRolloverStatusCAChResultType"/&gt;
  *         &lt;element name="exportBriefSocialHireContract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportBriefSocialHireContractResultType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/choice&gt;
@@ -79,6 +130,9 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "errorMessage",
     "importResult",
     "exportHouseResult",
+    "exportBriefBasicHouseResult",
+    "exportBriefApartmentHouseResult",
+    "exportBriefLivingHouseResult",
     "exportMeteringDeviceDataResult",
     "exportStatusCAChResult",
     "exportCAChResult",
@@ -86,8 +140,9 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "exportAccountResult",
     "votingProtocol",
     "exportSupplyResourceContractResult",
-    "exportAccountIndividualServicesResult",
     "exportSupplyResourceContractObjectAddress",
+    "exportBriefSupplyResourceContractResult",
+    "exportAccountIndividualServicesResult",
     "rolloverCAChStatus",
     "exportBriefSocialHireContract"
 })
@@ -101,6 +156,9 @@ public class GetStateResult
     @XmlElement(name = "ImportResult")
     protected List<ImportResult> importResult;
     protected ExportHouseResultType exportHouseResult;
+    protected GetStateResult.ExportBriefBasicHouseResult exportBriefBasicHouseResult;
+    protected GetStateResult.ExportBriefApartmentHouseResult exportBriefApartmentHouseResult;
+    protected GetStateResult.ExportBriefLivingHouseResult exportBriefLivingHouseResult;
     protected List<ExportMeteringDeviceDataResultType> exportMeteringDeviceDataResult;
     protected List<ExportStatusCAChResultType> exportStatusCAChResult;
     protected List<ExportCAChResultType> exportCAChResult;
@@ -109,8 +167,9 @@ public class GetStateResult
     @XmlElement(name = "VotingProtocol")
     protected List<ExportVotingProtocolResultType> votingProtocol;
     protected List<GetStateResult.ExportSupplyResourceContractResult> exportSupplyResourceContractResult;
-    protected List<ExportAccountIndividualServicesResultType> exportAccountIndividualServicesResult;
     protected List<GetStateResult.ExportSupplyResourceContractObjectAddress> exportSupplyResourceContractObjectAddress;
+    protected List<GetStateResult.ExportBriefSupplyResourceContractResult> exportBriefSupplyResourceContractResult;
+    protected List<ExportAccountIndividualServicesResultType> exportAccountIndividualServicesResult;
     protected ExportRolloverStatusCAChResultType rolloverCAChStatus;
     protected List<ExportBriefSocialHireContractResultType> exportBriefSocialHireContract;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
@@ -191,6 +250,78 @@ public class GetStateResult
      */
     public void setExportHouseResult(ExportHouseResultType value) {
         this.exportHouseResult = value;
+    }
+
+    /**
+     * Gets the value of the exportBriefBasicHouseResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link GetStateResult.ExportBriefBasicHouseResult }
+     *     
+     */
+    public GetStateResult.ExportBriefBasicHouseResult getExportBriefBasicHouseResult() {
+        return exportBriefBasicHouseResult;
+    }
+
+    /**
+     * Sets the value of the exportBriefBasicHouseResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link GetStateResult.ExportBriefBasicHouseResult }
+     *     
+     */
+    public void setExportBriefBasicHouseResult(GetStateResult.ExportBriefBasicHouseResult value) {
+        this.exportBriefBasicHouseResult = value;
+    }
+
+    /**
+     * Gets the value of the exportBriefApartmentHouseResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link GetStateResult.ExportBriefApartmentHouseResult }
+     *     
+     */
+    public GetStateResult.ExportBriefApartmentHouseResult getExportBriefApartmentHouseResult() {
+        return exportBriefApartmentHouseResult;
+    }
+
+    /**
+     * Sets the value of the exportBriefApartmentHouseResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link GetStateResult.ExportBriefApartmentHouseResult }
+     *     
+     */
+    public void setExportBriefApartmentHouseResult(GetStateResult.ExportBriefApartmentHouseResult value) {
+        this.exportBriefApartmentHouseResult = value;
+    }
+
+    /**
+     * Gets the value of the exportBriefLivingHouseResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link GetStateResult.ExportBriefLivingHouseResult }
+     *     
+     */
+    public GetStateResult.ExportBriefLivingHouseResult getExportBriefLivingHouseResult() {
+        return exportBriefLivingHouseResult;
+    }
+
+    /**
+     * Sets the value of the exportBriefLivingHouseResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link GetStateResult.ExportBriefLivingHouseResult }
+     *     
+     */
+    public void setExportBriefLivingHouseResult(GetStateResult.ExportBriefLivingHouseResult value) {
+        this.exportBriefLivingHouseResult = value;
     }
 
     /**
@@ -397,35 +528,6 @@ public class GetStateResult
     }
 
     /**
-     * Gets the value of the exportAccountIndividualServicesResult property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the exportAccountIndividualServicesResult property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getExportAccountIndividualServicesResult().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ExportAccountIndividualServicesResultType }
-     * 
-     * 
-     */
-    public List<ExportAccountIndividualServicesResultType> getExportAccountIndividualServicesResult() {
-        if (exportAccountIndividualServicesResult == null) {
-            exportAccountIndividualServicesResult = new ArrayList<ExportAccountIndividualServicesResultType>();
-        }
-        return this.exportAccountIndividualServicesResult;
-    }
-
-    /**
      * Gets the value of the exportSupplyResourceContractObjectAddress property.
      * 
      * <p>
@@ -452,6 +554,64 @@ public class GetStateResult
             exportSupplyResourceContractObjectAddress = new ArrayList<GetStateResult.ExportSupplyResourceContractObjectAddress>();
         }
         return this.exportSupplyResourceContractObjectAddress;
+    }
+
+    /**
+     * Gets the value of the exportBriefSupplyResourceContractResult property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the exportBriefSupplyResourceContractResult property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getExportBriefSupplyResourceContractResult().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link GetStateResult.ExportBriefSupplyResourceContractResult }
+     * 
+     * 
+     */
+    public List<GetStateResult.ExportBriefSupplyResourceContractResult> getExportBriefSupplyResourceContractResult() {
+        if (exportBriefSupplyResourceContractResult == null) {
+            exportBriefSupplyResourceContractResult = new ArrayList<GetStateResult.ExportBriefSupplyResourceContractResult>();
+        }
+        return this.exportBriefSupplyResourceContractResult;
+    }
+
+    /**
+     * Gets the value of the exportAccountIndividualServicesResult property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the exportAccountIndividualServicesResult property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getExportAccountIndividualServicesResult().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ExportAccountIndividualServicesResultType }
+     * 
+     * 
+     */
+    public List<ExportAccountIndividualServicesResultType> getExportAccountIndividualServicesResult() {
+        if (exportAccountIndividualServicesResult == null) {
+            exportAccountIndividualServicesResult = new ArrayList<ExportAccountIndividualServicesResultType>();
+        }
+        return this.exportAccountIndividualServicesResult;
     }
 
     /**
@@ -533,6 +693,329 @@ public class GetStateResult
      */
     public void setVersion(String value) {
         this.version = value;
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ApartmentHouseInfo" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}BriefApartmentHouseType"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "apartmentHouseInfo"
+    })
+    public static class ExportBriefApartmentHouseResult {
+
+        @XmlElement(name = "ApartmentHouseInfo", required = true)
+        protected BriefApartmentHouseType apartmentHouseInfo;
+
+        /**
+         * Gets the value of the apartmentHouseInfo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BriefApartmentHouseType }
+         *     
+         */
+        public BriefApartmentHouseType getApartmentHouseInfo() {
+            return apartmentHouseInfo;
+        }
+
+        /**
+         * Sets the value of the apartmentHouseInfo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BriefApartmentHouseType }
+         *     
+         */
+        public void setApartmentHouseInfo(BriefApartmentHouseType value) {
+            this.apartmentHouseInfo = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ResultItem" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportBriefBasicHouseResultType" maxOccurs="unbounded"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "resultItem"
+    })
+    public static class ExportBriefBasicHouseResult {
+
+        @XmlElement(name = "ResultItem", required = true)
+        protected List<ExportBriefBasicHouseResultType> resultItem;
+
+        /**
+         * Gets the value of the resultItem property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the resultItem property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getResultItem().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link ExportBriefBasicHouseResultType }
+         * 
+         * 
+         */
+        public List<ExportBriefBasicHouseResultType> getResultItem() {
+            if (resultItem == null) {
+                resultItem = new ArrayList<ExportBriefBasicHouseResultType>();
+            }
+            return this.resultItem;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="ResultItem" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}ExportBriefLivingHouseResultType" maxOccurs="unbounded"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "resultItem"
+    })
+    public static class ExportBriefLivingHouseResult {
+
+        @XmlElement(name = "ResultItem", required = true)
+        protected List<ExportBriefLivingHouseResultType> resultItem;
+
+        /**
+         * Gets the value of the resultItem property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the resultItem property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getResultItem().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link ExportBriefLivingHouseResultType }
+         * 
+         * 
+         */
+        public List<ExportBriefLivingHouseResultType> getResultItem() {
+            if (resultItem == null) {
+                resultItem = new ArrayList<ExportBriefLivingHouseResultType>();
+            }
+            return this.resultItem;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}exportBriefSupplyResourceContractResultType" maxOccurs="unbounded"/&gt;
+     *         &lt;choice&gt;
+     *           &lt;sequence&gt;
+     *             &lt;element name="NextPageContractRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *             &lt;element name="NextPageObjectGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+     *           &lt;/sequence&gt;
+     *           &lt;element name="IsLastPage" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+     *         &lt;/choice&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "contract",
+        "nextPageContractRootGUID",
+        "nextPageObjectGUID",
+        "isLastPage"
+    })
+    public static class ExportBriefSupplyResourceContractResult {
+
+        @XmlElement(name = "Contract", required = true)
+        protected List<ExportBriefSupplyResourceContractResultType> contract;
+        @XmlElement(name = "NextPageContractRootGUID")
+        protected String nextPageContractRootGUID;
+        @XmlElement(name = "NextPageObjectGUID")
+        protected String nextPageObjectGUID;
+        @XmlElement(name = "IsLastPage")
+        protected Boolean isLastPage;
+
+        /**
+         * Gets the value of the contract property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the contract property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getContract().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link ExportBriefSupplyResourceContractResultType }
+         * 
+         * 
+         */
+        public List<ExportBriefSupplyResourceContractResultType> getContract() {
+            if (contract == null) {
+                contract = new ArrayList<ExportBriefSupplyResourceContractResultType>();
+            }
+            return this.contract;
+        }
+
+        /**
+         * Gets the value of the nextPageContractRootGUID property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getNextPageContractRootGUID() {
+            return nextPageContractRootGUID;
+        }
+
+        /**
+         * Sets the value of the nextPageContractRootGUID property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setNextPageContractRootGUID(String value) {
+            this.nextPageContractRootGUID = value;
+        }
+
+        /**
+         * Gets the value of the nextPageObjectGUID property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getNextPageObjectGUID() {
+            return nextPageObjectGUID;
+        }
+
+        /**
+         * Sets the value of the nextPageObjectGUID property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setNextPageObjectGUID(String value) {
+            this.nextPageObjectGUID = value;
+        }
+
+        /**
+         * Gets the value of the isLastPage property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIsLastPage() {
+            return isLastPage;
+        }
+
+        /**
+         * Sets the value of the isLastPage property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIsLastPage(Boolean value) {
+            this.isLastPage = value;
+        }
+
     }
 
 

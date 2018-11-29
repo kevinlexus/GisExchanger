@@ -45,33 +45,24 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
-		<dependency>
-		  <groupId>org.quartz-scheduler</groupId>
-		  <artifactId>quartz</artifactId>
-		  <version>2.2.1</version>
-		</dependency>
-		<dependency>
-		  <groupId>org.quartz-scheduler</groupId>
-		  <artifactId>quartz-jobs</artifactId>
-		  <version>2.2.1</version>
-		</dependency>
-
-		<!-- BWC -->
-<!--
-		<dependency>
-			<groupId>com.ric.bill</groupId>
-			<artifactId>BWC</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
--->
-
 		<!-- DWC -->
 		<dependency>
 			<groupId>com.dic.bill</groupId>
 			<artifactId>DWC</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+		<dependency>
+		  <groupId>org.quartz-scheduler</groupId>
+		  <artifactId>quartz</artifactId>
+		  <version>2.2.1</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>org.quartz-scheduler</groupId>
+		  <artifactId>quartz-jobs</artifactId>
+		  <version>2.2.1</version>
 		</dependency>
 
 		<dependency>

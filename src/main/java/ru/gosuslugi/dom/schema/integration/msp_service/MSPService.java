@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "MSPService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/msp-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/msp/hcs-msp-service.wsdl")
+@WebServiceClient(name = "MSPService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/msp-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/msp/hcs-msp-service.wsdl")
 public class MSPService
     extends Service
 {
@@ -30,7 +30,7 @@ public class MSPService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/msp/hcs-msp-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/msp/hcs-msp-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

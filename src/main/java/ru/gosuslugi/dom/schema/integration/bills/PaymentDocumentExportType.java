@@ -48,17 +48,20 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;choice&gt;
  *           &lt;sequence&gt;
  *             &lt;element name="ChargeInfo" type="{http://dom.gosuslugi.ru/schema/integration/bills/}PDServiceChargeExportType" maxOccurs="unbounded" minOccurs="0"/&gt;
- *             &lt;element name="CapitalRepairCharge" minOccurs="0"&gt;
- *               &lt;complexType&gt;
- *                 &lt;complexContent&gt;
- *                   &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairType"&gt;
- *                     &lt;sequence&gt;
- *                       &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
- *                     &lt;/sequence&gt;
- *                   &lt;/extension&gt;
- *                 &lt;/complexContent&gt;
- *               &lt;/complexType&gt;
- *             &lt;/element&gt;
+ *             &lt;choice&gt;
+ *               &lt;element name="CapitalRepairCharge" minOccurs="0"&gt;
+ *                 &lt;complexType&gt;
+ *                   &lt;complexContent&gt;
+ *                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairType"&gt;
+ *                       &lt;sequence&gt;
+ *                         &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *                       &lt;/sequence&gt;
+ *                     &lt;/extension&gt;
+ *                   &lt;/complexContent&gt;
+ *                 &lt;/complexType&gt;
+ *               &lt;/element&gt;
+ *               &lt;element name="CapitalRepairYearCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairYearImportType" minOccurs="0"/&gt;
+ *             &lt;/choice&gt;
  *             &lt;element name="PenaltiesAndCourtCosts" maxOccurs="unbounded" minOccurs="0"&gt;
  *               &lt;complexType&gt;
  *                 &lt;complexContent&gt;
@@ -315,6 +318,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "addressInfo",
     "chargeInfo",
     "capitalRepairCharge",
+    "capitalRepairYearCharge",
     "penaltiesAndCourtCosts",
     "insurance",
     "capitalRepairDebt",
@@ -352,6 +356,8 @@ public class PaymentDocumentExportType {
     protected List<PDServiceChargeExportType> chargeInfo;
     @XmlElement(name = "CapitalRepairCharge")
     protected PaymentDocumentExportType.CapitalRepairCharge capitalRepairCharge;
+    @XmlElement(name = "CapitalRepairYearCharge")
+    protected CapitalRepairYearImportType capitalRepairYearCharge;
     @XmlElement(name = "PenaltiesAndCourtCosts")
     protected List<PaymentDocumentExportType.PenaltiesAndCourtCosts> penaltiesAndCourtCosts;
     @XmlElement(name = "Insurance")
@@ -520,6 +526,30 @@ public class PaymentDocumentExportType {
      */
     public void setCapitalRepairCharge(PaymentDocumentExportType.CapitalRepairCharge value) {
         this.capitalRepairCharge = value;
+    }
+
+    /**
+     * Gets the value of the capitalRepairYearCharge property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link CapitalRepairYearImportType }
+     *     
+     */
+    public CapitalRepairYearImportType getCapitalRepairYearCharge() {
+        return capitalRepairYearCharge;
+    }
+
+    /**
+     * Sets the value of the capitalRepairYearCharge property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link CapitalRepairYearImportType }
+     *     
+     */
+    public void setCapitalRepairYearCharge(CapitalRepairYearImportType value) {
+        this.capitalRepairYearCharge = value;
     }
 
     /**

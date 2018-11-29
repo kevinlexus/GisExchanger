@@ -477,7 +477,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
 		// Искать ли архивные
 		req.setSerchArchived(false);
-		// Отключить показания отправленные информационной системой
+		// Исключить показания отправленные информационной системой
 		req.setExcludeISValues(true);
 		// дата с которой получить показания TODO
 		//req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
@@ -576,9 +576,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 					}
 				}
 				}
-				// Установить статус выполнения задания
-				reqProp.getFoundTask().setState("ACP");
-				taskMng.logTask(task, false, true);
+			// Установить статус выполнения задания
+			reqProp.getFoundTask().setState("ACP");
+			log.info("******* ACP");
+			taskMng.logTask(task, false, true);
 			}
 	}
 

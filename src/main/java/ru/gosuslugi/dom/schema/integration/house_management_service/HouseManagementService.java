@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "HouseManagementService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/house-management/hcs-house-management-service.wsdl")
+@WebServiceClient(name = "HouseManagementService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/house-management/hcs-house-management-service.wsdl")
 public class HouseManagementService
     extends Service
 {
@@ -32,7 +32,7 @@ public class HouseManagementService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/house-management/hcs-house-management-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/house-management/hcs-house-management-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

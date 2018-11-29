@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
  *         &lt;sequence&gt;
  *           &lt;element name="exportDelegatedAccess" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportDelegatedAccessType" maxOccurs="unbounded"/&gt;
- *           &lt;element name="IsNextPage" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+ *           &lt;element name="IsNextPage" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
  *         &lt;/sequence&gt;
  *       &lt;/choice&gt;
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.2.0.1""/&gt;
@@ -52,7 +52,7 @@ public class ExportDelegatedAccessResult
     protected ErrorMessageType errorMessage;
     protected List<ExportDelegatedAccessType> exportDelegatedAccess;
     @XmlElement(name = "IsNextPage")
-    protected Object isNextPage;
+    protected Boolean isNextPage;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -114,10 +114,10 @@ public class ExportDelegatedAccessResult
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link Boolean }
      *     
      */
-    public Object getIsNextPage() {
+    public Boolean isIsNextPage() {
         return isNextPage;
     }
 
@@ -126,10 +126,10 @@ public class ExportDelegatedAccessResult
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link Boolean }
      *     
      */
-    public void setIsNextPage(Object value) {
+    public void setIsNextPage(Boolean value) {
         this.isNextPage = value;
     }
 

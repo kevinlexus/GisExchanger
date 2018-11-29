@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="AccountingPeriodTotal"&gt;
+ *         &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="18"/&gt;
@@ -85,7 +85,7 @@ public class CapitalRepairType {
 
     @XmlElement(name = "Contribution", required = true)
     protected BigDecimal contribution;
-    @XmlElement(name = "AccountingPeriodTotal", required = true)
+    @XmlElement(name = "AccountingPeriodTotal")
     protected BigDecimal accountingPeriodTotal;
     @XmlElement(name = "MoneyRecalculation")
     protected BigDecimal moneyRecalculation;

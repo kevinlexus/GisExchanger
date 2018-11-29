@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="ContractGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -77,7 +77,7 @@ public class WorkingListBaseType {
     protected WorkingListBaseType.MonthYearFrom monthYearFrom;
     @XmlElement(name = "MonthYearTo", required = true)
     protected WorkingListBaseType.MonthYearTo monthYearTo;
-    @XmlElement(name = "ContractGUID", required = true)
+    @XmlElement(name = "ContractGUID")
     protected String contractGUID;
 
     /**

@@ -395,6 +395,7 @@ public class TaskController implements TaskControllers {
 			}
 			try {
 				Thread.sleep(1000);
+				//log.info("waiting...");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

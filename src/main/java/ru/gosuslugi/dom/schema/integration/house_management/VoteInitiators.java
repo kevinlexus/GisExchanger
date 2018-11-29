@@ -19,8 +19,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgRoo
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;choice&gt;
- *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgRootAndVersionType"/&gt;
  *         &lt;element name="Ind" type="{http://dom.gosuslugi.ru/schema/integration/house-management/}VotingInitiatorIndType"/&gt;
+ *         &lt;element name="Org" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgRootAndVersionType"/&gt;
  *       &lt;/choice&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -31,40 +31,16 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgRoo
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "org",
-    "ind"
+    "ind",
+    "org"
 })
 @XmlRootElement(name = "VoteInitiators")
 public class VoteInitiators {
 
-    @XmlElement(name = "Org")
-    protected RegOrgRootAndVersionType org;
     @XmlElement(name = "Ind")
     protected VotingInitiatorIndType ind;
-
-    /**
-     * Gets the value of the org property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RegOrgRootAndVersionType }
-     *     
-     */
-    public RegOrgRootAndVersionType getOrg() {
-        return org;
-    }
-
-    /**
-     * Sets the value of the org property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RegOrgRootAndVersionType }
-     *     
-     */
-    public void setOrg(RegOrgRootAndVersionType value) {
-        this.org = value;
-    }
+    @XmlElement(name = "Org")
+    protected RegOrgRootAndVersionType org;
 
     /**
      * Gets the value of the ind property.
@@ -88,6 +64,30 @@ public class VoteInitiators {
      */
     public void setInd(VotingInitiatorIndType value) {
         this.ind = value;
+    }
+
+    /**
+     * Gets the value of the org property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RegOrgRootAndVersionType }
+     *     
+     */
+    public RegOrgRootAndVersionType getOrg() {
+        return org;
+    }
+
+    /**
+     * Sets the value of the org property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RegOrgRootAndVersionType }
+     *     
+     */
+    public void setOrg(RegOrgRootAndVersionType value) {
+        this.org = value;
     }
 
 }

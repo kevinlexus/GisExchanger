@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import ru.gosuslugi.dom.schema.integration.device_metering.OneRateMeteringValueImportType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -38,7 +37,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "meteringValue"
 })
 @XmlSeeAlso({
-    OneRateMeteringValueImportType.class,
     OneRateMeteringValueExportType.class
 })
 public class OneRateMeteringValueBaseType {

@@ -58,7 +58,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                             &lt;element name="Year" minOccurs="0"&gt;
  *                               &lt;simpleType&gt;
  *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
- *                                   &lt;totalDigits value="2"/&gt;
+ *                                   &lt;totalDigits value="4"/&gt;
  *                                 &lt;/restriction&gt;
  *                               &lt;/simpleType&gt;
  *                             &lt;/element&gt;
@@ -211,7 +211,7 @@ public class HouseType {
      *                   &lt;element name="Year" minOccurs="0"&gt;
      *                     &lt;simpleType&gt;
      *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
-     *                         &lt;totalDigits value="2"/&gt;
+     *                         &lt;totalDigits value="4"/&gt;
      *                       &lt;/restriction&gt;
      *                     &lt;/simpleType&gt;
      *                   &lt;/element&gt;
@@ -536,7 +536,7 @@ public class HouseType {
          *         &lt;element name="Year" minOccurs="0"&gt;
          *           &lt;simpleType&gt;
          *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
-         *               &lt;totalDigits value="2"/&gt;
+         *               &lt;totalDigits value="4"/&gt;
          *             &lt;/restriction&gt;
          *           &lt;/simpleType&gt;
          *         &lt;/element&gt;

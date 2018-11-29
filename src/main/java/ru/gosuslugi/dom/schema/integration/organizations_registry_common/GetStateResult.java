@@ -23,15 +23,18 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseAsyncResponseType"&gt;
- *       &lt;choice minOccurs="0"&gt;
- *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
- *         &lt;element name="ImportResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="exportOrgRegistryResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportOrgRegistryResultType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="exportDataProviderResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportDataProviderResultType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="exportDelegatedAccessResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportDelegatedAccessType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="exportObjectsDelegatedAccessResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}ObjectsDelegatedAccessRightType" maxOccurs="unbounded"/&gt;
- *         &lt;element name="exportTerritoryDelegatedAccess" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}TerritoryDelegatedAccessRightType" maxOccurs="unbounded"/&gt;
- *       &lt;/choice&gt;
+ *       &lt;sequence minOccurs="0"&gt;
+ *         &lt;choice minOccurs="0"&gt;
+ *           &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
+ *           &lt;element name="ImportResult" type="{http://dom.gosuslugi.ru/schema/integration/base/}CommonResultType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="exportOrgRegistryResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportOrgRegistryResultType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="exportDataProviderResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportDataProviderResultType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="exportDelegatedAccessResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}exportDelegatedAccessType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="exportObjectsDelegatedAccessResult" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}ObjectsDelegatedAccessRightType" maxOccurs="unbounded"/&gt;
+ *           &lt;element name="exportTerritoryDelegatedAccess" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-common/}TerritoryDelegatedAccessRightType" maxOccurs="unbounded"/&gt;
+ *         &lt;/choice&gt;
+ *         &lt;element name="IsNextPage" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.2.1""/&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -48,7 +51,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
     "exportDataProviderResult",
     "exportDelegatedAccessResult",
     "exportObjectsDelegatedAccessResult",
-    "exportTerritoryDelegatedAccess"
+    "exportTerritoryDelegatedAccess",
+    "isNextPage"
 })
 @XmlRootElement(name = "getStateResult")
 public class GetStateResult
@@ -64,6 +68,8 @@ public class GetStateResult
     protected List<ExportDelegatedAccessType> exportDelegatedAccessResult;
     protected List<ObjectsDelegatedAccessRightType> exportObjectsDelegatedAccessResult;
     protected List<TerritoryDelegatedAccessRightType> exportTerritoryDelegatedAccess;
+    @XmlElement(name = "IsNextPage")
+    protected Boolean isNextPage;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -263,6 +269,30 @@ public class GetStateResult
             exportTerritoryDelegatedAccess = new ArrayList<TerritoryDelegatedAccessRightType>();
         }
         return this.exportTerritoryDelegatedAccess;
+    }
+
+    /**
+     * Gets the value of the isNextPage property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIsNextPage() {
+        return isNextPage;
+    }
+
+    /**
+     * Sets the value of the isNextPage property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIsNextPage(Boolean value) {
+        this.isNextPage = value;
     }
 
     /**

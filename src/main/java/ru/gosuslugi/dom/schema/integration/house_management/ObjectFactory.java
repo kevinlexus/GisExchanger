@@ -551,6 +551,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SupplyResourceContractProjectType.RegionalSettings }
+     * 
+     */
+    public SupplyResourceContractProjectType.RegionalSettings createSupplyResourceContractProjectTypeRegionalSettings() {
+        return new SupplyResourceContractProjectType.RegionalSettings();
+    }
+
+    /**
      * Create an instance of {@link SupplyResourceContractProjectType.Quality }
      * 
      */
@@ -1271,6 +1279,94 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportBriefBasicHouseRequest }
+     * 
+     */
+    public ExportBriefBasicHouseRequest createExportBriefBasicHouseRequest() {
+        return new ExportBriefBasicHouseRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefBasicHouseRequestType }
+     * 
+     */
+    public ExportBriefBasicHouseRequestType createExportBriefBasicHouseRequestType() {
+        return new ExportBriefBasicHouseRequestType();
+    }
+
+    /**
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.ExportBriefBasicHouseResult }
+     * 
+     */
+    public ru.gosuslugi.dom.schema.integration.house_management.ExportBriefBasicHouseResult createExportBriefBasicHouseResult() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.ExportBriefBasicHouseResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefBasicHouseResultType }
+     * 
+     */
+    public ExportBriefBasicHouseResultType createExportBriefBasicHouseResultType() {
+        return new ExportBriefBasicHouseResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefLivingHouseRequest }
+     * 
+     */
+    public ExportBriefLivingHouseRequest createExportBriefLivingHouseRequest() {
+        return new ExportBriefLivingHouseRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefLivingHouseRequestType }
+     * 
+     */
+    public ExportBriefLivingHouseRequestType createExportBriefLivingHouseRequestType() {
+        return new ExportBriefLivingHouseRequestType();
+    }
+
+    /**
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.ExportBriefLivingHouseResult }
+     * 
+     */
+    public ru.gosuslugi.dom.schema.integration.house_management.ExportBriefLivingHouseResult createExportBriefLivingHouseResult() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.ExportBriefLivingHouseResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefLivingHouseResultType }
+     * 
+     */
+    public ExportBriefLivingHouseResultType createExportBriefLivingHouseResultType() {
+        return new ExportBriefLivingHouseResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefApartmentHouseRequest }
+     * 
+     */
+    public ExportBriefApartmentHouseRequest createExportBriefApartmentHouseRequest() {
+        return new ExportBriefApartmentHouseRequest();
+    }
+
+    /**
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.ExportBriefApartmentHouseResult }
+     * 
+     */
+    public ru.gosuslugi.dom.schema.integration.house_management.ExportBriefApartmentHouseResult createExportBriefApartmentHouseResult() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.ExportBriefApartmentHouseResult();
+    }
+
+    /**
+     * Create an instance of {@link BriefApartmentHouseType }
+     * 
+     */
+    public BriefApartmentHouseType createBriefApartmentHouseType() {
+        return new BriefApartmentHouseType();
+    }
+
+    /**
      * Create an instance of {@link ImportAccountRequest.Account }
      * 
      */
@@ -1511,11 +1607,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportBriefSupplyResourceContractResult }
+     * Create an instance of {@link ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResult }
      * 
      */
-    public ExportBriefSupplyResourceContractResult createExportBriefSupplyResourceContractResult() {
-        return new ExportBriefSupplyResourceContractResult();
+    public ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResult createExportBriefSupplyResourceContractResult() {
+        return new ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResult();
     }
 
     /**
@@ -1567,6 +1663,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStateResult.ExportBriefBasicHouseResult }
+     * 
+     */
+    public GetStateResult.ExportBriefBasicHouseResult createGetStateResultExportBriefBasicHouseResult() {
+        return new GetStateResult.ExportBriefBasicHouseResult();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult.ExportBriefApartmentHouseResult }
+     * 
+     */
+    public GetStateResult.ExportBriefApartmentHouseResult createGetStateResultExportBriefApartmentHouseResult() {
+        return new GetStateResult.ExportBriefApartmentHouseResult();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult.ExportBriefLivingHouseResult }
+     * 
+     */
+    public GetStateResult.ExportBriefLivingHouseResult createGetStateResultExportBriefLivingHouseResult() {
+        return new GetStateResult.ExportBriefLivingHouseResult();
+    }
+
+    /**
      * Create an instance of {@link GetStateResult.ExportSupplyResourceContractResult }
      * 
      */
@@ -1580,6 +1700,14 @@ public class ObjectFactory {
      */
     public GetStateResult.ExportSupplyResourceContractObjectAddress createGetStateResultExportSupplyResourceContractObjectAddress() {
         return new GetStateResult.ExportSupplyResourceContractObjectAddress();
+    }
+
+    /**
+     * Create an instance of {@link GetStateResult.ExportBriefSupplyResourceContractResult }
+     * 
+     */
+    public GetStateResult.ExportBriefSupplyResourceContractResult createGetStateResultExportBriefSupplyResourceContractResult() {
+        return new GetStateResult.ExportBriefSupplyResourceContractResult();
     }
 
     /**
@@ -1636,6 +1764,86 @@ public class ObjectFactory {
      */
     public DemolishionReasonType createDemolishionReasonType() {
         return new DemolishionReasonType();
+    }
+
+    /**
+     * Create an instance of {@link ExportBriefBasicCriteriaType }
+     * 
+     */
+    public ExportBriefBasicCriteriaType createExportBriefBasicCriteriaType() {
+        return new ExportBriefBasicCriteriaType();
+    }
+
+    /**
+     * Create an instance of {@link BriefBasicHouseType }
+     * 
+     */
+    public BriefBasicHouseType createBriefBasicHouseType() {
+        return new BriefBasicHouseType();
+    }
+
+    /**
+     * Create an instance of {@link BriefBasicCharactericticsType }
+     * 
+     */
+    public BriefBasicCharactericticsType createBriefBasicCharactericticsType() {
+        return new BriefBasicCharactericticsType();
+    }
+
+    /**
+     * Create an instance of {@link BriefLocationType }
+     * 
+     */
+    public BriefLocationType createBriefLocationType() {
+        return new BriefLocationType();
+    }
+
+    /**
+     * Create an instance of {@link BriefLivingHouseType }
+     * 
+     */
+    public BriefLivingHouseType createBriefLivingHouseType() {
+        return new BriefLivingHouseType();
+    }
+
+    /**
+     * Create an instance of {@link BriefBlockType }
+     * 
+     */
+    public BriefBlockType createBriefBlockType() {
+        return new BriefBlockType();
+    }
+
+    /**
+     * Create an instance of {@link BriefEntranceType }
+     * 
+     */
+    public BriefEntranceType createBriefEntranceType() {
+        return new BriefEntranceType();
+    }
+
+    /**
+     * Create an instance of {@link BriefNonResidentialPremisesType }
+     * 
+     */
+    public BriefNonResidentialPremisesType createBriefNonResidentialPremisesType() {
+        return new BriefNonResidentialPremisesType();
+    }
+
+    /**
+     * Create an instance of {@link BriefResidentialPremisesType }
+     * 
+     */
+    public BriefResidentialPremisesType createBriefResidentialPremisesType() {
+        return new BriefResidentialPremisesType();
+    }
+
+    /**
+     * Create an instance of {@link BriefLivingRoomType }
+     * 
+     */
+    public BriefLivingRoomType createBriefLivingRoomType() {
+        return new BriefLivingRoomType();
     }
 
     /**
@@ -3316,6 +3524,22 @@ public class ObjectFactory {
      */
     public SupplyResourceContractProjectType.ProvidingInformationDate createSupplyResourceContractProjectTypeProvidingInformationDate() {
         return new SupplyResourceContractProjectType.ProvidingInformationDate();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.RegionalSettings.Tariff }
+     * 
+     */
+    public SupplyResourceContractProjectType.RegionalSettings.Tariff createSupplyResourceContractProjectTypeRegionalSettingsTariff() {
+        return new SupplyResourceContractProjectType.RegionalSettings.Tariff();
+    }
+
+    /**
+     * Create an instance of {@link SupplyResourceContractProjectType.RegionalSettings.Norm }
+     * 
+     */
+    public SupplyResourceContractProjectType.RegionalSettings.Norm createSupplyResourceContractProjectTypeRegionalSettingsNorm() {
+        return new SupplyResourceContractProjectType.RegionalSettings.Norm();
     }
 
     /**

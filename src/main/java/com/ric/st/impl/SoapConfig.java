@@ -39,9 +39,9 @@ public class SoapConfig implements SoapConfigs {
 	private String signPass;
 	@Value("${signPath}")
 	private String signPath;
-	@Value("${signPass2}")
+	@Value("${signPass2:#{null}}")
 	private String signPass2;
-	@Value("${signPath2}")
+	@Value("${signPath2:#{null}}")
 	private String signPath2;
 	@Value("${hostIp}")
 	private String hostIp;

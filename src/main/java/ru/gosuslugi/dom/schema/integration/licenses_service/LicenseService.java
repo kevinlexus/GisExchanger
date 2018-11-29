@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "LicenseService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/licenses-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/licenses/hcs-licenses-service.wsdl")
+@WebServiceClient(name = "LicenseService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/licenses-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/licenses/hcs-licenses-service.wsdl")
 public class LicenseService
     extends Service
 {
@@ -32,7 +32,7 @@ public class LicenseService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/licenses/hcs-licenses-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/licenses/hcs-licenses-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

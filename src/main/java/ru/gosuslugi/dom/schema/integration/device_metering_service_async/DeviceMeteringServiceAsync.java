@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "DeviceMeteringServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/device-metering-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/device-metering/hcs-device-metering-service-async.wsdl")
+@WebServiceClient(name = "DeviceMeteringServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/device-metering-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/device-metering/hcs-device-metering-service-async.wsdl")
 public class DeviceMeteringServiceAsync
     extends Service
 {
@@ -32,7 +32,7 @@ public class DeviceMeteringServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/device-metering/hcs-device-metering-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/device-metering/hcs-device-metering-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

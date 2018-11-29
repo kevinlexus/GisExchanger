@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgType;
 
 
 /**
@@ -23,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="DecisionGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
  *         &lt;element name="Status" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}StatusType"/&gt;
  *         &lt;element name="AccountSpecialGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="DecisionsOrganization" type="{http://dom.gosuslugi.ru/schema/integration/organizations-registry-base/}RegOrgType" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -35,7 +37,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "exportDecisionType", propOrder = {
     "decisionGuid",
     "status",
-    "accountSpecialGuid"
+    "accountSpecialGuid",
+    "decisionsOrganization"
 })
 public class ExportDecisionType
     extends DecisionType
@@ -48,6 +51,8 @@ public class ExportDecisionType
     protected StatusType status;
     @XmlElement(name = "AccountSpecialGuid")
     protected String accountSpecialGuid;
+    @XmlElement(name = "DecisionsOrganization")
+    protected RegOrgType decisionsOrganization;
 
     /**
      * Gets the value of the decisionGuid property.
@@ -119,6 +124,30 @@ public class ExportDecisionType
      */
     public void setAccountSpecialGuid(String value) {
         this.accountSpecialGuid = value;
+    }
+
+    /**
+     * Gets the value of the decisionsOrganization property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RegOrgType }
+     *     
+     */
+    public RegOrgType getDecisionsOrganization() {
+        return decisionsOrganization;
+    }
+
+    /**
+     * Sets the value of the decisionsOrganization property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RegOrgType }
+     *     
+     */
+    public void setDecisionsOrganization(RegOrgType value) {
+        this.decisionsOrganization = value;
     }
 
 }

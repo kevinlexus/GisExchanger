@@ -135,19 +135,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PaymentInformationType }
-     * 
-     */
-    public PaymentInformationType createPaymentInformationType() {
-        return new PaymentInformationType();
-    }
-
-    /**
      * Create an instance of {@link NotificationOfOrderExecutionCancellationType }
      * 
      */
     public NotificationOfOrderExecutionCancellationType createNotificationOfOrderExecutionCancellationType() {
         return new NotificationOfOrderExecutionCancellationType();
+    }
+
+    /**
+     * Create an instance of {@link PaymentInformationType }
+     * 
+     */
+    public PaymentInformationType createPaymentInformationType() {
+        return new PaymentInformationType();
     }
 
     /**
@@ -231,6 +231,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AcknowledgmentRequestInfoExportType.PaymentDocumentAck.CapitalRepairYearAckPeriod }
+     * 
+     */
+    public AcknowledgmentRequestInfoExportType.PaymentDocumentAck.CapitalRepairYearAckPeriod createAcknowledgmentRequestInfoExportTypePaymentDocumentAckCapitalRepairYearAckPeriod() {
+        return new AcknowledgmentRequestInfoExportType.PaymentDocumentAck.CapitalRepairYearAckPeriod();
+    }
+
+    /**
      * Create an instance of {@link AcknowledgmentRequestInfoType.AckImpossible }
      * 
      */
@@ -252,6 +260,14 @@ public class ObjectFactory {
      */
     public AcknowledgmentRequestInfoType.PaymentDocumentAck.PaymentInformation createAcknowledgmentRequestInfoTypePaymentDocumentAckPaymentInformation() {
         return new AcknowledgmentRequestInfoType.PaymentDocumentAck.PaymentInformation();
+    }
+
+    /**
+     * Create an instance of {@link AcknowledgmentRequestInfoType.PaymentDocumentAck.CapitalRepairYearAckPeriod }
+     * 
+     */
+    public AcknowledgmentRequestInfoType.PaymentDocumentAck.CapitalRepairYearAckPeriod createAcknowledgmentRequestInfoTypePaymentDocumentAckCapitalRepairYearAckPeriod() {
+        return new AcknowledgmentRequestInfoType.PaymentDocumentAck.CapitalRepairYearAckPeriod();
     }
 
     /**

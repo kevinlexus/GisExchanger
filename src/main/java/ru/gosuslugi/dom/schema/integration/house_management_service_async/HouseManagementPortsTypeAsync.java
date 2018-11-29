@@ -12,6 +12,9 @@ import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.DemolishHouseRequestType;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountIndividualServicesRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportBriefApartmentHouseRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportBriefBasicHouseRequest;
+import ru.gosuslugi.dom.schema.integration.house_management.ExportBriefLivingHouseRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSocialHireContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractRequest;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportCAChAsyncRequest;
@@ -540,6 +543,54 @@ public interface HouseManagementPortsTypeAsync {
     public AckRequest demolishHouse(
         @WebParam(name = "demolishHouseRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "demolishHouseRequest")
         DemolishHouseRequestType demolishHouseRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт краткой базовой информации о доме
+     * 
+     * @param exportBriefBasicHouseRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportBriefBasicHouse")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "AckRequest")
+    public AckRequest exportBriefBasicHouse(
+        @WebParam(name = "exportBriefBasicHouseRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportBriefBasicHouseRequest")
+        ExportBriefBasicHouseRequest exportBriefBasicHouseRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт краткой информации о жилом доме
+     * 
+     * @param exportBriefLivingHouseRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportBriefLivingHouse")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "AckRequest")
+    public AckRequest exportBriefLivingHouse(
+        @WebParam(name = "exportBriefLivingHouseRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportBriefLivingHouseRequest")
+        ExportBriefLivingHouseRequest exportBriefLivingHouseRequest)
+        throws Fault
+    ;
+
+    /**
+     * Экспорт краткой информации о многоквартирном доме
+     * 
+     * @param exportBriefApartmentHouseRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:exportBriefApartmentHouse")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "AckRequest")
+    public AckRequest exportBriefApartmentHouse(
+        @WebParam(name = "exportBriefApartmentHouseRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/house-management/", partName = "exportBriefApartmentHouseRequest")
+        ExportBriefApartmentHouseRequest exportBriefApartmentHouseRequest)
         throws Fault
     ;
 

@@ -43,6 +43,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *               &lt;complexContent&gt;
  *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *                   &lt;sequence&gt;
+ *                     &lt;element name="AVotingStartDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *                     &lt;element name="AVotingDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
  *                     &lt;element name="ResolutionPlace"&gt;
  *                       &lt;simpleType&gt;
@@ -111,6 +112,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgVer
  *                         &lt;/restriction&gt;
  *                       &lt;/simpleType&gt;
  *                     &lt;/element&gt;
+ *                     &lt;element name="AVotingStartDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *                     &lt;element name="AVotingDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
  *                     &lt;element name="ResolutionPlace"&gt;
  *                       &lt;simpleType&gt;
@@ -585,6 +587,7 @@ public class ProtocolExportType {
      *   &lt;complexContent&gt;
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
      *       &lt;sequence&gt;
+     *         &lt;element name="AVotingStartDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
      *         &lt;element name="AVotingDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
      *         &lt;element name="ResolutionPlace"&gt;
      *           &lt;simpleType&gt;
@@ -605,12 +608,16 @@ public class ProtocolExportType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
+        "aVotingStartDate",
         "aVotingDate",
         "resolutionPlace",
         "attachments"
     })
     public static class AVoting {
 
+        @XmlElement(name = "AVotingStartDate")
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar aVotingStartDate;
         @XmlElement(name = "AVotingDate", required = true)
         @XmlSchemaType(name = "date")
         protected XMLGregorianCalendar aVotingDate;
@@ -618,6 +625,30 @@ public class ProtocolExportType {
         protected String resolutionPlace;
         @XmlElement(name = "Attachments", required = true)
         protected List<Attachments> attachments;
+
+        /**
+         * Gets the value of the aVotingStartDate property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public XMLGregorianCalendar getAVotingStartDate() {
+            return aVotingStartDate;
+        }
+
+        /**
+         * Sets the value of the aVotingStartDate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setAVotingStartDate(XMLGregorianCalendar value) {
+            this.aVotingStartDate = value;
+        }
 
         /**
          * Gets the value of the aVotingDate property.
@@ -1292,6 +1323,7 @@ public class ProtocolExportType {
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;
      *         &lt;/element&gt;
+     *         &lt;element name="AVotingStartDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
      *         &lt;element name="AVotingDate" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
      *         &lt;element name="ResolutionPlace"&gt;
      *           &lt;simpleType&gt;
@@ -1314,6 +1346,7 @@ public class ProtocolExportType {
     @XmlType(name = "", propOrder = {
         "meetingDate",
         "votingPlace",
+        "aVotingStartDate",
         "aVotingDate",
         "resolutionPlace",
         "attachments"
@@ -1325,6 +1358,9 @@ public class ProtocolExportType {
         protected XMLGregorianCalendar meetingDate;
         @XmlElement(name = "VotingPlace", required = true)
         protected String votingPlace;
+        @XmlElement(name = "AVotingStartDate")
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar aVotingStartDate;
         @XmlElement(name = "AVotingDate", required = true)
         @XmlSchemaType(name = "date")
         protected XMLGregorianCalendar aVotingDate;
@@ -1379,6 +1415,30 @@ public class ProtocolExportType {
          */
         public void setVotingPlace(String value) {
             this.votingPlace = value;
+        }
+
+        /**
+         * Gets the value of the aVotingStartDate property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public XMLGregorianCalendar getAVotingStartDate() {
+            return aVotingStartDate;
+        }
+
+        /**
+         * Sets the value of the aVotingStartDate property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link XMLGregorianCalendar }
+         *     
+         */
+        public void setAVotingStartDate(XMLGregorianCalendar value) {
+            this.aVotingStartDate = value;
         }
 
         /**

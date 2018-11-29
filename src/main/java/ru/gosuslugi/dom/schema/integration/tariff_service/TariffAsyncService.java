@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "TariffAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/tariff-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/tariff/hcs-tariff-service-async.wsdl")
+@WebServiceClient(name = "TariffAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/tariff-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/tariff/hcs-tariff-service-async.wsdl")
 public class TariffAsyncService
     extends Service
 {
@@ -32,7 +32,7 @@ public class TariffAsyncService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/tariff/hcs-tariff-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/tariff/hcs-tariff-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

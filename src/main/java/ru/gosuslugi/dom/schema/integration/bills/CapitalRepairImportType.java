@@ -23,10 +23,11 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"&gt;
  *               &lt;totalDigits value="17"/&gt;
+ *               &lt;minInclusive value="0"/&gt;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="AccountingPeriodTotal"&gt;
+ *         &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="17"/&gt;
@@ -34,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="MoneyRecalculation"&gt;
+ *         &lt;element name="MoneyRecalculation" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="17"/&gt;
@@ -95,9 +96,9 @@ public class CapitalRepairImportType {
 
     @XmlElement(name = "Contribution", required = true)
     protected BigDecimal contribution;
-    @XmlElement(name = "AccountingPeriodTotal", required = true)
+    @XmlElement(name = "AccountingPeriodTotal")
     protected BigDecimal accountingPeriodTotal;
-    @XmlElement(name = "MoneyRecalculation", required = true)
+    @XmlElement(name = "MoneyRecalculation")
     protected BigDecimal moneyRecalculation;
     @XmlElement(name = "MoneyDiscount")
     protected BigDecimal moneyDiscount;

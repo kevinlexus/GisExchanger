@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "VolumeQualityService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/volume-quality/hcs-volume-quality-service.wsdl")
+@WebServiceClient(name = "VolumeQualityService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/volume-quality/hcs-volume-quality-service.wsdl")
 public class VolumeQualityService
     extends Service
 {
@@ -32,7 +32,7 @@ public class VolumeQualityService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/volume-quality/hcs-volume-quality-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/volume-quality/hcs-volume-quality-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

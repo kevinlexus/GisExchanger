@@ -25,11 +25,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Month_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Month");
-    private final static QName _Year_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Year");
     private final static QName _ErrorMessage_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "ErrorMessage");
     private final static QName _TransportGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "TransportGUID");
     private final static QName _ModificationDate_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "ModificationDate");
+    private final static QName _Month_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Month");
+    private final static QName _Year_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "Year");
     private final static QName _OKEI_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "OKEI");
     private final static QName _OrgPPAGUID_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/base/", "orgPPAGUID");
 
@@ -65,19 +65,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ErrorMessageType }
-     * 
-     */
-    public ErrorMessageType createErrorMessageType() {
-        return new ErrorMessageType();
-    }
-
-    /**
      * Create an instance of {@link BaseAsyncResponseType }
      * 
      */
     public BaseAsyncResponseType createBaseAsyncResponseType() {
         return new BaseAsyncResponseType();
+    }
+
+    /**
+     * Create an instance of {@link ErrorMessageType }
+     * 
+     */
+    public ErrorMessageType createErrorMessageType() {
+        return new ErrorMessageType();
     }
 
     /**
@@ -217,32 +217,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Month")
-    public JAXBElement<Integer> createMonth(Integer value) {
-        return new JAXBElement<Integer>(_Month_QNAME, Integer.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Year")
-    public JAXBElement<Short> createYear(Short value) {
-        return new JAXBElement<Short>(_Year_QNAME, Short.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ErrorMessageType }{@code >}
      * 
      * @param value
@@ -279,6 +253,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "ModificationDate")
     public JAXBElement<XMLGregorianCalendar> createModificationDate(XMLGregorianCalendar value) {
         return new JAXBElement<XMLGregorianCalendar>(_ModificationDate_QNAME, XMLGregorianCalendar.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Month")
+    public JAXBElement<Integer> createMonth(Integer value) {
+        return new JAXBElement<Integer>(_Month_QNAME, Integer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Short }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/base/", name = "Year")
+    public JAXBElement<Short> createYear(Short value) {
+        return new JAXBElement<Short>(_Year_QNAME, Short.class, null, value);
     }
 
     /**

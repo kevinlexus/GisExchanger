@@ -46,6 +46,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
  *                         &lt;enumeration value="A"/&gt;
  *                         &lt;enumeration value="C"/&gt;
+ *                         &lt;enumeration value="P"/&gt;
  *                       &lt;/restriction&gt;
  *                     &lt;/simpleType&gt;
  *                   &lt;/element&gt;
@@ -396,6 +397,7 @@ public class AccompanyingDocumentType {
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
      *               &lt;enumeration value="A"/&gt;
      *               &lt;enumeration value="C"/&gt;
+     *               &lt;enumeration value="P"/&gt;
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;
      *         &lt;/element&gt;

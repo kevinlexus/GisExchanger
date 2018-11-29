@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "UkService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/uk/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/uk/hcs-uk-service.wsdl")
+@WebServiceClient(name = "UkService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/uk/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/uk/hcs-uk-service.wsdl")
 public class UkService
     extends Service
 {
@@ -32,7 +32,7 @@ public class UkService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/uk/hcs-uk-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/uk/hcs-uk-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "InspectionServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/inspection-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/inspection/hcs-inspection-service-async.wsdl")
+@WebServiceClient(name = "InspectionServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/inspection-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/inspection/hcs-inspection-service-async.wsdl")
 public class InspectionServiceAsync
     extends Service
 {
@@ -32,7 +32,7 @@ public class InspectionServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/inspection/hcs-inspection-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/inspection/hcs-inspection-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

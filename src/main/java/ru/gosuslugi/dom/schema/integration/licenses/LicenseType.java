@@ -36,14 +36,11 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *         &lt;element name="LicenseStatus"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *               &lt;pattern value="A"/&gt;
- *               &lt;pattern value="F"/&gt;
- *               &lt;pattern value="C"/&gt;
- *               &lt;pattern value="R"/&gt;
  *               &lt;enumeration value="A"/&gt;
  *               &lt;enumeration value="F"/&gt;
  *               &lt;enumeration value="C"/&gt;
  *               &lt;enumeration value="R"/&gt;
+ *               &lt;enumeration value="I"/&gt;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
@@ -70,6 +67,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
  *                         &lt;enumeration value="A"/&gt;
  *                         &lt;enumeration value="C"/&gt;
+ *                         &lt;enumeration value="P"/&gt;
  *                       &lt;/restriction&gt;
  *                     &lt;/simpleType&gt;
  *                   &lt;/element&gt;
@@ -394,6 +392,7 @@ public class LicenseType {
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
      *               &lt;enumeration value="A"/&gt;
      *               &lt;enumeration value="C"/&gt;
+     *               &lt;enumeration value="P"/&gt;
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;
      *         &lt;/element&gt;

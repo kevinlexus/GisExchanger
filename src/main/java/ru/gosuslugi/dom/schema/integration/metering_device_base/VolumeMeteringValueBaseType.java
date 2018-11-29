@@ -4,10 +4,7 @@ package ru.gosuslugi.dom.schema.integration.metering_device_base;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import ru.gosuslugi.dom.schema.integration.device_metering.VolumeMeteringValueExportBaseType;
-import ru.gosuslugi.dom.schema.integration.device_metering.VolumeMeteringValueImportType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
@@ -41,10 +38,6 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "meteringValueT1",
     "meteringValueT2",
     "meteringValueT3"
-})
-@XmlSeeAlso({
-    VolumeMeteringValueImportType.class,
-    VolumeMeteringValueExportBaseType.class
 })
 public class VolumeMeteringValueBaseType {
 

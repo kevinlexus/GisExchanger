@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import ru.gosuslugi.dom.schema.integration.base.BaseType;
+import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
@@ -34,6 +35,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseESPType"&gt;
  *                             &lt;sequence&gt;
  *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                               &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
  *                             &lt;/sequence&gt;
  *                           &lt;/extension&gt;
  *                         &lt;/complexContent&gt;
@@ -45,6 +47,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseUpdateESPType"&gt;
  *                             &lt;sequence&gt;
  *                               &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+ *                               &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
  *                             &lt;/sequence&gt;
  *                           &lt;/extension&gt;
  *                         &lt;/complexContent&gt;
@@ -314,6 +317,7 @@ public class ImportHouseESPRequest
      *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseESPType"&gt;
      *                   &lt;sequence&gt;
      *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                     &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
      *                   &lt;/sequence&gt;
      *                 &lt;/extension&gt;
      *               &lt;/complexContent&gt;
@@ -325,6 +329,7 @@ public class ImportHouseESPRequest
      *                 &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseUpdateESPType"&gt;
      *                   &lt;sequence&gt;
      *                     &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+     *                     &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
      *                   &lt;/sequence&gt;
      *                 &lt;/extension&gt;
      *               &lt;/complexContent&gt;
@@ -772,6 +777,7 @@ public class ImportHouseESPRequest
          *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseESPType"&gt;
          *       &lt;sequence&gt;
          *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *         &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
          *       &lt;/sequence&gt;
          *     &lt;/extension&gt;
          *   &lt;/complexContent&gt;
@@ -782,7 +788,8 @@ public class ImportHouseESPRequest
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "transportGUID"
+            "transportGUID",
+            "houseManagementType"
         })
         public static class ApartmentHouseToCreate
             extends ApartmentHouseESPType
@@ -790,6 +797,8 @@ public class ImportHouseESPRequest
 
             @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
             protected String transportGUID;
+            @XmlElement(name = "HouseManagementType")
+            protected NsiRef houseManagementType;
 
             /**
              * Gets the value of the transportGUID property.
@@ -813,6 +822,30 @@ public class ImportHouseESPRequest
              */
             public void setTransportGUID(String value) {
                 this.transportGUID = value;
+            }
+
+            /**
+             * Gets the value of the houseManagementType property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link NsiRef }
+             *     
+             */
+            public NsiRef getHouseManagementType() {
+                return houseManagementType;
+            }
+
+            /**
+             * Sets the value of the houseManagementType property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link NsiRef }
+             *     
+             */
+            public void setHouseManagementType(NsiRef value) {
+                this.houseManagementType = value;
             }
 
         }
@@ -829,6 +862,7 @@ public class ImportHouseESPRequest
          *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/house-management/}ApartmentHouseUpdateESPType"&gt;
          *       &lt;sequence&gt;
          *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}TransportGUID"/&gt;
+         *         &lt;element name="HouseManagementType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" minOccurs="0"/&gt;
          *       &lt;/sequence&gt;
          *     &lt;/extension&gt;
          *   &lt;/complexContent&gt;
@@ -839,7 +873,8 @@ public class ImportHouseESPRequest
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "transportGUID"
+            "transportGUID",
+            "houseManagementType"
         })
         public static class ApartmentHouseToUpdate
             extends ApartmentHouseUpdateESPType
@@ -847,6 +882,8 @@ public class ImportHouseESPRequest
 
             @XmlElement(name = "TransportGUID", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
             protected String transportGUID;
+            @XmlElement(name = "HouseManagementType")
+            protected NsiRef houseManagementType;
 
             /**
              * Gets the value of the transportGUID property.
@@ -870,6 +907,30 @@ public class ImportHouseESPRequest
              */
             public void setTransportGUID(String value) {
                 this.transportGUID = value;
+            }
+
+            /**
+             * Gets the value of the houseManagementType property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link NsiRef }
+             *     
+             */
+            public NsiRef getHouseManagementType() {
+                return houseManagementType;
+            }
+
+            /**
+             * Sets the value of the houseManagementType property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link NsiRef }
+             *     
+             */
+            public void setHouseManagementType(NsiRef value) {
+                this.houseManagementType = value;
             }
 
         }

@@ -30,7 +30,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *                 &lt;choice&gt;
+ *                 &lt;sequence&gt;
  *                   &lt;element name="Charge"&gt;
  *                     &lt;complexType&gt;
  *                       &lt;complexContent&gt;
@@ -43,7 +43,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *                     &lt;/complexType&gt;
  *                   &lt;/element&gt;
  *                   &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Service" maxOccurs="unbounded"/&gt;
- *                 &lt;/choice&gt;
+ *                 &lt;/sequence&gt;
  *               &lt;/restriction&gt;
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
@@ -191,7 +191,7 @@ public class GetStateResult
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
-     *       &lt;choice&gt;
+     *       &lt;sequence&gt;
      *         &lt;element name="Charge"&gt;
      *           &lt;complexType&gt;
      *             &lt;complexContent&gt;
@@ -204,7 +204,7 @@ public class GetStateResult
      *           &lt;/complexType&gt;
      *         &lt;/element&gt;
      *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/payment/}Service" maxOccurs="unbounded"/&gt;
-     *       &lt;/choice&gt;
+     *       &lt;/sequence&gt;
      *     &lt;/restriction&gt;
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
@@ -219,9 +219,9 @@ public class GetStateResult
     })
     public static class ExportPaymentDocumentDetailsResult {
 
-        @XmlElement(name = "Charge")
+        @XmlElement(name = "Charge", required = true)
         protected GetStateResult.ExportPaymentDocumentDetailsResult.Charge charge;
-        @XmlElement(name = "Service")
+        @XmlElement(name = "Service", required = true)
         protected List<Service> service;
 
         /**

@@ -40,14 +40,17 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                 &lt;/complexContent&gt;
  *               &lt;/complexType&gt;
  *             &lt;/element&gt;
- *             &lt;element name="CapitalRepairCharge" minOccurs="0"&gt;
- *               &lt;complexType&gt;
- *                 &lt;complexContent&gt;
- *                   &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairImportType"&gt;
- *                   &lt;/extension&gt;
- *                 &lt;/complexContent&gt;
- *               &lt;/complexType&gt;
- *             &lt;/element&gt;
+ *             &lt;sequence&gt;
+ *               &lt;element name="CapitalRepairCharge" minOccurs="0"&gt;
+ *                 &lt;complexType&gt;
+ *                   &lt;complexContent&gt;
+ *                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairImportType"&gt;
+ *                     &lt;/extension&gt;
+ *                   &lt;/complexContent&gt;
+ *                 &lt;/complexType&gt;
+ *               &lt;/element&gt;
+ *               &lt;element name="CapitalRepairYearCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairYearImportType" minOccurs="0"/&gt;
+ *             &lt;/sequence&gt;
  *             &lt;element name="Insurance" minOccurs="0"&gt;
  *               &lt;complexType&gt;
  *                 &lt;complexContent&gt;
@@ -273,6 +276,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "paymentDocumentNumber",
     "chargeInfo",
     "capitalRepairCharge",
+    "capitalRepairYearCharge",
     "insurance",
     "penaltiesAndCourtCosts",
     "capitalRepairDebt",
@@ -305,6 +309,8 @@ public class PaymentDocumentType {
     protected List<PaymentDocumentType.ChargeInfo> chargeInfo;
     @XmlElement(name = "CapitalRepairCharge")
     protected PaymentDocumentType.CapitalRepairCharge capitalRepairCharge;
+    @XmlElement(name = "CapitalRepairYearCharge")
+    protected CapitalRepairYearImportType capitalRepairYearCharge;
     @XmlElement(name = "Insurance")
     protected PaymentDocumentType.Insurance insurance;
     @XmlElement(name = "PenaltiesAndCourtCosts")
@@ -443,6 +449,30 @@ public class PaymentDocumentType {
      */
     public void setCapitalRepairCharge(PaymentDocumentType.CapitalRepairCharge value) {
         this.capitalRepairCharge = value;
+    }
+
+    /**
+     * Gets the value of the capitalRepairYearCharge property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link CapitalRepairYearImportType }
+     *     
+     */
+    public CapitalRepairYearImportType getCapitalRepairYearCharge() {
+        return capitalRepairYearCharge;
+    }
+
+    /**
+     * Sets the value of the capitalRepairYearCharge property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link CapitalRepairYearImportType }
+     *     
+     */
+    public void setCapitalRepairYearCharge(CapitalRepairYearImportType value) {
+        this.capitalRepairYearCharge = value;
     }
 
     /**

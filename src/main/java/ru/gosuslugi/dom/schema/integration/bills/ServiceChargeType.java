@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="MoneyDiscount"&gt;
+ *         &lt;element name="MoneyDiscount" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="18"/&gt;
@@ -57,7 +57,7 @@ public class ServiceChargeType {
 
     @XmlElement(name = "MoneyRecalculation")
     protected BigDecimal moneyRecalculation;
-    @XmlElement(name = "MoneyDiscount", required = true)
+    @XmlElement(name = "MoneyDiscount")
     protected BigDecimal moneyDiscount;
 
     /**

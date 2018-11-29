@@ -19,7 +19,7 @@ import com.ric.web.AppConfig;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Исправный модуль, для тестирования Spring beans
+ * Тестирование DAO уровня сущности Task
  * @author lev
  *
  */
@@ -49,6 +49,7 @@ public class TestTaskDAO {
 
 		log.info("End");
     }
+
 
 
 }

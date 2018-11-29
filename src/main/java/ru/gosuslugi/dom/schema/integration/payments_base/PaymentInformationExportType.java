@@ -62,7 +62,6 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
  *               &lt;maxLength value="30"/&gt;
  *               &lt;minLength value="1"/&gt;
- *               &lt;pattern value="[0-9]{1,30}"/&gt;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
@@ -89,7 +88,8 @@ import javax.xml.bind.annotation.XmlType;
     "numberBudgetaryAccount"
 })
 @XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.bills.ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation.class
+    ru.gosuslugi.dom.schema.integration.payment.Service.ExecutorInformation.PaymentInformation.class,
+    ru.gosuslugi.dom.schema.integration.payment.PaymentDocumentDetailsType.ExecutorInformation.PaymentInformation.class
 })
 public class PaymentInformationExportType {
 

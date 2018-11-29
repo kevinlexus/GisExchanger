@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "RapService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/rap-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/rap/hcs-rap-service.wsdl")
+@WebServiceClient(name = "RapService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/rap-service/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/rap/hcs-rap-service.wsdl")
 public class RapService
     extends Service
 {
@@ -32,7 +32,7 @@ public class RapService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/rap/hcs-rap-service.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/rap/hcs-rap-service.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

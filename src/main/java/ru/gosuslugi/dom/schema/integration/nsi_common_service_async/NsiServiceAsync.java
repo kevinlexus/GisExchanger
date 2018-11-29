@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "NsiServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/nsi-common-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/nsi-common/hcs-nsi-common-service-async.wsdl")
+@WebServiceClient(name = "NsiServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/nsi-common-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/nsi-common/hcs-nsi-common-service-async.wsdl")
 public class NsiServiceAsync
     extends Service
 {
@@ -32,7 +32,7 @@ public class NsiServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.0.18/nsi-common/hcs-nsi-common-service-async.wsdl");
+            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/nsi-common/hcs-nsi-common-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
