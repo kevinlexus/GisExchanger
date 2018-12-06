@@ -582,12 +582,13 @@ public class UlistMngImpl implements UlistMng {
 	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
 		String usl = null;
 		String servCd = getServCdByResource(nsi);
+		log.info("************ servCd={}, nsi.GUID={}", servCd, nsi.getGUID());
 		if (servCd.equals("Холодная вода")) {
 			usl = "011";
 		} else if (servCd.equals("Горячая вода")) {
 			usl = "015";
 		} else if (servCd.equals("Электрическая энергия")) {
-			usl = "024";
+			usl = "038";
 		}
 		return usl;
 	}

@@ -3,12 +3,12 @@ package com.ric.st.mm.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.dic.bill.model.scott.Ko;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dic.bill.dao.ApenyaDAO;
 import com.dic.bill.dao.SaldoUslDAO;
-import com.dic.bill.model.oralv.Ko;
 import com.ric.cmn.Utl;
 import com.ric.dto.SumSaldoRec;
 import com.ric.dto.SumSaldoRecDTO;

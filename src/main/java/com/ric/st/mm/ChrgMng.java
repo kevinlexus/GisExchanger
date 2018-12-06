@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.dic.bill.dto.SumChrgRec;
 import com.dic.bill.model.exs.Eolink;
-import com.dic.bill.model.oralv.Ko;
+import com.dic.bill.model.scott.Ko;
 
 /**
  * Интерфейс сервиса получения данных о начислении из разных источников

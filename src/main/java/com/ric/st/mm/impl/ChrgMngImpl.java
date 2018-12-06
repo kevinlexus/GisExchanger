@@ -2,13 +2,13 @@ package com.ric.st.mm.impl;
 
 import java.util.List;
 
+import com.dic.bill.model.scott.Ko;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dic.bill.dao.AchargeDAO;
 import com.dic.bill.dto.SumChrgRec;
 import com.dic.bill.model.exs.Eolink;
-import com.dic.bill.model.oralv.Ko;
 import com.ric.st.mm.ChrgMng;
 
 import lombok.extern.slf4j.Slf4j;

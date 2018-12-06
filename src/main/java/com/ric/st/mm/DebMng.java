@@ -2,7 +2,7 @@ package com.ric.st.mm;
 
 import java.math.BigDecimal;
 
-import com.dic.bill.model.oralv.Ko;
+import com.dic.bill.model.scott.Ko;
 import com.ric.dto.SumSaldoRecDTO;
 
 /**

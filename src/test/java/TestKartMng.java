@@ -1,6 +1,4 @@
-import com.dic.bill.dao.KartDAO;
 import com.dic.bill.mm.KartMng;
-import com.dic.bill.model.scott.Kart;
 import com.dic.bill.model.scott.Ko;
 import com.ric.web.AppConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -46,7 +43,7 @@ public class TestKartMng {
     public void isWorkKartMngGetKlskByKulNdKw() throws Exception {
 
 		log.info("-----------------Begin");
-		Ko ko = kartMng.getKlskByKulNdKw("0174", "000012", "0000066");
+		Ko ko = kartMng.getKoByKulNdKw("0174", "000012", "0000066");
 		log.info("Получен klsk={}", ko.getId());
 		assertTrue(ko.getId().equals(105392));
 

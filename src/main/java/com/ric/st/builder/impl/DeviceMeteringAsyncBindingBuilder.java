@@ -99,7 +99,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 	private LstMng lstMng;
 	@Autowired
 	private SoapConfigs soapConfig;
-/*
+	@Autowired
+	private EolinkParMng eolParMng;
+	/*
 	@Autowired
 	private Config config;
 */
@@ -432,6 +434,14 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		reqProp.setPropAfter(task);
 		// Трассировка XML
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+
+		// Дом
+		Eolink house = reqProp.getFoundTask().getEolink();
+		// Ук
+		Eolink uk = house.getParent();
+		// РКЦ (с параметрами)
+		Eolink rkc = uk.getParent();
+
 		AckRequest ack = null;
 		// для обработки ошибок
 		Boolean err = false;
@@ -475,12 +485,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 		}
 */
 
-		// Искать ли архивные
+		// включать ли архивные счетчики
 		req.setSerchArchived(false);
-		// Исключить показания отправленные информационной системой
-		req.setExcludeISValues(true);
-		// дата с которой получить показания TODO
-		//req.setInputDateFrom(Utl.getXMLDate(taskCtrl.getReqConfig().getCurDt1()));
+		// исключать показания отправленные информационной системой
+		req.setExcludeISValues(false);
+
+		// дата с которой получить показания
+		// использовать период экспорта извещений (должна совпадать)
+		String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
+		req.setInputDateFrom(Utl.getXMLDate(Utl.getDateFromPeriod(period)));
 
 		try {
 			ack = port.exportMeteringDeviceHistory(req);
@@ -547,6 +560,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                                     e.getEnterIntoSystem(), e.getOrgPPAGUID(), e.getReadingsSource(),
 									e.getMeteringValue());
 							// записать объем по счетчику
+/*
 							saveVal(meter,
                                     e.getMeteringValue(),
                                     Utl.getDateFromXmlGregCal(e.getDateValue()),
@@ -554,6 +568,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                                     e.getOrgPPAGUID(),
                                     e.getReadingsSource(),
                                     e.getMunicipalResource());
+*/
 						}
 					}
 					if (t.getElectricDeviceValue() != null) {
@@ -563,6 +578,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 									t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
 									e.getMeteringValueT1());
                             // записать объем по счетчику
+/*
                             saveVal(meter,
                                     e.getMeteringValueT1(),
                                     Utl.getDateFromXmlGregCal(e.getDateValue()),
@@ -571,8 +587,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                                     e.getReadingsSource(),
                                     null);
 
-
+*/
 						}
+
 					}
 				}
 				}

@@ -13,19 +13,19 @@ public interface HouseManagementAsyncBindingBuilders {
 
 	void setUp(Task task) throws CantSendSoap, CantPrepSoap;
 	Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
-	void exportDeviceDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod;
+	void exportDeviceDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod;
 	Boolean exportContract(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean exportHouseData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void exportHouseDataAck(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
+	void exportHouseDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
 	void exportAccountData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void exportAccountDataAck(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam;
+	void exportAccountDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam;
 	Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap;
-	void importAccountDataAck(Task task) throws CantPrepSoap, WrongGetMethod;
+	void importAccountDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void importHouseUODataAck(Task task) throws CantPrepSoap, WrongGetMethod;
+	void importHouseUODataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;
-	void importMeteringDeviceDataAck(Task task) throws CantPrepSoap, WrongGetMethod;
+	void importMeteringDeviceDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean exportCaChData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void exportCaChDataAck(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
+	void exportCaChDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
 	void checkPeriodicHouseExp(Task task) throws WrongParam;
 }
