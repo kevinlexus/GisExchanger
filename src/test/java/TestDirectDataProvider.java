@@ -49,12 +49,14 @@ public class TestDirectDataProvider {
 	@Test
     public void testPdoc() throws Exception {
 		log.info("Start");
+/*
         Eolink house = eolinkDao.getEolinkByReuKulNdTp(null, "0151", "000052", null, null, "Дом");
 
         log.info("Получен дом Eolink.id={}", house.getId());
 
 		DataProviders dp = new DirectDataProvider();
 		dp.transferHouseDataToEolink(6091);
+*/
 		log.info("End");
     }
 

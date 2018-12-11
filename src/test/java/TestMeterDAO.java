@@ -77,12 +77,15 @@ public class TestMeterDAO {
 
 		int i=0, i2 = 0;
 		log.info("-----------------Begin");
-		Date dt = Utl.getDateFromStr("30.03.2014");
+		Date dt1 = Utl.getDateFromStr("30.03.2014");
+		Date dt2 = Utl.getDateFromStr("07.12.2018");
 		// найти показания счетчиков
-		List<MeterData> lst = meterDao.findTimestampByUser("GIS", dt, "ins_sch");
+		List<MeterData> lst = meterDao.findMeteringDataTsByUser("GIS", "ins_sch", dt1, dt2);
 		for (MeterData t : lst) {
 			System.out.println(t.getTs()+" "+t.getGuid());
+			i++;
 		}
+		assertTrue(i==1);
 		log.info("-----------------End");
 	}
 

@@ -40,11 +40,11 @@ public class TestSomething {
 	@Test
     public void contextLoads() throws Exception {
 		log.info("Start");
-			String state = "TT1";
+		/*	String state = "TT1";
 			Task oneTask = em.find(Task.class, 11913);
 			oneTask.setState(state);
 			assertEquals(oneTask.getState(), state);
-
+*/
 		log.info("End");
     }
 
@@ -64,9 +64,11 @@ public class TestSomething {
 		log.info("Start");
 
 		Eolink parent = em.find(Eolink.class, 7163);
+/*
 		eolinkDao.getChildByTp(parent, "Подъезд").stream().forEach(t -> {
 			log.info("Eol={}", t.getId());
 		});;
+*/
 
 		log.info("End-1");
     }

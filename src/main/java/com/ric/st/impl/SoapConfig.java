@@ -1,5 +1,7 @@
 package com.ric.st.impl;
 
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
@@ -180,6 +182,17 @@ public class SoapConfig implements SoapConfigs {
 	 */
 	public User getCurUser() {
 		return this.user;
+	}
+
+	/**
+	 * Получить объект уровня РКЦ - по объекту типа Дом
+	 * @param house - объект Eolink - дом
+	 * @return
+	 */
+	@Override
+	public Eolink getRkcByHouse(Eolink house) {
+		Eolink uk = house.getParent();
+		return uk.getParent();
 	}
 
 	public String getSignPass() {

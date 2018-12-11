@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.ric.cmn</groupId>
 			<artifactId>BillCommon</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 
 		<!-- DWC -->
@@ -262,6 +262,24 @@
 		<finalName>GisExchanger</finalName>
 		<plugins>
 
+            <!-- тесты -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Test*.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>clean</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 <!-- 			исключить конфигурационные файлы -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

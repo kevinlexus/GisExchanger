@@ -1,18 +1,20 @@
 package com.ric.st;
 
+import com.dic.bill.model.exs.Eolink;
+import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.sec.User;
 
 public interface SoapConfigs {
 
-	public int getEnv();
-	//public boolean getUseSign();
-	public String getOrgPPGuid();
-	public String getHostIp();
-	public boolean isSrvTest();
-	public String getFingerPrint();
-	public String getBscLogin();
-	public String getBscPass();
-	public void setXmlLog();
-	public Boolean setUp(Boolean isLoadRef);
-	public User getCurUser();
+	int getEnv();
+	String getOrgPPGuid();
+	String getHostIp();
+	boolean isSrvTest();
+	String getFingerPrint();
+	String getBscLogin();
+	String getBscPass();
+	void setXmlLog();
+	Boolean setUp(Boolean isLoadRef);
+	User getCurUser();
+	Eolink getRkcByHouse(Eolink eolink);
 }

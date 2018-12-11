@@ -31,6 +31,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -389,6 +390,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @CacheEvict(value = {"EolinkDAOImpl.getEolinkByGuid" }, allEntries = true) // здесь Evict потому что
+    // пользователь может обновить Ko объекта счетчика мз Директа(осуществить привязку)
+    // и тогда должен быть получен обновленный объект! ред.07.12.18
     public void exportDeviceDataAsk(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongGetMethod {
         taskMng.logTask(task, true, null);
         // Установить параметры SOAP
@@ -399,11 +403,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
         // получить состояние
         GetStateResult retState = getState2(reqProp.getFoundTask());
-
         if (retState == null) {
             // не обработано
         } else if (!reqProp.getFoundTask().getState().equals("ERR")) {
 
+            // автоматическое связывание счетчика с SCOTT.METER в Директ
+            Boolean autoBind = taskParMng.getBool(task, "ГИС ЖКХ.AUTO_CONNECT_DIRECT");
+            log.info("autoBind={}", autoBind);
             // Ошибок не найдено
             for (ExportMeteringDeviceDataResultType t : retState.getExportMeteringDeviceDataResult()) {
                 // тип счетчика: 0 - жилой ИПУ, 1 - не жилой ИПУ, 2 - общедомовой ПУ
@@ -438,7 +444,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             + "(для квартир коммунального заселения): Root GUID={}", t.getMeteringDeviceRootGUID());
                     continue;
                 } else if (t.getBasicChatacteristicts().getCollectiveDevice() != null) {
-                    log.info("Счетчик - общедомовой ПУ: GUID={}", houseEol.getGuid());
+                    log.trace("Счетчик - общедомовой ПУ: GUID={}", houseEol.getGuid());
                     premiseGUID = houseEol.getGuid();
                     meterTp = 2;
                 } else if (t.getBasicChatacteristicts().getLivingRoomDevice() != null) {
@@ -558,26 +564,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 }
 
                 // найти Ko счетчика, по Ko помещения и коду услуги
-                Ko meterKo = null;
-                if (premiseEol.getKoObj() == null) {
-                    log.error("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
-                            " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
-                    rootEol.setComm("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
-                            " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
-                } else if (usl == null) {
-                    throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
-                            "в методе ulistMng.getUslByResource");
-                } else {
-                    Meter meter = meterMng.getActualMeterByKoUsl(premiseEol.getKoObj().getId(), usl,
-                            new Date());
-                    if (meter==null) {
-                        rootEol.setComm("ОШИБКА! Не найден счетчик в карточке Лиц.счета.");
+                // связывание, пользователь будет сам связывать в Директ
+                if (autoBind != null && autoBind == true) {
+                    if (premiseEol.getKoObj() == null) {
+                        log.error("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
+                                " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
+                        rootEol.setComm("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
+                                " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
+                    } else if (usl == null) {
+                        throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
+                                "в методе ulistMng.getUslByResource");
                     } else {
-                        // здесь устанавливается именно Ko счетчика, не объекта!
-                        if (rootEol.getKoObj()==null || !rootEol.getKoObj().equals(meter.getKo())) {
-                            log.info("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
-                                    meter.getKo().getId(), rootEol.getId());
-                            rootEol.setKoObj(meter.getKo());
+                        Meter meter = meterMng.getActualMeterByKoUsl(premiseEol.getKoObj().getId(), usl,
+                                new Date());
+                        if (meter==null) {
+                            rootEol.setComm("ОШИБКА! Не найден счетчик в карточке Лиц.счета.");
+                        } else {
+                            // здесь устанавливается именно Ko счетчика, не объекта!
+                            if (rootEol.getKoObj()==null) {
+                                // только если уже нет привязки!
+                                log.trace("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
+                                        meter.getKo().getId(), rootEol.getId());
+                                rootEol.setKoObj(meter.getKo());
+                            }
                         }
                     }
                 }

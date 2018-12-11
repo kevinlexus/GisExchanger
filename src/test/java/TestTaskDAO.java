@@ -41,11 +41,11 @@ public class TestTaskDAO {
 		log.info("Start");
 		Task task = em.find(Task.class, 1544216);
 		log.info("Start method");
-		taskDao.getByTaskAddrTp(task, "ЛС", null, 1).stream()
+/*		taskDao.getByTaskAddrTp(task, "ЛС", null, 1).stream()
 				.filter(t-> t.getAct().getCd().equals("GIS_ADD_ACC")).collect(Collectors.toList()).forEach(t-> {
 						log.info("id={}", t.getId());
 				});
-
+*/
 
 		log.info("End");
     }
