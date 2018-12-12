@@ -135,45 +135,9 @@ public class SoapConfig implements SoapConfigs {
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", "999999");
 	}
 
-
-	/**
-	 * Выполнить загрузку справочников
-	 * @return - выполнено успешно?
-	 */
-/*
-	boolean refreshNsi() {
-		// загрузить справочники
-		try {
-			ulistMng.loadNsi("NSI");
-			ulistMng.loadNsi("NSIRAO");
-		} catch (Exception e) {
-			// сообщение об ошибке
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-*/
-
-
 	public Boolean setUp(Boolean isLoadRef) {
 		log.info("загрузка данных пользователя");
 		this.user = userDao.getByCd("GEN");
-
-		/*log.info("проверка обновлений справочников");
-		if (isLoadRef) {
-			if (!refreshNsi()) {
-				log.error("Ошибка при обновлении справочников!");
-				return false;
-			}
-		}*/
-
-		// Инициализация сервиса ulistMng
-		/*if (!ulistMng.setUp()) {
-			log.error("Ошибка инициализации сервиса ulistMng!");
-			return false;
-		}*/
-
     	return true;
 	}
 
@@ -207,5 +171,27 @@ public class SoapConfig implements SoapConfigs {
 
 	public String getSignPath2() {	return signPath2; }
 
+	/**
+	 * Сохранить ошибки
+	 * @param eolink - объект
+	 * @param err - битовый код ошибки
+	 */
+	@Override
+	public void saveError(Eolink eolink, long err, boolean isSet) {
+		Long err2 = 0L;
+		if (eolink.getErr() != null) {
+			err2 = eolink.getErr();
+		}
+		if (isSet) {
+			// совместить биты ошибки с источником
+			err2 |= err;
+		} else {
+			// обнулить соответствующие биты ошибки
+			err2 ^= err;
+		}
+		String comm = CommonUtl.getErrorDescrByCode(err2);
+		eolink.setComm(comm);
+		eolink.setErr(err2);
+	}
 
 }

@@ -17,4 +17,5 @@ public interface SoapConfigs {
 	Boolean setUp(Boolean isLoadRef);
 	User getCurUser();
 	Eolink getRkcByHouse(Eolink eolink);
+	void saveError(Eolink eolink, long err, boolean isSet);
 }

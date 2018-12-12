@@ -739,19 +739,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		}
 		// получить дату загрузки ПД
 		Date dt = Utl.getLastDate(Utl.getDateFromPeriod(period));
-
-		// платежные реквизиты
-		PaymentInformation payInfo = new PaymentInformation();
-		req.getPaymentInformation().add(payInfo);
-
-		OrgDTO orgDto = orgMng.getOrgDTO(uk);
-		log.info("ПД: BIK=#{}#", orgDto.getBik());
-		payInfo.setBankBIK(orgDto.getBik());
-		log.info("ПД: OperAccount=#{}#", orgDto.getOperAccGis());
-		payInfo.setOperatingAccountNumber(orgDto.getOperAccGis());
 		// Транспортный GUID платежных реквизитов
 		String tguidPay = Utl.getRndUuid().toString();
-		payInfo.setTransportGUID(tguidPay);
 
 		if (pdocMng.getPdocForLoadByHouse(house, dt).stream()
                 .filter(t-> t.getV().equals(1)).collect(Collectors.toList()).size() > 0) {
@@ -774,8 +763,20 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             }
 
         }
+		if (isExistJob) {
+			// добавить платежные реквизиты, если была загрузка ПД
+			PaymentInformation payInfo = new PaymentInformation();
+			req.getPaymentInformation().add(payInfo);
 
-        if (!isExistJob){
+			OrgDTO orgDto = orgMng.getOrgDTO(uk);
+			log.info("ПД: BIK=#{}#", orgDto.getBik());
+			payInfo.setBankBIK(orgDto.getBik());
+			log.info("ПД: OperAccount=#{}#", orgDto.getOperAccGis());
+			payInfo.setOperatingAccountNumber(orgDto.getOperAccGis());
+			payInfo.setTransportGUID(tguidPay);
+		}
+
+		if (!isExistJob){
         	// не было документов на добавление, найти на отмену
             // получить список недействующих ПД, направленных на отмену в ГИС по Дому
             for (Pdoc t : pdocMng.getPdocForLoadByHouse(house, dt).stream()

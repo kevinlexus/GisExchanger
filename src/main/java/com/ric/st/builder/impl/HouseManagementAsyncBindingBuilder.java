@@ -16,6 +16,7 @@ import com.dic.bill.model.scott.Meter;
 import com.diffplug.common.base.Errors;
 import com.ric.cmn.Utl;
 import com.ric.cmn.excp.*;
+import com.ric.st.CommonErrs;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
 import com.ric.st.TaskControllers;
@@ -23,6 +24,7 @@ import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
+import com.ric.st.impl.CommonUtl;
 import com.ric.st.impl.RetStateHouse;
 import com.ric.st.impl.SoapBuilder;
 import com.ric.st.impl.SoapConfig;
@@ -516,12 +518,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     log.trace("Попытка отметить счетчик АКТИВНЫМ");
                 }
 
+/*
                 if (rootEol.getGuid().equals("7552c05e-d80b-4573-a2ba-6a99d587274f")
                         || rootEol.getGuid().equals("108f346e-a33b-4c43-a345-bfd011c7af19")) {
                     log.trace("--------------{}, {}----{}------",
                             t.getMunicipalResourceEnergy(), t.getMunicipalResourceNotEnergy(), t.getMunicipalResources());
                 }
 
+*/
                 log.trace("isConsumedVolume={}",
                         t.getBasicChatacteristicts().isConsumedVolume());
 
@@ -566,11 +570,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 // найти Ko счетчика, по Ko помещения и коду услуги
                 // связывание, пользователь будет сам связывать в Директ
                 if (autoBind != null && autoBind == true) {
+                    soapConfig.saveError(premiseEol, CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_METER_NOT_FOUND,
+                            false);
                     if (premiseEol.getKoObj() == null) {
                         log.error("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
                                 " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
-                        rootEol.setComm("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
-                                " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
+                        soapConfig.saveError(premiseEol, CommonErrs.ERR_EMPTY_KLSK, true);
+                        //rootEol.setComm("ОШИБКА! По помещению Eolink.id="+premiseEol.getId()+" не заполнен KLSK! " +
+                        //        " Необходимо произвести экспорт дома Eolink.id="+houseEol.getId());
                     } else if (usl == null) {
                         throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
                                 "в методе ulistMng.getUslByResource");
@@ -578,7 +585,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         Meter meter = meterMng.getActualMeterByKoUsl(premiseEol.getKoObj().getId(), usl,
                                 new Date());
                         if (meter==null) {
-                            rootEol.setComm("ОШИБКА! Не найден счетчик в карточке Лиц.счета.");
+                            log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
+                                    premiseEol.getId());
+                            soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
                         } else {
                             // здесь устанавливается именно Ko счетчика, не объекта!
                             if (rootEol.getKoObj()==null) {
@@ -1120,12 +1129,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     Ko ko = null;
                     try {
                         ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
+                                CommonErrs.ERR_EMPTY_KLSK, false);
                     } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
-                        comm="WARNING! Разные KLSK на один адрес!";
+                        // разные KLSK на один адрес!";
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
                     } catch (EmptyId emptyId) {
-                        comm="WARNING! Найден пустой KLSK в данном адресе!";
+                        // найден пустой KLSK в данном адресе!";
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                     }
-                    premisEol.setComm(comm);
                     premisEol.setKoObj(ko);
 
                     // прикрепить к подъезду, взятому из ГИС ЖКХ
@@ -1181,6 +1193,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                 // НЕЖИЛЫЕ помещения
                 for (NonResidentialPremises t : ah.getNonResidentialPremises()) {
+                    long premisErr =0;
                     log.trace("Нежилое помещение: №={}, UniqNumber={}, GUID={}",
                             t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
                     Eolink premisEol = eolinkDao.getEolinkByGuid(t.getPremisesGUID());
@@ -1215,12 +1228,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     Ko ko = null;
                     try {
                         ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
+                                CommonErrs.ERR_EMPTY_KLSK, false);
                     } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
-                        comm="WARNING! Разные KLSK на один адрес!";
+                        // разные KLSK на один адрес!";
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
                     } catch (EmptyId emptyId) {
-                        comm="WARNING! Найден пустой KLSK в данном адресе!";
+                        // найден пустой KLSK в данном адресе!";
+                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                     }
-                    premisEol.setComm(comm);
+
                     premisEol.setKoObj(ko);
 
                     ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
@@ -1256,7 +1273,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 null, null, false, null);
                     }
                     ptb.saveToEolink();
-
+                    // сохранить ошибки
+                    premisEol.setComm(CommonUtl.getErrorDescrByCode(premisErr));
                 }
             }
             // Установить статус выполнения задания
@@ -1265,7 +1283,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             taskMng.logTask(task, false, true);
         }
     }
-
 
     /**
      * Подготовить номер жилого помещения
@@ -1388,7 +1405,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             for (ExportAccountResultType t : retState.getExportAccountResult()) {
 
                 // примечание по объекту
-                String comm = null;
+                //String comm = null;
                 String guid = null;
                 for (ru.gosuslugi.dom.schema.integration.house_management.AccountExportType.Accommodation d : t.getAccommodation()) {
                     if (d.getPremisesGUID() != null) {
@@ -1397,11 +1414,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     } else if (d.getLivingRoomGUID() != null) {
                         // Лиц счет на комнату
                         guid = d.getLivingRoomGUID();
-                        comm = "Лицевой счет на комнату";
+                        //comm = "Лицевой счет на комнату";
                     } else {
                         // Лиц счет на дом
                         guid = d.getFIASHouseGuid();
-                        comm = "Лицевой счет на дом";
+                        //comm = "Лицевой счет на дом";
                         //throw new ErrorProcessAnswer("Не найден GUID объекта лицевого счета с GUID="+t.getAccountGUID());
                     }
 
@@ -1457,7 +1474,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             .withObjTp(addrTp)
                             .withParent(parentEol)
                             .withUser(config.getCurUser())
-                            .withComm(comm)
+                            //.withComm(comm)
                             .withStatus(1).build();
 
                     log.trace("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}, ServiceId={}",
@@ -1486,7 +1503,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     // лс закрыт
                     accountEol.setStatus(0);
                     // примечание
-                    accountEol.setComm(comm);
+                   // accountEol.setComm(comm);
                     // Признак закрытия лицевого счета, если установлен
                     Date dtTerminate = Utl.getDateFromXmlGregCal(t.getClosed().getCloseDate());
                     ptb.addTaskPar("ГИС ЖКХ.Дата закрытия",
