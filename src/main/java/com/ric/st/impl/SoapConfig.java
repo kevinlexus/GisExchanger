@@ -2,6 +2,7 @@ package com.ric.st.impl;
 
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
+import com.ric.cmn.excp.UnusableCode;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,8 @@ import com.ric.cmn.excp.EmptyStorable;
 import com.dic.bill.model.sec.User;
 import com.ric.st.SoapConfigs;
 import com.ric.st.mm.UlistMng;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -174,24 +177,29 @@ public class SoapConfig implements SoapConfigs {
 	/**
 	 * Сохранить ошибки
 	 * @param eolink - объект
-	 * @param err - битовый код ошибки
+	 * @param mask - битовый код маски
 	 */
 	@Override
-	public void saveError(Eolink eolink, long err, boolean isSet) {
-		Long err2 = 0L;
+	public void saveError(Eolink eolink, long mask, boolean isSet) throws UnusableCode {
+		//log.info("******* saveError Eolink.id={}, set={}, err={}", eolink.getId(), isSet, mask);
+		Long errPrev = 0L, errActual = 0L;
 		if (eolink.getErr() != null) {
-			err2 = eolink.getErr();
+			errPrev = eolink.getErr();
 		}
 		if (isSet) {
 			// совместить биты ошибки с источником
-			err2 |= err;
+			errActual = errPrev | mask;
 		} else {
 			// обнулить соответствующие биты ошибки
-			err2 ^= err;
+			errActual = errPrev &(~mask);
 		}
-		String comm = CommonUtl.getErrorDescrByCode(err2);
-		eolink.setComm(comm);
-		eolink.setErr(err2);
+		if (!errPrev.equals(errActual)) {
+			//log.info("******* SAVE Eolink.id={}, set={}, err={}", eolink.getId(), isSet, mask);
+			// сохранить в случае изменения значения
+			String comm = CommonUtl.getErrorDescrByCode(errActual);
+			eolink.setComm(comm);
+			eolink.setErr(errActual);
+		}
 	}
 
 }

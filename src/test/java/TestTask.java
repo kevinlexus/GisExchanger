@@ -1,6 +1,8 @@
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.ric.st.CommonErrs;
+import com.ric.st.impl.CommonUtl;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -37,6 +39,28 @@ public class TestTask {
 	private EolinkDAO eolinkDao;
 	@Autowired
 	private TaskDAO taskDao;
+
+	/**
+	 * Тест на корректность записи кода ошибки в Eolink
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	@Rollback(true)
+	public void isErrEolinkSetCorrectly() throws Exception {
+		long err = (CommonErrs.ERR_OBJECT_NOT_FOUND | CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR
+				| CommonErrs.ERR_EMPTY_KLSK);
+		System.out.println("Ошибки1:" + CommonUtl.getErrorDescrByCode(err));
+		// добавить ошибку
+		err |= CommonErrs.ERR_METER_NOT_FOUND;
+		System.out.println("Ошибки2:" + CommonUtl.getErrorDescrByCode(err));
+		// погасить ошибки
+		err = 0;
+		err &= ~(CommonErrs.ERR_METER_NOT_FOUND | CommonErrs.ERR_EMPTY_KLSK
+				| CommonErrs.ERR_OBJECT_NOT_FOUND | CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR);
+		System.out.println("Ошибки4:" + CommonUtl.getErrorDescrByCode(err));
+	}
+
 
 	@Test
 	@Rollback(false) // коммитить транзакцию

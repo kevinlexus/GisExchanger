@@ -59,11 +59,25 @@ public class TaskBuilder implements TaskBuilders {
 		   они НЕ находятся в статусах INS, ACK (т.е. на обработке)
 		   (по определённому типу связи)
 		*/
+		//log.info("############# foundTask.id={}", foundTask.getId());
+
 		foundTask.getInside().stream()
 		.filter(t-> t.getTp().getCd().equals("Связь повторяемого задания"))
 	    .filter(t-> t.getChild().getParent() == null) // только главные
-	    .filter(t-> t.getChild().getMaster() == null) // только независимые
+	    .filter(t-> t.getChild().getMaster() == null) // только независимые (где не заполнен DEP_ID)
 	    .forEach(t-> {
+
+	    	//log.info("############# t.getChild().getId()={}", t.getChild().getId());
+
+			ArrayList<Task> taskLst = new ArrayList<>(10);
+			if (activateTask(t.getChild(), taskLst)) {
+				// все дочерние задания разрешают запуск
+				taskLst.forEach(t2-> {
+					t2.setState("INS");
+					log.info("Разрешено!!!!!!!: id={}", t2.getId());
+				});
+			}
+	    	/*
 	    	// ведущее задание
 			Task master = t.getChild().getMaster();
 			// зависимые задания
@@ -95,8 +109,43 @@ public class TaskBuilder implements TaskBuilders {
 				}
 
 			}
-
+*/
 	    });
+	}
+
+	/**
+	 * Рекурсивная активация заданий
+	 * @param task - задание
+	 * @return - разрешить активацию
+	 */
+	private boolean activateTask(Task task, ArrayList<Task> taskLst) {
+		//log.info("###########22 task.id={}, state={}", task.getId(), task.getState());
+		if (!Utl.in(task.getState(), "INS", "ACK")) {
+
+			// дочерние задания
+			for (Task child : task.getChild()) {
+				if (!activateTask(child, taskLst)) {
+					// дочернее уже выполняется
+					//log.info("Запрещено: id={}", child.getId());
+					return false;
+				}
+			}
+			// зависимые по DEP_ID задания
+			for (Task dep : task.getSlave()) {
+				if (!activateTask(dep, taskLst)) {
+					// дочернее по DEP_ID уже выполняется
+					//log.info("Запрещено: id={}", dep.getId());
+					return false;
+				}
+			}
+			taskLst.add(task);
+			//log.info("Разрешено: id={}", task.getId());
+			return true;
+		} else {
+			// текущее уже выполняется
+			//log.info("Запрещено: id={}", task.getId());
+			return false;
+		}
 	}
 
     /**

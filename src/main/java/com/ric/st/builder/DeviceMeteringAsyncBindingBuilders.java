@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import com.ric.cmn.excp.UnusableCode;
 import com.ric.cmn.excp.WrongGetMethod;
 import com.ric.cmn.excp.WrongParam;
 import com.dic.bill.model.exs.Task;
@@ -19,7 +20,7 @@ public interface DeviceMeteringAsyncBindingBuilders {
 	public Boolean importMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
 	public void importMeteringDeviceValuesAsk(Task task) throws CantSendSoap, CantPrepSoap;
 	public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
-	public void exportMeteringDeviceValuesAsk(Task task) throws CantPrepSoap, WrongGetMethod, IOException, WrongParam;
+	public void exportMeteringDeviceValuesAsk(Task task) throws CantPrepSoap, WrongGetMethod, IOException, WrongParam, UnusableCode;
 	public void saveValToFile(Task task) throws WrongGetMethod, IOException;
 	public void checkPeriodicTask(Task task) throws WrongParam;
 }

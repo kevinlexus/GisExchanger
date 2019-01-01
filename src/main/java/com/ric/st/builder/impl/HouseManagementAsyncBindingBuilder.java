@@ -395,7 +395,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @CacheEvict(value = {"EolinkDAOImpl.getEolinkByGuid" }, allEntries = true) // здесь Evict потому что
     // пользователь может обновить Ko объекта счетчика мз Директа(осуществить привязку)
     // и тогда должен быть получен обновленный объект! ред.07.12.18
-    public void exportDeviceDataAsk(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongGetMethod {
+    public void exportDeviceDataAsk(Task task) throws ErrorProcessAnswer, CantPrepSoap, WrongGetMethod, UnusableCode {
         taskMng.logTask(task, true, null);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
@@ -569,7 +569,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                 // найти Ko счетчика, по Ko помещения и коду услуги
                 // связывание, пользователь будет сам связывать в Директ
-                if (autoBind != null && autoBind == true) {
+                if (autoBind != null && autoBind) {
                     soapConfig.saveError(premiseEol, CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_METER_NOT_FOUND,
                             false);
                     if (premiseEol.getKoObj() == null) {
@@ -582,7 +582,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
                                 "в методе ulistMng.getUslByResource");
                     } else {
-                        Meter meter = meterMng.getActualMeterByKoUsl(premiseEol.getKoObj().getId(), usl,
+                        Meter meter = meterMng.getActualMeterByKoUsl(premiseEol.getKoObj(), usl,
                                 new Date());
                         if (meter==null) {
                             log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
@@ -955,7 +955,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportHouseDataAsk(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
+    public void exportHouseDataAsk(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam, UnusableCode {
         //log.info("******* Task.id={}, экспорт объектов дома, запрос ответа", task.getId());
         taskMng.logTask(task, true, null);
 
@@ -985,9 +985,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 houseEol.setStatus(1);
                 HouseBasicExportType bc = ah.getBasicCharacteristicts();
 
-                ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
+                //ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
                 Date dtModify = Utl.getDateFromXmlGregCal(retState.getExportHouseResult().getModificationDate());
                 // нет связи с кадастром
+/*
                 ptb.addTaskPar("ГИС ЖКХ.Дата модификации",
                         null, null, null, dtModify);
 
@@ -1007,6 +1008,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 }
                 // сохранить параметры в объекте Eolink, через дочернее задание
                 ptb.saveToEolink();
+*/
 
                 Map<Integer, Eolink> entryMap = new HashMap<Integer, Eolink>();
 
@@ -1040,8 +1042,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                     // обновить параметры подъезда
                     entryEol.setEntry(Integer.valueOf(t.getEntranceNum()));
-                    ptb.setUp(entryEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
+                    //ptb.setUp(entryEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
+                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
                         // Объект не активен
@@ -1050,7 +1052,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // Объект активен
                         entryEol.setStatus(1);
                     }
-                    ptb.saveToEolink();
+                    //ptb.saveToEolink();
                 }
 
                 // проверить наличие подъезда по дому, с данным GUID
@@ -1153,9 +1155,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         premisEol.setParent(houseEol);
                     }
 
-                    ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null,
-                            Utl.getDateFromXmlGregCal(t.getModificationDate()));
+                    //ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
+                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null,
+                    //        Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
                         // Объект не активен
@@ -1164,7 +1166,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // Объект активен
                         premisEol.setStatus(1);
                     }
-                    if (t.getGrossArea() != null) {
+                    /*if (t.getGrossArea() != null) {
                         ptb.addTaskPar("Площадь.Общая", t.getGrossArea().doubleValue(), null, null, null);
                     }
 
@@ -1172,13 +1174,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // есть кадастровый номер
                         ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)",
                                 null, t.getCadastralNumber(), null, null);
-                    }
+                    }*/
 
                     t.getLivingRoom().forEach(f -> {
                         log.trace("f.isNoRSOGKNEGRPRegistered()1={}", f.isNoRSOGKNEGRPRegistered());
                     });
 
-                    if (t.isNoRSOGKNEGRPRegistered() != null && t.isNoRSOGKNEGRPRegistered()) {
+                    /*if (t.isNoRSOGKNEGRPRegistered() != null && t.isNoRSOGKNEGRPRegistered()) {
                         // нет связи с кадастром
                         ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
                                 null, null, true, null);
@@ -1187,7 +1189,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
                                 null, null, false, null);
                     }
-                    ptb.saveToEolink();
+                    ptb.saveToEolink();*/
 
                 }
 
@@ -1240,8 +1242,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                     premisEol.setKoObj(ko);
 
-                    ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
+                    //ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
+                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     // помещение без отдельного входа
                     premisEol.setParent(houseEol);
@@ -1253,7 +1255,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // Объект активен
                         premisEol.setStatus(1);
                     }
-                    if (t.getTotalArea() != null) {
+                    /*if (t.getTotalArea() != null) {
                         ptb.addTaskPar("Площадь.Общая", t.getTotalArea().doubleValue(), null, null, null);
                     }
 
@@ -1272,7 +1274,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
                                 null, null, false, null);
                     }
-                    ptb.saveToEolink();
+                    ptb.saveToEolink();*/
                     // сохранить ошибки
                     premisEol.setComm(CommonUtl.getErrorDescrByCode(premisErr));
                 }
@@ -1498,18 +1500,18 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 }
 
                 // отметить закрытого лс
-                ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
+                //ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
                 if (t.getClosed() != null) {
                     // лс закрыт
                     accountEol.setStatus(0);
                     // примечание
                    // accountEol.setComm(comm);
                     // Признак закрытия лицевого счета, если установлен
-                    Date dtTerminate = Utl.getDateFromXmlGregCal(t.getClosed().getCloseDate());
+                    /*Date dtTerminate = Utl.getDateFromXmlGregCal(t.getClosed().getCloseDate());
                     ptb.addTaskPar("ГИС ЖКХ.Дата закрытия",
                             null, null, null, dtTerminate);
                     ptb.addTaskPar("ГИС ЖКХ.Причина закрытия",
-                            null, "ГИС ЖКХ.Причина закрытия", null, null);
+                            null, "ГИС ЖКХ.Причина закрытия", null, null);*/
                 }
 
 

@@ -11,6 +11,7 @@ import com.dic.bill.model.exs.MeterVal;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.exs.Ulist;
 import com.ric.cmn.Utl;
+import com.ric.cmn.excp.UnusableCode;
 import com.ric.cmn.excp.WrongGetMethod;
 import com.ric.cmn.excp.WrongParam;
 import com.ric.st.CommonErrs;
@@ -28,6 +29,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -513,7 +515,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         return err;
 
     }
-
     /**
      * Получить результат экспорта показаний счетиков
      *
@@ -525,10 +526,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
+    @CacheEvict(value = {"EolinkDAOImpl.getEolinkByGuid" }, allEntries = true) // здесь Evict потому что
+    // пользователь может обновить Ko объекта счетчика мз Директа(осуществить привязку)
+    // и тогда должен быть получен обновленный объект! ред.07.12.18
+    public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam, UnusableCode {
         taskMng.logTask(task, true, null);
 
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
         // получить состояние запроса
@@ -536,59 +540,81 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
         if (retState == null) {
             // не обработано
-            return;
         } else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
             // РКЦ (с параметрами)
             Eolink rkc = soapConfig.getRkcByHouse(reqProp.getFoundTask().getEolink());
+            // дом
+            Eolink house = reqProp.getFoundTask().getEolink();
+            // погасить по дому сообщение об ошибке
+            soapConfig.saveError(house, CommonErrs.ERR_METER_NOT_FOUND_BY_GUID, false);
             // получить периоды выгрузки
             String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
             Date dt1 = Utl.getDateFromPeriod(period);
             Date dt2 = Utl.getLastDate(dt1);
 
-            List<MeterData> mdLst = meterDao.findMeteringDataTsByUser("GIS", "ins_sch", dt1, dt2);
-
+            // получить уже сохранённые в базу показания
+            List<MeterData> mdLst = meterDao.findMeteringDataTsByUser("GIS", "ins_sch", period);
             for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
                 // найти счетчик по GUID
-                Eolink meter = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());
-                if (meter == null) {
-                    // счетчик не найден
-                    soapConfig.saveError(meter, CommonErrs.ERR_NOT_FOUND_BY_GUID, true);
+                Eolink meterEol = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());
+                if (meterEol == null) {
+                    // счетчик не найден, записать по дому сообщение об ошибке
+                    soapConfig.saveError(house, CommonErrs.ERR_METER_NOT_FOUND_BY_GUID, true);
                     log.trace("При выгрузке показаний, счетчик с GUID={} НЕ НАЙДЕН, ожидается его экспорт из ГИС",
                             t.getMeteringDeviceRootGUID());
                 } else {
-                    // счетчик найден, записать по нему последние показания, если они уже не записаны
-                    soapConfig.saveError(meter, CommonErrs.ERR_NOT_FOUND_BY_GUID, false);
-                    if (t.getOneRateDeviceValue() != null) {
-                        for (OneRateCurrentMeteringValueExportType e :
-                                t.getOneRateDeviceValue().getValues().getCurrentValue()) {
-                            if (!meterMng.getIsMeterDataExist(mdLst, t.getMeteringDeviceRootGUID(),
-                                    e.getEnterIntoSystem()) && e.getMeteringValue()!=null) {
-                                // показания еще не были сохранены, сохранить
-                                log.trace("Получены показания по OneRateDeviceValue: " +
-                                                "MeteringDeviceRootGUID={} DateValue={}, EnterIntoSystem={}, OrgPPAGUID={}, " +
-                                                "ReadingSource={}, val={}",
-                                        t.getMeteringDeviceRootGUID(), e.getDateValue(),
-                                        e.getEnterIntoSystem(), e.getOrgPPAGUID(), e.getReadingsSource(),
-                                        e.getMeteringValue());
-                                // сохранить показание по счетчику в базу
-                                saveMeterData(meter, e.getMeteringValue(), e.getEnterIntoSystem());
+                    if (meterEol.getKoObj()!=null) {
+                        if (meterMng.getCanSaveDataMeter(meterEol, dt2)) {
+                            // погасить ошибку неактуальности счетчика в Директ
+                            soapConfig.saveError(meterEol, CommonErrs.ERR_METER_NOT_ACTUAL_DIRECT, false);
+                            // погасить ошибку отсутствия связи со счетчиком в Директ
+                            soapConfig.saveError(meterEol, CommonErrs.ERR_METER_NOT_ASSOC_DIRECT, false);
+                            if (t.getOneRateDeviceValue() != null) {
+                                for (OneRateCurrentMeteringValueExportType e :
+                                        t.getOneRateDeviceValue().getValues().getCurrentValue()) {
+                                    // проверить сохранены ли уже показания
+                                    if (Utl.between(Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()), dt1, dt2) &&
+                                            !meterMng.getIsMeterDataExist(mdLst, t.getMeteringDeviceRootGUID(),
+                                            e.getEnterIntoSystem()) && e.getMeteringValue() != null) {
+                                        // показания еще не были сохранены, сохранить
+                                        log.trace("Получены показания по OneRateDeviceValue: " +
+                                                        "MeteringDeviceRootGUID={} DateValue={}, EnterIntoSystem={}, OrgPPAGUID={}, " +
+                                                        "ReadingSource={}, val={}",
+                                                t.getMeteringDeviceRootGUID(), e.getDateValue(),
+                                                e.getEnterIntoSystem(), e.getOrgPPAGUID(), e.getReadingsSource(),
+                                                e.getMeteringValue());
+                                        // сохранить показание по счетчику в базу
+                                        saveMeterData(meterEol, e.getMeteringValue(), e.getEnterIntoSystem(), period);
+                                    }
+                                }
                             }
-                        }
-                    }
-                    if (t.getElectricDeviceValue() != null) {
-                        for (ElectricCurrentMeteringValueExportType e :
-                                t.getElectricDeviceValue().getValues().getCurrentValue()) {
-                            if (!meterMng.getIsMeterDataExist(mdLst, t.getMeteringDeviceRootGUID(),
-                                    e.getEnterIntoSystem()) && e.getMeteringValueT1()!=null) {
-                                log.trace("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}",
-                                        t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
-                                        e.getMeteringValueT1());
-                                // сохранить показание по счетчику в базу
-                                saveMeterData(meter, e.getMeteringValueT1(), e.getEnterIntoSystem());
-                            }
-                        }
+                            if (t.getElectricDeviceValue() != null) {
+                                for (ElectricCurrentMeteringValueExportType e :
+                                        t.getElectricDeviceValue().getValues().getCurrentValue()) {
+                                    // проверить сохранены ли уже показания
+                                    if (Utl.between(Utl.getDateFromXmlGregCal(e.getEnterIntoSystem()), dt1, dt2) &&
+                                            !meterMng.getIsMeterDataExist(mdLst, t.getMeteringDeviceRootGUID(),
+                                            e.getEnterIntoSystem()) && e.getMeteringValueT1() != null) {
+                                        log.trace("показания по ElectricDeviceValue: GUID={} date={}, enter={}, val={}",
+                                                t.getMeteringDeviceRootGUID(), e.getDateValue(), e.getEnterIntoSystem(),
+                                                e.getMeteringValueT1());
+                                        // сохранить показание по счетчику в базу
+                                        saveMeterData(meterEol, e.getMeteringValueT1(), e.getEnterIntoSystem(), period);
+                                    }
+                                }
 
+                            }
+                        } else {
+                            soapConfig.saveError(meterEol, CommonErrs.ERR_METER_NOT_ACTUAL_DIRECT, true);
+                            log.error("Счетчик Eolink.id={} не является актуальным или отключена связь в Директ ", meterEol.getId());
+                        }
+                    } else {
+                        // Ko не заполнен (счетчик не привязан к Директ, для выгрузки)
+                        soapConfig.saveError(meterEol, CommonErrs.ERR_METER_NOT_ASSOC_DIRECT, true);
+                        log.error("Счетчик Eolink.id={} не привязан к соответствующему счетчику в Директ " +
+                                "по Eolink.FK_KLSK_OBJ", meterEol.getId());
                     }
+
                 }
             }
             // Установить статус выполнения задания
@@ -603,11 +629,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
      * @param meter - счетчик
      * @param num1 - показание
      * @param ts - timestamp
+     * @param period - период для T_OBJXPAR
      */
-    private void saveMeterData(Eolink meter, String num1, XMLGregorianCalendar ts) {
+    private void saveMeterData(Eolink meter, String num1, XMLGregorianCalendar ts, String period) throws UnusableCode {
         // усечь до секунд
         Date dt = Utl.truncDateToSeconds(Utl.getDateFromXmlGregCal(ts));
-
+        // погасить ошибку записи в базу
+        soapConfig.saveError(meter, CommonErrs.ERROR_WHILE_SAVING_DATA, false);
         StoredProcedureQuery qr;
         qr = em.createStoredProcedureQuery("scott.p_meter.ins_data_meter");
         qr.registerStoredProcedureParameter(1, Integer.class,
@@ -616,20 +644,18 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 ParameterMode.IN); // p_n1
         qr.registerStoredProcedureParameter(3, Date.class,
                 ParameterMode.IN); // p_ts
-        qr.registerStoredProcedureParameter(4, Integer.class,
+        qr.registerStoredProcedureParameter(4, String.class,
+                ParameterMode.IN);
+        qr.registerStoredProcedureParameter(5, Integer.class,
                 ParameterMode.OUT);
         qr.setParameter(1, meter.getKoObj().getId());
         qr.setParameter(2, Double.valueOf(num1));
         qr.setParameter(3, dt);
-/*
-        log.info("########## save: guid={}, ts={}, ts.num={}", meter.getGuid(),
-                dt, dt.getTime());
-*/
+        qr.setParameter(4, period);
         qr.execute();
-        Integer ret = (Integer) qr.getOutputParameterValue(4);
+        Integer ret = (Integer) qr.getOutputParameterValue(5);
         if (!ret.equals(0)) {
-            // если вернулась ошибка - как то отметить счетчик TODO!
-            //
+            soapConfig.saveError(meter, CommonErrs.ERROR_WHILE_SAVING_DATA, true);
         }
         log.trace("Результат исполнения scott.p_meter.ins_data_meter={}", ret);
     }
@@ -763,18 +789,12 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void checkPeriodicTask(Task task) throws WrongParam {
-        if (1 == 1) {
-            return;
-        }
-        //log.trace("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, вызов", task.getId());
         Task foundTask = em.find(Task.class, task.getId());
         // создать по всем домам задания, если их нет
         createTask("GIS_EXP_METER_VALS", "SYSTEM_RPT_MET_EXP_VAL", "STP", "Дом",
                 "выгрузку показаний приборов учета");
         // Установить статус выполнения задания
         foundTask.setState("ACP");
-        //log.trace("******* Task.id={}, проверка наличия заданий на выгрузку показаний по счетчикам, по домам, выполнено!", task.getId());
-
     }
 
     private void createTask(String actTp, String parentCD, String state, String eolTp, String purpose) {
