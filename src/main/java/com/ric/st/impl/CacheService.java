@@ -59,7 +59,7 @@ public class CacheService {
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("KartMngImpl.getStandartVol", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
-		  	        .setStoreByValue(true) // здесь по значению из за того что в методе создаётся new Standart() (возможно)
+		  	        .setStoreByValue(true) // здесь по значению из за того что в методе создаётся new SocStandart() (возможно)
 		  	        .setStatisticsEnabled(false));
 	      cacheManager.createCache("KartMngImpl.getCntPers", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
