@@ -93,7 +93,7 @@ public class CacheService {
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
-	      cacheManager.createCache("ParDAOImpl.getByCd", new MutableConfiguration<>()
+	      cacheManager.createCache("ParDAOImpl.getByKlskCd", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
@@ -233,7 +233,7 @@ public class CacheService {
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
-	      cacheManager.createCache("TaskDAOImpl.getByCd", new MutableConfiguration<>()
+	      cacheManager.createCache("TaskDAOImpl.getByKlskCd", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ETERNAL))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
