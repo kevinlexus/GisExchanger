@@ -74,7 +74,7 @@ public class TaskBuilder implements TaskBuilders {
 				// все дочерние задания разрешают запуск
 				taskLst.forEach(t2-> {
 					t2.setState("INS");
-					log.info("Разрешено!!!!!!!: id={}", t2.getId());
+					//log.info("Разрешено!!!!!!!: id={}", t2.getId());
 				});
 			}
 	    	/*
