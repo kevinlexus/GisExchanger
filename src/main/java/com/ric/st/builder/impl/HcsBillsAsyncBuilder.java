@@ -1216,10 +1216,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 		// внутренний справочник организации №51
 		mres = ulistMng.getNsiElem(rec.getUlist());
     	log.info("ПД: КОММУНАЛЬНАЯ Услуга: GUID={}", rec.getUlist().getGuid());
+/*
     	rec.getUlist().getChild().forEach(d -> {
 	    	log.info("Вид={}, Услуга={}", d.getName(),
 	    			d.getS1());
     	});
+*/
 
 		Consumption consump = new Consumption();
 		Volume volume = new Volume();
@@ -1312,10 +1314,12 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 	 */
 	private AdditionalService addAdditionalService(SumChrgRec rec, String calcExpl, Kart kart) {
     	log.info("ПД: ДОПОЛНИТЕЛЬНАЯ Услуга: GUID={}", rec.getUlist().getGuid());
+/*
     	rec.getUlist().getChild().forEach(d -> {
 	    	log.info("Вид={}, Услуга={}", d.getName(),
 	    			d.getS1());
     	});
+*/
 		NsiRef mres;
 		AdditionalService additionalService = new AdditionalService();
 		// внутренний справочник организации №1
