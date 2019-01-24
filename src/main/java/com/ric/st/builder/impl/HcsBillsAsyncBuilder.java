@@ -374,7 +374,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 							BigDecimal summa = Utl.nvl(pdoc.getSummaOut(), BigDecimal.ZERO);
 							// в т.ч. пеня по ПД
 							BigDecimal penya = Utl.nvl(pdoc.getPenyaOut(), BigDecimal.ZERO);
-							if (summa.equals(BigDecimal.ZERO) && penya.equals(BigDecimal.ZERO)) {
+							if (summa.compareTo(BigDecimal.ZERO)==0 && penya.compareTo(BigDecimal.ZERO)==0) {
 								throw new ErrorWhileDist("ОШИБКА при распределении Оплаты по ПД биллинг - " +
 										"отсутствуют итоговые суммы по ПД №="+pdocNum+
 										" Возможно необходимо выполнить экспорт ПД!");
@@ -415,7 +415,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 								// уровень распределения по периодам
 								// распределить платеж на сумму оплаты долга и пени
 								BigDecimal procPen = BigDecimal.ZERO;
-								if (!penya.equals(BigDecimal.ZERO)) {
+								if (penya.compareTo(BigDecimal.ZERO)!=0) {
 									procPen = penya.divide(summa, RoundingMode.HALF_UP);
 								}
 								BigDecimal kwtpPenya = amountRub.multiply(procPen);
@@ -1348,17 +1348,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
 		// цена
         BigDecimal price = BigDecimal.valueOf(rec.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP);
-        /*BigDecimal priceBd = null;
-        if (price.equals(BigDecimal.ZERO)) {
-            if (!BigDecimal.valueOf(kart.getOpl()).equals(BigDecimal.ZERO)
-                    && !total.equals(BigDecimal.ZERO)) {
-                // расценка нулевая, значит услуга - повыш коэфф ОДН
-                // создаем расценку как сумма/площадь
-                priceBd = total.divide(BigDecimal.valueOf(kart.getOpl()));
-            } else {
-                priceBd = BigDecimal.ZERO;
-            }
-        }*/
 		additionalService.setRate(price);
 
         // перерасчет
