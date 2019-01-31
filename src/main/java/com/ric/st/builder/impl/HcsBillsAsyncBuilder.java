@@ -565,7 +565,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         house.getChild().stream().filter(p->p.getObjTp().getCd().equals("Подъезд")).forEach(p-> {
             // подъезды
             p.getChild().stream().filter(k->k.getObjTp().getCd().equals("Квартира")).forEach(k-> {
-                // квартиры
+                // помещения
                 k.getChild().stream().filter(s->s.getObjTp().getCd().equals("ЛС")).forEach(s->{
                     // лицевой счет
                     req.getAccountNumber().add(s.getKart().getLsk());

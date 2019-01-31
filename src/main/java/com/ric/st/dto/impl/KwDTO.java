@@ -16,7 +16,7 @@ public class KwDTO extends BaseDTO implements PrepDTOs {
 		super(task);
 	}
 
-	// Номер квартиры
+	// Номер помещения
 	private String num;
 	// Номер подъезда
 	private String entrNum;

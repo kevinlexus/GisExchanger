@@ -1093,7 +1093,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withStatus(1)
                                 .build();
 
-                        log.trace("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № квартиры={}, un={}, GUID={}",
+                        log.trace("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № помещения={}, un={}, GUID={}",
                                 t.getEntranceNum(),
                                 t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
                         em.persist(premisEol);
@@ -1219,7 +1219,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withUser(config.getCurUser())
                                 .withStatus(1).build();
 
-                        log.trace("Попытка создать запись Нежилого помещения в Eolink: № квартиры={}, un={}, GUID={}",
+                        log.trace("Попытка создать запись Нежилого помещения в Eolink: № помещения={}, un={}, GUID={}",
                                 t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
                         em.persist(premisEol);
                     }
