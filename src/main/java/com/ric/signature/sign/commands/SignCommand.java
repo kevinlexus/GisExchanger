@@ -8,7 +8,6 @@ import org.bouncycastle.cert.jcajce.JcaX500NameUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import groovy.util.logging.Log;
 import com.ric.signature.sign.args.SignParameters;
 import com.ric.signature.sign.exceptions.ElementNotFoundException;
 import com.ric.signature.sign.jce.KeyLoader;

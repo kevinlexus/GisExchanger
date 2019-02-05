@@ -6,14 +6,15 @@
         <fileset id="spring_boot_com.ric.web.Soap2GisApplication" name="Soap2GisApplication" removed="true">
           <file>file://$MODULE_DIR$/src/main/java/com/ric/web/Soap2GisApplication.java</file>
         </fileset>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/spring.xml</file>
-        </fileset>
+        <fileset id="fileset" name="Spring Application Context" removed="false" />
         <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/ric/web/AppConfig.java</file>
         </fileset>
         <fileset id="fileset3" name="Spring Application Context (3)" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/ric/web/Soap2GisApplication.java</file>
+        </fileset>
+        <fileset id="fileset4" name="Spring Application Context (4)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring.xml</file>
         </fileset>
       </configuration>
     </facet>
