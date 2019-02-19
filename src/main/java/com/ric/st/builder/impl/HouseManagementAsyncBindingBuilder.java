@@ -1461,7 +1461,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 "попробуйте выполнить экспорт объектов дома!");
                     }
                     // Найти лицевой счет в Kart
-                    Kart kart = kartDao.getByLsk(num);
+                    Kart kart = em.find(Kart.class, num);
                     if (kart == null) {
                         throw new ErrorProcessAnswer("Не найден лицевой счет с lsk=" + num);
                     }
