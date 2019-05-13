@@ -67,6 +67,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -215,7 +216,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
+    public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam {
         taskMng.logTask(task, true, null);
 
         // Установить параметры SOAP
@@ -245,7 +246,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         ExportNotificationsOfOrderExecutionRequest.Notifications notif =
                 new ExportNotificationsOfOrderExecutionRequest.Notifications();
         // получить начальную дату выгрузки
-        Date dt = getExportDate(period);
+        Date dt = null;
+        try {
+            dt = getExportDate(period);
+        } catch (ParseException e) {
+            log.error(Utl.getStackTraceString(e));
+            throw new WrongParam("ERROR! Некорректный период");
+        }
         log.info("Экспорт Извещений начиная с даты:{}", dt);
         // начиная с даты
         notif.setDateFrom(Utl.getXMLDate(dt));
@@ -288,7 +295,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      * @param period - период
      * @return
      */
-    private Date getExportDate(String period) {
+    private Date getExportDate(String period) throws ParseException {
         // дата выгрузки
         Integer year = Integer.parseInt(Utl.getPeriodYear(period));
         String strYear = String.valueOf(year);
@@ -326,7 +333,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap, WrongGetMethod, ErrorWhileDist {
+    public void exportNotificationsOfOrderExecutionAsk(Task task) throws WrongParam, WrongGetMethod, ErrorWhileDist {
         taskMng.logTask(task, true, null);
         // Трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
@@ -340,7 +347,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // период экспорта
         String mgTo = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
         // период на месяц минус 3, чтобы искать извещение в архиве
-        String mgFrom = Utl.addMonths(mgTo, -3);
+        String mgFrom = null;
+        try {
+            mgFrom = Utl.addMonths(mgTo, -3);
+        } catch (ParseException e) {
+            log.error(Utl.getStackTraceString(e));
+            throw new WrongParam("ERROR! Некорректный период");
+        }
         // номер компьютера
         final String nkom = "888";
         // номер инкассации
@@ -624,7 +637,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 Short year = paymentDocument.getYear();
                 String stMonth = Utl.lpad(String.valueOf(month), "0", 2);
                 String stYear = Utl.lpad(String.valueOf(year), "0", 4);
-                Date dt = Utl.getLastDate(Utl.getDateFromPeriod(stYear.concat(stMonth)));
+                Date dt = null;
+                try {
+                    dt = Utl.getLastDate(Utl.getDateFromPeriod(stYear.concat(stMonth)));
+                } catch (ParseException e) {
+                    log.error(Utl.getStackTraceString(e));
+                    try {
+                        throw new WrongParam("ERROR! Некорректный период");
+                    } catch (WrongParam wrongParam) {
+                        wrongParam.printStackTrace();
+                    }
+                }
 
                 if (pdoc != null) {
                     if (pdoc.getUn() == null) {
@@ -705,7 +728,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap {
+    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException {
         taskMng.logTask(task, true, null);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
@@ -740,7 +763,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     "\"ГИС ЖКХ.PERIOD_IMP_PD\", либо некорректно проставлен PARENT_ID от УК к РКЦ!");
         }
         // получить дату загрузки ПД
-        Date dt = Utl.getLastDate(Utl.getDateFromPeriod(period));
+        Date dt = null;
+        try {
+            dt = Utl.getLastDate(Utl.getDateFromPeriod(period));
+        } catch (ParseException e) {
+            log.error(Utl.getStackTraceString(e));
+            throw new WrongParam("ERROR! Некорректный период");
+        }
         // Транспортный GUID платежных реквизитов
         String tguidPay = Utl.getRndUuid().toString();
 
@@ -846,7 +875,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     private Boolean addPaymentDocument(Eolink uk, Pdoc pdoc, Eolink house,
                                        ImportPaymentDocumentRequest req, Integer appTp,
                                        String tguidPay)
-            throws CantPrepSoap, WrongGetMethod {
+            throws CantPrepSoap, WrongGetMethod, ParseException {
         PaymentDocument pd = new PaymentDocument();
         // оступ
         log.info("");

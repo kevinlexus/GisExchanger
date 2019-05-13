@@ -1,6 +1,7 @@
 package com.ric.st.mm.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Date;
 
 import com.dic.bill.model.scott.Ko;
@@ -88,7 +89,7 @@ public class DebMngImpl implements DebMng {
 	 *
 	 */
 	@Override
-	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp) {
+	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp) throws ParseException {
 		// пеня по основным услугам
 		BigDecimal penMain = BigDecimal.ZERO;
 		// пеня по капремонту

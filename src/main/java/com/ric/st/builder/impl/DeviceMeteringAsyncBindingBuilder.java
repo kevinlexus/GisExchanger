@@ -59,6 +59,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -429,7 +430,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException {
+    public Boolean exportMeteringDeviceValues(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException, WrongParam {
         taskMng.logTask(task, true, null);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
@@ -490,7 +491,12 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         // дата с которой получить показания
         // использовать период экспорта извещений (должна совпадать)
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
-        req.setInputDateFrom(Utl.getXMLDate(Utl.getDateFromPeriod(period)));
+        try {
+            req.setInputDateFrom(Utl.getXMLDate(Utl.getDateFromPeriod(period)));
+        } catch (ParseException e) {
+            log.error(Utl.getStackTraceString(e));
+            throw new WrongParam("ERROR! Некорректный период");
+        }
 
         try {
             ack = port.exportMeteringDeviceHistory(req);
@@ -549,7 +555,13 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             soapConfig.saveError(house, CommonErrs.ERR_METER_NOT_FOUND_BY_GUID, false);
             // получить периоды выгрузки
             String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
-            Date dt1 = Utl.getDateFromPeriod(period);
+            Date dt1 = null;
+            try {
+                dt1 = Utl.getDateFromPeriod(period);
+            } catch (ParseException e) {
+                log.error(Utl.getStackTraceString(e));
+                throw new WrongParam("ERROR! Некорректный период");
+            }
             Date dt2 = Utl.getLastDate(dt1);
 
             // получить уже сохранённые в базу показания
