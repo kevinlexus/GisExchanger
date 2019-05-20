@@ -7,6 +7,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import com.ric.st.mm.UlistMng;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 //import com.ric.bill.Config;
@@ -32,6 +34,8 @@ import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
 
 
 /**

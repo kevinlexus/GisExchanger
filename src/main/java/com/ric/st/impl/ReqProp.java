@@ -153,7 +153,8 @@ public class ReqProp implements ReqProps {
 			// родительская организация
 			if (eolink.getGuid() == null ) {
 				// нет PPGUID
-				throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
+				//throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
+				log.warn("WARNING! Не заведен GUID организации по Task.id={}", task.getId());
 			} else {
 				// вернуть объект, содержащий PPGUID
 				eolFound = eolink;
