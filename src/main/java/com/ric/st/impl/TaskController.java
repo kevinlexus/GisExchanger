@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import com.ric.st.builder.*;
 import com.ric.st.mm.UlistMng;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,6 @@ import com.dic.bill.model.exs.TaskPar;
 import com.ric.cmn.Utl;
 import com.ric.signature.sign.commands.Command;
 import com.ric.st.TaskControllers;
-import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
-import com.ric.st.builder.HcsBillsAsyncBuilders;
-import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
-import com.ric.st.builder.HcsPaymentAsyncBuilders;
-import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
-import com.ric.st.builder.NsiServiceAsyncBindingBuilders;
-import com.ric.st.builder.TaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
@@ -60,6 +54,8 @@ public class TaskController implements TaskControllers {
 	private HouseManagementAsyncBindingBuilders hb;
 	@Autowired
 	private HcsOrgRegistryAsyncBindingBuilders os;
+	@Autowired
+	private HcsOrgRegistryAsyncBindingSimpleBuilders osSimple;
 	@Autowired
 	private DeviceMeteringAsyncBindingBuilders dm;
 	@Autowired
@@ -321,11 +317,11 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_ORG":
 							// Экспорт данных организации
-							os.setUp(task);
+							osSimple.setUp(task);
 							if (state.equals("INS")) {
-								os.exportOrgRegistry(task);
+								osSimple.exportOrgRegistry(task);
 							} else if (state.equals("ACK")) {
-								os.exportOrgRegistryAsk(task);
+								osSimple.exportOrgRegistryAsk(task);
 							}
 							break;
 						case "GIS_EXP_DATA_PROVIDER":

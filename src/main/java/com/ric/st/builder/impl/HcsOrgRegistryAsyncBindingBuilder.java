@@ -210,7 +210,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
 		AckRequest ack = null;
 		// для обработки ошибок
-		Boolean err = false;
+		boolean err = false;
 		String errMainStr = null;
 		Eolink eolOrg = reqProp.getFoundTask().getEolink();
 
@@ -256,10 +256,6 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 	/**
 	 * Получить результат экспорта параметров организации
 	 * @param task - задание
-	 * @throws WrongGetMethod
-	 * @throws IOException
-	 * @throws CantPrepSoap
-	 * @throws WrongParam
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -274,10 +270,9 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 
 		if (retState == null) {
 			// не обработано
-			return;
 		} else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
 
-			retState.getExportOrgRegistryResult().stream().forEach(t->{
+			retState.getExportOrgRegistryResult().forEach(t->{
 				if (eolOrg.getGuid() == null) {
 					eolOrg.setGuid(t.getOrgPPAGUID());
 					log.info("По Организации: Eolink.id={} сохранен GUID={}", eolOrg.getId(), t.getOrgPPAGUID());

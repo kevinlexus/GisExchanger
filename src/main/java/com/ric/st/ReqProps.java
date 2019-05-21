@@ -8,7 +8,12 @@ import com.ric.st.impl.SoapBuilder;
 
 public interface ReqProps {
 
-	void setPropAfter(Task task);
+    /*
+     * Установить значения настроек до создания объекта SoapBuilder
+     */
+    void setPropBeforeSimple(Task task) throws CantPrepSoap;
+
+    void setPropAfter(Task task);
 
 	void setPropWOGUID(Task task, SoapBuilder sb) throws CantPrepSoap;
 

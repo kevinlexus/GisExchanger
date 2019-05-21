@@ -57,7 +57,6 @@ public class ReqProp implements ReqProps {
 	 */
 	@Override
 	public void setPropBefore(Task task) throws CantPrepSoap {
-		//foundTask = em.find(Task.class, task.getId());
 		Eolink eolink = task.getEolink();
 		reu = eolink.getReu();
 		kul = eolink.getKul();
@@ -67,7 +66,7 @@ public class ReqProp implements ReqProps {
 		// получить УК
 		Eolink uk = getUkByTaskEolink(eolink, task);
 		ppGuid = uk.getGuid();
-		appTp = uk.getAppTp();
+		//appTp = uk.getAppTp();
 
 		// IP адрес сервиса STUNNEL, получить или из application.properties - hostIp (Кис, Полыс)
 		// или из параметра по УК (ТСЖ Содружество, Свободы)
@@ -94,7 +93,45 @@ public class ReqProp implements ReqProps {
 			signerId = 1;
 			hostIp = config.getHostIp();
 		}
-		//log.info("Использованный hostIp={}", hostIp);
+	}
+
+	/*
+	 * Установить значения настроек до создания объекта SoapBuilder для простых запросов,
+	 * типа получения параметров организации
+	 *
+	 */
+	@Override
+	public void setPropBeforeSimple(Task task) throws CantPrepSoap {
+		// получить GUID организации с уровня РКЦ
+		Eolink uk = task.getEolink();
+		ppGuid = uk.getParent().getGuid();
+		//appTp = uk.getAppTp();
+
+		// IP адрес сервиса STUNNEL, получить или из application.properties - hostIp (Кис, Полыс)
+		// или из параметра по УК (ТСЖ Содружество, Свободы)
+		hostIp =  null;
+		if (config.getHostIp() == null || config.getHostIp().isEmpty()) {
+			try {
+				hostIp = eolParMng.getStr(uk, "ГИС ЖКХ.HOST_IP");
+			} catch (WrongGetMethod wrongGetMethod) {
+				wrongGetMethod.printStackTrace();
+				throw new CantPrepSoap("Ошибка при получении параметра 'ГИС ЖКХ.HOST_IP' по организации Eolink.id="+uk.getId());
+			}
+			if (hostIp==null) {
+				throw new CantPrepSoap("Не заполнен параметр hostIp по организации Eolink.id="+uk.getId()
+						+"(ТСЖ Свобод) либо не заполнен application.properties - hostIp (Кис.Полыс.)");
+			}
+			try {
+				Double signerIdD = eolParMng.getDbl(uk, "ГИС ЖКХ.SIGNER_ID");
+				signerId = signerIdD.intValue();
+			} catch (WrongGetMethod wrongGetMethod) {
+				wrongGetMethod.printStackTrace();
+				throw new CantPrepSoap("Ошибка при получении параметра 'ГИС ЖКХ.SIGNER_ID' по организации Eolink.id="+uk.getId());
+			}
+		} else {
+			signerId = 1;
+			hostIp = config.getHostIp();
+		}
 	}
 
 	/*
@@ -153,8 +190,7 @@ public class ReqProp implements ReqProps {
 			// родительская организация
 			if (eolink.getGuid() == null ) {
 				// нет PPGUID
-				//throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
-				log.warn("WARNING! Не заведен GUID организации по Task.id={}", task.getId());
+				throw new CantPrepSoap("Не заведен GUID организации по Task.id="+task.getId());
 			} else {
 				// вернуть объект, содержащий PPGUID
 				eolFound = eolink;
@@ -196,7 +232,7 @@ public class ReqProp implements ReqProps {
 
 	@Override
 	public Integer getAppTp() {
-		return appTp;
+		return 2; // всегда возвращать 2 - эксперементальная разработка
 	}
 
 	@Override
