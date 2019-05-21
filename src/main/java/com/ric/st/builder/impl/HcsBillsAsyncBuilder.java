@@ -176,7 +176,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 
             // контроль кол-ва выполнения запроса
-            Integer errAckCnt = reqProp.getFoundTask().getErrAckCnt();
+            Integer errAckCnt = Utl.nvl(reqProp.getFoundTask().getErrAckCnt(), 0);
             if (errAckCnt.compareTo(50000) < 0) {
                 // увеличить на 1 кол-во ошибок
                 reqProp.getFoundTask().setErrAckCnt(++errAckCnt);
