@@ -4,6 +4,7 @@ package com.ric.st.builder.impl;
 import com.dic.bill.dao.*;
 import com.dic.bill.dto.OrgDTO;
 import com.dic.bill.dto.SumChrgRec;
+import com.dic.bill.dto.SumChrgRecAlter;
 import com.dic.bill.mm.EolinkParMng;
 import com.dic.bill.mm.KartMng;
 import com.dic.bill.mm.PdocMng;
@@ -813,7 +814,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             for (Pdoc t : pdocMng.getPdocForLoadByHouse(house, dt).stream()
                     .filter(t -> t.getV().equals(0)) // недействующие
                     .collect(Collectors.toList())
-                    ) {
+            ) {
                 // добавить не более 1000 вхождений ПД
                 log.info("Отмена платежного документа, Pdoc.id={}", t.getId());
                 // сохранить транспортный GUID ПД
@@ -932,9 +933,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             throw new CantPrepSoap("Не заполнен CD документа");
         }
         pd.setPaymentDocumentNumber(pdoc.getCd());
-        List<SumChrgRec> lstSum = chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk, appTp);
-
-        Task boost = new Task();
+        List<SumChrgRec> lstSum
+                =
+                chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk, appTp).stream()
+                        .map(t -> new SumChrgRecAlter
+                                (t.getUlistId(), t.getChrg(), t.getChrg(), t.getVol(),
+                                        t.getPrice(), t.getNorm(), t.getSqr(), t.getUlist()))
+                        .collect(Collectors.toList());
         // обновить услугами из справочника ГИС
         lstSum.forEach(t -> {
             Ulist ulist = em.find(Ulist.class, t.getUlistId());
@@ -949,7 +954,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 // если не скрытая услуга (типа Повыш.коэфф.)
                 if (t.getUlist().getUlistTp().getFkExt().equals(50)
                         && !t.getUlist().getGuid().equals("7dd57643-4836-4838-900b-cacec6b2f27b")
-                        ) {
+                ) {
                     // Общий справочник №50 - жилищная, но не взнос на капремонт
                     HousingService housService = new HousingService();
                     chrgInfo = new ChargeInfo();

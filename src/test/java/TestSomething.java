@@ -3,6 +3,9 @@ import static org.junit.Assert.assertEquals;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.dic.bill.dto.SumChrgRec;
+import com.dic.bill.model.scott.Ko;
+import com.ric.st.mm.ChrgMng;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import com.dic.bill.model.exs.Task;
 import com.ric.web.AppConfig;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * Исправный модуль, для тестирования Spring beans
@@ -36,6 +41,18 @@ public class TestSomething {
 
 	@Autowired
 	private EolinkDAO eolinkDao;
+
+	@Autowired
+	private ChrgMng chrgMng;
+
+	@Test
+	public void check() throws Exception {
+		Ko ko = em.find(Ko.class, 104880L);
+		Eolink eolink = em.find(Eolink.class, 706987);
+		List<SumChrgRec> lst = chrgMng.getChrgGrp("0000007", ko, "201905", eolink, 2);
+		log.info("size={}", lst.size());
+		lst.forEach(t-> log.info("test={}", t.getPrice()));
+	}
 
 	@Test
     public void contextLoads() throws Exception {

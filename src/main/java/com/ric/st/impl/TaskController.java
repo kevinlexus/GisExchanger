@@ -377,10 +377,9 @@ public class TaskController implements TaskControllers {
 						taskMng.setState(task, "ERR");
 						taskMng.setResult(task, e.getMessage());
 					} catch (Exception e) {
-						e.printStackTrace();
-						String errMess = StringUtils.substring(Utl.getStackTraceString(e), 0, 1000);
 						log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
-								errMess);
+								Utl.getStackTraceString(e));
+						String errMess = StringUtils.substring(Utl.getStackTraceString(e), 0, 1000);
 						//log.error("stackTrace={}", e.getStackTrace());
 						if (!task.getAct().getCd().equals("GIS_SYSTEM_RPT")) {
 							// не помечать ошибкой системные, повторяемые задания
