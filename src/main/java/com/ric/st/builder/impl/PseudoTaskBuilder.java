@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.dic.bill.model.bs.Lst2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,6 @@ import com.dic.bill.dao.TaskDAO;
 import com.ric.cmn.excp.WrongParam;
 import com.dic.bill.mm.LstMng;
 import com.dic.bill.mm.TaskEolinkParMng;
-import com.dic.bill.model.bs.Lst;
 import com.dic.bill.model.bs.Par;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
@@ -69,7 +69,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 */
 	@Override
 	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state, Integer userId) {
-		Lst actVal = lstMng.getByCD(actCd);
+		Lst2 actVal = lstMng.getByCD(actCd);
 //		Integer userId = soapConfig.getCurUser().getId();
 		task = Task.builder()
 			.withEolink(eolink)
@@ -153,7 +153,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	public void addAsChild(String cd) {
 		Task parent = taskDao.getByCd(cd);
 		log.info("******* Прикреплено дочернее задание к родительскому Parent Task.id={}", parent.getId());
-		Lst lst = lstMng.getByCD("Связь повторяемого задания");
+		Lst2 lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
 		//parent.getInside().add(t);
 		task.getOutside().add(t);
@@ -166,7 +166,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 */
 	@Override
 	public void addAsChild(Task parent) {
-		Lst lst = lstMng.getByCD("Связь повторяемого задания");
+		Lst2 lst = lstMng.getByCD("Связь повторяемого задания");
 		TaskToTask t = new TaskToTask(parent, task, lst);
 		task.getOutside().add(t);
 	}

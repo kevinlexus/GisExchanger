@@ -7,7 +7,7 @@ import com.dic.bill.dao.KartDAO;
 import com.dic.bill.dao.TaskDAO;
 import com.dic.bill.mm.*;
 import com.dic.bill.model.bs.AddrTp;
-import com.dic.bill.model.bs.Lst;
+import com.dic.bill.model.bs.Lst2;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.scott.Kart;
@@ -19,7 +19,6 @@ import com.ric.cmn.excp.*;
 import com.ric.st.CommonErrs;
 import com.ric.st.ReqProps;
 import com.ric.st.SoapConfigs;
-import com.ric.st.TaskControllers;
 import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
@@ -726,7 +725,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     if (contrEol == null) {
                         // Документ не существует в базе, - создать
                         AddrTp addrTp = lstMng.getAddrTpByCD("Документ");
-                        Lst objTpx = null;
+                        Lst2 objTpx = null;
                         if (t.getContract() != null) {
                             // Договор управления
                             objTpx = lstMng.getByCD("Договор управления");

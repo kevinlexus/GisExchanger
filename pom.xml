@@ -27,7 +27,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-framework.version>5.1.4.RELEASE</spring-framework.version>
         <!-- Hibernate / JPA -->
-        <hibernate.version>5.2.13.Final</hibernate.version>
+        <hibernate.version>5.4.3.Final</hibernate.version>
         <!-- Test -->
         <junit.version>4.12</junit.version>
 
@@ -131,6 +131,20 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- для Hikari DataSource -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+
+        <!-- для Hibernate second level cache -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+        </dependency>
+
+<!--
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache2</artifactId>
@@ -142,16 +156,16 @@
             <artifactId>ehcache-terracotta</artifactId>
             <version>2.1.1</version>
         </dependency>
+-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
         </dependency>
 
         <dependency>
