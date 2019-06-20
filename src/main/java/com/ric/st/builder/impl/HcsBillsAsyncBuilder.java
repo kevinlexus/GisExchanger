@@ -937,7 +937,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 =
                 chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk, appTp).stream()
                         .map(t -> new SumChrgRecAlter
-                                (t.getUlistId(), t.getChrg(), t.getChrg(), t.getVol(),
+                                (t.getUlistId(), t.getChrg(), t.getChng(), // ред.20.06.2019 - стояло - t.getChrg() чё за фигня??? (уходили ПД с начислением в перерасчетах)
+                                        t.getVol(),
                                         t.getPrice(), t.getNorm(), t.getSqr(), t.getUlist()))
                         .collect(Collectors.toList());
         // обновить услугами из справочника ГИС
@@ -1002,7 +1003,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             String penCause = "задолженность";
             penCourtCost.setCause(penCause);
             pd.getPenaltiesAndCourtCosts().add(penCourtCost);
-            log.info("ПД: pen={}", pen);
+            log.info("ПД: пеня={}", pen);
         }
 
         // Итого начислено

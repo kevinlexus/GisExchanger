@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import com.dic.bill.dao.AchargeDAO;
 import com.ric.st.builder.*;
 import com.ric.st.mm.UlistMng;
 import org.apache.commons.lang.StringUtils;
@@ -44,6 +45,8 @@ public class TaskController implements TaskControllers {
 
 	@Autowired
 	private TaskDAO taskDao;
+	@Autowired
+	private AchargeDAO achargeDAO;
 	@Autowired
 	private TaskMng taskMng;
 	@Autowired
@@ -91,6 +94,20 @@ public class TaskController implements TaskControllers {
 		}
 		log.info("******* searching for Tasks:");
 		boolean flag = true;
+
+
+/*
+		log.info("******* TEST");
+		achargeDAO.getChrgGrp("14043087", 201905, 707490).stream()
+				.forEach(t-> {
+					log.info("ulist={}, chrg={}, chng={}, price={}, sqr={}, ulistId={}, vol={}, norm={}",
+							t.getUlist(), t.getChrg(), t.getChng(), t.getPrice(),
+							t.getSqr(), t.getUlistId(), t.getVol(), t.getNorm());
+				});
+		log.info("******* TEST");
+
+		if (1==1) throw new RuntimeException("TEST");
+*/
 		// цикл
 		while(flag) {
 			// перебрать все необработанные задания
