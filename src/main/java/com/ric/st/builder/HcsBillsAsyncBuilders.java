@@ -15,13 +15,13 @@ import java.text.ParseException;
 
 public interface HcsBillsAsyncBuilders {
 
-	void setUp(Task task) throws CantSendSoap, CantPrepSoap;
+	//void setUp(Task task) throws CantSendSoap, CantPrepSoap;
 	ru.gosuslugi.dom.schema.integration.bills.GetStateResult getState2(Task task);
-	void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam;
-	void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam, com.ric.cmn.excp.ErrorWhileDist;
-	void exportPaymentDocumentData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
-	void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException;
+	void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, CantSendSoap;
+	void exportNotificationsOfOrderExecutionAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam, com.ric.cmn.excp.ErrorWhileDist, CantSendSoap;
+	void exportPaymentDocumentData(Task task) throws CantPrepSoap, WrongGetMethod, CantSendSoap;
+	void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, CantSendSoap;
+	void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException, CantSendSoap;
 	void importPaymentDocumentDataAsk(Task task) throws CantSendSoap, CantPrepSoap, WrongGetMethod;
 	void checkPeriodicImpExpPd(Task task) throws WrongParam;
 }

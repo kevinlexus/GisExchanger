@@ -2,6 +2,7 @@ package com.ric.st.builder;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import com.dic.bill.model.exs.Eolink;
 import com.ric.cmn.excp.ErrorProcessAnswer;
 import com.ric.cmn.excp.UnusableCode;
 import com.ric.cmn.excp.WrongGetMethod;
@@ -18,10 +19,10 @@ public interface HouseManagementAsyncBindingBuilders {
 	Boolean exportContract(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean exportHouseData(Task task) throws CantPrepSoap, WrongGetMethod;
 	void exportHouseDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam, UnusableCode;
-	void exportAccountData(Task task) throws CantPrepSoap, WrongGetMethod;
-	void exportAccountDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam;
-	Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap;
-	void importAccountDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
+	void exportAccountData(Task task) throws CantPrepSoap, WrongGetMethod, CantSendSoap, WrongParam;
+	void exportAccountDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam, CantSendSoap;
+	Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam;
+	void importAccountDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
 	Boolean importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
 	void importHouseUODataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
 	Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;

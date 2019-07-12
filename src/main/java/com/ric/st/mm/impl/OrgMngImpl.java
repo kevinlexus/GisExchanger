@@ -1,16 +1,13 @@
 package com.ric.st.mm.impl;
 
-import com.dic.bill.model.scott.Charge;
+import com.dic.bill.dto.OrgDTO;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.scott.Org;
+import com.ric.st.mm.OrgMng;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import com.dic.bill.dto.OrgDTO;
-import com.ric.st.mm.OrgMng;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Сервис справочника организации из разных источников
@@ -61,19 +58,13 @@ public class OrgMngImpl implements OrgMng {
 		// Тип информационной системы
 		Integer appTp = uk.getAppTp();
 		OrgDTO orgDto = null;
-		if (appTp==0) {
-			// старая разработка
-		} else if (appTp==1) {
-			// новая разработка
-		} else if (appTp==2) {
-			// экспериментальная разработка
-			Org org = orgDao2.getByReu(uk.getReu());
-			orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
-			orgDto.setBik(org.getBik());
-			orgDto.setInn(org.getInn());
-			orgDto.setOperAcc(org.getOperAcc());
-            orgDto.setOperAccGis(org.getOperAccGis());
-		}
+        // экспериментальная разработка
+        Org org = orgDao2.getByReu(uk.getReu());
+        orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
+        orgDto.setBik(org.getBik());
+        orgDto.setInn(org.getInn());
+        orgDto.setOperAcc(org.getOperAcc());
+        orgDto.setOperAccGis(org.getOperAccGis());
 
 		return orgDto;
 	}

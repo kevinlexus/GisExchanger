@@ -3,16 +3,15 @@ package com.ric.st.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.dic.bill.dao.EolinkDAO;
 import com.dic.bill.mm.EolinkParMng;
 import com.ric.cmn.excp.WrongGetMethod;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dic.bill.mm.EolinkMng;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
 import com.ric.st.ReqProps;
@@ -29,28 +28,30 @@ public class ReqProp implements ReqProps {
 
     @PersistenceContext
     private EntityManager em;
-	@Autowired
-	private EolinkMng eolinkMng;
-	@Autowired
-	private EolinkParMng eolParMng;
-	@Autowired
-	private SoapConfig config;
+	private final EolinkParMng eolParMng;
+	private final EolinkDAO eolinkDAO;
+	private final SoapConfig config;
+
 	@Value("${gisVersion}")
 	private String gisVersion;
 
-	Task foundTask;
-	String houseGuid;
-	String ppGuid;
-	String reu;
-	String kul;
-	String nd;
-	String hostIp;
-	SoapBuilder sb;
-	Integer appTp;
+	private Task foundTask;
+	private String houseGuid;
+	private String ppGuid;
+	private String reu;
+	private String kul;
+	private String nd;
+	private String hostIp;
 	// УК по данному Task
-	Eolink uk;
+	private Eolink uk;
 	// Id подписчика XML (если hostIp не заполнен, то определяется по УК)
 	private int signerId;
+
+	public ReqProp(EolinkParMng eolParMng, EolinkDAO eolinkDAO, SoapConfig config) {
+		this.eolParMng = eolParMng;
+		this.eolinkDAO = eolinkDAO;
+		this.config = config;
+	}
 
 	/*
 	 * Установить значения настроек до создания объекта SoapBuilder
@@ -58,15 +59,19 @@ public class ReqProp implements ReqProps {
 	@Override
 	public void setPropBefore(Task task) throws CantPrepSoap {
 		Eolink eolink = task.getEolink();
-		reu = eolink.getReu();
+		this.reu = eolink.getReu();
 		kul = eolink.getKul();
 		nd = eolink.getNd();
 		houseGuid = eolink.getGuid();
 
+		Eolink uk;
 		// получить УК
-		Eolink uk = getUkByTaskEolink(eolink, task);
+		if (task.getProcUk() == null) {
+			uk = getUkByTaskEolink(eolink, task);
+		} else {
+			uk = task.getProcUk();
+		}
 		ppGuid = uk.getGuid();
-		//appTp = uk.getAppTp();
 
 		// IP адрес сервиса STUNNEL, получить или из application.properties - hostIp (Кис, Полыс)
 		// или из параметра по УК (ТСЖ Содружество, Свободы)
@@ -173,7 +178,6 @@ public class ReqProp implements ReqProps {
 			houseGuid = task.getEolink().getGuid();
 		}
 		// GUID текущей организации
-		this.sb = sb;
 		this.ppGuid = config.getOrgPPGuid();
 	}
 
@@ -228,6 +232,11 @@ public class ReqProp implements ReqProps {
 	@Override
 	public String getNd() {
 		return nd;
+	}
+
+	@Override
+	public Eolink getUk() {
+		return uk;
 	}
 
 	@Override

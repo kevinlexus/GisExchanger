@@ -15,7 +15,8 @@ public class CommonUtl {
      */
     public static String getErrorDescrByCode(long err) throws UnusableCode {
         StringBuilder str= new StringBuilder("");
-        if (err > 0xFF) { // переводить число в биты , например: 00111111‬, при добавлении нового кода менять!
+        if (err > 0x1FF) { // переводить максимальное число в биты, заполнить все 0 единицами, получить макс значение,
+            // например: 00111111‬, при добавлении нового кода менять!
             throw new UnusableCode("Некорректный код маски = "+err);
         }
 
@@ -42,6 +43,9 @@ public class CommonUtl {
         }
         if ((err & CommonErrs.ERROR_WHILE_SAVING_DATA) > 0) {
             str.append("Ошибка при записи в базу данных! ");
+        }
+        if ((err & CommonErrs.ERR_DOUBLE_KLSK_EOLINK) > 0) {
+            str.append("Дублирующийся FK_KLSK_OBJ в таблице Eolink! ");
         }
 
         if (str.length() >0) {

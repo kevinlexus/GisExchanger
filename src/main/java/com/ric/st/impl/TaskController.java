@@ -222,7 +222,7 @@ public class TaskController implements TaskControllers {
 							break;
 						case "GIS_EXP_ACCS":
 							// Экспорт из ГИС ЖКХ лиц.счетов
-							hb.setUp(task);
+							//hb.setUp(task);
 							if (state.equals("INS")) {
 								hb.exportAccountData(task);
 							} else if (state.equals("ACK")) {
@@ -281,7 +281,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_IMP_PAY_DOCS":
-							bill.setUp(task);
+							//bill.setUp(task);
 							if (state.equals("INS")) {
 								// Импорт платежных документов по дому
 								bill.importPaymentDocumentData(task);
@@ -291,7 +291,7 @@ public class TaskController implements TaskControllers {
 							}
 							break;
 						case "GIS_EXP_PAY_DOCS":
-							bill.setUp(task);
+							//bill.setUp(task);
 							if (state.equals("INS")) {
 								// экспорт платежных документов по дому
 								bill.exportPaymentDocumentData(task);
@@ -372,7 +372,7 @@ public class TaskController implements TaskControllers {
 							case "GIS_EXP_NOTIF_1": case "GIS_EXP_NOTIF_8":
 								case "GIS_EXP_NOTIF_16": case "GIS_EXP_NOTIF_24":
 							// Экспорт извещений исполнения документа по дням выгрузки
-							bill.setUp(task);
+							//bill.setUp(task);
 							if (state.equals("INS")) {
 								// Экспорт извещений исполнения документа
 								bill.exportNotificationsOfOrderExecution(task);

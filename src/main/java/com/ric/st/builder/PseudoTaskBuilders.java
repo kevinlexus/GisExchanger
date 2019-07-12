@@ -26,7 +26,7 @@ public interface PseudoTaskBuilders {
     * @param actCd - тип задания
     * @param state - статус состояния
     */
-    void setUp(Eolink eolink, Task parent, Task master, String actCd, String state, Integer userId);
+    void setUp(Eolink eolink, Task parent, Task master, String actCd, String state, Integer userId, Eolink eolinkUk);
 
     public void addTaskPar (String parCd, Double n1, String s1, Boolean b1, Date d1) throws WrongParam;
 	public void saveToEolink();

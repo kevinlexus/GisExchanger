@@ -2,6 +2,7 @@ package com.ric.st.builder.impl;
 
 
 import com.dic.bill.dao.*;
+import com.dic.bill.dto.HouseUkTaskRec;
 import com.dic.bill.dto.OrgDTO;
 import com.dic.bill.dto.SumChrgRec;
 import com.dic.bill.dto.SumChrgRecAlter;
@@ -78,7 +79,7 @@ import java.util.stream.Collectors;
  * Сервис выставления счетов в ГИС ЖКХ
  *
  * @author lev
- * @version 1.15
+ * @version 1.16
  */
 @Slf4j
 @Service
@@ -109,6 +110,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     @Autowired
     private EolinkDAO eolinkDao;
     @Autowired
+    private EolinkDAO2 eolinkDao2;
+    @Autowired
     private KartMng kartMng;
     @Autowired
     private KartDAO kartDao;
@@ -127,8 +130,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     /**
      * Инициализация
      */
-    @Override
-    public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
+    private void setUp(Task task) throws CantSendSoap, CantPrepSoap {
         BillsServiceAsync service = new BillsServiceAsync();
         port = service.getBillsPortAsync();
 
@@ -217,7 +219,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam {
+    public void exportNotificationsOfOrderExecution(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, CantSendSoap {
+        setUp(task);
         taskMng.logTask(task, true, null);
 
         // Установить параметры SOAP
@@ -334,7 +337,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportNotificationsOfOrderExecutionAsk(Task task) throws WrongParam, WrongGetMethod, ErrorWhileDist {
+    public void exportNotificationsOfOrderExecutionAsk(Task task) throws WrongParam, WrongGetMethod, ErrorWhileDist, CantPrepSoap, CantSendSoap {
+        setUp(task);
         taskMng.logTask(task, true, null);
         // Трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
@@ -539,7 +543,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportPaymentDocumentData(Task task) throws CantPrepSoap, WrongGetMethod {
+    public void exportPaymentDocumentData(Task task) throws CantPrepSoap, WrongGetMethod, CantSendSoap {
+        setUp(task);
         taskMng.logTask(task, true, null);
 
         // установить параметры SOAP
@@ -617,7 +622,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap {
+    public void exportPaymentDocumentDataAsk(Task task) throws CantPrepSoap, CantSendSoap {
+        setUp(task);
         taskMng.logTask(task, true, null);
 
         // Трассировка XML
@@ -729,34 +735,17 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException {
-        taskMng.logTask(task, true, null);
+    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException, CantSendSoap {
+        // индивидуально выполнить setUp - так как может выполняться от имени РСО
+        setUp(task);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        // Трассировка XML
-        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
-        AckRequest ack = null;
-        // для обработки ошибок
-        Boolean err = false;
-        String errMainStr = null;
-        // есть ли ПД (их отмена) на загрузку?
-        Boolean isExistJob = false;
-
-        ImportPaymentDocumentRequest req = new ImportPaymentDocumentRequest();
-
-        req.setId("foo");
-        req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
-        // Дом
-        Eolink house = reqProp.getFoundTask().getEolink();
-        // Организация
-        Eolink uk = house.getParent();
-        Boolean isConfirmCorrect = eolParMng.getBool(uk, "ГИС ЖКХ.CONFIRM_CORRECT");
-        if (isConfirmCorrect == null) {
-            throw new CantPrepSoap("По объекту УК Eolink.id=" + String.valueOf(uk.getId()) + " не заполнен параметр " +
-                    "\"ГИС ЖКХ.CONFIRM_CORRECT\"");
-        }
+        // дом
+        Eolink house = task.getEolink();
+        // владеющая лиц.счетом УК
+        Eolink uk = task.getProcUk();
         // РКЦ
-        Eolink rkc = uk.getParent();
+        Eolink rkc = house.getParent().getParent();
         // получить период импорта ПД
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_IMP_PD");
         if (period == null) {
@@ -764,71 +753,91 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     "\"ГИС ЖКХ.PERIOD_IMP_PD\", либо некорректно проставлен PARENT_ID от УК к РКЦ!");
         }
         // получить дату загрузки ПД
-        Date dt = null;
+        Date dt;
         try {
             dt = Utl.getLastDate(Utl.getDateFromPeriod(period));
         } catch (ParseException e) {
             log.error(Utl.getStackTraceString(e));
             throw new WrongParam("ERROR! Некорректный период");
         }
-        // Транспортный GUID платежных реквизитов
-        String tguidPay = Utl.getRndUuid().toString();
+        // список необработанных ПД
+        List<Pdoc> lstPdoc = new ArrayList<>(pdocMng.getPdocForLoadByHouse(house, uk, dt));
+        // есть ли ПД (их отмена) на загрузку?
+        boolean isExistJob = false;
 
-        if (pdocMng.getPdocForLoadByHouse(house, dt).stream()
-                .filter(t -> t.getV().equals(1)).collect(Collectors.toList()).size() > 0) {
+        AckRequest ack = null;
+        boolean err = false;
+        String errMainStr = null;
+        ImportPaymentDocumentRequest req = new ImportPaymentDocumentRequest();
+
+        if (lstPdoc.size() != 0) {
+            taskMng.logTask(task, true, null);
+            // Трассировка XML
+            sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
+            // для обработки ошибок
+
+            req.setId("foo");
+            req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
+
+            // Транспортный GUID платежных реквизитов
+            String tguidPay = Utl.getRndUuid().toString();
+
+            // обрабатывать ПД только первой выбранной УК, в следующую загрузку - другой УК и так далее
+            // на случай необходимости загрузки ПД от РСО
             // получить список незагруженных, действующих ПД в ГИС по Дому
-            for (Pdoc t : pdocMng.getPdocForLoadByHouse(house, dt).stream()
+            int i = 0;
+            for (Pdoc t : lstPdoc.stream()
                     .filter(t -> t.getV().equals(1)) // действующие
                     .collect(Collectors.toList())) {
-                // добавить не более 500 вхождений ПД
+                i++;
+                if (i > 500) {
+                    // добавить не более 500 вхождений ПД
+                    break;
+                }
                 log.info("Добавление платежного документа, Pdoc.id={}", t.getId());
                 boolean isAdd = addPaymentDocument(uk, t, house, req, reqProp.getAppTp(), tguidPay);
-                t.setIsConfirmCorrect(isConfirmCorrect);
+                t.setIsConfirmCorrect(true);
                 if (isAdd) {
                     // если хотя бы один документ добавлен - загружать
                     isExistJob = true;
                 }
+
             }
             // cчитать корректными значения сумм документов, если они расходятся с автоматически рассчитанными
-            if (isConfirmCorrect) {
-                req.setConfirmAmountsCorrect(true);
+            req.setConfirmAmountsCorrect(true);
+            if (isExistJob) {
+                // добавить платежные реквизиты, если была загрузка ПД
+                PaymentInformation payInfo = new PaymentInformation();
+                req.getPaymentInformation().add(payInfo);
+
+                OrgDTO orgDto = orgMng.getOrgDTO(uk);
+                log.info("ПД: BIK=#{}#", orgDto.getBik());
+                payInfo.setBankBIK(orgDto.getBik());
+                log.info("ПД: OperAccount=#{}#", orgDto.getOperAccGis());
+                payInfo.setOperatingAccountNumber(orgDto.getOperAccGis());
+                payInfo.setTransportGUID(tguidPay);
             }
 
-        }
-        if (isExistJob) {
-            // добавить платежные реквизиты, если была загрузка ПД
-            PaymentInformation payInfo = new PaymentInformation();
-            req.getPaymentInformation().add(payInfo);
+            if (!isExistJob) {
+                // не было документов на добавление, найти на отмену
+                // получить список недействующих ПД, направленных на отмену в ГИС по Дому
+                for (Pdoc t : lstPdoc.stream()
+                        .filter(t -> t.getV().equals(0)) // недействующие
+                        .collect(Collectors.toList())) {
+                    // добавить не более 1000 вхождений ПД
+                    log.info("Отмена платежного документа, Pdoc.id={}", t.getId());
+                    // сохранить транспортный GUID ПД
+                    String tguid = Utl.getRndUuid().toString();
+                    t.setTguid(tguid);
 
-            OrgDTO orgDto = orgMng.getOrgDTO(uk);
-            log.info("ПД: BIK=#{}#", orgDto.getBik());
-            payInfo.setBankBIK(orgDto.getBik());
-            log.info("ПД: OperAccount=#{}#", orgDto.getOperAccGis());
-            payInfo.setOperatingAccountNumber(orgDto.getOperAccGis());
-            payInfo.setTransportGUID(tguidPay);
-        }
-
-        if (!isExistJob) {
-            // не было документов на добавление, найти на отмену
-            // получить список недействующих ПД, направленных на отмену в ГИС по Дому
-            for (Pdoc t : pdocMng.getPdocForLoadByHouse(house, dt).stream()
-                    .filter(t -> t.getV().equals(0)) // недействующие
-                    .collect(Collectors.toList())
-            ) {
-                // добавить не более 1000 вхождений ПД
-                log.info("Отмена платежного документа, Pdoc.id={}", t.getId());
-                // сохранить транспортный GUID ПД
-                String tguid = Utl.getRndUuid().toString();
-                t.setTguid(tguid);
-
-                WithdrawPaymentDocument wdPd = new WithdrawPaymentDocument();
-                wdPd.setPaymentDocumentID(t.getUn());
-                wdPd.setTransportGUID(tguid);
-                req.getWithdrawPaymentDocument().add(wdPd);
-                isExistJob = true;
+                    WithdrawPaymentDocument wdPd = new WithdrawPaymentDocument();
+                    wdPd.setPaymentDocumentID(t.getUn());
+                    wdPd.setTransportGUID(tguid);
+                    req.getWithdrawPaymentDocument().add(wdPd);
+                    isExistJob = true;
+                }
             }
         }
-
         if (isExistJob) {
             log.info("******* Task.id={}, импорт платежных документов по дому, вызов", task.getId());
             try {
@@ -1416,7 +1425,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void importPaymentDocumentDataAsk(Task task) throws CantPrepSoap {
+    public void importPaymentDocumentDataAsk(Task task) throws CantPrepSoap, CantSendSoap {
+        setUp(task);
         taskMng.logTask(task, true, null);
 
         // Установить параметры SOAP
@@ -1500,10 +1510,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     public void checkPeriodicImpExpPd(Task task) throws WrongParam {
         Task foundTask = em.find(Task.class, task.getId());
         // создать по всем домам задания на импорт ПД, если их нет
-        createTask("GIS_IMP_PAY_DOCS", "SYSTEM_RPT_IMP_PD", "STP", "Дом",
+        createTaskExpPayDoc("GIS_IMP_PAY_DOCS", "SYSTEM_RPT_IMP_PD", "STP",
                 "импорт ПД");
         // создать по всем домам задания на экспорт ПД, если их нет
-        createTask("GIS_EXP_PAY_DOCS", "SYSTEM_RPT_EXP_PD", "STP", "Дом",
+        createTaskExpPayDoc("GIS_EXP_PAY_DOCS", "SYSTEM_RPT_EXP_PD", "STP",
                 "экспорт ПД");
         // создать по всем УК задания на экспорт Извещений по ПД, если их нет, по дням выгрузки
         createTask("GIS_EXP_NOTIF_1", "SYSTEM_RPT_EXP_NOTIF", "STP", "Организация",
@@ -1533,6 +1543,30 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 break;
             }
         }
+    }
+
+    private void createTaskExpPayDoc(String actTp, String parentCD, String state, String purpose) {
+        // создать по всем домам задания, если их нет
+        // получить дома без заданий
+        for (HouseUkTaskRec t : eolinkDao2.getHouseByTpWoTaskTp(actTp)) {
+            int a;// создавать по 100 штук, иначе -блокировка Task (нужен коммит)
+            a = 1;
+            Eolink eolHouse = em.find(Eolink.class, t.getEolHouseId());
+            Eolink procUk = em.find(Eolink.class, t.getEolUkId());
+            ptb.setUp(eolHouse, null, null, actTp, state,
+                    soapConfig.getCurUser().getId(), procUk);
+            ptb.save();
+            // добавить зависимое задание к системному повторяемому заданию
+            // (будет запускаться системным заданием)
+            ptb.addAsChild(parentCD);
+            log.info("Добавлено задание на {}, по объекту {}, Eolink.id={} Task.procUk={}", purpose, "Дом",
+                    eolHouse.getId(), procUk.getId());
+            a++;
+            if (a++ >= 100) {
+                break;
+            }
+        }
+
     }
 
 

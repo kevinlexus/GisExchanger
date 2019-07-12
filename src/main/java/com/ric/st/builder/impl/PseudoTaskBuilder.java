@@ -57,7 +57,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 */
 	@Override
 	public void setUp(Eolink eolink, Task parent, String actCd, String state, Integer userId) {
-		setUp(eolink, parent, null, actCd, state, userId);
+		setUp(eolink, parent, null, actCd, state, userId, null);
 	}
 
 	/* инициализация
@@ -68,9 +68,9 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	 * @param state - статус состояния
 	 */
 	@Override
-	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state, Integer userId) {
+	public void setUp(Eolink eolink, Task parent, Task master, String actCd, String state,
+					  Integer userId, Eolink procUk) {
 		Lst2 actVal = lstMng.getByCD(actCd);
-//		Integer userId = soapConfig.getCurUser().getId();
 		task = Task.builder()
 			.withEolink(eolink)
 			.withParent(parent)
@@ -79,6 +79,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 			.withAct(actVal)
 			.withFk_user(userId)
 			.withErrAckCnt(0)
+			.withProcUk(procUk)
 			.withTrace(0).build();
 	}
 
