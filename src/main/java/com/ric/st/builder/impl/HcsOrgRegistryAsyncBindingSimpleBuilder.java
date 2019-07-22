@@ -101,6 +101,10 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 		if (state != null && state.getRequestState() != 3) {
 			// вернуться, если задание всё еще не выполнено
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
+			if (state.getRequestState() == 1) {
+				// статус запроса - ACK - увеличить время ожидания + 10 секунд
+				task.alterDtNextStart(10);
+			}
 			return null;
 		}
 

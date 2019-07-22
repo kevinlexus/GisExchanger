@@ -1,5 +1,6 @@
 package com.ric.signature.sign.commands;
 
+import com.ric.web.Soap2GisApplication;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.asn1.x500.X500Name;

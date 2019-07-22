@@ -115,7 +115,7 @@ public class TaskController implements TaskControllers {
 				// получить задание заново (могло измениться в базе)
 				Task task = em.find(Task.class, t.getId());
 
-				if (Utl.in(task.getState(),"INS", "ACK", "RPT")) {
+				if (Utl.in(task.getState(),"INS", "ACK", "RPT") && task.isActivate()) {
 					// Почистить результаты задания
 					taskMng.clearAllResult(task);
 					String actCd = task.getAct().getCd();
@@ -393,6 +393,11 @@ public class TaskController implements TaskControllers {
 						//log.error("stackTrace={}", e.getStackTrace().toString());
 						taskMng.setState(task, "ERR");
 						taskMng.setResult(task, e.getMessage());
+					} catch (com.sun.xml.ws.client.ClientTransportException e) {
+						log.error("Ошибка: com.sun.xml.ws.client.ClientTransportException: Отсутствие связи с сервером " +
+								"ГИС ЖКХ, необходимо проверить туннель!");
+						log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
+								Utl.getStackTraceString(e));
 					} catch (Exception e) {
 						log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
 								Utl.getStackTraceString(e));

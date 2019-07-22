@@ -151,9 +151,9 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     public GetStateResult getState2(Task task) {
 
         // Признак ошибки
-        Boolean err = false;
+        boolean err = false;
         // Признак ошибки в CommonResult
-        Boolean errChld = false;
+        boolean errChld = false;
         String errStr = null;
         ru.gosuslugi.dom.schema.integration.device_metering.GetStateResult state = null;
 
@@ -173,6 +173,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         if (state != null && state.getRequestState() != 3) {
             // вернуться, если задание всё еще не выполнено
             log.trace("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
+            if (state.getRequestState() == 1) {
+                // статус запроса - ACK - увеличить время ожидания + 10 секунд
+                task.alterDtNextStart(10);
+            }
             return null;
         }
 

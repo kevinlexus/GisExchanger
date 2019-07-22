@@ -132,15 +132,10 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		if (state != null && state.getRequestState() != 3) {
 			// вернуться, если задание всё еще не выполнено
 			log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
-			// контроль кол-ва выполнения запроса
-			Integer errAckCnt = Utl.nvl(reqProp.getFoundTask().getErrAckCnt(),0);
-			if (errAckCnt.compareTo(50000) < 0) {
-				// увеличить на 1 кол-во ошибок
-				reqProp.getFoundTask().setErrAckCnt(++errAckCnt);
-			} else {
-				// ошибка
-				log.error("Task.id={}, Превышено количество запросов статуса!", task.getId());
-				reqProp.getFoundTask().setState("ERA");
+
+			if (state.getRequestState() == 1) {
+				// статус запроса - ACK - увеличить время ожидания + 10 секунд
+				task.alterDtNextStart(10);
 			}
 			return null;
 		}

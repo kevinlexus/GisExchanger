@@ -178,15 +178,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             // вернуться, если задание всё еще не выполнено
             log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
 
-            // контроль кол-ва выполнения запроса
-            Integer errAckCnt = Utl.nvl(reqProp.getFoundTask().getErrAckCnt(), 0);
-            if (errAckCnt.compareTo(50000) < 0) {
-                // увеличить на 1 кол-во ошибок
-                reqProp.getFoundTask().setErrAckCnt(++errAckCnt);
-            } else {
-                // ошибка
-                log.error("Task.id={}, Превышено количество запросов статуса!", task.getId());
-                reqProp.getFoundTask().setState("ERA");
+            if (state.getRequestState() == 1) {
+                // статус запроса - ACK - увеличить время ожидания + 10 секунд
+                task.alterDtNextStart(10);
             }
 
             return null;
@@ -761,7 +755,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             throw new WrongParam("ERROR! Некорректный период");
         }
         // список необработанных ПД
+        // note Внимание! заменил 17.07.2019 ЭКСПЕРЕМЕНТАЛЬНО!
+        //List<Pdoc> lstPdoc = new ArrayList<>(pdocMng.getPdocForLoadByHouse(house, uk, dt));
         List<Pdoc> lstPdoc = new ArrayList<>(pdocMng.getPdocForLoadByHouse(house, uk, dt));
+        // note Внимание! заменил 17.07.2019 ЭКСПЕРЕМЕНТАЛЬНО!
+
         // есть ли ПД (их отмена) на загрузку?
         boolean isExistJob = false;
 

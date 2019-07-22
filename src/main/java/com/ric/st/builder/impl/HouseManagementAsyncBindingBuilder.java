@@ -228,9 +228,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public GetStateResult getState2(Task task) {
         // Признак ошибки
-        Boolean err = false;
+        boolean err = false;
         // Признак ошибки в CommonResult
-        Boolean errChld = false;
+        boolean errChld = false;
         String errStr = null;
         ru.gosuslugi.dom.schema.integration.house_management.GetStateResult state = null;
 
@@ -250,6 +250,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         if (state != null && state.getRequestState() != 3) {
             // вернуться, если задание всё еще не выполнено
             log.info("Статус запроса={}, Task.id={}", state.getRequestState(), task.getId());
+
+            if (state.getRequestState() == 1) {
+                // статус запроса - ACK - увеличить время ожидания + 10 секунд
+                task.alterDtNextStart(10);
+            }
             return null;
         }
 
@@ -980,31 +985,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 houseEol.setStatus(1);
                 HouseBasicExportType bc = ah.getBasicCharacteristicts();
 
-                //ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                Date dtModify = Utl.getDateFromXmlGregCal(retState.getExportHouseResult().getModificationDate());
-                // нет связи с кадастром
-/*
-                ptb.addTaskPar("ГИС ЖКХ.Дата модификации",
-                        null, null, null, dtModify);
-
-                if (bc.isNoRSOGKNEGRPRegistered() != null && bc.isNoRSOGKNEGRPRegistered()) {
-                    // нет связи с кадастром
-                    ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                            null, null, true, null);
-                } else {
-                    // есть связь с кадастром
-                    ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                            null, null, false, null);
-                }
-                if (bc.getCadastralNumber() != null) {
-                    // есть кадастровый номер
-                    ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)",
-                            null, bc.getCadastralNumber(), null, null);
-                }
-                // сохранить параметры в объекте Eolink, через дочернее задание
-                ptb.saveToEolink();
-*/
-
                 Map<Integer, Eolink> entryMap = new HashMap<Integer, Eolink>();
 
                 // Подъезды
@@ -1024,7 +1004,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withEntry(Integer.valueOf(t.getEntranceNum()))
                                 .withGuid(t.getEntranceGUID())
                                 .withObjTp(addrTp)
-                                //.withAppTp(reqProp.getAppTp())
                                 .withParent(houseEol)
                                 .withUser(config.getCurUser())
                                 .withStatus(1).build();
@@ -1037,8 +1016,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                     // обновить параметры подъезда
                     entryEol.setEntry(Integer.valueOf(t.getEntranceNum()));
-                    //ptb.setUp(entryEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
                         // Объект не активен
@@ -1047,7 +1024,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // Объект активен
                         entryEol.setStatus(1);
                     }
-                    //ptb.saveToEolink();
                 }
 
                 // проверить наличие подъезда по дому, с данным GUID
@@ -1083,7 +1059,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withUn(t.getPremisesUniqueNumber())
                                 .withObjTp(addrTp)
                                 .withKoObj(premisKo)
-                                .withParent(t.getEntranceNum() != null ? entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol) // присоединить к родителю: подъезд, или дом, если не найден подъезд
+                                .withParent(t.getEntranceNum() != null ?
+                                        entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol)   // присоединить к родителю:
+                                                                                                        // подъезд, или дом, если не найден подъезд
                                 .withUser(config.getCurUser())
                                 .withStatus(1)
                                 .build();
@@ -1114,36 +1092,38 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             log.info("Попытка создать запись комнаты в Eolink:un={}, GUID={}",
                                     r.getLivingRoomUniqueNumber(), r.getLivingRoomGUID());
                             em.persist(roomEol);
-                        } else {
-                            // обновить параметры комнаты
-
                         }
+
                     }
 
+                    // погасить ошибки
+                    soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
+                            CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_DOUBLE_KLSK_EOLINK, false);
                     // обновить параметры помещения
-                    String comm = null;
-                    // найти соответствующий объект Ko
-                    Ko ko = null;
-                    try {
-                        ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
-                                CommonErrs.ERR_EMPTY_KLSK, false);
-                    } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
-                        // разные KLSK на один адрес!";
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
-                    } catch (EmptyId emptyId) {
-                        // найден пустой KLSK в данном адресе!";
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
-                    }
-                    if (ko == null) {
-                        // вернулся пустой KLSK
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
-                    } else {
-                        if (eolinkDao2.getEolinkByKo(ko.getId()).size() == 0) {
-                            premisEol.setKoObj(ko);
+                    if (premisEol.getKoObj() == null) {
+                        // найти соответствующий объект Ko
+                        Ko ko = null;
+                        try {
+                            ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
+                        } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
+                            // разные KLSK на один адрес!";
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
+                        } catch (EmptyId emptyId) {
+                            // найден пустой KLSK в данном адресе!";
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
+                        }
+                        if (ko == null) {
+                            // вернулся пустой KLSK
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                         } else {
-                            // найден дубль связанного объекта FK_KLSK_OBJ по таблице Eolink
-                            soapConfig.saveError(premisEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK, true);
+                            List<Eolink> checkEolink = eolinkDao2.getEolinkByKlskId(ko.getId());
+                            if (checkEolink != null) {
+                                soapConfig.saveError(premisEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK, true);
+                            } else {
+                                //log.info("Попытка установить по объекту Eolink.id={}, Ko.id={}",
+                                //      premisEol.getId(), ko.getId());
+                                premisEol.setKoObj(ko);
+                            }
                         }
                     }
 
@@ -1160,47 +1140,25 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         premisEol.setParent(houseEol);
                     }
 
-                    //ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null,
-                    //        Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
-                        // Объект не активен
-                        premisEol.setStatus(0);
+                        if (premisEol.getStatus()!=0) {
+                            // Объект не активен
+                            premisEol.setStatus(0);
+                        }
                     } else {
-                        // Объект активен
-                        premisEol.setStatus(1);
+                        if (premisEol.getStatus()!=1) {
+                            // Объект активен
+                            premisEol.setStatus(1);
+                        }
                     }
-                    /*if (t.getGrossArea() != null) {
-                        ptb.addTaskPar("Площадь.Общая", t.getGrossArea().doubleValue(), null, null, null);
-                    }
-
-                    if (t.getCadastralNumber() != null) {
-                        // есть кадастровый номер
-                        ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)",
-                                null, t.getCadastralNumber(), null, null);
-                    }*/
-
                     t.getLivingRoom().forEach(f -> {
                         log.trace("f.isNoRSOGKNEGRPRegistered()1={}", f.isNoRSOGKNEGRPRegistered());
                     });
-
-                    /*if (t.isNoRSOGKNEGRPRegistered() != null && t.isNoRSOGKNEGRPRegistered()) {
-                        // нет связи с кадастром
-                        ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                                null, null, true, null);
-                    } else {
-                        // есть связь с кадастром
-                        ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                                null, null, false, null);
-                    }
-                    ptb.saveToEolink();*/
-
                 }
 
                 // НЕЖИЛЫЕ помещения
                 for (NonResidentialPremises t : ah.getNonResidentialPremises()) {
-                    long premisErr = 0;
                     log.trace("Нежилое помещение: №={}, UniqNumber={}, GUID={}",
                             t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
                     Eolink premisEol = eolinkDao.getEolinkByGuid(t.getPremisesGUID());
@@ -1219,7 +1177,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withKw(num)
                                 .withGuid(t.getPremisesGUID())
                                 .withObjTp(addrTp)
-                                //.withAppTp(reqProp.getAppTp())
                                 .withParent(houseEol)
                                 .withUser(config.getCurUser())
                                 .withStatus(1).build();
@@ -1229,68 +1186,53 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         em.persist(premisEol);
                     }
 
+                    // погасить ошибки
+                    soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
+                            CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_DOUBLE_KLSK_EOLINK, false);
+
                     // обновить параметры помещения
                     // найти соответствующий объект Ko
-                    String comm = null;
-                    Ko ko = null;
-                    try {
-                        ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
-                                CommonErrs.ERR_EMPTY_KLSK, false);
-                    } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
-                        // разные KLSK на один адрес!";
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
-                    } catch (EmptyId emptyId) {
-                        // найден пустой KLSK в данном адресе!";
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
-                    }
+                    if (premisEol.getKoObj() == null) {
+                        Ko ko = null;
+                        try {
+                            ko = kartMng.getKoByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
+                        } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
+                            // разные KLSK на один адрес!";
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
+                        } catch (EmptyId emptyId) {
+                            // найден пустой KLSK в данном адресе!";
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
+                        }
 
-                    if (ko == null) {
-                        // вернулся пустой KLSK
-                        soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
-                    } else {
-                        if (eolinkDao2.getEolinkByKo(ko.getId()).size() == 0) {
-                            premisEol.setKoObj(ko);
+                        if (ko == null) {
+                            // вернулся пустой KLSK
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                         } else {
-                            // найден дубль связанного объекта FK_KLSK_OBJ по таблице Eolink
-                            soapConfig.saveError(premisEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK, true);
+                            List<Eolink> checkEolink = eolinkDao2.getEolinkByKlskId(ko.getId());
+                            if (checkEolink != null) {
+                                soapConfig.saveError(premisEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK, true);
+                            } else {
+                                //log.info("Попытка установить по объекту Eolink.id={}, Ko.id={}",
+                                //      premisEol.getId(), ko.getId());
+                                premisEol.setKoObj(ko);
+                            }
                         }
                     }
-                    //ptb.setUp(premisEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
-                    //ptb.addTaskPar("ГИС ЖКХ.Дата модификации", null, null, null, Utl.getDateFromXmlGregCal(t.getModificationDate()));
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
-                    // помещение без отдельного входа
-                    premisEol.setParent(houseEol);
+                    // помещение без отдельного входа - убрал, зачем оно здесь обновляется? ред. 17.07.2019
+                    // premisEol.setParent(houseEol);
 
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
-                        // Объект не активен
-                        premisEol.setStatus(0);
+                        if (premisEol.getStatus()!=0) {
+                            // Объект не активен
+                            premisEol.setStatus(0);
+                        }
                     } else {
-                        // Объект активен
-                        premisEol.setStatus(1);
+                        if (premisEol.getStatus()!=1) {
+                            // Объект активен
+                            premisEol.setStatus(1);
+                        }
                     }
-                    /*if (t.getTotalArea() != null) {
-                        ptb.addTaskPar("Площадь.Общая", t.getTotalArea().doubleValue(), null, null, null);
-                    }
-
-                    if (t.getCadastralNumber() != null) {
-                        // есть кадастровый номер
-                        ptb.addTaskPar("ГИС ЖКХ.Кадастровый номер (для связывания сведений с ГКН и ЕГРП)",
-                                null, t.getCadastralNumber(), null, null);
-                    }
-
-                    if (t.isNoRSOGKNEGRPRegistered() != null && t.isNoRSOGKNEGRPRegistered()) {
-                        // нет связи с кадастром
-                        ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                                null, null, true, null);
-                    } else {
-                        // есть связь с кадастром
-                        ptb.addTaskPar("ГИС ЖКХ.Признак.ОтсутствияСвязи.ГКН",
-                                null, null, false, null);
-                    }
-                    ptb.saveToEolink();*/
-                    // сохранить ошибки
-                    premisEol.setComm(CommonUtl.getErrorDescrByCode(premisErr));
                 }
             }
             // Установить статус выполнения задания
@@ -1470,16 +1412,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     // Найти объект на который ссылаться
                     Eolink parentEol = eolinkDao.getEolinkByGuid(guid);
                     if (parentEol == null) {
-                        //Integer expLskTp = Utl.nvl(reqProp.getUk().getExpLsKTp(),0);
-                        //if (expLskTp.equals(2)) {
-                        // организация - тип выгрузки лс - Оператор, из за невозможности выгружать помещения
-                        // (их там просто нет) лиц.счет будет ссылаться прямо на дом
-                        parentEol = reqProp.getFoundTask().getEolink();
-                        //} else {
-                        // не найдено помещение и при этом тип Тип обработки организации при выгрузке лиц.счетов дома != 2
                         throw new ErrorProcessAnswer("Не найдено помещение c GUID=" + guid + ", для прикрепления лицевого счета, " +
                                 "попробуйте выполнить экспорт объектов дома!");
-                        //}
                     }
 
                     // Найти лицевой счет в Kart
@@ -1512,31 +1446,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     accountEol.setServiceId(t.getServiceID());
                 }
 
-
-                // обновить лиц.счет
-                if (reqProp.getAppTp().equals(1)) {
-                    // новая разработка
-                } else if (reqProp.getAppTp().equals(2)) {
-                    // эксперем. разработка // TODO сделать реализацию установки совместимого Ko2!
-
-                }
-
                 // отметить закрытого лс
                 //ptb.setUp(houseEol, task, "GIS_TMP", null, soapConfig.getCurUser().getId());
                 if (t.getClosed() != null) {
                     // лс закрыт
                     accountEol.setStatus(0);
-                    // примечание
-                    // accountEol.setComm(comm);
-                    // Признак закрытия лицевого счета, если установлен
-                    /*Date dtTerminate = Utl.getDateFromXmlGregCal(t.getClosed().getCloseDate());
-                    ptb.addTaskPar("ГИС ЖКХ.Дата закрытия",
-                            null, null, null, dtTerminate);
-                    ptb.addTaskPar("ГИС ЖКХ.Причина закрытия",
-                            null, "ГИС ЖКХ.Причина закрытия", null, null);*/
                 }
-
-
             }
             reqProp.getFoundTask().setState("ACP");
             taskMng.logTask(task, false, true);
@@ -1564,17 +1479,19 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam {
-        //log.info("******* Task.id={}, импорт лицевых счетов, вызов", task.getId());
-        taskMng.logTask(task, true, null);
-
+    public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam, CantSendSoap {
+        // индивидуально выполнить setUp - так как может выполняться от имени РСО
+        setUp(task);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
+        // Трассировка XML
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 
         ImportAccountRequest req = new ImportAccountRequest();
-        req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
         req.setId("foo");
+        req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
+
+
 
         List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "ЛС", null, reqProp.getAppTp()).stream()
                 .filter(t -> t.getAct().getCd().equals("GIS_ADD_ACC")).collect(Collectors.toList());
