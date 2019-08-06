@@ -15,7 +15,7 @@ public class CommonUtl {
      */
     public static String getErrorDescrByCode(long err) throws UnusableCode {
         StringBuilder str= new StringBuilder("");
-        if (err > 0x1FF) { // переводить максимальное число в биты, заполнить все 0 единицами, получить макс значение,
+        if (err > 0xFFF) { // переводить максимальное число в биты, заполнить все 0 единицами, получить макс значение,
             // например: 00111111‬, при добавлении нового кода менять!
             throw new UnusableCode("Некорректный код маски = "+err);
         }
@@ -46,6 +46,12 @@ public class CommonUtl {
         }
         if ((err & CommonErrs.ERR_DOUBLE_KLSK_EOLINK) > 0) {
             str.append("Дублирующийся FK_KLSK_OBJ в таблице Eolink! ");
+        }
+        if ((err & CommonErrs.ERR_LSK_NOT_FOUND) > 0) {
+            str.append("Объект лиц.счета EOLINK не найден в SCOTT.KART по LSK! ");
+        }
+        if ((err & CommonErrs.ERR_INCORRECT_PARENT) > 0) {
+            str.append("объект лицевого счета EOLINK имеет некорректную родительскую запись! ");
         }
 
         if (str.length() >0) {

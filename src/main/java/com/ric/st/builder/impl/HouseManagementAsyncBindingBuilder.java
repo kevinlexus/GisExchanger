@@ -11,6 +11,7 @@ import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.scott.Kart;
 import com.dic.bill.model.scott.Ko;
 import com.dic.bill.model.scott.Meter;
+import com.dic.bill.model.scott.Org;
 import com.diffplug.common.base.Errors;
 import com.ric.cmn.Utl;
 import com.ric.cmn.excp.*;
@@ -21,7 +22,6 @@ import com.ric.st.builder.HouseManagementAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
-import com.ric.st.impl.CommonUtl;
 import com.ric.st.impl.RetStateHouse;
 import com.ric.st.impl.SoapBuilder;
 import com.ric.st.impl.SoapConfig;
@@ -40,14 +40,11 @@ import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.base.OKTMORefType;
 import ru.gosuslugi.dom.schema.integration.house_management.*;
-import ru.gosuslugi.dom.schema.integration.house_management.AccountType.Accommodation;
-import ru.gosuslugi.dom.schema.integration.house_management.AccountType.PayerInfo;
 import ru.gosuslugi.dom.schema.integration.house_management.ApartmentHouseUOType.BasicCharacteristicts;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.OverhaulFormingKindOMSDescision;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportAccountResultType.AccountReasons.OverhaulFormingKindProtocol;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse.Entrance;
 import ru.gosuslugi.dom.schema.integration.house_management.ExportHouseResultType.ApartmentHouse.NonResidentialPremises;
-import ru.gosuslugi.dom.schema.integration.house_management.ImportAccountRequest.Account;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.*;
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises.ResidentialPremisesToCreate;
@@ -88,6 +85,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     private final TaskParMng taskParMng;
     private final EolinkDAO eolinkDao;
     private final EolinkDAO2 eolinkDao2;
+    private final OrgDAO orgDAO;
     private final EolinkParMng eolinkParMng;
     private final TaskEolinkParMng teParMng;
     private final TaskDAO taskDao;
@@ -109,7 +107,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
     @Autowired
     public HouseManagementAsyncBindingBuilder(UlistMng ulistMng, ApplicationContext ctx, SoapConfig config,
-                                              TaskParMng taskParMng, EolinkDAO eolinkDao, EolinkDAO2 eolinkDao2, EolinkParMng eolinkParMng,
+                                              TaskParMng taskParMng, EolinkDAO eolinkDao, EolinkDAO2 eolinkDao2, OrgDAO orgDAO, EolinkParMng eolinkParMng,
                                               EolinkToEolinkDAO eolinkToEolinkDao,
                                               TaskEolinkParMng teParMng, TaskMng taskMng, PseudoTaskBuilders ptb,
                                               ReqProps reqProp, MeterMng meterMng, TaskDAO taskDao,
@@ -121,6 +119,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         this.taskParMng = taskParMng;
         this.eolinkDao = eolinkDao;
         this.eolinkDao2 = eolinkDao2;
+        this.orgDAO = orgDAO;
         this.eolinkParMng = eolinkParMng;
         this.eolinkToEolinkDao = eolinkToEolinkDao;
         this.teParMng = teParMng;
@@ -275,37 +274,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 log.info("Ошибка выполнения запроса = {}", errStr);
                 task.setState("ERR");
                 task.setResult(errStr);
-            } else {
-                // для импортов, поиск ошибок в дочерних заданиях
-                for (ImportResult t : state.getImportResult()) {
-                    for (CommonResult e : t.getCommonResult()) {
-                        for (Error f : e.getError()) {
-                            // Найти элемент задания по Транспортному GUID
-                            Task task2 = taskMng.getByTguid(task, e.getTransportGUID());
-                            // Прочие задания
-                            // установить статусы ошибки по дочерним заданиям
-                            task2.setState("ERR");
-                            errStr = String.format("Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
-                            task2.setResult(errStr);
-                            log.error(errStr);
-                            errChld = true;
-                        }
-                        ;
-                    }
-                    ;
-                }
-            }
-        }
-
-        if (!err) {
-            // контроль заданий импорта данных
-            // если в главном задании нет ошибок, но в любом дочернем задании обнаружена ошибка - статус - "Ошибка"
-            // и если уже не установлен признак ошибки
-            if (errChld && !task.getState().equals("ERR")
-                    && !task.getState().equals("ERS")) {
-                task.setState("ERS");
-                task.setResult(errStr);
-                log.error("Ошибки в элементе CommonResult");
             }
         }
 
@@ -1061,7 +1029,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withKoObj(premisKo)
                                 .withParent(t.getEntranceNum() != null ?
                                         entryMap.get(Integer.valueOf(t.getEntranceNum())) : houseEol)   // присоединить к родителю:
-                                                                                                        // подъезд, или дом, если не найден подъезд
+                                // подъезд, или дом, если не найден подъезд
                                 .withUser(config.getCurUser())
                                 .withStatus(1)
                                 .build();
@@ -1142,12 +1110,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                     Date dtTerm = Utl.getDateFromXmlGregCal(t.getTerminationDate());
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
-                        if (premisEol.getStatus()!=0) {
+                        if (premisEol.getStatus() != 0) {
                             // Объект не активен
                             premisEol.setStatus(0);
                         }
                     } else {
-                        if (premisEol.getStatus()!=1) {
+                        if (premisEol.getStatus() != 1) {
                             // Объект активен
                             premisEol.setStatus(1);
                         }
@@ -1223,12 +1191,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     // premisEol.setParent(houseEol);
 
                     if (dtTerm != null && (dtTerm.getTime() < curDate.getTime())) {
-                        if (premisEol.getStatus()!=0) {
+                        if (premisEol.getStatus() != 0) {
                             // Объект не активен
                             premisEol.setStatus(0);
                         }
                     } else {
-                        if (premisEol.getStatus()!=1) {
+                        if (premisEol.getStatus() != 1) {
                             // Объект активен
                             premisEol.setStatus(1);
                         }
@@ -1303,8 +1271,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
-        ;
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 
         ExportAccountRequest req = new ExportAccountRequest();
         req.setId("foo");
@@ -1315,7 +1282,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
         AckRequest ack = null;
         // для обработки ошибок
-        Boolean err = false;
+        boolean err = false;
         String errMainStr = null;
         try {
             ack = port.exportAccountData(req);
@@ -1361,8 +1328,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         if (retState == null) {
             // не обработано
             return;
-        } else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-            // Ошибок не найдено
+        } else if (!reqProp.getFoundTask().getState().equals("ERR")) {
+            // ошибок не найдено
             for (ExportAccountResultType t : retState.getExportAccountResult()) {
 
                 // примечание по объекту
@@ -1388,22 +1355,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     num = t.getAccountNumber().substring(0, 8);
                 } else {
                     num = t.getAccountNumber();
-                }
-
-                // #####################
-                OverhaulFormingKindProtocol protocol = t.getAccountReasons().getOverhaulFormingKindProtocol();
-                if (protocol != null) {
-                    log.trace("########## Лиц.счет={}, Протокол решения собственников о выбранном "
-                                    + "способе формирования фонда капитального ремонта, GUID={}",
-                            num,
-                            protocol.getOverhaulFormingKindProtocolGUID());
-                }
-                OverhaulFormingKindOMSDescision decision = t.getAccountReasons().getOverhaulFormingKindOMSDescision();
-                if (decision != null) {
-                    log.trace("########## Лиц.счет={}, Решение ОМС о выбранном способе "
-                                    + "формирования фонда капитального ремонта, GUID={}",
-                            num,
-                            decision.getOverhaulFormingKindOMSDescisionGUID());
                 }
 
                 if (accountEol == null) {
@@ -1473,106 +1424,104 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     /**
      * Импортировать лицевые счета
      *
-     * @return - признак ошибки
-     * @throws WrongGetMethod
-     * @throws CantPrepSoap
+     * @param task - задание
      */
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Boolean importAccountData(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam, CantSendSoap {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void importAccountData(Task task) throws CantPrepSoap, CantSendSoap, WrongParam, UnusableCode {
+        taskMng.logTask(task, true, null);
+        if (task.getProcUk() == null)
+            throw new WrongParam("По заданию task.id=" + task.getId() + " не заполнен TASK.FK_PROC_UK");
         // индивидуально выполнить setUp - так как может выполняться от имени РСО
         setUp(task);
+
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        // Трассировка XML
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 
         ImportAccountRequest req = new ImportAccountRequest();
         req.setId("foo");
         req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
 
+        Eolink houseEol = task.getEolink();
+        List<Eolink> lstLsk = eolinkMng.getLskEolByHouseEol(houseEol, task.getProcUk().getId())
+                .stream().filter(t -> t.getId().equals(707577)).collect(Collectors.toList());
 
+        for (Eolink lskEol : lstLsk) {
+            Kart kart = lskEol.getKart();
+            // погасить ошибки
+            soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND |
+                    CommonErrs.ERR_INCORRECT_PARENT, false);
 
-        List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "ЛС", null, reqProp.getAppTp()).stream()
-                .filter(t -> t.getAct().getCd().equals("GIS_ADD_ACC")).collect(Collectors.toList());
-        for (Task t : lstTask) {
-            log.trace("Обработка Task.id={}, лиц.счета={}", t.getId(), t.getEolink().getKart().getLsk());
-            // Обработать все лиц.счета в дочерних заданиях
-            Account ac = new Account();
-            req.getAccount().add(ac);
+            if (kart == null) {
+                // не найден лиц.счет
+                log.error("Объект лиц.счета EOLINK.ID={}, не найден в SCOTT.KART по LSK", lskEol.getId());
+                soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND, true);
+            } else {
+                ImportAccountRequest.Account ac = new ImportAccountRequest.Account();
+                req.getAccount().add(ac);
 
-            try {
-                ac.setCreationDate(Utl.getXMLDate(teParMng.getDate(t, "ГИС ЖКХ.Дата начала действия")));
-            } catch (DatatypeConfigurationException e) {
-                e.printStackTrace();
-                throw new CantPrepSoap("Ошибка при конвертации даты!");
-            }
-
-            ac.setLivingPersonsNumber(teParMng.getDbl(t, "113ГС-ЭПМД-1.1-17.10.-Количество проживающих").intValue());
-            ac.setTotalSquare(BigDecimal.valueOf(teParMng.getDbl(t, "Площадь.Общая")));
-            ac.setHeatedArea(BigDecimal.valueOf(teParMng.getDbl(t, "ГИС ЖКХ.Площадь отапливаемая")));
-
-            // Лиц.счет УК
-            ac.setIsUOAccount(true);
-
-            // Транспортный GUID
-            String tguid = Utl.getRndUuid().toString();
-            t.setTguid(tguid);
-            ac.setTransportGUID(tguid);
-
-            Accommodation acm = new Accommodation();
-
-            // Тип объекта
-            String objTp = t.getEolink().getObjTp().getCd();
-
-            String objGuid;
-            if (objTp.equals("Дом")) {
-                objGuid = t.getEolink().getGuid();
-                acm.setFIASHouseGuid(objGuid);
-            } else if (objTp.equals("ЛС")) {
-                // Использовать GUID родительского объекта (дома)
-                objGuid = t.getEolink().getParent().getGuid();
-                acm.setPremisesGUID(objGuid);
-            }
-            ac.getAccommodation().add(acm);
-            // № лицевого счета
-            ac.setAccountNumber(t.getEolink().getKart().getLsk());
-
-            // Сведения о плательщике (решили оставить "val")
-            PayerInfo pf = new PayerInfo();
-            AccountIndType ind = new AccountIndType();
-            ind.setFirstName("val");
-            ind.setSurname("val");
-            ind.setPatronymic("val");
-            pf.setInd(ind);
-            ac.setPayerInfo(pf);
-
-            // Account GUID, при обновлении лиц.счета
-            ac.setAccountGUID(t.getEolink().getGuid());
-
-            // Признак закрытия лицевого счета, если установлен
-            Date dtTerminate = teParMng.getDate(t, "ГИС ЖКХ.Дата закрытия");
-            if (dtTerminate != null) {
-                ClosedAccountAttributesType closedTp = new ClosedAccountAttributesType();
-                try {
-                    closedTp.setCloseDate(Utl.getXMLDate(dtTerminate));
-                } catch (DatatypeConfigurationException e) {
-                    e.printStackTrace();
-                    throw new CantPrepSoap("Ошибка при конвертации даты!");
+                String reu = lskEol.getUk().getReu();
+                if (reu == null) {
+                    throw new WrongParam("Не заполнен код REU в организации EOLINK.ID=" + lskEol.getUk().getId());
                 }
-                String closeReason = teParMng.getStr(t, "ГИС ЖКХ.Причина закрытия");
-                closedTp.setCloseReason(ulistMng.getNsiElem("NSI", 22, "Причина закрытия лицевого счета", closeReason));
-                closedTp.setDescription(closeReason);
-                ac.setClosed(closedTp);
+                Org uk = orgDAO.getByReu(reu);
+                if (uk == null) {
+                    throw new WrongParam("По коду REU=" + reu + " не найдена организация в справочнике T_ORG");
+                }
+                if (Utl.nvl(uk.getIsRSO(), false)) {
+                    // лиц.счет РСО
+                    ac.setIsRSOAccount(true);
+                } else {
+                    // лиц.счет УК
+                    ac.setIsUOAccount(true);
+                }
+
+                ac.setLivingPersonsNumber(Utl.nvl(kart.getKpr(), 0));
+                ac.setTotalSquare(Utl.nvl(kart.getOpl(), BigDecimal.ZERO));
+                ac.setHeatedArea(Utl.nvl(kart.getOpl(), BigDecimal.ZERO));
+
+                // транспортный GUID
+                String tguid = Utl.getRndUuid().toString();
+                lskEol.setTguid(tguid);
+                ac.setTransportGUID(tguid);
+
+                // привязка к помещению или к дому
+                AccountType.Accommodation acm = new AccountType.Accommodation();
+                ac.getAccommodation().add(acm);
+                if (lskEol.getParent().getObjTp().getCd().equals("Квартира")) {
+                    acm.setPremisesGUID(lskEol.getParent().getGuid());
+                } else if (lskEol.getParent().getObjTp().getCd().equals("Дом")) {
+                    acm.setFIASHouseGuid(lskEol.getParent().getGuid());
+                } else {
+                    log.error("Объект лицевого счета EOLINK.ID={} имеет некорректную родительскую запись с типом={}, " +
+                            "разрешённые типы: Квартира, Дом", lskEol.getId(), lskEol.getParent().getObjTp().getCd());
+                    soapConfig.saveError(lskEol, CommonErrs.ERR_INCORRECT_PARENT, true);
+                }
+
+                // № лицевого счета
+                ac.setAccountNumber(kart.getLsk());
+
+                // Сведения о плательщике (решили оставить "val")
+                AccountType.PayerInfo pf = new AccountType.PayerInfo();
+                AccountIndType ind = new AccountIndType();
+                ind.setFirstName(kart.getKIm());
+                ind.setSurname(kart.getKFam());
+                ind.setPatronymic(kart.getKOt());
+                pf.setInd(ind);
+                ac.setPayerInfo(pf);
+
+                if (lskEol.getGuid() != null) {
+                    // Account GUID, только при обновлении лиц.счета
+                    ac.setAccountGUID(lskEol.getGuid());
+                }
             }
         }
 
         AckRequest ack = null;
-
         // для обработки ошибок
-        Boolean err = false;
+        boolean err = false;
         String errMainStr = null;
-
         try {
             ack = port.importAccountData(req);
         } catch (ru.gosuslugi.dom.schema.integration.house_management_service_async.Fault e1) {
@@ -1585,35 +1534,32 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             reqProp.getFoundTask().setState("ERR");
             reqProp.getFoundTask().setResult("Ошибка при отправке XML: " + errMainStr);
             taskMng.logTask(task, false, false);
-
         } else {
             // Установить статус "Запрос статуса"
             reqProp.getFoundTask().setState("ACK");
             reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
             taskMng.logTask(task, false, true);
-
         }
-        return err;
-
     }
 
 
     /**
      * Получить результат импорта лицевых счетов
      *
-     * @throws CantPrepSoap
-     * @throws WrongGetMethod
+     * @param task - задание
      */
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void importAccountDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam {
-        //log.info("******* Task.id={}, Импорт лицевых счетов, запрос ответа", task.getId());
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void importAccountDataAsk(Task task) throws CantPrepSoap, WrongParam, CantSendSoap, UnusableCode {
         taskMng.logTask(task, true, null);
+        if (task.getProcUk() == null)
+            throw new WrongParam("По заданию task.id=" + task.getId() + " не заполнен TASK.FK_PROC_UK");
+        // индивидуально выполнить setUp - так как может выполняться от имени РСО
+        setUp(task);
 
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
-        ;
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 
         // получить состояние
         GetStateResult retState = getState2(reqProp.getFoundTask());
@@ -1621,50 +1567,38 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         if (retState == null) {
             // не обработано
             return;
-        } else if (!reqProp.getFoundTask().getState().equals("ERR") && !reqProp.getFoundTask().getState().equals("ERS")) {
-            //retState.getImportResult().stream().forEach(t -> {
+        } else if (!reqProp.getFoundTask().getState().equals("ERR")) {
+            // ошибок не найдено
             for (ImportResult t : retState.getImportResult()) {
                 for (CommonResult d : t.getCommonResult()) {
-                    // Найти элемент задания по Транспортному GUID
-                    Task task2 = taskMng.getByTguid(task, d.getTransportGUID());
-                    // Переписать значения параметров в eolink из task
-                    teParMng.acceptPar(task2);
-                    // Признак закрытия лицевого счета, если установлен
-                    Date dtTerminate = taskParMng.getDate(task2, "ГИС ЖКХ.Дата закрытия");
-                    // Установить статус активности счета
-                    Integer status = null;
-                    if (dtTerminate != null) {
-                        status = 0;
-                    } else {
-                        status = 1;
+
+                    // найти элемент лиц.счета по Транспортному GUID
+                    Eolink lskEol = eolinkDao2.getEolinkByTGUID(d.getTransportGUID());
+                    // погасить ошибки
+                    soapConfig.saveError(lskEol, CommonErrs.ERR_IMPORT, false);
+
+                    // ошибки внутри выполненного задания
+                    for (Error f : d.getError()) {
+                        String errStr = String.format("Ошибка импорта лиц.счета в ГИС ЖКХ: " +
+                                "Error code=%s, Description=%s", f.getErrorCode(), f.getDescription());
+                        soapConfig.saveError(lskEol, CommonErrs.ERR_IMPORT, true);
+                        lskEol.setComm(errStr);
+                        log.error(errStr);
                     }
-                    // Есть дата обновления, установить GUID
-                    task2.setGuid(d.getGUID());
-                    task2.setUn(d.getUniqueNumber());
-                    task2.setUpdDt(Utl.getDateFromXmlGregCal(d.getUpdateDate()));
+
+                    if (lskEol.getGuid() != null) {
+                        lskEol.setGuid(d.getGUID());
+                    }
+                    if (lskEol.getUn() != null) {
+                        lskEol.setUn(d.getUniqueNumber());
+                    }
                     log.trace("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:",
                             reqProp.getFoundTask().getId(), d.getTransportGUID());
                     log.trace("GUID={}, UniqueNumber={}", d.getGUID(), d.getUniqueNumber());
-                    // Записать идентификаторы объекта, полученного от внешней системы (если уже не установлены)
-                    taskMng.setEolinkIdf(task2.getEolink(), d.getGUID(), d.getUniqueNumber(), status);
-                    task2.setState("ACP");
                 }
             }
-
-            if (taskDao.getChildAnyErr(reqProp.getFoundTask())) {
-                log.trace("Найдены ошибки / Невыполнение в дочерних заданиях! Task.id={}", task.getId());
-                // Установить статус
-                reqProp.getFoundTask().setResult("Найдены ошибки / Невыполнение в дочерних заданиях!");
-                reqProp.getFoundTask().setState("ERR");
-                taskMng.logTask(task, false, false);
-
-            } else {
-                log.info("******* Task.id={}, Импорт лицевых счетов, выполнен", task.getId());
-                // Установить статус выполнения задания
-                reqProp.getFoundTask().setState("ACP");
-                taskMng.logTask(task, false, true);
-
-            }
+            reqProp.getFoundTask().setState("ACP");
+            taskMng.logTask(task, false, true);
         }
     }
 

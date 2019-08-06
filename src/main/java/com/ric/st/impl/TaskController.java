@@ -390,7 +390,6 @@ public class TaskController implements TaskControllers {
 						e.printStackTrace();
 						log.error("Ошибка при отправке задания Task.id={}, message={}", task.getId(),
 								e.getMessage());
-						//log.error("stackTrace={}", e.getStackTrace().toString());
 						taskMng.setState(task, "ERR");
 						taskMng.setResult(task, e.getMessage());
 					} catch (com.sun.xml.ws.client.ClientTransportException e) {
