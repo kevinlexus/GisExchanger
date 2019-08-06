@@ -2393,7 +2393,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
 
     /**
-     * Проверить наличие заданий на экспорт объектов дома
+     * Проверить наличие заданий
      * и если их нет, - создать
      *
      * @param task
@@ -2432,7 +2432,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             }
         }
 
-        // создать зависимые задания по домам по выгрузке лиц.счетов, с указанием Ук - владельца счета
+        // создать зависимые задания по домам по экспорту лиц.счетов, с указанием Ук - владельца счета
         // получить дома без заданий
         for (HouseUkTaskRec t : eolinkDao2.getHouseByTpWoTaskTp("GIS_EXP_HOUSE", "GIS_EXP_ACCS")) {
 
@@ -2447,6 +2447,23 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             // добавить зависимое задание к системному повторяемому заданию
             // (будет запускаться системным заданием)
             ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
+
+        }
+
+        // создать независимые задания по домам по импорту лиц.счетов, с указанием Ук - владельца счета
+        // получить дома без заданий
+        for (HouseUkTaskRec t : eolinkDao2.getHouseByTpWoTaskTp("GIS_IMP_ACCS")) {
+
+            Eolink eolHouse = em.find(Eolink.class, t.getEolHouseId());
+            Eolink procUk = em.find(Eolink.class, t.getEolUkId());
+            ptb.setUp(eolHouse, null, null, "GIS_IMP_ACCS", "INS",
+                    soapConfig.getCurUser().getId(), procUk);
+            ptb.save();
+            log.info("Добавлено задание на импорт лиц.счетов по Дому Eolink.id={}, Task.procUk.id={}",
+                    eolHouse.getId(), procUk.getId());
+            // добавить зависимое задание к системному повторяемому заданию
+            // (будет запускаться системным заданием)
+            ptb.addAsChild("SYSTEM_RPT_HOUSE_IMP");
 
         }
         // Установить статус выполнения задания
