@@ -137,14 +137,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportResult }
-     * 
-     */
-    public ImportResult createImportResult() {
-        return new ImportResult();
-    }
-
-    /**
      * Create an instance of {@link AckRequest.Ack }
      * 
      */

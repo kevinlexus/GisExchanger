@@ -43,6 +43,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                       &lt;element name="MSType" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
  *                       &lt;element name="ASType" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
  *                       &lt;element name="PServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+ *                       &lt;element name="TMSType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
  *                     &lt;/choice&gt;
  *                     &lt;element name="Amount"&gt;
  *                       &lt;simpleType&gt;
@@ -500,6 +501,7 @@ public class AcknowledgmentRequestInfoType {
      *           &lt;element name="MSType" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
      *           &lt;element name="ASType" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
      *           &lt;element name="PServiceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
+     *           &lt;element name="TMSType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef"/&gt;
      *         &lt;/choice&gt;
      *         &lt;element name="Amount"&gt;
      *           &lt;simpleType&gt;
@@ -558,6 +560,7 @@ public class AcknowledgmentRequestInfoType {
         "msType",
         "asType",
         "pServiceType",
+        "tmsType",
         "amount",
         "paymentDocumentNumber",
         "paymentInformation",
@@ -575,6 +578,8 @@ public class AcknowledgmentRequestInfoType {
         protected String asType;
         @XmlElement(name = "PServiceType")
         protected NsiRef pServiceType;
+        @XmlElement(name = "TMSType")
+        protected NsiRef tmsType;
         @XmlElement(name = "Amount", required = true)
         protected BigDecimal amount;
         @XmlElement(name = "PaymentDocumentNumber", namespace = "http://dom.gosuslugi.ru/schema/integration/bills-base/")
@@ -702,6 +707,30 @@ public class AcknowledgmentRequestInfoType {
          */
         public void setPServiceType(NsiRef value) {
             this.pServiceType = value;
+        }
+
+        /**
+         * Gets the value of the tmsType property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NsiRef }
+         *     
+         */
+        public NsiRef getTMSType() {
+            return tmsType;
+        }
+
+        /**
+         * Sets the value of the tmsType property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NsiRef }
+         *     
+         */
+        public void setTMSType(NsiRef value) {
+            this.tmsType = value;
         }
 
         /**

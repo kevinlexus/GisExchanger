@@ -46,6 +46,7 @@ public interface BillsPortsTypeAsync {
 
 
     /**
+     * Результат обработки асинхронного вызова
      * 
      * @param getStateRequest
      * @return
@@ -61,7 +62,7 @@ public interface BillsPortsTypeAsync {
     ;
 
     /**
-     * ВИ_ИЛС_ПД_ИМП. импорт платежных документов
+     * Импорт сведений о платежных документах
      * 
      * @param importPaymentDocumentDataRequest
      * @return
@@ -77,7 +78,7 @@ public interface BillsPortsTypeAsync {
     ;
 
     /**
-     * ВИ_ИЛС_ПД_ЭКСП. экспорт платежных документов
+     * Экспорт сведений о платежных документах 
      * 
      * @param exportPaymentDocumentDataRequest
      * @return
@@ -93,7 +94,7 @@ public interface BillsPortsTypeAsync {
     ;
 
     /**
-     * Экспорт извещений о принятии к исполнению распоряжений с результатами квитирования
+     * Экспорт документов «Извещение о принятии к исполнению распоряжения» с результатами квитирования 
      * 
      * @param exportNotificationsOfOrderExecutionRequest
      * @return
@@ -109,7 +110,7 @@ public interface BillsPortsTypeAsync {
     ;
 
     /**
-     * ВИ_ОПЛАТА_ИМКВИТ. Импорт пакета документов "Запрос на квитирование"
+     * Импорт запросов на проведение квитирования
      * 
      * @param importAcknowledgmentRequest
      * @return
@@ -205,7 +206,7 @@ public interface BillsPortsTypeAsync {
     ;
 
     /**
-     * Экспорт извещений о принятии к исполнению распоряжений с результатами квитирования (постраничная выгрузка)
+     * Постраничный экспорт документов «Извещение о принятии к исполнению распоряжения» с результатами квитирования
      * 
      * @param exportNotificationsOfOrderExecutionPaginalRequest
      * @return

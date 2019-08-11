@@ -106,6 +106,70 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GeneralMunicipalResourceExportType }
+     * 
+     */
+    public GeneralMunicipalResourceExportType createGeneralMunicipalResourceExportType() {
+        return new GeneralMunicipalResourceExportType();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceExportType.Consumption }
+     * 
+     */
+    public GeneralMunicipalResourceExportType.Consumption createGeneralMunicipalResourceExportTypeConsumption() {
+        return new GeneralMunicipalResourceExportType.Consumption();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceType }
+     * 
+     */
+    public GeneralMunicipalResourceType createGeneralMunicipalResourceType() {
+        return new GeneralMunicipalResourceType();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceType.Consumption }
+     * 
+     */
+    public GeneralMunicipalResourceType.Consumption createGeneralMunicipalResourceTypeConsumption() {
+        return new GeneralMunicipalResourceType.Consumption();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceExportType }
+     * 
+     */
+    public TypeMunicipalServiceExportType createTypeMunicipalServiceExportType() {
+        return new TypeMunicipalServiceExportType();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceExportType.Consumption }
+     * 
+     */
+    public TypeMunicipalServiceExportType.Consumption createTypeMunicipalServiceExportTypeConsumption() {
+        return new TypeMunicipalServiceExportType.Consumption();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceType }
+     * 
+     */
+    public TypeMunicipalServiceType createTypeMunicipalServiceType() {
+        return new TypeMunicipalServiceType();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceType.Consumption }
+     * 
+     */
+    public TypeMunicipalServiceType.Consumption createTypeMunicipalServiceTypeConsumption() {
+        return new TypeMunicipalServiceType.Consumption();
+    }
+
+    /**
      * Create an instance of {@link PaymentDocumentExportType }
      * 
      */
@@ -122,11 +186,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceDebtType.GroupMunicipalService }
+     * 
+     */
+    public PDServiceDebtType.GroupMunicipalService createPDServiceDebtTypeGroupMunicipalService() {
+        return new PDServiceDebtType.GroupMunicipalService();
+    }
+
+    /**
      * Create an instance of {@link PDServiceDebtType.HousingService }
      * 
      */
     public PDServiceDebtType.HousingService createPDServiceDebtTypeHousingService() {
         return new PDServiceDebtType.HousingService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceDebtType.HousingService.MunicipalResource }
+     * 
+     */
+    public PDServiceDebtType.HousingService.MunicipalResource createPDServiceDebtTypeHousingServiceMunicipalResource() {
+        return new PDServiceDebtType.HousingService.MunicipalResource();
     }
 
     /**
@@ -143,6 +223,14 @@ public class ObjectFactory {
      */
     public PaymentDocumentExportType.Insurance.Consumption createPaymentDocumentExportTypeInsuranceConsumption() {
         return new PaymentDocumentExportType.Insurance.Consumption();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairType }
+     * 
+     */
+    public CapitalRepairType createCapitalRepairType() {
+        return new CapitalRepairType();
     }
 
     /**
@@ -170,11 +258,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CapitalRepairImportType }
+     * 
+     */
+    public CapitalRepairImportType createCapitalRepairImportType() {
+        return new CapitalRepairImportType();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeType }
      * 
      */
     public PDServiceChargeType createPDServiceChargeType() {
         return new PDServiceChargeType();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService createPDServiceChargeTypeGroupMunicipalService() {
+        return new PDServiceChargeType.GroupMunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService.MunicipalService }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService.MunicipalService createPDServiceChargeTypeGroupMunicipalServiceMunicipalService() {
+        return new PDServiceChargeType.GroupMunicipalService.MunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption createPDServiceChargeTypeGroupMunicipalServiceMunicipalServiceConsumption() {
+        return new PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption();
     }
 
     /**
@@ -242,6 +362,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceDebtImportType.GroupMunicipalService }
+     * 
+     */
+    public PDServiceDebtImportType.GroupMunicipalService createPDServiceDebtImportTypeGroupMunicipalService() {
+        return new PDServiceDebtImportType.GroupMunicipalService();
+    }
+
+    /**
      * Create an instance of {@link PDServiceDebtImportType.HousingService }
      * 
      */
@@ -250,11 +378,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceDebtImportType.HousingService.MunicipalResource }
+     * 
+     */
+    public PDServiceDebtImportType.HousingService.MunicipalResource createPDServiceDebtImportTypeHousingServiceMunicipalResource() {
+        return new PDServiceDebtImportType.HousingService.MunicipalResource();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeExportType }
      * 
      */
     public PDServiceChargeExportType createPDServiceChargeExportType() {
         return new PDServiceChargeExportType();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService createPDServiceChargeExportTypeGroupMunicipalService() {
+        return new PDServiceChargeExportType.GroupMunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService.MunicipalService }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService.MunicipalService createPDServiceChargeExportTypeGroupMunicipalServiceMunicipalService() {
+        return new PDServiceChargeExportType.GroupMunicipalService.MunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption createPDServiceChargeExportTypeGroupMunicipalServiceMunicipalServiceConsumption() {
+        return new PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption();
     }
 
     /**
@@ -330,14 +490,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct }
-     * 
-     */
-    public ImportInsuranceProductRequest.InsuranceProduct createImportInsuranceProductRequestInsuranceProduct() {
-        return new ImportInsuranceProductRequest.InsuranceProduct();
-    }
-
-    /**
      * Create an instance of {@link ExportSettlementResultType }
      * 
      */
@@ -359,6 +511,54 @@ public class ObjectFactory {
      */
     public ExportSettlementResultType.Contract createExportSettlementResultTypeContract() {
         return new ExportSettlementResultType.Contract();
+    }
+
+    /**
+     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType }
+     * 
+     */
+    public ExportNotificationsOfOrderExecutionResultType createExportNotificationsOfOrderExecutionResultType() {
+        return new ExportNotificationsOfOrderExecutionResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus }
+     * 
+     */
+    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatus() {
+        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus();
+    }
+
+    /**
+     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList }
+     * 
+     */
+    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatusAcknowledgmentRequestsList() {
+        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList();
+    }
+
+    /**
+     * Create an instance of {@link ExportPaymentDocumentResultType }
+     * 
+     */
+    public ExportPaymentDocumentResultType createExportPaymentDocumentResultType() {
+        return new ExportPaymentDocumentResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportPaymentDocumentResultType.PaymentDocument }
+     * 
+     */
+    public ExportPaymentDocumentResultType.PaymentDocument createExportPaymentDocumentResultTypePaymentDocument() {
+        return new ExportPaymentDocumentResultType.PaymentDocument();
+    }
+
+    /**
+     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct }
+     * 
+     */
+    public ImportInsuranceProductRequest.InsuranceProduct createImportInsuranceProductRequestInsuranceProduct() {
+        return new ImportInsuranceProductRequest.InsuranceProduct();
     }
 
     /**
@@ -418,46 +618,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionResultType createExportNotificationsOfOrderExecutionResultType() {
-        return new ExportNotificationsOfOrderExecutionResultType();
-    }
-
-    /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatus() {
-        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus();
-    }
-
-    /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatusAcknowledgmentRequestsList() {
-        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList();
-    }
-
-    /**
-     * Create an instance of {@link ExportPaymentDocumentResultType }
-     * 
-     */
-    public ExportPaymentDocumentResultType createExportPaymentDocumentResultType() {
-        return new ExportPaymentDocumentResultType();
-    }
-
-    /**
-     * Create an instance of {@link ExportPaymentDocumentResultType.PaymentDocument }
-     * 
-     */
-    public ExportPaymentDocumentResultType.PaymentDocument createExportPaymentDocumentResultTypePaymentDocument() {
-        return new ExportPaymentDocumentResultType.PaymentDocument();
-    }
-
-    /**
      * Create an instance of {@link ImportPaymentDocumentRequest.PaymentDocument }
      * 
      */
@@ -498,14 +658,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportPaymentDocumentResult }
-     * 
-     */
-    public ExportPaymentDocumentResult createExportPaymentDocumentResult() {
-        return new ExportPaymentDocumentResult();
-    }
-
-    /**
      * Create an instance of {@link ExportNotificationsOfOrderExecutionRequest.SupplierIDs }
      * 
      */
@@ -522,14 +674,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionResult }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionResult createExportNotificationsOfOrderExecutionResult() {
-        return new ExportNotificationsOfOrderExecutionResult();
-    }
-
-    /**
      * Create an instance of {@link ExportNotificationsOfOrderExecutionPaginalRequest.SupplierIDs }
      * 
      */
@@ -543,14 +687,6 @@ public class ObjectFactory {
      */
     public ExportNotificationsOfOrderExecutionPaginalRequest.Notifications createExportNotificationsOfOrderExecutionPaginalRequestNotifications() {
         return new ExportNotificationsOfOrderExecutionPaginalRequest.Notifications();
-    }
-
-    /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionPaginalResult }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionPaginalResult createExportNotificationsOfOrderExecutionPaginalResult() {
-        return new ExportNotificationsOfOrderExecutionPaginalResult();
     }
 
     /**
@@ -578,14 +714,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportSettlementsResult }
-     * 
-     */
-    public ExportSettlementsResult createExportSettlementsResult() {
-        return new ExportSettlementsResult();
-    }
-
-    /**
      * Create an instance of {@link ExportInsuranceProductRequest }
      * 
      */
@@ -594,11 +722,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportInsuranceProductResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportInsuranceProductResult createExportInsuranceProductResult() {
-        return new ExportInsuranceProductResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -607,14 +735,6 @@ public class ObjectFactory {
      */
     public InsuranceProductType createInsuranceProductType() {
         return new InsuranceProductType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**
@@ -746,27 +866,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CapitalRepairImportType }
-     * 
-     */
-    public CapitalRepairImportType createCapitalRepairImportType() {
-        return new CapitalRepairImportType();
-    }
-
-    /**
      * Create an instance of {@link CapitalRepairMonthlyImportType }
      * 
      */
     public CapitalRepairMonthlyImportType createCapitalRepairMonthlyImportType() {
         return new CapitalRepairMonthlyImportType();
-    }
-
-    /**
-     * Create an instance of {@link CapitalRepairType }
-     * 
-     */
-    public CapitalRepairType createCapitalRepairType() {
-        return new CapitalRepairType();
     }
 
     /**
@@ -799,6 +903,102 @@ public class ObjectFactory {
      */
     public AnnulmentType createAnnulmentType() {
         return new AnnulmentType();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceExportType.ServiceInformation }
+     * 
+     */
+    public GeneralMunicipalResourceExportType.ServiceInformation createGeneralMunicipalResourceExportTypeServiceInformation() {
+        return new GeneralMunicipalResourceExportType.ServiceInformation();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceExportType.PaymentRecalculation }
+     * 
+     */
+    public GeneralMunicipalResourceExportType.PaymentRecalculation createGeneralMunicipalResourceExportTypePaymentRecalculation() {
+        return new GeneralMunicipalResourceExportType.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceExportType.Consumption.Volume }
+     * 
+     */
+    public GeneralMunicipalResourceExportType.Consumption.Volume createGeneralMunicipalResourceExportTypeConsumptionVolume() {
+        return new GeneralMunicipalResourceExportType.Consumption.Volume();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceType.PaymentRecalculation }
+     * 
+     */
+    public GeneralMunicipalResourceType.PaymentRecalculation createGeneralMunicipalResourceTypePaymentRecalculation() {
+        return new GeneralMunicipalResourceType.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceType.ServiceInformation }
+     * 
+     */
+    public GeneralMunicipalResourceType.ServiceInformation createGeneralMunicipalResourceTypeServiceInformation() {
+        return new GeneralMunicipalResourceType.ServiceInformation();
+    }
+
+    /**
+     * Create an instance of {@link GeneralMunicipalResourceType.Consumption.Volume }
+     * 
+     */
+    public GeneralMunicipalResourceType.Consumption.Volume createGeneralMunicipalResourceTypeConsumptionVolume() {
+        return new GeneralMunicipalResourceType.Consumption.Volume();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceExportType.MultiplyingFactor }
+     * 
+     */
+    public TypeMunicipalServiceExportType.MultiplyingFactor createTypeMunicipalServiceExportTypeMultiplyingFactor() {
+        return new TypeMunicipalServiceExportType.MultiplyingFactor();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceExportType.PaymentRecalculation }
+     * 
+     */
+    public TypeMunicipalServiceExportType.PaymentRecalculation createTypeMunicipalServiceExportTypePaymentRecalculation() {
+        return new TypeMunicipalServiceExportType.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceExportType.Consumption.Volume }
+     * 
+     */
+    public TypeMunicipalServiceExportType.Consumption.Volume createTypeMunicipalServiceExportTypeConsumptionVolume() {
+        return new TypeMunicipalServiceExportType.Consumption.Volume();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceType.MultiplyingFactor }
+     * 
+     */
+    public TypeMunicipalServiceType.MultiplyingFactor createTypeMunicipalServiceTypeMultiplyingFactor() {
+        return new TypeMunicipalServiceType.MultiplyingFactor();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceType.PaymentRecalculation }
+     * 
+     */
+    public TypeMunicipalServiceType.PaymentRecalculation createTypeMunicipalServiceTypePaymentRecalculation() {
+        return new TypeMunicipalServiceType.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link TypeMunicipalServiceType.Consumption.Volume }
+     * 
+     */
+    public TypeMunicipalServiceType.Consumption.Volume createTypeMunicipalServiceTypeConsumptionVolume() {
+        return new TypeMunicipalServiceType.Consumption.Volume();
     }
 
     /**
@@ -874,11 +1074,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PDServiceDebtType.HousingService.MunicipalResource }
+     * Create an instance of {@link PDServiceDebtType.GroupMunicipalService.TypeMunicipalService }
      * 
      */
-    public PDServiceDebtType.HousingService.MunicipalResource createPDServiceDebtTypeHousingServiceMunicipalResource() {
-        return new PDServiceDebtType.HousingService.MunicipalResource();
+    public PDServiceDebtType.GroupMunicipalService.TypeMunicipalService createPDServiceDebtTypeGroupMunicipalServiceTypeMunicipalService() {
+        return new PDServiceDebtType.GroupMunicipalService.TypeMunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceDebtType.HousingService.MunicipalResource.GeneralMunicipalResource }
+     * 
+     */
+    public PDServiceDebtType.HousingService.MunicipalResource.GeneralMunicipalResource createPDServiceDebtTypeHousingServiceMunicipalResourceGeneralMunicipalResource() {
+        return new PDServiceDebtType.HousingService.MunicipalResource.GeneralMunicipalResource();
     }
 
     /**
@@ -887,6 +1095,14 @@ public class ObjectFactory {
      */
     public PaymentDocumentExportType.Insurance.Consumption.Volume createPaymentDocumentExportTypeInsuranceConsumptionVolume() {
         return new PaymentDocumentExportType.Insurance.Consumption.Volume();
+    }
+
+    /**
+     * Create an instance of {@link CapitalRepairType.PaymentRecalculation }
+     * 
+     */
+    public CapitalRepairType.PaymentRecalculation createCapitalRepairTypePaymentRecalculation() {
+        return new CapitalRepairType.PaymentRecalculation();
     }
 
     /**
@@ -930,6 +1146,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CapitalRepairImportType.PaymentRecalculation }
+     * 
+     */
+    public CapitalRepairImportType.PaymentRecalculation createCapitalRepairImportTypePaymentRecalculation() {
+        return new CapitalRepairImportType.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService.MunicipalService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService.MunicipalService.PaymentRecalculation createPDServiceChargeTypeGroupMunicipalServiceMunicipalServicePaymentRecalculation() {
+        return new PDServiceChargeType.GroupMunicipalService.MunicipalService.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService.MunicipalService.MultiplyingFactor }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService.MunicipalService.MultiplyingFactor createPDServiceChargeTypeGroupMunicipalServiceMunicipalServiceMultiplyingFactor() {
+        return new PDServiceChargeType.GroupMunicipalService.MunicipalService.MultiplyingFactor();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption.Volume }
+     * 
+     */
+    public PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption.Volume createPDServiceChargeTypeGroupMunicipalServiceMunicipalServiceConsumptionVolume() {
+        return new PDServiceChargeType.GroupMunicipalService.MunicipalService.Consumption.Volume();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeType.MunicipalService.PaymentRecalculation }
      * 
      */
@@ -954,6 +1202,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceChargeType.AdditionalService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeType.AdditionalService.PaymentRecalculation createPDServiceChargeTypeAdditionalServicePaymentRecalculation() {
+        return new PDServiceChargeType.AdditionalService.PaymentRecalculation();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeType.AdditionalService.Consumption.Volume }
      * 
      */
@@ -962,11 +1218,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceChargeType.HousingService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeType.HousingService.PaymentRecalculation createPDServiceChargeTypeHousingServicePaymentRecalculation() {
+        return new PDServiceChargeType.HousingService.PaymentRecalculation();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation }
      * 
      */
     public PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation createPDServiceChargeTypeHousingServiceMunicipalResourceServiceInformation() {
         return new PDServiceChargeType.HousingService.MunicipalResource.ServiceInformation();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeType.HousingService.MunicipalResource.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeType.HousingService.MunicipalResource.PaymentRecalculation createPDServiceChargeTypeHousingServiceMunicipalResourcePaymentRecalculation() {
+        return new PDServiceChargeType.HousingService.MunicipalResource.PaymentRecalculation();
     }
 
     /**
@@ -994,11 +1266,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PDServiceDebtImportType.HousingService.MunicipalResource }
+     * Create an instance of {@link PDServiceDebtImportType.GroupMunicipalService.TypeMunicipalService }
      * 
      */
-    public PDServiceDebtImportType.HousingService.MunicipalResource createPDServiceDebtImportTypeHousingServiceMunicipalResource() {
-        return new PDServiceDebtImportType.HousingService.MunicipalResource();
+    public PDServiceDebtImportType.GroupMunicipalService.TypeMunicipalService createPDServiceDebtImportTypeGroupMunicipalServiceTypeMunicipalService() {
+        return new PDServiceDebtImportType.GroupMunicipalService.TypeMunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceDebtImportType.GroupMunicipalService.MunicipalService }
+     * 
+     */
+    public PDServiceDebtImportType.GroupMunicipalService.MunicipalService createPDServiceDebtImportTypeGroupMunicipalServiceMunicipalService() {
+        return new PDServiceDebtImportType.GroupMunicipalService.MunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceDebtImportType.HousingService.MunicipalResource.GeneralMunicipalResource }
+     * 
+     */
+    public PDServiceDebtImportType.HousingService.MunicipalResource.GeneralMunicipalResource createPDServiceDebtImportTypeHousingServiceMunicipalResourceGeneralMunicipalResource() {
+        return new PDServiceDebtImportType.HousingService.MunicipalResource.GeneralMunicipalResource();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService.MunicipalService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService.MunicipalService.PaymentRecalculation createPDServiceChargeExportTypeGroupMunicipalServiceMunicipalServicePaymentRecalculation() {
+        return new PDServiceChargeExportType.GroupMunicipalService.MunicipalService.PaymentRecalculation();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService.MunicipalService.MultiplyingFactor }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService.MunicipalService.MultiplyingFactor createPDServiceChargeExportTypeGroupMunicipalServiceMunicipalServiceMultiplyingFactor() {
+        return new PDServiceChargeExportType.GroupMunicipalService.MunicipalService.MultiplyingFactor();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption.Volume }
+     * 
+     */
+    public PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption.Volume createPDServiceChargeExportTypeGroupMunicipalServiceMunicipalServiceConsumptionVolume() {
+        return new PDServiceChargeExportType.GroupMunicipalService.MunicipalService.Consumption.Volume();
     }
 
     /**
@@ -1042,6 +1354,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceChargeExportType.AdditionalService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeExportType.AdditionalService.PaymentRecalculation createPDServiceChargeExportTypeAdditionalServicePaymentRecalculation() {
+        return new PDServiceChargeExportType.AdditionalService.PaymentRecalculation();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeExportType.AdditionalService.Consumption.Volume }
      * 
      */
@@ -1050,11 +1370,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PDServiceChargeExportType.HousingService.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeExportType.HousingService.PaymentRecalculation createPDServiceChargeExportTypeHousingServicePaymentRecalculation() {
+        return new PDServiceChargeExportType.HousingService.PaymentRecalculation();
+    }
+
+    /**
      * Create an instance of {@link PDServiceChargeExportType.HousingService.MunicipalResource.ServiceInformation }
      * 
      */
     public PDServiceChargeExportType.HousingService.MunicipalResource.ServiceInformation createPDServiceChargeExportTypeHousingServiceMunicipalResourceServiceInformation() {
         return new PDServiceChargeExportType.HousingService.MunicipalResource.ServiceInformation();
+    }
+
+    /**
+     * Create an instance of {@link PDServiceChargeExportType.HousingService.MunicipalResource.PaymentRecalculation }
+     * 
+     */
+    public PDServiceChargeExportType.HousingService.MunicipalResource.PaymentRecalculation createPDServiceChargeExportTypeHousingServiceMunicipalResourcePaymentRecalculation() {
+        return new PDServiceChargeExportType.HousingService.MunicipalResource.PaymentRecalculation();
     }
 
     /**
@@ -1082,22 +1418,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate }
-     * 
-     */
-    public ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate createImportInsuranceProductRequestInsuranceProductCreateOrUpdate() {
-        return new ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate();
-    }
-
-    /**
-     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct.Remove }
-     * 
-     */
-    public ImportInsuranceProductRequest.InsuranceProduct.Remove createImportInsuranceProductRequestInsuranceProductRemove() {
-        return new ImportInsuranceProductRequest.InsuranceProduct.Remove();
-    }
-
-    /**
      * Create an instance of {@link ExportSettlementResultType.Annuled }
      * 
      */
@@ -1119,6 +1439,38 @@ public class ObjectFactory {
      */
     public ExportSettlementResultType.Contract.NoContract createExportSettlementResultTypeContractNoContract() {
         return new ExportSettlementResultType.Contract.NoContract();
+    }
+
+    /**
+     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest }
+     * 
+     */
+    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatusAcknowledgmentRequestsListAcknowledgmentRequest() {
+        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation }
+     * 
+     */
+    public ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation createExportPaymentDocumentResultTypePaymentDocumentPaymentInformation() {
+        return new ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation();
+    }
+
+    /**
+     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate }
+     * 
+     */
+    public ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate createImportInsuranceProductRequestInsuranceProductCreateOrUpdate() {
+        return new ImportInsuranceProductRequest.InsuranceProduct.CreateOrUpdate();
+    }
+
+    /**
+     * Create an instance of {@link ImportInsuranceProductRequest.InsuranceProduct.Remove }
+     * 
+     */
+    public ImportInsuranceProductRequest.InsuranceProduct.Remove createImportInsuranceProductRequestInsuranceProductRemove() {
+        return new ImportInsuranceProductRequest.InsuranceProduct.Remove();
     }
 
     /**
@@ -1151,22 +1503,6 @@ public class ObjectFactory {
      */
     public ImportRSOSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod.AnnulmentReportingPeriod createImportRSOSettlementsRequestImportSettlementSettlementReportingPeriodAnnulmentReportingPeriod() {
         return new ImportRSOSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod.AnnulmentReportingPeriod();
-    }
-
-    /**
-     * Create an instance of {@link ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest }
-     * 
-     */
-    public ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest createExportNotificationsOfOrderExecutionResultTypeNotificationOfOrderExecutionWithStatusAcknowledgmentRequestsListAcknowledgmentRequest() {
-        return new ExportNotificationsOfOrderExecutionResultType.NotificationOfOrderExecutionWithStatus.AcknowledgmentRequestsList.AcknowledgmentRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation }
-     * 
-     */
-    public ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation createExportPaymentDocumentResultTypePaymentDocumentPaymentInformation() {
-        return new ExportPaymentDocumentResultType.PaymentDocument.PaymentInformation();
     }
 
     /**

@@ -98,35 +98,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportOrgRegistryResult }
-     * 
-     */
-    public ExportOrgRegistryResult createExportOrgRegistryResult() {
-        return new ExportOrgRegistryResult();
-    }
-
-    /**
      * Create an instance of {@link ExportDataProviderRequest }
      * 
      */
     public ExportDataProviderRequest createExportDataProviderRequest() {
         return new ExportDataProviderRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportDataProviderResult }
-     * 
-     */
-    public ExportDataProviderResult createExportDataProviderResult() {
-        return new ExportDataProviderResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDataProviderResultType }
-     * 
-     */
-    public ExportDataProviderResultType createExportDataProviderResultType() {
-        return new ExportDataProviderResultType();
     }
 
     /**
@@ -138,35 +114,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDelegatedAccessResult }
-     * 
-     */
-    public ExportDelegatedAccessResult createExportDelegatedAccessResult() {
-        return new ExportDelegatedAccessResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDelegatedAccessType }
-     * 
-     */
-    public ExportDelegatedAccessType createExportDelegatedAccessType() {
-        return new ExportDelegatedAccessType();
-    }
-
-    /**
      * Create an instance of {@link ExportObjectsDelegatedAccessRequest }
      * 
      */
     public ExportObjectsDelegatedAccessRequest createExportObjectsDelegatedAccessRequest() {
         return new ExportObjectsDelegatedAccessRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportObjectsDelegatedAccessResult }
-     * 
-     */
-    public ExportObjectsDelegatedAccessResult createExportObjectsDelegatedAccessResult() {
-        return new ExportObjectsDelegatedAccessResult();
     }
 
     /**
@@ -178,11 +130,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportTerritoryDelegatedAccessResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportTerritoryDelegatedAccessResult createExportTerritoryDelegatedAccessResult() {
-        return new ExportTerritoryDelegatedAccessResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
+     * Create an instance of {@link ExportDataProviderResultType }
+     * 
+     */
+    public ExportDataProviderResultType createExportDataProviderResultType() {
+        return new ExportDataProviderResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportDelegatedAccessType }
+     * 
+     */
+    public ExportDelegatedAccessType createExportDelegatedAccessType() {
+        return new ExportDelegatedAccessType();
     }
 
     /**
@@ -191,14 +159,6 @@ public class ObjectFactory {
      */
     public TerritoryDelegatedAccessRightType createTerritoryDelegatedAccessRightType() {
         return new TerritoryDelegatedAccessRightType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**

@@ -13,6 +13,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
+ * Ответ на экспорт информации о доме
+ * 
  * <p>Java class for exportHouseResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

@@ -10,6 +10,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
+ * Результат экспорта тарифов ЖКУ
+ * 
  * <p>Java class for exportHMServicesTarifsResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

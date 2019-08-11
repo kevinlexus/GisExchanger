@@ -32,6 +32,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *               &lt;enumeration value="219"/&gt;
  *               &lt;enumeration value="272"/&gt;
  *               &lt;enumeration value="302"/&gt;
+ *               &lt;enumeration value="337"/&gt;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;

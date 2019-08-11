@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "VolumeQualityServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/volume-quality/hcs-volume-quality-service-async.wsdl")
+@WebServiceClient(name = "VolumeQualityServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/volume-quality-service-async/", wsdlLocation = "file:/C:/doc/GIS/gis_wsimport/volume-quality/hcs-volume-quality-service-async.wsdl")
 public class VolumeQualityServiceAsync
     extends Service
 {
@@ -32,7 +32,7 @@ public class VolumeQualityServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/volume-quality/hcs-volume-quality-service-async.wsdl");
+            url = new URL("file:/C:/doc/GIS/gis_wsimport/volume-quality/hcs-volume-quality-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

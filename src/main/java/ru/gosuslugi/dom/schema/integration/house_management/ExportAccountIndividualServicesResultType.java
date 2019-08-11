@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Ответ на запрос экспорта индивидуальных услуг лицевого счета
+ * 
  * <p>Java class for exportAccountIndividualServicesResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

@@ -40,7 +40,6 @@ import ru.gosuslugi.dom.schema.integration.volume_quality.ImportVolumeAndQuality
     "signature"
 })
 @XmlSeeAlso({
-    ImportResult.class,
     BaseAsyncResponseType.class,
     ImportIntervalRequest.class,
     ImportVolumeAndQualityInformationRequest.class

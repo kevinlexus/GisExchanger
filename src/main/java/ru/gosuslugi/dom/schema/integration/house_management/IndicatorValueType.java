@@ -50,10 +50,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.Quality.IndicatorValue.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.Quality.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractType.OtherQualityIndicator.IndicatorValue.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.Quality.IndicatorValue.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractObjectAddressResultType.OtherQualityIndicator.IndicatorValue.class,
     ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractProjectType.Quality.IndicatorValue.class
 })
 public class IndicatorValueType {

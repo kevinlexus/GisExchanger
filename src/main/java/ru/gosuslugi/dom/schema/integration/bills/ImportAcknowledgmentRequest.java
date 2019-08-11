@@ -23,7 +23,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.AcknowledgmentRequestIn
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
  *       &lt;choice&gt;
- *         &lt;element name="AcknowledgmentRequestInfo" maxOccurs="1000"&gt;
+ *         &lt;element name="AcknowledgmentRequestInfo" maxOccurs="500"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payments-base/}AcknowledgmentRequestInfoType"&gt;
@@ -34,7 +34,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.AcknowledgmentRequestIn
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="AckCancellation" maxOccurs="1000"&gt;
+ *         &lt;element name="AckCancellation" maxOccurs="500"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;

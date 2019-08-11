@@ -72,7 +72,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                           &lt;/restriction&gt;
  *                         &lt;/simpleType&gt;
  *                       &lt;/element&gt;
- *                       &lt;element name="AccountingPeriodTotal"&gt;
+ *                       &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
  *                         &lt;simpleType&gt;
  *                           &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"&gt;
  *                             &lt;totalDigits value="13"/&gt;
@@ -262,6 +262,23 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
  *         &lt;element name="DateOfLastReceivedPayment" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="LimitIndex" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *               &lt;minInclusive value="0"/&gt;
+ *               &lt;maxExclusive value="1000"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="SubsidiesCompensationSocialSupport" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *               &lt;maxExclusive value="100000000"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -294,7 +311,9 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "totalPayableByPD",
     "componentsOfCost",
     "paidCash",
-    "dateOfLastReceivedPayment"
+    "dateOfLastReceivedPayment",
+    "limitIndex",
+    "subsidiesCompensationSocialSupport"
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.ImportPaymentDocumentRequest.PaymentDocument.class
@@ -347,6 +366,10 @@ public class PaymentDocumentType {
     @XmlElement(name = "DateOfLastReceivedPayment")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar dateOfLastReceivedPayment;
+    @XmlElement(name = "LimitIndex")
+    protected BigDecimal limitIndex;
+    @XmlElement(name = "SubsidiesCompensationSocialSupport")
+    protected BigDecimal subsidiesCompensationSocialSupport;
 
     /**
      * Идентификатор лицевого счета
@@ -927,6 +950,54 @@ public class PaymentDocumentType {
         this.dateOfLastReceivedPayment = value;
     }
 
+    /**
+     * Gets the value of the limitIndex property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getLimitIndex() {
+        return limitIndex;
+    }
+
+    /**
+     * Sets the value of the limitIndex property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setLimitIndex(BigDecimal value) {
+        this.limitIndex = value;
+    }
+
+    /**
+     * Gets the value of the subsidiesCompensationSocialSupport property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getSubsidiesCompensationSocialSupport() {
+        return subsidiesCompensationSocialSupport;
+    }
+
+    /**
+     * Sets the value of the subsidiesCompensationSocialSupport property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setSubsidiesCompensationSocialSupport(BigDecimal value) {
+        this.subsidiesCompensationSocialSupport = value;
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -1096,7 +1167,7 @@ public class PaymentDocumentType {
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;
      *         &lt;/element&gt;
-     *         &lt;element name="AccountingPeriodTotal"&gt;
+     *         &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
      *           &lt;simpleType&gt;
      *             &lt;restriction base="{http://dom.gosuslugi.ru/schema/integration/bills-base/}MoneyType"&gt;
      *               &lt;totalDigits value="13"/&gt;
@@ -1168,7 +1239,7 @@ public class PaymentDocumentType {
         protected BigDecimal rate;
         @XmlElement(name = "TotalPayable", required = true)
         protected BigDecimal totalPayable;
-        @XmlElement(name = "AccountingPeriodTotal", required = true)
+        @XmlElement(name = "AccountingPeriodTotal")
         protected BigDecimal accountingPeriodTotal;
         @XmlElement(name = "CalcExplanation")
         protected String calcExplanation;

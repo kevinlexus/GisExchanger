@@ -1,10 +1,7 @@
 
 package ru.gosuslugi.dom.schema.integration.capital_repair;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
-import javax.xml.namespace.QName;
 
 
 /**
@@ -24,7 +21,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _CapRemImportResult_QNAME = new QName("http://dom.gosuslugi.ru/schema/integration/capital-repair/", "CapRemImportResult");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.gosuslugi.dom.schema.integration.capital_repair
@@ -178,11 +174,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ShortCertificateType }
+     * Create an instance of {@link ExportShortCertificateType }
      * 
      */
-    public ShortCertificateType createShortCertificateType() {
-        return new ShortCertificateType();
+    public ExportShortCertificateType createExportShortCertificateType() {
+        return new ExportShortCertificateType();
     }
 
     /**
@@ -199,6 +195,14 @@ public class ObjectFactory {
      */
     public WorkCertificateType createWorkCertificateType() {
         return new WorkCertificateType();
+    }
+
+    /**
+     * Create an instance of {@link ShortCertificateType }
+     * 
+     */
+    public ShortCertificateType createShortCertificateType() {
+        return new ShortCertificateType();
     }
 
     /**
@@ -258,6 +262,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportAccountType }
+     * 
+     */
+    public ExportAccountType createExportAccountType() {
+        return new ExportAccountType();
+    }
+
+    /**
      * Create an instance of {@link ImportOperationAndBalanceRequest.ImportOperationAndBalance }
      * 
      */
@@ -279,14 +291,6 @@ public class ObjectFactory {
      */
     public ImportDecisionsFormingFundRequest.ImportDecision createImportDecisionsFormingFundRequestImportDecision() {
         return new ImportDecisionsFormingFundRequest.ImportDecision();
-    }
-
-    /**
-     * Create an instance of {@link ExportAccountType }
-     * 
-     */
-    public ExportAccountType createExportAccountType() {
-        return new ExportAccountType();
     }
 
     /**
@@ -330,14 +334,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CapRemImportResultType }
-     * 
-     */
-    public CapRemImportResultType createCapRemImportResultType() {
-        return new CapRemImportResultType();
-    }
-
-    /**
      * Create an instance of {@link ImportPlanWorkRequest.ImportPlanWork }
      * 
      */
@@ -351,22 +347,6 @@ public class ObjectFactory {
      */
     public ExportPlanRequest createExportPlanRequest() {
         return new ExportPlanRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportPlanResult }
-     * 
-     */
-    public ExportPlanResult createExportPlanResult() {
-        return new ExportPlanResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportPlanPassportType }
-     * 
-     */
-    public ExportPlanPassportType createExportPlanPassportType() {
-        return new ExportPlanPassportType();
     }
 
     /**
@@ -402,22 +382,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportPlanWorkResult }
-     * 
-     */
-    public ExportPlanWorkResult createExportPlanWorkResult() {
-        return new ExportPlanWorkResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkPlanType }
-     * 
-     */
-    public ExportWorkPlanType createExportWorkPlanType() {
-        return new ExportWorkPlanType();
-    }
-
-    /**
      * Create an instance of {@link ImportRegionalProgramWorkRequest.ImportRegionalProgramWork }
      * 
      */
@@ -431,22 +395,6 @@ public class ObjectFactory {
      */
     public ExportRegionalProgramRequest createExportRegionalProgramRequest() {
         return new ExportRegionalProgramRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportRegionalProgramResult }
-     * 
-     */
-    public ExportRegionalProgramResult createExportRegionalProgramResult() {
-        return new ExportRegionalProgramResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportRegionalProgramType }
-     * 
-     */
-    public ExportRegionalProgramType createExportRegionalProgramType() {
-        return new ExportRegionalProgramType();
     }
 
     /**
@@ -482,43 +430,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportRegionalProgramWorkResult }
-     * 
-     */
-    public ExportRegionalProgramWorkResult createExportRegionalProgramWorkResult() {
-        return new ExportRegionalProgramWorkResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportRegionalProgramWorkType }
-     * 
-     */
-    public ExportRegionalProgramWorkType createExportRegionalProgramWorkType() {
-        return new ExportRegionalProgramWorkType();
-    }
-
-    /**
      * Create an instance of {@link ExportCreditContractRequest }
      * 
      */
     public ExportCreditContractRequest createExportCreditContractRequest() {
         return new ExportCreditContractRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportCreditContractResult }
-     * 
-     */
-    public ExportCreditContractResult createExportCreditContractResult() {
-        return new ExportCreditContractResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportCreditContractType }
-     * 
-     */
-    public ExportCreditContractType createExportCreditContractType() {
-        return new ExportCreditContractType();
     }
 
     /**
@@ -546,22 +462,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportContractsResult }
-     * 
-     */
-    public ExportContractsResult createExportContractsResult() {
-        return new ExportContractsResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportFullContractType }
-     * 
-     */
-    public ExportFullContractType createExportFullContractType() {
-        return new ExportFullContractType();
-    }
-
-    /**
      * Create an instance of {@link ExportAccountRequest }
      * 
      */
@@ -578,14 +478,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportAccountResult }
-     * 
-     */
-    public ExportAccountResult createExportAccountResult() {
-        return new ExportAccountResult();
-    }
-
-    /**
      * Create an instance of {@link ExportDecisionsFormingFundRequest }
      * 
      */
@@ -594,43 +486,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDecisionsFormingFundResult }
-     * 
-     */
-    public ExportDecisionsFormingFundResult createExportDecisionsFormingFundResult() {
-        return new ExportDecisionsFormingFundResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecisionType }
-     * 
-     */
-    public ExportDecisionType createExportDecisionType() {
-        return new ExportDecisionType();
-    }
-
-    /**
      * Create an instance of {@link ExportDecisionsOrderOfProvidingPDRequest }
      * 
      */
     public ExportDecisionsOrderOfProvidingPDRequest createExportDecisionsOrderOfProvidingPDRequest() {
         return new ExportDecisionsOrderOfProvidingPDRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecisionsOrderOfProvidingPDResult }
-     * 
-     */
-    public ExportDecisionsOrderOfProvidingPDResult createExportDecisionsOrderOfProvidingPDResult() {
-        return new ExportDecisionsOrderOfProvidingPDResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportDecisionPDType }
-     * 
-     */
-    public ExportDecisionPDType createExportDecisionPDType() {
-        return new ExportDecisionPDType();
     }
 
     /**
@@ -650,22 +510,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportFundSizeInfoResult }
-     * 
-     */
-    public ExportFundSizeInfoResult createExportFundSizeInfoResult() {
-        return new ExportFundSizeInfoResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportFundSizeInfoType }
-     * 
-     */
-    public ExportFundSizeInfoType createExportFundSizeInfoType() {
-        return new ExportFundSizeInfoType();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */
@@ -679,6 +523,78 @@ public class ObjectFactory {
      */
     public CapRemCommonResultType createCapRemCommonResultType() {
         return new CapRemCommonResultType();
+    }
+
+    /**
+     * Create an instance of {@link ExportFullContractType }
+     * 
+     */
+    public ExportFullContractType createExportFullContractType() {
+        return new ExportFullContractType();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecisionType }
+     * 
+     */
+    public ExportDecisionType createExportDecisionType() {
+        return new ExportDecisionType();
+    }
+
+    /**
+     * Create an instance of {@link ExportCreditContractType }
+     * 
+     */
+    public ExportCreditContractType createExportCreditContractType() {
+        return new ExportCreditContractType();
+    }
+
+    /**
+     * Create an instance of {@link ExportFundSizeInfoType }
+     * 
+     */
+    public ExportFundSizeInfoType createExportFundSizeInfoType() {
+        return new ExportFundSizeInfoType();
+    }
+
+    /**
+     * Create an instance of {@link ExportPlanPassportType }
+     * 
+     */
+    public ExportPlanPassportType createExportPlanPassportType() {
+        return new ExportPlanPassportType();
+    }
+
+    /**
+     * Create an instance of {@link ExportWorkPlanType }
+     * 
+     */
+    public ExportWorkPlanType createExportWorkPlanType() {
+        return new ExportWorkPlanType();
+    }
+
+    /**
+     * Create an instance of {@link ExportRegionalProgramType }
+     * 
+     */
+    public ExportRegionalProgramType createExportRegionalProgramType() {
+        return new ExportRegionalProgramType();
+    }
+
+    /**
+     * Create an instance of {@link ExportRegionalProgramWorkType }
+     * 
+     */
+    public ExportRegionalProgramWorkType createExportRegionalProgramWorkType() {
+        return new ExportRegionalProgramWorkType();
+    }
+
+    /**
+     * Create an instance of {@link ExportDecisionPDType }
+     * 
+     */
+    public ExportDecisionPDType createExportDecisionPDType() {
+        return new ExportDecisionPDType();
     }
 
     /**
@@ -818,6 +734,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CapRemImportResultType }
+     * 
+     */
+    public CapRemImportResultType createCapRemImportResultType() {
+        return new CapRemImportResultType();
+    }
+
+    /**
      * Create an instance of {@link InstallmentInfoType }
      * 
      */
@@ -898,11 +822,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ShortCertificateType.ActSignedRepresentativeOfOwners }
+     * Create an instance of {@link ExportShortCertificateType.ActSignedRepresentativeOfOwners }
      * 
      */
-    public ShortCertificateType.ActSignedRepresentativeOfOwners createShortCertificateTypeActSignedRepresentativeOfOwners() {
-        return new ShortCertificateType.ActSignedRepresentativeOfOwners();
+    public ExportShortCertificateType.ActSignedRepresentativeOfOwners createExportShortCertificateTypeActSignedRepresentativeOfOwners() {
+        return new ExportShortCertificateType.ActSignedRepresentativeOfOwners();
     }
 
     /**
@@ -919,6 +843,14 @@ public class ObjectFactory {
      */
     public WorkCertificateType.AppForUse createWorkCertificateTypeAppForUse() {
         return new WorkCertificateType.AppForUse();
+    }
+
+    /**
+     * Create an instance of {@link ShortCertificateType.ActSignedRepresentativeOfOwners }
+     * 
+     */
+    public ShortCertificateType.ActSignedRepresentativeOfOwners createShortCertificateTypeActSignedRepresentativeOfOwners() {
+        return new ShortCertificateType.ActSignedRepresentativeOfOwners();
     }
 
     /**
@@ -986,6 +918,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportAccountType.Details }
+     * 
+     */
+    public ExportAccountType.Details createExportAccountTypeDetails() {
+        return new ExportAccountType.Details();
+    }
+
+    /**
      * Create an instance of {@link ImportOperationAndBalanceRequest.ImportOperationAndBalance.OperationAndBalanceInfo }
      * 
      */
@@ -1023,14 +963,6 @@ public class ObjectFactory {
      */
     public ImportDecisionsFormingFundRequest.ImportDecision.CancelDecision createImportDecisionsFormingFundRequestImportDecisionCancelDecision() {
         return new ImportDecisionsFormingFundRequest.ImportDecision.CancelDecision();
-    }
-
-    /**
-     * Create an instance of {@link ExportAccountType.Details }
-     * 
-     */
-    public ExportAccountType.Details createExportAccountTypeDetails() {
-        return new ExportAccountType.Details();
     }
 
     /**
@@ -1087,19 +1019,6 @@ public class ObjectFactory {
      */
     public ImportPlanRequest.ImportPlan.PlanDocument createImportPlanRequestImportPlanPlanDocument() {
         return new ImportPlanRequest.ImportPlan.PlanDocument();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CapRemImportResultType }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CapRemImportResultType }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://dom.gosuslugi.ru/schema/integration/capital-repair/", name = "CapRemImportResult")
-    public JAXBElement<CapRemImportResultType> createCapRemImportResult(CapRemImportResultType value) {
-        return new JAXBElement<CapRemImportResultType>(_CapRemImportResult_QNAME, CapRemImportResultType.class, null, value);
     }
 
 }

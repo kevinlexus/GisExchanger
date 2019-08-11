@@ -39,7 +39,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="AccountingPeriodTotal"&gt;
+ *         &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="13"/&gt;
@@ -78,7 +78,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.HousingService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.AdditionalService.class,
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.class
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.MunicipalService.class,
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeType.GroupMunicipalService.MunicipalService.class
 })
 public class ServicePDImportType {
 
@@ -88,7 +89,7 @@ public class ServicePDImportType {
     protected BigDecimal rate;
     @XmlElement(name = "TotalPayable", required = true)
     protected BigDecimal totalPayable;
-    @XmlElement(name = "AccountingPeriodTotal", required = true)
+    @XmlElement(name = "AccountingPeriodTotal")
     protected BigDecimal accountingPeriodTotal;
     @XmlElement(name = "CalcExplanation")
     protected String calcExplanation;

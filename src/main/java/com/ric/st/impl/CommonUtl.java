@@ -24,10 +24,10 @@ public class CommonUtl {
             str.append("Не найден соответствующий в Директ счетчик! ");
         }
         if ((err & CommonErrs.ERR_EMPTY_KLSK) > 0) {
-            str.append("Пустой KLSK в данном адресе! ");
+            str.append("Пустой KLSK в KART по данным в kul,nd,kw! ");
         }
         if ((err & CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR) > 0) {
-            str.append("Разные KLSK на один адрес! ");
+            str.append("Разные KLSK в KART по данным в kul,nd,kw! ");
         }
         if ((err & CommonErrs.ERR_OBJECT_NOT_FOUND) > 0) {
             str.append("Объект не найден в базе Директ! ");

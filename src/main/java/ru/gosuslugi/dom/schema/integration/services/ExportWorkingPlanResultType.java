@@ -14,6 +14,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
+ * Результат экспорта плана работ/услуг
+ * 
  * <p>Java class for exportWorkingPlanResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

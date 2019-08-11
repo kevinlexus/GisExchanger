@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiPagingItemResult }
-     * 
-     */
-    public ExportNsiPagingItemResult createExportNsiPagingItemResult() {
-        return new ExportNsiPagingItemResult();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */
@@ -54,14 +46,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiListResult }
-     * 
-     */
-    public ExportNsiListResult createExportNsiListResult() {
-        return new ExportNsiListResult();
-    }
-
-    /**
      * Create an instance of {@link ExportNsiItemRequest }
      * 
      */
@@ -70,27 +54,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiItemResult }
-     * 
-     */
-    public ExportNsiItemResult createExportNsiItemResult() {
-        return new ExportNsiItemResult();
-    }
-
-    /**
      * Create an instance of {@link ExportNsiPagingItemRequest }
      * 
      */
     public ExportNsiPagingItemRequest createExportNsiPagingItemRequest() {
         return new ExportNsiPagingItemRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportNsiPagingItemResult.NsiItem }
-     * 
-     */
-    public ExportNsiPagingItemResult.NsiItem createExportNsiPagingItemResultNsiItem() {
-        return new ExportNsiPagingItemResult.NsiItem();
     }
 
     /**

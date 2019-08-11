@@ -6,11 +6,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Результат экспорта информации о лицензиях на управление многоквартирными домами
+ * 
  * <p>Java class for exportLicenseResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
@@ -34,9 +35,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "exportLicenseResultType", propOrder = {
     "licenseGUID",
     "licenseVersion"
-})
-@XmlSeeAlso({
-    ru.gosuslugi.dom.schema.integration.licenses.ExportLicenseResult.License.class
 })
 public class ExportLicenseResultType
     extends LicenseType

@@ -9,6 +9,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
 
 
 /**
+ * Результат экспорта сведений о поставщиках информации ИС
+ * 
  * <p>Java class for exportDataProviderResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

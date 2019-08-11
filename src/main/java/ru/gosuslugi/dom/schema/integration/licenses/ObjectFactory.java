@@ -38,14 +38,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportLicenseResult }
-     * 
-     */
-    public ExportLicenseResult createExportLicenseResult() {
-        return new ExportLicenseResult();
-    }
-
-    /**
      * Create an instance of {@link ExportDisqualifiedPersonRequest }
      * 
      */
@@ -147,22 +139,6 @@ public class ObjectFactory {
      */
     public ExportLicenseRequest.LicenseOrganization createExportLicenseRequestLicenseOrganization() {
         return new ExportLicenseRequest.LicenseOrganization();
-    }
-
-    /**
-     * Create an instance of {@link ExportLicenseResult.License }
-     * 
-     */
-    public ExportLicenseResult.License createExportLicenseResultLicense() {
-        return new ExportLicenseResult.License();
-    }
-
-    /**
-     * Create an instance of {@link ExportDisqualifiedPersonResult }
-     * 
-     */
-    public ExportDisqualifiedPersonResult createExportDisqualifiedPersonResult() {
-        return new ExportDisqualifiedPersonResult();
     }
 
     /**

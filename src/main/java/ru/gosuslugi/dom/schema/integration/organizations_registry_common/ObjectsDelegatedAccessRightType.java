@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Сведения об объектах из заявок на делегирование прав
+ * 
  * <p>Java class for ObjectsDelegatedAccessRightType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

@@ -13,6 +13,8 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
 
 
 /**
+ * Ответ на запрос экспорта ДУ/уставов
+ * 
  * <p>Java class for exportRolloverStatusCAChResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

@@ -26,7 +26,7 @@ import ru.gosuslugi.dom.schema.integration.base.ErrorMessageType;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}ErrorMessage"/&gt;
  *         &lt;element name="ImportResult" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}CapRemCommonResultType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="Contract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFullContractType" maxOccurs="1000"/&gt;
- *         &lt;element name="Account" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportAccountType" maxOccurs="1000"/&gt;
+ *         &lt;element name="Account" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportAccountType" maxOccurs="5000"/&gt;
  *         &lt;element name="Decision" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportDecisionType" maxOccurs="1000"/&gt;
  *         &lt;element name="CreditContract" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportCreditContractType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="FundSizeInfo" type="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}exportFundSizeInfoType" maxOccurs="unbounded"/&gt;

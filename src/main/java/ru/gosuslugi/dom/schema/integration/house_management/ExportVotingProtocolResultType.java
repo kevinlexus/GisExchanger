@@ -10,6 +10,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
+ * Ответ на запрос экспорта протоколов ОСС
+ * 
  * <p>Java class for exportVotingProtocolResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
@@ -29,6 +31,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
  *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="RootProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *         &lt;element name="StatusVersionProtocol"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
@@ -53,6 +56,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "exportVotingProtocolResultType", propOrder = {
     "statusProtocol",
     "votingProtocolGUID",
+    "rootProtocolGUID",
     "statusVersionProtocol",
     "versionNumber",
     "versionDateModification",
@@ -66,6 +70,8 @@ public class ExportVotingProtocolResultType
     protected String statusProtocol;
     @XmlElement(name = "VotingProtocolGUID", required = true)
     protected String votingProtocolGUID;
+    @XmlElement(name = "RootProtocolGUID")
+    protected String rootProtocolGUID;
     @XmlElement(name = "StatusVersionProtocol", required = true)
     protected String statusVersionProtocol;
     @XmlElement(name = "VersionNumber")
@@ -123,6 +129,30 @@ public class ExportVotingProtocolResultType
      */
     public void setVotingProtocolGUID(String value) {
         this.votingProtocolGUID = value;
+    }
+
+    /**
+     * Gets the value of the rootProtocolGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRootProtocolGUID() {
+        return rootProtocolGUID;
+    }
+
+    /**
+     * Sets the value of the rootProtocolGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRootProtocolGUID(String value) {
+        this.rootProtocolGUID = value;
     }
 
     /**

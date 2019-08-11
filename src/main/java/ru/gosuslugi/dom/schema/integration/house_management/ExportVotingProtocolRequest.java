@@ -35,8 +35,9 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *           &lt;/element&gt;
  *         &lt;/sequence&gt;
  *         &lt;element name="VotingProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/&gt;
+ *         &lt;element name="RootProtocolGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100"/&gt;
  *       &lt;/choice&gt;
- *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.11.0.6""/&gt;
+ *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required""/&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -48,7 +49,8 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
 @XmlType(name = "", propOrder = {
     "fiasHouseGuid",
     "statusVersionProtocol",
-    "votingProtocolGUID"
+    "votingProtocolGUID",
+    "rootProtocolGUID"
 })
 @XmlRootElement(name = "exportVotingProtocolRequest")
 public class ExportVotingProtocolRequest
@@ -61,6 +63,8 @@ public class ExportVotingProtocolRequest
     protected String statusVersionProtocol;
     @XmlElement(name = "VotingProtocolGUID")
     protected List<String> votingProtocolGUID;
+    @XmlElement(name = "RootProtocolGUID")
+    protected List<String> rootProtocolGUID;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -142,6 +146,35 @@ public class ExportVotingProtocolRequest
     }
 
     /**
+     * Gets the value of the rootProtocolGUID property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the rootProtocolGUID property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getRootProtocolGUID().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getRootProtocolGUID() {
+        if (rootProtocolGUID == null) {
+            rootProtocolGUID = new ArrayList<String>();
+        }
+        return this.rootProtocolGUID;
+    }
+
+    /**
      * Gets the value of the version property.
      * 
      * @return
@@ -150,11 +183,7 @@ public class ExportVotingProtocolRequest
      *     
      */
     public String getVersion() {
-        if (version == null) {
-            return "11.11.0.6";
-        } else {
-            return version;
-        }
+        return version;
     }
 
     /**

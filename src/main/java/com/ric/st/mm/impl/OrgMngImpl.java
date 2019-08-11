@@ -56,10 +56,10 @@ public class OrgMngImpl implements OrgMng {
 	public OrgDTO getOrgDTO(Eolink uk) {
 
 		// Тип информационной системы
-		Integer appTp = uk.getAppTp();
-		OrgDTO orgDto = null;
-        // экспериментальная разработка
-        Org org = orgDao2.getByReu(uk.getReu());
+		//Integer appTp = uk.getAppTp();
+		OrgDTO orgDto;
+        //Org org = orgDao2.getByReu(uk.getReu());
+        Org org = orgDao2.getByReu(uk.getOrg().getReu()); // ред.07.08.2019
         orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
         orgDto.setBik(org.getBik());
         orgDto.setInn(org.getInn());

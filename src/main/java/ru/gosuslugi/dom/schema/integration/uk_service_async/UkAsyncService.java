@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "UkAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/uk-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/uk/hcs-uk-service-async.wsdl")
+@WebServiceClient(name = "UkAsyncService", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/uk-service-async/", wsdlLocation = "file:/C:/doc/GIS/gis_wsimport/uk/hcs-uk-service-async.wsdl")
 public class UkAsyncService
     extends Service
 {
@@ -32,7 +32,7 @@ public class UkAsyncService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/uk/hcs-uk-service-async.wsdl");
+            url = new URL("file:/C:/doc/GIS/gis_wsimport/uk/hcs-uk-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

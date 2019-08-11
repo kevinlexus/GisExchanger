@@ -13,6 +13,8 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationExpor
 
 
 /**
+ * Тип данных для ответа на запрос экспорта платежных документов
+ * 
  * <p>Java class for exportPaymentDocumentResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
@@ -42,7 +44,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.PaymentInformationExpor
  *                                 &lt;/restriction&gt;
  *                               &lt;/simpleType&gt;
  *                             &lt;/element&gt;
- *                             &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *                             &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *                           &lt;/sequence&gt;
  *                         &lt;/extension&gt;
  *                       &lt;/complexContent&gt;
@@ -146,7 +148,7 @@ public class ExportPaymentDocumentResultType {
      *                       &lt;/restriction&gt;
      *                     &lt;/simpleType&gt;
      *                   &lt;/element&gt;
-     *                   &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+     *                   &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
      *                 &lt;/sequence&gt;
      *               &lt;/extension&gt;
      *             &lt;/complexContent&gt;
@@ -246,7 +248,7 @@ public class ExportPaymentDocumentResultType {
          *             &lt;/restriction&gt;
          *           &lt;/simpleType&gt;
          *         &lt;/element&gt;
-         *         &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+         *         &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
          *       &lt;/sequence&gt;
          *     &lt;/extension&gt;
          *   &lt;/complexContent&gt;

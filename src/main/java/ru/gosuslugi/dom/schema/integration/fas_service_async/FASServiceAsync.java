@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "FASServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/fas-service-async/", wsdlLocation = "file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/fas/hcs-fas-service-async.wsdl")
+@WebServiceClient(name = "FASServiceAsync", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/fas-service-async/", wsdlLocation = "file:/C:/doc/GIS/gis_wsimport/fas/META-INF/wsdl/hcs-fas-service-async.wsdl")
 public class FASServiceAsync
     extends Service
 {
@@ -30,7 +30,7 @@ public class FASServiceAsync
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/fas/hcs-fas-service-async.wsdl");
+            url = new URL("file:/C:/doc/GIS/gis_wsimport/fas/META-INF/wsdl/hcs-fas-service-async.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

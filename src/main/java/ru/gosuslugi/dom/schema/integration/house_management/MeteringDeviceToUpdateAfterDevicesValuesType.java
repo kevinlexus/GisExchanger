@@ -25,7 +25,29 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="MeteringDeviceNumber" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="50"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="MeteringDeviceStamp" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="100"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="MeteringDeviceModel" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *               &lt;maxLength value="100"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
  *         &lt;element name="InstallationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
+ *         &lt;element name="CommissioningDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *         &lt;element name="RemoteMeteringMode" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
  *         &lt;element name="RemoteMeteringInfo" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
@@ -179,7 +201,11 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MeteringDeviceToUpdateAfterDevicesValuesType", propOrder = {
+    "meteringDeviceNumber",
+    "meteringDeviceStamp",
+    "meteringDeviceModel",
     "installationDate",
+    "commissioningDate",
     "remoteMeteringMode",
     "remoteMeteringInfo",
     "temperatureSensor",
@@ -198,9 +224,18 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.OneRateMeteringV
 })
 public class MeteringDeviceToUpdateAfterDevicesValuesType {
 
+    @XmlElement(name = "MeteringDeviceNumber")
+    protected String meteringDeviceNumber;
+    @XmlElement(name = "MeteringDeviceStamp")
+    protected String meteringDeviceStamp;
+    @XmlElement(name = "MeteringDeviceModel")
+    protected String meteringDeviceModel;
     @XmlElement(name = "InstallationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar installationDate;
+    @XmlElement(name = "CommissioningDate")
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar commissioningDate;
     @XmlElement(name = "RemoteMeteringMode")
     protected Boolean remoteMeteringMode;
     @XmlElement(name = "RemoteMeteringInfo")
@@ -235,6 +270,78 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
     protected MeteringDeviceToUpdateAfterDevicesValuesType.AddressChatacteristicts addressChatacteristicts;
 
     /**
+     * Gets the value of the meteringDeviceNumber property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMeteringDeviceNumber() {
+        return meteringDeviceNumber;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceNumber property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMeteringDeviceNumber(String value) {
+        this.meteringDeviceNumber = value;
+    }
+
+    /**
+     * Gets the value of the meteringDeviceStamp property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMeteringDeviceStamp() {
+        return meteringDeviceStamp;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceStamp property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMeteringDeviceStamp(String value) {
+        this.meteringDeviceStamp = value;
+    }
+
+    /**
+     * Gets the value of the meteringDeviceModel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMeteringDeviceModel() {
+        return meteringDeviceModel;
+    }
+
+    /**
+     * Sets the value of the meteringDeviceModel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMeteringDeviceModel(String value) {
+        this.meteringDeviceModel = value;
+    }
+
+    /**
      * Gets the value of the installationDate property.
      * 
      * @return
@@ -256,6 +363,30 @@ public class MeteringDeviceToUpdateAfterDevicesValuesType {
      */
     public void setInstallationDate(XMLGregorianCalendar value) {
         this.installationDate = value;
+    }
+
+    /**
+     * Gets the value of the commissioningDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getCommissioningDate() {
+        return commissioningDate;
+    }
+
+    /**
+     * Sets the value of the commissioningDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setCommissioningDate(XMLGregorianCalendar value) {
+        this.commissioningDate = value;
     }
 
     /**

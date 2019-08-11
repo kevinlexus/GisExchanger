@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlType;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year"/&gt;
- *         &lt;element name="PaymentInformationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *         &lt;element name="orgPPAGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="PaymentInformationKey" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -45,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CapitalRepairYearExportType", propOrder = {
     "capitalRepairMonthlyCharge",
     "year",
-    "paymentInformationGuid",
-    "orgPPAGUID"
+    "orgPPAGUID",
+    "paymentInformationKey"
 })
 public class CapitalRepairYearExportType {
 
@@ -54,9 +54,9 @@ public class CapitalRepairYearExportType {
     protected List<CapitalRepairYearExportType.CapitalRepairMonthlyCharge> capitalRepairMonthlyCharge;
     @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected short year;
-    @XmlElement(name = "PaymentInformationGuid")
-    protected String paymentInformationGuid;
     protected String orgPPAGUID;
+    @XmlElement(name = "PaymentInformationKey")
+    protected String paymentInformationKey;
 
     /**
      * Gets the value of the capitalRepairMonthlyCharge property.
@@ -104,30 +104,6 @@ public class CapitalRepairYearExportType {
     }
 
     /**
-     * Gets the value of the paymentInformationGuid property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPaymentInformationGuid() {
-        return paymentInformationGuid;
-    }
-
-    /**
-     * Sets the value of the paymentInformationGuid property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPaymentInformationGuid(String value) {
-        this.paymentInformationGuid = value;
-    }
-
-    /**
      * Gets the value of the orgPPAGUID property.
      * 
      * @return
@@ -149,6 +125,30 @@ public class CapitalRepairYearExportType {
      */
     public void setOrgPPAGUID(String value) {
         this.orgPPAGUID = value;
+    }
+
+    /**
+     * Gets the value of the paymentInformationKey property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPaymentInformationKey() {
+        return paymentInformationKey;
+    }
+
+    /**
+     * Sets the value of the paymentInformationKey property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPaymentInformationKey(String value) {
+        this.paymentInformationKey = value;
     }
 
 

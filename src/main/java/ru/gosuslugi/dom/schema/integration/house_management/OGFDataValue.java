@@ -1,6 +1,7 @@
 
 package ru.gosuslugi.dom.schema.integration.house_management;
 
+import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;choice&gt;
  *         &lt;element name="StringValue" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="FloatValue" type="{http://www.w3.org/2001/XMLSchema}float"/&gt;
+ *         &lt;element name="FloatValue" type="{http://www.w3.org/2001/XMLSchema}decimal"/&gt;
  *         &lt;element name="DateTimeValue" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *         &lt;element name="IntegerValue" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="BooleanValue" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
@@ -51,7 +52,7 @@ public class OGFDataValue {
     @XmlElement(name = "StringValue")
     protected String stringValue;
     @XmlElement(name = "FloatValue")
-    protected Float floatValue;
+    protected BigDecimal floatValue;
     @XmlElement(name = "DateTimeValue")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateTimeValue;
@@ -93,10 +94,10 @@ public class OGFDataValue {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link BigDecimal }
      *     
      */
-    public Float getFloatValue() {
+    public BigDecimal getFloatValue() {
         return floatValue;
     }
 
@@ -105,10 +106,10 @@ public class OGFDataValue {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link BigDecimal }
      *     
      */
-    public void setFloatValue(Float value) {
+    public void setFloatValue(BigDecimal value) {
         this.floatValue = value;
     }
 

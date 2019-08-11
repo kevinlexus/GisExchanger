@@ -1,7 +1,6 @@
 
 package ru.gosuslugi.dom.schema.integration.inspection;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,13 +23,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
  *       &lt;choice&gt;
  *         &lt;element name="ExaminationGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="1000"/&gt;
- *         &lt;element name="URIRegistrationNumber" maxOccurs="1000"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
- *               &lt;minInclusive value="0"/&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
+ *         &lt;element name="URIRegistrationNumber" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="1000"/&gt;
  *       &lt;/choice&gt;
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="11.1.0.8""/&gt;
  *     &lt;/extension&gt;
@@ -53,7 +46,7 @@ public class ExportExaminationURIStateRequest
     @XmlElement(name = "ExaminationGuid")
     protected List<String> examinationGuid;
     @XmlElement(name = "URIRegistrationNumber")
-    protected List<BigInteger> uriRegistrationNumber;
+    protected List<String> uriRegistrationNumber;
     @XmlAttribute(name = "version", namespace = "http://dom.gosuslugi.ru/schema/integration/base/", required = true)
     protected String version;
 
@@ -104,13 +97,13 @@ public class ExportExaminationURIStateRequest
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link BigInteger }
+     * {@link String }
      * 
      * 
      */
-    public List<BigInteger> getURIRegistrationNumber() {
+    public List<String> getURIRegistrationNumber() {
         if (uriRegistrationNumber == null) {
-            uriRegistrationNumber = new ArrayList<BigInteger>();
+            uriRegistrationNumber = new ArrayList<String>();
         }
         return this.uriRegistrationNumber;
     }

@@ -49,8 +49,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractObjectAddressRequest.ObjectAddress.LoadObject.class,
-    ExportSupplyResourceContractObjectAddressResultType.class,
-    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.ObjectAddress.class
+    ru.gosuslugi.dom.schema.integration.house_management.SupplyResourceContractType.ObjectAddress.class,
+    ExportSupplyResourceContractObjectAddressResultType.class
 })
 public class ObjectAddressType {
 

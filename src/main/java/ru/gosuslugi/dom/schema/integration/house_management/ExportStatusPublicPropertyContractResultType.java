@@ -14,6 +14,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
+ * Ответ на запрос экспорта ДОГПОИ
+ * 
  * <p>Java class for exportStatusPublicPropertyContractResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

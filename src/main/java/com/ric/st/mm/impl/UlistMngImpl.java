@@ -37,7 +37,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemInfoType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiListType;
-import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
+import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault;
+//import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 /**
  * Сервис справочников ГИС ЖКХ
@@ -147,7 +148,7 @@ public class UlistMngImpl implements UlistMng {
 		NsiItemType res = null;
 		try {
 			res = nsiCommonBuilder.getNsiItem(grp, id);
-		} catch (Fault  e) {
+		} catch (Fault e) {
 			log.error(Utl.getStackTraceString(e));
 			throw new CantUpdNSI("Ошибка при обновлении справочника NSI grp="+ grp+", id="+ id);
 		} catch (CantSignSoap e) {
@@ -156,8 +157,6 @@ public class UlistMngImpl implements UlistMng {
 		} catch (CantSendSoap e) {
 			log.error(Utl.getStackTraceString(e));
 			throw new CantUpdNSI("Ошибка при обновлении справочника NSI grp="+ grp+", id="+ id);
-		} catch (ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault e) {
-			log.error(Utl.getStackTraceString(e));
 		}
         String org = "###";
 
@@ -364,7 +363,7 @@ public class UlistMngImpl implements UlistMng {
 		try {
 			log.info("Запрос справочника из ГИС: grp={}, id={}", grp, id);
 			res = nsiCommonBuilder.getNsiItem(grp, id);
-		} catch (Fault | CantSignSoap | CantSendSoap | ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault e1) {
+		} catch (CantSignSoap | CantSendSoap | ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault e1) {
 			log.error(Utl.getStackTraceString(e1));
 			throw new CantGetNSI("Ошибка получения справочника NSI по группе grp="+grp);
 		}
@@ -414,8 +413,6 @@ public class UlistMngImpl implements UlistMng {
 		} catch (Fault | CantSignSoap | CantSendSoap e1) {
 			log.error(Utl.getStackTraceString(e1));
 			throw new CantUpdNSI("Ошибка обновления группы справочников grp="+grp);
-		} catch (ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault e) {
-			log.error(Utl.getStackTraceString(e));
 		}
 		if (res == null) {
 			log.error("ВНИМАНИЕ! XML ответ - пустой, grp={}", grp);

@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceRequest }
+     * 
+     */
+    public ImportGeneralNeedsMunicipalResourceRequest createImportGeneralNeedsMunicipalResourceRequest() {
+        return new ImportGeneralNeedsMunicipalResourceRequest();
+    }
+
+    /**
      * Create an instance of {@link ImportOrganizationWorksRequest }
      * 
      */
@@ -78,14 +86,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiPagingItemResult }
-     * 
-     */
-    public ExportNsiPagingItemResult createExportNsiPagingItemResult() {
-        return new ExportNsiPagingItemResult();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */
@@ -94,11 +94,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiItemResult }
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource }
      * 
      */
-    public ExportNsiItemResult createExportNsiItemResult() {
-        return new ExportNsiItemResult();
+    public ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource createImportGeneralNeedsMunicipalResourceRequestTopLevelMunicipalResource() {
+        return new ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource();
     }
 
     /**
@@ -147,6 +147,22 @@ public class ObjectFactory {
      */
     public ImportMunicipalServicesRequest.DeleteMainMunicipalService createImportMunicipalServicesRequestDeleteMainMunicipalService() {
         return new ImportMunicipalServicesRequest.DeleteMainMunicipalService();
+    }
+
+    /**
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceRequest.RecoverGeneralMunicipalResource }
+     * 
+     */
+    public ImportGeneralNeedsMunicipalResourceRequest.RecoverGeneralMunicipalResource createImportGeneralNeedsMunicipalResourceRequestRecoverGeneralMunicipalResource() {
+        return new ImportGeneralNeedsMunicipalResourceRequest.RecoverGeneralMunicipalResource();
+    }
+
+    /**
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceRequest.DeleteGeneralMunicipalResource }
+     * 
+     */
+    public ImportGeneralNeedsMunicipalResourceRequest.DeleteGeneralMunicipalResource createImportGeneralNeedsMunicipalResourceRequestDeleteGeneralMunicipalResource() {
+        return new ImportGeneralNeedsMunicipalResourceRequest.DeleteGeneralMunicipalResource();
     }
 
     /**
@@ -262,19 +278,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportNsiPagingItemResult.NsiItem }
-     * 
-     */
-    public ExportNsiPagingItemResult.NsiItem createExportNsiPagingItemResultNsiItem() {
-        return new ExportNsiPagingItemResult.NsiItem();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult.NsiPagingItem }
      * 
      */
     public GetStateResult.NsiPagingItem createGetStateResultNsiPagingItem() {
         return new GetStateResult.NsiPagingItem();
+    }
+
+    /**
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceType }
+     * 
+     */
+    public ImportGeneralNeedsMunicipalResourceType createImportGeneralNeedsMunicipalResourceType() {
+        return new ImportGeneralNeedsMunicipalResourceType();
+    }
+
+    /**
+     * Create an instance of {@link ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource.ImportGeneralMunicipalResource }
+     * 
+     */
+    public ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource.ImportGeneralMunicipalResource createImportGeneralNeedsMunicipalResourceRequestTopLevelMunicipalResourceImportGeneralMunicipalResource() {
+        return new ImportGeneralNeedsMunicipalResourceRequest.TopLevelMunicipalResource.ImportGeneralMunicipalResource();
     }
 
 }

@@ -13,6 +13,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
+ * Экспорт показаний и поверок приборов учета. Значения показаний и поверок указываются в единицах измерения (ЕИ), которые назначены прибору учета при его создании. Если ЕИ прибора учета отличается от ЕИ коммунального ресурса (КР) по умолчанию, то дополнительно указываются значения показаний и поверок в ЕИ КР по умолчанию
+ * 
  * <p>Java class for exportMeteringDeviceHistoryResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
@@ -23,6 +25,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="MeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/metering-device-base/}MeteringDeviceGUIDType"/&gt;
+ *         &lt;element name="HCSHouseGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *         &lt;choice&gt;
  *           &lt;element name="OneRateDeviceValue"&gt;
  *             &lt;complexType&gt;
@@ -144,6 +148,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "exportMeteringDeviceHistoryResultType", propOrder = {
     "meteringDeviceRootGUID",
+    "hcsHouseGUID",
+    "fiasHouseGuid",
     "oneRateDeviceValue",
     "electricDeviceValue",
     "volumeDeviceValue",
@@ -153,6 +159,10 @@ public class ExportMeteringDeviceHistoryResultType {
 
     @XmlElement(name = "MeteringDeviceRootGUID", required = true)
     protected String meteringDeviceRootGUID;
+    @XmlElement(name = "HCSHouseGUID")
+    protected String hcsHouseGUID;
+    @XmlElement(name = "FIASHouseGuid")
+    protected String fiasHouseGuid;
     @XmlElement(name = "OneRateDeviceValue")
     protected ExportMeteringDeviceHistoryResultType.OneRateDeviceValue oneRateDeviceValue;
     @XmlElement(name = "ElectricDeviceValue")
@@ -184,6 +194,54 @@ public class ExportMeteringDeviceHistoryResultType {
      */
     public void setMeteringDeviceRootGUID(String value) {
         this.meteringDeviceRootGUID = value;
+    }
+
+    /**
+     * Gets the value of the hcsHouseGUID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getHCSHouseGUID() {
+        return hcsHouseGUID;
+    }
+
+    /**
+     * Sets the value of the hcsHouseGUID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setHCSHouseGUID(String value) {
+        this.hcsHouseGUID = value;
+    }
+
+    /**
+     * Gets the value of the fiasHouseGuid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFIASHouseGuid() {
+        return fiasHouseGuid;
+    }
+
+    /**
+     * Sets the value of the fiasHouseGuid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFIASHouseGuid(String value) {
+        this.fiasHouseGuid = value;
     }
 
     /**

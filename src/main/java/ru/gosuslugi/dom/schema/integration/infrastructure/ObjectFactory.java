@@ -86,14 +86,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportOKIResult }
-     * 
-     */
-    public ExportOKIResult createExportOKIResult() {
-        return new ExportOKIResult();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */

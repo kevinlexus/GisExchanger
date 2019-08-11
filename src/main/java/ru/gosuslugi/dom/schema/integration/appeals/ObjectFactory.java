@@ -270,6 +270,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportAppealResultType.AppealWithdrawn }
+     * 
+     */
+    public ExportAppealResultType.AppealWithdrawn createExportAppealResultTypeAppealWithdrawn() {
+        return new ExportAppealResultType.AppealWithdrawn();
+    }
+
+    /**
      * Create an instance of {@link ExportAppealResultType.AppealHistory.Answer }
      * 
      */

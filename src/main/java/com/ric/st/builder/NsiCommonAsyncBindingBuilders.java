@@ -4,10 +4,10 @@ import java.math.BigInteger;
 
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiListType;
-import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.excp.CantSignSoap;
+import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault;
 
 public interface NsiCommonAsyncBindingBuilders {
 

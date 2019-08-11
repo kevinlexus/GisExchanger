@@ -39,7 +39,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.HousingService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.AdditionalService.class,
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.MunicipalService.class
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.MunicipalService.class,
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceDebtImportType.GroupMunicipalService.MunicipalService.class
 })
 public class ServiceDebtImportType
     extends DebtImportType

@@ -1,7 +1,6 @@
 
 package ru.gosuslugi.dom.schema.integration.inspection;
 
-import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,13 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;element name="ShouldNotBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *           &lt;sequence&gt;
  *             &lt;element name="ShouldBeRegistered" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *             &lt;element name="URIRegistrationNumber" minOccurs="0"&gt;
- *               &lt;simpleType&gt;
- *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer"&gt;
- *                   &lt;minInclusive value="0"/&gt;
- *                 &lt;/restriction&gt;
- *               &lt;/simpleType&gt;
- *             &lt;/element&gt;
+ *             &lt;element name="URIRegistrationNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *             &lt;element name="URIRegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *             &lt;element name="URIExaminationState"&gt;
  *               &lt;simpleType&gt;
@@ -75,7 +68,7 @@ public class ExportExaminationURIStateResultType {
     @XmlElement(name = "ShouldBeRegistered")
     protected Boolean shouldBeRegistered;
     @XmlElement(name = "URIRegistrationNumber")
-    protected BigInteger uriRegistrationNumber;
+    protected String uriRegistrationNumber;
     @XmlElement(name = "URIRegistrationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar uriRegistrationDate;
@@ -161,10 +154,10 @@ public class ExportExaminationURIStateResultType {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link String }
      *     
      */
-    public BigInteger getURIRegistrationNumber() {
+    public String getURIRegistrationNumber() {
         return uriRegistrationNumber;
     }
 
@@ -173,10 +166,10 @@ public class ExportExaminationURIStateResultType {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link String }
      *     
      */
-    public void setURIRegistrationNumber(BigInteger value) {
+    public void setURIRegistrationNumber(String value) {
         this.uriRegistrationNumber = value;
     }
 

@@ -285,7 +285,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                   &lt;element name="FlowLineTemperature"&gt;
  *                     &lt;simpleType&gt;
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
- *                         &lt;minExclusive value="0"/&gt;
+ *                         &lt;minInclusive value="0"/&gt;
  *                         &lt;fractionDigits value="1"/&gt;
  *                       &lt;/restriction&gt;
  *                     &lt;/simpleType&gt;
@@ -293,7 +293,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                   &lt;element name="OppositeLineTemperature"&gt;
  *                     &lt;simpleType&gt;
  *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
- *                         &lt;minExclusive value="0"/&gt;
+ *                         &lt;minInclusive value="0"/&gt;
  *                         &lt;fractionDigits value="1"/&gt;
  *                       &lt;/restriction&gt;
  *                     &lt;/simpleType&gt;
@@ -3417,7 +3417,7 @@ public class SupplyResourceContractProjectType {
      *         &lt;element name="FlowLineTemperature"&gt;
      *           &lt;simpleType&gt;
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
-     *               &lt;minExclusive value="0"/&gt;
+     *               &lt;minInclusive value="0"/&gt;
      *               &lt;fractionDigits value="1"/&gt;
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;
@@ -3425,7 +3425,7 @@ public class SupplyResourceContractProjectType {
      *         &lt;element name="OppositeLineTemperature"&gt;
      *           &lt;simpleType&gt;
      *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
-     *               &lt;minExclusive value="0"/&gt;
+     *               &lt;minInclusive value="0"/&gt;
      *               &lt;fractionDigits value="1"/&gt;
      *             &lt;/restriction&gt;
      *           &lt;/simpleType&gt;

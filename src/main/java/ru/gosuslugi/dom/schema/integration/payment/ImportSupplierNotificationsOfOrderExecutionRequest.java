@@ -22,7 +22,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="SupplierNotificationOfOrderExecution" maxOccurs="1000"&gt;
+ *         &lt;element name="SupplierNotificationOfOrderExecution" maxOccurs="250"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
  *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/payment/}SupplierNotificationOfOrderExecutionType"&gt;

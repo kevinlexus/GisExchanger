@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Holder;
 
 import com.ric.st.impl.SoapConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,8 @@ import com.ric.st.mm.UlistMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.schema.integration.base.AckRequest;
-import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
+import ru.gosuslugi.dom.schema.integration.base.*;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
-import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ExportDataProviderNsiItemRequest;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementType;
 import ru.gosuslugi.dom.schema.integration.nsi_service_async.NsiPortsTypeAsync;
@@ -98,9 +97,9 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	public ru.gosuslugi.dom.schema.integration.nsi.GetStateResult getState2(Task task) {
 
 		// Признак ошибки
-		Boolean err = false;
+		boolean err = false;
 		// Признак ошибки в CommonResult
-		Boolean errChld = false;
+		boolean errChld = false;
 		String errStr = null;
 		ru.gosuslugi.dom.schema.integration.nsi.GetStateResult state = null;
 
@@ -110,6 +109,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 
 		sb.makeRndMsgGuid();
 		try {
+			Holder<ResultHeader> hld = new Holder<>();
 			state = port.getState(gs);
 		} catch (ru.gosuslugi.dom.schema.integration.nsi_service_async.Fault e) {
 			e.printStackTrace();
@@ -254,7 +254,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 				em.persist(ulistTp);
 				log.info("Создан заголовочный элемент ListTp :{}", prefix);
 			}
-			String org = ulistTp.getEolink().getReu();
+			// String org = ulistTp.getEolink().getReu();
+			String org = ulistTp.getEolink().getOrg().getReu();
 
 			// загрузить полученные элементы
 			Integer idx = 0;

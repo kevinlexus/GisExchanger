@@ -768,8 +768,8 @@ public class HMServicesTarifsDocType
              * <p>
              * You are getting this "catch-all" property because of the following reason: 
              * The field name "Name" is used by two different parts of a schema. See: 
-             * line 1272 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/services/hcs-services-types.xsd
-             * line 27 of file:/C:/Progs/GisExchanger/wsdl/hcs_wsdl_xsd_v.12.2.1.10/lib/hcs-nsi-base.xsd
+             * line 1223 of file:/C:/doc/GIS/gis_wsimport/services/hcs-services-types.xsd
+             * line 26 of file:/C:/doc/GIS/gis_wsimport/lib/hcs-nsi-base.xsd
              * <p>
              * To get rid of this property, apply a property customization to one 
              * of both of the following declarations to change their names: 

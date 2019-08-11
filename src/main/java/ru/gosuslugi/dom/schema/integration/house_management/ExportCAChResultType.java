@@ -13,6 +13,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
+ * Ответ на запрос экспорта ДУ/уставов
+ * 
  * <p>Java class for exportCAChResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

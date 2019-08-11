@@ -25,7 +25,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType"/&gt;
+ *         &lt;element name="FIASHouseGuid" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" maxOccurs="100" minOccurs="0"/&gt;
+ *         &lt;element name="ExportMeteringDeviceRootGUID" type="{http://dom.gosuslugi.ru/schema/integration/base/}GUIDType" minOccurs="0"/&gt;
  *         &lt;choice&gt;
  *           &lt;element name="MeteringDeviceType" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/&gt;
  *           &lt;element name="MunicipalResource" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="100"/&gt;
@@ -54,6 +55,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "fiasHouseGuid",
+    "exportMeteringDeviceRootGUID",
     "meteringDeviceType",
     "municipalResource",
     "meteringDeviceRootGUID",
@@ -74,8 +76,10 @@ public class ExportMeteringDeviceHistoryRequest
     extends BaseType
 {
 
-    @XmlElement(name = "FIASHouseGuid", required = true)
-    protected String fiasHouseGuid;
+    @XmlElement(name = "FIASHouseGuid")
+    protected List<String> fiasHouseGuid;
+    @XmlElement(name = "ExportMeteringDeviceRootGUID")
+    protected String exportMeteringDeviceRootGUID;
     @XmlElement(name = "MeteringDeviceType")
     protected List<NsiRef> meteringDeviceType;
     @XmlElement(name = "MunicipalResource")
@@ -113,25 +117,54 @@ public class ExportMeteringDeviceHistoryRequest
     /**
      * Gets the value of the fiasHouseGuid property.
      * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the fiasHouseGuid property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFIASHouseGuid().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getFIASHouseGuid() {
+        if (fiasHouseGuid == null) {
+            fiasHouseGuid = new ArrayList<String>();
+        }
+        return this.fiasHouseGuid;
+    }
+
+    /**
+     * Gets the value of the exportMeteringDeviceRootGUID property.
+     * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getFIASHouseGuid() {
-        return fiasHouseGuid;
+    public String getExportMeteringDeviceRootGUID() {
+        return exportMeteringDeviceRootGUID;
     }
 
     /**
-     * Sets the value of the fiasHouseGuid property.
+     * Sets the value of the exportMeteringDeviceRootGUID property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setFIASHouseGuid(String value) {
-        this.fiasHouseGuid = value;
+    public void setExportMeteringDeviceRootGUID(String value) {
+        this.exportMeteringDeviceRootGUID = value;
     }
 
     /**

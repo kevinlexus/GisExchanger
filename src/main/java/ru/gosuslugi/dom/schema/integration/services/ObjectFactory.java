@@ -107,22 +107,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CompletedWorksByPeriodType }
-     * 
-     */
-    public CompletedWorksByPeriodType createCompletedWorksByPeriodType() {
-        return new CompletedWorksByPeriodType();
-    }
-
-    /**
-     * Create an instance of {@link CompletedWorksByPeriodType.UnplannedWork }
-     * 
-     */
-    public CompletedWorksByPeriodType.UnplannedWork createCompletedWorksByPeriodTypeUnplannedWork() {
-        return new CompletedWorksByPeriodType.UnplannedWork();
-    }
-
-    /**
      * Create an instance of {@link ExportWorkingPlanResultType }
      * 
      */
@@ -147,14 +131,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link WorkingPlanType }
-     * 
-     */
-    public WorkingPlanType createWorkingPlanType() {
-        return new WorkingPlanType();
-    }
-
-    /**
      * Create an instance of {@link ExportWorkingListResultType }
      * 
      */
@@ -168,6 +144,30 @@ public class ObjectFactory {
      */
     public ExportWorkingListResultType.WorkingList createExportWorkingListResultTypeWorkingList() {
         return new ExportWorkingListResultType.WorkingList();
+    }
+
+    /**
+     * Create an instance of {@link CompletedWorksByPeriodType }
+     * 
+     */
+    public CompletedWorksByPeriodType createCompletedWorksByPeriodType() {
+        return new CompletedWorksByPeriodType();
+    }
+
+    /**
+     * Create an instance of {@link CompletedWorksByPeriodType.UnplannedWork }
+     * 
+     */
+    public CompletedWorksByPeriodType.UnplannedWork createCompletedWorksByPeriodTypeUnplannedWork() {
+        return new CompletedWorksByPeriodType.UnplannedWork();
+    }
+
+    /**
+     * Create an instance of {@link WorkingPlanType }
+     * 
+     */
+    public WorkingPlanType createWorkingPlanType() {
+        return new WorkingPlanType();
     }
 
     /**
@@ -211,14 +211,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportWorkingListResult }
-     * 
-     */
-    public ExportWorkingListResult createExportWorkingListResult() {
-        return new ExportWorkingListResult();
-    }
-
-    /**
      * Create an instance of {@link ImportWorkingPlanRequest }
      * 
      */
@@ -232,14 +224,6 @@ public class ObjectFactory {
      */
     public ExportWorkingPlanRequest.Work createExportWorkingPlanRequestWork() {
         return new ExportWorkingPlanRequest.Work();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingPlanResult }
-     * 
-     */
-    public ExportWorkingPlanResult createExportWorkingPlanResult() {
-        return new ExportWorkingPlanResult();
     }
 
     /**
@@ -259,22 +243,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportCompletedWorksResult }
-     * 
-     */
-    public ExportCompletedWorksResult createExportCompletedWorksResult() {
-        return new ExportCompletedWorksResult();
-    }
-
-    /**
-     * Create an instance of {@link ExportCompletedWorksResultType }
-     * 
-     */
-    public ExportCompletedWorksResultType createExportCompletedWorksResultType() {
-        return new ExportCompletedWorksResultType();
-    }
-
-    /**
      * Create an instance of {@link ExportHMServicesTarifsRequest }
      * 
      */
@@ -283,11 +251,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportHMServicesTarifsResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportHMServicesTarifsResult createExportHMServicesTarifsResult() {
-        return new ExportHMServicesTarifsResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -299,11 +267,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStateResult }
+     * Create an instance of {@link ExportCompletedWorksResultType }
      * 
      */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
+    public ExportCompletedWorksResultType createExportCompletedWorksResultType() {
+        return new ExportCompletedWorksResultType();
     }
 
     /**
@@ -403,6 +371,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear }
+     * 
+     */
+    public ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear createExportWorkingPlanResultTypeWorkingPlanReportingPeriodMonthYear() {
+        return new ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear();
+    }
+
+    /**
+     * Create an instance of {@link ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem }
+     * 
+     */
+    public ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem createExportWorkingPlanResultTypeWorkingPlanReportingPeriodWorkPlanItem() {
+        return new ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem();
+    }
+
+    /**
+     * Create an instance of {@link ExportWorkingListResultType.WorkingList.WorkListItem }
+     * 
+     */
+    public ExportWorkingListResultType.WorkingList.WorkListItem createExportWorkingListResultTypeWorkingListWorkListItem() {
+        return new ExportWorkingListResultType.WorkingList.WorkListItem();
+    }
+
+    /**
      * Create an instance of {@link CompletedWorksByPeriodType.PlannedWork }
      * 
      */
@@ -427,35 +419,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear }
-     * 
-     */
-    public ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear createExportWorkingPlanResultTypeWorkingPlanReportingPeriodMonthYear() {
-        return new ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.MonthYear();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem }
-     * 
-     */
-    public ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem createExportWorkingPlanResultTypeWorkingPlanReportingPeriodWorkPlanItem() {
-        return new ExportWorkingPlanResultType.WorkingPlan.ReportingPeriod.WorkPlanItem();
-    }
-
-    /**
      * Create an instance of {@link WorkingPlanType.WorkPlanItem }
      * 
      */
     public WorkingPlanType.WorkPlanItem createWorkingPlanTypeWorkPlanItem() {
         return new WorkingPlanType.WorkPlanItem();
-    }
-
-    /**
-     * Create an instance of {@link ExportWorkingListResultType.WorkingList.WorkListItem }
-     * 
-     */
-    public ExportWorkingListResultType.WorkingList.WorkListItem createExportWorkingListResultTypeWorkingListWorkListItem() {
-        return new ExportWorkingListResultType.WorkingList.WorkListItem();
     }
 
     /**

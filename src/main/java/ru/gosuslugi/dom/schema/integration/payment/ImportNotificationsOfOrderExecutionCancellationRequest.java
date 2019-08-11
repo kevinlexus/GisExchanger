@@ -23,7 +23,7 @@ import ru.gosuslugi.dom.schema.integration.payments_base.NotificationOfOrderExec
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/base/}BaseType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="NotificationOfOrderExecutionCancellation" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}NotificationOfOrderExecutionCancellationType" maxOccurs="1000"/&gt;
+ *         &lt;element name="NotificationOfOrderExecutionCancellation" type="{http://dom.gosuslugi.ru/schema/integration/payments-base/}NotificationOfOrderExecutionCancellationType" maxOccurs="500"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute ref="{http://dom.gosuslugi.ru/schema/integration/base/}version use="required" fixed="10.0.1.1""/&gt;
  *     &lt;/extension&gt;

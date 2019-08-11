@@ -100,14 +100,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportCategoriesResult }
-     * 
-     */
-    public ExportCategoriesResult createExportCategoriesResult() {
-        return new ExportCategoriesResult();
-    }
-
-    /**
      * Create an instance of {@link ExportCitizenSubsidyRequest }
      * 
      */
@@ -116,27 +108,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportCitizenSubsidyResult }
-     * 
-     */
-    public ExportCitizenSubsidyResult createExportCitizenSubsidyResult() {
-        return new ExportCitizenSubsidyResult();
-    }
-
-    /**
      * Create an instance of {@link ExportCitizenCompensationRequest }
      * 
      */
     public ExportCitizenCompensationRequest createExportCitizenCompensationRequest() {
         return new ExportCitizenCompensationRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportCitizenCompensationResult }
-     * 
-     */
-    public ExportCitizenCompensationResult createExportCitizenCompensationResult() {
-        return new ExportCitizenCompensationResult();
     }
 
     /**

@@ -55,7 +55,7 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.LegalType
  *             &lt;/complexContent&gt;
  *           &lt;/complexType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="BaseDocument"&gt;
+ *         &lt;element name="BaseDocument" minOccurs="0"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
@@ -93,7 +93,7 @@ public class AccompanyingDocumentType {
 
     @XmlElement(name = "Document", required = true)
     protected AccompanyingDocumentType.Document document;
-    @XmlElement(name = "BaseDocument", required = true)
+    @XmlElement(name = "BaseDocument")
     protected AccompanyingDocumentType.BaseDocument baseDocument;
 
     /**

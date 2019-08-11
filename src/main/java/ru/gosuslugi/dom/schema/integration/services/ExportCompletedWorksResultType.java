@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Результат экспорта сведений о выполненных работах и услугах
+ * 
  * <p>Java class for exportCompletedWorksResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

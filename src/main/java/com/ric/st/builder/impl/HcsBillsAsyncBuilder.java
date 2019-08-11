@@ -763,7 +763,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // есть ли ПД (их отмена) на загрузку?
         boolean isExistJob = false;
 
-        AckRequest ack = null;
         boolean err = false;
         String errMainStr = null;
         ImportPaymentDocumentRequest req = new ImportPaymentDocumentRequest();
@@ -793,7 +792,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     break;
                 }
                 log.info("Добавление платежного документа, Pdoc.id={}", t.getId());
-                boolean isAdd = addPaymentDocument(uk, t, house, req, reqProp.getAppTp(), tguidPay);
+                boolean isAdd = addPaymentDocument(uk, t, house, req, 1, tguidPay);
                 t.setIsConfirmCorrect(true);
                 if (isAdd) {
                     // если хотя бы один документ добавлен - загружать
@@ -838,6 +837,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         }
         if (isExistJob) {
             log.info("******* Task.id={}, импорт платежных документов по дому, вызов", task.getId());
+            AckRequest ack = null;
             try {
                 ack = port.importPaymentDocumentData(req);
             } catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
@@ -919,15 +919,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         String cd;
         if (pdoc.getCd() == null) {
             // если не проставлен № документа в биллинге
-            if (appTp == 0 || appTp == 2) {
                 // старая и эксперементальная разработка
-                cd = "ПД_".concat(uk.getReu().concat("_").concat(period).concat("_").concat(String.valueOf(pdoc.getId())));
+                cd = "ПД_".concat(uk.getOrg().getReu().concat("_").concat(period).concat("_").concat(String.valueOf(pdoc.getId())));
                 pdoc.setCd(cd);
                 log.info("-------------------------------------------------------------------------------------------");
                 log.info("ПД: проставлен № документа cd={}", cd);
-            } else { // Прочие разработки
-
-            }
         } else {
             log.info("ПД: использован № документа cd={}", pdoc.getCd());
         }
@@ -1021,7 +1017,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
         // получить запись сальдо
         SumSaldoRecDTO sumSaldo = debMng.getSumSaldo(acc.getKart().getLsk(), acc.getKoObj(),
-                period, reqProp.getAppTp());
+                period, 1);
 
         // вычесть текущую оплату
         BigDecimal salAmnt = BigDecimal.ZERO;

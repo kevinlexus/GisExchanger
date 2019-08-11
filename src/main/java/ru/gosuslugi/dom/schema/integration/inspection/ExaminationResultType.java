@@ -12,11 +12,11 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 /**
  * Результат проверки.
- *
+ * 
  * <p>Java class for ExaminationResultType complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="ExaminationResultType"&gt;
  *   &lt;complexContent&gt;
@@ -77,8 +77,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExaminationResultType", propOrder = {
@@ -136,11 +136,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the documentType property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link NsiRef }
-     *
+     *     
      */
     public NsiRef getDocumentType() {
         return documentType;
@@ -148,11 +148,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the documentType property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link NsiRef }
-     *
+     *     
      */
     public void setDocumentType(NsiRef value) {
         this.documentType = value;
@@ -160,11 +160,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the number property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getNumber() {
         return number;
@@ -172,11 +172,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the number property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setNumber(String value) {
         this.number = value;
@@ -184,11 +184,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the date property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public XMLGregorianCalendar getDate() {
         return date;
@@ -196,11 +196,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the date property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public void setDate(XMLGregorianCalendar value) {
         this.date = value;
@@ -208,11 +208,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the hasNoOffence property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Boolean }
-     *
+     *     
      */
     public Boolean isHasNoOffence() {
         return hasNoOffence;
@@ -220,11 +220,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the hasNoOffence property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Boolean }
-     *
+     *     
      */
     public void setHasNoOffence(Boolean value) {
         this.hasNoOffence = value;
@@ -232,11 +232,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the hasOffence property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Boolean }
-     *
+     *     
      */
     public Boolean isHasOffence() {
         return hasOffence;
@@ -244,11 +244,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the hasOffence property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Boolean }
-     *
+     *     
      */
     public void setHasOffence(Boolean value) {
         this.hasOffence = value;
@@ -256,11 +256,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the identifiedOffencesInfo property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link ExaminationResultType.IdentifiedOffencesInfo }
-     *
+     *     
      */
     public ExaminationResultType.IdentifiedOffencesInfo getIdentifiedOffencesInfo() {
         return identifiedOffencesInfo;
@@ -268,11 +268,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the identifiedOffencesInfo property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link ExaminationResultType.IdentifiedOffencesInfo }
-     *
+     *     
      */
     public void setIdentifiedOffencesInfo(ExaminationResultType.IdentifiedOffencesInfo value) {
         this.identifiedOffencesInfo = value;
@@ -280,11 +280,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the from property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public XMLGregorianCalendar getFrom() {
         return from;
@@ -292,11 +292,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the from property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public void setFrom(XMLGregorianCalendar value) {
         this.from = value;
@@ -304,11 +304,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the to property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public XMLGregorianCalendar getTo() {
         return to;
@@ -316,11 +316,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the to property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public void setTo(XMLGregorianCalendar value) {
         this.to = value;
@@ -328,11 +328,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the duration property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link ExaminationResultType.Duration }
-     *
+     *     
      */
     public ExaminationResultType.Duration getDuration() {
         return duration;
@@ -340,11 +340,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the duration property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link ExaminationResultType.Duration }
-     *
+     *     
      */
     public void setDuration(ExaminationResultType.Duration value) {
         this.duration = value;
@@ -352,11 +352,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the place property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getPlace() {
         return place;
@@ -364,11 +364,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the place property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setPlace(String value) {
         this.place = value;
@@ -376,11 +376,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the inspectionPersons property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getInspectionPersons() {
         return inspectionPersons;
@@ -388,11 +388,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the inspectionPersons property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setInspectionPersons(String value) {
         this.inspectionPersons = value;
@@ -400,11 +400,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the absentRepresentatives property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Boolean }
-     *
+     *     
      */
     public Boolean isAbsentRepresentatives() {
         return absentRepresentatives;
@@ -412,11 +412,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the absentRepresentatives property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Boolean }
-     *
+     *     
      */
     public void setAbsentRepresentatives(Boolean value) {
         this.absentRepresentatives = value;
@@ -424,11 +424,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the representativesRegionPersons property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getRepresentativesRegionPersons() {
         return representativesRegionPersons;
@@ -436,11 +436,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the representativesRegionPersons property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setRepresentativesRegionPersons(String value) {
         this.representativesRegionPersons = value;
@@ -448,11 +448,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the settlingDocumentPlace property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getSettlingDocumentPlace() {
         return settlingDocumentPlace;
@@ -460,11 +460,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the settlingDocumentPlace property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setSettlingDocumentPlace(String value) {
         this.settlingDocumentPlace = value;
@@ -472,11 +472,11 @@ public class ExaminationResultType {
 
     /**
      * Gets the value of the additionalInfo property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getAdditionalInfo() {
         return additionalInfo;
@@ -484,11 +484,11 @@ public class ExaminationResultType {
 
     /**
      * Sets the value of the additionalInfo property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setAdditionalInfo(String value) {
         this.additionalInfo = value;
@@ -497,9 +497,9 @@ public class ExaminationResultType {
 
     /**
      * <p>Java class for anonymous complex type.
-     *
+     * 
      * <p>The following schema fragment specifies the expected content contained within this class.
-     *
+     * 
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -512,8 +512,8 @@ public class ExaminationResultType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     *
-     *
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -528,24 +528,24 @@ public class ExaminationResultType {
         protected Double hours;
 
         /**
-         * Gets the value of the curDays property.
-         *
+         * Gets the value of the days property.
+         * 
          * @return
          *     possible object is
          *     {@link Double }
-         *
+         *     
          */
         public Double getDays() {
             return days;
         }
 
         /**
-         * Sets the value of the curDays property.
-         *
+         * Sets the value of the days property.
+         * 
          * @param value
          *     allowed object is
          *     {@link Double }
-         *
+         *     
          */
         public void setDays(Double value) {
             this.days = value;
@@ -553,11 +553,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the hours property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link Double }
-         *
+         *     
          */
         public Double getHours() {
             return hours;
@@ -565,11 +565,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the hours property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link Double }
-         *
+         *     
          */
         public void setHours(Double value) {
             this.hours = value;
@@ -580,9 +580,9 @@ public class ExaminationResultType {
 
     /**
      * <p>Java class for anonymous complex type.
-     *
+     * 
      * <p>The following schema fragment specifies the expected content contained within this class.
-     *
+     * 
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -604,8 +604,8 @@ public class ExaminationResultType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     *
-     *
+     * 
+     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -649,11 +649,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the natureOffence property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getNatureOffence() {
             return natureOffence;
@@ -661,11 +661,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the natureOffence property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setNatureOffence(String value) {
             this.natureOffence = value;
@@ -673,11 +673,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the detailsMismatch property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getDetailsMismatch() {
             return detailsMismatch;
@@ -685,11 +685,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the detailsMismatch property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setDetailsMismatch(String value) {
             this.detailsMismatch = value;
@@ -697,11 +697,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the regulationOffencedLegalAct property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getRegulationOffencedLegalAct() {
             return regulationOffencedLegalAct;
@@ -709,11 +709,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the regulationOffencedLegalAct property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setRegulationOffencedLegalAct(String value) {
             this.regulationOffencedLegalAct = value;
@@ -721,11 +721,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the otherMismatch property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getOtherMismatch() {
             return otherMismatch;
@@ -733,11 +733,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the otherMismatch property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setOtherMismatch(String value) {
             this.otherMismatch = value;
@@ -745,11 +745,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the personsOffenceList property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getPersonsOffenceList() {
             return personsOffenceList;
@@ -757,11 +757,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the personsOffenceList property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setPersonsOffenceList(String value) {
             this.personsOffenceList = value;
@@ -769,11 +769,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the materialsDirectionAgency property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getMaterialsDirectionAgency() {
             return materialsDirectionAgency;
@@ -781,11 +781,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the materialsDirectionAgency property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setMaterialsDirectionAgency(String value) {
             this.materialsDirectionAgency = value;
@@ -793,11 +793,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the materialsDirectionDate property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
-         *
+         *     
          */
         public XMLGregorianCalendar getMaterialsDirectionDate() {
             return materialsDirectionDate;
@@ -805,11 +805,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the materialsDirectionDate property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
-         *
+         *     
          */
         public void setMaterialsDirectionDate(XMLGregorianCalendar value) {
             this.materialsDirectionDate = value;
@@ -817,11 +817,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the applyingMeasures property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getApplyingMeasures() {
             return applyingMeasures;
@@ -829,11 +829,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the applyingMeasures property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setApplyingMeasures(String value) {
             this.applyingMeasures = value;
@@ -841,11 +841,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the personsAdministrativeResponsibilityInfo property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getPersonsAdministrativeResponsibilityInfo() {
             return personsAdministrativeResponsibilityInfo;
@@ -853,11 +853,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the personsAdministrativeResponsibilityInfo property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setPersonsAdministrativeResponsibilityInfo(String value) {
             this.personsAdministrativeResponsibilityInfo = value;
@@ -865,11 +865,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the permittingDocumensAnnulmentInfo property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getPermittingDocumensAnnulmentInfo() {
             return permittingDocumensAnnulmentInfo;
@@ -877,11 +877,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the permittingDocumensAnnulmentInfo property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setPermittingDocumensAnnulmentInfo(String value) {
             this.permittingDocumensAnnulmentInfo = value;
@@ -889,11 +889,11 @@ public class ExaminationResultType {
 
         /**
          * Gets the value of the appealInfo property.
-         *
+         * 
          * @return
          *     possible object is
          *     {@link String }
-         *
+         *     
          */
         public String getAppealInfo() {
             return appealInfo;
@@ -901,11 +901,11 @@ public class ExaminationResultType {
 
         /**
          * Sets the value of the appealInfo property.
-         *
+         * 
          * @param value
          *     allowed object is
          *     {@link String }
-         *
+         *     
          */
         public void setAppealInfo(String value) {
             this.appealInfo = value;

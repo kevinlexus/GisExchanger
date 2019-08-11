@@ -142,6 +142,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportOffenceType }
+     * 
+     */
+    public ExportOffenceType createExportOffenceType() {
+        return new ExportOffenceType();
+    }
+
+    /**
+     * Create an instance of {@link OffenceType }
+     * 
+     */
+    public OffenceType createOffenceType() {
+        return new OffenceType();
+    }
+
+    /**
      * Create an instance of {@link ExportExaminationResultsType }
      * 
      */
@@ -230,14 +246,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination createImportExaminationsRequestImportExamination() {
-        return new ImportExaminationsRequest.ImportExamination();
-    }
-
-    /**
      * Create an instance of {@link ExportInspectionPlanResultType }
      * 
      */
@@ -251,6 +259,14 @@ public class ObjectFactory {
      */
     public ExportInspectionPlanResultType.PlannedExamination createExportInspectionPlanResultTypePlannedExamination() {
         return new ExportInspectionPlanResultType.PlannedExamination();
+    }
+
+    /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination createImportExaminationsRequestImportExamination() {
+        return new ImportExaminationsRequest.ImportExamination();
     }
 
     /**
@@ -270,27 +286,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportInspectionPlansResult }
-     * 
-     */
-    public ExportInspectionPlansResult createExportInspectionPlansResult() {
-        return new ExportInspectionPlansResult();
-    }
-
-    /**
      * Create an instance of {@link ExportExaminationsRequest }
      * 
      */
     public ExportExaminationsRequest createExportExaminationsRequest() {
         return new ExportExaminationsRequest();
-    }
-
-    /**
-     * Create an instance of {@link ExportExaminationsResult }
-     * 
-     */
-    public ExportExaminationsResult createExportExaminationsResult() {
-        return new ExportExaminationsResult();
     }
 
     /**
@@ -302,11 +302,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportExaminationURIStateResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportExaminationURIStateResult createExportExaminationURIStateResult() {
-        return new ExportExaminationURIStateResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -315,14 +315,6 @@ public class ObjectFactory {
      */
     public ExportExaminationURIStateResultType createExportExaminationURIStateResultType() {
         return new ExportExaminationURIStateResultType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**
@@ -398,19 +390,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OffenceType }
+     * Create an instance of {@link AddSubmittedInformationType }
      * 
      */
-    public OffenceType createOffenceType() {
-        return new OffenceType();
-    }
-
-    /**
-     * Create an instance of {@link ExportOffenceType }
-     * 
-     */
-    public ExportOffenceType createExportOffenceType() {
-        return new ExportOffenceType();
+    public AddSubmittedInformationType createAddSubmittedInformationType() {
+        return new AddSubmittedInformationType();
     }
 
     /**
@@ -646,6 +630,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportOffenceType.IsSubmittedToCourt }
+     * 
+     */
+    public ExportOffenceType.IsSubmittedToCourt createExportOffenceTypeIsSubmittedToCourt() {
+        return new ExportOffenceType.IsSubmittedToCourt();
+    }
+
+    /**
+     * Create an instance of {@link OffenceType.IsSubmittedToCourt }
+     * 
+     */
+    public OffenceType.IsSubmittedToCourt createOffenceTypeIsSubmittedToCourt() {
+        return new OffenceType.IsSubmittedToCourt();
+    }
+
+    /**
      * Create an instance of {@link ExportExaminationResultsType.IdentifiedOffencesInfo }
      * 
      */
@@ -790,22 +790,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportPrecept }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination.ImportPrecept createImportExaminationsRequestImportExaminationImportPrecept() {
-        return new ImportExaminationsRequest.ImportExamination.ImportPrecept();
-    }
-
-    /**
-     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportOffence }
-     * 
-     */
-    public ImportExaminationsRequest.ImportExamination.ImportOffence createImportExaminationsRequestImportExaminationImportOffence() {
-        return new ImportExaminationsRequest.ImportExamination.ImportOffence();
-    }
-
-    /**
      * Create an instance of {@link ExportInspectionPlanResultType.InspectionPlan }
      * 
      */
@@ -819,6 +803,22 @@ public class ObjectFactory {
      */
     public ExportInspectionPlanResultType.PlannedExamination.PlannedExaminationInfo createExportInspectionPlanResultTypePlannedExaminationPlannedExaminationInfo() {
         return new ExportInspectionPlanResultType.PlannedExamination.PlannedExaminationInfo();
+    }
+
+    /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportPrecept }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination.ImportPrecept createImportExaminationsRequestImportExaminationImportPrecept() {
+        return new ImportExaminationsRequest.ImportExamination.ImportPrecept();
+    }
+
+    /**
+     * Create an instance of {@link ImportExaminationsRequest.ImportExamination.ImportOffence }
+     * 
+     */
+    public ImportExaminationsRequest.ImportExamination.ImportOffence createImportExaminationsRequestImportExaminationImportOffence() {
+        return new ImportExaminationsRequest.ImportExamination.ImportOffence();
     }
 
     /**

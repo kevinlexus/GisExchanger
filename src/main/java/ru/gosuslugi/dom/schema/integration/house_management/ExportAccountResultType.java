@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Экспорт ЛС
+ * Ответ на запрос экспорта лицевых счетов
  * 
  * <p>Java class for exportAccountResultType complex type.
  * 

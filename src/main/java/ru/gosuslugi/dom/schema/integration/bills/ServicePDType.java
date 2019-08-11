@@ -31,7 +31,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="TotalPayable"&gt;
+ *         &lt;element name="TotalPayable" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="18"/&gt;
@@ -39,7 +39,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
- *         &lt;element name="AccountingPeriodTotal"&gt;
+ *         &lt;element name="AccountingPeriodTotal" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
  *               &lt;totalDigits value="18"/&gt;
@@ -78,7 +78,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.HousingService.class,
     ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.AdditionalService.class,
-    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.MunicipalService.class
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.MunicipalService.class,
+    ru.gosuslugi.dom.schema.integration.bills.PDServiceChargeExportType.GroupMunicipalService.MunicipalService.class
 })
 public class ServicePDType {
 
@@ -86,9 +87,9 @@ public class ServicePDType {
     protected NsiRef serviceType;
     @XmlElement(name = "Rate", required = true)
     protected BigDecimal rate;
-    @XmlElement(name = "TotalPayable", required = true)
+    @XmlElement(name = "TotalPayable")
     protected BigDecimal totalPayable;
-    @XmlElement(name = "AccountingPeriodTotal", required = true)
+    @XmlElement(name = "AccountingPeriodTotal")
     protected BigDecimal accountingPeriodTotal;
     @XmlElement(name = "CalcExplanation")
     protected String calcExplanation;

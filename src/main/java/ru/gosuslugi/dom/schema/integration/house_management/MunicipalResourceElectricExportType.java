@@ -24,9 +24,9 @@ import ru.gosuslugi.dom.schema.integration.metering_device_base.ElectricMetering
  *         &lt;element name="TransformationRatio" minOccurs="0"&gt;
  *           &lt;simpleType&gt;
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
- *               &lt;fractionDigits value="2"/&gt;
+ *               &lt;fractionDigits value="4"/&gt;
  *               &lt;minInclusive value="0"/&gt;
- *               &lt;maxInclusive value="999999999999999.99"/&gt;
+ *               &lt;maxInclusive value="9999999999.9999"/&gt;
  *             &lt;/restriction&gt;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;

@@ -48,7 +48,7 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                                   &lt;/complexContent&gt;
  *                                 &lt;/complexType&gt;
  *                               &lt;/element&gt;
- *                               &lt;element name="ReportingPeriod" maxOccurs="unbounded"&gt;
+ *                               &lt;element name="ReportingPeriod" maxOccurs="unbounded" minOccurs="0"&gt;
  *                                 &lt;complexType&gt;
  *                                   &lt;complexContent&gt;
  *                                     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ReportPeriodType"&gt;
@@ -191,7 +191,7 @@ public class ImportRSOSettlementsRequest
      *                         &lt;/complexContent&gt;
      *                       &lt;/complexType&gt;
      *                     &lt;/element&gt;
-     *                     &lt;element name="ReportingPeriod" maxOccurs="unbounded"&gt;
+     *                     &lt;element name="ReportingPeriod" maxOccurs="unbounded" minOccurs="0"&gt;
      *                       &lt;complexType&gt;
      *                         &lt;complexContent&gt;
      *                           &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ReportPeriodType"&gt;
@@ -361,7 +361,7 @@ public class ImportRSOSettlementsRequest
          *             &lt;/complexContent&gt;
          *           &lt;/complexType&gt;
          *         &lt;/element&gt;
-         *         &lt;element name="ReportingPeriod" maxOccurs="unbounded"&gt;
+         *         &lt;element name="ReportingPeriod" maxOccurs="unbounded" minOccurs="0"&gt;
          *           &lt;complexType&gt;
          *             &lt;complexContent&gt;
          *               &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/bills/}ReportPeriodType"&gt;
@@ -397,7 +397,7 @@ public class ImportRSOSettlementsRequest
 
             @XmlElement(name = "Contract")
             protected ImportRSOSettlementsRequest.ImportSettlement.Settlement.Contract contract;
-            @XmlElement(name = "ReportingPeriod", required = true)
+            @XmlElement(name = "ReportingPeriod")
             protected List<ImportRSOSettlementsRequest.ImportSettlement.Settlement.ReportingPeriod> reportingPeriod;
 
             /**

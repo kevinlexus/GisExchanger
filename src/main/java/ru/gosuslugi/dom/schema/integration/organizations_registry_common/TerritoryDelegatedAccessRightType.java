@@ -12,6 +12,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 
 /**
+ * Сведения о территориях из заявок на делегирование прав
+ * 
  * <p>Java class for TerritoryDelegatedAccessRightType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

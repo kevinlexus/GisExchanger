@@ -70,6 +70,8 @@ import ru.gosuslugi.dom.schema.integration.base.BaseType;
  *                                 &lt;/sequence&gt;
  *                                 &lt;choice&gt;
  *                                   &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+ *                                   &lt;element name="AddSubmittedInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}AddSubmittedInformationType"/&gt;
+ *                                   &lt;element name="DeleteSubmittedInformation" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *                                   &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
  *                                   &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
  *                                   &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
@@ -224,6 +226,8 @@ public class ImportExaminationsRequest
      *                       &lt;/sequence&gt;
      *                       &lt;choice&gt;
      *                         &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+     *                         &lt;element name="AddSubmittedInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}AddSubmittedInformationType"/&gt;
+     *                         &lt;element name="DeleteSubmittedInformation" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
      *                         &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
      *                         &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
      *                         &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
@@ -604,6 +608,8 @@ public class ImportExaminationsRequest
          *         &lt;/sequence&gt;
          *         &lt;choice&gt;
          *           &lt;element name="Offence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}OffenceType"/&gt;
+         *           &lt;element name="AddSubmittedInformation" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}AddSubmittedInformationType"/&gt;
+         *           &lt;element name="DeleteSubmittedInformation" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
          *           &lt;element name="CancelOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}CancelledInfoWithAttachmentsType"/&gt;
          *           &lt;element name="FulfileOffence" type="{http://dom.gosuslugi.ru/schema/integration/inspection/}FulfileOffenceType"/&gt;
          *           &lt;element name="DeleteOffence" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
@@ -621,6 +627,8 @@ public class ImportExaminationsRequest
             "transportGUID",
             "offenceGuid",
             "offence",
+            "addSubmittedInformation",
+            "deleteSubmittedInformation",
             "cancelOffence",
             "fulfileOffence",
             "deleteOffence"
@@ -633,6 +641,10 @@ public class ImportExaminationsRequest
             protected String offenceGuid;
             @XmlElement(name = "Offence")
             protected OffenceType offence;
+            @XmlElement(name = "AddSubmittedInformation")
+            protected AddSubmittedInformationType addSubmittedInformation;
+            @XmlElement(name = "DeleteSubmittedInformation")
+            protected Boolean deleteSubmittedInformation;
             @XmlElement(name = "CancelOffence")
             protected CancelledInfoWithAttachmentsType cancelOffence;
             @XmlElement(name = "FulfileOffence")
@@ -710,6 +722,54 @@ public class ImportExaminationsRequest
              */
             public void setOffence(OffenceType value) {
                 this.offence = value;
+            }
+
+            /**
+             * Gets the value of the addSubmittedInformation property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link AddSubmittedInformationType }
+             *     
+             */
+            public AddSubmittedInformationType getAddSubmittedInformation() {
+                return addSubmittedInformation;
+            }
+
+            /**
+             * Sets the value of the addSubmittedInformation property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link AddSubmittedInformationType }
+             *     
+             */
+            public void setAddSubmittedInformation(AddSubmittedInformationType value) {
+                this.addSubmittedInformation = value;
+            }
+
+            /**
+             * Gets the value of the deleteSubmittedInformation property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Boolean }
+             *     
+             */
+            public Boolean isDeleteSubmittedInformation() {
+                return deleteSubmittedInformation;
+            }
+
+            /**
+             * Sets the value of the deleteSubmittedInformation property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Boolean }
+             *     
+             */
+            public void setDeleteSubmittedInformation(Boolean value) {
+                this.deleteSubmittedInformation = value;
             }
 
             /**

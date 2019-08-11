@@ -113,6 +113,32 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                       &lt;/complexContent&gt;
  *                     &lt;/complexType&gt;
  *                   &lt;/element&gt;
+ *                   &lt;element name="AdministrativeSuspensionPeriod" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;choice&gt;
+ *                             &lt;element name="Months"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="Years"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                           &lt;/choice&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
  *                   &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
  *                   &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/&gt;
  *                   &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
@@ -477,6 +503,32 @@ public class DecreeInfoType {
      *             &lt;/complexContent&gt;
      *           &lt;/complexType&gt;
      *         &lt;/element&gt;
+     *         &lt;element name="AdministrativeSuspensionPeriod" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;choice&gt;
+     *                   &lt;element name="Months"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="Years"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                 &lt;/choice&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
      *         &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
      *         &lt;element name="TakenAction" type="{http://dom.gosuslugi.ru/schema/integration/base/}String1500Type" minOccurs="0"/&gt;
      *         &lt;element name="Executed" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
@@ -501,6 +553,7 @@ public class DecreeInfoType {
         "fine",
         "finePaymentDate",
         "disqualificationPeriod",
+        "administrativeSuspensionPeriod",
         "violationShortDescription",
         "takenAction",
         "executed"
@@ -531,6 +584,8 @@ public class DecreeInfoType {
         protected XMLGregorianCalendar finePaymentDate;
         @XmlElement(name = "DisqualificationPeriod")
         protected DecreeInfoType.ReviewResult.DisqualificationPeriod disqualificationPeriod;
+        @XmlElement(name = "AdministrativeSuspensionPeriod")
+        protected DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod administrativeSuspensionPeriod;
         @XmlElement(name = "ViolationShortDescription")
         protected String violationShortDescription;
         @XmlElement(name = "TakenAction")
@@ -813,6 +868,30 @@ public class DecreeInfoType {
         }
 
         /**
+         * Gets the value of the administrativeSuspensionPeriod property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+         *     
+         */
+        public DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod getAdministrativeSuspensionPeriod() {
+            return administrativeSuspensionPeriod;
+        }
+
+        /**
+         * Sets the value of the administrativeSuspensionPeriod property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+         *     
+         */
+        public void setAdministrativeSuspensionPeriod(DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod value) {
+            this.administrativeSuspensionPeriod = value;
+        }
+
+        /**
          * Gets the value of the violationShortDescription property.
          * 
          * @return
@@ -882,6 +961,103 @@ public class DecreeInfoType {
          */
         public void setExecuted(Boolean value) {
             this.executed = value;
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;choice&gt;
+         *         &lt;element name="Months"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Years"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/choice&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "months",
+            "years"
+        })
+        public static class AdministrativeSuspensionPeriod {
+
+            @XmlElement(name = "Months")
+            protected Integer months;
+            @XmlElement(name = "Years")
+            protected Integer years;
+
+            /**
+             * Gets the value of the months property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Integer }
+             *     
+             */
+            public Integer getMonths() {
+                return months;
+            }
+
+            /**
+             * Sets the value of the months property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Integer }
+             *     
+             */
+            public void setMonths(Integer value) {
+                this.months = value;
+            }
+
+            /**
+             * Gets the value of the years property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Integer }
+             *     
+             */
+            public Integer getYears() {
+                return years;
+            }
+
+            /**
+             * Sets the value of the years property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Integer }
+             *     
+             */
+            public void setYears(Integer value) {
+                this.years = value;
+            }
+
         }
 
 

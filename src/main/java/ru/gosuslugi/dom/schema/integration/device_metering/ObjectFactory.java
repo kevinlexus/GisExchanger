@@ -38,6 +38,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStateResult }
+     * 
+     */
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
+    }
+
+    /**
      * Create an instance of {@link VolumeMeteringValueExportType }
      * 
      */
@@ -150,19 +158,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportMeteringDeviceHistoryResult }
+     * Create an instance of {@link GetStateResult.PagedOutput }
      * 
      */
-    public ExportMeteringDeviceHistoryResult createExportMeteringDeviceHistoryResult() {
-        return new ExportMeteringDeviceHistoryResult();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
+    public GetStateResult.PagedOutput createGetStateResultPagedOutput() {
+        return new GetStateResult.PagedOutput();
     }
 
     /**

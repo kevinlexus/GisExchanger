@@ -15,6 +15,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Holder;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 
@@ -28,7 +29,9 @@ import com.ric.st.SoapBuilders;
 import com.ric.st.excp.CantSendSoap;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
+import ru.gosuslugi.dom.schema.integration.base.ISRequestHeader;
 import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
+import ru.gosuslugi.dom.schema.integration.base.ResultHeader;
 
 /**
  * Вспомогательный класс для постройки SOAP запроса
@@ -109,7 +112,7 @@ public class SoapBuilder implements SoapBuilders{
     	// установить Random Message GUID и дату
     	GregorianCalendar c = new GregorianCalendar();
 		c.setTime(new Date());
-		XMLGregorianCalendar cl = null;
+		XMLGregorianCalendar cl;
 		try {
 			cl = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 		} catch (DatatypeConfigurationException e1) {
@@ -150,4 +153,7 @@ public class SoapBuilder implements SoapBuilders{
     	binding.setHandlerChain(handlerChain);
 	}
 
+	public RequestHeader getRh() {
+		return rh;
+	}
 }

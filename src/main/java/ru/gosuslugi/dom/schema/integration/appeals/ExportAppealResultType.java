@@ -145,6 +145,17 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *         &lt;/choice&gt;
  *         &lt;element name="RolledOver" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
  *         &lt;element name="AnswerIsNotRequired" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="AppealWithdrawn" minOccurs="0"&gt;
+ *           &lt;complexType&gt;
+ *             &lt;complexContent&gt;
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                 &lt;sequence&gt;
+ *                   &lt;element name="Comment" type="{http://dom.gosuslugi.ru/schema/integration/appeals/}String1000Type" minOccurs="0"/&gt;
+ *                 &lt;/sequence&gt;
+ *               &lt;/restriction&gt;
+ *             &lt;/complexContent&gt;
+ *           &lt;/complexType&gt;
+ *         &lt;/element&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -172,7 +183,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
     "redirected",
     "redirectedIsNotHCS",
     "rolledOver",
-    "answerIsNotRequired"
+    "answerIsNotRequired",
+    "appealWithdrawn"
 })
 public class ExportAppealResultType {
 
@@ -214,6 +226,8 @@ public class ExportAppealResultType {
     protected Boolean rolledOver;
     @XmlElement(name = "AnswerIsNotRequired")
     protected Boolean answerIsNotRequired;
+    @XmlElement(name = "AppealWithdrawn")
+    protected ExportAppealResultType.AppealWithdrawn appealWithdrawn;
 
     /**
      * Gets the value of the appealGUID property.
@@ -655,6 +669,30 @@ public class ExportAppealResultType {
      */
     public void setAnswerIsNotRequired(Boolean value) {
         this.answerIsNotRequired = value;
+    }
+
+    /**
+     * Gets the value of the appealWithdrawn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExportAppealResultType.AppealWithdrawn }
+     *     
+     */
+    public ExportAppealResultType.AppealWithdrawn getAppealWithdrawn() {
+        return appealWithdrawn;
+    }
+
+    /**
+     * Sets the value of the appealWithdrawn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExportAppealResultType.AppealWithdrawn }
+     *     
+     */
+    public void setAppealWithdrawn(ExportAppealResultType.AppealWithdrawn value) {
+        this.appealWithdrawn = value;
     }
 
 
@@ -1401,6 +1439,61 @@ public class ExportAppealResultType {
         {
 
 
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="Comment" type="{http://dom.gosuslugi.ru/schema/integration/appeals/}String1000Type" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "comment"
+    })
+    public static class AppealWithdrawn {
+
+        @XmlElement(name = "Comment")
+        protected String comment;
+
+        /**
+         * Gets the value of the comment property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getComment() {
+            return comment;
+        }
+
+        /**
+         * Sets the value of the comment property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setComment(String value) {
+            this.comment = value;
         }
 
     }

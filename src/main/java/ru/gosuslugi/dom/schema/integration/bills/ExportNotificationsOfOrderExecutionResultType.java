@@ -14,6 +14,8 @@ import ru.gosuslugi.dom.schema.integration.payments_base.NotificationOfOrderExec
 
 
 /**
+ * Тип данных для ответа на запрос экспорта извещений о принятии к исполнению распоряжений (квитанций об оплате) с результатами квитирования
+ * 
  * <p>Java class for exportNotificationsOfOrderExecutionResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

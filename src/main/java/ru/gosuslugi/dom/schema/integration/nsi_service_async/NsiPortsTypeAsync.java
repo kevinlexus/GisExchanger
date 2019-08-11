@@ -16,6 +16,7 @@ import ru.gosuslugi.dom.schema.integration.nsi.ImportAdditionalServicesRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ImportBaseDecisionMSPRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ImportCapitalRepairWorkRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ImportCommunalInfrastructureSystemRequest;
+import ru.gosuslugi.dom.schema.integration.nsi.ImportGeneralNeedsMunicipalResourceRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ImportMunicipalServicesRequest;
 import ru.gosuslugi.dom.schema.integration.nsi.ImportOrganizationWorksRequest;
 
@@ -177,6 +178,22 @@ public interface NsiPortsTypeAsync {
     public AckRequest importBaseDecisionMSP(
         @WebParam(name = "importBaseDecisionMSPRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/nsi/", partName = "importBaseDecisionMSPRequest")
         ImportBaseDecisionMSPRequest importBaseDecisionMSPRequest)
+        throws Fault
+    ;
+
+    /**
+     * Импортировать данные справочника 337 "Коммунальные ресурсы, потребляемые при использовании и содержании общего имущества в многоквартирном доме"
+     * 
+     * @param importGeneralNeedsMunicipalResourceRequest
+     * @return
+     *     returns ru.gosuslugi.dom.schema.integration.base.AckRequest
+     * @throws Fault
+     */
+    @WebMethod(action = "urn:importGeneralNeedsMunicipalResource")
+    @WebResult(name = "AckRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/base/", partName = "importGeneralNeedsMunicipalResourceResult")
+    public AckRequest importGeneralNeedsMunicipalResource(
+        @WebParam(name = "importGeneralNeedsMunicipalResourceRequest", targetNamespace = "http://dom.gosuslugi.ru/schema/integration/nsi/", partName = "importGeneralNeedsMunicipalResourceRequest")
+        ImportGeneralNeedsMunicipalResourceRequest importGeneralNeedsMunicipalResourceRequest)
         throws Fault
     ;
 

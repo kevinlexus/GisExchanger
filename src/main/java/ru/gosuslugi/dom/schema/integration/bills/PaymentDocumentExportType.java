@@ -60,7 +60,7 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *                   &lt;/complexContent&gt;
  *                 &lt;/complexType&gt;
  *               &lt;/element&gt;
- *               &lt;element name="CapitalRepairYearCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairYearImportType" minOccurs="0"/&gt;
+ *               &lt;element name="CapitalRepairYearCharge" type="{http://dom.gosuslugi.ru/schema/integration/bills/}CapitalRepairYearExportType" minOccurs="0"/&gt;
  *             &lt;/choice&gt;
  *             &lt;element name="PenaltiesAndCourtCosts" maxOccurs="unbounded" minOccurs="0"&gt;
  *               &lt;complexType&gt;
@@ -292,6 +292,22 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
  *         &lt;element name="DateOfLastReceivedPayment" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Month" minOccurs="0"/&gt;
  *         &lt;element ref="{http://dom.gosuslugi.ru/schema/integration/base/}Year" minOccurs="0"/&gt;
+ *         &lt;element name="LimitIndex" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;totalDigits value="20"/&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
+ *         &lt;element name="SubsidiesCompensationSocialSupport" minOccurs="0"&gt;
+ *           &lt;simpleType&gt;
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal"&gt;
+ *               &lt;fractionDigits value="2"/&gt;
+ *               &lt;maxExclusive value="100000000"/&gt;
+ *             &lt;/restriction&gt;
+ *           &lt;/simpleType&gt;
+ *         &lt;/element&gt;
  *         &lt;element name="PaymentProviderInformation" minOccurs="0"&gt;
  *           &lt;complexType&gt;
  *             &lt;complexContent&gt;
@@ -339,6 +355,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
     "dateOfLastReceivedPayment",
     "month",
     "year",
+    "limitIndex",
+    "subsidiesCompensationSocialSupport",
     "paymentProviderInformation"
 })
 @XmlSeeAlso({
@@ -357,7 +375,7 @@ public class PaymentDocumentExportType {
     @XmlElement(name = "CapitalRepairCharge")
     protected PaymentDocumentExportType.CapitalRepairCharge capitalRepairCharge;
     @XmlElement(name = "CapitalRepairYearCharge")
-    protected CapitalRepairYearImportType capitalRepairYearCharge;
+    protected CapitalRepairYearExportType capitalRepairYearCharge;
     @XmlElement(name = "PenaltiesAndCourtCosts")
     protected List<PaymentDocumentExportType.PenaltiesAndCourtCosts> penaltiesAndCourtCosts;
     @XmlElement(name = "Insurance")
@@ -398,6 +416,10 @@ public class PaymentDocumentExportType {
     protected Integer month;
     @XmlElement(name = "Year", namespace = "http://dom.gosuslugi.ru/schema/integration/base/")
     protected Short year;
+    @XmlElement(name = "LimitIndex")
+    protected BigDecimal limitIndex;
+    @XmlElement(name = "SubsidiesCompensationSocialSupport")
+    protected BigDecimal subsidiesCompensationSocialSupport;
     @XmlElement(name = "PaymentProviderInformation")
     protected PaymentDocumentExportType.PaymentProviderInformation paymentProviderInformation;
 
@@ -533,10 +555,10 @@ public class PaymentDocumentExportType {
      * 
      * @return
      *     possible object is
-     *     {@link CapitalRepairYearImportType }
+     *     {@link CapitalRepairYearExportType }
      *     
      */
-    public CapitalRepairYearImportType getCapitalRepairYearCharge() {
+    public CapitalRepairYearExportType getCapitalRepairYearCharge() {
         return capitalRepairYearCharge;
     }
 
@@ -545,10 +567,10 @@ public class PaymentDocumentExportType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CapitalRepairYearImportType }
+     *     {@link CapitalRepairYearExportType }
      *     
      */
-    public void setCapitalRepairYearCharge(CapitalRepairYearImportType value) {
+    public void setCapitalRepairYearCharge(CapitalRepairYearExportType value) {
         this.capitalRepairYearCharge = value;
     }
 
@@ -1052,6 +1074,54 @@ public class PaymentDocumentExportType {
      */
     public void setYear(Short value) {
         this.year = value;
+    }
+
+    /**
+     * Gets the value of the limitIndex property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getLimitIndex() {
+        return limitIndex;
+    }
+
+    /**
+     * Sets the value of the limitIndex property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setLimitIndex(BigDecimal value) {
+        this.limitIndex = value;
+    }
+
+    /**
+     * Gets the value of the subsidiesCompensationSocialSupport property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getSubsidiesCompensationSocialSupport() {
+        return subsidiesCompensationSocialSupport;
+    }
+
+    /**
+     * Sets the value of the subsidiesCompensationSocialSupport property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setSubsidiesCompensationSocialSupport(BigDecimal value) {
+        this.subsidiesCompensationSocialSupport = value;
     }
 
     /**

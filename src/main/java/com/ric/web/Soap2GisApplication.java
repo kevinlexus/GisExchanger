@@ -73,7 +73,13 @@ public class Soap2GisApplication implements CommandLineRunner {
     			sc = new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
     			log.info("Объект подписывания XML-1 СОЗДАН!");
     		} catch (Exception e1) {
-                log.error("Объект подписывания XML-1 не создан, приложение ОСТАНОВЛЕНО!");
+                log.error("****************************************************************");
+                log.error("*                                                              *");
+                log.error("*                                                              *");
+                log.error("* Объект подписывания XML-1 не создан, приложение ОСТАНОВЛЕНО! *");
+                log.error("*                                                              *");
+                log.error("*                                                              *");
+                log.error("****************************************************************");
                 log.error("stackTrace={}", e1.getStackTrace().toString());
                 // Завершить выполнение приложения
                 SpringApplication.exit(applicationContext, () -> 0);
@@ -85,7 +91,13 @@ public class Soap2GisApplication implements CommandLineRunner {
                     sc2 = new SignCommand(soapConfig.getSignPass2(), soapConfig.getSignPath2());
                     log.info("Объект подписывания XML-2 СОЗДАН!");
                 } catch (Exception e1) {
-                    log.error("Объект подписывания XML-2 не создан, приложение ОСТАНОВЛЕНО!");
+                    log.error("****************************************************************");
+                    log.error("*                                                              *");
+                    log.error("*                                                              *");
+                    log.error("* Объект подписывания XML-2 не создан, приложение ОСТАНОВЛЕНО! *");
+                    log.error("*                                                              *");
+                    log.error("*                                                              *");
+                    log.error("****************************************************************");
                     log.error("stackTrace={}", e1.getStackTrace().toString());
                     // Завершить выполнение приложения
                     SpringApplication.exit(applicationContext, () -> 0);

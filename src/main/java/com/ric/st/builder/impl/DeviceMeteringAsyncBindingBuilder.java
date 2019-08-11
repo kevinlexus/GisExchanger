@@ -299,7 +299,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
         req.setFIASHouseGuid(reqProp.getHouseGuid());
 
-        List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "СчетчикФизический", null, reqProp.getAppTp()).stream()
+        List<Task> lstTask = taskDao.getByTaskAddrTp(reqProp.getFoundTask(), "СчетчикФизический", null, 1).stream()
                 .filter(t -> t.getAct().getCd().equals("GIS_ADD_METER_VAL")).collect(Collectors.toList());
         for (Task t : lstTask) {
             // Транспортный GUID
@@ -453,7 +453,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
 
         req.setId("foo");
         req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
-        req.setFIASHouseGuid(reqProp.getHouseGuid());
+        req.getFIASHouseGuid().add(reqProp.getHouseGuid());
 
         // индивидуальные приборы учета
         NsiRef tp = ulistMng.getNsiElem("NSI", 27, "Тип прибора учета", "Индивидуальный");
@@ -529,10 +529,6 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
      * Получить результат экспорта показаний счетиков
      *
      * @param task - задание
-     * @throws WrongGetMethod
-     * @throws IOException
-     * @throws CantPrepSoap
-     * @throws WrongParam
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -720,7 +716,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void saveValToFile(Task task) throws WrongGetMethod, IOException {
-        log.trace("******* Task.id={}, Выгрузка показаний приборов учета в файл path={}", task.getId(), appTp, pathCounter);
+        /*log.trace("******* Task.id={}, Выгрузка показаний приборов учета в файл path={}", task.getId(), appTp, pathCounter);
         Task foundTask = em.find(Task.class, task.getId());
         if (appTp.equals("0")) {
             File file = new File(pathCounter);
@@ -792,7 +788,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 fw.close();
         }
         // Установить статус выполнения задания
-        foundTask.setState("ACP");
+        foundTask.setState("ACP"); */
     }
 
     /**

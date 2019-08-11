@@ -98,6 +98,32 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.RegOrgTyp
  *                       &lt;/complexContent&gt;
  *                     &lt;/complexType&gt;
  *                   &lt;/element&gt;
+ *                   &lt;element name="AdministrativeSuspensionPeriod" minOccurs="0"&gt;
+ *                     &lt;complexType&gt;
+ *                       &lt;complexContent&gt;
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                           &lt;choice&gt;
+ *                             &lt;element name="Months"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                             &lt;element name="Years"&gt;
+ *                               &lt;simpleType&gt;
+ *                                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+ *                                   &lt;minExclusive value="0"/&gt;
+ *                                   &lt;maxExclusive value="1000"/&gt;
+ *                                 &lt;/restriction&gt;
+ *                               &lt;/simpleType&gt;
+ *                             &lt;/element&gt;
+ *                           &lt;/choice&gt;
+ *                         &lt;/restriction&gt;
+ *                       &lt;/complexContent&gt;
+ *                     &lt;/complexType&gt;
+ *                   &lt;/element&gt;
  *                   &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="1000" minOccurs="0"/&gt;
  *                   &lt;element name="ProceedingDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *                   &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
@@ -441,6 +467,32 @@ public class ExportDecreeInfoType {
      *             &lt;/complexContent&gt;
      *           &lt;/complexType&gt;
      *         &lt;/element&gt;
+     *         &lt;element name="AdministrativeSuspensionPeriod" minOccurs="0"&gt;
+     *           &lt;complexType&gt;
+     *             &lt;complexContent&gt;
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *                 &lt;choice&gt;
+     *                   &lt;element name="Months"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                   &lt;element name="Years"&gt;
+     *                     &lt;simpleType&gt;
+     *                       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+     *                         &lt;minExclusive value="0"/&gt;
+     *                         &lt;maxExclusive value="1000"/&gt;
+     *                       &lt;/restriction&gt;
+     *                     &lt;/simpleType&gt;
+     *                   &lt;/element&gt;
+     *                 &lt;/choice&gt;
+     *               &lt;/restriction&gt;
+     *             &lt;/complexContent&gt;
+     *           &lt;/complexType&gt;
+     *         &lt;/element&gt;
      *         &lt;element name="ViolationObject" type="{http://dom.gosuslugi.ru/schema/integration/nsi-base/}nsiRef" maxOccurs="1000" minOccurs="0"/&gt;
      *         &lt;element name="ProceedingDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
      *         &lt;element name="ViolationShortDescription" type="{http://dom.gosuslugi.ru/schema/integration/base/}String500Type" minOccurs="0"/&gt;
@@ -465,6 +517,7 @@ public class ExportDecreeInfoType {
         "fine",
         "finePaymentDate",
         "disqualificationPeriod",
+        "administrativeSuspensionPeriod",
         "violationObject",
         "proceedingDate",
         "violationShortDescription",
@@ -492,6 +545,8 @@ public class ExportDecreeInfoType {
         protected XMLGregorianCalendar finePaymentDate;
         @XmlElement(name = "DisqualificationPeriod")
         protected ExportDecreeInfoType.ReviewResult.DisqualificationPeriod disqualificationPeriod;
+        @XmlElement(name = "AdministrativeSuspensionPeriod")
+        protected ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod administrativeSuspensionPeriod;
         @XmlElement(name = "ViolationObject")
         protected List<NsiRef> violationObject;
         @XmlElement(name = "ProceedingDate")
@@ -726,6 +781,30 @@ public class ExportDecreeInfoType {
         }
 
         /**
+         * Gets the value of the administrativeSuspensionPeriod property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+         *     
+         */
+        public ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod getAdministrativeSuspensionPeriod() {
+            return administrativeSuspensionPeriod;
+        }
+
+        /**
+         * Sets the value of the administrativeSuspensionPeriod property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+         *     
+         */
+        public void setAdministrativeSuspensionPeriod(ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod value) {
+            this.administrativeSuspensionPeriod = value;
+        }
+
+        /**
          * Gets the value of the violationObject property.
          * 
          * <p>
@@ -848,6 +927,103 @@ public class ExportDecreeInfoType {
          */
         public void setExecuted(Boolean value) {
             this.executed = value;
+        }
+
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType&gt;
+         *   &lt;complexContent&gt;
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+         *       &lt;choice&gt;
+         *         &lt;element name="Months"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *         &lt;element name="Years"&gt;
+         *           &lt;simpleType&gt;
+         *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int"&gt;
+         *               &lt;minExclusive value="0"/&gt;
+         *               &lt;maxExclusive value="1000"/&gt;
+         *             &lt;/restriction&gt;
+         *           &lt;/simpleType&gt;
+         *         &lt;/element&gt;
+         *       &lt;/choice&gt;
+         *     &lt;/restriction&gt;
+         *   &lt;/complexContent&gt;
+         * &lt;/complexType&gt;
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "months",
+            "years"
+        })
+        public static class AdministrativeSuspensionPeriod {
+
+            @XmlElement(name = "Months")
+            protected Integer months;
+            @XmlElement(name = "Years")
+            protected Integer years;
+
+            /**
+             * Gets the value of the months property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Integer }
+             *     
+             */
+            public Integer getMonths() {
+                return months;
+            }
+
+            /**
+             * Sets the value of the months property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Integer }
+             *     
+             */
+            public void setMonths(Integer value) {
+                this.months = value;
+            }
+
+            /**
+             * Gets the value of the years property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link Integer }
+             *     
+             */
+            public Integer getYears() {
+                return years;
+            }
+
+            /**
+             * Sets the value of the years property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link Integer }
+             *     
+             */
+            public void setYears(Integer value) {
+                this.years = value;
+            }
+
         }
 
 

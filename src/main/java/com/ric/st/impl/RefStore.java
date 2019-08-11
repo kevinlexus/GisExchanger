@@ -8,7 +8,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
-import ru.gosuslugi.dom.schema.integration.nsi_common.ExportNsiItemResult;
+//import ru.gosuslugi.dom.schema.integration.nsi_common.ExportNsiItemResult;
 
 
 /*
@@ -17,8 +17,8 @@ import ru.gosuslugi.dom.schema.integration.nsi_common.ExportNsiItemResult;
 @Slf4j
 public class RefStore {
 	private List<Row> mapRef;
-    
-    // вложенный класс - запись 
+
+    // вложенный класс - запись
     public class Row {
     	private String grp; // группа справочника
     	private BigInteger id; // id справочника
@@ -48,12 +48,12 @@ public class RefStore {
 			this.res = nsiItemType;
 		}
     }
-    
+
     // конструктор
     public RefStore() {
     	mapRef = new ArrayList<Row>();
     }
-    
+
 	/**
 	 * Добавить запись справочника в хранилище
 	 * @param nsiItemType - справочник
@@ -65,12 +65,12 @@ public class RefStore {
 		}
 		mapRef.add(new Row(nsiItemType, grp, id));
 	}
-	
+
 	/**
 	 * Получить справочник по группе и коду
 	 * @param grp - группа
-	 * @return 
-	 * @return 
+	 * @return
+	 * @return
 	 */
 	public NsiItemType getByGrpId(String grp, BigInteger id) {
     	Optional<Row> res = mapRef.stream().filter(t -> t.getGrp().equals(grp))

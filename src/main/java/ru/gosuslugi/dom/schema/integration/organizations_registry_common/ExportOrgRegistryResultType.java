@@ -18,6 +18,8 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_base.Subsidiar
 
 
 /**
+ * Результат экспорта сведений из реестра организаций
+ * 
  * <p>Java class for exportOrgRegistryResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

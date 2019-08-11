@@ -90,11 +90,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDocumentResult }
+     * Create an instance of {@link GetStateResult }
      * 
      */
-    public ExportDocumentResult createExportDocumentResult() {
-        return new ExportDocumentResult();
+    public GetStateResult createGetStateResult() {
+        return new GetStateResult();
     }
 
     /**
@@ -103,14 +103,6 @@ public class ObjectFactory {
      */
     public ExportDocumentType createExportDocumentType() {
         return new ExportDocumentType();
-    }
-
-    /**
-     * Create an instance of {@link GetStateResult }
-     * 
-     */
-    public GetStateResult createGetStateResult() {
-        return new GetStateResult();
     }
 
     /**

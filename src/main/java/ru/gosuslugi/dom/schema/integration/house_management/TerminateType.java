@@ -36,12 +36,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlSeeAlso({
     ru.gosuslugi.dom.schema.integration.house_management.ImportContractRequest.Contract.TerminateContract.class,
     ru.gosuslugi.dom.schema.integration.house_management.ImportCharterRequest.TerminateCharter.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractRequest.Contract.TerminateContract.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Contract.Terminate.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportCAChResultType.Charter.Terminate.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ImportSupplyResourceContractRequest.Contract.TerminateContract.class,
+    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSocialHireContractResultType.TerminateContract.class,
     ru.gosuslugi.dom.schema.integration.house_management.ExportSupplyResourceContractResultType.TerminateContract.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResultType.TerminateContract.class,
-    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSocialHireContractResultType.TerminateContract.class
+    ru.gosuslugi.dom.schema.integration.house_management.ExportBriefSupplyResourceContractResultType.TerminateContract.class
 })
 public class TerminateType {
 

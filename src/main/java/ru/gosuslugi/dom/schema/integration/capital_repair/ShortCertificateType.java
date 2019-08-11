@@ -80,8 +80,7 @@ import ru.gosuslugi.dom.schema.integration.base.AttachmentType;
     "installmenNotGiven"
 })
 @XmlSeeAlso({
-    CertificateType.class,
-    ExportCertificateType.class
+    CertificateType.class
 })
 public class ShortCertificateType {
 

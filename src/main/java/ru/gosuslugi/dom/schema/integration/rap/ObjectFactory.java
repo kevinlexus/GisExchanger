@@ -126,14 +126,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExportDecreesAndDocumentsResult }
-     * 
-     */
-    public ExportDecreesAndDocumentsResult createExportDecreesAndDocumentsResult() {
-        return new ExportDecreesAndDocumentsResult();
-    }
-
-    /**
      * Create an instance of {@link GetStateResult }
      * 
      */
@@ -206,6 +198,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+     * 
+     */
+    public ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod createExportDecreeInfoTypeReviewResultAdministrativeSuspensionPeriod() {
+        return new ExportDecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod();
+    }
+
+    /**
      * Create an instance of {@link ExportDecreeInfoType.Offender.OfficialName }
      * 
      */
@@ -227,6 +227,14 @@ public class ObjectFactory {
      */
     public DecreeInfoType.ReviewResult.DisqualificationPeriod createDecreeInfoTypeReviewResultDisqualificationPeriod() {
         return new DecreeInfoType.ReviewResult.DisqualificationPeriod();
+    }
+
+    /**
+     * Create an instance of {@link DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod }
+     * 
+     */
+    public DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod createDecreeInfoTypeReviewResultAdministrativeSuspensionPeriod() {
+        return new DecreeInfoType.ReviewResult.AdministrativeSuspensionPeriod();
     }
 
     /**

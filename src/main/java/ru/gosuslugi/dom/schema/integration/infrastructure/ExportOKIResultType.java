@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Ответ на экспорт ОКИ
+ * 
  * <p>Java class for exportOKIResultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

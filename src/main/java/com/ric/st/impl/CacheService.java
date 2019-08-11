@@ -33,11 +33,11 @@ public class CacheService {
 	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
 	        .setStoreByValue(false)
 	        .setStatisticsEnabled(false));
-	      cacheManager.createCache("TarifMngImpl.getOrg", new MutableConfiguration<>()
+	      cacheManager.createCache("TarifMngImpl.getUk", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(false));
-	      cacheManager.createCache("KartMngImpl.getOrg", new MutableConfiguration<>()
+	      cacheManager.createCache("KartMngImpl.getUk", new MutableConfiguration<>()
 		  	        .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 60)))
 		  	        .setStoreByValue(false)
 		  	        .setStatisticsEnabled(true));

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="exportCertificateType"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ShortCertificateType"&gt;
+ *     &lt;extension base="{http://dom.gosuslugi.ru/schema/integration/capital-repair/}ExportShortCertificateType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="Work" maxOccurs="1000" minOccurs="0"&gt;
  *           &lt;complexType&gt;
@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
     "certificateGuid"
 })
 public class ExportCertificateType
-    extends ShortCertificateType
+    extends ExportShortCertificateType
 {
 
     @XmlElement(name = "Work")
