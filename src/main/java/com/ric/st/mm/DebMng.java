@@ -13,6 +13,6 @@ import com.ric.dto.SumSaldoRecDTO;
  */
 public interface DebMng {
 
-	BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp) throws ParseException;
+	BigDecimal getPenAmnt(String lsk, Ko ko, String period) throws ParseException;
 	SumSaldoRecDTO getSumSaldo(String lsk, Ko ko, String period, Integer appTp);
 }

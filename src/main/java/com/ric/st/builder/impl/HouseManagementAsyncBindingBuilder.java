@@ -235,9 +235,11 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         sb.setSign(false); // не подписывать запрос состояния!
 
         sb.makeRndMsgGuid();
+        String errMsg = null;
         try {
             state = port.getState(gs);
         } catch (ru.gosuslugi.dom.schema.integration.house_management_service_async.Fault e) {
+            errMsg = e.getFaultInfo().getErrorCode();
             e.printStackTrace();
             err = true;
             errStr = "Запрос вернул ошибку!";
@@ -260,6 +262,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             log.info(errStr);
             task.setState("ERR");
             task.setResult(errStr);
+            reqProp.getFoundTask().setResult(errMsg);
+            log.error("Task.id={}, ОШИБКА выполнения запроса = {}", task.getId(), errStr);
         } else {
             if (state == null) {
                 err = true;
@@ -1063,7 +1067,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                     // погасить ошибки
                     soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR |
-                            CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_DOUBLE_KLSK_EOLINK, false);
+                            CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_DOUBLE_KLSK_EOLINK |
+                            CommonErrs.ERR_NOT_FOUND_ACTUAL_OBJ, false);
                     // обновить параметры помещения
                     if (premisEol.getKoObj() == null) {
                         // найти соответствующий объект Ko
@@ -1078,8 +1083,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                         }
                         if (ko == null) {
-                            // не найден KLSK
-                            soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
+                            // не найден актуальный (действующий объект) в Kart с KLSK
+                            soapConfig.saveError(premisEol, CommonErrs.ERR_NOT_FOUND_ACTUAL_OBJ, true);
                         } else {
                             Eolink checkEolink = eolinkDao2.getEolinkByKlskId(ko.getId());
                             if (checkEolink != null) {
@@ -1422,9 +1427,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void importAccountData(Task task) throws CantPrepSoap, CantSendSoap, WrongParam, UnusableCode {
-        if (1 == 1) {
+        if (!task.getEolink().getId().equals(898125)) {
             return;
         }
+
         taskMng.logTask(task, true, null);
         if (task.getProcUk() == null)
             throw new WrongParam("По заданию task.id=" + task.getId() + " не заполнен TASK.FK_PROC_UK");
@@ -1443,6 +1449,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
         // создать отсутствующие в EOLINK объекты лицевых счетов по данному Дому и УК из KART
         List<Kart> lstKartAbsent = eolinkMng.getKartNotExistsInEolink(houseEol.getId(), task.getProcUk().getId());
+
+        log.info("Кол-во лс на загрузку size={}", lstKartAbsent.size());
         for (Kart kart : lstKartAbsent) {
             log.info("Попытка создать лиц.счет в EOLINK, lsk={}", kart.getLsk());
             Eolink eolKw = eolinkDao2.getEolinkByKlskId(kart.getKoKw().getId());
@@ -1462,21 +1470,25 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             }
         }
 
-        // получить лиц.счета для обновления
-        List<Eolink> lstLsk = eolinkMng.getLskEolByHouseEol(houseEol.getId(), task.getProcUk().getId())
-                .stream().filter(t -> t.getId().equals(707577)).collect(Collectors.toList());
+        // получить лиц.счета для добавления/обновления в ГИС
+        List<Eolink> lstLskForUpdate =
+                new ArrayList<>(eolinkMng.getLskEolByHouseEol(houseEol.getId(), task.getProcUk().getId()));
 
         boolean isExistJob = false;
-        for (Eolink lskEol : lstLsk) {
+        for (Eolink lskEol : lstLskForUpdate) {
+//            for (Eolink lskEol : lstLskForUpdate.stream().filter(t->t.getId()>=995195 && t.getId()<=995197).collect(Collectors.toList())) {
             Kart kart = lskEol.getKart();
             // погасить ошибки
             soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND |
-                    CommonErrs.ERR_INCORRECT_PARENT, false);
+                    CommonErrs.ERR_INCORRECT_PARENT | CommonErrs.ERR_EMPTY_FIO, false);
 
             if (kart == null) {
                 // не найден лиц.счет
                 log.error("Объект лиц.счета EOLINK.ID={}, не найден в SCOTT.KART по LSK", lskEol.getId());
                 soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND, true);
+            } else if (kart.getKIm()==null || kart.getKFam()==null || kart.getKOt()==null) {
+                // не заполнены ФИО собственника в SCOTT.KART
+                soapConfig.saveError(lskEol, CommonErrs.ERR_EMPTY_FIO, true);
             } else {
                 ImportAccountRequest.Account ac = new ImportAccountRequest.Account();
                 req.getAccount().add(ac);
@@ -1617,10 +1629,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         log.error(errStr);
                     }
 
-                    if (lskEol.getGuid() != null) {
+                    if (lskEol.getGuid() == null) {
                         lskEol.setGuid(d.getGUID());
                     }
-                    if (lskEol.getUn() != null) {
+                    if (lskEol.getUn() == null) {
                         lskEol.setUn(d.getUniqueNumber());
                     }
                     log.trace("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:",

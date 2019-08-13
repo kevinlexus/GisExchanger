@@ -35,6 +35,14 @@ public class Soap2GisApplication implements CommandLineRunner {
     }
 
 	public static void main(String[] args) {
+        log.info("****************************************************************");
+        log.info("*                                                              *");
+        log.info("*                                                              *");
+        log.info("*                  Версия GisExchanger - 1.0.11                 *");
+        log.info("*                                                              *");
+        log.info("*                                                              *");
+        log.info("****************************************************************");
+
 		ClassLoader cl = ClassLoader.getSystemClassLoader();
         URL[] urls = ((URLClassLoader)cl).getURLs();
     	log.info("*********** CLASSPATH *********");
@@ -45,6 +53,7 @@ public class Soap2GisApplication implements CommandLineRunner {
 
     	String workingDir = System.getProperty("user.dir");
         log.info("Current working directory : " + workingDir);
+
 
 		// Не удалять! отвалится ЭЦП!
 		System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");

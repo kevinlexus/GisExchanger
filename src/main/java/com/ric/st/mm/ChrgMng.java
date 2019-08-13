@@ -13,5 +13,5 @@ import com.dic.bill.model.scott.Ko;
  */
 public interface ChrgMng {
 
-	List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk, Integer appTp);
+	List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk);
 }

@@ -85,26 +85,18 @@ public class DebMngImpl implements DebMng {
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
 	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
-	 * @param appTp - тип информационной системы
 	 *
 	 */
 	@Override
-	public BigDecimal getPenAmnt(String lsk, Ko ko, String period, Integer appTp) throws ParseException {
+	public BigDecimal getPenAmnt(String lsk, Ko ko, String period) throws ParseException {
 		// пеня по основным услугам
 		BigDecimal penMain = BigDecimal.ZERO;
 		// пеня по капремонту
 		BigDecimal penCap = BigDecimal.ZERO;
 		//
 		Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
-		if (appTp==0) {
-			// старая разработка
-		} else if (appTp==1) {
-			// новая разработка
-		} else if (appTp==2) {
-			// экспериментальная разработка
-			// получить всю пеню по лиц.счету
-			penMain = apenyaDao.getPenAmnt(lsk, lastDate);
-		}
+		// получить всю пеню по лиц.счету
+		penMain = apenyaDao.getPenAmnt(lsk, lastDate);
 
 		return penMain;
 	}

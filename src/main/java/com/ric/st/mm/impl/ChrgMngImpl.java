@@ -33,19 +33,11 @@ public class ChrgMngImpl implements ChrgMng {
 	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
 	 * @param uk - УК из Eolink
-	 * @param appTp - тип информационной системы
 	 */
 	@Override
-	public List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk, Integer appTp) {
+	public List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk) {
 		List<SumChrgRec> lstSum = null;
-		if (appTp==0) {
-			// старая разработка
-		} else if (appTp==1) {
-			// новая разработка
-		} else if (appTp==2) {
-			// экспериментальная разработка
-			lstSum = achrgDao.getChrgGrp(lsk, Integer.valueOf(period), uk.getId());
-		}
+		lstSum = achrgDao.getChrgGrp(lsk, Integer.valueOf(period), uk.getId());
 		return lstSum;
 	}
 

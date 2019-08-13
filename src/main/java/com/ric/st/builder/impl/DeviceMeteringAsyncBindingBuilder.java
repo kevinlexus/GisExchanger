@@ -162,9 +162,11 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         sb.setSign(false); // не подписывать запрос состояния!
 
         sb.makeRndMsgGuid();
+        String errMsg = null;
         try {
             state = port.getState(gs);
         } catch (Fault e) {
+            errMsg = e.getFaultInfo().getErrorCode();
             e.printStackTrace();
             err = true;
             errStr = "Запрос вернул ошибку!";
@@ -185,7 +187,8 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             // Ошибки во время выполнения
             log.trace(errStr);
             task.setState("ERR");
-            task.setResult(errStr);
+            reqProp.getFoundTask().setResult(errMsg);
+            log.error("Task.id={}, ОШИБКА выполнения запроса = {}", task.getId(), errStr);
         } else if (!err && state.getErrorMessage() != null
                 && state.getErrorMessage().getErrorCode() != null
                 && !(task.getAct().getCd().equals("GIS_EXP_METER_VALS") // не ситуация, когда экспорт счетчиков и ошибка "Нет объектов для экспорта"

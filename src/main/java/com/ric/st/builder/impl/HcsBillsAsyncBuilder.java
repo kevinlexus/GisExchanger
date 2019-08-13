@@ -157,8 +157,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     public ru.gosuslugi.dom.schema.integration.bills.GetStateResult getState2(Task task) {
 
         // Признак ошибки
-        Boolean err = false;
+        boolean err = false;
         String errStr = null;
+        String errMsg = null;
         ru.gosuslugi.dom.schema.integration.bills.GetStateResult state = null;
 
         GetStateRequest gs = new GetStateRequest();
@@ -169,9 +170,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         try {
             state = port.getState(gs);
         } catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
+            errMsg = e.getFaultInfo().getErrorCode();
             e.printStackTrace();
             err = true;
-            errStr = "Запрос вернул ошибку, смотреть в логе!";
         }
 
         if (state != null && state.getRequestState() != 3) {
@@ -189,8 +190,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // Показать ошибки, если есть
         if (err) {
             // Ошибки во время выполнения
-            reqProp.getFoundTask().setResult(errStr);
             reqProp.getFoundTask().setState("ERR");
+            reqProp.getFoundTask().setResult(errMsg);
             log.error("Task.id={}, ОШИБКА выполнения запроса = {}", task.getId(), errStr);
         } else {
             assert state != null;
@@ -792,7 +793,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     break;
                 }
                 log.info("Добавление платежного документа, Pdoc.id={}", t.getId());
-                boolean isAdd = addPaymentDocument(uk, t, house, req, 1, tguidPay);
+                boolean isAdd = addPaymentDocument(uk, t, house, req, tguidPay);
                 t.setIsConfirmCorrect(true);
                 if (isAdd) {
                     // если хотя бы один документ добавлен - загружать
@@ -874,14 +875,13 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      * @param uk       - организация
      * @param pdoc     - ПД
      * @param req      - запрос
-     * @param appTp    - тип информационной системы
      * @param tguidPay - транспортный GUID платежных реквизитов
      * @return - добавлен ли документ
      * @throws CantPrepSoap   - невозможно создать SOAP
      * @throws WrongGetMethod - некорректный параметр
      */
     private Boolean addPaymentDocument(Eolink uk, Pdoc pdoc, Eolink house,
-                                       ImportPaymentDocumentRequest req, Integer appTp,
+                                       ImportPaymentDocumentRequest req,
                                        String tguidPay)
             throws CantPrepSoap, WrongGetMethod, ParseException {
         PaymentDocument pd = new PaymentDocument();
@@ -938,7 +938,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         pd.setPaymentDocumentNumber(pdoc.getCd());
         List<SumChrgRec> lstSum
                 =
-                chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk, appTp).stream()
+                chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk).stream()
                         .map(t -> new SumChrgRecAlter
                                 (t.getUlistId(), t.getChrg(), t.getChng(), // ред.20.06.2019 - стояло - t.getChrg() чё за фигня??? (уходили ПД с начислением в перерасчетах)
                                         t.getVol(),
@@ -970,7 +970,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     chrgInfo = new ChargeInfo();
                     pd.getChargeInfo().add(chrgInfo);
                     chrgInfo.setMunicipalService(addMunService(t, "NO", "N",
-                            appTp, lstSum, lstOverServ));
+                            lstSum, lstOverServ));
 
                 } else if (t.getUlist().getUlistTp().getFkExt().equals(1)) {
                     // Внутренний справочник №1 - дополнительная (напр Замок)
@@ -996,7 +996,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         //- Штрафы
         //- Государственные пошлины
         //- Судебные издержки.
-        BigDecimal pen = Utl.nvl(debMng.getPenAmnt(acc.getKart().getLsk(), acc.getKoObj(), period, appTp), BigDecimal.ZERO);
+        BigDecimal pen = Utl.nvl(debMng.getPenAmnt(acc.getKart().getLsk(), acc.getKoObj(), period), BigDecimal.ZERO);
         if (pen.compareTo(BigDecimal.ZERO) != 0) {
             // добавить только в случае суммы <> 0, иначе НЕ сквитируется ПД
             NsiRef servType = ulistMng.getNsiElem("NSI", 329, "Вид начисления", "Пени");
@@ -1246,12 +1246,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      * добавить муниципальную услугу (Х.В., Г.В., Отопление)
      * @param rec - запись начисления
      * @param detMethod - cпособ определения объемов КУ: (N)orm - Норматив, (M)etering device - Прибор учета, (O)ther - Иное
-     * @param appTp - тип разработки
      * @param lstSum - список начислений по услугам
      * @param lstOverServ - список услуг повыш коэфф., уже присоединенных в данном ПД к услуге, во избежании дублей
 
      */
-    private MunicipalService addMunService(SumChrgRec rec, String calcExpl, String detMethod, Integer appTp,
+    private MunicipalService addMunService(SumChrgRec rec, String calcExpl, String detMethod,
                                            List<SumChrgRec> lstSum, List lstOverServ) {
         NsiRef mres;
         MunicipalService munService = new MunicipalService();
