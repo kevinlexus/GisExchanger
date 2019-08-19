@@ -1560,7 +1560,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void importAccountData(Task task) throws CantPrepSoap, CantSendSoap, WrongParam, UnusableCode {
-        if (!(task.getEolink().getId().equals(707492))) {
+        if (!(Utl.in(task.getEolink().getId(),884135,884114,884120))) {
             return;
         }
 
@@ -1608,7 +1608,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 new ArrayList<>(eolinkMng.getLskEolByHouseEol(houseEol.getId(), task.getProcUk().getId()));
 
         boolean isExistJob = false;
-        for (Eolink lskEol : lstLskForUpdate.stream().filter(t -> t.getId() >= 708151 && t.getId() <= 708151).collect(Collectors.toList())) {
+        for (Eolink lskEol : lstLskForUpdate) {
 //            for (Eolink lskEol : lstLskForUpdate.stream().filter(t->t.getId()>=995195 && t.getId()<=995197).collect(Collectors.toList())) {
             Kart kart = lskEol.getKart();
             // погасить ошибки
@@ -1699,14 +1699,18 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     Optional<StateSch> stateSchOpt = kartMng.getKartStateByDate(kart, new Date());
                     if (stateSchOpt.isPresent()) {
                         StateSch stateSch = stateSchOpt.get();
-                        if (stateSch.getReason() != null && stateSch.getDt1() != null) {
+                        if (stateSch.getReason() != null) {
+                            // дата закрытия пустая - проставить первую дату месяца
+                            Date stateSchDt = stateSch.getDt1() == null ? Utl.getFirstDate(new Date()) : stateSch.getDt1();
+
+                            // причина закрытия лиц.счета
                             ClosedAccountAttributesType closedAttributes = new ClosedAccountAttributesType();
                             String reasonGuid = stateSch.getReason().getGuid();
                             Ulist reasonUlist = ulistDAO.getListElemByGUID(reasonGuid);
                             NsiRef reasonNsiElem = ulistMng.getNsiElem(reasonUlist);
                             closedAttributes.setCloseReason(reasonNsiElem);
                             try {
-                                closedAttributes.setCloseDate(Utl.getXMLDate(stateSch.getDt1()));
+                                closedAttributes.setCloseDate(Utl.getXMLDate(stateSchDt));
                             } catch (DatatypeConfigurationException e) {
                                 throw new WrongParam("Некорректная дата закрытия лиц счета lsk=" + kart.getLsk());
                             }
@@ -1803,8 +1807,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     if (lskEol.getUn() == null) {
                         lskEol.setUn(d.getUniqueNumber());
                     }
-                    log.trace("После импорта объектов по Task.id={} и TGUID={}, получены следующие параметры:",
-                            reqProp.getFoundTask().getId(), d.getTransportGUID());
+                    log.trace("После импорта объектов получены следующие параметры:");
                     log.trace("GUID={}, UniqueNumber={}", d.getGUID(), d.getUniqueNumber());
                 }
             }
