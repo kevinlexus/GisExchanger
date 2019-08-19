@@ -38,7 +38,7 @@ public class Soap2GisApplication implements CommandLineRunner {
         log.info("****************************************************************");
         log.info("*                                                              *");
         log.info("*                                                              *");
-        log.info("*                  Версия GisExchanger - 1.0.11                 *");
+        log.info("*                  Версия GisExchanger - 1.0.12                 *");
         log.info("*                                                              *");
         log.info("*                                                              *");
         log.info("****************************************************************");

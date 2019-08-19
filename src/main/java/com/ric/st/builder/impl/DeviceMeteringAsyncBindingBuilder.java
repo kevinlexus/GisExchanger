@@ -134,7 +134,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                 reqProp.getHostIp());
 
         // логгинг запросов
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         // Id XML подписчика
         sb.setSignerId(reqProp.getSignerId());
     }
@@ -441,15 +441,14 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         taskMng.logTask(task, true, null);
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
-        // Трассировка XML
-        sb.setTrace(reqProp.getFoundTask() != null ? reqProp.getFoundTask().getTrace().equals(1) : false);
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
 
         // РКЦ (с параметрами)
         Eolink rkc = soapConfig.getRkcByHouse(reqProp.getFoundTask().getEolink());
 
         AckRequest ack = null;
         // для обработки ошибок
-        Boolean err = false;
+        boolean err = false;
         String errMainStr = null;
 
         ExportMeteringDeviceHistoryRequest req = new ExportMeteringDeviceHistoryRequest();
@@ -541,9 +540,10 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     public void exportMeteringDeviceValuesAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam, UnusableCode {
         taskMng.logTask(task, true, null);
 
-        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         // Установить параметры SOAP
         reqProp.setPropAfter(task);
+        sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
+
         // получить состояние запроса
         GetStateResult retState = getState2(reqProp.getFoundTask());
 

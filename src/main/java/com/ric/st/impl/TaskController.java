@@ -122,10 +122,12 @@ public class TaskController implements TaskControllers {
                     String actCd = task.getAct().getCd();
                     String state = task.getState();
 
-                    log.info("Task.actCd={}", actCd);
+                    // log.info("Task.actCd={}", actCd);
+/*
                     if (actCd.equals("GIS_IMP_ACCS") && !task.getEolink().getId().equals(898125)) {
-                        return;
+                        continue;
                     }
+*/
                     // Выполнить задание
                     try {
                         switch (actCd) {
@@ -227,12 +229,21 @@ public class TaskController implements TaskControllers {
                                 break;
                             case "GIS_EXP_ACCS":
                                 // Экспорт из ГИС ЖКХ лиц.счетов
-                                //hb.setUp(task);
                                 if (state.equals("INS")) {
                                     hb.exportAccountData(task);
                                 } else if (state.equals("ACK")) {
                                     // Запрос ответа
                                     hb.exportAccountDataAsk(task);
+                                }
+                                break;
+                            case "GIS_EXP_BRIEF_SUPPLY_RES_CONTRACT":
+                                // Экспорт из ГИС ЖКХ сокращенного состава информации о договоре ресурсоснабжения
+                                hb.setUp(task);
+                                if (state.equals("INS")) {
+                                    hb.exportBriefSupplyResourceContract(task);
+                                } else if (state.equals("ACK")) {
+                                    // Запрос ответа
+                                    hb.exportBriefSupplyResourceContractAsk(task);
                                 }
                                 break;
                             case "GIS_EXP_METERS":
@@ -278,10 +289,10 @@ public class TaskController implements TaskControllers {
                             case "GIS_EXP_METER_VALS":
                                 dm.setUp(task);
                                 if (state.equals("INS")) {
-                                    // Импорт показаний счетчиков
+                                    // экспорт показаний счетчиков
                                     dm.exportMeteringDeviceValues(task);
                                 } else if (state.equals("ACK")) {
-                                    // Запрос ответа
+                                    // запрос ответа
                                     dm.exportMeteringDeviceValuesAsk(task);
                                 }
                                 break;
@@ -403,8 +414,7 @@ public class TaskController implements TaskControllers {
                         //log.error("Ошибка: ClientTransportException: Bad request либо необходимо проверить туннель!");
                         log.error("Ошибка выполнения задания Task.id={}, Bad request либо необходимо проверить туннель!",
                                 task.getId());
-
-                        //		Utl.getStackTraceString(e));
+                        log.error(Utl.getStackTraceString(e));
                     } catch (Exception e) {
                         log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
                                 Utl.getStackTraceString(e));

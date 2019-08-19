@@ -78,7 +78,7 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 			.withState(state)
 			.withAct(actVal)
 			.withFk_user(userId)
-			.withErrAckCnt(0)
+			//.withErrAckCnt(0)
 			.withProcUk(procUk)
 			.withTrace(0).build();
 	}

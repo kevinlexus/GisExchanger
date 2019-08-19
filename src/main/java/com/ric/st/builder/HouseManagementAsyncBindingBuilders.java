@@ -13,20 +13,28 @@ import com.ric.st.excp.CantSendSoap;
 public interface HouseManagementAsyncBindingBuilders {
 
 	void setUp(Task task) throws CantSendSoap, CantPrepSoap;
-	Boolean exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
+	void exportDeviceData(Task task) throws CantPrepSoap, WrongGetMethod, DatatypeConfigurationException;
 	void exportDeviceDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, UnusableCode;
-	Boolean exportContract(Task task) throws CantPrepSoap, WrongGetMethod;
-	Boolean exportHouseData(Task task) throws CantPrepSoap, WrongGetMethod;
+
+	void exportContract(Task task) throws CantPrepSoap, WrongGetMethod;
+	void exportContractAsk(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam, UnusableCode;
+
+	void exportHouseData(Task task) throws CantPrepSoap, WrongGetMethod;
 	void exportHouseDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam, UnusableCode;
 	void exportAccountData(Task task) throws CantPrepSoap, WrongGetMethod, CantSendSoap, WrongParam;
 	void exportAccountDataAsk(Task task) throws CantPrepSoap, ErrorProcessAnswer, WrongGetMethod, WrongParam, CantSendSoap;
 	void importAccountData(Task task) throws WrongGetMethod, CantPrepSoap, WrongParam, CantSendSoap, UnusableCode;
 	void importAccountDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam, CantSendSoap, UnusableCode;
-	Boolean importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
+	void importHouseUOData(Task task) throws CantPrepSoap, WrongGetMethod;
 	void importHouseUODataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
-	Boolean importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;
+	void importMeteringDeviceData(Task task) throws WrongGetMethod, CantPrepSoap;
 	void importMeteringDeviceDataAsk(Task task) throws CantPrepSoap, WrongGetMethod;
-	Boolean exportCaChData(Task task) throws CantPrepSoap, WrongGetMethod;
+
+
+	void exportBriefSupplyResourceContract(Task task) throws CantPrepSoap, WrongParam, WrongGetMethod, ErrorProcessAnswer, CantSendSoap;
+	void exportBriefSupplyResourceContractAsk(Task task) throws CantPrepSoap, WrongParam, WrongGetMethod, ErrorProcessAnswer, CantSendSoap;
+
+	void exportCaChData(Task task) throws CantPrepSoap, WrongGetMethod;
 	void exportCaChDataAsk(Task task) throws CantPrepSoap, WrongGetMethod, WrongParam;
 	void checkPeriodicHouseExp(Task task) throws WrongParam;
 }

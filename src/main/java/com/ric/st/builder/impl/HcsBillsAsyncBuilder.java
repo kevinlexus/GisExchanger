@@ -73,6 +73,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -236,6 +237,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         Eolink uk = reqProp.getFoundTask().getEolink();
         // РКЦ (с параметрами)
         Eolink rkc = uk.getParent();
+
         // период экспорта
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_NOTIF");
         if (period == null) {
@@ -253,6 +255,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             throw new WrongParam("ERROR! Некорректный период");
         }
         log.info("Экспорт Извещений начиная с даты:{}", dt);
+
+        // req.getSupplierIDs().setFIASHouseGuid();
+
         // начиная с даты
         notif.setDateFrom(Utl.getXMLDate(dt));
         // интервал дней
@@ -548,7 +553,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         sb.setTrace(reqProp.getFoundTask() != null && reqProp.getFoundTask().getTrace().equals(1));
         AckRequest ack = null;
         // для обработки ошибок
-        Boolean err = false;
+        boolean err = false;
         String errMainStr = null;
         // дом
         Eolink house = reqProp.getFoundTask().getEolink();
@@ -568,14 +573,15 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     "\"ГИС ЖКХ.PERIOD_EXP_PD\", либо некорректно проставлен PARENT_ID от УК к РКЦ!");
         }
         int month = Integer.parseInt(Utl.getPeriodMonth(period));
-        Integer year = Integer.parseInt(Utl.getPeriodYear(period));
+        int year = Integer.parseInt(Utl.getPeriodYear(period));
         // период
         req.setMonth(month);
-        req.setYear(year.shortValue());
+        req.setYear((short) year);
         // дом
         req.setFIASHouseGuid(house.getGuid());
+
         // добавить GUID необходимых лиц.счетов
-        List<Eolink> lst = new ArrayList<Eolink>();
+        AtomicBoolean isExistJob = new AtomicBoolean(false);
         house.getChild().stream().filter(p -> p.getObjTp().getCd().equals("Подъезд")).forEach(p -> {
             // подъезды
             p.getChild().stream().filter(k -> k.getObjTp().getCd().equals("Квартира")).forEach(k -> {
@@ -583,30 +589,39 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 k.getChild().stream().filter(s -> s.getObjTp().getCd().equals("ЛС")).forEach(s -> {
                     // лицевой счет
                     req.getAccountNumber().add(s.getKart().getLsk());
+                    isExistJob.set(true);
                 });
             });
         });
 
-        try {
-            ack = port.exportPaymentDocumentData(req);
-        } catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
-            e.printStackTrace();
-            err = true;
-            errMainStr = e.getFaultInfo().getErrorMessage();
-        }
+        if (isExistJob.get()) {
+            try {
+                ack = port.exportPaymentDocumentData(req);
+            } catch (ru.gosuslugi.dom.schema.integration.bills_service_async.Fault e) {
+                e.printStackTrace();
+                err = true;
+                errMainStr = e.getFaultInfo().getErrorMessage();
+            }
 
-        if (err) {
-            reqProp.getFoundTask().setState("ERR");
-            reqProp.getFoundTask().setResult("Ошибка при отправке XML: " + errMainStr);
-            taskMng.logTask(task, false, false);
+            if (err) {
+                reqProp.getFoundTask().setState("ERR");
+                reqProp.getFoundTask().setResult("Ошибка при отправке XML: " + errMainStr);
+                taskMng.logTask(task, false, false);
 
+            } else {
+                // Установить статус "Запрос статуса"
+                reqProp.getFoundTask().setState("ACK");
+                reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
+                taskMng.logTask(task, false, true);
+
+            }
         } else {
-            // Установить статус "Запрос статуса"
-            reqProp.getFoundTask().setState("ACK");
-            reqProp.getFoundTask().setMsgGuid(ack.getAck().getMessageGUID());
-            taskMng.logTask(task, false, true);
-
+            // Установить статус "Выполнено", так как нечего загружать
+            log.info("Task.id={}, Нет лиц.счетов по которым возможно выгрузить ПД!", task.getId());
+            reqProp.getFoundTask().setState("ACP");
         }
+        // сбросить кол-во ошибок запросов Ack
+        //reqProp.getFoundTask().setErrAckCnt(0);
     }
 
     /**
@@ -714,8 +729,6 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             // Установить статус выполнения задания
             reqProp.getFoundTask().setState("ACP");
             taskMng.logTask(task, false, true);
-
-
         }
     }
 
@@ -865,7 +878,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         }
 
         // сбросить кол-во ошибок запросов Ack
-        reqProp.getFoundTask().setErrAckCnt(0);
+        //reqProp.getFoundTask().setErrAckCnt(0);
 
     }
 
@@ -919,11 +932,11 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         String cd;
         if (pdoc.getCd() == null) {
             // если не проставлен № документа в биллинге
-                // старая и эксперементальная разработка
-                cd = "ПД_".concat(uk.getOrg().getReu().concat("_").concat(period).concat("_").concat(String.valueOf(pdoc.getId())));
-                pdoc.setCd(cd);
-                log.info("-------------------------------------------------------------------------------------------");
-                log.info("ПД: проставлен № документа cd={}", cd);
+            // старая и эксперементальная разработка
+            cd = "ПД_".concat(uk.getOrg().getReu().concat("_").concat(period).concat("_").concat(String.valueOf(pdoc.getId())));
+            pdoc.setCd(cd);
+            log.info("-------------------------------------------------------------------------------------------");
+            log.info("ПД: проставлен № документа cd={}", cd);
         } else {
             log.info("ПД: использован № документа cd={}", pdoc.getCd());
         }

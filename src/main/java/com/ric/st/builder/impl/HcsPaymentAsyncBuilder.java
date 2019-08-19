@@ -224,7 +224,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		}
 
 		// сбросить кол-во ошибок запросов Ack
-		reqProp.getFoundTask().setErrAckCnt(0);
+		//reqProp.getFoundTask().setErrAckCnt(0);
 
 	}
 
@@ -404,7 +404,7 @@ public class HcsPaymentAsyncBuilder implements HcsPaymentAsyncBuilders {
 		}
 
 		// сбросить кол-во ошибок запросов Ack
-		reqProp.getFoundTask().setErrAckCnt(0);
+		//reqProp.getFoundTask().setErrAckCnt(0);
 	}
 
 	/**
