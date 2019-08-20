@@ -907,7 +907,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // GUID лицевого счета
         String accGuid = acc.getGuid();
         // лиц счет из биллинга
-        Kart kart = em.find(Kart.class, acc.getKart().getLsk());
+        Kart kart = acc.getKart(); // ред. 20.08.2019
+        //Kart kart = em.find(Kart.class, acc.getKart().getLsk());
         if (kart == null) {
             log.error("Не обнаружен лицевой счет: Kart.lsk={}");
             return false;
@@ -951,7 +952,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         pd.setPaymentDocumentNumber(pdoc.getCd());
         List<SumChrgRec> lstSum
                 =
-                chrgMng.getChrgGrp(acc.getKart().getLsk(), acc.getKoObj(), period, uk).stream()
+                chrgMng.getChrgGrp(acc.getKart().getLsk(), period, uk).stream()
                         .map(t -> new SumChrgRecAlter
                                 (t.getUlistId(), t.getChrg(), t.getChng(), // ред.20.06.2019 - стояло - t.getChrg() чё за фигня??? (уходили ПД с начислением в перерасчетах)
                                         t.getVol(),
@@ -1009,7 +1010,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         //- Штрафы
         //- Государственные пошлины
         //- Судебные издержки.
-        BigDecimal pen = Utl.nvl(debMng.getPenAmnt(acc.getKart().getLsk(), acc.getKoObj(), period), BigDecimal.ZERO);
+        BigDecimal pen = Utl.nvl(debMng.getPenAmnt(acc.getKart().getLsk(), period), BigDecimal.ZERO);
         if (pen.compareTo(BigDecimal.ZERO) != 0) {
             // добавить только в случае суммы <> 0, иначе НЕ сквитируется ПД
             NsiRef servType = ulistMng.getNsiElem("NSI", 329, "Вид начисления", "Пени");
@@ -1029,7 +1030,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         log.info("ПД: ИТОГО начислено за период ={}", totalPeriod);
 
         // получить запись сальдо
-        SumSaldoRecDTO sumSaldo = debMng.getSumSaldo(acc.getKart().getLsk(), acc.getKoObj(),
+        SumSaldoRecDTO sumSaldo = debMng.getSumSaldo(acc.getKart().getLsk(),
                 period, 1);
 
         // вычесть текущую оплату

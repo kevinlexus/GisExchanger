@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
-import com.dic.bill.model.scott.Ko;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dic.bill.dao.ApenyaDAO;
@@ -27,38 +25,32 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class DebMngImpl implements DebMng {
 
-	@Autowired
-	private ApenyaDAO apenyaDao;
-	@Autowired
-	private SaldoUslDAO saldoUslDao;
+	private final ApenyaDAO apenyaDao;
+	private final SaldoUslDAO saldoUslDao;
+
+	public DebMngImpl(ApenyaDAO apenyaDao, SaldoUslDAO saldoUslDao) {
+		this.apenyaDao = apenyaDao;
+		this.saldoUslDao = saldoUslDao;
+	}
 
 	/**
 	 * Получить сальдо на начало периода "period" из разных источников
 	 * @author Lev
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
-	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
 	 * @param appTp - тип информационной системы
 	 */
 	@Override
-	public SumSaldoRecDTO getSumSaldo(String lsk, Ko ko, String period, Integer appTp) {
-		SumSaldoRecDTO sal = null;
-		if (appTp.equals(0)) {
-			// старая разработка
-		} else if (appTp.equals(1)) {
-			// новая разработка
-		} else if (appTp.equals(2)) {
-			// экспериментальная разработка
-			SumSaldoRec sumSaldoRec = saldoUslDao.getSaldoByLsk(lsk, period);
-			sal = getSalAsDTO(sumSaldoRec);
-		}
+	public SumSaldoRecDTO getSumSaldo(String lsk, String period, Integer appTp) {
+		SumSaldoRecDTO sal;
+		SumSaldoRec sumSaldoRec = saldoUslDao.getSaldoByLsk(lsk, period);
+		sal = getSalAsDTO(sumSaldoRec);
 		return sal;
 	}
 
 	/**
 	 * Преобразовать сальдо в DTO
 	 * @param sumSaldoRec - запись сальдо
-	 * @return
 	 */
 	private SumSaldoRecDTO getSalAsDTO(SumSaldoRec sumSaldoRec) {
 		SumSaldoRecDTO sal;
@@ -83,17 +75,14 @@ public class DebMngImpl implements DebMng {
 	/**
 	 * Получить всю пеню по лиц.счету (основные услуги + дополнительные)
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
-	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
 	 *
 	 */
 	@Override
-	public BigDecimal getPenAmnt(String lsk, Ko ko, String period) throws ParseException {
+	public BigDecimal getPenAmnt(String lsk, String period) throws ParseException {
 		// пеня по основным услугам
-		BigDecimal penMain = BigDecimal.ZERO;
+		BigDecimal penMain;
 		// пеня по капремонту
-		BigDecimal penCap = BigDecimal.ZERO;
-		//
 		Date lastDate = Utl.getLastDate(Utl.getDateFromPeriod(period));
 		// получить всю пеню по лиц.счету
 		penMain = apenyaDao.getPenAmnt(lsk, lastDate);

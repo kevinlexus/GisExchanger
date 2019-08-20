@@ -2,7 +2,6 @@ package com.ric.st.mm.impl;
 
 import java.util.List;
 
-import com.dic.bill.model.scott.Ko;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +22,22 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ChrgMngImpl implements ChrgMng {
 
-	@Autowired
-	private AchargeDAO achrgDao;
+	private final AchargeDAO achrgDao;
+
+	public ChrgMngImpl(AchargeDAO achrgDao) {
+		this.achrgDao = achrgDao;
+	}
 
 	/**
 	 * Получить записи начисления из разных источников
 	 * @author Lev
 	 * @param lsk - лиц.счет (необязательно для новой разраб.)
-	 * @param ko - Ko объект лиц.счета (обязательно для новой разраб.)
 	 * @param period - период выборки
 	 * @param uk - УК из Eolink
 	 */
 	@Override
-	public List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk) {
-		List<SumChrgRec> lstSum = null;
+	public List<SumChrgRec> getChrgGrp(String lsk, String period, Eolink uk) {
+		List<SumChrgRec> lstSum;
 		lstSum = achrgDao.getChrgGrp(lsk, Integer.valueOf(period), uk.getId());
 		return lstSum;
 	}

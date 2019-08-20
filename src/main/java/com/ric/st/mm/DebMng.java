@@ -3,7 +3,6 @@ package com.ric.st.mm;
 import java.math.BigDecimal;
 import java.text.ParseException;
 
-import com.dic.bill.model.scott.Ko;
 import com.ric.dto.SumSaldoRecDTO;
 
 /**
@@ -13,6 +12,6 @@ import com.ric.dto.SumSaldoRecDTO;
  */
 public interface DebMng {
 
-	BigDecimal getPenAmnt(String lsk, Ko ko, String period) throws ParseException;
-	SumSaldoRecDTO getSumSaldo(String lsk, Ko ko, String period, Integer appTp);
+	BigDecimal getPenAmnt(String lsk, String period) throws ParseException;
+	SumSaldoRecDTO getSumSaldo(String lsk, String period, Integer appTp);
 }

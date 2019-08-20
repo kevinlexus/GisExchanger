@@ -267,14 +267,7 @@ public class TaskController implements TaskControllers {
                                 }
                                 break;
                             case "GIS_IMP_METERS":
-                                hb.setUp(task);
-                                if (state.equals("INS")) {
-                                    // Импорт счетчиков
-                                    hb.importMeteringDeviceData(task);
-                                } else if (state.equals("ACK")) {
-                                    // Запрос ответа
-                                    hb.importMeteringDeviceDataAsk(task);
-                                }
+                                // todo нет реализации пока
                                 break;
                             case "GIS_IMP_METER_VALS":
                                 dm.setUp(task);

@@ -54,9 +54,6 @@ import javax.persistence.StoredProcedureQuery;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -568,7 +565,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             Date dt2 = Utl.getLastDate(dt1);
 
             // получить уже сохранённые в базу показания
-            List<MeterData> mdLst = meterDao.findMeteringDataTsByUser("GIS", "ins_sch", period);
+            List<MeterData> mdLst = meterDao.findMeteringDataTsUsingUser("GIS", "ins_sch", period);
             for (ExportMeteringDeviceHistoryResultType t : retState.getExportMeteringDeviceHistoryResult()) {
                 // найти счетчик по GUID
                 Eolink meterEol = eolinkDao.getEolinkByGuid(t.getMeteringDeviceRootGUID());

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.dic.bill.dto.SumChrgRec;
 import com.dic.bill.model.exs.Eolink;
-import com.dic.bill.model.scott.Ko;
 
 /**
  * Интерфейс сервиса получения данных о начислении из разных источников
@@ -13,5 +12,5 @@ import com.dic.bill.model.scott.Ko;
  */
 public interface ChrgMng {
 
-	List<SumChrgRec> getChrgGrp(String lsk, Ko ko, String period, Eolink uk);
+	List<SumChrgRec> getChrgGrp(String lsk, String period, Eolink uk);
 }
