@@ -1164,10 +1164,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         try {
                             ko = kartMng.getKoPremiseByKulNdKw(reqProp.getKul(), reqProp.getNd(), num);
                         } catch (DifferentKlskBySingleAdress differentKlskBySingleAdress) {
-                            // в KART разные KLSK на один адрес!";
+                            // в KART разные KLSK на один адрес!
                             soapConfig.saveError(premisEol, CommonErrs.ERR_DIFF_KLSK_BUT_SAME_ADDR, true);
                         } catch (EmptyId emptyId) {
-                            // в KART найден пустой KLSK в данном адресе!";
+                            // в KART найден пустой KLSK в данном адресе!
                             soapConfig.saveError(premisEol, CommonErrs.ERR_EMPTY_KLSK, true);
                         }
                         if (ko == null) {
