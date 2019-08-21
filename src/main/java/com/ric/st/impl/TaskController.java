@@ -31,6 +31,7 @@ import com.ric.st.excp.CantSendSoap;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.util.stream.Collectors;
 
 
 /**
@@ -111,8 +112,8 @@ public class TaskController implements TaskControllers {
 */
         // цикл
         while (flag) {
-            // перебрать все необработанные задания
-            for (Task t : taskDao.getAllUnprocessed()) {
+            // перебрать все необработанные задания, по 10 штук за раз (чтобы приоритетные могли подниматься вверх)
+            for (Task t : taskDao.getAllUnprocessed().stream().limit(10).collect(Collectors.toList())) {
                 // получить задание заново (могло измениться в базе)
                 Task task = em.find(Task.class, t.getId());
 
@@ -423,6 +424,7 @@ public class TaskController implements TaskControllers {
             }
             try {
                 Thread.sleep(1000);
+                //log.info("Next 10 task:");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

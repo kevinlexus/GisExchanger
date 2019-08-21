@@ -1426,15 +1426,15 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // Лиц счет на дом
                         guid = d.getFIASHouseGuid();
                     }
-                    log.info("лиц.счет={}", t.getAccountNumber());
+                    log.trace("лиц.счет={}", t.getAccountNumber());
                     for (AccountReasonsImportType.TKOContract tkoContract :
                             t.getAccountReasons().getTKOContract()) {
-                        log.info("Основание ТКО лиц.счета Contract GUID={}", tkoContract.getContractGUID());
+                        log.trace("Основание ТКО лиц.счета Contract GUID={}", tkoContract.getContractGUID());
                     }
 
                     for (AccountReasonsImportType.SupplyResourceContract suppContr :
                             t.getAccountReasons().getSupplyResourceContract()) {
-                        log.info("Основание лиц.счета Contract GUID={}", suppContr.getContractGUID());
+                        log.trace("Основание лиц.счета Contract GUID={}", suppContr.getContractGUID());
                     }
                 }
 
@@ -1518,7 +1518,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void importAccountData(Task task) throws CantPrepSoap, CantSendSoap, WrongParam, UnusableCode {
-        if (!(Utl.in(task.getEolink().getId(),884135,884114,884120))) {
+        if (!(Utl.in(task.getEolink().getId(),884135,884114,884120,707492))) {
             return;
         }
 
@@ -1544,7 +1544,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         log.info("Кол-во лиц.счетов на загрузку {}", lstKartAbsent.size());
         for (Kart kart : lstKartAbsent) {
             log.info("Попытка создать лиц.счет в EOLINK, lsk={}", kart.getLsk());
-            Eolink eolKw = eolinkDao2.getEolinkByKlskId(kart.getKoKw().getId());
+            Eolink eolKw = eolinkDao2.getEolinkByKlskId(kart.getKoPremise().getId());
             if (eolKw == null) {
                 log.error("ОШИБКА! По лиц.счету KART.LSK={} не найден объект типа 'Квартира' в EOLINK, c помощью K_LSK_ID={}",
                         kart.getLsk(), kart.getKoKw().getId());
