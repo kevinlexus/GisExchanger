@@ -74,48 +74,14 @@ public class TaskBuilder implements TaskBuilders {
                 .forEach(t -> {
 
                     //log.info("############# t.getChild().getId()={}", t.getChild().getId());
-
                     ArrayList<Task> taskLst = new ArrayList<>(10);
                     if (activateTask(t.getChild(), taskLst)) {
-                        // все дочерние задания разрешают запуск
+                        // разрешить запуск по всем дочерним заданиям
                         taskLst.forEach(t2 -> {
                             t2.setState("INS");
-                            //log.info("Разрешено!!!!!!!: id={}", t2.getId());
+                      //      log.info("Разрешено!!!!!!!: id={}", t2.getId());
                         });
                     }
-	    	/*
-	    	// ведущее задание
-			Task master = t.getChild().getMaster();
-			// зависимые задания
-			List<Task> slave = t.getChild().getSlave();
-			// текущее задание
-			Task current = t.getChild();
-			if (!Utl.in(current.getState(), "INS", "ACK", "ERA" )) {
-				// если не выполняется и без ошибки запроса статуса "ERA"
-				if (master == null && slave.size() == 0) {
-					// нет зависимых по DEP_ID заданий
-			    	//log.info("------------Основное задание Task.id={} НЕТ Зависимых заданий по DEP_ID, ВКЛ!", current.getId());
-			    	// и нет зависимых заданий, то поставить на выполнение
-			    	current.setState("INS");
-				} else {
-		    		// есть зависимые задания, проверить их статусы
-			    	//log.info("------------Основное задание Task.id={} Есть Зависимые по DEP_ID задания!", current.getId());
-					if(slave.stream()
-					    .filter(e -> Utl.in(e.getState(), "INS", "ACK", "ERA" )).count() == 0L) {
-				    	// зависимые задания, не выполняются и без ошибки запроса статуса "ERA", поставить на выполнение основное и зависимые
-				    	//log.info("------------Основное задание по DEP_ID Task.id={} Зависимые задания по DEP_ID НЕ выполняются, ВКЛ!", current.getId());
-				    	current.setState("INS");
-				    	slave.stream().forEach(e -> {
-					    	//log.info("------------Зависимое задание по DEP_ID Task.id={}, ВКЛ!", e.getId());
-					    	e.setState("INS");
-				    	});
-					} else {
-				    	//log.info("------------Основное задание Task.id={} Зависимые задания по DEP_ID выполняются, НЕ ВКЛ!", current.getId());
-					}
-				}
-
-			}
-*/
                 });
     }
 

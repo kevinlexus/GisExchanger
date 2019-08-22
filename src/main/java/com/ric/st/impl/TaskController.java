@@ -409,6 +409,7 @@ public class TaskController implements TaskControllers {
                         log.error("Ошибка выполнения задания Task.id={}, Bad request либо необходимо проверить туннель!",
                                 task.getId());
                         log.error(Utl.getStackTraceString(e));
+                        taskMng.setState(task, "ERR");
                     } catch (Exception e) {
                         log.error("Ошибка выполнения задания Task.id={}, message={}", task.getId(),
                                 Utl.getStackTraceString(e));
