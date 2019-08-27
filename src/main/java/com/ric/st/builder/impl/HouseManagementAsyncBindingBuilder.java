@@ -26,6 +26,9 @@ import com.ric.st.impl.SoapBuilder;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.mm.UlistMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -47,6 +50,7 @@ import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest
 import ru.gosuslugi.dom.schema.integration.house_management.ImportHouseUORequest.ApartmentHouse.ResidentialPremises.ResidentialPremisesToUpdate;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.house_management_service_async.HouseManagementServiceAsync;
+import ru.gosuslugi.dom.schema.integration.individual_registry_base.ID;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef;
 
 import javax.persistence.EntityManager;
@@ -54,6 +58,7 @@ import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.ws.BindingProvider;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -120,6 +125,17 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         this.kartMng = kartMng;
         this.eolinkMng = eolinkMng;
         this.lstMng = lstMng;
+    }
+
+    @Getter
+    @Setter
+    class LskEolParam {
+        String accountGUID;
+        String accountNumber;
+        String unifiedAccountNumber;
+        String serviceID;
+        Eolink eolink;
+        Boolean isClosed;
     }
 
     /**
@@ -1434,7 +1450,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 }
 
                 // найти лицевой счет
-                Eolink accountEol = eolinkDao.getEolinkByGuid(t.getAccountGUID());
+                Eolink lskEol = eolinkDao.getEolinkByGuid(t.getAccountGUID());
                 String num;
                 // усечь № лиц.счета до 8 знаков
                 if (t.getAccountNumber().length() > 8) {
@@ -1443,7 +1459,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     num = t.getAccountNumber();
                 }
 
-                if (accountEol == null) {
+                if (lskEol == null) {
                     // Создать новый лицевой счет
 
                     // Найти объект на который ссылаться
@@ -1460,7 +1476,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     } else {
                         AddrTp addrTp = lstMng.getAddrTpByCD("ЛС");
 
-                        accountEol = Eolink.builder()
+                        lskEol = Eolink.builder()
                                 .withGuid(t.getAccountGUID())
                                 .withUn(t.getUnifiedAccountNumber()) // ЕЛС
                                 .withServiceId(t.getServiceID()) // идентификатор ЖКУ
@@ -1473,35 +1489,61 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                         log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}, ServiceId={}",
                                 t.getAccountGUID(), num, t.getServiceID());
-                        em.persist(accountEol);
+                        em.persist(lskEol);
                     }
                 } else {
                     // Лиц.счет уже существует, обновить его параметры
-                    log.trace("Попытка обновить запись лицевого счета в Eolink: GUID={}, AccountNumber={}, " +
-                                    "UnifiedAccountNumber={}, ServiceId={}", t.getAccountGUID(),
-                            t.getAccountNumber(), t.getUnifiedAccountNumber(), t.getServiceID());
-                    // GUID
-                    if (accountEol.getGuid() == null) {
-                        accountEol.setGuid(t.getAccountGUID());
-                    }
-                    // ЕЛС
-                    if (accountEol.getUn() == null) {
-                        accountEol.setUn(t.getUnifiedAccountNumber());
-                    }
-                    // идентификатор ЖКУ
-                    if (accountEol.getServiceId() == null) {
-                        accountEol.setServiceId(t.getServiceID());
-                    }
-                    // отметить закрытый лс
-                    if (t.getClosed() != null) {
-                        // лс закрыт
-                        accountEol.setStatus(0);
-                    }
+                    LskEolParam lskEolParam = new LskEolParam();
+                    lskEolParam.setAccountGUID(t.getAccountGUID());
+                    lskEolParam.setAccountNumber(t.getAccountNumber());
+                    lskEolParam.setUnifiedAccountNumber(t.getUnifiedAccountNumber());
+                    lskEolParam.setServiceID(t.getServiceID());
+                    lskEolParam.setEolink(lskEol);
+                    lskEolParam.setIsClosed(t.getClosed() != null);
+                    updateLskEol(lskEolParam);
                 }
 
             }
             reqProp.getFoundTask().setState("ACP");
             taskMng.logTask(task, false, true);
+        }
+    }
+
+
+    /**
+     * Обновить параметры лиц.счета
+     *
+     * @param param - параметры
+     */
+    private void updateLskEol(LskEolParam param) {
+        log.trace("Попытка обновить запись лицевого счета в Eolink: GUID={}, AccountNumber={}, " +
+                        "UnifiedAccountNumber={}, ServiceId={}", param.getAccountGUID(),
+                param.getAccountNumber(), param.getUnifiedAccountNumber(), param.getServiceID());
+        // GUID
+        if (param.getEolink().getGuid() == null) {
+            param.getEolink().setGuid(param.getAccountGUID());
+        }
+        // ЕЛС
+        if (param.getEolink().getUn() == null) {
+            param.getEolink().setUn(param.getUnifiedAccountNumber());
+        } else {
+            if (!param.getEolink().getUn().equals(param.getUnifiedAccountNumber())) {
+                log.warn("ВНИМАНИЕ! Изменился ЕЛС лиц.счета по Eolink.id={}," +
+                                "UnifiedAccountNumber был={}, стал={}",
+                        param.getEolink().getId(),
+                        param.getEolink().getUn(),
+                        param.getUnifiedAccountNumber());
+                param.getEolink().setUn(param.getUnifiedAccountNumber());
+            }
+        }
+        // идентификатор ЖКУ
+        if (param.getEolink().getServiceId() == null) {
+            param.getEolink().setServiceId(param.getServiceID());
+        }
+        if (param.getIsClosed() != null && param.getIsClosed()) {
+            // отметить закрытый лс, если задано
+            // лс закрыт
+            param.getEolink().setStatus(0);
         }
     }
 
@@ -1579,9 +1621,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         for (Eolink lskEol : lstEolinkForUpdate) {
 //            for (Eolink lskEol : lstLskForUpdate.stream().filter(t->t.getId()>=995195 && t.getId()<=995197).collect(Collectors.toList())) {
             Kart kart = lskEol.getKart();
-            // погасить ошибки
-            soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND |
+            // погасить ошибки и комментарии
+            soapConfig.saveError(lskEol, CommonErrs.ERR_IMPORT | CommonErrs.ERR_LSK_NOT_FOUND |
                     CommonErrs.ERR_INCORRECT_PARENT | CommonErrs.ERR_EMPTY_FIO, false);
+            lskEol.setComm(null);
 
             if (kart == null) {
                 // не найден лиц.счет
@@ -1662,13 +1705,17 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 // № лицевого счета
                 ac.setAccountNumber(kart.getLsk());
 
-                // Сведения о плательщике (решили оставить "val")
+                // Сведения о плательщике
                 AccountType.PayerInfo pf = new AccountType.PayerInfo();
                 AccountIndType ind = new AccountIndType();
                 ind.setFirstName(kart.getKIm());
                 ind.setSurname(kart.getKFam());
                 ind.setPatronymic(kart.getKOt());
-                pf.setInd(ind);
+
+                if (kart.getIsDivided()) {
+                    markAsDivided(kart, pf, ind);
+                }
+
                 ac.setPayerInfo(pf);
 
                 if (lskEol.getGuid() != null) {
@@ -1742,6 +1789,57 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         }
     }
 
+    /**
+     * Установить реквизиты для разделенного лиц.счета
+     * @param kart - лиц.счет
+     * @param pf - информация о плательщике
+     * @param ind - информация о физ.лице // todo сделать так же об организации, в случае разделенного по Орг. ЕЛС
+     */
+    private void markAsDivided(Kart kart, AccountType.PayerInfo pf, AccountIndType ind) {
+        // разделенный лиц.счет, найти владельца с заполненными документами
+        List<KartPr> lstKartPr =
+                kart.getKartPr().stream().filter(KartPr::getIsUseDividedEls)
+                        .collect(Collectors.toList());
+        if (lstKartPr.size() > 1) {
+            log.error("ОШИБКА! Лиц.счет помечен как разделенный, " +
+                    "у больше чем одного собственника отмеченно использовать " +
+                    "документы проживающего для разделенного ЕЛС");
+        } else if (lstKartPr.size() == 0) {
+            log.error("ОШИБКА! Лиц.счет помечен как разделенный, " +
+                    "ни у одного собственника не отмеченно использовать " +
+                    "документы проживающего для разделенного ЕЛС");
+        } else if (!lstKartPr.get(0).isUseDocForDividedEls()) {
+            log.error("ОШИБКА! Лиц.счет помечен как разделенный, " +
+                    "отмеченно использовать документы проживающего для разделенного ЕЛС," +
+                    "а сами документы - пустые");
+        } else {
+            KartPr kartPr = lstKartPr.get(0);
+            // всё ОК
+            pf.setIsAccountsDivided(true);
+            if (kartPr.getSnils()!=null) {
+                // по СНИЛС
+                ind.setSNILS(kartPr.getSnils());
+            } else {
+                // по другому документу
+                ID id = new ID();
+                id.setSeries(kartPr.getDocSeries());
+                id.setNumber(kartPr.getDocNumber());
+
+                NsiRef idType = ulistMng.getNsiElem(kartPr.getDocTp().getUlist());
+                //NsiRef idType = ulistMng.getNsiElem("NSI", 95, "Вид документа, удостоверяющего личность",
+                //       "Паспорт гражданина Российской Федерации");
+                id.setType(idType);
+                try {
+                    id.setIssueDate(Utl.getXMLDate(Utl.getDateFromStr("12.12.2013")));
+                } catch (DatatypeConfigurationException | ParseException e) {
+                    e.printStackTrace();
+                }
+                ind.setID(id);
+            }
+            pf.setInd(ind);
+        }
+    }
+
 
     /**
      * Получить результат импорта лицевых счетов
@@ -1770,6 +1868,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         } else if (!reqProp.getFoundTask().getState().equals("ERR")) {
             // ошибок не найдено
             for (GetStateResult.ImportResult t : retState.getImportResult()) {
+                log.trace("После импорта объектов получены следующие параметры:");
                 for (GetStateResult.ImportResult.CommonResult d : t.getCommonResult()) {
 
                     // найти элемент лиц.счета по Транспортному GUID
@@ -1786,18 +1885,24 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         log.error(errStr);
                     }
 
-                    if (lskEol.getGuid() == null) {
-                        lskEol.setGuid(d.getGUID());
+                    if (d.getImportAccount() != null) {
+                        if (lskEol != null) {
+                            LskEolParam lskEolParam = new LskEolParam();
+                            lskEolParam.setAccountGUID(d.getGUID());
+                            lskEolParam.setUnifiedAccountNumber(d.getImportAccount().getUnifiedAccountNumber());
+                            lskEolParam.setServiceID(d.getImportAccount().getServiceID());
+                            lskEolParam.setEolink(lskEol);
+                            updateLskEol(lskEolParam);
+
+                        } else {
+                            log.error("ОШИБКА! Не найден лиц.счет в Eolink по TGUD={}",
+                                    d.getTransportGUID());
+                        }
                     }
-                    if (lskEol.getUn() == null) {
-                        lskEol.setUn(d.getUniqueNumber());
-                    }
-                    log.trace("После импорта объектов получены следующие параметры:");
-                    log.trace("GUID={}, UniqueNumber={}", d.getGUID(), d.getUniqueNumber());
                 }
             }
             if (reqProp.getFoundTask().getEolinkLast() != null) {
-                log.info("******* Task.id={}, Импорт части объектов дома выполнен, " +
+                log.info("******* Task.id={}, Импорт части лиц.счетов дома выполнен, " +
                         "будет произведён повтор задания, state='INS'", task.getId());
                 reqProp.getFoundTask().setState("INS");
                 taskMng.logTask(task, false, true);

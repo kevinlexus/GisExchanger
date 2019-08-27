@@ -52,14 +52,13 @@ public class TaskBuilder implements TaskBuilders {
     /**
      * Активация повторяемого задания
      *
-     * @param - task - повторяемое задание
-     * @throws WrongGetMethod
+     * @param task - повторяемое задание
      */
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public void activateRptTask(Task task) throws WrongGetMethod {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void activateRptTask(Task task) {
         Task foundTask = em.find(Task.class, task.getId());
-        //log.info("******* Task.id={}, Повторяемое задание", foundTask.getId());
+        log.info("******* Task.id={}, Повторяемое задание CD={}", foundTask.getId(), foundTask.getAct().getCd());
 		/* найти все связи с зависимыми записями, в заданиях которых нет родителя (главные),
 		   а так же если у этих заданий либо не имеется зависимых заданий, либо имеются и
 		   они НЕ находятся в статусах INS, ACK (т.е. на обработке)
