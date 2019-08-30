@@ -1540,10 +1540,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         if (param.getEolink().getServiceId() == null) {
             param.getEolink().setServiceId(param.getServiceID());
         }
-        if (param.getIsClosed() != null && param.getIsClosed()) {
-            // отметить закрытый лс, если задано
-            // лс закрыт
-            param.getEolink().setStatus(0);
+        // отметить открытый или закрытый лс
+        if (param.getIsClosed() != null) {
+            if (param.getIsClosed()) {
+                param.getEolink().setStatus(0);
+            } else {
+                param.getEolink().setStatus(1);
+            }
         }
     }
 
@@ -1791,9 +1794,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
     /**
      * Установить реквизиты для разделенного лиц.счета
+     *
      * @param kart - лиц.счет
-     * @param pf - информация о плательщике
-     * @param ind - информация о физ.лице // todo сделать так же об организации, в случае разделенного по Орг. ЕЛС
+     * @param pf   - информация о плательщике
+     * @param ind  - информация о физ.лице // todo сделать так же об организации, в случае разделенного по Орг. ЕЛС
      */
     private void markAsDivided(Kart kart, AccountType.PayerInfo pf, AccountIndType ind) {
         // разделенный лиц.счет, найти владельца с заполненными документами
@@ -1816,7 +1820,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             KartPr kartPr = lstKartPr.get(0);
             // всё ОК
             pf.setIsAccountsDivided(true);
-            if (kartPr.getSnils()!=null) {
+            if (kartPr.getSnils() != null) {
                 // по СНИЛС
                 ind.setSNILS(kartPr.getSnils());
             } else {
