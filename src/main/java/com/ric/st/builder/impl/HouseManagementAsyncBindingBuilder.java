@@ -26,7 +26,6 @@ import com.ric.st.impl.SoapBuilder;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.mm.UlistMng;
 import com.sun.xml.ws.developer.WSBindingProvider;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -541,9 +540,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
                                 "в методе ulistMng.getUslByResource");
                     } else {
-                        Meter meter = meterMng.getActualMeterByKoPremiseUsl(premiseEol.getKoObj(), usl,
+                        Optional<Meter> meter = meterMng.getActualMeterByKo(premiseEol.getKoObj(), usl,
                                 new Date());
-                        if (meter == null) {
+                        if (meter.isPresent()) {
                             log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
                                     premiseEol.getId());
                             soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
@@ -552,8 +551,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             if (rootEol.getKoObj() == null) {
                                 // только если уже нет привязки!
                                 log.trace("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
-                                        meter.getKo().getId(), rootEol.getId());
-                                rootEol.setKoObj(meter.getKo());
+                                        meter.get().getKo().getId(), rootEol.getId());
+                                rootEol.setKoObj(meter.get().getKo());
                             }
                         }
                     }
