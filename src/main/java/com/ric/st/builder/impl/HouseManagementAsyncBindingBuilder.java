@@ -1725,30 +1725,29 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     ac.setAccountGUID(lskEol.getGuid());
                 }
 
-                if (!kart.isActual()) {
-                    // закрытый лиц.счет
-                    Optional<StateSch> stateSchOpt = kartMng.getKartStateByDate(kart, new Date());
-                    if (stateSchOpt.isPresent()) {
-                        StateSch stateSch = stateSchOpt.get();
-                        if (stateSch.getReason() != null) {
-                            // дата закрытия пустая - проставить первую дату месяца
-                            Date stateSchDt = stateSch.getDt1() == null ? Utl.getFirstDate(new Date()) : stateSch.getDt1();
+                // закрытый лиц.счет
+                Optional<StateSch> stateSchOpt = kartMng.getKartStateByDate(kart, new Date());
+                if (stateSchOpt.isPresent()) {
+                    StateSch stateSch = stateSchOpt.get();
+                    if (stateSch.getReason() != null) {
+                        // заполнена причина закрытия лиц.счета в ГИС ЖКХ
+                        // если дата закрытия пустая - проставить первую дату месяца
+                        Date stateSchDt = stateSch.getDt1() == null ? Utl.getFirstDate(new Date()) : stateSch.getDt1();
 
-                            // причина закрытия лиц.счета
-                            ClosedAccountAttributesType closedAttributes = new ClosedAccountAttributesType();
-                            String reasonGuid = stateSch.getReason().getGuid();
-                            Ulist reasonUlist = ulistDAO.getListElemByGUID(reasonGuid);
-                            NsiRef reasonNsiElem = ulistMng.getNsiElem(reasonUlist);
-                            closedAttributes.setCloseReason(reasonNsiElem);
-                            try {
-                                closedAttributes.setCloseDate(Utl.getXMLDate(stateSchDt));
-                            } catch (DatatypeConfigurationException e) {
-                                throw new WrongParam("Некорректная дата закрытия лиц счета lsk=" + kart.getLsk());
-                            }
-                            ac.setClosed(closedAttributes);
-                            // установить статус - закрытый в Eolink
-                            lskEol.setStatus(0);
+                        // причина закрытия лиц.счета
+                        ClosedAccountAttributesType closedAttributes = new ClosedAccountAttributesType();
+                        String reasonGuid = stateSch.getReason().getGuid();
+                        Ulist reasonUlist = ulistDAO.getListElemByGUID(reasonGuid);
+                        NsiRef reasonNsiElem = ulistMng.getNsiElem(reasonUlist);
+                        closedAttributes.setCloseReason(reasonNsiElem);
+                        try {
+                            closedAttributes.setCloseDate(Utl.getXMLDate(stateSchDt));
+                        } catch (DatatypeConfigurationException e) {
+                            throw new WrongParam("Некорректная дата закрытия лиц счета lsk=" + kart.getLsk());
                         }
+                        ac.setClosed(closedAttributes);
+                        // установить статус - закрытый в Eolink
+                        lskEol.setStatus(0);
                     }
                 }
             }

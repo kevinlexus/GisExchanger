@@ -112,23 +112,18 @@ public class TaskController implements TaskControllers {
 */
         // цикл
         while (flag) {
-            // перебрать все необработанные задания, по 10 штук за раз (чтобы приоритетные могли подниматься вверх)
-            for (Task t : taskDao.getAllUnprocessed().stream().limit(10).collect(Collectors.toList())) {
-                // получить задание заново (могло измениться в базе)
+            // перебрать все необработанные задания
+            for (Task t : taskDao.getAllUnprocessed()) {
+                // получить задание заново (могло измениться в базе) - WTF??? ред.05.09.2019
                 Task task = em.find(Task.class, t.getId());
-
+                log.trace("Обработка задания ID={}, CD={}, ActCD={}",
+                        task.getId(), task.getCd(), task.getAct().getCd());
                 if (Utl.in(task.getState(), "INS", "ACK", "RPT") && task.isActivate()) {
                     // Почистить результаты задания
                     taskMng.clearAllResult(task);
                     String actCd = task.getAct().getCd();
                     String state = task.getState();
 
-                    // log.info("Task.actCd={}", actCd);
-/*
-                    if (actCd.equals("GIS_IMP_ACCS") && !task.getEolink().getId().equals(898125)) {
-                        continue;
-                    }
-*/
                     // Выполнить задание
                     try {
                         switch (actCd) {
