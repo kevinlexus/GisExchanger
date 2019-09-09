@@ -116,8 +116,8 @@ public class TaskController implements TaskControllers {
             for (Task t : taskDao.getAllUnprocessed()) {
                 // получить задание заново (могло измениться в базе) - WTF??? ред.05.09.2019
                 Task task = em.find(Task.class, t.getId());
-                log.trace("Обработка задания ID={}, CD={}, ActCD={}",
-                        task.getId(), task.getCd(), task.getAct().getCd());
+                //log.trace("Обработка задания ID={}, CD={}, ActCD={}",
+                //       task.getId(), task.getCd(), task.getAct().getCd());
                 if (Utl.in(task.getState(), "INS", "ACK", "RPT") && task.isActivate()) {
                     // Почистить результаты задания
                     taskMng.clearAllResult(task);

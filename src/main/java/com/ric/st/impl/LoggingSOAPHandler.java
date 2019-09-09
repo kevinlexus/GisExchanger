@@ -31,9 +31,6 @@ import java.util.Set;
 public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
 
 
-    /**
-     * Is called after constructing the handler and before executing any othe method.
-     */
     @PostConstruct
     public void init() {
 
