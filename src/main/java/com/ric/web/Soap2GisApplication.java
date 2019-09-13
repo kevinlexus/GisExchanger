@@ -5,6 +5,7 @@ import java.net.URLClassLoader;
 
 import javax.security.auth.message.config.AuthConfigFactory;
 
+import com.ric.cmn.Utl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
 import org.springframework.boot.CommandLineRunner;
@@ -13,26 +14,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.ric.signature.sign.commands.Command;
 import com.ric.signature.sign.commands.SignCommand;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.impl.TaskController;
 
 @SpringBootApplication
 @Slf4j
-public class Soap2GisApplication implements CommandLineRunner {
+public class Soap2GisApplication {
 
-	public static Command sc;
-    public static Command sc2;
+	public static SignCommand sc;
+    public static SignCommand sc2;
 	private static ApplicationContext applicationContext = null;
-
-    //access command line arguments
-    @Override
-    public void run(String... args) throws Exception {
-
-        //do something
-
-    }
 
 	public static void main(String[] args) {
         log.info("****************************************************************");
@@ -64,7 +56,7 @@ public class Soap2GisApplication implements CommandLineRunner {
             AuthConfigFactory.setFactory(new AuthConfigFactoryImpl());
         }
 
-        if (applicationContext != null && mode != null && "stop".equals(mode)) {
+        if (applicationContext != null && "stop".equals(mode)) {
             System.exit(SpringApplication.exit(applicationContext, new ExitCodeGenerator() {
                 @Override
                 public int getExitCode() {
@@ -73,6 +65,7 @@ public class Soap2GisApplication implements CommandLineRunner {
             }));
         } else {
             SpringApplication app = new SpringApplication(Soap2GisApplication.class);
+            assert args != null;
             applicationContext = app.run(args);
 
             TaskController taskContr = applicationContext.getBean(TaskController.class);
@@ -89,7 +82,7 @@ public class Soap2GisApplication implements CommandLineRunner {
                 log.error("*                                                              *");
                 log.error("*                                                              *");
                 log.error("****************************************************************");
-                log.error("stackTrace={}", e1.getStackTrace().toString());
+                log.error("stackTrace={}", Utl.getStackTraceString(e1));
                 // Завершить выполнение приложения
                 SpringApplication.exit(applicationContext, () -> 0);
     		}

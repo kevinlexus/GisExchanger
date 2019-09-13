@@ -3,7 +3,6 @@ package com.ric.signature.sign.args;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.ric.signature.sign.commands.Command;
 import com.ric.signature.sign.commands.SignCommand;
 
 import java.io.File;
@@ -34,7 +33,6 @@ public class SignParameters extends AbstractParameters {
 
     @Parameter(names = {"-providerarg"}, description = "provider argument")
     private String providerArg;
-    //endregion
 
     //region store
     @Parameter(names = {"-storetype"}, description = "keystore type")
@@ -109,7 +107,7 @@ public class SignParameters extends AbstractParameters {
     }
 
     @Override
-    public Command createCommand() {
-        return new SignCommand(this);
+    public SignCommand createCommand() {
+        return new SignCommand();
     }
 }

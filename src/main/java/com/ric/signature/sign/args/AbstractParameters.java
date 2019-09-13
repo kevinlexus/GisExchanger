@@ -1,7 +1,7 @@
 package com.ric.signature.sign.args;
 
 import com.beust.jcommander.Parameter;
-import com.ric.signature.sign.commands.Command;
+import com.ric.signature.sign.commands.SignCommand;
 
 /**
  * Параметры командной строки, общие для всех команд.
@@ -14,7 +14,7 @@ public class AbstractParameters {
         return help;
     }
 
-    public Command createCommand() {
+    public SignCommand createCommand() {
         return null;
     }
 }

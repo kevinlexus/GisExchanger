@@ -23,14 +23,17 @@ public class SoapConfig implements SoapConfigs {
     private String basicPass;
     @Value("${basicLogin}")
     private String basicLogin;
+
     @Value("${signPass}")
     private String signPass;
-    @Value("${signPath}")
+    @Value("${signPath:#{null}}")
     private String signPath;
+
     @Value("${signPass2:#{null}}")
     private String signPass2;
     @Value("${signPath2:#{null}}")
     private String signPath2;
+
     @Value("${hostIp}")
     private String hostIp;
 

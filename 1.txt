@@ -1,0 +1,154 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Soap2Gis 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading from cata1: http://repo.boundlessgeo.com/main/com/ric/cmn/BillCommon/0.0.3-SNAPSHOT/maven-metadata.xml
+[WARNING] Could not transfer metadata com.ric.cmn:BillCommon:0.0.3-SNAPSHOT/maven-metadata.xml from/to cata1 (http://repo.boundlessgeo.com/main/): java.lang.ClassNotFoundException: com.digt.trusted.jsse.provider.DigtSocketFactory
+[WARNING] Failure to transfer com.ric.cmn:BillCommon:0.0.3-SNAPSHOT/maven-metadata.xml from http://repo.boundlessgeo.com/main/ was cached in the local repository, resolution will not be reattempted until the update interval of cata1 has elapsed or updates are forced. Original error: Could not transfer metadata com.ric.cmn:BillCommon:0.0.3-SNAPSHOT/maven-metadata.xml from/to cata1 (http://repo.boundlessgeo.com/main/): java.lang.ClassNotFoundException: com.digt.trusted.jsse.provider.DigtSocketFactory
+Downloading from cata1: http://repo.boundlessgeo.com/main/com/dic/bill/DWC/0.0.1-SNAPSHOT/maven-metadata.xml
+[WARNING] Could not transfer metadata com.dic.bill:DWC:0.0.1-SNAPSHOT/maven-metadata.xml from/to cata1 (http://repo.boundlessgeo.com/main/): java.lang.ClassNotFoundException: com.digt.trusted.jsse.provider.DigtSocketFactory
+[WARNING] Failure to transfer com.dic.bill:DWC:0.0.1-SNAPSHOT/maven-metadata.xml from http://repo.boundlessgeo.com/main/ was cached in the local repository, resolution will not be reattempted until the update interval of cata1 has elapsed or updates are forced. Original error: Could not transfer metadata com.dic.bill:DWC:0.0.1-SNAPSHOT/maven-metadata.xml from/to cata1 (http://repo.boundlessgeo.com/main/): java.lang.ClassNotFoundException: com.digt.trusted.jsse.provider.DigtSocketFactory
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.1.1:tree (default-cli) @ Soap2Gis ---
+[INFO] com.ric.gis:Soap2Gis:jar:0.0.1-SNAPSHOT
+[INFO] +- com.ric.cmn:BillCommon:jar:0.0.3-SNAPSHOT:compile
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] |  +- org.apache.commons:commons-lang3:jar:3.8.1:compile
+[INFO] |  \- org.springframework.boot:spring-boot-starter-cache:jar:2.1.1.RELEASE:compile
+[INFO] |     \- org.springframework:spring-context-support:jar:5.1.4.RELEASE:compile
+[INFO] +- com.dic.bill:DWC:jar:0.0.1-SNAPSHOT:compile
+[INFO] |  +- org.hibernate:hibernate-entitymanager:jar:5.4.3.Final:compile
+[INFO] |  |  +- org.dom4j:dom4j:jar:2.1.1:compile
+[INFO] |  |  +- org.hibernate.common:hibernate-commons-annotations:jar:5.1.0.Final:compile
+[INFO] |  |  +- javax.persistence:javax.persistence-api:jar:2.2:compile
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.9.5:compile
+[INFO] |  |  \- org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:jar:1.1.1.Final:compile
+[INFO] |  +- org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final:compile
+[INFO] |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.9.0:compile
+[INFO] |  +- org.springframework:spring-context:jar:5.1.4.RELEASE:compile
+[INFO] |  |  \- org.springframework:spring-expression:jar:5.1.4.RELEASE:compile
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:2.1.3.RELEASE:compile
+[INFO] |  |  \- org.springframework.data:spring-data-commons:jar:2.1.3.RELEASE:compile
+[INFO] |  +- com.google.guava:guava:jar:19.0:compile
+[INFO] |  \- org.hibernate:hibernate-core:jar:5.4.3.Final:compile
+[INFO] |     +- org.javassist:javassist:jar:3.24.0-GA:compile
+[INFO] |     +- antlr:antlr:jar:2.7.7:compile
+[INFO] |     +- org.jboss:jandex:jar:2.0.5.Final:compile
+[INFO] |     +- com.fasterxml:classmate:jar:1.4.0:compile
+[INFO] |     \- javax.activation:javax.activation-api:jar:1.2.0:compile
+[INFO] +- com.dic.gis:GIS:jar:1.0.5:compile
+[INFO] +- org.quartz-scheduler:quartz:jar:2.2.1:compile
+[INFO] |  \- c3p0:c3p0:jar:0.9.1.1:compile
+[INFO] +- org.quartz-scheduler:quartz-jobs:jar:2.2.1:compile
+[INFO] +- org.springframework.boot:spring-boot-loader:jar:2.1.1.RELEASE:provided
+[INFO] +- org.springframework.boot:spring-boot-starter:jar:2.1.1.RELEASE:compile
+[INFO] |  +- org.springframework.boot:spring-boot:jar:2.1.1.RELEASE:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-logging:jar:2.1.1.RELEASE:compile
+[INFO] |  |  +- ch.qos.logback:logback-classic:jar:1.2.3:compile
+[INFO] |  |  |  \- ch.qos.logback:logback-core:jar:1.2.3:compile
+[INFO] |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.11.1:compile
+[INFO] |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.11.1:compile
+[INFO] |  |  \- org.slf4j:jul-to-slf4j:jar:1.7.25:compile
+[INFO] |  +- javax.annotation:javax.annotation-api:jar:1.3.2:compile
+[INFO] |  +- org.springframework:spring-core:jar:5.1.4.RELEASE:compile
+[INFO] |  |  \- org.springframework:spring-jcl:jar:5.1.4.RELEASE:compile
+[INFO] |  \- org.yaml:snakeyaml:jar:1.23:runtime
+[INFO] +- org.springframework.boot:spring-boot-starter-test:jar:2.1.1.RELEASE:test
+[INFO] |  +- org.springframework.boot:spring-boot-test:jar:2.1.1.RELEASE:test
+[INFO] |  +- org.springframework.boot:spring-boot-test-autoconfigure:jar:2.1.1.RELEASE:test
+[INFO] |  +- com.jayway.jsonpath:json-path:jar:2.4.0:test
+[INFO] |  |  \- net.minidev:json-smart:jar:2.3:test
+[INFO] |  |     \- net.minidev:accessors-smart:jar:1.2:test
+[INFO] |  |        \- org.ow2.asm:asm:jar:5.0.4:test
+[INFO] |  +- org.assertj:assertj-core:jar:3.11.1:test
+[INFO] |  +- org.mockito:mockito-core:jar:2.23.4:test
+[INFO] |  |  +- net.bytebuddy:byte-buddy-agent:jar:1.9.5:test
+[INFO] |  |  \- org.objenesis:objenesis:jar:2.6:test
+[INFO] |  +- org.hamcrest:hamcrest-core:jar:1.3:compile
+[INFO] |  +- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO] |  +- org.skyscreamer:jsonassert:jar:1.5.0:test
+[INFO] |  |  \- com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[INFO] |  \- org.xmlunit:xmlunit-core:jar:2.6.2:test
+[INFO] +- org.springframework.boot:spring-boot-starter-security:jar:2.1.1.RELEASE:compile
+[INFO] |  +- org.springframework.security:spring-security-config:jar:5.1.2.RELEASE:compile
+[INFO] |  |  \- org.springframework.security:spring-security-core:jar:5.1.2.RELEASE:compile
+[INFO] |  \- org.springframework.security:spring-security-web:jar:5.1.2.RELEASE:compile
+[INFO] |     \- org.springframework:spring-web:jar:5.1.4.RELEASE:compile
+[INFO] +- org.springframework.boot:spring-boot-autoconfigure:jar:2.1.1.RELEASE:compile
+[INFO] +- org.springframework:spring-orm:jar:5.1.4.RELEASE:compile
+[INFO] |  +- org.springframework:spring-beans:jar:5.1.4.RELEASE:compile
+[INFO] |  +- org.springframework:spring-jdbc:jar:5.1.4.RELEASE:compile
+[INFO] |  \- org.springframework:spring-tx:jar:5.1.4.RELEASE:compile
+[INFO] +- org.springframework:spring-aspects:jar:5.1.4.RELEASE:compile
+[INFO] +- org.projectlombok:lombok:jar:1.18.4:provided
+[INFO] +- org.apache.tomcat:tomcat-catalina:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-servlet-api:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-jsp-api:jar:9.0.13:compile
+[INFO] |  |  \- org.apache.tomcat:tomcat-el-api:jar:9.0.13:compile
+[INFO] |  +- org.apache.tomcat:tomcat-juli:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-annotations-api:jar:9.0.13:compile
+[INFO] |  +- org.apache.tomcat:tomcat-api:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-jni:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-coyote:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-util:jar:9.0.19:compile
+[INFO] |  +- org.apache.tomcat:tomcat-util-scan:jar:9.0.19:compile
+[INFO] |  \- org.apache.tomcat:tomcat-jaspic-api:jar:9.0.19:compile
+[INFO] +- javax.security.auth.message:javax.security.auth.message-api:jar:1.1:compile
+[INFO] +- org.springframework:spring-test:jar:5.1.4.RELEASE:test
+[INFO] +- com.zaxxer:HikariCP:jar:3.3.1:compile
+[INFO] +- javax.cache:cache-api:jar:1.1.0:compile
+[INFO] +- org.hibernate:hibernate-jcache:jar:5.4.3.Final:compile
+[INFO] |  \- org.jboss.logging:jboss-logging:jar:3.3.2.Final:compile
+[INFO] +- org.ehcache:ehcache:jar:3.7.1:compile
+[INFO] |  \- org.glassfish.jaxb:jaxb-runtime:jar:2.3.1:compile
+[INFO] |     +- org.glassfish.jaxb:txw2:jar:2.3.1:compile
+[INFO] |     \- com.sun.istack:istack-commons-runtime:jar:3.0.7:compile
+[INFO] +- org.apache.commons:commons-collections4:jar:4.0:compile
+[INFO] +- junit:junit:jar:4.12:compile
+[INFO] +- com.oracle:oracle:jar:10.2.0.2.0:compile
+[INFO] +- com.digt:trustedJava:jar:1.0:compile
+[INFO] +- com.diffplug.durian:durian:jar:3.4.0:compile
+[INFO] +- org.apache.httpcomponents:httpmime:jar:4.5.6:compile
+[INFO] +- org.apache.httpcomponents:httpclient:jar:4.5.6:compile
+[INFO] |  +- org.apache.httpcomponents:httpcore:jar:4.4.10:compile
+[INFO] |  \- commons-codec:commons-codec:jar:1.11:compile
+[INFO] +- com.beust:jcommander:jar:1.48:compile
+[INFO] +- commons-io:commons-io:jar:2.4:compile
+[INFO] +- org.bouncycastle:bcpkix-jdk15on:jar:1.55:compile
+[INFO] |  \- org.bouncycastle:bcprov-jdk15on:jar:1.55:compile
+[INFO] +- com.googlecode.xades4j:xades4j:jar:1.3.2:compile
+[INFO] |  +- com.google.inject.extensions:guice-multibindings:jar:2.0:compile
+[INFO] |  |  \- com.google.inject:guice:jar:2.0:compile
+[INFO] |  |     \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  \- org.apache.santuario:xmlsec:jar:2.0.1:compile
+[INFO] +- com.sun.xml.ws:jaxws-rt:jar:2.3.0.2:compile
+[INFO] |  +- javax.xml.bind:jaxb-api:jar:2.3.1:compile
+[INFO] |  +- javax.xml.ws:jaxws-api:jar:2.3.1:compile
+[INFO] |  +- javax.xml.soap:javax.xml.soap-api:jar:1.4.0:compile
+[INFO] |  +- javax.jws:jsr181-api:jar:1.0-MR1:compile
+[INFO] |  +- com.sun.xml.bind:jaxb-core:jar:2.3.0.1:compile
+[INFO] |  +- com.sun.xml.bind:jaxb-impl:jar:2.3.0.1:compile
+[INFO] |  +- com.sun.xml.ws:policy:jar:2.7.2:compile
+[INFO] |  +- org.glassfish.gmbal:gmbal-api-only:jar:3.1.0-b001:compile
+[INFO] |  |  \- org.glassfish.external:management-api:jar:3.0.0-b012:compile
+[INFO] |  +- org.jvnet.staxex:stax-ex:jar:1.7.8:compile
+[INFO] |  +- com.sun.xml.stream.buffer:streambuffer:jar:1.5.4:compile
+[INFO] |  +- org.jvnet.mimepull:mimepull:jar:1.9.10:compile
+[INFO] |  +- com.sun.xml.fastinfoset:FastInfoset:jar:1.2.13:compile
+[INFO] |  +- org.glassfish.ha:ha-api:jar:3.1.9:compile
+[INFO] |  +- com.sun.xml.messaging.saaj:saaj-impl:jar:1.5.0:compile
+[INFO] |  +- org.codehaus.woodstox:woodstox-core-asl:jar:4.4.1:compile
+[INFO] |  +- org.codehaus.woodstox:stax2-api:jar:3.1.4:compile
+[INFO] |  \- com.sun.org.apache.xml.internal:resolver:jar:20050927:compile
+[INFO] +- commons-lang:commons-lang:jar:2.6:compile
+[INFO] +- org.springframework:spring-aop:jar:5.1.4.RELEASE:compile
+[INFO] +- org.aspectj:aspectjrt:jar:1.9.2:compile
+[INFO] \- org.aspectj:aspectjweaver:jar:1.9.2:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 27.683 s
+[INFO] Finished at: 2019-09-09T14:24:10+03:00
+[INFO] Final Memory: 27M/252M
+[INFO] ------------------------------------------------------------------------

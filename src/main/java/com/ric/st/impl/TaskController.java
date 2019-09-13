@@ -9,8 +9,6 @@ import com.ric.st.builder.*;
 import com.ric.st.mm.UlistMng;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 //import com.ric.bill.Config;
@@ -23,15 +21,11 @@ import com.dic.bill.mm.TaskMng;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.exs.TaskPar;
 import com.ric.cmn.Utl;
-import com.ric.signature.sign.commands.Command;
 import com.ric.st.TaskControllers;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.File;
-import java.util.stream.Collectors;
 
 
 /**
@@ -70,7 +64,6 @@ public class TaskController implements TaskControllers {
     private TaskBuilders tb;
     @Autowired
     private UlistMng ulistMng;
-    public Command sc;
     @Autowired
     private NsiServiceAsyncBindingBuilders nsiSv;
 
