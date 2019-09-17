@@ -100,7 +100,7 @@ public class SignCommand implements SignCommands{
             // создаем провайдер для доступа к закрытому ключу
             KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
 
-            // note создаем провайдер, описывающий используемые алгоритмы
+            // создаем провайдер, описывающий используемые алгоритмы
             CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
             algorithmsProvider.setSignatureAlgorithm(Consts.SIGNATURE_ALGORITHM);
             algorithmsProvider.setCanonicalizationAlgorithmForSignature(Consts.CANONICALIZATION_ALGORITHM_FOR_SIGNATURE);
@@ -110,7 +110,7 @@ public class SignCommand implements SignCommands{
             algorithmsProvider.setDigestAlgorithmForReferenceProperties(Consts.DIGEST_ALGORITHM_URI);
             algorithmsProvider.setDigestAlgorithmForTimeStampProperties(Consts.DIGEST_ALGORITHM_URI);
 
-            // note создаем провайдер, ответственный за расчет хешей
+            // создаем провайдер, ответственный за расчет хешей
             MessageDigestEngineProvider messageDigestEngineProvider =
                     new CustomizableMessageDigestEngineProvider(Consts.DIGEST_ALGORITHM_NAME, provider);
 
@@ -125,7 +125,6 @@ public class SignCommand implements SignCommands{
             signer = profile.newSigner();
         } catch (Exception e){
             System.out.println("ОШИБКА! Возникла ошибка при загрузке закрытого ключа");
-            //e.printStackTrace();
             throw e;
         }
     }

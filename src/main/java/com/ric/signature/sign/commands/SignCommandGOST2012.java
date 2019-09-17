@@ -21,6 +21,7 @@ import xades4j.providers.impl.DirectKeyingDataProvider;
 
 import javax.net.ssl.KeyManagerFactory;
 import java.io.InputStream;
+import java.security.KeyException;
 import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
@@ -29,12 +30,12 @@ import java.security.cert.X509Certificate;
 /**
  * Выполняет подписание XML-документа.
  */
-public class SignCommandGOST2012 implements SignCommands{
+public class SignCommandGOST2012 implements SignCommands {
 
-	private Provider provider;
-	private XadesSigner signer;
+    private Provider provider;
+    private XadesSigner signer;
 
-	public SignCommandGOST2012(String signPass, String signPath)
+    public SignCommandGOST2012(String signPass, String signPath)
             throws Exception {
         ru.CryptoPro.JCPxml.xmldsig.JCPXMLDSigInit.init();
         System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
@@ -46,49 +47,52 @@ public class SignCommandGOST2012 implements SignCommands{
         KeyStore ks = KeyStore.getInstance("REGISTRY", "JCSP");
         KeyManagerFactory kf = KeyManagerFactory.getInstance("GostX509");
 
-        //final char[] KEY_PASSWORD_KEY = "12345678".toCharArray();
         final char[] KEY_PASSWORD_KEY = signPass.toCharArray();
 
         InputStream stream = null;
         ks.load(stream, KEY_PASSWORD_KEY);
         kf.init(ks, KEY_PASSWORD_KEY);
 
-//        JCPPrivateKeyEntry keyEntry =
-//                (JCPPrivateKeyEntry) ks.getEntry("Shevchukg2012_CP7", new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
-        JCPPrivateKeyEntry keyEntry =
-                (JCPPrivateKeyEntry) ks.getEntry(signPath, new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
+        // загружаем закрытый ключ
+        try {
+            JCPPrivateKeyEntry keyEntry =
+                    (JCPPrivateKeyEntry) ks.getEntry(signPath, new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
+            if (keyEntry == null) {
+                throw new KeyException("Key not found: " + signPath);
+            }
+            // создаем провайдер для доступа к закрытому ключу
+            KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
 
-        // создаем провайдер для доступа к закрытому ключу
-        KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+            // создаем провайдер, описывающий используемые алгоритмы
+            CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
+            algorithmsProvider.setSignatureAlgorithm(Consts.SIGNATURE_ALGORITHM);
+            algorithmsProvider.setCanonicalizationAlgorithmForSignature(Consts.CANONICALIZATION_ALGORITHM_FOR_SIGNATURE);
+            algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(Consts.CANONICALIZATION_ALGORITHM_FOR_TIMESTAMP_PROPERTIES);
+            algorithmsProvider.setDigestAlgorithmForDataObjsReferences(Consts.DIGEST_ALGORITHM_URI);
+            algorithmsProvider.setDigestAlgorithmForReferenceProperties(Consts.DIGEST_ALGORITHM_URI);
+            algorithmsProvider.setDigestAlgorithmForTimeStampProperties(Consts.DIGEST_ALGORITHM_URI);
 
-        // создаем провайдер, описывающий используемые алгоритмы
-        CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
-        algorithmsProvider.setSignatureAlgorithm(Consts.SIGNATURE_ALGORITHM);
+            // создаем провайдер, ответственный за расчет хешей
+            MessageDigestEngineProvider messageDigestEngineProvider =
+                    new CustomizableMessageDigestEngineProvider(Consts.DIGEST_ALGORITHM_NAME, provider);
 
-        algorithmsProvider.setCanonicalizationAlgorithmForSignature(Consts.CANONICALIZATION_ALGORITHM_FOR_SIGNATURE);
-        algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(Consts.CANONICALIZATION_ALGORITHM_FOR_TIMESTAMP_PROPERTIES);
+            // настраиваем профиль подписания
+            XadesSigningProfile profile = new CustomizableXadesBesSigningProfileFactory()
+                    .withKeyingProvider(kp)
+                    .withAlgorithmsProvider(algorithmsProvider)
+                    .withMessageDigestEngineProvider(messageDigestEngineProvider)
+                    .create();
 
-        algorithmsProvider.setDigestAlgorithmForDataObjsReferences(Consts.DIGEST_ALGORITHM_URI);
-        algorithmsProvider.setDigestAlgorithmForReferenceProperties(Consts.DIGEST_ALGORITHM_URI);
-        algorithmsProvider.setDigestAlgorithmForTimeStampProperties(Consts.DIGEST_ALGORITHM_URI);
-
-        // создаем провайдер, ответственный за расчет хешей
-        MessageDigestEngineProvider messageDigestEngineProvider = new CustomizableMessageDigestEngineProvider(Consts.DIGEST_ALGORITHM_NAME,  provider);
-
-        // настраиваем профиль подписания
-        XadesSigningProfile profile = new CustomizableXadesBesSigningProfileFactory()
-                .withKeyingProvider(kp)
-                .withAlgorithmsProvider(algorithmsProvider)
-                .withMessageDigestEngineProvider(messageDigestEngineProvider)
-                .create();
-
-        // создаем объект, ответственный за создание подписи
-        System.out.println("************** Finishing init keys...");
-        signer =  profile.newSigner();
-	}
+            // создаем объект, ответственный за создание подписи
+            signer = profile.newSigner();
+        } catch (Exception e) {
+            System.out.println("ОШИБКА! Возникла ошибка при загрузке закрытого ключа");
+            throw e;
+        }
+    }
 
     @Override
-	public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
+    public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
         // загружаем проверяемый XML-документ
         Document document = XMLParser.parseXml(doc);
 
@@ -120,8 +124,6 @@ public class SignCommandGOST2012 implements SignCommands{
         SignedDataObjects dataObjs = new SignedDataObjects(obj);
         signer.sign(dataObjs, signatureContainer, SignatureAppendingStrategies.AsFirstChild);
 
-        String signedXml = XMLPrinter.toString(document);
-        //System.out.println(signedXml);
-        return signedXml;
+        return XMLPrinter.toString(document);
     }
 }
