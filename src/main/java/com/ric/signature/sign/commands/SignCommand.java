@@ -35,7 +35,7 @@ import java.util.Enumeration;
 /**
  * Выполняет подпись XML-документа.
  */
-public class SignCommand implements SignCommands{
+public class SignCommand implements SignCommands {
 
     private XadesSigner signer;
 
@@ -52,7 +52,6 @@ public class SignCommand implements SignCommands{
         char[] keyPassword = signPass.toCharArray();
         KeyStore keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
         KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", null);
-        //KeyStoreUtils.loadKeyStoreByName(keyStore, "LocalComputer/My", "12345678".toCharArray());
 
         // выводим информацию о хранилище
         System.out.println("Keystore type: " + keyStore.getType());
@@ -60,7 +59,7 @@ public class SignCommand implements SignCommands{
         System.out.println();
 
         // выводим список ключей/сертификатов
-      System.out.println("--------------------------------");
+        System.out.println("--------------------------------");
         System.out.println("список ключей/сертификатов:");
         Enumeration<String> aliases = keyStore.aliases();
         while (aliases.hasMoreElements()) {
@@ -123,7 +122,7 @@ public class SignCommand implements SignCommands{
 
             // создаем объект, ответственный за создание подписи
             signer = profile.newSigner();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("ОШИБКА! Возникла ошибка при загрузке закрытого ключа");
             throw e;
         }

@@ -8,6 +8,9 @@ import com.ric.signature.sign.xades.providers.CustomizableMessageDigestEnginePro
 import com.ric.signature.sign.xml.IdResolver;
 import com.ric.signature.sign.xml.XMLParser;
 import com.ric.signature.sign.xml.XMLPrinter;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.RFC4519Style;
+import org.bouncycastle.cert.jcajce.JcaX500NameUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import ru.CryptoPro.JCP.KeyStore.JCPPrivateKeyEntry;
@@ -25,40 +28,85 @@ import java.security.KeyException;
 import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 
 /**
  * Выполняет подписание XML-документа.
  */
 public class SignCommandGOST2012 implements SignCommands {
 
-    private Provider provider;
     private XadesSigner signer;
 
-    public SignCommandGOST2012(String signPass, String signPath)
+    /**
+     * Конструктор
+     *
+     * @param signPass  - пароль на хранилище
+     * @param signPath  - хранилище ("FAT12_A", "REGISTRY" и т.п.)
+     * @param signEntry - вхождение
+     */
+    public SignCommandGOST2012(String signPass, String signPath, String signEntry)
             throws Exception {
         ru.CryptoPro.JCPxml.xmldsig.JCPXMLDSigInit.init();
         System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
 
-        provider = new ru.CryptoPro.JCSP.JCSP();
+        Provider provider = new ru.CryptoPro.JCSP.JCSP();
         Security.addProvider(provider);
 
         // загружаем хранилище закрытых ключей
-        KeyStore ks = KeyStore.getInstance("REGISTRY", "JCSP");
+        KeyStore keyStore = KeyStore.getInstance(signPath, "JCSP");
         KeyManagerFactory kf = KeyManagerFactory.getInstance("GostX509");
 
         final char[] KEY_PASSWORD_KEY = signPass.toCharArray();
 
         InputStream stream = null;
-        ks.load(stream, KEY_PASSWORD_KEY);
-        kf.init(ks, KEY_PASSWORD_KEY);
+        keyStore.load(stream, KEY_PASSWORD_KEY);
+        kf.init(keyStore, KEY_PASSWORD_KEY);
+
+        // выводим информацию о хранилище
+        System.out.println("Keystore type: " + keyStore.getType());
+        System.out.println("Keystore provider: " + provider.getName());
+        System.out.println();
+
+        // выводим список ключей/сертификатов
+        System.out.println("--------------------------------");
+        System.out.println("список ключей/сертификатов:");
+        Enumeration<String> aliases = keyStore.aliases();
+        while (aliases.hasMoreElements()) {
+            String alias = aliases.nextElement();
+
+            String entryType = "?";
+            String entryInfo = null;
+            if (keyStore.entryInstanceOf(alias, KeyStore.SecretKeyEntry.class)) { // симметричный ключ шифрования
+                entryType = "SecretKeyEntry";
+            } else if (keyStore.entryInstanceOf(alias, KeyStore.PrivateKeyEntry.class)) { // закрытый ключ
+                entryType = "PrivateKeyEntry";
+            } else if (keyStore.entryInstanceOf(alias, KeyStore.TrustedCertificateEntry.class)) { // сертификат
+                entryType = "TrustedCertificateEntry";
+                Certificate certificate = keyStore.getCertificate(alias);
+                // не-X.509 сертификаты игнорируем
+                if (certificate instanceof X509Certificate) {
+                    X509Certificate x509 = (X509Certificate) certificate;
+                    // берем поле Subject из сертификата
+                    X500Name subject = JcaX500NameUtil.getSubject(RFC4519Style.INSTANCE, x509);
+                    entryInfo = subject.toString();
+                }
+            }
+
+            System.out.println(alias + ", " + entryType);
+            if (entryInfo != null) {
+                System.out.println(entryInfo);
+            }
+        }
+        System.out.println("--------------------------------");
 
         // загружаем закрытый ключ
         try {
             JCPPrivateKeyEntry keyEntry =
-                    (JCPPrivateKeyEntry) ks.getEntry(signPath, new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
+                    (JCPPrivateKeyEntry) keyStore.getEntry(signEntry, new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
             if (keyEntry == null) {
-                throw new KeyException("Key not found: " + signPath);
+                throw new KeyException("Key not found: " + signPath +" - "+ signEntry);
             }
             // создаем провайдер для доступа к закрытому ключу
             KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());

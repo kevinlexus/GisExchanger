@@ -66,7 +66,7 @@ public class Soap2GisApplication {
             SoapConfig soapConfig = applicationContext.getBean(SoapConfig.class);
             //Создать первый объект подписывания XML
             try {
-                sc = buildSigner(soapConfig);
+                sc = buildSigner(soapConfig, 1);
                 log.info("Объект подписывания XML-1 СОЗДАН!");
             } catch (Exception e1) {
                 log.error("****************************************************************");
@@ -84,7 +84,7 @@ public class Soap2GisApplication {
             //Создать второй объект подписывания XML (при наличии)
             if (soapConfig.getSignPass2() != null) {
                 try {
-                    sc2 = buildSigner(soapConfig);
+                    sc2 = buildSigner(soapConfig, 2);
                     log.info("Объект подписывания XML-2 СОЗДАН!");
                 } catch (Exception e1) {
                     log.error("****************************************************************");
@@ -115,15 +115,48 @@ public class Soap2GisApplication {
     /**
      * Создать объект подписывания
      * @param soapConfig - конфиг
+     * @param cnt - номер объекта по порядку
      * @return объект подписывания
      */
-    private static SignCommands buildSigner(SoapConfig soapConfig) throws Exception {
+    private static SignCommands buildSigner(SoapConfig soapConfig, int cnt) throws Exception {
         if (Utl.nvl(soapConfig.getSignGOST(), 0) == 0) {
             throw new RuntimeException("Не установлен параметр signGOST в application.properties!");
         } else if (soapConfig.getSignGOST().equals(2001)) {
-            return new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
+            if (cnt==1) {
+                // первый объект
+                if (soapConfig.getSignPath()==null) {
+                    throw new RuntimeException("Не установлен параметр signPath в application.properties!");
+                }
+                return new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
+            } else {
+                // второй объект
+                if (soapConfig.getSignPath2()==null) {
+                    throw new RuntimeException("Не установлен параметр signPath2 в application.properties!");
+                }
+                return new SignCommand(soapConfig.getSignPass2(), soapConfig.getSignPath2());
+            }
         } else if (soapConfig.getSignGOST().equals(2012)) {
-            return new SignCommandGOST2012(soapConfig.getSignPass(), soapConfig.getSignPath());
+            if (cnt==1) {
+                // первый объект
+                if (soapConfig.getSignPath()==null) {
+                    throw new RuntimeException("Не установлен параметр signPath в application.properties!");
+                }
+                if (soapConfig.getSignEntry()==null) {
+                    throw new RuntimeException("Не установлен параметр signEntry в application.properties!");
+                }
+                return new SignCommandGOST2012(soapConfig.getSignPass(),
+                        soapConfig.getSignPath(), soapConfig.getSignEntry());
+            } else {
+                // второй объект
+                if (soapConfig.getSignPath2()==null) {
+                    throw new RuntimeException("Не установлен параметр signPath2 в application.properties!");
+                }
+                if (soapConfig.getSignEntry2()==null) {
+                    throw new RuntimeException("Не установлен параметр signEntry2 в application.properties!");
+                }
+                return new SignCommandGOST2012(soapConfig.getSignPass2(),
+                        soapConfig.getSignPath2(), soapConfig.getSignEntry2());
+            }
         } else {
             throw new RuntimeException("Некорректный параметр signGOST в application.properties!");
         }

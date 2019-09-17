@@ -34,6 +34,12 @@ public class SoapConfig implements SoapConfigs {
     @Value("${signPath2:#{null}}")
     private String signPath2;
 
+    // вхождение (для ГОСТ 2012)
+    @Value("${signEntry:#{null}}")
+    private String signEntry;
+    @Value("${signEntry2:#{null}}")
+    private String signEntry2;
+
     // ГОСТ подписи (2001 или 2012)
     @Value("${signGOST:#{null}}")
     private Integer signGOST;
@@ -153,6 +159,14 @@ public class SoapConfig implements SoapConfigs {
     @Override
     public Integer getSignGOST() {
         return signGOST;
+    }
+
+    public String getSignEntry() {
+        return signEntry;
+    }
+
+    public String getSignEntry2() {
+        return signEntry2;
     }
 
     /**
