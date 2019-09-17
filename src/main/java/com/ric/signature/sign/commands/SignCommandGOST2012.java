@@ -33,36 +33,36 @@ import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 /**
- * Выполняет подписание XML-документа.
+ * Выполняет подпись XML-документа.
  */
 public class SignCommandGOST2012 implements SignCommands {
 
     private XadesSigner signer;
 
-    /**
-     * Конструктор
-     *
-     * @param signPass  - пароль на хранилище
-     * @param signPath  - хранилище ("FAT12_A", "REGISTRY" и т.п.)
-     * @param signEntry - вхождение
-     */
-    public SignCommandGOST2012(String signPass, String signPath, String signEntry)
-            throws Exception {
+    //конструктор
+    public SignCommandGOST2012(String signPass, String signPath, String signEntry) throws Exception {
+        System.out.println("1.0");
+        char[] keyPassword = signPass.toCharArray();
+        KeyStore keyStore;
+        Provider provider;
+        System.out.println("2.1");
         ru.CryptoPro.JCPxml.xmldsig.JCPXMLDSigInit.init();
-        System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
-
-        Provider provider = new ru.CryptoPro.JCSP.JCSP();
+        System.out.println("2.2");
+        // загружаем криптопровайдер
+        provider = new ru.CryptoPro.JCSP.JCSP();
+        System.out.println("2.3");
         Security.addProvider(provider);
-
         // загружаем хранилище закрытых ключей
-        KeyStore keyStore = KeyStore.getInstance(signPath, "JCSP");
+        System.out.println("2.4");
+        keyStore = KeyStore.getInstance(signPath, "JCSP");
+        System.out.println("2.5");
         KeyManagerFactory kf = KeyManagerFactory.getInstance("GostX509");
-
-        final char[] KEY_PASSWORD_KEY = signPass.toCharArray();
-
+        System.out.println("2.6");
         InputStream stream = null;
-        keyStore.load(stream, KEY_PASSWORD_KEY);
-        kf.init(keyStore, KEY_PASSWORD_KEY);
+        keyStore.load(stream, keyPassword);
+        System.out.println("2.7");
+        kf.init(keyStore, keyPassword);
+        System.out.println("2.8");
 
         // выводим информацию о хранилище
         System.out.println("Keystore type: " + keyStore.getType());
@@ -101,28 +101,32 @@ public class SignCommandGOST2012 implements SignCommands {
         }
         System.out.println("--------------------------------");
 
+
         // загружаем закрытый ключ
+        KeyingDataProvider kp;
         try {
             JCPPrivateKeyEntry keyEntry =
-                    (JCPPrivateKeyEntry) keyStore.getEntry(signEntry, new KeyStore.PasswordProtection(KEY_PASSWORD_KEY));
+                    (JCPPrivateKeyEntry) keyStore.getEntry(signEntry, new KeyStore.PasswordProtection(keyPassword));
             if (keyEntry == null) {
-                throw new KeyException("Key not found: " + signPath +" - "+ signEntry);
+                throw new KeyException("Key not found: " + signPath + " - " + signEntry);
             }
             // создаем провайдер для доступа к закрытому ключу
-            KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+            kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
 
+            Consts consts = new Consts(true);
             // создаем провайдер, описывающий используемые алгоритмы
             CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
-            algorithmsProvider.setSignatureAlgorithm(Consts.SIGNATURE_ALGORITHM);
-            algorithmsProvider.setCanonicalizationAlgorithmForSignature(Consts.CANONICALIZATION_ALGORITHM_FOR_SIGNATURE);
-            algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(Consts.CANONICALIZATION_ALGORITHM_FOR_TIMESTAMP_PROPERTIES);
-            algorithmsProvider.setDigestAlgorithmForDataObjsReferences(Consts.DIGEST_ALGORITHM_URI);
-            algorithmsProvider.setDigestAlgorithmForReferenceProperties(Consts.DIGEST_ALGORITHM_URI);
-            algorithmsProvider.setDigestAlgorithmForTimeStampProperties(Consts.DIGEST_ALGORITHM_URI);
+            algorithmsProvider.setSignatureAlgorithm(consts.getSignatureAlgorithm());
+            algorithmsProvider.setCanonicalizationAlgorithmForSignature(consts.getCanonicalizationAlgorithmForSignature());
+            algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(
+                    consts.getCanonicalizationAlgorithmForTimestampProperties());
+            algorithmsProvider.setDigestAlgorithmForDataObjsReferences(consts.getDigestAlgorithmUri());
+            algorithmsProvider.setDigestAlgorithmForReferenceProperties(consts.getDigestAlgorithmUri());
+            algorithmsProvider.setDigestAlgorithmForTimeStampProperties(consts.getDigestAlgorithmUri());
 
             // создаем провайдер, ответственный за расчет хешей
             MessageDigestEngineProvider messageDigestEngineProvider =
-                    new CustomizableMessageDigestEngineProvider(Consts.DIGEST_ALGORITHM_NAME, provider);
+                    new CustomizableMessageDigestEngineProvider(consts.getDigestAlgorithmName(), provider);
 
             // настраиваем профиль подписания
             XadesSigningProfile profile = new CustomizableXadesBesSigningProfileFactory()
@@ -133,41 +137,39 @@ public class SignCommandGOST2012 implements SignCommands {
 
             // создаем объект, ответственный за создание подписи
             signer = profile.newSigner();
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             System.out.println("ОШИБКА! Возникла ошибка при загрузке закрытого ключа");
             throw e;
         }
+
     }
 
     @Override
     public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
         // загружаем проверяемый XML-документ
         Document document = XMLParser.parseXml(doc);
-
         // объявляем атрибут Id в качестве идентифицирующего
         IdResolver.resolveIds(document.getDocumentElement());
-
         // ищем подписываемый элемент
         Element signedElement = document.getElementById(signedElementId);
-
+        if (signedElement == null) {
+            throw new ElementNotFoundException("Element to be signed not found: " + signedElementId);
+        }
+        // ищем элемент, в который нужно поместить подпись; если не указан, помещаем подпись в подписываемый элемент
         Element signatureContainer = document.getElementById(containerElementId);
         if (signatureContainer == null) {
             throw new ElementNotFoundException("Container element not found: " + containerElementId);
         }
-
         // настраиваем подписываемые данные
         DataObjectDesc obj = new DataObjectReference('#' + signedElementId);
-        obj.withTransform(new EnvelopedSignatureTransform());
-
-        // если подпись помещается в подписываемый элемент, применяем трансформацию enveloped signature transform
         if (containerElementId.equals(signedElementId)) {
+            // если подпись помещается в подписываемый элемент, применяем трансформацию enveloped signature transform
             // если этого не сделать, подпись нельзя будет проверить
             obj.withTransform(new EnvelopedSignatureTransform());
         }
-
         // применяем трансформацию Exclusive XML Canonicalization 1.0 without comments (комментарии исключаются из подписываемых данных)
         obj.withTransform(new ExclusiveCanonicalXMLWithoutComments());
-
         // создаем подпись
         SignedDataObjects dataObjs = new SignedDataObjects(obj);
         signer.sign(dataObjs, signatureContainer, SignatureAppendingStrategies.AsFirstChild);

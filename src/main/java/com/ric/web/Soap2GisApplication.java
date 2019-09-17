@@ -47,7 +47,7 @@ public class Soap2GisApplication {
 
 
         // Не удалять! отвалится ЭЦП!
-        System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
+        //System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
 
         String mode = args != null && args.length > 0 ? args[0] : null;
 
@@ -114,44 +114,45 @@ public class Soap2GisApplication {
 
     /**
      * Создать объект подписывания
+     *
      * @param soapConfig - конфиг
-     * @param cnt - номер объекта по порядку
+     * @param cnt        - номер объекта по порядку
      * @return объект подписывания
      */
     private static SignCommands buildSigner(SoapConfig soapConfig, int cnt) throws Exception {
         if (Utl.nvl(soapConfig.getSignGOST(), 0) == 0) {
             throw new RuntimeException("Не установлен параметр signGOST в application.properties!");
         } else if (soapConfig.getSignGOST().equals(2001)) {
-            if (cnt==1) {
+            if (cnt == 1) {
                 // первый объект
-                if (soapConfig.getSignPath()==null) {
+                if (soapConfig.getSignPath() == null) {
                     throw new RuntimeException("Не установлен параметр signPath в application.properties!");
                 }
                 return new SignCommand(soapConfig.getSignPass(), soapConfig.getSignPath());
             } else {
                 // второй объект
-                if (soapConfig.getSignPath2()==null) {
+                if (soapConfig.getSignPath2() == null) {
                     throw new RuntimeException("Не установлен параметр signPath2 в application.properties!");
                 }
                 return new SignCommand(soapConfig.getSignPass2(), soapConfig.getSignPath2());
             }
         } else if (soapConfig.getSignGOST().equals(2012)) {
-            if (cnt==1) {
+            if (cnt == 1) {
                 // первый объект
-                if (soapConfig.getSignPath()==null) {
+                if (soapConfig.getSignPath() == null) {
                     throw new RuntimeException("Не установлен параметр signPath в application.properties!");
                 }
-                if (soapConfig.getSignEntry()==null) {
+                if (soapConfig.getSignEntry() == null) {
                     throw new RuntimeException("Не установлен параметр signEntry в application.properties!");
                 }
                 return new SignCommandGOST2012(soapConfig.getSignPass(),
                         soapConfig.getSignPath(), soapConfig.getSignEntry());
             } else {
                 // второй объект
-                if (soapConfig.getSignPath2()==null) {
+                if (soapConfig.getSignPath2() == null) {
                     throw new RuntimeException("Не установлен параметр signPath2 в application.properties!");
                 }
-                if (soapConfig.getSignEntry2()==null) {
+                if (soapConfig.getSignEntry2() == null) {
                     throw new RuntimeException("Не установлен параметр signEntry2 в application.properties!");
                 }
                 return new SignCommandGOST2012(soapConfig.getSignPass2(),

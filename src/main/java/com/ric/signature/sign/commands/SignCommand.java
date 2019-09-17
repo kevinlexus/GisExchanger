@@ -41,17 +41,26 @@ public class SignCommand implements SignCommands {
 
     //конструктор
     public SignCommand(String signPass, String signPath) throws Exception {
-        // инициализируем Apache Santuario
-        org.apache.xml.security.Init.init();
-
-        // загружаем криптопровайдер
-        Provider provider = ProviderFactory.createProvider("com.digt.trusted.jce.provider.DIGTProvider", null);
-        Security.addProvider(provider);
-
-        // загружаем хранилище закрытых ключей
+        System.out.println("1.0");
         char[] keyPassword = signPass.toCharArray();
-        KeyStore keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
-        KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", null);
+        KeyStore keyStore;
+        Provider provider;
+            System.out.println("1.1");
+            System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
+            // инициализируем Apache Santuario
+            System.out.println("1.2");
+            org.apache.xml.security.Init.init();
+            // загружаем криптопровайдер
+            System.out.println("1.3");
+            provider = ProviderFactory.createProvider("com.digt.trusted.jce.provider.DIGTProvider", null);
+            System.out.println("1.4");
+            Security.addProvider(provider);
+            // загружаем хранилище закрытых ключей
+            System.out.println("1.5");
+            keyStore = KeyStore.getInstance("CryptoProCSPKeyStore", provider);
+            System.out.println("1.6");
+            KeyStoreUtils.loadKeyStoreByName(keyStore, "CurrentUser/My", null);
+            System.out.println("1.7");
 
         // выводим информацию о хранилище
         System.out.println("Keystore type: " + keyStore.getType());
@@ -90,28 +99,31 @@ public class SignCommand implements SignCommands {
         }
         System.out.println("--------------------------------");
 
-        // загружаем закрытый ключ
-        try {
-            KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
-            if (keyEntry == null) {
-                throw new KeyException("Key not found: " + signPath);
-            }
-            // создаем провайдер для доступа к закрытому ключу
-            KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
 
+        // загружаем закрытый ключ
+        KeyingDataProvider kp;
+        try {
+                KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
+                if (keyEntry == null) {
+                    throw new KeyException("Key not found: " + signPath);
+                }
+                // создаем провайдер для доступа к закрытому ключу
+                kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+
+            Consts consts = new Consts(false);
             // создаем провайдер, описывающий используемые алгоритмы
             CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
-            algorithmsProvider.setSignatureAlgorithm(Consts.SIGNATURE_ALGORITHM);
-            algorithmsProvider.setCanonicalizationAlgorithmForSignature(Consts.CANONICALIZATION_ALGORITHM_FOR_SIGNATURE);
+            algorithmsProvider.setSignatureAlgorithm(consts.getSignatureAlgorithm());
+            algorithmsProvider.setCanonicalizationAlgorithmForSignature(consts.getCanonicalizationAlgorithmForSignature());
             algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(
-                    Consts.CANONICALIZATION_ALGORITHM_FOR_TIMESTAMP_PROPERTIES);
-            algorithmsProvider.setDigestAlgorithmForDataObjsReferences(Consts.DIGEST_ALGORITHM_URI);
-            algorithmsProvider.setDigestAlgorithmForReferenceProperties(Consts.DIGEST_ALGORITHM_URI);
-            algorithmsProvider.setDigestAlgorithmForTimeStampProperties(Consts.DIGEST_ALGORITHM_URI);
+                    consts.getCanonicalizationAlgorithmForTimestampProperties());
+            algorithmsProvider.setDigestAlgorithmForDataObjsReferences(consts.getDigestAlgorithmUri());
+            algorithmsProvider.setDigestAlgorithmForReferenceProperties(consts.getDigestAlgorithmUri());
+            algorithmsProvider.setDigestAlgorithmForTimeStampProperties(consts.getDigestAlgorithmUri());
 
             // создаем провайдер, ответственный за расчет хешей
             MessageDigestEngineProvider messageDigestEngineProvider =
-                    new CustomizableMessageDigestEngineProvider(Consts.DIGEST_ALGORITHM_NAME, provider);
+                    new CustomizableMessageDigestEngineProvider(consts.getDigestAlgorithmName(), provider);
 
             // настраиваем профиль подписания
             XadesSigningProfile profile = new CustomizableXadesBesSigningProfileFactory()
@@ -122,10 +134,12 @@ public class SignCommand implements SignCommands {
 
             // создаем объект, ответственный за создание подписи
             signer = profile.newSigner();
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             System.out.println("ОШИБКА! Возникла ошибка при загрузке закрытого ключа");
             throw e;
         }
+
     }
 
     @Override
