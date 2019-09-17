@@ -1,8 +1,11 @@
 package com.ric.signature.sign.xades;
 
+/**
+ * Имена используемых алгоритмов.
+ */
 public class Consts {
-    private Consts() {
-    }
+	private Consts() {
+	}
 
     private static boolean isGost = true;
 

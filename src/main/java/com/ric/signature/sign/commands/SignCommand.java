@@ -33,16 +33,11 @@ import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 /**
- * Выполняет подписание XML-документа.
+ * Выполняет подпись XML-документа.
  */
-public class SignCommand {
+public class SignCommand implements SignCommands{
 
     private XadesSigner signer;
-
-    //конструктор
-    public SignCommand() {
-        org.apache.xml.security.Init.init();
-    }
 
     //конструктор
     public SignCommand(String signPass, String signPath) throws Exception {
@@ -135,6 +130,7 @@ public class SignCommand {
         }
     }
 
+    @Override
     public String signElem(String doc, String signedElementId, String containerElementId) throws Exception {
         // загружаем проверяемый XML-документ
         Document document = XMLParser.parseXml(doc);
