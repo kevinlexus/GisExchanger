@@ -81,11 +81,16 @@ public class LoggingSOAPHandler implements SOAPHandler<SOAPMessageContext> {
                 String sgn = null;
                 try {
                     if (signerId == 1) {
-                        log.info("************* Выбран signerId=1");
-                        sgn = Soap2GisApplication.sc.signElem(bs.toString(), "foo", "foo");
+                        log.info("************* Выбран signerId=1, класс подписи:{}",
+                                Soap2GisApplication.sc.getClass().getName()
+                        );
+                        sgn = Soap2GisApplication.sc.signElem(bs.toString(),
+                                "foo", "foo");
                     } else {
-                        log.info("************* Выбран signerId=2");
-                        sgn = Soap2GisApplication.sc2.signElem(bs.toString(), "foo", "foo");
+                        log.info("************* Выбран signerId=2, класс подписи:{}",
+                                Soap2GisApplication.sc.getClass().getName());
+                        sgn = Soap2GisApplication.sc2.signElem(bs.toString(),
+                                "foo", "foo");
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();

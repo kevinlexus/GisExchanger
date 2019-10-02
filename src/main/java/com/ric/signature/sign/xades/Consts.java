@@ -8,7 +8,7 @@ public class Consts {
 	    this.isGost=isGost;
 	}
 
-    private boolean isGost = false;
+    private boolean isGost;
 
     public String getSignatureAlgorithm() {
         return isGost ? "urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256" : "http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411";
