@@ -1621,7 +1621,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         int i = 0;
         Eolink lastLskEol = null;
         for (Eolink lskEol : lstEolinkForUpdate) {
-//            for (Eolink lskEol : lstLskForUpdate.stream().filter(t->t.getId()>=995195 && t.getId()<=995197).collect(Collectors.toList())) {
             Kart kart = lskEol.getKart();
             // погасить ошибки и комментарии
             soapConfig.saveError(lskEol, CommonErrs.ERR_IMPORT | CommonErrs.ERR_LSK_NOT_FOUND |
@@ -1714,6 +1713,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 ind.setSurname(kart.getKFam());
                 ind.setPatronymic(kart.getKOt());
 
+                // наниматель?
+                if (kartMng.getIsRenter(kart)) {
+                    pf.setIsRenter(true);
+                }
+
+                // лиц.счет разделен?
                 if (kart.getIsDivided()) {
                     markAsDivided(kart, pf, ind);
                 }
