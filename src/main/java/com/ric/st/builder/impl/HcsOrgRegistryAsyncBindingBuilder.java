@@ -1,33 +1,25 @@
 package com.ric.st.builder.impl;
 
-import java.io.IOException;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.xml.ws.BindingProvider;
-
-import com.ric.st.impl.SoapConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.dic.bill.dao.EolinkDAO;
-import com.ric.cmn.excp.WrongGetMethod;
-import com.ric.cmn.excp.WrongParam;
 import com.dic.bill.mm.TaskMng;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
+import com.ric.cmn.excp.WrongGetMethod;
+import com.ric.cmn.excp.WrongParam;
 import com.ric.st.ReqProps;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
+import com.ric.st.impl.SoapConfig;
 import com.sun.xml.ws.developer.WSBindingProvider;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
@@ -38,6 +30,11 @@ import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportO
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgServiceAsync;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.xml.ws.BindingProvider;
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -224,7 +221,7 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		req.setId("foo");
 		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
 
-		if (eolOrg.getOgrn() != null) {
+		if (eolOrg.getOrg().getOgrn() != null) { // ред.10.10.2019 переделал ОГРН с EXS.EOLINK на SCOTT.T_ORG
 			SearchCriteria sc = new SearchCriteria();
 			sc.setOGRN(eolOrg.getOgrn());
 			req.getSearchCriteria().add(sc);
@@ -239,7 +236,8 @@ public class HcsOrgRegistryAsyncBindingBuilder implements HcsOrgRegistryAsyncBin
 		} else {
 			// Не заполнен ОГРН
 			err = true;
-			errMainStr = "Отсутствует ОГРН!";
+			errMainStr = "В справочнике SCOTT.T_ORG не заполнен ОГРН в поле KOD_OGRN!";
+			log.error(errMainStr);
 		}
 
 		if (err) {
