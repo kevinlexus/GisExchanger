@@ -73,6 +73,18 @@ public class ReqProp implements ReqProps {
             eolinkUk = task.getProcUk();
         }
         ppGuid = eolinkUk.getGuid();
+        if (ppGuid == null) {
+            throw new CantPrepSoap("Не заполнен GUID организации EOLINK.ID=" + eolinkUk.getId());
+        }
+/*
+        if (ppGuid == null) {
+            ppGuid = eolinkUk.getGuid2();
+            if (ppGuid == null) {
+                throw new CantPrepSoap("Не заполнен GUID организации EOLINK.ID="+eolinkUk.getId());
+            }
+            log.warn("Выполнена подстановка GUID по организации EOLINK.ID={}", eolinkUk.getId());
+        }
+*/
 
         // IP адрес сервиса STUNNEL, получить или из application.properties - hostIp (Кис, Полыс)
         // или из параметра по УК (ТСЖ Содружество, Свободы)
@@ -190,9 +202,9 @@ public class ReqProp implements ReqProps {
      */
     private Eolink getUkByTaskEolink(Eolink eolink, Task task) throws CantPrepSoap {
         Eolink eolFound;
-        if (eolink.getObjTp().getCd().equals("Организация")/* && eolink.getParent() == null ред.04.09.2018*/) {
+        if (eolink.getObjTp().getCd().equals("Организация")) {
             // родительская организация
-            if (eolink.getGuid() == null) {
+            if (eolink.getGuid() == null/* && eolink.getGuid2() == null */) {
                 // нет PPGUID
                 throw new CantPrepSoap("Не заведен GUID организации по Task.id=" + task.getId());
             } else {

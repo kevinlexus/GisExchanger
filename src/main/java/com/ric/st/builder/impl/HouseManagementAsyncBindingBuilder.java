@@ -1673,6 +1673,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     reason.getTKOContract().add(tkoContract);
                     ac.setAccountReasons(reason);
                 */
+                } else if (uk.isRSO()) {
+                    // лиц.счет РСО
+                    ac.setIsRSOAccount(true);
                 } else {
                     throw new WrongParam("ОШИБКА! Неподдерживаемый тип организации SCOTT.T_ORG.ORG_TP_GIS=" + uk.getOrgTpGis()
                             + ", SCOTT.T_ORG.ID=" + uk.getId());
@@ -1709,6 +1712,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 // Сведения о плательщике
                 AccountType.PayerInfo pf = new AccountType.PayerInfo();
                 AccountIndType ind = new AccountIndType();
+
+                // ред. 11.10.2019 - ФИО является персональными данными, не передаются,
+                // только в случае разделенных лиц.счетов. - задал вопрос СКЭК по Полысаево, почему не передаётся?
                 ind.setFirstName(kart.getKIm());
                 ind.setSurname(kart.getKFam());
                 ind.setPatronymic(kart.getKOt());
