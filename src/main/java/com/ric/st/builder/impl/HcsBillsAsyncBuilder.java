@@ -769,10 +769,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             throw new WrongParam("ERROR! Некорректный период");
         }
         // список необработанных ПД
-        // note Внимание! заменил 17.07.2019 ЭКСПЕРЕМЕНТАЛЬНО!
-        //List<Pdoc> lstPdoc = new ArrayList<>(pdocMng.getPdocForLoadByHouse(house, uk, dt));
         List<Pdoc> lstPdoc = new ArrayList<>(pdocMng.getPdocForLoadByHouse(house, uk, dt));
-        // note Внимание! заменил 17.07.2019 ЭКСПЕРЕМЕНТАЛЬНО!
 
         // есть ли ПД (их отмена) на загрузку?
         boolean isExistJob = false;
@@ -907,10 +904,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // GUID лицевого счета
         String accGuid = acc.getGuid();
         // лиц счет из биллинга
-        Kart kart = acc.getKart(); // ред. 20.08.2019
-        //Kart kart = em.find(Kart.class, acc.getKart().getLsk());
+        Kart kart = acc.getKart();
         if (kart == null) {
-            log.error("Не обнаружен лицевой счет: Kart.lsk={}");
+            log.error("Не обнаружен лицевой счет: Eolink.id={}", acc.getId());
             return false;
         }
 
@@ -954,9 +950,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 =
                 chrgMng.getChrgGrp(acc.getKart().getLsk(), period, uk).stream()
                         .map(t -> new SumChrgRecAlter
-                                (t.getUlistId(), t.getChrg(), t.getChng(), // ред.20.06.2019 - стояло - t.getChrg() чё за фигня??? (уходили ПД с начислением в перерасчетах)
+                                (t.getUlistId(), t.getChrg(), t.getChng(),
                                         t.getVol(),
-                                        t.getPrice(), t.getNorm(), t.getSqr(), t.getUlist()))
+                                        t.getPrice(), t.getNorm(), t.getSqr(), t.getUlist(), t.getSch()))
                         .collect(Collectors.toList());
         // обновить услугами из справочника ГИС
         lstSum.forEach(t -> {
@@ -983,9 +979,16 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                     // Внутренний справочник №51 - коммунальная (напр.Х.В., Отопление)
                     chrgInfo = new ChargeInfo();
                     pd.getChargeInfo().add(chrgInfo);
-                    chrgInfo.setMunicipalService(addMunService(t, "NO", "N",
+                    String detMethod;
+                    if (t.getSch().equals(1)) {
+                        // счетчик
+                        detMethod = "M";
+                    } else {
+                        // если норматив, - ставим "Иное" (просил СКЭК Татьяна Леонидовна) ред.21.10.2019
+                        detMethod = "O";
+                    }
+                    chrgInfo.setMunicipalService(addMunService(t, "NO", detMethod,
                             lstSum, lstOverServ));
-
                 } else if (t.getUlist().getUlistTp().getFkExt().equals(1)) {
                     // Внутренний справочник №1 - дополнительная (напр Замок)
                     chrgInfo = new ChargeInfo();
@@ -1025,7 +1028,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
         // Итого начислено
         Double totalD = lstSum.stream() // Итог без капремонта!
-                .mapToDouble(t -> t.getChrg()).sum();
+                .mapToDouble(SumChrgRec::getChrg).sum();
         BigDecimal totalPeriod = Utl.getBigDecimalRound(totalD, 2);
         log.info("ПД: ИТОГО начислено за период ={}", totalPeriod);
 
