@@ -2,7 +2,6 @@ package com.ric.web;
 
 import com.ric.cmn.Utl;
 import com.ric.signature.sign.commands.SignCommand;
-import com.ric.signature.sign.commands.SignCommandGOST2012;
 import com.ric.signature.sign.commands.SignCommands;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.impl.TaskController;
@@ -145,8 +144,9 @@ public class Soap2GisApplication {
                 if (soapConfig.getSignEntry() == null) {
                     throw new RuntimeException("Не установлен параметр signEntry в application.properties!");
                 }
-                return new SignCommandGOST2012(soapConfig.getSignPass(),
-                        soapConfig.getSignPath(), soapConfig.getSignEntry());
+                //return new SignCommandGOST2012(soapConfig.getSignPass(),
+                  //      soapConfig.getSignPath(), soapConfig.getSignEntry());
+                return null;
             } else {
                 // второй объект
                 if (soapConfig.getSignPath2() == null) {
@@ -155,8 +155,9 @@ public class Soap2GisApplication {
                 if (soapConfig.getSignEntry2() == null) {
                     throw new RuntimeException("Не установлен параметр signEntry2 в application.properties!");
                 }
-                return new SignCommandGOST2012(soapConfig.getSignPass2(),
-                        soapConfig.getSignPath2(), soapConfig.getSignEntry2());
+                //return new SignCommandGOST2012(soapConfig.getSignPass2(),
+//                        soapConfig.getSignPath2(), soapConfig.getSignEntry2());
+                return null;
             }
         } else {
             throw new RuntimeException("Некорректный параметр signGOST в application.properties!");

@@ -4,7 +4,7 @@ import com.ric.signature.sign.exceptions.ElementNotFoundException;
 import com.ric.signature.sign.jce.KeyLoader;
 import com.ric.signature.sign.jce.KeyStoreUtils;
 import com.ric.signature.sign.jce.ProviderFactory;
-import com.ric.signature.sign.xades.Consts;
+import com.ric.signature.sign.xades.Consts2;
 import com.ric.signature.sign.xades.production.CustomizableXadesBesSigningProfileFactory;
 import com.ric.signature.sign.xades.providers.CustomizableAlgorithmProvider;
 import com.ric.signature.sign.xades.providers.CustomizableMessageDigestEngineProvider;
@@ -24,13 +24,14 @@ import xades4j.providers.KeyingDataProvider;
 import xades4j.providers.MessageDigestEngineProvider;
 import xades4j.providers.impl.DirectKeyingDataProvider;
 
-import java.security.KeyException;
 import java.security.KeyStore;
 import java.security.Provider;
 import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+
+//import com.ric.signature.sign.xades.Consts;
 
 /**
  * Выполняет подпись XML-документа.
@@ -46,13 +47,18 @@ public class SignCommand implements SignCommands {
         KeyStore keyStore;
         Provider provider;
             System.out.println("1.1");
-            System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
+            //System.setProperty("org.apache.xml.security.resource.config", "resource/jcp.xml"); // добавил
+            System.setProperty("org.apache.xml.security.resource.config", "resource/tj-msxml.xml");
             // инициализируем Apache Santuario
             System.out.println("1.2");
+
+            //JCPXMLDSigInit.init();
             org.apache.xml.security.Init.init();
             // загружаем криптопровайдер
             System.out.println("1.3");
             provider = ProviderFactory.createProvider("com.digt.trusted.jce.provider.DIGTProvider", null);
+            //provider = DIGTProvider.class.newInstance();
+            //provider = com.digt.trusted.jce.provider.DIGTProvider.class.newInstance();
             System.out.println("1.4");
             Security.addProvider(provider);
             // загружаем хранилище закрытых ключей
@@ -103,17 +109,49 @@ public class SignCommand implements SignCommands {
         // загружаем закрытый ключ
         KeyingDataProvider kp;
         try {
-                KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
+/*
+                PrivateKey keyEntry = KeyLoader.loadPrivateKey(keyStore, signPath, keyPassword);
                 if (keyEntry == null) {
                     throw new KeyException("Key not found: " + signPath);
                 }
+*/
+            //PrivateKey pk = (PrivateKey) keyStore.getKey(signPath, keyPassword);
                 // создаем провайдер для доступа к закрытому ключу
-                kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+                //kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+            // kp = new DirectKeyingDataProvider((X509Certificate) keyStore.getCertificate(signPath), keyEntry);
+            kp = new DirectKeyingDataProvider((X509Certificate)
+                    KeyLoader.getX509Certificate(keyStore, signPath),
+                    KeyLoader.getPrivateKey(keyStore, signPath, keyPassword));
 
-            Consts consts = new Consts(false);
+/*
+            Enumeration<String> aliases2 = keyStore.aliases();
+
+            while (aliases2.hasMoreElements()) {
+                String alias = aliases2.nextElement();
+
+                if (keyStore.entryInstanceOf(alias, KeyStore.PrivateKeyEntry.class)) {
+
+                    Key k = keyStore.getKey(alias, keyPassword);
+                    Certificate[] certs = keyStore.getCertificateChain(alias);
+                    for (Certificate cert : certs) {
+                        System.out.println("cert public key algorithm:" + cert.getPublicKey().getAlgorithm());
+                    }
+                    System.out.println("Private key algorithm:"+k.getAlgorithm());
+
+                    KeyStore.PasswordProtection protection = new KeyStore.PasswordProtection(keyPassword);
+                    KeyStore.PrivateKeyEntry keyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(signPath, protection);
+                    if (keyEntry == null) {
+                        System.out.println("Key not found");
+                    }
+                }
+            }
+*/
+
+            Consts2 consts = new Consts2(true);
             // создаем провайдер, описывающий используемые алгоритмы
             CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
             algorithmsProvider.setSignatureAlgorithm(consts.getSignatureAlgorithm());
+            //algorithmsProvider.setSignatureAlgorithm("urn:ietf:params:xml:ns:cpxmlsec:algorithms:GOST3410v12256");
             algorithmsProvider.setCanonicalizationAlgorithmForSignature(consts.getCanonicalizationAlgorithmForSignature());
             algorithmsProvider.setCanonicalizationAlgorithmForTimeStampProperties(
                     consts.getCanonicalizationAlgorithmForTimestampProperties());
