@@ -3,8 +3,8 @@ package com.ric.signature.sign.xades;
 /**
  * Имена используемых алгоритмов.
  */
-public class Consts2 {
-    public Consts2(boolean isGost) {
+public class Consts {
+    public Consts(boolean isGost) {
         this.isGost=isGost;
     }
 
@@ -26,12 +26,6 @@ public class Consts2 {
         return isGost ? "urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256" : "http://www.w3.org/2001/04/xmldsig-more#gostr3411";
     }
 
-    //public String getDigestAlgorithmName() {
-//        return isGost ? "GOST3411_2012_256" : "GOST3411";
-//    }
-   /* public String getDigestAlgorithmName() {
-        return isGost ? "GOST3411_2012_256" : "GOST3411";
-    }*/
     public String getDigestAlgorithmName() {
         return isGost ? "GOST3411v12256" : "GOST3411";
     }

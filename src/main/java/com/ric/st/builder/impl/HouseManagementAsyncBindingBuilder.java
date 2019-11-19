@@ -782,12 +782,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 new ExportBriefSupplyResourceContractRequest.Criteria();
         criteria.setFIASHouseGuid(houseGuid);
 
-/*
-        // GUID организации
-        RegOrgType orgType = new RegOrgType();
-        orgType.setOrgRootEntityGUID(task.getProcUk().getGuid());
-        req.setOrganization(orgType);
-*/
         req.getCriteria().add(criteria);
 
         try {
@@ -1557,12 +1551,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void importAccountData(Task task) throws CantPrepSoap, CantSendSoap, WrongParam, UnusableCode {
-/*
-        if (!(Utl.in(task.getEolink().getId(),884135,884114,884120,707492))) {
-            return;
-        }
-*/
-
         taskMng.logTask(task, true, null);
         if (task.getProcUk() == null)
             throw new WrongParam("По заданию task.id=" + task.getId() + " не заполнен TASK.FK_PROC_UK");

@@ -4,7 +4,7 @@ import com.ric.signature.sign.exceptions.ElementNotFoundException;
 import com.ric.signature.sign.jce.KeyLoader;
 import com.ric.signature.sign.jce.KeyStoreUtils;
 import com.ric.signature.sign.jce.ProviderFactory;
-import com.ric.signature.sign.xades.Consts2;
+import com.ric.signature.sign.xades.Consts;
 import com.ric.signature.sign.xades.production.CustomizableXadesBesSigningProfileFactory;
 import com.ric.signature.sign.xades.providers.CustomizableAlgorithmProvider;
 import com.ric.signature.sign.xades.providers.CustomizableMessageDigestEngineProvider;
@@ -147,7 +147,7 @@ public class SignCommand implements SignCommands {
             }
 */
 
-            Consts2 consts = new Consts2(true);
+            Consts consts = new Consts(true);
             // создаем провайдер, описывающий используемые алгоритмы
             CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
             algorithmsProvider.setSignatureAlgorithm(consts.getSignatureAlgorithm());

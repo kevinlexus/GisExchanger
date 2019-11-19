@@ -32,7 +32,5 @@ public interface SoapConfigs {
 
     String getSignPath2();
 
-    Integer getSignGOST();
-
     void saveError(Eolink eolink, long err, boolean isSet) throws UnusableCode;
 }
