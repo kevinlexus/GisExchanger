@@ -8,6 +8,7 @@ import com.ric.st.impl.SoapBuilder;
 
 public interface ReqProps {
 
+    void setPropBefore(Task task) throws CantPrepSoap;
     void setPropBeforeSimple(Task task) throws CantPrepSoap;
 
     void setPropAfter(Task task);
@@ -34,7 +35,6 @@ public interface ReqProps {
 
     String getHostIp();
 
-    void setPropBefore(Task task) throws CantPrepSoap;
 
     int getSignerId();
 }

@@ -73,15 +73,25 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	private NsiPortsTypeAsync port;
 	private SoapBuilder sb;
 
+
+	/**
+	 *
+	 * @param task - задание
+	 * @param isSimple - простая установка параметров задания?
+	 */
 	@Override
-	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
+	public void setUp(Task task, boolean isSimple) throws CantSendSoap, CantPrepSoap {
     	// создать сервис и порт
 		service = new NsiServiceAsync();
     	port = service.getNsiPortAsync();
 
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
-		reqProp.setPropBefore(task);
+    	if (isSimple) {
+			reqProp.setPropBeforeSimple(task);
+		} else {
+			reqProp.setPropBefore(task);
+		}
 		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);

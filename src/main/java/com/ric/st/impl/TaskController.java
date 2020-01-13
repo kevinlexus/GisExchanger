@@ -349,7 +349,7 @@ public class TaskController implements TaskControllers {
                                 }
                                 break;
                             case "GIS_EXP_DATA_PROVIDER_NSI_ITEM":
-                                nsiSv.setUp(task);
+                                nsiSv.setUp(task, false);
                                 if (state.equals("INS")) {
                                     // Экспорт внутреннего справочника организации
                                     nsiSv.exportDataProviderNsiItem(task);
@@ -359,9 +359,10 @@ public class TaskController implements TaskControllers {
                                 }
                                 break;
                             case "GIS_EXP_COMMON_NSI_ITEM":
-                                nsiSv.setUp(task);
+                                nsiSv.setUp(task, true);
                                 if (state.equals("INS")) {
                                     // Экспорт общих справочников
+                                    // note Внимание! в task.eolink заполнять любую УК, так как ppguid будет по РКЦ!
                                     ulistMng.loadNsi("NSI");
                                     ulistMng.loadNsi("NSIRAO");
                                     taskMng.setState(task, "ACP");

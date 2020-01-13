@@ -137,7 +137,7 @@ public class TaskBuilder implements TaskBuilders {
         File tempFile = new File("stop");
         boolean exists = tempFile.exists();
         if (exists) {
-            log.info("ВНИМАНИЕ! ЗАПРОШЕНА ОСТАНОВКА ПРИЛОЖЕНИЯ! - КЕМ-ТО СОЗДАН ФАЙЛ c:\\Progs\\GisExchanger\\stop");
+            log.info("ВНИМАНИЕ! ЗАПРОШЕНА ОСТАНОВКА ПРИЛОЖЕНИЯ! - БЫЛ СОЗДАН ФАЙЛ c:\\Progs\\GisExchanger\\stop");
             SpringApplication.exit(ctx, () -> 0);
         }
     }

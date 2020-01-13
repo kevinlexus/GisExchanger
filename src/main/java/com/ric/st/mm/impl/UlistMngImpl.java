@@ -420,9 +420,9 @@ public class UlistMngImpl implements UlistMng {
 		}
 		// обработать каждый справочник
 		try {
-			res.getNsiItemInfo().stream().forEach(Errors.rethrow().wrap(t -> {
-				updNsiList(lst, t, grp);
-				}));
+			for (NsiItemInfoType nsiItemInfoType : res.getNsiItemInfo()) {
+				updNsiList(lst, nsiItemInfoType, grp);
+			}
 		} catch (Exception e) {
 			log.error(Utl.getStackTraceString(e));
 			throw new CantUpdNSI("Ошибка обновления справочника");

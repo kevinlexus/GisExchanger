@@ -1609,6 +1609,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         int i = 0;
         Eolink lastLskEol = null;
         for (Eolink lskEol : lstEolinkForUpdate) {
+            log.info("Проверка для загрузки лиц счета: EOLINK.ID={}", lskEol.getId());
             Kart kart = lskEol.getKart();
             // погасить ошибки и комментарии
             soapConfig.saveError(lskEol, CommonErrs.ERR_IMPORT | CommonErrs.ERR_LSK_NOT_FOUND |
@@ -1620,12 +1621,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 log.error("Объект лиц.счета EOLINK.ID={}, не найден в SCOTT.KART по LSK", lskEol.getId());
                 soapConfig.saveError(lskEol, CommonErrs.ERR_LSK_NOT_FOUND, true);
             } else if (lskEol.getParent().getStatus() == 0) {
-                log.trace("Объект лиц.счета EOLINK.ID={}, не будет обновлен в ГИС, так как ссылается на неактуальный " +
+                log.error("Объект лиц.счета EOLINK.ID={}, не будет обновлен в ГИС, так как ссылается на неактуальный " +
                         "родительский объект", lskEol.getId());
             } else if (kart.getKIm() == null || kart.getKFam() == null || kart.getKOt() == null) {
                 // не заполнены ФИО собственника в SCOTT.KART
                 soapConfig.saveError(lskEol, CommonErrs.ERR_EMPTY_FIO, true);
+                log.error("По лиц.счету LSK={} не заполнены Ф.И.О., загрузка не возможна!", lskEol.getId());
             } else {
+                log.info("Обработка лиц счета: EOLINK.ID={}, KART.LSK={}", lskEol.getId(), kart.getLsk());
                 i++;
                 if (i > 100) {
                     // сохранить последний обработанный лиц.счет Eolink, выйти из цикла
@@ -1672,6 +1675,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 ac.setLivingPersonsNumber(Utl.nvl(kart.getKpr(), 0));
                 ac.setTotalSquare(Utl.nvl(kart.getOpl(), BigDecimal.ZERO));
                 ac.setHeatedArea(Utl.nvl(kart.getOpl(), BigDecimal.ZERO));
+                log.info("Будет обновлено:");
+                log.info("кол-во прожив. = {}", ac.getLivingPersonsNumber());
+                log.info("общая площадь = {}", ac.getTotalSquare());
+                log.info("отапливаемая площадь = {}", ac.getHeatedArea());
 
                 // транспортный GUID
                 String tguid = Utl.getRndUuid().toString();

@@ -76,16 +76,6 @@ public class ReqProp implements ReqProps {
         if (ppGuid == null) {
             throw new CantPrepSoap("Не заполнен GUID организации EOLINK.ID=" + eolinkUk.getId());
         }
-/*
-        if (ppGuid == null) {
-            ppGuid = eolinkUk.getGuid2();
-            if (ppGuid == null) {
-                throw new CantPrepSoap("Не заполнен GUID организации EOLINK.ID="+eolinkUk.getId());
-            }
-            log.warn("Выполнена подстановка GUID по организации EOLINK.ID={}", eolinkUk.getId());
-        }
-*/
-
         // IP адрес сервиса STUNNEL, получить или из application.properties - hostIp (Кис, Полыс)
         // или из параметра по УК (ТСЖ Содружество, Свободы)
         hostIp = null;
