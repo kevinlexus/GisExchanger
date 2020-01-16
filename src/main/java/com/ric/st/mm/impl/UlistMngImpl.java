@@ -266,7 +266,7 @@ public class UlistMngImpl implements UlistMng {
 				        null, null, null, ulistTp, idx, fld.getValue(), main, null,
                         null, "ST");
 */
-
+				log.info("######## id={}, name={}", main.getId(), name);
 				Ulist old = ulistDao.getListElemByParent(main.getId(), name);
 				if (old != null) {
 				    copyFrom(ulist, old);

@@ -50,14 +50,25 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
     private NsiPortsTypeAsync port;
     private SoapBuilder sb;
 
-    private void setUp() throws CantSendSoap {
+    public void setUp() throws CantSendSoap {
         // создать сервис и порт
         service = new NsiServiceAsync();
         port = service.getNsiPortAsync();
 
         // подоготовительный объект для SOAP
         sb = ctx.getBean(SoapBuilder.class);
-        sb.setUp((BindingProvider) port, (WSBindingProvider) port, false, config.getOrgPPGuid(), config.getHostIp());
+        String orgPPGuid = config.getOrgPPGuid();
+        String hostIp = config.getHostIp();
+
+        // workaround для ТСЖ (иначе валится всё, не приспособлено, для работы с двумя хостами ред.16.01.2020)
+        if (orgPPGuid==null || orgPPGuid.length()==0) {
+            orgPPGuid = "91f53be7-8708-4ffa-85b9-4da327e02c7b";
+        }
+        if (hostIp==null || hostIp.length()==0) {
+            hostIp="127.0.0.1:8081";
+        }
+
+        sb.setUp((BindingProvider) port, (WSBindingProvider) port, false, orgPPGuid,  hostIp);
         // Id XML подписчика
         sb.setSignerId(reqProp.getSignerId());
 
