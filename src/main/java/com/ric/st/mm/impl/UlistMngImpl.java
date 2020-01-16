@@ -1,4 +1,4 @@
-package com.ric.st.mm.impl; 
+package com.ric.st.mm.impl;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
