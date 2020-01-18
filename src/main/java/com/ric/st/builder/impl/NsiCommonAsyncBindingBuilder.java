@@ -77,7 +77,7 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
     /**
      * Получить список справочников
      *
-     * @param grp - вид справочника (NSI, NISRAO)
+     * @param grp - вид справочника (NSI, NISRAO)У
      */
     @Override
     public NsiListType getNsiList(String grp) throws CantSendSoap, ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault {

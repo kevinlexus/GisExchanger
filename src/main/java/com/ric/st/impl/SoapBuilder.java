@@ -141,7 +141,7 @@ public class SoapBuilder implements SoapBuilders{
 		requestHeaders.put("Authorization", Arrays.asList("Basic " + authorization));
 		requestHeaders.put("X-Client-Cert-Fingerprint", Arrays.asList(config.getFingerPrint()));
 
-		//log.info("************* Выбран hostIp={}", hostIp);
+		log.info("************* SoapBuilder: endpoint: hostIp={}{}", hostIp, path);
 		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
 				"http://"+hostIp+path);
 		bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
