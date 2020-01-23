@@ -811,9 +811,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 }
 
             }
-            // cчитать корректными значения сумм документов, если они расходятся с автоматически рассчитанными
-            req.setConfirmAmountsCorrect(true);
             if (isExistJob) {
+                // cчитать корректными значения сумм документов, если они расходятся с автоматически рассчитанными
+                req.setConfirmAmountsCorrect(true);
                 // добавить платежные реквизиты, если была загрузка ПД
                 PaymentInformation payInfo = new PaymentInformation();
                 req.getPaymentInformation().add(payInfo);
@@ -1077,6 +1077,22 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             pd.setTotalByPenaltiesAndCourtCosts(pen);
         }
 
+        // по приказу Минстроя РФ от 26.01.2018 N 43/пр следующая информация:
+        /*PaymentDocument.PaymentInformationDetails pinf = new PaymentDocument.PaymentInformationDetails();
+        pinf.setAccountNumber();
+        pinf.setTotalPayableByPaymentInformation();
+        pinf.setDebtPreviousPeriodsOrAdvanceBillingPeriod();
+        pinf.setTotalPayableWithDebtAndAdvance();
+        pd.setPaymentInformationDetails(pinf);
+
+        // по приказу Минстроя РФ от 26.01.2018 N 43/пр информация о показаниях ПУ
+        PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
+        indMd.setMDPreviousPeriodReadings();
+        indMd.setMDUnit();
+        indMd.setMeteringDevice();
+
+        pd.getIndividualMDReadings().add(indMd);
+        */
         // сохранить транспортный GUID ПД
         String tguid = Utl.getRndUuid().toString();
         pd.setTransportGUID(tguid);
