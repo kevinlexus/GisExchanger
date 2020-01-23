@@ -61,11 +61,9 @@ public class NsiCommonAsyncBindingBuilder implements NsiCommonAsyncBindingBuilde
         String hostIp = config.getHostIp();
 
         // workaround для ТСЖ (иначе валится всё, не приспособлено, для работы с двумя хостами ред.16.01.2020)
-        if (orgPPGuid==null || orgPPGuid.length()==0) {
-            orgPPGuid = "91f53be7-8708-4ffa-85b9-4da327e02c7b";
-        }
         if (hostIp==null || hostIp.length()==0) {
             hostIp="127.0.0.1:8081";
+            orgPPGuid = "4faa2072-fd4b-4dc6-a3ca-2e9e9c8b5924";
         }
 
         sb.setUp((BindingProvider) port, (WSBindingProvider) port, false, orgPPGuid,  hostIp);

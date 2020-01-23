@@ -199,7 +199,8 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 		reqProp.setPropAfter(task);
 		AckRequest ack = null;
 		// Трассировка XML
-		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+		//sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+		sb.setTrace(true);
 		// для обработки ошибок
 		Boolean err = false;
 		String errMainStr = null;
