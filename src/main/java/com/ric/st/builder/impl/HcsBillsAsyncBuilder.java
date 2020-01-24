@@ -565,7 +565,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         ExportPaymentDocumentRequest req = new ExportPaymentDocumentRequest();
 
         req.setId("foo");
-        req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
+        // требование гис передать именно так версию
+        req.setVersion("11.2.0.10");
 
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_PD");
         if (period == null) {
