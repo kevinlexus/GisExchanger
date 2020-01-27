@@ -193,7 +193,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 e.printStackTrace();
             }
             if (timeout > 36000000) {
-                // не более 10 часов выполнить проверку запроса
+                // не более 10 часов выполнять проверку запроса
                 err = true;
                 errStr = "Превышено время выполнения запроса!";
             } else {
