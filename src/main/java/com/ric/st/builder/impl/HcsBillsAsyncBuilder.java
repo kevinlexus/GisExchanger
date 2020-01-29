@@ -80,7 +80,7 @@ import java.util.stream.Collectors;
  * Сервис выставления счетов в ГИС ЖКХ
  *
  * @author lev
- * @version 1.16
+ * @version 1.17
  */
 @Slf4j
 @Service
@@ -124,6 +124,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     private PseudoTaskBuilders ptb;
     @Autowired
     private TaskMng taskMng;
+    @Autowired
+    private MeterDAO meterDAO;
 
     private BillsPortsTypeAsync port;
     private SoapBuilder sb;
@@ -566,7 +568,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
         req.setId("foo");
         // требование гис передать именно так версию
-        req.setVersion("11.2.0.10");
+        req.setVersion("13.1.0.4");
 
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_PD");
         if (period == null) {
@@ -1094,6 +1096,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
         pd.getIndividualMDReadings().add(indMd);
         */
+
+        //meterDAO.findActualByKo(acc.getKart().getKoKw(), )
+
         // сохранить транспортный GUID ПД
         String tguid = Utl.getRndUuid().toString();
         pd.setTransportGUID(tguid);
