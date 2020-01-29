@@ -2,22 +2,13 @@ package com.ric.st.builder.impl;
 
 
 import com.dic.bill.dao.*;
-import com.dic.bill.dto.HouseUkTaskRec;
-import com.dic.bill.dto.OrgDTO;
-import com.dic.bill.dto.SumChrgRec;
-import com.dic.bill.dto.SumChrgRecAlter;
-import com.dic.bill.mm.EolinkParMng;
-import com.dic.bill.mm.KartMng;
-import com.dic.bill.mm.PdocMng;
-import com.dic.bill.mm.TaskMng;
+import com.dic.bill.dto.*;
+import com.dic.bill.mm.*;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Pdoc;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.exs.Ulist;
-import com.dic.bill.model.scott.Akwtp;
-import com.dic.bill.model.scott.Kart;
-import com.dic.bill.model.scott.Kwtp;
-import com.dic.bill.model.scott.KwtpMg;
+import com.dic.bill.model.scott.*;
 import com.ric.cmn.Utl;
 import com.ric.cmn.excp.ErrorWhileDist;
 import com.ric.cmn.excp.WrongGetMethod;
@@ -126,6 +117,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
     private TaskMng taskMng;
     @Autowired
     private MeterDAO meterDAO;
+    @Autowired
+    private MeterMng meterMng;
 
     private BillsPortsTypeAsync port;
     private SoapBuilder sb;
@@ -1088,16 +1081,16 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         pinf.setTotalPayableWithDebtAndAdvance();
         pd.setPaymentInformationDetails(pinf);
 
+         */
+
         // по приказу Минстроя РФ от 26.01.2018 N 43/пр информация о показаниях ПУ
-        PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
-        indMd.setMDPreviousPeriodReadings();
-        indMd.setMDUnit();
-        indMd.setMeteringDevice();
-
-        pd.getIndividualMDReadings().add(indMd);
-        */
-
-        //meterDAO.findActualByKo(acc.getKart().getKoKw(), )
+        for (Meter meter : meterDAO.findActualByKo(acc.getKart().getKoKw().getId(), dt)) {
+            PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
+            indMd.setMDPreviousPeriodReadings(meter.getN1());
+            indMd.setMDUnit(meter.getUsl().getUnitVol());
+            indMd.setMeteringDevice(meter.getFactoryNum());
+            pd.getIndividualMDReadings().add(indMd);
+        }
 
         // сохранить транспортный GUID ПД
         String tguid = Utl.getRndUuid().toString();
