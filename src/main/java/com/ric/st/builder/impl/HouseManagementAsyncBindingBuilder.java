@@ -1722,6 +1722,9 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 // лиц.счет разделен?
                 if (kart.getIsDivided()) {
                     markAsDivided(kart, pf, ind);
+                } else {
+                    // установка ФИО в лиц.счет. ред.28.01.2020
+                    pf.setInd(ind);
                 }
 
                 ac.setPayerInfo(pf);
