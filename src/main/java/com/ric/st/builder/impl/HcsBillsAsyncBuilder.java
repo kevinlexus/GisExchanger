@@ -2,7 +2,10 @@ package com.ric.st.builder.impl;
 
 
 import com.dic.bill.dao.*;
-import com.dic.bill.dto.*;
+import com.dic.bill.dto.HouseUkTaskRec;
+import com.dic.bill.dto.OrgDTO;
+import com.dic.bill.dto.SumChrgRec;
+import com.dic.bill.dto.SumChrgRecAlter;
 import com.dic.bill.mm.*;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Pdoc;
@@ -739,7 +742,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException, CantPrepSoap, WrongParam, ParseException, CantSendSoap {
+    public void importPaymentDocumentData(Task task) throws WrongGetMethod, DatatypeConfigurationException,
+            CantPrepSoap, WrongParam, ParseException, CantSendSoap {
         // индивидуально выполнить setUp - так как может выполняться от имени РСО
         setUp(task);
         // Установить параметры SOAP
@@ -781,7 +785,9 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             // для обработки ошибок
 
             req.setId("foo");
-            req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
+            //req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
+            // требование гис передать именно так версию
+            req.setVersion("11.2.0.16");
 
             // Транспортный GUID платежных реквизитов
             String tguidPay = Utl.getRndUuid().toString();
@@ -1073,23 +1079,41 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             pd.setTotalByPenaltiesAndCourtCosts(pen);
         }
 
-        // по приказу Минстроя РФ от 26.01.2018 N 43/пр следующая информация:
-        /*PaymentDocument.PaymentInformationDetails pinf = new PaymentDocument.PaymentInformationDetails();
-        pinf.setAccountNumber();
-        pinf.setTotalPayableByPaymentInformation();
-        pinf.setDebtPreviousPeriodsOrAdvanceBillingPeriod();
-        pinf.setTotalPayableWithDebtAndAdvance();
-        pd.setPaymentInformationDetails(pinf);
-
-         */
-
         // по приказу Минстроя РФ от 26.01.2018 N 43/пр информация о показаниях ПУ
-        for (Meter meter : meterDAO.findActualByKo(acc.getKart().getKoKw().getId(), dt)) {
-            PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
-            indMd.setMDPreviousPeriodReadings(meter.getN1());
-            indMd.setMDUnit(meter.getUsl().getUnitVol());
-            indMd.setMeteringDevice(meter.getFactoryNum());
-            pd.getIndividualMDReadings().add(indMd);
+        // получить из Директ показания счетчиков
+        Eolink premise = acc.getParent();
+        List<Eolink> eolMeters = premise.getChild().stream()
+                .filter(t -> t.getObjTp().getCd().equals("СчетчикФизический"))
+                .filter(t-> t.getKoObj()!=null).collect(Collectors.toList());
+        for (Eolink eolMeter : eolMeters) {
+            Meter meter = eolMeter.getKoObj().getMeter();
+            if (meter==null) {
+                log.error("ОШИБКА! Не найден счетчик по eolink.fk_klsk_obj={}", eolMeter.getKoObj().getId());
+            } else {
+                String meterNum = eolParMng.getStr(eolMeter, "Счетчик.НомерПУ");
+                PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
+                indMd.setMDPreviousPeriodReadings(meter.getN1());
+                indMd.setMeteringDevice(meterNum);
+                String mdServiceCode;
+                if (meter.getUsl().getFkCalcTp() == 17) {
+                    // х.в.
+                    mdServiceCode = "1";
+                    indMd.setMDUnit("113");
+                } else if (meter.getUsl().getFkCalcTp() == 18) {
+                    // г.в.
+                    mdServiceCode = "2";
+                    indMd.setMDUnit("113");
+                } else if (meter.getUsl().getFkCalcTp() == 31) {
+                    // эл.эн.
+                    mdServiceCode = "4";
+                    indMd.setMDUnit("245");
+                } else {
+                    throw new CantPrepSoap("Необрабатываемый fk_calc_tp услуги:"+meter.getUsl().getFkCalcTp());
+                }
+                indMd.getMDServiceCode().add(mdServiceCode);
+                pd.getIndividualMDReadings().add(indMd);
+            }
+
         }
 
         // сохранить транспортный GUID ПД

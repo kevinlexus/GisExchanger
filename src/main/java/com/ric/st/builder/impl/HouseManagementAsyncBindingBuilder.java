@@ -383,7 +383,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             log.info("autoBind={}", autoBind);
             // Ошибок не найдено
             for (ExportMeteringDeviceDataResultType t : retState.getExportMeteringDeviceDataResult()) {
-                // тип счетчика: 0 - жилой ИПУ, 1 - не жилой ИПУ, 2 - общедомовой ПУ
+                // тип счетчика: 0 - жилой ИПУ, 1 - нежилой ИПУ, 2 - общедомовой ПУ
                 int meterTp;
                 log.trace("Получен счетчик:");
                 log.trace("Root GUID={}", t.getMeteringDeviceRootGUID());
@@ -435,6 +435,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 Eolink versionEol = eolinkDao.getEolinkByGuid(t.getMeteringDeviceVersionGUID());
                 // найти помещение, к которому прикреплен счетчик
                 Eolink premiseEol = eolinkDao.getEolinkByGuid(premiseGUID);
+                log.info("Объект, к которому подключен счетчик: GUID={}, eolink.id={}",
+                        premiseGUID, premiseEol.getId());
 
                 if (rootEol == null) {
                     // не найдено, создать новую корневую запись счетчика
@@ -504,7 +506,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             = t.getMunicipalResourceEnergy();
                     // проверить, заполнить usl
                     if (munResNenerg.size() > 0) {
-                        // Коммунальные услуги, получить первый попавшийся код усл
+                        // Коммунальные услуги, получить по первому вхождению - код услуги
                         // может в Отоплении будут другие коды услуг!
                         for (MunicipalResourceNotElectricExportType m : munResNenerg) {
                             //log.trace("res.GUID={}", m.getMunicipalResource().getGUID());
@@ -515,7 +517,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         }
                     } else if (munResEl != null) {
                         // Электроэнергия
-                        usl = "024";
+                        usl = "038";
                         //servCd = "Электроснабжение";
                     }
                 }
@@ -526,7 +528,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 }
 
                 // найти Ko счетчика, по Ko помещения и коду услуги
-                // связывание, пользователь будет сам связывать в Директ
+                // связывание, если установлено в параметре задания
+                // осуществляет связывание с первым найденым счетчиком в Директе
                 if (autoBind != null && autoBind) {
                     soapConfig.saveError(premiseEol, CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_METER_NOT_FOUND,
                             false);
@@ -540,16 +543,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         throw new ErrorProcessAnswer("Некорректно определён код услуги USL, " +
                                 "в методе ulistMng.getUslByResource");
                     } else {
-                        Optional<Meter> meter = meterMng.getActualMeterByKo(premiseEol.getKoObj(), usl,
-                                new Date());
-                        if (meter.isPresent()) {
-                            log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
-                                    premiseEol.getId());
-                            soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
-                        } else {
-                            // здесь устанавливается именно Ko счетчика, не объекта!
-                            if (rootEol.getKoObj() == null) {
-                                // только если уже нет привязки!
+                        if (rootEol.getKoObj() == null) {
+                            Optional<Meter> meter = meterMng.getActualMeterByKo(premiseEol.getKoObj(), usl,
+                                    new Date());
+                            if (!meter.isPresent()) {
+                                log.error("ОШИБКА! По помещению Eolink.id={} " +
+                                                "не найден счетчик в карточке Лиц.счета. c usl={}",
+                                        premiseEol.getId(), usl);
+                                soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
+                            } else {
+                                // здесь устанавливается именно Ko счетчика, не объекта!
                                 log.trace("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
                                         meter.get().getKo().getId(), rootEol.getId());
                                 rootEol.setKoObj(meter.get().getKo());
