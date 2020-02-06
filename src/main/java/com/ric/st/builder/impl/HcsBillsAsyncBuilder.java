@@ -1083,8 +1083,10 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
         // получить из Директ показания счетчиков
         Eolink premise = acc.getParent();
         List<Eolink> eolMeters = premise.getChild().stream()
-                .filter(t -> t.getObjTp().getCd().equals("СчетчикФизический"))
-                .filter(t-> t.getKoObj()!=null).collect(Collectors.toList());
+                .filter(t -> t.getObjTp().getCd().equals("СчетчикФизический")
+                        && t.getKoObj()!=null
+                        && t.getStatus().equals(1)
+                ).collect(Collectors.toList());
         for (Eolink eolMeter : eolMeters) {
             Meter meter = eolMeter.getKoObj().getMeter();
             if (meter==null) {

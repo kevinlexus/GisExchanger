@@ -478,14 +478,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     log.trace("Попытка отметить счетчик АКТИВНЫМ");
                 }
 
-/*
-                if (rootEol.getGuid().equals("7552c05e-d80b-4573-a2ba-6a99d587274f")
-                        || rootEol.getGuid().equals("108f346e-a33b-4c43-a345-bfd011c7af19")) {
-                    log.trace("--------------{}, {}----{}------",
-                            t.getMunicipalResourceEnergy(), t.getMunicipalResourceNotEnergy(), t.getMunicipalResources());
-                }
-
-*/
                 log.trace("isConsumedVolume={}",
                         t.getBasicChatacteristicts().isConsumedVolume());
 
@@ -1041,7 +1033,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             // не обработано
             return;
         } else if (!reqProp.getFoundTask().getState().equals("ERR")) {
-            // Ошибок нет, обработка
+            // ошибок нет, обработка
             // Сохранить уникальный номер дома
             houseEol.setUn(retState.getExportHouseResult().getHouseUniqueNumber());
 
