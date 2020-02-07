@@ -155,12 +155,6 @@ public class TaskController implements TaskControllers {
                                     }
                                 }
                                 break;
-                            case "GIS_SAVE_FILE_VALS":
-                                // Выгрузка показаний приборов учета в файл
-                                if (state.equals("INS")) {
-                                    dm.saveValToFile(task);
-                                }
-                                break;
                             case "GIS_SYSTEM_RPT":
                                 // Запуск повторяемого задания, если задано
                                 TaskPar taskPar = tb.getTrgTask(task);

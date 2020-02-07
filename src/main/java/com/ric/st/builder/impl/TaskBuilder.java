@@ -242,7 +242,7 @@ public class TaskBuilder implements TaskBuilders {
                 if (par != null) {
                     lstSched.add(par);
                 } else {
-                    log.error("ОШИБКА! Не обнаружен параметр \"ГИС ЖКХ.Crone\" по повторояемому заданию с типом \"GIS_SYSTEM_RPT\"");
+                    log.error("ОШИБКА! Не обнаружен параметр \"ГИС ЖКХ.Crone\" по повторяемому заданию с типом \"GIS_SYSTEM_RPT\"");
                 }
             }
         }
