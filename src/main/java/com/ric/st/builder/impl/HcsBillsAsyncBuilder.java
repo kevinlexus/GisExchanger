@@ -564,7 +564,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
 
         req.setId("foo");
         // требование гис передать именно так версию
-        req.setVersion("13.1.0.4");
+        //req.setVersion("13.1.0.4");
+        req.setVersion("13.1.0.1");
 
         String period = eolParMng.getStr(rkc, "ГИС ЖКХ.PERIOD_EXP_PD");
         if (period == null) {
@@ -788,6 +789,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
             //req.setVersion(req.getVersion() == null ? reqProp.getGisVersion() : req.getVersion());
             // требование гис передать именно так версию
             req.setVersion("11.2.0.16");
+            //req.setVersion("13.1.0.1");
 
             // Транспортный GUID платежных реквизитов
             String tguidPay = Utl.getRndUuid().toString();

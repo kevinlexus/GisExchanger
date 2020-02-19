@@ -541,13 +541,15 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
             soapConfig.saveError(meter, CommonErrs.ERROR_WHILE_SAVING_DATA, true);
         }
         if (ret.equals(1)) {
-            log.trace("ОШИБКА! Нулевые новые показания");
+            log.error("ОШИБКА! Нулевые новые показания!");
         } else if (ret.equals(3)) {
-            log.trace("ОШИБКА! Новые показания меньше или равны существующим в базе");
+            log.error("ОШИБКА! Новые показания меньше или равны существующим в базе!");
         } else if (ret.equals(4)) {
-            log.trace("ОШИБКА! Не найден счетчик");
+            log.error("ОШИБКА! Не найден счетчик!");
+        } else if (ret.equals(5)) {
+            log.error("ОШИБКА! Переданы показания, вызывающие начисление слишком большого объема!");
         } else {
-            log.trace("Отправлено в биллинг успешно!");
+            log.error("Отправлено в биллинг успешно!");
         }
     }
 

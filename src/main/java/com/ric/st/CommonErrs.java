@@ -32,4 +32,5 @@ public interface CommonErrs {
     long ERR_NOT_FOUND_ACTUAL_OBJ = 0x1000; // 1 0000 0000 0000
     // не заполнено ФИО в KART лиц.счета
     long ERR_EMPTY_FIO = 0x2000; // 10 0000 0000 0000
+
 }

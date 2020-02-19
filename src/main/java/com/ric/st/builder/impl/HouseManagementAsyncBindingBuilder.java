@@ -525,6 +525,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 if (autoBind != null && autoBind) {
                     soapConfig.saveError(premiseEol, CommonErrs.ERR_EMPTY_KLSK | CommonErrs.ERR_METER_NOT_FOUND,
                             false);
+                    soapConfig.saveError(rootEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK,
+                            false);
                     if (premiseEol.getKoObj() == null) {
                         log.error("ОШИБКА! По помещению Eolink.id=" + premiseEol.getId() + " не заполнен KLSK! " +
                                 " Необходимо произвести экспорт дома Eolink.id=" + houseEol.getId());
@@ -545,9 +547,16 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
                             } else {
                                 // здесь устанавливается именно Ko счетчика, не объекта!
-                                log.trace("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
+                                log.trace("Попытка установки KLSK={}, по счетчику Eolink.id={}",
                                         meter.get().getKo().getId(), rootEol.getId());
-                                rootEol.setKoObj(meter.get().getKo());
+                                Eolink foundEol = eolinkDao2.getEolinkByKlskId(meter.get().getKo().getId());
+                                if (foundEol != null) {
+                                    soapConfig.saveError(rootEol, CommonErrs.ERR_DOUBLE_KLSK_EOLINK, true);
+                                    log.error("ОШИБКА! Уже существует объект Eolink.id={} с Eolink.fk_klsk_obj={}",
+                                            foundEol.getId(), foundEol.getKoObj().getId());
+                                } else {
+                                    rootEol.setKoObj(meter.get().getKo());
+                                }
                             }
                         }
                     }
@@ -2464,6 +2473,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             ptb.setUp(e, null, parent, "GIS_EXP_METERS", "INS", soapConfig.getCurUser().getId(), null);
             // добавить как зависимое задание к системному повторяемому заданию
             ptb.addTaskPar("ГИС ЖКХ.Включая архивные", null, null, false, null);
+            ptb.addTaskPar("ГИС ЖКХ.AUTO_CONNECT_DIRECT", null, null, true, null);
             ptb.addAsChild("SYSTEM_RPT_HOUSE_EXP");
             ptb.save();
             log.info("Добавлено задание на экспорт счетчиков ИПУ по Дому Eolink.id={}", e.getId());
