@@ -4,6 +4,7 @@ package com.ric.st.builder.impl;
 import com.dic.bill.dao.EolinkDAO;
 import com.dic.bill.dao.MeterDAO;
 import com.dic.bill.dao.ObjParDAO;
+import com.dic.bill.dao.TuserDAO;
 import com.dic.bill.dto.MeterData;
 import com.dic.bill.mm.EolinkMng;
 import com.dic.bill.mm.EolinkParMng;
@@ -13,10 +14,15 @@ import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.scott.Meter;
 import com.dic.bill.model.scott.ObjPar;
+import com.ric.cmn.CommonErrs;
+import com.ric.cmn.MeterConsts;
+import com.ric.cmn.MeterValConsts;
 import com.ric.cmn.Utl;
 import com.ric.cmn.excp.UnusableCode;
 import com.ric.cmn.excp.WrongParam;
-import com.ric.st.*;
+import com.ric.st.ConfigApp;
+import com.ric.st.ReqProps;
+import com.ric.st.SoapConfigs;
 import com.ric.st.builder.DeviceMeteringAsyncBindingBuilders;
 import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.dao.UlistDAO;
@@ -68,6 +74,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     private final MeterDAO meterDao;
     private final MeterMng meterMng;
     private final ConfigApp configApp;
+    private final TuserDAO tuserDAO;
 
     private final PseudoTaskBuilders ptb;
     private final ObjParDAO objparDao;
@@ -83,7 +90,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
     private DeviceMeteringPortTypesAsync port;
     private SoapBuilder sb;
 
-    public DeviceMeteringAsyncBindingBuilder(ApplicationContext ctx, UlistMng ulistMng, ObjParDAO objparDao, ConfigApp configApp, TaskMng taskMng, EolinkDAO eolinkDao, UlistDAO ulistDao, ReqProps reqProp, SoapConfigs soapConfig, EolinkParMng eolParMng, PseudoTaskBuilders ptb, EolinkMng eolinkMng, MeterDAO meterDao, MeterMng meterMng) {
+    public DeviceMeteringAsyncBindingBuilder(ApplicationContext ctx, UlistMng ulistMng, ObjParDAO objparDao, ConfigApp configApp, TaskMng taskMng, EolinkDAO eolinkDao, UlistDAO ulistDao, ReqProps reqProp, SoapConfigs soapConfig, EolinkParMng eolParMng, PseudoTaskBuilders ptb, EolinkMng eolinkMng, MeterDAO meterDao, MeterMng meterMng, TuserDAO tuserDAO) {
         this.ctx = ctx;
         this.ulistMng = ulistMng;
         this.objparDao = objparDao;
@@ -96,6 +103,7 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         this.eolinkMng = eolinkMng;
         this.meterDao = meterDao;
         this.meterMng = meterMng;
+        this.tuserDAO = tuserDAO;
     }
 
     /**
@@ -209,20 +217,23 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         Eolink house = reqProp.getFoundTask().getEolink();
         List<Eolink> MetersEol = eolinkMng.getEolinkByEolinkDownHierarchy(house, "СчетчикФизический");
 
-        // перебрать только те счетчики, по которым есть неотправленные показания (status=0)
-        // и по которым есть соответствующий статус отправки показаний в ГИС (gisConnTp=2,3)
+        // перебрать только те счетчики, по которым: есть неотправленные показания (status=0)
+        // и статус отправки показаний в ГИС (gisConnTp=2,3)
         for (Eolink meterEol : MetersEol) {
             if (meterEol.getKoObj() != null) {
                 Meter meter = meterEol.getKoObj().getMeter();
-                if (Utl.in(Utl.nvl(meter.getGisConnTp(), 0), 2, 3)) {
-                    List<ObjPar> values = meterMng.getValuesByMeter(meter, 0, configApp.getPeriod());
+                if (Utl.in(Utl.nvl(meter.getGisConnTp(), MeterConsts.METER_LOAD_FROM_TO_GIS),
+                        MeterConsts.METER_LOAD_FROM_GIS, MeterConsts.METER_LOAD_FROM_TO_GIS)) {
+                    List<ObjPar> values = meterMng.getValuesByMeter(meter, MeterValConsts.INSERT_FOR_LOAD_TO_GIS,
+                            configApp.getPeriod());
+                    // перебрать только показания в status=MeterValueStatus.INSERT_FOR_LOAD_TO_GIS
                     for (ObjPar value : values) {
                         ImportMeteringDeviceValuesRequest.MeteringDevicesValues val =
                                 new ImportMeteringDeviceValuesRequest.MeteringDevicesValues();
                         val.setMeteringDeviceRootGUID(meterEol.getGuid());
                         String tguid = Utl.getRndUuid().toString();
                         value.setTguid(tguid);
-                        value.setStatus(1); // статус - в процессе загрузки
+                        value.setStatus(MeterValConsts.IN_PROCESS_FOR_LOAD_TO_GIS); // статус - в процессе загрузки
                         if (ulistMng.getResType(meter.getUsl().getId()) == 1) {
                             // эл.энерг.
                             ImportMeteringDeviceValuesRequest.MeteringDevicesValues.ElectricDeviceValue elVal
@@ -316,14 +327,14 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
                     log.error("ОШИБКА! Невозможно найти показания по TGUID={}, mg={} в SCOTT.T_OBJXPAR!",
                             tguid, configApp.getPeriod());
                 } else {
-                    value.setStatus(2); // статус - загружено
+                    value.setStatus(MeterValConsts.LOADED_TO_GIS); // статус - загружено
                     value.setTguid(null);
                     // ошибки внутри выполненного задания
                     for (Error f : t.getError()) {
                         String errStr = String.format("Ошибка импорта показаний в ГИС ЖКХ: " +
                                         "TGUID=%s, Error code=%s, Description=%s",
                                 tguid, f.getErrorCode(), f.getDescription());
-                        value.setStatus(3); // перезаписать статус - ошибка
+                        value.setStatus(MeterValConsts.ERORR_LOAD_TO_GIS); // перезаписать статус - ошибка
                         log.error(errStr);
                     }
                 }
@@ -524,32 +535,35 @@ public class DeviceMeteringAsyncBindingBuilder implements DeviceMeteringAsyncBin
         qr.registerStoredProcedureParameter(3, Date.class,
                 ParameterMode.IN); // p_ts
         qr.registerStoredProcedureParameter(4, String.class,
-                ParameterMode.IN);
+                ParameterMode.IN); // p_period
         qr.registerStoredProcedureParameter(5, Integer.class,
-                ParameterMode.IN); // p_n1
+                ParameterMode.IN); // p_status
         qr.registerStoredProcedureParameter(6, Integer.class,
-                ParameterMode.OUT);
+                ParameterMode.IN); // p_user
+        qr.registerStoredProcedureParameter(7, Integer.class,
+                ParameterMode.OUT);// p_ret
         qr.setParameter(1, meter.getKoObj().getId());
         qr.setParameter(2, Double.valueOf(num1));
         qr.setParameter(3, dt);
         qr.setParameter(4, period);
         qr.setParameter(5, status);
-        qr.execute();
-        Integer ret = (Integer) qr.getOutputParameterValue(6);
+        qr.setParameter(6, tuserDAO.findByCd("GIS").getId());  // пользователь ГИС ЖКХ
+        //qr.executeUpdate();
+        Integer ret = (Integer) qr.getOutputParameterValue(7);
         log.trace("Результат исполнения scott.p_meter.ins_data_meter={}", ret);
         if (!ret.equals(0)) {
             soapConfig.saveError(meter, CommonErrs.ERROR_WHILE_SAVING_DATA, true);
         }
         if (ret.equals(1)) {
-            log.error("ОШИБКА! Нулевые новые показания!");
+            log.error(CommonErrs.ERR_MSG_METER_VAL_ZERO);
         } else if (ret.equals(3)) {
-            log.error("ОШИБКА! Новые показания меньше или равны существующим в базе!");
+            log.error(CommonErrs.ERR_MSG_METER_VAL_LESS);
         } else if (ret.equals(4)) {
-            log.error("ОШИБКА! Не найден счетчик!");
+            log.error(CommonErrs.ERR_MSG_METER_NOT_FOUND);
         } else if (ret.equals(5)) {
-            log.error("ОШИБКА! Переданы показания, вызывающие начисление слишком большого объема!");
+            log.error(CommonErrs.ERR_MSG_METER_VAL_TOO_BIG);
         } else {
-            log.error("Отправлено в биллинг успешно!");
+            log.info(CommonErrs.ERR_MSG_METER_VAL_SUCCESS);
         }
     }
 

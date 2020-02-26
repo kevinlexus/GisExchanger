@@ -1,7 +1,7 @@
 package com.ric.st.impl;
 
+import com.ric.cmn.CommonErrs;
 import com.ric.cmn.excp.UnusableCode;
-import com.ric.st.CommonErrs;
 
 /**
  * Общие функции модуля GisExchanger
