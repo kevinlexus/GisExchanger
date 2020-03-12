@@ -1094,7 +1094,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                 Meter meter = eolMeter.getKoObj().getMeter();
                 if (meter == null) {
                     log.error("ОШИБКА! Не найден счетчик по eolink.fk_klsk_obj={}", eolMeter.getKoObj().getId());
-                } else {
+                } else if (meter.getN1()!=null && meter.getN1().compareTo(BigDecimal.ZERO) !=0) {
                     String meterNum = eolParMng.getStr(eolMeter, "Счетчик.НомерПУ");
                     PaymentDocumentType.IndividualMDReadings indMd = new PaymentDocumentType.IndividualMDReadings();
                     indMd.setMDPreviousPeriodReadings(meter.getN1());
