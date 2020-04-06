@@ -1,28 +1,25 @@
 package com.ric.st.builder.impl;
 
-import java.util.Date;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import com.dic.bill.model.bs.Lst2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.dic.bill.dao.ParDAO;
 import com.dic.bill.dao.TaskDAO;
-import com.ric.cmn.excp.WrongParam;
 import com.dic.bill.mm.LstMng;
 import com.dic.bill.mm.TaskEolinkParMng;
+import com.dic.bill.model.bs.Lst2;
 import com.dic.bill.model.bs.Par;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
 import com.dic.bill.model.exs.TaskPar;
 import com.dic.bill.model.exs.TaskToTask;
+import com.ric.cmn.excp.WrongParam;
 import com.ric.st.SoapConfigs;
 import com.ric.st.builder.PseudoTaskBuilders;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Date;
 
 
 /**
@@ -137,13 +134,13 @@ public class PseudoTaskBuilder implements PseudoTaskBuilders {
 	// переписать параметры в объект Eolink
 	@Override
 	public void saveToEolink() {
-		em.persist(task);
+		em.persist(task); // note Используй crud.save
 		teParMng.acceptPar(task);
 	}
 
 	@Override
 	public void save() {
-		em.persist(task);
+		em.persist(task); // note Используй crud.save
 	}
 
 	/**

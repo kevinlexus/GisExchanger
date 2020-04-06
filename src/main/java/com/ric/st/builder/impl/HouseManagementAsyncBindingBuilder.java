@@ -463,7 +463,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     }
 
                     log.trace("Попытка создать запись корневого счетчика в Eolink: GUID={}", t.getMeteringDeviceRootGUID());
-                    em.persist(rootEol);
+                    em.persist(rootEol); // note Используй crud.save
 
                 }
 
@@ -606,7 +606,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     // пометить прочие записи неактивными
                     eolinkMng.setChildActive(rootEol, "СчетчикВерсия", 0);
                     log.trace("Попытка создать запись версии счетчика в Eolink: GUID={}", t.getMeteringDeviceVersionGUID());
-                    em.persist(versionEol);
+                    em.persist(versionEol); // note Используй crud.save
                 }
             }
             reqProp.getFoundTask().setState("ACP");
@@ -722,7 +722,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     //contrEol = new Eolink(contractGUID, null, null, addrTp, foundTask2.getAppTp(), objTpx, null, config.getCurUser());
                     // установить Parent_id ведущий к дому
                     contrEol.setParent(task.getEolink());
-                    em.persist(contrEol);
+                    em.persist(contrEol); // note Используй crud.save
                     log.trace("Создан договор управления или устав! guid={}", contractGUID);
                 } else {
                     log.trace("Договор управления или устав существует, обновление параметров! guid={}", contractGUID);
@@ -1078,7 +1078,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withStatus(1).build();
                         // сохранить, для иерархии
                         entryMap.put(Integer.valueOf(t.getEntranceNum()), entryEol);
-                        em.persist(entryEol);
+                        em.persist(entryEol); // note Используй crud.save
                         // добавить подъезд к дому, чтобы выбирался позже
                         houseEol.getChild().add(entryEol);
                     }
@@ -1137,7 +1137,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         log.info("Попытка создать запись жилого помещения в Eolink: № подъезда:{}, № помещения={}, un={}, GUID={}",
                                 t.getEntranceNum(),
                                 t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-                        em.persist(premisEol);
+                        em.persist(premisEol); // note Используй crud.save
                     }
 
                     // обновить комнаты
@@ -1159,7 +1159,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                     .build();
                             log.info("Попытка создать запись комнаты в Eolink:un={}, GUID={}",
                                     r.getLivingRoomUniqueNumber(), r.getLivingRoomGUID());
-                            em.persist(roomEol);
+                            em.persist(roomEol); // note Используй crud.save
                         }
 
                     }
@@ -1250,7 +1250,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                         log.info("Попытка создать запись Нежилого помещения в Eolink: № помещения={}, un={}, GUID={}",
                                 t.getPremisesNum(), t.getPremisesUniqueNumber(), t.getPremisesGUID());
-                        em.persist(premisEol);
+                        em.persist(premisEol); // note Используй crud.save
                     }
 
                     // погасить ошибки
@@ -1486,7 +1486,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                         log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}, ServiceId={}",
                                 t.getAccountGUID(), num, t.getServiceID());
-                        em.persist(lskEol);
+                        em.persist(lskEol); // note Используй crud.save
                     }
                 } else {
                     // Лиц.счет уже существует, обновить его параметры
@@ -1595,7 +1595,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                             .withParent(eolKw)
                             .withOrg(kart.getUk())
                             .withKart(kart).build();
-                    em.persist(eolKart);
+                    em.persist(eolKart); // note Используй crud.save
                 }
             }
         }

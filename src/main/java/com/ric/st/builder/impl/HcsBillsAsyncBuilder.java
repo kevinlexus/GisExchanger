@@ -449,8 +449,8 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                                         .withDtInk(orderDt) // дата инкассации, такая же, как дата платежа
                                         .withOper(oper)
                                         .build();
-                                em.persist(kwtp);
-                                em.persist(kwtpMg);
+                                em.persist(kwtp); // note Используй crud.save
+                                em.persist(kwtpMg); // note Используй crud.save
                                 log.info("Получено Извещение об оплате Order.Id={}, по дате={}, ГИС ID={}, биллинг №={}, " +
                                                 "в статусе={}, по лицевому счету={} сумма={} руб",
                                         orderId, orderDt, pdocId,
@@ -709,7 +709,7 @@ public class HcsBillsAsyncBuilder implements HcsBillsAsyncBuilders {
                                     .withPenyaOut(paymentDocument.getTotalByPenaltiesAndCourtCosts()) // итого пеня
                                     .withDt(dt)
                                     .build();
-                            em.persist(pdoc);
+                            em.persist(pdoc); // note Используй crud.save
                             log.trace("Не был обнаружен в биллинге, создан при экспорте! CD={}, Un={}",
                                     paymentDocument.getPaymentDocumentNumber(),
                                     paymentDocument.getPaymentDocumentID()

@@ -262,7 +262,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 				// не найден заголовок, создать новый
 				ulistTp= new UlistTp(prefix, tp, "Внутренний справочник организации",
 						new Date(), grp, null, eolink);
-				em.persist(ulistTp);
+				em.persist(ulistTp); // note Используй crud.save
 				log.info("Создан заголовочный элемент ListTp :{}", prefix);
 			}
 			// String org = ulistTp.getEolink().getReu();

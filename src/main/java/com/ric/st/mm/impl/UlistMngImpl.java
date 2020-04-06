@@ -98,7 +98,7 @@ public class UlistMngImpl implements UlistMng {
 			UlistTp lstTp = new UlistTp(prefix, nsiItem.getRegistryNumber().intValue(), nsiItem.getName(),
 					Utl.getDateFromXmlGregCal(nsiItem.getModified()),
 					grp, null);
-			em.persist(lstTp);
+			em.persist(lstTp); // note Используй crud.save
 			log.info("Создан заголовочный элемент ListTp :{}", prefix);
 			// обновить элементы справочника
 			log.info("Создание справочника: {}", prefix);
@@ -202,7 +202,7 @@ public class UlistMngImpl implements UlistMng {
 				Utl.getDateFromXmlGregCal(t.getStartDate()), Utl.getDateFromXmlGregCal(t.getEndDate()),
 				t.isIsActual(), ulistTp, 0, null, null, null, null, null);
 */
-	        em.persist(main);
+	        em.persist(main); // note Используй crud.save
 	        log.info("Создана главная запись GUID={}, ID={}", main.getGuid(), main.getId());
 		} else {
 		    main.setDt1(Utl.getDateFromXmlGregCal(t.getStartDate()));
@@ -217,7 +217,7 @@ public class UlistMngImpl implements UlistMng {
 		    main.setRefGuid(null);
 		    main.setValTp(null);
 		    main.setParent2(null);
-		    em.persist(main);
+		    em.persist(main); // note Используй crud.save
 			log.info("Главная запись ID={},  есть в базе, обновление актуальной информацией...", main.getId());
 		}
 
@@ -313,7 +313,7 @@ public class UlistMngImpl implements UlistMng {
 			}
 
 			if (ulist!=null) {
-				em.persist(ulist);
+				em.persist(ulist); // note Используй crud.save
 				log.info("Обработан элемент справочника  List: {} Id: {} ", ulist.getName(),
 						ulist.getId());
 			}
