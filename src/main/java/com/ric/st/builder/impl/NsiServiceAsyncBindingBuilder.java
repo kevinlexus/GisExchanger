@@ -240,7 +240,7 @@ public class NsiServiceAsyncBindingBuilder implements NsiServiceAsyncBindingBuil
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportDataProviderNsiItemAsk(Task task) throws WrongGetMethod, IOException, CantPrepSoap, WrongParam {
-		//log.info("******* Task.id={}, экспорт внутреннего справочника организации, запрос ответа", task.getId());
+		log.info("####################################################");
 		taskMng.logTask(task, true, null);
 		// Установить параметры SOAP
 		reqProp.setPropAfter(task);

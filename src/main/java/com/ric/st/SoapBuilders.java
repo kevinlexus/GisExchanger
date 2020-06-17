@@ -16,4 +16,9 @@ public interface SoapBuilders {
     public void setTrace(boolean trace);
 	public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign,
 					  String ppGuid, String hostIp) throws CantSendSoap;
+
+/*
+    void setUpSimple(BindingProvider port, WSBindingProvider port2, boolean sign,
+                     String ppGuid, String hostIp) throws CantSendSoap;
+*/
 }
