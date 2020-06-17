@@ -1,22 +1,15 @@
 package com.ric.st.builder.impl;
 
-import com.dic.bill.dao.EolinkDAO;
 import com.dic.bill.mm.TaskMng;
 import com.dic.bill.model.exs.Eolink;
 import com.dic.bill.model.exs.Task;
-import com.ric.cmn.excp.WrongGetMethod;
-import com.ric.cmn.excp.WrongParam;
 import com.ric.st.ReqProps;
-import com.ric.st.builder.HcsOrgRegistryAsyncBindingBuilders;
 import com.ric.st.builder.HcsOrgRegistryAsyncBindingSimpleBuilders;
-import com.ric.st.builder.PseudoTaskBuilders;
 import com.ric.st.excp.CantPrepSoap;
 import com.ric.st.excp.CantSendSoap;
 import com.ric.st.impl.SoapBuilder;
-import com.ric.st.impl.SoapConfig;
 import com.sun.xml.ws.developer.WSBindingProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,17 +18,13 @@ import ru.gosuslugi.dom.schema.integration.base.AckRequest;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType;
 import ru.gosuslugi.dom.schema.integration.base.CommonResultType.Error;
 import ru.gosuslugi.dom.schema.integration.base.GetStateRequest;
-import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportDataProviderRequest;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.ExportOrgRegistryRequest.SearchCriteria;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common.GetStateResult;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgPortsTypeAsync;
 import ru.gosuslugi.dom.schema.integration.organizations_registry_common_service_async.RegOrgServiceAsync;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.xml.ws.BindingProvider;
-import java.io.IOException;
 
 @Service
 @Slf4j
@@ -46,6 +35,7 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 	private final ReqProps reqProp;
 	private RegOrgPortsTypeAsync port;
 	private SoapBuilder sb;
+	private RegOrgServiceAsync service;
 
 	public HcsOrgRegistryAsyncBindingSimpleBuilder(ApplicationContext ctx, TaskMng taskMng, ReqProps reqProp) {
 		this.ctx = ctx;
@@ -56,7 +46,7 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 	@Override
 	public void setUp(Task task) throws CantSendSoap, CantPrepSoap {
     	// создать сервис и порт
-		RegOrgServiceAsync service = new RegOrgServiceAsync();
+		service = new RegOrgServiceAsync();
     	port = service.getRegOrgAsyncPort();
 
     	// подоготовительный объект для SOAP
@@ -70,6 +60,24 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 		sb.setSignerId(reqProp.getSignerId());
 	}
 
+/*
+	@Override
+	public void setUpSimple(Task task) throws CantSendSoap, CantPrepSoap {
+		// создать сервис и порт
+		service = new RegOrgServiceAsync();
+		port = service.getRegOrgAsyncPort();
+
+		// подоготовительный объект для SOAP
+		sb = ctx.getBean(SoapBuilder.class);
+		reqProp.setPropBeforeSimple(task);
+		sb.setUpSimple((BindingProvider) port, (WSBindingProvider) port, true, null, reqProp.getHostIp());
+
+		// логгинг запросов
+		sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
+		// Id XML подписчика
+		sb.setSignerId(reqProp.getSignerId());
+	}
+*/
 	/**
 	 * Получить состояние запроса
 	 * @param task - задание
@@ -172,10 +180,14 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 
 		req.setId("foo");
 		req.setVersion(req.getVersion()==null?reqProp.getGisVersion():req.getVersion());
+		//req.setVersion("13.1.0.4");
 
 		if (eolOrg.getOgrn() != null) {
 			SearchCriteria sc = new SearchCriteria();
-			sc.setOGRN(eolOrg.getOgrn());
+			//sc.setOGRN(eolOrg.getOgrn());
+			sc.setOGRN("1194205012319");
+			//sc.setKPP("421101001");
+			sc.setIsRegistered(true);
 			req.getSearchCriteria().add(sc);
 
 			try {
@@ -214,6 +226,7 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void exportOrgRegistryAsk(Task task) throws CantPrepSoap {
+		log.info("####################################################");
 		taskMng.logTask(task, true, null);
         // установить параметры SOAP
 		reqProp.setPropWOGUID(task, sb);
