@@ -52,7 +52,7 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
     	// подоготовительный объект для SOAP
     	sb = ctx.getBean(SoapBuilder.class);
 		reqProp.setPropBeforeSimple(task);
-		sb.setUp((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
+		sb.setUpSimple((BindingProvider) port, (WSBindingProvider) port, true, reqProp.getPpGuid(), reqProp.getHostIp());
 
 		// логгинг запросов
     	sb.setTrace(reqProp.getFoundTask()!=null? reqProp.getFoundTask().getTrace().equals(1): false);
@@ -96,7 +96,6 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 		GetStateRequest gs = new GetStateRequest();
 		gs.setMessageGUID(task.getMsgGuid());
 		sb.setSign(false); // не подписывать запрос состояния!
-
 		sb.makeRndMsgGuid();
 		try {
 			state = port.getState(gs);
@@ -184,9 +183,7 @@ public class HcsOrgRegistryAsyncBindingSimpleBuilder implements HcsOrgRegistryAs
 
 		if (eolOrg.getOgrn() != null) {
 			SearchCriteria sc = new SearchCriteria();
-			//sc.setOGRN(eolOrg.getOgrn());
-			sc.setOGRN("1194205012319");
-			//sc.setKPP("421101001");
+			sc.setOGRN(eolOrg.getOgrn());
 			sc.setIsRegistered(true);
 			req.getSearchCriteria().add(sc);
 

@@ -15,7 +15,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Holder;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 
@@ -31,7 +30,6 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 
 import ru.gosuslugi.dom.schema.integration.base.ISRequestHeader;
 import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
-import ru.gosuslugi.dom.schema.integration.base.ResultHeader;
 
 /**
  * Вспомогательный класс для постройки SOAP запроса
@@ -50,12 +48,11 @@ public class SoapBuilder implements SoapBuilders {
 
     private BindingProvider bp;
     private WSBindingProvider ws;
-    private RequestHeader rh;
+    //private RequestHeader rh;
+    //private ISRequestHeader rhSimple;
 
     @Override
     public void makeRndMsgGuid() {
-        UUID messGUID = Utl.getRndUuid();
-        rh.setMessageGUID(messGUID.toString());
     }
 
     // подписывать ли XML
@@ -95,7 +92,11 @@ public class SoapBuilder implements SoapBuilders {
     @Override
     public void setUp(BindingProvider port, WSBindingProvider port2, boolean sign,
                       String ppGuid, String hostIp) throws CantSendSoap {
-        setUp(port, port2, sign, true, ppGuid, hostIp);
+        RequestHeader rh = new RequestHeader();
+        UUID messGUID = Utl.getRndUuid();
+        rh.setMessageGUID(messGUID.toString());
+
+        setUp(port, null, rh, sign, true, ppGuid, hostIp);
     }
 
     /**
@@ -104,13 +105,14 @@ public class SoapBuilder implements SoapBuilders {
      * @param sign   - подписать XML?
      * @param hostIp - Ip адрес хоста
      */
-/*
     @Override
     public void setUpSimple(BindingProvider port, WSBindingProvider port2, boolean sign,
-                      String ppGuid, String hostIp) throws CantSendSoap {
-        setUp(port, port2, sign, false, ppGuid, hostIp);
+                            String ppGuid, String hostIp) throws CantSendSoap {
+        ISRequestHeader rhSimple = new ISRequestHeader();
+        UUID messGUID = Utl.getRndUuid();
+        rhSimple.setMessageGUID(messGUID.toString());
+        setUp(port, rhSimple, null, sign, false, ppGuid, hostIp);
     }
-*/
 
     /**
      * Инициализация
@@ -118,24 +120,14 @@ public class SoapBuilder implements SoapBuilders {
      * @param sign   - подписать XML?
      * @param hostIp - Ip адрес хоста
      */
-    private void setUp(BindingProvider port, WSBindingProvider port2, boolean sign,
+    private void setUp(BindingProvider port, ISRequestHeader rhSimple,
+                       RequestHeader rh, boolean sign,
                        boolean isOperatorSigned, String ppGuid, String hostIp) throws CantSendSoap {
         bp = port;
         ws = (WSBindingProvider) port;
-        rh = new RequestHeader();
 
         // подпись
         setSign(sign);
-
-        if (isOperatorSigned) {
-            // подпись оператора?
-            rh.setIsOperatorSignature(isOperatorSigned);
-        }
-
-        if (ppGuid != null) {
-            // GUID УК от которой выполняется запрос
-            rh.setOrgPPAGUID(ppGuid);
-        }
 
         // установить Random Message GUID и дату
         GregorianCalendar c = new GregorianCalendar();
@@ -147,15 +139,29 @@ public class SoapBuilder implements SoapBuilders {
             e1.printStackTrace();
             throw new CantSendSoap("Ошибка при подготовке даты для SOAP Message");
         }
-        rh.setDate(cl);
-        UUID messGUID = Utl.getRndUuid();
-        rh.setMessageGUID(messGUID.toString());
 
-        ws.setOutboundHeaders(rh);
+        UUID messGUID = Utl.getRndUuid();
+        if (rhSimple!=null) {
+            rhSimple.setDate(cl);
+            rhSimple.setMessageGUID(messGUID.toString());
+            ws.setOutboundHeaders(rhSimple);
+        } else {
+            rh.setDate(cl);
+            rh.setMessageGUID(messGUID.toString());
+            if (isOperatorSigned) {
+                // подпись оператора?
+                rh.setIsOperatorSignature(isOperatorSigned);
+            }
+            if (ppGuid != null) {
+                // GUID УК от которой выполняется запрос
+                rh.setOrgPPAGUID(ppGuid);
+            }
+            ws.setOutboundHeaders(rh);
+        }
 
         String endPoint = (String) bp.getRequestContext().get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         String urlStr = endPoint;
-        String path = null;
+        String path;
         try {
             path = Utl.getPathFromUrl(urlStr);
         } catch (UnknownHostException | MalformedURLException e) {
@@ -181,7 +187,4 @@ public class SoapBuilder implements SoapBuilders {
         binding.setHandlerChain(handlerChain);
     }
 
-    public RequestHeader getRh() {
-        return rh;
-    }
 }
