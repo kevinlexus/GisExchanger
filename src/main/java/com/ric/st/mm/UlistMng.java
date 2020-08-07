@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import com.dic.bill.model.exs.Ulist;
 import com.dic.bill.model.exs.UlistTp;
+import com.ric.cmn.excp.WrongParam;
 import com.ric.st.excp.CantGetNSI;
 import com.ric.st.excp.CantUpdNSI;
 import com.ric.st.impl.RefStore;
@@ -28,7 +29,7 @@ public interface UlistMng {
 	NsiRef getResourceByUsl(String usl);
 	Integer getResType(String usl);
 	Integer mergeElement(UlistTp ulistTp, String grp, Integer id, NsiElementType t, Integer idx, String org);
-	String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi);
-	String getServCdByResource(NsiRef nsi);
+	String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) throws WrongParam;
+	String getServCdByResource(NsiRef nsi) throws WrongParam;
 
 }

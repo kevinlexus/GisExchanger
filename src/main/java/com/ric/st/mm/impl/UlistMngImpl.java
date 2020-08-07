@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.ric.cmn.excp.WrongParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -576,16 +577,20 @@ public class UlistMngImpl implements UlistMng {
 	 */
 	@Override
     @Cacheable(cacheNames="UlistMngImpl.getUslByResource", key="{#nsi.getGUID() }", unless = "#result == null")
-	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
+	public String getUslByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) throws WrongParam {
 		String usl = null;
 		String servCd = getServCdByResource(nsi);
 		log.info("************ servCd={}, nsi.GUID={}", servCd, nsi.getGUID());
-		if (servCd.equals("Холодная вода")) {
-			usl = "011";
-		} else if (servCd.equals("Горячая вода")) {
-			usl = "015";
-		} else if (servCd.equals("Электрическая энергия")) {
-			usl = "038";
+		switch (servCd) {
+			case "Холодная вода":
+				usl = "011";
+				break;
+			case "Горячая вода":
+				usl = "015";
+				break;
+			case "Электрическая энергия":
+				usl = "038";
+				break;
 		}
 		return usl;
 	}
@@ -595,7 +600,7 @@ public class UlistMngImpl implements UlistMng {
 	 */
 	@Override
     @Cacheable(cacheNames="UlistMngImpl.getServCdByResource", key="{#nsi.getGUID() }", unless = "#result == null")
-	public String getServCdByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) {
+	public String getServCdByResource(ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef nsi) throws WrongParam {
 		//log.info("NSI guid={}", nsi.getGUID());
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresHw =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Холодная вода");
@@ -610,7 +615,8 @@ public class UlistMngImpl implements UlistMng {
 		} else if (nsi.getGUID().equals(mresEl.getGUID())) {
 			return "Электроснабжение";
 		} else {
-			return null;
+			log.error("ОШИБКА! Некорректный параметр, отсутствующий в справочнике! nsi={}",nsi);
+			throw new WrongParam("ОШИБКА! Некорректный параметр, отсутствующий в справочнике! nsi="+nsi);
 		}
 	}
 

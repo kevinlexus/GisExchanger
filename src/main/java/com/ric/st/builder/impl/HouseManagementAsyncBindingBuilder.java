@@ -490,7 +490,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                 String usl = null;
                 // счетчик предоставляет ОБЪЕМ
                 for (DeviceMunicipalResourceType d : t.getMunicipalResources()) {
-                    usl = ulistMng.getUslByResource(d.getMunicipalResource());
+                    try {
+                        usl = ulistMng.getUslByResource(d.getMunicipalResource());
+                    } catch (WrongParam wrongParam) {
+                        log.error("ОШИБКА во время получения услуги из справочника");
+                        throw new ErrorProcessAnswer("ОШИБКА во время получения услуги из справочника");
+                    }
                     //servCd = ulistMng.getServCdByResource(d.getMunicipalResource());
                     break; // XXX Lev: Сделал выход, по первому элементу, пока так, в будущем
                     // надо будет сделать возможность наличия несколько услуг для одного счетчика!
@@ -508,7 +513,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         // может в Отоплении будут другие коды услуг!
                         for (MunicipalResourceNotElectricExportType m : munResNenerg) {
                             //log.trace("res.GUID={}", m.getMunicipalResource().getGUID());
-                            usl = ulistMng.getUslByResource(m.getMunicipalResource());
+                            try {
+                                usl = ulistMng.getUslByResource(m.getMunicipalResource());
+                            } catch (WrongParam wrongParam) {
+                                log.error("ОШИБКА во время получения услуги из справочника");
+                                throw new ErrorProcessAnswer("ОШИБКА во время получения услуги из справочника");
+                            }
                             //servCd = ulistMng.getServCdByResource(m.getMunicipalResource());
                             //log.trace("res.usl={}, servCd={}", usl, servCd);
                             break;
@@ -542,7 +552,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     } else {
                         Optional<Meter> meter = meterMng.getActualMeterByKo(premiseEol.getKoObj(), usl,
                                 new Date());
-                        if (meter.isPresent()) {
+                        if (!meter.isPresent()) {
                             log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
                                     premiseEol.getId());
                             soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
