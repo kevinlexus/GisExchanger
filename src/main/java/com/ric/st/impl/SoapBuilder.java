@@ -1,14 +1,15 @@
 package com.ric.st.impl;
 
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.ric.cmn.Utl;
+import com.ric.st.SoapBuilders;
+import com.ric.st.excp.CantSendSoap;
+import com.sun.xml.ws.developer.WSBindingProvider;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import ru.gosuslugi.dom.schema.integration.base.ISRequestHeader;
+import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -17,19 +18,9 @@ import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-
-import com.ric.cmn.Utl;
-import com.ric.st.SoapBuilders;
-import com.ric.st.excp.CantSendSoap;
-import com.sun.xml.ws.developer.WSBindingProvider;
-
-import ru.gosuslugi.dom.schema.integration.base.ISRequestHeader;
-import ru.gosuslugi.dom.schema.integration.base.RequestHeader;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.util.*;
 
 /**
  * Вспомогательный класс для постройки SOAP запроса
@@ -48,8 +39,6 @@ public class SoapBuilder implements SoapBuilders {
 
     private BindingProvider bp;
     private WSBindingProvider ws;
-    //private RequestHeader rh;
-    //private ISRequestHeader rhSimple;
 
     @Override
     public void makeRndMsgGuid() {
@@ -175,7 +164,7 @@ public class SoapBuilder implements SoapBuilders {
         requestHeaders.put("Authorization", Arrays.asList("Basic " + authorization));
         requestHeaders.put("X-Client-Cert-Fingerprint", Arrays.asList(config.getFingerPrint()));
 
-        log.info("************* SoapBuilder: endpoint: hostIp={}{}", hostIp, path);
+        log.trace("************* SoapBuilder: endpoint: hostIp={}{}", hostIp, path);
         bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 "http://" + hostIp + path);
         bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);

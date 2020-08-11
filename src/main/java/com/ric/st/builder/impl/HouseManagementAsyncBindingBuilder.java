@@ -553,14 +553,14 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                         Optional<Meter> meter = meterMng.getActualMeterByKo(premiseEol.getKoObj(), usl,
                                 new Date());
                         if (!meter.isPresent()) {
-                            log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик в карточке Лиц.счета.",
-                                    premiseEol.getId());
+                            log.error("ОШИБКА! По помещению Eolink.id={} не найден счетчик usl={}, в карточке Лиц.счета.",
+                                    premiseEol.getId(), usl);
                             soapConfig.saveError(premiseEol, CommonErrs.ERR_METER_NOT_FOUND, true);
                         } else {
                             // здесь устанавливается именно Ko счетчика, не объекта!
                             if (rootEol.getKoObj() == null) {
                                 // только если уже нет привязки!
-                                log.trace("Попытка установки нового KLSK={}, по счетчику Eolink.id={}",
+                                log.trace("Попытка установки KLSK={}, по счетчику Eolink.id={}",
                                         meter.get().getKo().getId(), rootEol.getId());
                                 rootEol.setKoObj(meter.get().getKo());
                             }

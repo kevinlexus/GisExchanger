@@ -6,7 +6,6 @@ import com.dic.bill.model.scott.Org;
 import com.ric.st.mm.OrgMng;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class OrgMngImpl implements OrgMng {
 
     @Autowired
-    @Qualifier("OrgDAO_DWC")
     com.dic.bill.dao.OrgDAO orgDao2;
 
     /**

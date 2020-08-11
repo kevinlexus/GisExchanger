@@ -1,24 +1,9 @@
 package com.ric.st.mm.impl;
 
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import com.ric.cmn.excp.WrongParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.diffplug.common.base.Errors;
 import com.dic.bill.model.exs.Ulist;
 import com.dic.bill.model.exs.UlistTp;
 import com.ric.cmn.Utl;
+import com.ric.cmn.excp.WrongParam;
 import com.ric.st.builder.NsiCommonAsyncBindingBuilders;
 import com.ric.st.dao.UlistDAO;
 import com.ric.st.excp.CantGetNSI;
@@ -28,17 +13,22 @@ import com.ric.st.excp.CantUpdNSI;
 import com.ric.st.impl.RefStore;
 import com.ric.st.impl.SoapConfig;
 import com.ric.st.mm.UlistMng;
-
 import lombok.extern.slf4j.Slf4j;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementFieldType;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementNsiRefFieldType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import ru.gosuslugi.dom.schema.integration.nsi_base.*;
 import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementNsiRefFieldType.NsiRef;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementStringFieldType;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiElementType;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemInfoType;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiItemType;
-import ru.gosuslugi.dom.schema.integration.nsi_base.NsiListType;
 import ru.gosuslugi.dom.schema.integration.nsi_common_service_async.Fault;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Optional;
 //import ru.gosuslugi.dom.schema.integration.nsi_common_service.Fault;
 
 /**
@@ -591,6 +581,9 @@ public class UlistMngImpl implements UlistMng {
 			case "Электрическая энергия":
 				usl = "038";
 				break;
+			case "Отопление": // добавил эксперементально, для Кис, еще не было таких счетчиков ред.11.08.20
+				usl = "007";
+				break;
 		}
 		return usl;
 	}
@@ -608,14 +601,19 @@ public class UlistMngImpl implements UlistMng {
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Горячая вода");
 		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresEl =
 				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Электрическая энергия");
+		ru.gosuslugi.dom.schema.integration.nsi_base.NsiRef mresHeat =
+				getNsiElem("NSI", 2, "Вид коммунального ресурса", "Тепловая энергия");
 		if (nsi.getGUID().equals(mresHw.getGUID())) {
 			return "Холодная вода";
 		} else if (nsi.getGUID().equals(mresGw.getGUID())) {
 			return "Горячая вода";
 		} else if (nsi.getGUID().equals(mresEl.getGUID())) {
 			return "Электроснабжение";
+		} else if (nsi.getGUID().equals(mresHeat.getGUID())) {
+			return "Отопление";
 		} else {
-			log.error("ОШИБКА! Некорректный параметр, отсутствующий в справочнике! nsi={}",nsi);
+			log.error("ОШИБКА! Параметр ГИС, отсутствующий в справочнике! nsi.code={}, nsi.name={}, nsi.GUID={}",
+					nsi.getCode(), nsi.getName(), nsi.getGUID());
 			throw new WrongParam("ОШИБКА! Некорректный параметр, отсутствующий в справочнике! nsi="+nsi);
 		}
 	}
