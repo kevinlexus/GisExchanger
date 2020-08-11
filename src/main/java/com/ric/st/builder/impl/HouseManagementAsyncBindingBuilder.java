@@ -534,6 +534,12 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     rootEol.setUsl(usl);
                     log.trace("Попытка отметить счетчик кодом услуги usl={}", usl);
                 }
+                if (rootEol.getComm() == null) {
+                    Usl serv = em.find(Usl.class, usl);
+                    rootEol.setComm(serv.getNm2());
+                    log.trace("Попытка отметить счетчик наименованием услуги usl={}", serv.getNm2());
+                }
+
 
                 // найти Ko счетчика, по Ko помещения и коду услуги
                 // связывание, пользователь будет сам связывать в Директ
