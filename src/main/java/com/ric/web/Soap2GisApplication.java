@@ -28,7 +28,7 @@ public class Soap2GisApplication {
         log.info("****************************************************************");
         log.info("*                                                              *");
         log.info("*                                                              *");
-        log.info("*                  Версия GisExchanger - 1.0.17                *");
+        log.info("*                  Версия GisExchanger - 1.0.18                *");
         log.info("*                                                              *");
         log.info("*                                                              *");
         log.info("****************************************************************");

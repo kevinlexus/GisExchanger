@@ -330,6 +330,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -1);
         Date prevYear = cal.getTime();
+        req.setSearchArchived(true);
         req.setArchiveDateFrom(getXMLGregorianCalendarFromDate(prevYear));
         req.setArchiveDateTo(getXMLGregorianCalendarFromDate(new Date()));
 
