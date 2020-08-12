@@ -61,6 +61,8 @@ import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.ric.cmn.Utl.getXMLGregorianCalendarFromDate;
+
 /**
  * Сервис обмена информацией с ГИС ЖКХ по Дому
  *
@@ -323,13 +325,13 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
             throw new CantPrepSoap("Не указан один из объектов для выгрузки счетчиков!");
         }
 
-        // искать архивные
-        Boolean searchArch = taskParMng.getBool(task, "ГИС ЖКХ.Включая архивные");
-        req.setSearchArchived(searchArch);
-        if (searchArch) {
-            req.setArchiveDateFrom(Utl.getXMLDate(taskParMng.getDate(task, "ГИС ЖКХ.Начальная дата архивации")));
-            req.setArchiveDateTo(Utl.getXMLDate(taskParMng.getDate(task, "ГИС ЖКХ.Конечная дата архивации")));
-        }
+        // искать архивные - ред.12.08.20 сделал принудительно выгрузку архивных,
+        // так как не помечались архивными в exs.eolink счетчики
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1);
+        Date prevYear = cal.getTime();
+        req.setArchiveDateFrom(getXMLGregorianCalendarFromDate(prevYear));
+        req.setArchiveDateTo(getXMLGregorianCalendarFromDate(new Date()));
 
         try {
             ack = port.exportMeteringDeviceData(req);
@@ -380,7 +382,7 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
             // автоматическое связывание счетчика с SCOTT.METER в Директ
             Boolean autoBind = taskParMng.getBool(task, "ГИС ЖКХ.AUTO_CONNECT_DIRECT");
-            log.info("autoBind={}", autoBind);
+            log.trace("autoBind={}", autoBind);
             // Ошибок не найдено
             for (ExportMeteringDeviceDataResultType t : retState.getExportMeteringDeviceDataResult()) {
                 // тип счетчика: 0 - жилой ИПУ, 1 - не жилой ИПУ, 2 - общедомовой ПУ

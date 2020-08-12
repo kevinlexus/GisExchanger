@@ -3,6 +3,7 @@
 /target/
 /hs_err_pid13500.log
 /.idea/
+/.iml/
 /.mvn/
 /.settings/
 /settings.xml
