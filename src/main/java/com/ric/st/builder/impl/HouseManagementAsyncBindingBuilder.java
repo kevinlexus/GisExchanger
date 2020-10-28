@@ -1471,6 +1471,8 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     num = t.getAccountNumber();
                 }
 
+                // Найти лицевой счет в Kart
+                Kart kart = em.find(Kart.class, num);
                 if (lskEol == null) {
                     // Создать новый лицевой счет
 
@@ -1481,8 +1483,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 "попробуйте выполнить экспорт объектов дома!");
                     }
 
-                    // Найти лицевой счет в Kart
-                    Kart kart = em.find(Kart.class, num);
                     if (kart == null) {
                         log.error("ОШИБКА! Не найден лиц.счет в SCOTT.KART c lsk=" + num);
                     } else {
@@ -1498,7 +1498,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                                 .withUk(task.getProcUk())
                                 .withUser(config.getCurUser())
                                 .withStatus(1).build();
-
                         log.info("Попытка создать запись лицевого счета в Eolink: GUID={}, AccountNumber={}, ServiceId={}",
                                 t.getAccountGUID(), num, t.getServiceID());
                         em.persist(lskEol);
@@ -1513,6 +1512,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     lskEolParam.setEolink(lskEol);
                     lskEolParam.setIsClosed(t.getClosed() != null);
                     updateLskEol(lskEolParam);
+                }
+                // установить ЕЛС в Kart, для упрощения выборок и быстрой визуализации ЕЛС в карточке, так же для формирования долгов для Сбера
+                if (kart.getElsk()==null) {
+                    kart.setElsk(t.getUnifiedAccountNumber());
                 }
 
             }
