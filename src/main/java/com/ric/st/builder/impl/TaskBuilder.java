@@ -1,13 +1,12 @@
 package com.ric.st.builder.impl;
 
 
-import java.io.File;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.dic.bill.dao.TaskDAO;
+import com.dic.bill.model.exs.Task;
+import com.dic.bill.model.exs.TaskPar;
+import com.ric.cmn.Utl;
+import com.ric.st.builder.TaskBuilders;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -17,14 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dic.bill.dao.TaskDAO;
-import com.ric.cmn.excp.WrongGetMethod;
-import com.dic.bill.model.exs.Task;
-import com.dic.bill.model.exs.TaskPar;
-import com.ric.cmn.Utl;
-import com.ric.st.builder.TaskBuilders;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Сервисы обслуживания задач

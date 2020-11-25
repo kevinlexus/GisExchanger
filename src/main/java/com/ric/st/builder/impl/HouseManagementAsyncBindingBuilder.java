@@ -1473,6 +1473,10 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
 
                 // Найти лицевой счет в Kart
                 Kart kart = em.find(Kart.class, num);
+                // установить ЕЛС в Kart, для упрощения выборок и быстрой визуализации ЕЛС в карточке, так же для формирования долгов для Сбера
+                if (kart!=null && kart.getElsk()==null) {
+                    kart.setElsk(t.getUnifiedAccountNumber());
+                }
                 if (lskEol == null) {
                     // Создать новый лицевой счет
 
@@ -1512,10 +1516,6 @@ public class HouseManagementAsyncBindingBuilder implements HouseManagementAsyncB
                     lskEolParam.setEolink(lskEol);
                     lskEolParam.setIsClosed(t.getClosed() != null);
                     updateLskEol(lskEolParam);
-                }
-                // установить ЕЛС в Kart, для упрощения выборок и быстрой визуализации ЕЛС в карточке, так же для формирования долгов для Сбера
-                if (kart.getElsk()==null) {
-                    kart.setElsk(t.getUnifiedAccountNumber());
                 }
 
             }
