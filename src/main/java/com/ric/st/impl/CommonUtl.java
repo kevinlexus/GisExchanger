@@ -57,7 +57,7 @@ public class CommonUtl {
             str.append("Не найден актуальный объект Помещения по KLSK в SCOTT.KART! ");
         }
         if ((err & CommonErrs.ERR_EMPTY_FIO) > 0) {
-            str.append("Не заполено Ф.И.О. собственника в SCOTT.KART! ");
+            str.append("Не заполнено Ф.И.О. собственника в SCOTT.KART! ");
         }
 
         if (str.length() >0) {
