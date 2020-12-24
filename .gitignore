@@ -7,4 +7,4 @@
 /.mvn/
 /.settings/
 /settings.xml
-Soap2Gis.iml
+/*.iml
