@@ -8,3 +8,6 @@
 /.settings/
 /settings.xml
 Soap2Gis.iml
+
+.idea
+*.iml
