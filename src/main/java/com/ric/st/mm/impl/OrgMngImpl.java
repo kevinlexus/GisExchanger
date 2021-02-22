@@ -39,7 +39,7 @@ public class OrgMngImpl implements OrgMng {
             orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
             orgDto.setBik(org.getBik());
             orgDto.setInn(org.getInn());
-            orgDto.setOperAcc(org.getOperAcc());
+            orgDto.setOperAcc(org.getRSchet());
         }
 
         return orgDto;
@@ -61,7 +61,7 @@ public class OrgMngImpl implements OrgMng {
         orgDto = new OrgDTO(org.getId(), org.getCd(), org.getName());
         orgDto.setBik(org.getBik());
         orgDto.setInn(org.getInn());
-        orgDto.setOperAcc(org.getOperAcc());
+        orgDto.setOperAcc(org.getRSchet());
         orgDto.setOperAccGis(org.getOperAccGis());
 
 		return orgDto;
